@@ -1,0 +1,24 @@
+Package: ofce
+Type: Package
+Title: Applique les normes de la Revue
+Version: 0.1.0
+Author: X. Timbeau
+Maintainer: X. Timbeau <xavier.timbeau@sciencespo.fr>
+Description: procure quelques fonctions pour modifier les graphiques 
+    ggplot et les mettre aux normes OFCE/Revue.
+License: CECILL-B
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Imports: 
+    cowplot,
+    ggplot2,
+    ggpp,
+    glue,
+    grid,
+    magick,
+    plyr,
+    vctrs,
+    rlang
+Depends: 
+    R (>= 2.10)
