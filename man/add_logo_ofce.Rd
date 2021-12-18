@@ -2,8 +2,7 @@
 % Please edit documentation in R/adders.r
 \name{add_logo_ofce}
 \alias{add_logo_ofce}
-\title{Add logo
-Ajoute le logo de l'OFCE en bas à droite du graphique}
+\title{Add logo}
 \usage{
 add_logo_ofce(plot, logo = ofce_logo, size = 0.04)
 }
@@ -18,7 +17,6 @@ add_logo_ofce(plot, logo = ofce_logo, size = 0.04)
 un graphique ggplot
 }
 \description{
-Add logo
 Ajoute le logo de l'OFCE en bas à droite du graphique
 }
 \examples{

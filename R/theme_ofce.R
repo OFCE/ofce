@@ -1,4 +1,5 @@
 #' Thème OFCE
+#'
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 #' d'autres éléments de la norme comme les couleurs, l'allure générale du graphique
 #' sont à introduire par ailleurs
@@ -110,6 +111,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
 }
 
 #' Theme foundation
+#'
 #' This theme is designed to be a foundation from which to build new
 #' themes, and not meant to be used directly. \code{theme_foundation()}
 #' is a complete theme with only minimal number of elements defined.

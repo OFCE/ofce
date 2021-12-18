@@ -1,4 +1,5 @@
 #' Add logo
+#'
 #' Ajoute le logo de l'OFCE en bas à droite du graphique
 #'
 #' @param plot un graphique ggplot
@@ -28,6 +29,7 @@ add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
 }
 
 #' Add logo inside
+#'
 #' Ajoute le logo de l'OFCE sur le graphique (inside donc)
 #'
 #' @param plot un graphique ggplot
@@ -56,6 +58,7 @@ add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.15) {
 }
 
 #' Add label unit
+#'
 #' Ajoute un label pour les unités sur le plus grand des labels y
 #'
 #' @param plot un graphique ggplot

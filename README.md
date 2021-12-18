@@ -8,7 +8,6 @@ Le package s'installe par:
 
 ``` r
 devtools::install_github("OFCE/ofce")
-library(ofce)
 ```
 
 ## Utilisation
@@ -29,6 +28,7 @@ library(ggrepel)
 library(ggh4x)
 library(glue)
 library(tsibble)
+library(ofce)
 
 eoid <- OECD::get_datasets() |>
   filter(str_detect(id, "^EO")) |>

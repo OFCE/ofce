@@ -2,10 +2,7 @@
 % Please edit documentation in R/theme_ofce.R
 \name{theme_ofce}
 \alias{theme_ofce}
-\title{Thème OFCE
-Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
-d'autres éléments de la norme comme les couleurs, l'allure générale du graphique
-sont à introduire par ailleurs}
+\title{Thème OFCE}
 \usage{
 theme_ofce(base_size = 12, base_family = "Stone sans")
 }
@@ -18,7 +15,6 @@ theme_ofce(base_size = 12, base_family = "Stone sans")
 un thème qui peut être utilisé dans ggplot
 }
 \description{
-Thème OFCE
 Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 d'autres éléments de la norme comme les couleurs, l'allure générale du graphique
 sont à introduire par ailleurs

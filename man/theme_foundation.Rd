@@ -2,13 +2,7 @@
 % Please edit documentation in R/theme_ofce.R
 \name{theme_foundation}
 \alias{theme_foundation}
-\title{Theme foundation
-This theme is designed to be a foundation from which to build new
-themes, and not meant to be used directly. \code{theme_foundation()}
-is a complete theme with only minimal number of elements defined.
-It is easier to create new themes by extending this one rather
-than \code{\link[ggplot2]{theme_gray}()} or \code{\link[ggplot2]{theme_bw}()},
-because those themes define elements deep in the hierarchy.}
+\title{Theme foundation}
 \usage{
 theme_foundation(base_size = 12, base_family = "")
 }
@@ -18,6 +12,14 @@ theme_foundation(base_size = 12, base_family = "")
 \item{base_family}{base font family}
 }
 \description{
+This theme is designed to be a foundation from which to build new
+themes, and not meant to be used directly. \code{theme_foundation()}
+is a complete theme with only minimal number of elements defined.
+It is easier to create new themes by extending this one rather
+than \code{\link[ggplot2]{theme_gray}()} or \code{\link[ggplot2]{theme_bw}()},
+because those themes define elements deep in the hierarchy.
+}
+\details{
 This theme takes \code{\link[ggplot2]{theme_gray}()} and sets all
 \code{colour} and \code{fill} values to \code{NULL}, except for the top-level
 elements (\code{line}, \code{rect}, and \code{title}), which have
