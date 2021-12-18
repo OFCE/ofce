@@ -60,7 +60,7 @@ add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.15) {
 #'
 #' @return un graphique ggplot
 #' @export
-#' @import ggplot2
+#' @importFrom ggplot2 ggplot_build calc_element
 #' @examples
 #' library(ggplot2)
 #' plot <- ggplot(mtcars) +

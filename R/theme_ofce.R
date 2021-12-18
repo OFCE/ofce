@@ -9,7 +9,7 @@
 #' @param base_family character(1) string, police de charactère du thème (Stone sans par défaut)
 #'
 #' @return un thème qui peut être utilisé dans ggplot
-#' @import ggplot2
+#' @importFrom ggplot2 theme element_text element_rect element_blank element_line margin unit theme_grey rel
 #' @family themes
 #' @export
 #' @examples
@@ -20,7 +20,7 @@
 
 
 theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
-  theme_foundation(base_size = base_size, base_family=base_family) +
+  theme_foundation() +
     ggplot2::theme(
       # general
       plot.background = element_rect(fill="white"),
@@ -129,7 +129,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
 #'
 #' @family themes
 #' @export
-#' @import ggplot2
+#' @importFrom ggplot2 theme_grey element_text element_line element_rect
 theme_foundation <- function(base_size=12, base_family="") {
   thm <- theme_grey(base_size = base_size, base_family = base_family)
   for (i in names(thm)) {
