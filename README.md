@@ -88,7 +88,7 @@ ggsave(".work/dette.svg", dette, width=18, height=14, unit="cm")
 
 Ce qui donne le résultat suivant :
 
-<img src=".work/dette.svg" width="601"/>
+<img src="work/dette.svg" width="601"/>
 
 ## Licence
 
