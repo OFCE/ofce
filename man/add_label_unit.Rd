@@ -2,7 +2,8 @@
 % Please edit documentation in R/adders.r
 \name{add_label_unit}
 \alias{add_label_unit}
-\title{Ajoute un label pour les unités sur le plus grand des labels y}
+\title{Add label unit
+Ajoute un label pour les unités sur le plus grand des labels y}
 \usage{
 add_label_unit(plot, ylabel = "")
 }
@@ -15,6 +16,7 @@ add_label_unit(plot, ylabel = "")
 un graphique ggplot
 }
 \description{
+Add label unit
 Ajoute un label pour les unités sur le plus grand des labels y
 }
 \examples{

@@ -2,7 +2,8 @@
 % Please edit documentation in R/adders.r
 \name{add_logo_ofce_inside}
 \alias{add_logo_ofce_inside}
-\title{Ajoute le logo de l'OFCE sur le graphique (inside donc)}
+\title{Add logo inside
+Ajoute le logo de l'OFCE sur le graphique (inside donc)}
 \usage{
 add_logo_ofce_inside(plot, logo = ofce_logo, size = 0.15)
 }
@@ -17,6 +18,7 @@ add_logo_ofce_inside(plot, logo = ofce_logo, size = 0.15)
 un graphique ggplot
 }
 \description{
+Add logo inside
 Ajoute le logo de l'OFCE sur le graphique (inside donc)
 }
 \examples{

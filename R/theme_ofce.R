@@ -1,6 +1,4 @@
-# theme ofce
-
-#' OFCE Theme
+#' Thème OFCE
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 #' d'autres éléments de la norme comme les couleurs, l'allure générale du graphique
 #' sont à introduire par ailleurs

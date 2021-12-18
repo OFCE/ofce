@@ -2,7 +2,8 @@
 % Please edit documentation in R/annotate2.r
 \name{annotate2}
 \alias{annotate2}
-\title{Variation de ggplot2::annotate pour intégrer une position}
+\title{Annotate2 from ggplot2
+Variation de ggplot2::annotate pour intégrer une position}
 \usage{
 annotate2(
   geom,
@@ -60,5 +61,6 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 }
 \description{
+Annotate2 from ggplot2
 Variation de ggplot2::annotate pour intégrer une position
 }

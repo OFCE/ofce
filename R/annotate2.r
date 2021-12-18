@@ -1,4 +1,4 @@
-
+#' Annotate2 from ggplot2
 #' Variation de ggplot2::annotate pour intégrer une position
 #' @param position fonction position (comme position_nudge()) pour modifier la position de l'annotation
 #' @inheritParams ggplot2::annotate
