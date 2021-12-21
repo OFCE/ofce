@@ -33,13 +33,13 @@ oecd <- oecd_raw %>%
   mutate(pays = factor(pays, c(ez,"EA17","GBR","USA"))) # pour mettre dans l'ordre et couvrir les gris
 
 breaks <- c(start_y, seq(2000,2030,5) ) |> sort() |> keep(~between(.x, start_y, end_y)) # manual breaks pour plus de finesse
-colors <- c(set_names(rep("grey80", length(ez)), ez), set_names(ofce_palette(3), c("EA17","GBR","USA"))) # couleurs
+colors <- c(set_names(rep("grey70", length(ez)), ez), set_names(ofce_palette(3), c("EA17","GBR","USA"))) # couleurs
 
 ( dette <- (ggplot(oecd %>% filter(between(year,start_y,end_y)),
                  aes(x=year, y=dette, group=pays, color=pays))+
             geom_line(lwd=0.25, show.legend = FALSE)+
             geom_line(data= ~filter(.x, pays%in%c("EA17","GBR","USA")),
-                      size=1.5)+
+                      size=1.25, lineend="round")+
             geom_text_repel(data=~mutate(
               filter(.x,pays%in%c("EA17","GBR","USA")),
               label=if_else(pays%in%c("EA17","GBR","USA")&year==2015,
