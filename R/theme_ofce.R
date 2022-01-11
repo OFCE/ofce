@@ -105,7 +105,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       panel.spacing = unit(4, "pt"),
       strip.background = element_rect(fill="white"),
       strip.text = element_text(
-        size = rel(0.333),  hjust = 0.5)
+        size = rel(0.6666),  hjust = 0.5)
     )
 
 }
