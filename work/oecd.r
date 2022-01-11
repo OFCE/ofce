@@ -55,6 +55,7 @@ colors <- c(set_names(rep("grey70", length(ez)), ez), set_names(ofce_palette(3),
             labs(title="Dette publique",
                  subtitle='Ecart à 2007',
                  caption=str_c("Sources : OECD ", eo_ref, "; Dette au sens de Maastricht pour EA et GBR")) +
+              facet_wrap(vars(pays))+
             theme_ofce()) |>
   add_label_unit(ylabel="% du PIB") |>
   add_logo_ofce_inside() )
