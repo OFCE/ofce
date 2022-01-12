@@ -90,22 +90,22 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       axis.ticks.length.y = unit(2.5,"pt"),
       axis.line = element_line(
         colour = "gray40",
-        size = unit(0.5, "pt"),
+        size = unit(0.4, "pt"),
         lineend="round"),
       #Grid lines
       panel.grid.minor = element_blank(),
       panel.grid.major.y = element_line(
-        size = unit(0.25, "pt"),
+        size = unit(0.2, "pt"),
         color = "gray80"),
       panel.grid.major.x = element_blank(),
       # #Blank background
       panel.background = element_rect(
         fill = "gray95",
         colour = "gray95"),
-      panel.spacing = unit(4, "pt"),
+      panel.spacing = unit(8, "pt"),
       strip.background = element_rect(fill="white"),
       strip.text = element_text(
-        size = rel(0.6666),  hjust = 0.5)
+        size = rel(0.6666), face = "bold", hjust = 0.5)
     )
 
 }

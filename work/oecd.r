@@ -58,6 +58,6 @@ colors <- c(set_names(rep("grey70", length(ez)), ez), set_names(ofce_palette(3),
               facet_wrap(vars(pays))+
             theme_ofce()) |>
   add_label_unit(ylabel="% du PIB") |>
-  add_logo_ofce_inside() )
+  add_logo_ofce() )
 
 ggsave("work/dette.svg", dette, width=18, height=14, unit="cm")
