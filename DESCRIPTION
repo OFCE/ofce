@@ -1,7 +1,7 @@
 Package: ofce
 Type: Package
 Title: Applique les normes de la Revue
-Version: 0.1.0
+Version: 0.2.0
 Author: X. Timbeau
 Maintainer: X. Timbeau <xavier.timbeau@sciencespo.fr>
 Description: procure quelques fonctions pour modifier les graphiques 
@@ -19,6 +19,7 @@ Imports:
     magick,
     plyr,
     vctrs,
-    rlang
+    rlang,
+    scales
 Depends: 
     R (>= 2.10)
