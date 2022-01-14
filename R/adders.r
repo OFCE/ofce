@@ -76,14 +76,39 @@ add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.15) {
 #'
 add_label_unit <- function(plot, ylabel="") {
   build <- ggplot_build(plot)
-  layout <- build$layout$layout
-  selected <- layout[layout$ROW == 1 & layout$COL == 1, , drop = FALSE]
-  y <- build$layout$panel_scales_y[[selected$SCALE_Y]]
-  y_break_max <- y$get_breaks() |> max(na.rm=TRUE)
+  pparams <- build$layout$panel_params
+  y_break_max <- pparams[[1]]$y$get_breaks() |> max(na.rm=TRUE)
+  x_lim <- pparams[[1]]$x$scale$get_limits()
+  if("ScaleContinuousDate" %in% class(pparams[[1]]$x$scale))
+  {
+    x_lim  <- lubridate::as_date(x_lim[[1]])
+    message("Le label est décalé vers la droite, utiliser l'argument expand dans scale_x_date() pour modifier le décalage")
+  }
+  else
+    x_lim <- -Inf
+
   axis_theme <- calc_element("axis.text.x", build$plot$theme)
-  plot +
-    annotate2("label",label = paste0("\u00A0",ylabel), position = position_nudge(y=0),
-              x = -Inf, y = y_break_max, color = "grey25", label.size=0, fill="gray95",
-              family = axis_theme$family, size = axis_theme$size/.pt, fontface = axis_theme$face,
-              hjust = 0, vjust = 0.5)
+
+  if(length(pparams)>1) {
+    facet_data <-   imap_dfc(build$layout$facet_params$facets,
+                             ~plot$data |> transmute("{.y}":=eval(.x))) |>
+      distinct() |>
+      arrange(across(everything()))
+
+    facet_data <- facet_data |>
+      mutate(label_unit = c(paste0("\u00A0",ylabel), rep("", nrow(facet_data)-1)))
+
+    annotation <- geom_label(data = facet_data, aes(x=x_lim, y=y_break_max, label=label_unit),
+                             position = position_nudge(y=0),
+                             color = "grey25", label.size=0, fill="gray95",
+                             family = axis_theme$family, size = axis_theme$size/.pt, fontface = axis_theme$face,
+                             hjust = 0, vjust = 0.5)
+  }
+  else
+    annotation <- annotate2("label",label = paste0("\u00A0",ylabel), position = position_nudge(y=0),
+                            x = x_lim, y = y_break_max, color = "grey25", label.size=0, fill="gray95",
+                            family = axis_theme$family, size = axis_theme$size/.pt, fontface = axis_theme$face,
+                            hjust = 0, vjust = 0.5)
+
+  plot + annotation
 }

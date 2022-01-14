@@ -16,6 +16,10 @@
 #'
 graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm")
 {
+  if(file=="")
+    file <- quo_name(enquo(graph))
+  if(rep!="")
+    dir.create(rep, recursive=TRUE, showWarnings = FALSE)
   fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "svg")
   cl <- case_when(
     "gg" %in% class(graph) ~ "gg",

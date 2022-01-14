@@ -86,8 +86,9 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       axis.ticks = element_line(
         color="gray50",
         size = unit(0.3, "pt")),
-      axis.ticks.length.x = unit(4,"pt"),
-      axis.ticks.length.y = unit(2.5,"pt"),
+      axis.ticks.length = -unit(4,"pt"),
+      axis.ticks.length.x = -unit(4,"pt"),
+      axis.ticks.length.y = -unit(2.5,"pt"),
       axis.line = element_line(
         colour = "gray40",
         size = unit(0.4, "pt"),
