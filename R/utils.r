@@ -153,7 +153,7 @@ showMemoryUse <- function(sort = "size", decreasing = TRUE, limit = 10, envir = 
     )
     ix <- ifelse(number!=0, findInterval(number, lut) , 9L)
     ix <- switch(unit,
-                 median = stat::median(ix, na.rm = TRUE),
+                 median = stats::median(ix, na.rm = TRUE),
                  max = max(ix, na.rm = TRUE),
                  multi = ix
     )
