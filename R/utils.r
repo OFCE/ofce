@@ -16,12 +16,10 @@
 #'
 graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm")
 {
-  if(file=="")
-    file <- quo_name(enquo(graph))
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
   fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "svg")
-  cl <- case_when(
+  cl <- dplyr::case_when(
     "gg" %in% class(graph) ~ "gg",
     "ggplot" %in% class(graph) ~ "gg",
     "tmap" %in% class(graph) ~ "tmap",
@@ -53,8 +51,8 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
 
 graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm")
 {
-  fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm")
-  cl <- case_when(
+  fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, parent.frame(), "jpg")
+  cl <- dplyr::case_when(
     "gg" %in% class(graph) ~ "gg",
     "ggplot" %in% class(graph) ~ "gg",
     "tmap" %in% class(graph) ~ "tmap",
@@ -75,8 +73,8 @@ make_filename <- function(x, file="", rep="", env, ext)
   else
     file <- glue::glue(file, .envir = env)
   if(rep!="")
-    rep <- str_c(glue::glue(rep, .envir = env), "/")
-  str_c(rep, file, ".", ext)
+    rep <- stringr::str_c(glue::glue(rep, .envir = env), "/")
+  stringr::str_c(rep, file, ".", ext)
 }
 
 #' Utilisation mémoire par objet
@@ -91,7 +89,7 @@ make_filename <- function(x, file="", rep="", env, ext)
 #' @examples
 #' showMemoryUse()
 #'
-showMemoryUse <- function(envir = parent.frame()) {
+showMemoryUse <- function(sort = "size", decreasing = TRUE, limit = 10, envir = parent.frame()) {
   objectList <- ls(envir = envir)
 
   oneKB <- 1024
@@ -114,7 +112,16 @@ showMemoryUse <- function(envir = parent.frame()) {
       return(paste(size, "bytes"))
     }
   })
-  print(dim(memListing))
+
+  memListing <- data.frame(objectName = names(memListing), memorySize = memListing, row.names = NULL)
+
+  if (sort == "alphabetical") {
+    memListing <- memListing[order(memListing$objectName, decreasing = decreasing), ]
+  } else {
+    memListing <- memListing[order(memoryUse, decreasing = decreasing), ]
+  } # will run if sort not specified or "size"
+  if(length(memListing)==0)
+    return("No objects")
   memListing <- memListing[1:min(nrow(memListing), limit), ]
 
   print(memListing, row.names = FALSE)
@@ -146,7 +153,7 @@ showMemoryUse <- function(envir = parent.frame()) {
     )
     ix <- ifelse(number!=0, findInterval(number, lut) , 9L)
     ix <- switch(unit,
-                 median = median(ix, na.rm = TRUE),
+                 median = stat::median(ix, na.rm = TRUE),
                  max = max(ix, na.rm = TRUE),
                  multi = ix
     )

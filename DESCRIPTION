@@ -20,6 +20,7 @@ Imports:
     plyr,
     vctrs,
     rlang,
-    scales
+    scales,
+    ggh4x
 Depends: 
     R (>= 2.10)

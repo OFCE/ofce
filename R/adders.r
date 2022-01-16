@@ -38,9 +38,6 @@ add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
 #'
 #' @return un graphique ggplot
 #' @export
-#' @importFrom ggpp annotate
-#' @importFrom grid rasterGrob
-#' @importFrom magick image_read
 #' @seealso add_logo_ofce
 #' @examples
 #' library(ggplot2)
@@ -49,13 +46,13 @@ add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
 #'         theme_ofce(base_family="sans")
 #' plot |> add_logo_ofce_inside()
 #'
-add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.15) {
-  grob <- grid::rasterGrob(logo, width=size)
-  plot+
-    ggpp::annotate(geom="grob_npc",
-                   label=grob,
-                   npcx=0.885, npcy=0.11, hjust=0, vjust=1)
-}
+add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.25) {
+
+  grob <- grid::rasterGrob(logo, width=size, just = c("right", "bottom"))
+  plot+ ggpp::annotate(geom = "grob_npc",
+                       label=grob,
+                       npcx=0.995, npcy=0, hjust=0.5, vjust=0.5)
+  }
 
 #' Add label unit
 #'
@@ -88,19 +85,19 @@ add_label_unit <- function(plot, ylabel="") {
   axis_theme <- calc_element("axis.text.x", build$plot$theme)
 
   if(length(pparams)>1) {
-    facet_data <-   imap_dfc(build$layout$facet_params$facets,
-                             ~plot$data |> transmute("{.y}":=eval(.x))) |>
-      distinct() |>
-      arrange(across(everything()))
+    facet_data <- purrr::imap_dfc(build$layout$facet_params$facets,
+                                  ~plot$data |> dplyr::transmute("{.y}":=eval(.x))) |>
+      dplyr::distinct() |>
+      dplyr::arrange(dplyr::across(dplyr::everything()))
 
     facet_data <- facet_data |>
-      mutate(label_unit = c(paste0("\u00A0",ylabel), rep("", nrow(facet_data)-1)))
+      dplyr::mutate(label_unit = c(paste0("\u00A0",ylabel), rep("", nrow(facet_data)-1)))
 
-    annotation <- geom_label(data = facet_data, aes(x=x_lim, y=y_break_max, label=label_unit),
-                             position = position_nudge(y=0),
-                             color = "grey25", label.size=0, fill="gray95",
-                             family = axis_theme$family, size = axis_theme$size/.pt, fontface = axis_theme$face,
-                             hjust = 0, vjust = 0.5)
+    annotation <- ggplot2::geom_label(data = facet_data, aes(x=x_lim, y=y_break_max, label=label_unit),
+                                      position = position_nudge(y=0),
+                                      color = "grey25", label.size=0, fill="gray95",
+                                      family = axis_theme$family, size = axis_theme$size/.pt, fontface = axis_theme$face,
+                                      hjust = 0, vjust = 0.5)
   }
   else
     annotation <- annotate2("label",label = paste0("\u00A0",ylabel), position = position_nudge(y=0),

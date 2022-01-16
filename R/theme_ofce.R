@@ -8,7 +8,7 @@
 #' @param base_family character(1) string, police de charactère du thème (Stone sans par défaut)
 #'
 #' @return un thème qui peut être utilisé dans ggplot
-#' @importFrom ggplot2 theme element_text element_rect element_blank element_line margin unit theme_grey rel
+#' @import ggh4x ggplot2
 #' @family themes
 #' @export
 #' @examples
@@ -52,7 +52,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
         face="italic",
         hjust = 0,
         margin=margin(b=0, t=0)),
-      plot.margin = margin(b=2.5, t=2.5, l=2.5, r=2.5),
+      plot.margin = margin(b=10, t=10, l=10, r=10),
       plot.caption.position = "panel",
       #Legend format
       legend.position = "bottom",
@@ -83,7 +83,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       axis.text.x = element_text(
         color = "gray25",
         margin=margin(t=5, b=0),
-        hjust = 0),
+        hjust = 0.5),
       axis.ticks = element_line(
         color="gray50",
         size = unit(0.3, "pt")),
@@ -110,7 +110,6 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       strip.text = element_text(
         size = rel(0.6666), face = "bold", hjust = 0.5)
     )
-
 }
 
 #' Theme foundation
@@ -149,4 +148,3 @@ theme_foundation <- function(base_size=12, base_family="") {
               rect = element_rect(fill = "white", colour = "black"),
               text = element_text(colour = "black"))
 }
-

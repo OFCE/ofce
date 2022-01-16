@@ -4,7 +4,12 @@
 \alias{showMemoryUse}
 \title{Utilisation mémoire par objet}
 \usage{
-showMemoryUse(envir = parent.frame())
+showMemoryUse(
+  sort = "size",
+  decreasing = TRUE,
+  limit = 10,
+  envir = parent.frame()
+)
 }
 \arguments{
 \item{envir}{l'environement dans lequel sont listé les objets. Mieux vaut ne pas le toucher si on ne sait pas à quoi ça sert.}

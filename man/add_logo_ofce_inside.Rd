@@ -4,7 +4,7 @@
 \alias{add_logo_ofce_inside}
 \title{Add logo inside}
 \usage{
-add_logo_ofce_inside(plot, logo = ofce_logo, size = 0.15)
+add_logo_ofce_inside(plot, logo = ofce_logo, size = 0.25)
 }
 \arguments{
 \item{plot}{un graphique ggplot}
