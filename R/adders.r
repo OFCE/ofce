@@ -78,11 +78,9 @@ add_label_unit <- function(plot, ylabel="") {
   build <- ggplot_build(plot)
   pparams <- build$layout$panel_params
   y_break_max <- pparams[[1]]$y$get_breaks() |> max(na.rm=TRUE)
-  x_lim <- pparams[[1]]$x$scale$get_limits()
   if("ScaleContinuousDate" %in% class(pparams[[1]]$x$scale))
   {
-    x_lim  <- lubridate::as_date(x_lim[[1]])
-    message("Le label est décalé vers la droite, utiliser l'argument expand dans scale_x_date() pour modifier le décalage")
+    x_lim  <- lubridate::as_date(-Inf)
   }
   else
     x_lim <- -Inf

@@ -218,3 +218,19 @@ showMemoryUse <- function(envir = parent.frame()) {
     }
     f2
   }
+
+
+#' Breaks secondaires espacés d'une unité
+#'
+#' A utiliser dans scale_x_continuous
+#'
+#' @param limits cette fonction reçoit les limites du ggplot en paramètre
+#'
+#' @return breaks
+#' @export
+#'
+#'
+  minor_breaks_unity <- function(limits)
+  {
+    seq(floor(limits[[1]]), ceiling(limits[[2]]), 1)
+  }
