@@ -51,7 +51,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
         color = "gray25",
         face="italic",
         hjust = 0,
-        margin=margin(b=0, t=0)),
+        margin=margin(b=5, t=5)),
       plot.margin = margin(b=10, t=10, l=10, r=10),
       plot.caption.position = "panel",
       #Legend format
@@ -103,7 +103,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       panel.grid.major.x = element_blank(),
       # #Blank background
       panel.background = element_rect(
-        fill = "gray95",
+        fill = "gray97",
         colour = "gray95"),
       panel.spacing = unit(8, "pt"),
       strip.background = element_rect(fill="white"),

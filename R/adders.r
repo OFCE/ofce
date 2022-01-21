@@ -95,13 +95,13 @@ add_label_unit <- function(plot, ylabel="") {
 
     annotation <- ggplot2::geom_label(data = facet_data, aes(x=x_lim, y=y_break_max, label=label_unit),
                                       position = position_nudge(y=0),
-                                      color = "grey25", label.size=0, fill="gray95",
+                                      color = "grey25", label.size=0, fill="gray97",
                                       family = axis_theme$family, size = axis_theme$size/.pt, fontface = axis_theme$face,
                                       hjust = 0, vjust = 0.5)
   }
   else
     annotation <- annotate2("label",label = paste0("\u00A0",ylabel), position = position_nudge(y=0),
-                            x = x_lim, y = y_break_max, color = "grey25", label.size=0, fill="gray95",
+                            x = x_lim, y = y_break_max, color = "grey25", label.size=0, fill="gray97",
                             family = axis_theme$family, size = axis_theme$size/.pt, fontface = axis_theme$face,
                             hjust = 0, vjust = 0.5)
 
