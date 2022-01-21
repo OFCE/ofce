@@ -17,7 +17,6 @@
 #'     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
 #'     theme_ofce(base_family="sans")
 
-
 theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
   theme_foundation() +
     ggplot2::theme(
@@ -77,7 +76,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
         color = "#222222"),
       axis.text.y = element_text(
         color = "gray25",
-        margin=margin(r=1.5, b=0, t=0, l=0),
+        margin=margin(r=5, b=0, t=0, l=1.5),
         hjust = 1,
         vjust=0.5),
       axis.text.x = element_text(
