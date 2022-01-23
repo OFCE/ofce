@@ -57,7 +57,7 @@ data <- IC_DR_ECFIN |>
 #  les noms sont sur la courbe et ils la suivent, en couleur
 #  et d'un coup de baguette magique
 #
-g_IC_DR_2<- ggplot(data, aes(x=period, y=value, col = name, group=name)) +
+g_IC_DR_2<- (ggplot(data, aes(x=period, y=value, col = name, group=name)) +
   # geom_line(key_glyph="timeseries")+ # option 1
   geom_line(size = 0.5, alpha=0.25, show.legend = FALSE)+ # permet de garder la trace sous le texte (accessoire)
   geom_textline(aes(label=name), size = 3, padding=unit(1, "mm"), linewidth=0.5, text_smoothing = 30, show.legend = FALSE)+
@@ -69,7 +69,8 @@ g_IC_DR_2<- ggplot(data, aes(x=period, y=value, col = name, group=name)) +
   scale_color_manual(values = c( ofce_palette(4), "gray15"))+
   theme_ofce()+
   scale_y_continuous(minor_breaks = minor_breaks_unity, guide="axis_minor")+ # ca met des breaks mineurs (ggh4x)
-  scale_x_date(breaks = bb , date_minor_breaks = "1 year", guide="axis_minor", date_labels = "%Y")
+  scale_x_date(breaks = bb , date_minor_breaks = "1 year", guide="axis_minor", date_labels = "%Y")) |> add_logo_ofce()
   # scale_x_date(date_breaks = "5 years" , date_minor_breaks = "1 year", guide="axis_minor", date_labels = "%Y") # alternative pas mal aussi
 
 g_IC_DR_2
+
