@@ -60,16 +60,16 @@ data <- IC_DR_ECFIN |>
 g_IC_DR_2<- (ggplot(data, aes(x=period, y=value, col = name, group=name)) +
   # geom_line(key_glyph="timeseries")+ # option 1
   geom_line(size = 0.5, alpha=0.25, show.legend = FALSE)+ # permet de garder la trace sous le texte (accessoire)
-  geom_textline(aes(label=name), size = 3, padding=unit(1, "mm"), linewidth=0.5, text_smoothing = 30, show.legend = FALSE)+
+  geom_textline(aes(label=name, hjust=runif(370)), size = 3, padding=unit(1, "mm"), linewidth=0.5, text_smoothing = 10, show.legend = FALSE)+
   labs( x = NULL, y = NULL,  color = NULL , # tu peux tout mettre dans labs NULL ne garde pas l'espace pour le texte
         title="Indice de difficultés de recrutement",
         caption=str_c("Source:  ", v_source, ", DG ECFIN",
                       ", Business and consumer surveys.   ",
                       "\nIndicateur pondéré par la part de l'emploi dans l'industrie, les services et la construction."))+
   scale_color_manual(values = c( ofce_palette(4), "gray15"))+
-  theme_ofce()+
+  theme_ofce(base_family = "Nunito")+
   scale_y_continuous(minor_breaks = minor_breaks_unity, guide="axis_minor")+ # ca met des breaks mineurs (ggh4x)
-  scale_x_date(breaks = bb , date_minor_breaks = "1 year", guide="axis_minor", date_labels = "%Y")) |> add_logo_ofce()
+  scale_x_date(breaks = bb , date_minor_breaks = "1 year", guide="axis_minor", date_labels = "%Y")) |> add_logo_ofce_inside() |> add_label_unit("Solde")
   # scale_x_date(date_breaks = "5 years" , date_minor_breaks = "1 year", guide="axis_minor", date_labels = "%Y") # alternative pas mal aussi
 
 g_IC_DR_2
