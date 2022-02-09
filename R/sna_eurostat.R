@@ -25,19 +25,23 @@
 #' sna_eurostat("nama_10_gdp")
 #' # ne garde que
 #' sna_eurostat("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
+#'
 sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
-                         cache="./data/eurostat", select_time=NULL) {
+                         cache="./data/eurostat", select_time=NULL, lang="en") {
+  # fichier en cache
   fn <- stringr::str_c(cache,"/", dataset,".qs")
   if(file.exists(fn))
     data.raw <- qs::qread(fn, nthreads = 4)
   else {
+    # si pas de chache, on téélcharge, on crée le cache et on cache
     data.raw <- eurostat::get_eurostat(
       id=dataset,
       compress_file = FALSE,
       select_time=select_time)
     dir.create(
       cache,
-      showWarnings = FALSE)
+      showWarnings = FALSE,
+      recursive = TRUE)
     qs::qsave(
       data.raw,
       fn,
@@ -45,12 +49,16 @@ sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
       nthreads = 4)
   }
   filters <- list(...)
+  # on enlève les NA et nulls
   filters <- purrr::compact(filters)
+  # on garde les présents
   filters <- filters[intersect(names(data.raw), names(filters))]
   if(length(filters)>0) {
+    # si un filtre on construit l'indicatrice
     le_filtre <- purrr::reduce(
       purrr::map(names(filters), ~data.raw[[.x]]%in%filters[[.x]]),
       `&`)
+    # qu'on applique
     data.raw <- data.raw |> dplyr::filter(le_filtre)
   }
   else
@@ -62,25 +70,41 @@ sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
     "auto" = {
       vvv <- data.raw |>
         dplyr::distinct(dplyr::across(c(-values, -geo, -time)))
-      v_n <- names(vvv)
+      # on donne un ordre a priori
+      v_n <- rlang::set_names(intersect(
+        unique(
+          c("na_item", "indec_de", "asset10", "ppe_cat", "sector",
+            names(vvv))), names(vvv)))
+      # on récupére les labels
       vvv <- vvv |> dplyr::mutate(
         dplyr::across(
-          all_of(v_n),
-          ~eurostat::label_eurostat(.x, dic=dplyr::cur_column()),
-          .names = "{col}_label")) |>
-        dplyr::mutate(id = purrr::reduce(vvv[,v_n], function(a,b) stringr::str_c(a, b, sep="-")))
+          tidyselect::all_of(v_n),
+          ~eurostat::label_eurostat(.x, dic=dplyr::cur_column(), lang=lang),
+          .names = "{col}_label"))
+      v_l <- purrr::map_dbl(v_n, ~length(unique(vvv[[.x]])))
+      # construit un id à partir des colonnes à valeur unique
+      id <- stringr::str_c(purrr::map_chr(names(v_l[v_l==1L]), ~unique(vvv[[.x]])), collapse="_")
+      label <- stringr::str_c(
+        purrr::map_chr(names(v_l[v_l==1L]), ~unique(vvv[[stringr::str_c(.x, "_label")]])),
+        collapse="; ")
       pp <- purrr::keep(filters, ~length(.x)>1)
-
-      pp_n <- data.raw |> dplyr::distinct(vars(-geo))
       pp <- pp[intersect(names(pp), setdiff(names(data.raw), "geo"))]
+
       if(length(pp)>0)
-        data.raw |> dplyr::pivot_wider(names_from = all_of(names(pp)), values_from = values)
+        data.raw <- data.raw |>
+        dplyr::pivot_wider(names_from = all_of(names(pp)), values_from = values)
       else
       {
-        if(name=="") name <- "values"
-        data.raw |> dplyr::rename("{name}" := values)
+        if(name=="") name <- id
+        data.raw <- data.raw |> dplyr::rename("{name}" := values)
       }
+      attr(data.raw, "code") <- id
+      attr(data.raw, "label") <- label
+      data.raw
     },
     "no" = data.raw |> dplyr::rename("{name}" := values))
-  return(data.raw |> dplyr::select(tidyselect:::where(~length(unique(.x))>1)))
+  data.raw <- data.raw |>
+    dplyr::select(tidyselect:::where(~length(unique(.x))>1)) |>
+    dplyr::rename_with(~stringr::str_c(prefix, .x), .cols=-c(geo, time))
+  return(data.raw)
 }

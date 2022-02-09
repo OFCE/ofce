@@ -8,18 +8,37 @@ sna_eurostat(
   dataset,
   ...,
   pivot = "auto",
-  name = "values",
+  prefix = "",
+  name = "",
   cache = "./data/eurostat",
-  select_time = NULL
+  select_time = NULL,
+  lang = "en"
 )
 }
 \arguments{
-\item{select_time}{}
+\item{dataset}{string, le code eurostat du dataset en minuscule}
+
+\item{...}{une série de paramètres du nom des champs présents dans le dataset, suivi des valeurs qui sont sélectionnées, soit une chaîne, sous un vecteur de chaînes}
+
+\item{pivot}{un vecteur de variables qui seront utilisées pour le pivot}
+
+\item{prefix}{un prefix ajouté à tous les noms de variables}
+
+\item{cache}{string, le chemin d'accès au cache}
+
+\item{select_time}{la période de temps téléchargée lors du chargement initial. N'est aps très utile sauf pour limiter l'empreinte disque.}
 }
 \value{
-
+un tibble, avec un attribut par colonne qui documente
 }
 \description{
 Cette fonction permet d'extraire rapidement des données des comptes naitonaux sur eurostat.
-Elle utilise le schéma d'accès \code{\link[eurostat:get_eurostat]{get_eurostat}}
+Elle utilise la fonction \code{\link[eurostat:get_eurostat]{get_eurostat}} et effectue plusieurs opérations supplémentaires:
+\itemize{
+   \item Elle met en cache le fichier eurostat, dans un dossier dans le répertoire courant/ Le chache est accédé avec qs pour plus de rapidité
+         \code{\link[eurostat:get_eurostat]{get_eurostat}} utilise un cahce, mais il est très lent. Cette fonction est utilisée la première fois.
+   \item Elle sélectionne les données à partir des paramètres retourne un tibble avec uniquement ces colonnes.
+         Les données sont retournées en formet long sauf si on défini une variable de pivot. Les dimensions ne prenant qu'une valeur sont éliminées.
+   \item Elle doucmente les colonnes éliminées.
+}
 }
