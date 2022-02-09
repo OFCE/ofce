@@ -92,7 +92,7 @@ sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
 
       if(length(pp)>0)
         data.raw <- data.raw |>
-        dplyr::pivot_wider(names_from = all_of(names(pp)), values_from = values)
+        tidyr::pivot_wider(names_from = all_of(names(pp)), values_from = values)
       else
       {
         if(name=="") name <- id
