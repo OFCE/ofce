@@ -19,8 +19,13 @@
 #'
 #' @return un tibble, avec un attribut par colonne qui documente
 #' @export
-#'
-sna_eurostat <- function(dataset, ..., pivot="auto", name="values",
+#' @importFrom rlang .data
+#' @example
+#' # récupère toute la base des comptes annuels pour le pib et ses composantes
+#' sna_eurostat("nama_10_gdp")
+#' # ne garde que
+#' sna_eurostat("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
+sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
                          cache="./data/eurostat", select_time=NULL) {
   fn <- stringr::str_c(cache,"/", dataset,".qs")
   if(file.exists(fn))
@@ -42,23 +47,40 @@ sna_eurostat <- function(dataset, ..., pivot="auto", name="values",
   filters <- list(...)
   filters <- purrr::compact(filters)
   filters <- filters[intersect(names(data.raw), names(filters))]
-  le_filtre <- purrr::reduce(purrr::map(names(filters), ~data.raw[[.x]]%in%filters[[.x]]), `&`)
-  data.raw <- data.raw |> dplyr::filter(le_filtre) |>
-    as_tsibble(index=time, key = c(-time, -values))
+  if(length(filters)>0) {
+    le_filtre <- purrr::reduce(
+      purrr::map(names(filters), ~data.raw[[.x]]%in%filters[[.x]]),
+      `&`)
+    data.raw <- data.raw |> dplyr::filter(le_filtre)
+  }
+  else
+    le_filtre <- NULL
 
   data.raw <- switch(
     pivot,
     "geo" = data.raw |> pivot_wider(names_from = geo, values_from = values),
     "auto" = {
-      pp <- keep(filters, ~length(.x)>1)
+      vvv <- data.raw |>
+        dplyr::distinct(dplyr::across(c(-values, -geo, -time)))
+      v_n <- names(vvv)
+      vvv <- vvv |> dplyr::mutate(
+        dplyr::across(
+          all_of(v_n),
+          ~eurostat::label_eurostat(.x, dic=dplyr::cur_column()),
+          .names = "{col}_label")) |>
+        dplyr::mutate(id = purrr::reduce(vvv[,v_n], function(a,b) stringr::str_c(a, b, sep="-")))
+      pp <- purrr::keep(filters, ~length(.x)>1)
+
+      pp_n <- data.raw |> dplyr::distinct(vars(-geo))
       pp <- pp[intersect(names(pp), setdiff(names(data.raw), "geo"))]
       if(length(pp)>0)
-        data.raw |> pivot_wider(names_from = all_of(names(pp)), values_from = values)
+        data.raw |> dplyr::pivot_wider(names_from = all_of(names(pp)), values_from = values)
       else
       {
-        data.raw |> rename("{name}" := values)
+        if(name=="") name <- "values"
+        data.raw |> dplyr::rename("{name}" := values)
       }
     },
-    "no" = data.raw |> rename("{name}" := values))
-  return(data.raw |> dplyr::select(where(~length(unique(.x))>1)))
+    "no" = data.raw |> dplyr::rename("{name}" := values))
+  return(data.raw |> dplyr::select(tidyselect:::where(~length(unique(.x))>1)))
 }
