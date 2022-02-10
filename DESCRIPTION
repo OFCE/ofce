@@ -21,7 +21,9 @@ Imports:
     vctrs,
     rlang,
     scales,
-    ggh4x
+    ggh4x,
+    eurostat,
+    qs
 Depends: 
     R (>= 2.10)
 Suggest:

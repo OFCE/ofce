@@ -20,7 +20,7 @@
 #' @return un tibble, avec un attribut par colonne qui documente
 #' @export
 #' @importFrom rlang .data
-#' @example
+#' @examples
 #' # récupère toute la base des comptes annuels pour le pib et ses composantes
 #' sna_eurostat("nama_10_gdp")
 #' # ne garde que
@@ -95,7 +95,8 @@ sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
         tidyr::pivot_wider(names_from = all_of(names(pp)), values_from = values)
       else
       {
-        if(name=="") name <- id
+        if(name=="")
+          if(id=="") name <- "values" else name <- id
         data.raw <- data.raw |> dplyr::rename("{name}" := values)
       }
       attr(data.raw, "code") <- id

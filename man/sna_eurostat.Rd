@@ -42,3 +42,10 @@ Elle utilise la fonction \code{\link[eurostat:get_eurostat]{get_eurostat}} et ef
    \item Elle doucmente les colonnes éliminées.
 }
 }
+\examples{
+# récupère toute la base des comptes annuels pour le pib et ses composantes
+sna_eurostat("nama_10_gdp")
+# ne garde que
+sna_eurostat("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
+
+}
