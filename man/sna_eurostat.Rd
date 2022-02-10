@@ -36,10 +36,10 @@ Cette fonction permet d'extraire rapidement des données des comptes naitonaux s
 Elle utilise la fonction \code{\link[eurostat:get_eurostat]{get_eurostat}} et effectue plusieurs opérations supplémentaires:
 \itemize{
    \item Elle met en cache le fichier eurostat, dans un dossier dans le répertoire courant/ Le chache est accédé avec qs pour plus de rapidité
-         \code{\link[eurostat:get_eurostat]{get_eurostat}} utilise un cahce, mais il est très lent. Cette fonction est utilisée la première fois.
+         \code{\link[eurostat:get_eurostat]{get_eurostat}} utilise un cachee, mais il est très lent. Cette fonction est utilisée la première fois.
    \item Elle sélectionne les données à partir des paramètres retourne un tibble avec uniquement ces colonnes.
          Les données sont retournées en formet long sauf si on défini une variable de pivot. Les dimensions ne prenant qu'une valeur sont éliminées.
-   \item Elle doucmente les colonnes éliminées.
+   \item Elle documente les colonnes éliminées.
 }
 }
 \examples{
