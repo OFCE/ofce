@@ -18,22 +18,26 @@
 #' @param select_time la période de temps téléchargée lors du chargement initial. N'est aps très utile sauf pour limiter l'empreinte disque.
 #'
 #' @return un tibble, avec un attribut par colonne qui documente
+#' @seealso sna_show qui affiche des informations sur la base
 #' @export
 #' @importFrom rlang .data
 #' @examples
 #' # récupère toute la base des comptes annuels pour le pib et ses composantes
-#' sna_eurostat("nama_10_gdp")
-#' # ne garde que
-#' sna_eurostat("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
+#' sna_get("nama_10_gdp")
+#' # ne garde que certaines colonnes
+#' sna_get("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
 #'
-sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
+sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
                          cache="./data/eurostat", select_time=NULL, lang="en") {
   # fichier en cache
   fn <- stringr::str_c(cache,"/", dataset,".qs")
   if(file.exists(fn))
+  {
     data.raw <- qs::qread(fn, nthreads = 4)
+
+    }
   else {
-    # si pas de chache, on téélcharge, on crée le cache et on cache
+    # si pas de chache, on télécharge, on crée le cache et on cache
     data.raw <- eurostat::get_eurostat(
       id=dataset,
       compress_file = FALSE,
@@ -48,6 +52,7 @@ sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
       preset="fast",
       nthreads = 4)
   }
+
   filters <- list(...)
   # on enlève les NA et nulls
   filters <- purrr::compact(filters)
@@ -63,10 +68,15 @@ sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
   }
   else
     le_filtre <- NULL
-
+  attr(data.raw, "filtre") <- le_filtre
+  attr(data.raw, "dataset") <- dataset
+  attr(data.raw, "pivot") <- pivot
+  attr(data.raw, "date") <- file.info(fn)$mtime
   data.raw <- switch(
     pivot,
-    "geo" = data.raw |> pivot_wider(names_from = geo, values_from = values),
+    "geo" = {
+      attr(data.raw, "pivot_cases") <- dplyr::distinct(data.raw, geo)
+      data.raw |> pivot_wider(names_from = geo, values_from = values)},
     "auto" = {
       vvv <- data.raw |>
         dplyr::distinct(dplyr::across(c(-values, -geo, -time)))
@@ -90,22 +100,77 @@ sna_eurostat <- function(dataset, ..., pivot="auto", prefix="", name="",
       pp <- purrr::keep(filters, ~length(.x)>1)
       pp <- pp[intersect(names(pp), setdiff(names(data.raw), "geo"))]
 
-      if(length(pp)>0)
+      if(length(pp)>0) {
+        attr(data.raw, "pivot_cases") <- dplyr::distinct(data.raw,dplyr::across(names(pp)))
         data.raw <- data.raw |>
-        tidyr::pivot_wider(names_from = all_of(names(pp)), values_from = values)
+          tidyr::pivot_wider(names_from = dplyr::all_of(names(pp)), values_from = values)
+      }
       else
       {
         if(name=="")
           if(id=="") name <- "values" else name <- id
-        data.raw <- data.raw |> dplyr::rename("{name}" := values)
+          attr(data.raw, "pivot_cases") <- NULL
+          data.raw <- data.raw |> dplyr::rename("{name}" := values)
       }
       attr(data.raw, "code") <- id
       attr(data.raw, "label") <- label
       data.raw
     },
-    "no" = data.raw |> dplyr::rename("{name}" := values))
+    "no" = {
+      attr(data.raw, "pivot_cases") <- NULL
+      data.raw |> dplyr::rename("{name}" := values)})
   data.raw <- data.raw |>
     dplyr::select(tidyselect:::where(~length(unique(.x))>1)) |>
     dplyr::rename_with(~stringr::str_c(prefix, .x), .cols=-c(geo, time))
   return(data.raw)
+}
+
+#' Infos sur une base sna Eurostat
+#'
+#' Affiche les principales informations sur une base téléchargée sur Eurostat.
+#' Les informations sont en partie stockées dans les attributs du tibble.
+#' Ils peuvent être perdus en route.
+#'
+#' @param sna le tibble téléchargé sur eurostat
+#'
+#' @return le tibble, invisible plus un effet de bord sur la console
+#' @export
+#'
+#' @examples
+#' data <- sna_get("nama_10_gdp")
+#' sna_show(data)
+sna_show <- function(sna, lang="fr", n=100) {
+  print(sna)
+  ds <- attr(sna, 'dataset')
+  if(is.null(ds)) {
+    print("Attributs perdus en route")
+    return(invisible(sna))
+  }
+  print("dataset: {ds} / {eurostat::label_eurostat_tables(ds)}" |> glue::glue())
+  if(attr(sna, 'code')!="")
+    print("id:{attr(sna, 'code')} / {attr(sna, 'label')}" |> glue::glue())
+
+  ff <- attr(sna, "filtre")
+  if(length(ff)>0)
+    print("filtres: {stringr::str_c(ff, collapse=', ')}")
+  cats <- setdiff(setdiff(names(sna), attr(sna,'pivot_cases' )), c("geo", "time", "values"))
+  purrr::walk(
+    rlang::set_names(cats),
+    ~dplyr::distinct(sna, dplyr::across(.x)) |> dplyr::mutate(label = eurostat::label_eurostat(.data[[.x]], dic=.x, lang=lang)) |> print(n=n))
+  print("Téléchargé le {attr(sna, 'date')}" |> glue::glue())
+  invisible(sna)
+}
+
+#' Efface le cache sna
+#'
+#' @param cache le dossier du cache (par défaut /data/eurostat)
+#'
+#' @return rien, efface les fichiers
+#' @export
+#'
+#' @examples
+#' sna_clear_cache()
+sna_clear_cache <- function(cache="./data/eurostat") {
+  files <- list.files(cache)
+  file.remove(stringr::str_c(cache,"/",files))
 }

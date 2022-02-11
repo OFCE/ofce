@@ -129,7 +129,6 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
 #' @inheritParams ggplot2::theme_grey
 #'
 #' @family themes
-#' @export
 #' @importFrom ggplot2 theme_grey element_text element_line element_rect
 theme_foundation <- function(base_size=12, base_family="") {
   thm <- theme_grey(base_size = base_size, base_family = base_family)
