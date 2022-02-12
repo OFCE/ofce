@@ -18,7 +18,10 @@ showMemoryUse(
 Une liste des objets en mémoire, invisible et affiche dan la console cette liste
 }
 \description{
-Permet de lister les plus gros objets en mémoire et de connaître leur empreinte
+Permet de lister les plus gros objets en mémoire et de connaître leur empreinte.
+}
+\details{
+copié de https://rdrr.io/github/zlfccnu/econophysics/ (merci!).
 }
 \examples{
 showMemoryUse()
