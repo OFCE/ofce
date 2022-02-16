@@ -68,7 +68,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
   }
   else
     le_filtre <- NULL
-  attr(data.raw, "filtre") <- le_filtre
+  attr(data.raw, "filtre") <- filters
   attr(data.raw, "dataset") <- dataset
   attr(data.raw, "pivot") <- pivot
   attr(data.raw, "date") <- file.info(fn)$mtime
@@ -147,13 +147,17 @@ sna_show <- function(sna, lang="fr", n=100) {
     return(invisible(sna))
   }
   print("dataset: {ds} / {eurostat::label_eurostat_tables(ds)}" |> glue::glue())
-  if(attr(sna, 'code')!="")
-    print("id:{attr(sna, 'code')} / {attr(sna, 'label')}" |> glue::glue())
+  id <- attr(sna, 'code')
+  if(id!="")
+    print("id:{id} / {attr(sna, 'label')}" |> glue::glue())
 
   ff <- attr(sna, "filtre")
-  if(length(ff)>0)
-    print("filtres: {stringr::str_c(ff, collapse=', ')}")
-  cats <- setdiff(setdiff(names(sna), attr(sna,'pivot_cases' )), c("geo", "time", "values"))
+  if(length(ff)>0) {
+    sfil <- purrr::imap_chr(ff, ~stringr::str_c(stringr::str_c(.y,"=",.x), collapse="&"))
+    print("filtres: {stringr::str_c(sfil, collapse=', ')}" |> glue::glue())
+    }
+  cats <- setdiff(setdiff(names(sna), attr(sna,'pivot_cases' )), c("geo", "time", "values", id))
+
   purrr::walk(
     rlang::set_names(cats),
     ~dplyr::distinct(sna, dplyr::across(.x)) |> dplyr::mutate(label = eurostat::label_eurostat(.data[[.x]], dic=.x, lang=lang)) |> print(n=n))
