@@ -68,15 +68,16 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
   }
   else
     le_filtre <- NULL
-  attr(data.raw, "filtre") <- filters
-  attr(data.raw, "dataset") <- dataset
-  attr(data.raw, "pivot") <- pivot
-  attr(data.raw, "date") <- file.info(fn)$mtime
+  sna_info <- NULL
+  sna_info$filtre <- filters
+  sna_info$dataset <- dataset
+  sna_info$pivot <- pivot
+  sna_info$date <- file.info(fn)$mtime
   data.raw <- switch(
     pivot,
     "geo" = {
-      attr(data.raw, "pivot_cases") <- dplyr::distinct(data.raw, geo)
-      data.raw |> pivot_wider(names_from = geo, values_from = values)},
+      sna_info$pivot_col <- dplyr::distinct(data.raw, geo) |> dplyr::pull(geo)
+      data.raw |> tidyr::pivot_wider(names_from = geo, values_from = values)},
     "auto" = {
       vvv <- data.raw |>
         dplyr::distinct(dplyr::across(c(-values, -geo, -time)))
@@ -101,27 +102,36 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
       pp <- pp[intersect(names(pp), setdiff(names(data.raw), "geo"))]
 
       if(length(pp)>0) {
-        attr(data.raw, "pivot_cases") <- dplyr::distinct(data.raw,dplyr::across(names(pp)))
+        sna_info$pivot_col <- names(data.raw)
         data.raw <- data.raw |>
           tidyr::pivot_wider(names_from = dplyr::all_of(names(pp)), values_from = values)
+        sna_info$pivot_col <- setdiff(names(data.raw), sna_info$pivot_col)
       }
       else
       {
         if(name=="")
           if(id=="") name <- "values" else name <- id
-          attr(data.raw, "pivot_cases") <- NULL
+          sna_info$pivot_col <- NULL
           data.raw <- data.raw |> dplyr::rename("{name}" := values)
       }
-      attr(data.raw, "code") <- id
-      attr(data.raw, "label") <- label
+      sna_info$code <- id
+      sna_info$label <- label
       data.raw
     },
     "no" = {
-      attr(data.raw, "pivot_cases") <- NULL
+      sna_info$pivot_cases <- NULL
+      if(name=="") name <- "values"
       data.raw |> dplyr::rename("{name}" := values)})
+  vu <- purrr::map(
+    rlang::set_names(names(data.raw)),
+    ~unique(data.raw[[.x]]))
+  vu <- purrr::keep(vu, ~length(.x)==1)
   data.raw <- data.raw |>
-    dplyr::select(tidyselect:::where(~length(unique(.x))>1)) |>
-    dplyr::rename_with(~stringr::str_c(prefix, .x), .cols=-c(geo, time))
+    dplyr::select(-any_of(names(vu)))
+  sna_info$vu <- vu
+  data.raw <- data.raw |>
+    dplyr::rename_with(~stringr::str_c(prefix, .x), .cols=-any_of(c("geo", "time")))
+  attr(data.raw, "sna_info") <- sna_info
   return(data.raw)
 }
 
@@ -141,27 +151,26 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
 #' sna_show(data)
 sna_show <- function(sna, lang="fr", n=100) {
   print(sna)
-  ds <- attr(sna, 'dataset')
-  if(is.null(ds)) {
+  si <- attr(sna, "sna_info")
+  if(is.null(si)) {
     print("Attributs perdus en route")
     return(invisible(sna))
   }
-  print("dataset: {ds} / {eurostat::label_eurostat_tables(ds)}" |> glue::glue())
-  id <- attr(sna, 'code')
-  if(id!="")
-    print("id:{id} / {attr(sna, 'label')}" |> glue::glue())
+  print("dataset: {si$dataset} / {eurostat::label_eurostat_tables(si$dataset)}" |> glue::glue())
+  id <- si$code
+  if(is.null(id)||id!="")
+    print("id:{id} / {si$label}" |> glue::glue())
+  ff <- si$filtre
+  ff_s <- stringr::str_c(purrr::imap_chr(ff, ~stringr::str_c(.y, "=", stringr::str_c(.x, collapse="&"))), collapse=", ")
+  if(length(ff)>0)
+    print("filtres: {ff_s}" |> glue::glue())
 
-  ff <- attr(sna, "filtre")
-  if(length(ff)>0) {
-    sfil <- purrr::imap_chr(ff, ~stringr::str_c(stringr::str_c(.y,"=",.x), collapse="&"))
-    print("filtres: {stringr::str_c(sfil, collapse=', ')}" |> glue::glue())
-    }
-  cats <- setdiff(setdiff(names(sna), attr(sna,'pivot_cases' )), c("geo", "time", "values", id))
-
+  purrr::iwalk(si$vu, ~ print("{.y} {.x} {eurostat::label_eurostat(.x, dic=.y, lang=lang)}" |> glue::glue()))
+  cats <- setdiff(setdiff(names(sna), si$pivot_col), c("geo", "time", "values", id))
   purrr::walk(
     rlang::set_names(cats),
     ~dplyr::distinct(sna, dplyr::across(.x)) |> dplyr::mutate(label = eurostat::label_eurostat(.data[[.x]], dic=.x, lang=lang)) |> print(n=n))
-  print("Téléchargé le {attr(sna, 'date')}" |> glue::glue())
+  print("Téléchargé le {si$date}" |> glue::glue())
   invisible(sna)
 }
 

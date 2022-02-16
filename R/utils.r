@@ -79,11 +79,13 @@ make_filename <- function(x, file="", rep="", env, ext)
 
 #' Utilisation mémoire par objet
 #'
-#' Permet de lister les plus gros objets en mémoire et de connaître leur empreinte
+#' Permet de lister les plus gros objets en mémoire et de connaître leur empreinte.
+#'
+#' copié de https://rdrr.io/github/zlfccnu/econophysics/ (merci!).
 #'
 #' @param envir l'environement dans lequel sont listé les objets. Mieux vaut ne pas le toucher si on ne sait pas à quoi ça sert.
 #'
-#' @return Une liste des objets en mémoire, invisible et affiche dan la console cette liste
+#' @return Une liste des objets en mémoire, invisible et affiche dans la console cette liste
 #' @export
 #'
 #' @examples

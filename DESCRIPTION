@@ -3,9 +3,10 @@ Type: Package
 Title: Applique les normes de la Revue
 Version: 0.3.0
 Author: X. Timbeau P. Malliet M. Dauvin
-Maintainer: X. Timbeau <xavier.timbeau@sciencespo.fr> P. Malliet M. Dauvin
-Description: procure quelques fonctions pour modifier les graphiques 
-    ggplot et les mettre aux normes OFCE/Revue. Interface pour faciliter l'accès aux données eurostat
+Maintainer: <xavier.timbeau@sciencespo.fr>
+Description: procure quelques fonctions pour modifier les graphiques.
+    ggplot et les mettre aux normes OFCE/Revue.
+    Interface pour faciliter l'accès aux données eurostat.
 License: CeCILL-B
 Encoding: UTF-8
 LazyData: true
