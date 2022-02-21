@@ -2,16 +2,16 @@
 % Please edit documentation in R/colors.r
 \name{ofce_palette}
 \alias{ofce_palette}
-\title{Palettes de couleur pour la norme de la revue OFCE}
+\title{Palettes de couleurs pour la norme de la revue OFCE}
 \usage{
 ofce_palette(ncolor = 2)
 }
 \arguments{
-\item{ncolor}{integer, nombre de couleur}
+\item{ncolor}{integer, nombre de couleurs}
 }
 \value{
-une palette de couleur
+une palette de couleurs (format HEX)
 }
 \description{
-Palettes de couleur pour la norme de la revue OFCE
+Palettes de couleurs pour la norme de la revue OFCE
 }

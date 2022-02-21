@@ -15,7 +15,7 @@ showMemoryUse(
 \item{envir}{l'environement dans lequel sont listé les objets. Mieux vaut ne pas le toucher si on ne sait pas à quoi ça sert.}
 }
 \value{
-Une liste des objets en mémoire, invisible et affiche dan la console cette liste
+Une liste des objets en mémoire, invisible et affiche dans la console cette liste
 }
 \description{
 Permet de lister les plus gros objets en mémoire et de connaître leur empreinte.
