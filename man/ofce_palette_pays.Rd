@@ -2,9 +2,9 @@
 % Please edit documentation in R/colors.r
 \name{ofce_palette_pays}
 \alias{ofce_palette_pays}
-\title{Palettes de couleur associées aux pays pour la norme de la revue OFCE}
+\title{Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE}
 \usage{
-ofce_palette_pays(list_iso3 = list_iso.full)
+ofce_palette_pays(list_iso3 = palette.ofce$ISO)
 }
 \arguments{
 \item{list_iso3}{chr, une liste de nom de pays}
@@ -13,5 +13,5 @@ ofce_palette_pays(list_iso3 = list_iso.full)
 une palette de couleur (format HEX)
 }
 \description{
-Palettes de couleur associées aux pays pour la norme de la revue OFCE
+Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE
 }
