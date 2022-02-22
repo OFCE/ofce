@@ -24,10 +24,12 @@ Imports:
     vctrs,
     rlang,
     scales,
-    ggh4x,
-    eurostat,
-    qs
+    eurostat
 Depends: 
     R (>= 2.10)
 Suggest:
-    eurostat
+    eurostat,
+    qs,
+    ggh4x
+
+
