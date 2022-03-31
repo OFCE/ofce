@@ -34,7 +34,6 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
   if(file.exists(fn))
   {
     data.raw <- qs::qread(fn, nthreads = 4)
-
     }
   else {
     # si pas de chache, on télécharge, on crée le cache et on cache
