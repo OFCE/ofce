@@ -43,6 +43,7 @@ Elle utilise la fonction \code{\link[eurostat:get_eurostat]{get_eurostat}} et ef
 }
 }
 \examples{
+
 # récupère toute la base des comptes annuels pour le pib et ses composantes
 sna_get("nama_10_gdp")
 # ne garde que certaines colonnes

@@ -22,6 +22,7 @@
 #' @export
 #' @importFrom rlang .data
 #' @examples
+#'
 #' # récupère toute la base des comptes annuels pour le pib et ses composantes
 #' sna_get("nama_10_gdp")
 #' # ne garde que certaines colonnes
@@ -31,6 +32,9 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
                          cache="./data/eurostat", select_time=NULL, lang="en") {
   # fichier en cache
   fn <- stringr::str_c(cache,"/", dataset,".qs")
+  rlang::check_installed("qs", reason = "pour utiliser sna_get`")
+  rlang::check_installed("eurostat", reason = "pour utiliser sna_get`")
+
   if(file.exists(fn))
   {
     data.raw <- qs::qread(fn, nthreads = 4)
@@ -149,6 +153,9 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
 #' data <- sna_get("nama_10_gdp")
 #' sna_show(data)
 sna_show <- function(sna, lang="fr", n=100) {
+  rlang::check_installed("qs", reason = "pour utiliser sna_get`")
+  rlang::check_installed("eurostat", reason = "pour utiliser sna_get`")
+
   print(sna)
   si <- attr(sna, "sna_info")
   if(is.null(si)) {
@@ -183,6 +190,9 @@ sna_show <- function(sna, lang="fr", n=100) {
 #' @examples
 #' sna_clear_cache()
 sna_clear_cache <- function(cache="./data/eurostat") {
+  rlang::check_installed("qs", reason = "pour utiliser sna_get`")
+  rlang::check_installed("eurostat", reason = "pour utiliser sna_get`")
+
   files <- list.files(cache)
   file.remove(stringr::str_c(cache,"/",files))
 }
