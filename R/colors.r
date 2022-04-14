@@ -56,7 +56,5 @@ ofce_palette_pays <- function(list_iso3 = palette.ofce$ISO) {
     dplyr::filter(ISO %in% list_iso3) |>
     dplyr::arrange(match(ISO, list_iso3))
 
-  return(dat$HEX)
+  return(rlang::set_names(dat$HEX, list_iso3))
 }
-
-
