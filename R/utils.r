@@ -14,7 +14,7 @@
 #' @return l'objet en entrée, invisible, enregistrfe un .jpg dan le répertoire avec le nom donné
 #' @export
 #'
-graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm")
+graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", ...)
 {
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
@@ -25,8 +25,8 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg =  ggplot2::ggsave(filename=fn, plot=graph, height = height, width = width, units=units),
-         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units),
+         gg =  ggplot2::ggsave(filename=fn, plot=graph, height = height, width = width, units=units, ...),
+         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, ...),
          err = message("save not implemented"))
   invisible(graph)
 }
@@ -49,7 +49,7 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
 #' @export
 #'
 
-graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm")
+graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm",...)
 {
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
@@ -61,8 +61,8 @@ graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg = ggplot2::ggsave(filename=fn, plot=graph, height = height, width = width, units=units),
-         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units),
+         gg = ggplot2::ggsave(filename=fn, plot=graph, height = height, width = width, units=units, bg="white", ...),
+         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, ...),
          err = message("save not implemented"))
   invisible(graph)
 }
