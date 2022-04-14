@@ -51,7 +51,10 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
 
 graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm")
 {
-  fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, parent.frame(), "jpg")
+  if(rep!="")
+    dir.create(rep, recursive=TRUE, showWarnings = FALSE)
+  fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "jpg")
+
   cl <- dplyr::case_when(
     "gg" %in% class(graph) ~ "gg",
     "ggplot" %in% class(graph) ~ "gg",
