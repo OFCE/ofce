@@ -93,7 +93,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
       vvv <- vvv |> dplyr::mutate(
         dplyr::across(
           tidyselect::all_of(v_n),
-          ~eurostat::label_eurostat(.x, dic=dplyr::cur_column(), lang=lang),
+          ~eurostat::label_eurostat(.x, dic=dplyr::cur_column(), lang=lang, fix_duplicated = TRUE),
           .names = "{col}_label"))
       v_l <- purrr::map_dbl(v_n, ~length(unique(vvv[[.x]])))
       # construit un id à partir des colonnes à valeur unique
