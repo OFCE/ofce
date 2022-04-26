@@ -50,7 +50,11 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
 #'
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm",...)
+=======
+graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", quality = 90)
+>>>>>>> Stashed changes
 =======
 graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", quality = 90)
 >>>>>>> Stashed changes
@@ -66,8 +70,13 @@ graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
     TRUE ~ "err")
   switch(cl,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
          gg = ggplot2::ggsave(filename=fn, plot=graph, height = height, width = width, units=units, bg="white", ...),
          tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, ...),
+=======
+         gg = ggplot2::ggsave(filename=fn, plot=graph, height = height, width = width, units=units, quality=quality),
+         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, quality=quality),
+>>>>>>> Stashed changes
 =======
          gg = ggplot2::ggsave(filename=fn, plot=graph, height = height, width = width, units=units, quality=quality),
          tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, quality=quality),
