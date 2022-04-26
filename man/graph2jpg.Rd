@@ -13,7 +13,7 @@ graph2jpg(
   width = 18,
   units = "cm",
   bg = "white",
-  quality = 90,
+  quality = 100,
   ...
 )
 }
