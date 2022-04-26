@@ -11,7 +11,9 @@ graph2svg(
   ratio = 4/3,
   height = width/ratio,
   width = 18,
-  units = "cm"
+  units = "cm",
+  bg = "white",
+  ...
 )
 }
 \arguments{

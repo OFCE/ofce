@@ -12,7 +12,9 @@ graph2jpg(
   height = width/ratio,
   width = 18,
   units = "cm",
-  quality = 90
+  bg = "white",
+  quality = 90,
+  ...
 )
 }
 \arguments{
