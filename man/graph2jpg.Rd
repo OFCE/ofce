@@ -11,7 +11,8 @@ graph2jpg(
   ratio = 4/3,
   height = width/ratio,
   width = 18,
-  units = "cm"
+  units = "cm",
+  quality = 90
 )
 }
 \arguments{
