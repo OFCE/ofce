@@ -54,7 +54,7 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       plot.margin = margin(b=10, t=10, l=10, r=10),
       plot.caption.position = "panel",
       #Legend format
-      legend.position = "bottom",
+      legend.position = c(0.9,0.9),
       legend.justification= "center",
       legend.text.align = 0,
       legend.title = element_text(
@@ -63,8 +63,8 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
         color = "gray25"),
       legend.background = element_blank(),
       legend.text = element_text(
-        face = "bold",
-        size = rel(0.75),
+        face = "plain",
+        size = rel(0.66),
         color = "gray25"),
       legend.margin = margin(t=0, r=0, b=0, l=0),
       # #Axis format
