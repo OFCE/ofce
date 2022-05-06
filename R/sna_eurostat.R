@@ -217,7 +217,7 @@ sna_check_cache <- function(cache="./data/eurostat") {
     dplyr::mutate(code = path |> fs::path_file() |> fs::path_ext_remove()) |>
     dplyr::select(-type) |>
     dplyr::left_join(datasets, by = "code")
-  updated <- map_chr(cached$path, ~{
+  updated <- purrr::map_chr(cached$path, ~{
     dd <- qs::qread(.x, nthreads = 4)
     cc <- as.character(attr(dd, "lastupdate"))
     if(length(cc)==0)
@@ -234,7 +234,7 @@ sna_check_cache <- function(cache="./data/eurostat") {
     message("pas de mises à jour")
   else
     message(stringr::str_c(stringr::str_c(unvalid$code,collapse=", "), " MAJ"))
-  invisible(cached |> select(updated, code, title, type, path, update, previous_update,
+  invisible(cached |> dplyr::select(updated, code, title, type, path, update, previous_update,
                              structure_change =`last table structure change`,
                              data_start = `data start`, data_end = `data end`))
 }
