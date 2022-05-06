@@ -16,6 +16,7 @@
 #' @param prefix un prefix ajouté à tous les noms de variables
 #' @param cache string, le chemin d'accès au cache
 #' @param select_time la période de temps téléchargée lors du chargement initial. N'est aps très utile sauf pour limiter l'empreinte disque.
+#' @param force télécharge systématiquement
 #'
 #' @return un tibble, avec un attribut par colonne qui documente
 #' @seealso sna_show qui affiche des informations sur la base
@@ -29,26 +30,34 @@
 #' sna_get("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
 #'
 sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
-                         cache="./data/eurostat", select_time=NULL, lang="en") {
+                    cache="./data/eurostat", select_time=NULL, lang="en", force=FALSE) {
   # fichier en cache
   fn <- stringr::str_c(cache,"/", dataset,".qs")
   rlang::check_installed("qs", reason = "pour utiliser sna_get`")
   rlang::check_installed("eurostat", reason = "pour utiliser sna_get`")
+  rlang::check_installed("fs", reason = "pour utiliser sna_get`")
 
-  if(file.exists(fn))
+  if(!force&&file.exists(fn))
   {
     data.raw <- qs::qread(fn, nthreads = 4)
-    }
+    updated <- attr(data.raw,"lastupdate")
+  }
   else {
     # si pas de chache, on télécharge, on crée le cache et on cache
+    updated <- eurostat::search_eurostat("") |>
+      dplyr::filter(code==dataset) |>
+      dplyr::distinct() |>
+      dplyr::mutate(update = lubridate::dmy(`last update of data`)) |>
+      dplyr::pull()
     data.raw <- eurostat::get_eurostat(
       id=dataset,
+      cache=FALSE,
       compress_file = FALSE,
       select_time=select_time)
-    dir.create(
+    attr(data.raw, "lastupdate") <- updated
+    fs::dir_create(
       cache,
-      showWarnings = FALSE,
-      recursive = TRUE)
+      recurse = TRUE)
     qs::qsave(
       data.raw,
       fn,
@@ -76,6 +85,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
   sna_info$dataset <- dataset
   sna_info$pivot <- pivot
   sna_info$date <- file.info(fn)$mtime
+  sna_info$lastupdate <- updated
   data.raw <- switch(
     pivot,
     "geo" = {
@@ -171,28 +181,73 @@ sna_show <- function(sna, lang="fr", n=100) {
   if(length(ff)>0)
     print("filtres: {ff_s}" |> glue::glue())
 
-  purrr::iwalk(si$vu, ~ print("{.y} {.x} {eurostat::label_eurostat(.x, dic=.y, lang=lang)}" |> glue::glue()))
+  purrr::iwalk(si$vu, ~ print("{.y} {.x} {eurostat::label_eurostat(.x, dic=.y, fix_duplicated=TRUE, lang=lang)}" |> glue::glue()))
   cats <- setdiff(setdiff(names(sna), si$pivot_col), c("geo", "time", "values", id))
   purrr::walk(
     rlang::set_names(cats),
-    ~dplyr::distinct(sna, dplyr::across(.x)) |> dplyr::mutate(label = eurostat::label_eurostat(.data[[.x]], dic=.x, lang=lang)) |> print(n=n))
+    ~dplyr::distinct(sna, dplyr::across(.x)) |> dplyr::mutate(label = eurostat::label_eurostat(.data[[.x]], dic=.x, fix_duplicated=TRUE, lang=lang)) |> print(n=n))
   print("Téléchargé le {si$date}" |> glue::glue())
   invisible(sna)
 }
 
-#' Efface le cache sna
+#' MAJ le cache sna
 #'
 #' @param cache le dossier du cache (par défaut /data/eurostat)
 #'
-#' @return rien, efface les fichiers
+#' @return la liste des bases mises à jour
 #' @export
 #'
 #' @examples
-#' sna_clear_cache()
-sna_clear_cache <- function(cache="./data/eurostat") {
+#' sna_check_cache()
+sna_check_cache <- function(cache="./data/eurostat") {
   rlang::check_installed("qs", reason = "pour utiliser sna_get`")
+  rlang::check_installed("fs", reason = "pour utiliser sna_get`")
   rlang::check_installed("eurostat", reason = "pour utiliser sna_get`")
 
-  files <- list.files(cache)
-  file.remove(stringr::str_c(cache,"/",files))
+  datasets <- eurostat::search_eurostat("") |>
+    dplyr::distinct() |>
+    dplyr::mutate(update = lubridate::dmy(`last update of data`))
+  if(!fs::dir_exists(cache))
+  {
+    message("cache vide")
+    return(NULL)
+  }
+  cached <- fs::file_info(fs::dir_ls(cache)) |>
+    dplyr::filter(type=="file") |>
+    dplyr::mutate(code = path |> fs::path_file() |> fs::path_ext_remove()) |>
+    dplyr::select(-type) |>
+    dplyr::left_join(datasets, by = "code")
+  updated <- map_chr(cached$path, ~{
+    dd <- qs::qread(.x, nthreads = 4)
+    cc <- as.character(attr(dd, "lastupdate"))
+    if(length(cc)==0)
+      NA_character_
+    else
+      cc})
+  cached <- cached |>
+    dplyr::mutate(previous_update = lubridate::ymd(updated),
+           updated = previous_update<update|is.na(previous_update))
+  unvalid <- cached |>
+    dplyr::filter(updated)
+  purrr::walk(unvalid$code, ~sna_get(dataset = .x, force=TRUE, cache=cache))
+  if(length(unvalid$code)==0)
+    message("pas de mises à jour")
+  else
+    message(stringr::str_c(stringr::str_c(unvalid$code,collapse=", "), " MAJ"))
+  invisible(cached |> select(updated, code, title, type, path, update, previous_update,
+                             structure_change =`last table structure change`,
+                             data_start = `data start`, data_end = `data end`))
 }
+
+#' vide le cache sna
+#'
+#' @param cache le dossier du cache (par défaut /data/eurostat)
+#'
+#' @return rien
+#' @export
+#'
+sna_clear_cache <- function(cache="./data/eurostat") {
+  rlang::check_installed("fs", reason = "pour utiliser sna_get`")
+  fs::file_delete(fs::dir_ls(path=cache))
+}
+

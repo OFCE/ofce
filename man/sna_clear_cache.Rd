@@ -2,7 +2,7 @@
 % Please edit documentation in R/sna_eurostat.R
 \name{sna_clear_cache}
 \alias{sna_clear_cache}
-\title{Efface le cache sna}
+\title{vide le cache sna}
 \usage{
 sna_clear_cache(cache = "./data/eurostat")
 }
@@ -10,11 +10,8 @@ sna_clear_cache(cache = "./data/eurostat")
 \item{cache}{le dossier du cache (par défaut /data/eurostat)}
 }
 \value{
-rien, efface les fichiers
+rien
 }
 \description{
-Efface le cache sna
-}
-\examples{
-sna_clear_cache()
+vide le cache sna
 }

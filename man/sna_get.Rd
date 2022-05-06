@@ -12,7 +12,8 @@ sna_get(
   name = "",
   cache = "./data/eurostat",
   select_time = NULL,
-  lang = "en"
+  lang = "en",
+  force = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ sna_get(
 \item{cache}{string, le chemin d'accès au cache}
 
 \item{select_time}{la période de temps téléchargée lors du chargement initial. N'est aps très utile sauf pour limiter l'empreinte disque.}
+
+\item{force}{télécharge systématiquement}
 }
 \value{
 un tibble, avec un attribut par colonne qui documente
