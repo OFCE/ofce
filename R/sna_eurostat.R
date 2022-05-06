@@ -216,7 +216,8 @@ sna_check_cache <- function(cache="./data/eurostat") {
     dplyr::filter(type=="file") |>
     dplyr::mutate(code = path |> fs::path_file() |> fs::path_ext_remove()) |>
     dplyr::select(-type) |>
-    dplyr::left_join(datasets, by = "code")
+    dplyr::left_join(datasets, by = "code") |>
+    tidyr::drop_na(update)
   updated <- purrr::map_chr(cached$path, ~{
     dd <- qs::qread(.x, nthreads = 4)
     cc <- as.character(attr(dd, "lastupdate"))
