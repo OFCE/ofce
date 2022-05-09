@@ -100,17 +100,17 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
           c("na_item", "indec_de", "asset10", "ppe_cat", "sector",
             names(vvv))), names(vvv)))
       # on récupére les labels
-      vvv <- vvv |> dplyr::mutate(
-        dplyr::across(
-          tidyselect::all_of(v_n),
-          ~eurostat::label_eurostat(.x, dic=dplyr::cur_column(), lang=lang, fix_duplicated = TRUE),
-          .names = "{col}_label"))
+      # vvv <- vvv |> dplyr::mutate(
+      #   dplyr::across(
+      #     tidyselect::all_of(v_n),
+      #     ~eurostat::label_eurostat(.x, dic=dplyr::cur_column(), lang=lang, fix_duplicated = TRUE),
+      #     .names = "{col}_label"))
       v_l <- purrr::map_dbl(v_n, ~length(unique(vvv[[.x]])))
       # construit un id à partir des colonnes à valeur unique
       id <- stringr::str_c(purrr::map_chr(names(v_l[v_l==1L]), ~unique(vvv[[.x]])), collapse="_")
-      label <- stringr::str_c(
-        purrr::map_chr(names(v_l[v_l==1L]), ~unique(vvv[[stringr::str_c(.x, "_label")]])),
-        collapse="; ")
+      # label <- stringr::str_c(
+      #   purrr::map_chr(names(v_l[v_l==1L]), ~unique(vvv[[stringr::str_c(.x, "_label")]])),
+      #   collapse="; ")
       pp <- purrr::keep(filters, ~length(.x)>1)
       pp <- pp[intersect(names(pp), setdiff(names(data.raw), "geo"))]
 
@@ -128,7 +128,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
           data.raw <- data.raw |> dplyr::rename("{name}" := values)
       }
       sna_info$code <- id
-      sna_info$label <- label
+      # sna_info$label <- label
       data.raw
     },
     "no" = {
