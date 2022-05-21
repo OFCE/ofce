@@ -93,7 +93,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
       data.raw |> tidyr::pivot_wider(names_from = geo, values_from = values)},
     "auto" = {
       vvv <- data.raw |>
-        dplyr::distinct(dplyr::across(c(-values, -geo, -time)))
+        dplyr::distinct(dplyr::across(-any_of(c("values", "geo", "time"))))
       # on donne un ordre a priori
       v_n <- rlang::set_names(intersect(
         unique(
