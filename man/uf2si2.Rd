@@ -16,7 +16,7 @@ uf2si2(number, rounding = TRUE, unit = "median", digits_max = 4)
 \item{digits_max}{le nombre maximal de chiffres après la virgule}
 }
 \value{
-
+une chaine de charactères
 }
 \description{
 Utilise f2si2 pour formatter un vecteur, et arrondi tant que les éléments formattés sont tous disctints.

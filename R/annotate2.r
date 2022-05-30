@@ -8,7 +8,7 @@
 #' @importFrom vctrs new_data_frame
 #' @importFrom rlang abort
 #' @importFrom ggplot2 layer
-#' @return
+#' @return une layer
 #'
 annotate2 <- function (geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
                        ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, position=PositionIdentity,...,

@@ -32,7 +32,7 @@ graph2svg(
 \item{units}{l'unité ("cm" par exemple)}
 }
 \value{
-l'objet en entrée, invisible, enregistrfe un .jpg dan le répertoire avec le nom donné
+l'objet en entrée, invisible, enregistre un .svg dan le répertoire avec le nom donné
 }
 \description{
 Enregistrement d'un graphique avec une taille par défaut de 18 cm de large et un ratio de 4/3

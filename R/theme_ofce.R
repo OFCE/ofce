@@ -85,19 +85,19 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
         hjust = 0.5),
       axis.ticks = element_line(
         color="gray50",
-        size = unit(0.3, "pt")),
-      axis.ticks.length = -unit(4,"pt"),
-      axis.ticks.length.x = -unit(2.5,"pt"),
-      axis.ticks.length.y = -unit(2.5,"pt"),
+        size = unit(0.2, "pt")),
+      axis.ticks.length = - unit(4,"pt"),
+      axis.ticks.length.x = - unit(2,"pt"),
+      axis.ticks.length.y = - unit(2,"pt"),
       ggh4x.axis.ticks.length.minor = rel(0.66),
       axis.line = element_line(
         colour = "gray40",
-        size = unit(0.4, "pt"),
+        size = unit(0.1, "pt"),
         lineend="round"),
       #Grid lines
       panel.grid.minor = element_blank(),
       panel.grid.major.y = element_line(
-        size = unit(0.2, "pt"),
+        size = unit(0.1, "pt"),
         color = "gray80"),
       panel.grid.major.x = element_blank(),
       # #Blank background
