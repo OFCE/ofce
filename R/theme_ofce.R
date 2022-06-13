@@ -102,8 +102,8 @@ theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
       panel.grid.major.x = element_blank(),
       # #Blank background
       panel.background = element_rect(
-        fill = "gray97",
-        colour = "gray95"),
+        fill = getOption("ofce.background_color"),
+        colour = getOption("ofce.background_color")),
       panel.spacing = unit(8, "pt"),
       strip.background = element_rect(fill="white"),
       strip.text = element_text(
