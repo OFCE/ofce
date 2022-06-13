@@ -4,8 +4,8 @@
 #' d'autres éléments de la norme comme les couleurs, l'allure générale du graphique
 #' sont à introduire par ailleurs
 #'
-#' @param base_size double(1) Taille des éléments texte du thème
-#' @param base_family character(1) string, police de charactère du thème (Stone sans par défaut)
+#' @param base_size double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).
+#' @param base_family character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Stone sans"))
 #'
 #' @return un thème qui peut être utilisé dans ggplot
 #' @import ggh4x ggplot2
@@ -17,7 +17,7 @@
 #'     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
 #'     theme_ofce(base_family="sans")
 
-theme_ofce <- function(base_size = 12, base_family = "Stone sans") {
+theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family")) {
   theme_foundation() +
     ggplot2::theme(
       # general
