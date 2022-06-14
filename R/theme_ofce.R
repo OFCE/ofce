@@ -50,8 +50,10 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         color = "gray25",
         face="italic",
         hjust = 0,
-        margin=margin(b=5, t=5)),
-      plot.margin = margin(b=10, t=10, l=10, r=10),
+        vjust = 0.5,
+        margin = margin(b=0, t=12),
+        lineheight=0.8),
+      plot.margin = margin(b=8, t=8, l=0, r=0),
       plot.caption.position = "panel",
       #Legend format
       legend.position = c(0.9,0.9),
