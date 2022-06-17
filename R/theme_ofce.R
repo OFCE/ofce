@@ -39,20 +39,22 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         family = base_family,
         face = "bold",
         hjust = 0,
-        margin = margin(b=2.5, t=2.5)),
+        margin = margin(b=2.5, t=2.5),
+        lineheight = 1.5),
       plot.subtitle =  element_text(
-        size = rel(0.75),
+        size = rel(0.85),
         face = "plain",
         hjust = 0,
-        margin = margin(b=2.5, t=2.5)),
+        margin = margin(b=2.5, t=2.5),
+        lineheight = 1.2),
       plot.caption = element_text(
-        size = rel(0.6666),
+        size = rel(0.75),
         color = "gray25",
         face="italic",
         hjust = 0,
         vjust = 0.5,
         margin = margin(b=0, t=12),
-        lineheight=0.8),
+        lineheight=1),
       plot.margin = margin(b=8, t=8, l=0, r=0),
       plot.caption.position = "panel",
       #Legend format
@@ -61,12 +63,12 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
       legend.text.align = 0,
       legend.title = element_text(
         face = "bold",
-        size = rel(0.75),
+        size = rel(0.85),
         color = "gray25"),
       legend.background = element_blank(),
       legend.text = element_text(
         face = "plain",
-        size = rel(0.66),
+        size = rel(0.75),
         color = "gray25"),
       legend.margin = margin(t=0, r=0, b=0, l=0),
       # #Axis format
@@ -83,14 +85,12 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         vjust=0.5),
       axis.text.x = element_text(
         color = "gray25",
-        margin=margin(t=5, b=0),
+        margin=margin(t=4, b=0),
         hjust = 0.5),
       axis.ticks = element_line(
         color="gray50",
-        size = unit(0.2, "pt")),
-      axis.ticks.length = - unit(4,"pt"),
-      axis.ticks.length.x = - unit(2,"pt"),
-      axis.ticks.length.y = - unit(2,"pt"),
+        size = unit(0.1, "pt")),
+      axis.ticks.length = unit(0.5,"pt"),
       ggh4x.axis.ticks.length.minor = rel(0.66),
       axis.line = element_line(
         colour = "gray40",
@@ -102,14 +102,17 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         size = unit(0.1, "pt"),
         color = "gray80"),
       panel.grid.major.x = element_blank(),
-      # #Blank background
+      #Blank background
       panel.background = element_rect(
         fill = getOption("ofce.background_color"),
         colour = getOption("ofce.background_color")),
-      panel.spacing = unit(8, "pt"),
+      panel.spacing = unit(3, "pt"),
       strip.background = element_rect(fill="white"),
       strip.text = element_text(
-        size = rel(0.6666), face = "bold", hjust = 0.5)
+        size = rel(0.85), face = "bold",
+        hjust = 0.5,
+        vjust = 0.5,
+        margin = margin(t=8, b=6))
     )
 }
 
