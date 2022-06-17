@@ -26,7 +26,8 @@ Imports:
     scales,
     ggh4x,
     qs,
-    fs
+    fs, 
+    showtext
 Depends: 
     R (>= 2.10)
 Suggests:

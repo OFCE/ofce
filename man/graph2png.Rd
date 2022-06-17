@@ -13,6 +13,7 @@ graph2png(
   width = 18,
   units = "cm",
   bg = "white",
+  dpi = 300,
   ...
 )
 }
@@ -36,5 +37,6 @@ l'objet en entrée, invisible, enregistre un .png dan le répertoire avec le nom
 }
 \description{
 Enregistrement d'un graphique avec une taille par défaut de 18 cm de large et un ratio de 4/3
-Les paramètres peuvent être facilement modifiés
+Les paramètres peuvent être facilement modifiés. Le propblème de la résolution est résolu (dsl)
+en utilisant {showtext}.
 }

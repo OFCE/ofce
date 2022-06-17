@@ -14,6 +14,7 @@ graph2jpg(
   units = "cm",
   bg = "white",
   quality = 100,
+  dpi = 300,
   ...
 )
 }

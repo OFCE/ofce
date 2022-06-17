@@ -25,8 +25,8 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg =  ggplot2::ggsave(filename=fn, device = svglite::svglite,
-                               plot=graph, height = height, width = width, units=units, bg=bg, ...),
+         gg =  st_ggsave(filename=fn, device = svglite::svglite,
+                         plot=graph, height = height, width = width, units=units, bg=bg, showtext=FALSE, ...),
          tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, bg=bg, ...),
          err = message("save not implemented"))
   invisible(graph)
@@ -50,7 +50,7 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
 #' @export
 #'
 
-graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", quality = 100, ...)
+graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", quality = 100, dpi=300, ...)
 {
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
@@ -62,8 +62,9 @@ graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg = ggplot2::ggsave(filename=fn, device = ragg::agg_jpeg, plot=graph,
-                              height = height, width = width, units=units, quality=quality, bg=bg, ...),
+         gg = st_ggsave(filename=fn, device = ragg::agg_jpeg, plot=graph,
+                        height = height, width = width, units=units,
+                        quality=quality, bg=bg, dpi=dpi, showtext = TRUE, ...),
          tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, quality=quality, bg=bg, ...),
          err = message("save not implemented"))
   invisible(graph)
@@ -85,7 +86,8 @@ make_filename <- function(x, file="", rep="", env, ext)
 #' Enregistre un graphe en png à la taille revue
 #'
 #' Enregistrement d'un graphique avec une taille par défaut de 18 cm de large et un ratio de 4/3
-#' Les paramètres peuvent être facilement modifiés
+#' Les paramètres peuvent être facilement modifiés. Le propblème de la résolution est résolu (dsl)
+#' en utilisant {showtext}.
 #'
 #' @param graph un objet graphique (grid, un ggplot plus communément mais aussi un objet tmap)
 #' @param file Le chemin vers le fichier résultat (string)
@@ -99,7 +101,7 @@ make_filename <- function(x, file="", rep="", env, ext)
 #' @export
 #'
 
-graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", ...)
+graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", dpi=300, ...)
 {
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
@@ -111,9 +113,9 @@ graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg = ggplot2::ggsave(filename=fn, device = ragg::agg_png, plot=graph,
-                              height = height, width = width, units=units, bg=bg, ...),
-         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, bg=bg, ...),
+         gg = st_ggsave(filename=fn, device = ragg::agg_png, plot=graph,
+                        height = height, width = width, units=units, bg=bg, dpi=dpi, showtext=TRUE, ...),
+         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, bg=bg, dpi=dpi, ...),
          err = message("save not implemented"))
   invisible(graph)
 }
@@ -197,63 +199,63 @@ showMemoryUse <- function(sort = "size", decreasing = TRUE, limit = 10, envir = 
 #' @examples
 #' f2si2(100000)
 #'
-  f2si2 <- function(number, rounding = TRUE, digits = 1, unit = "median") {
-    lut <- c(
-      1e-24, 1e-21, 1e-18, 1e-15, 1e-12, 1e-09, 1e-06,
-      0.001, 1, 1000, 1e+06, 1e+09, 1e+12, 1e+15, 1e+18, 1e+21,
-      1e+24
-    )
-    pre <- c(
-      "y", "z", "a", "f", "p", "n", "u", "m", "", "k",
-      "M", "G", "T", "P", "E", "Z", "Y"
-    )
-    ix <- ifelse(number!=0, findInterval(number, lut) , 9L)
-    ix <- switch(unit,
-                 median = stats::median(ix, na.rm = TRUE),
-                 max = max(ix, na.rm = TRUE),
-                 multi = ix
-    )
-    if (rounding == TRUE)
-      scaled_number <- round(number/lut[ix], digits)
-    else
-      scaled_number <- number/lut[ix]
+f2si2 <- function(number, rounding = TRUE, digits = 1, unit = "median") {
+  lut <- c(
+    1e-24, 1e-21, 1e-18, 1e-15, 1e-12, 1e-09, 1e-06,
+    0.001, 1, 1000, 1e+06, 1e+09, 1e+12, 1e+15, 1e+18, 1e+21,
+    1e+24
+  )
+  pre <- c(
+    "y", "z", "a", "f", "p", "n", "u", "m", "", "k",
+    "M", "G", "T", "P", "E", "Z", "Y"
+  )
+  ix <- ifelse(number!=0, findInterval(number, lut) , 9L)
+  ix <- switch(unit,
+               median = stats::median(ix, na.rm = TRUE),
+               max = max(ix, na.rm = TRUE),
+               multi = ix
+  )
+  if (rounding == TRUE)
+    scaled_number <- round(number/lut[ix], digits)
+  else
+    scaled_number <- number/lut[ix]
 
-    sistring <- paste0(scaled_number, pre[ix])
-    sistring[scaled_number==0] <- "0"
-    return(sistring)
-  }
+  sistring <- paste0(scaled_number, pre[ix])
+  sistring[scaled_number==0] <- "0"
+  return(sistring)
+}
 
-  f2si2df <- function(df, string = "", unit = "multi") {
-    purrr::map(df, ~ stringr::str_c(f2si2(.x, unit = unit), string, sep = " "))
-  }
+f2si2df <- function(df, string = "", unit = "multi") {
+  purrr::map(df, ~ stringr::str_c(f2si2(.x, unit = unit), string, sep = " "))
+}
 
-  #' Transforme une chaîne formatté SI en nombre
-  #'
-  #' @param text le nombre ou le vecteur de nombres formattés à transformer
-  #'
-  #' @return un nombre
-  #' @export
-  #'
-  #' @examples
-  #' if2si2("100k")
-  #'
-  if2si2 <- function(text) {
-    pre <- c(
-      "y", "z", "a", "f", "p", "n", "u", "m", "1", "k",
-      "M", "G", "T", "P", "E", "Z", "Y"
-    )
-    lut <- c(
-      1e-24, 1e-21, 1e-18, 1e-15, 1e-12, 1e-09, 1e-06,
-      0.001, 1, 1000, 1e+06, 1e+09, 1e+12, 1e+15, 1e+18, 1e+21,
-      1e+24
-    )
-    names(lut) <- pre
-    value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") %>%
-      as.numeric()
-    unit <- stringr::str_extract(text, "(?<=[:digit:])[:alpha:]")
-    unit[is.na(unit)] <- "1"
-    value * lut[unit]
-  }
+#' Transforme une chaîne formatté SI en nombre
+#'
+#' @param text le nombre ou le vecteur de nombres formattés à transformer
+#'
+#' @return un nombre
+#' @export
+#'
+#' @examples
+#' if2si2("100k")
+#'
+if2si2 <- function(text) {
+  pre <- c(
+    "y", "z", "a", "f", "p", "n", "u", "m", "1", "k",
+    "M", "G", "T", "P", "E", "Z", "Y"
+  )
+  lut <- c(
+    1e-24, 1e-21, 1e-18, 1e-15, 1e-12, 1e-09, 1e-06,
+    0.001, 1, 1000, 1e+06, 1e+09, 1e+12, 1e+15, 1e+18, 1e+21,
+    1e+24
+  )
+  names(lut) <- pre
+  value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") %>%
+    as.numeric()
+  unit <- stringr::str_extract(text, "(?<=[:digit:])[:alpha:]")
+  unit[is.na(unit)] <- "1"
+  value * lut[unit]
+}
 
 #' Formatte un vecteur en produisant des éléments distincts
 #'
@@ -271,16 +273,16 @@ showMemoryUse <- function(sort = "size", decreasing = TRUE, limit = 10, envir = 
 #' @examples
 #' uf2si2(c(1000,1100,2000,2100))
 #'
-  uf2si2 <- function(number, rounding = TRUE, unit = "median", digits_max=4) {
-    n_number <- length(number)
-    digits <- 1
+uf2si2 <- function(number, rounding = TRUE, unit = "median", digits_max=4) {
+  n_number <- length(number)
+  digits <- 1
+  f2 <- f2si2(number, digits = digits, unit = unit)
+  while (length(unique(f2)) < n_number & digits <= digits_max) {
+    digits <- digits + 1
     f2 <- f2si2(number, digits = digits, unit = unit)
-    while (length(unique(f2)) < n_number & digits <= digits_max) {
-      digits <- digits + 1
-      f2 <- f2si2(number, digits = digits, unit = unit)
-    }
-    f2
   }
+  f2
+}
 
 
 #' Breaks secondaires espacés d'une unité
@@ -293,7 +295,52 @@ showMemoryUse <- function(sort = "size", decreasing = TRUE, limit = 10, envir = 
 #' @export
 #'
 #'
-  minor_breaks_unity <- function(limits)
-  {
-    seq(floor(limits[[1]]), ceiling(limits[[2]]), 1)
+minor_breaks_unity <- function(limits)
+{
+  seq(floor(limits[[1]]), ceiling(limits[[2]]), 1)
+}
+
+
+# non exporté
+# from ggplot2
+
+st_ggsave <- function (filename, plot = last_plot(), device = NULL, path = NULL,
+                       scale = 1, width = NA, height = NA,
+                       units = c("in", "cm","mm", "px"),
+                       dpi = 300, limitsize = TRUE, bg = NULL,
+                       showtext=FALSE,
+                       ...)
+{
+  dpi <- ggplot2:::parse_dpi(dpi)
+  dev <- ggplot2:::plot_dev(device, filename, dpi = dpi)
+  dim <- ggplot2:::plot_dim(c(width, height), scale = scale, units = units,
+                            limitsize = limitsize, dpi = dpi)
+  if (!is.null(path)) {
+    filename <- file.path(path, filename)
   }
+  if (is.null(bg)) {
+    bbg <- if(is.null(ggplot2:::plot_theme(plot)$fill))
+      "transparent"
+    else
+      ggplot2:::plot_theme(plot)$fill
+    bg <- ggplot2:::calc_element("plot.background", bbg)
+  }
+  old_dev <- grDevices::dev.cur()
+  dev(filename = filename, width = dim[1], height = dim[2],
+      bg = bg, ...)
+  if(showtext) {
+    opts <- showtext::showtext_opts()
+    showtext::showtext_opts(dpi=dpi)
+    showtext::showtext_begin()
+  }
+  on.exit(utils::capture.output({
+    if(showtext) {
+      showtext::showtext_end()
+      showtext::showtext_opts(opts)
+    }
+    grDevices::dev.off()
+    if (old_dev > 1) grDevices::dev.set(old_dev)
+  }))
+  grid::grid.draw(plot)
+  invisible(filename)
+}
