@@ -90,8 +90,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
       axis.ticks = element_line(
         color="gray50",
         size = unit(0.2, "pt")),
-      axis.ticks.length.y = unit(0.5,"pt"),
-      axis.ticks.length.y = unit(2.5,"pt"),
+      axis.ticks.length.x = unit(-2.5,"pt"),
+      axis.ticks.length.y = unit(-2.5,"pt"),
       ggh4x.axis.ticks.length.minor = rel(0.66),
       axis.line = element_line(
         colour = "gray40",
