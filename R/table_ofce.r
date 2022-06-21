@@ -31,7 +31,7 @@ table_ofce <- function(data, ...){
       location = gt::cells_row_groups()) |>
     gt::tab_style(
       style = gt::cell_borders("left", "#e8142c", "solid", px(5)),
-      location = gt::cells_title()) |>
+      location = gt::cells_title(groups="title")) |>
     gt::tab_options(
       column_labels.background.color = "#FFFFFF",
       column_labels.font.weight = "normal",
