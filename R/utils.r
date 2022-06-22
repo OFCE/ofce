@@ -113,9 +113,24 @@ graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg = st_ggsave(filename=fn, device = ragg::agg_png, plot=graph,
-                        height = height, width = width, units=units, bg=bg, dpi=dpi, showtext=TRUE, ...),
-         tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, bg=bg, dpi=dpi, ...),
+         gg = st_ggsave(
+           filename=fn,
+           device = ragg::agg_png,
+           plot=graph,
+           height = height,
+           width = width,
+           units=units,
+           bg=bg,
+           dpi=dpi,
+           showtext=TRUE, ...),
+         tmap = tmap::tmap_save(
+           filename=fn,
+           tm=graph,
+           height = height,
+           width = width,
+           units=units,
+           bg=bg,
+           dpi=dpi, ...),
          err = message("save not implemented"))
   invisible(graph)
 }
