@@ -6,13 +6,16 @@
 \usage{
 theme_ofce(
   base_size = getOption("ofce.base_size"),
-  base_family = getOption("ofce.base_family")
+  base_family = getOption("ofce.base_family"),
+  ...
 )
 }
 \arguments{
 \item{base_size}{double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).}
 
 \item{base_family}{character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Stone sans"))}
+
+\item{...}{paramètres passés à \code{\link[ggplot2]{theme}()}}
 }
 \value{
 un thème qui peut être utilisé dans ggplot

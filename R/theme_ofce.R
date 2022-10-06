@@ -6,6 +6,7 @@
 #'
 #' @param base_size double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).
 #' @param base_family character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Stone sans"))
+#' @param ... paramètres passés à \code{\link[ggplot2]{theme}()}
 #'
 #' @return un thème qui peut être utilisé dans ggplot
 #' @import ggh4x ggplot2
@@ -17,7 +18,7 @@
 #'     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
 #'     theme_ofce(base_family="sans")
 
-theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family")) {
+theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family"), ...) {
   theme_foundation() +
     ggplot2::theme(
       # general
@@ -113,7 +114,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         size = rel(0.85), face = "bold",
         hjust = 0.5,
         vjust = 0.5,
-        margin = margin(t=8, b=6))
+        margin = margin(t=8, b=6)),
+      ... # pour passer les arguments en plus
     )
 }
 
