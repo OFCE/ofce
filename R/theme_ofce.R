@@ -114,9 +114,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         size = rel(0.85), face = "bold",
         hjust = 0.5,
         vjust = 0.5,
-        margin = margin(t=8, b=6)),
-      ... # pour passer les arguments en plus
-    )
+        margin = margin(t=8, b=6)))+
+    ggplot2::theme(...) # pour passer les arguments en plus
 }
 
 #' Theme foundation
