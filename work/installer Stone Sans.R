@@ -6,6 +6,8 @@
 
 remotes::install_version("Rttf2pt1", version = "1.3.8")
 extrafont::font_import(pattern="Stone",recursive = TRUE, prompt=FALSE)
-extrafont::loadfonts(device="win")
+extrafont::loadfonts(device="all")
+extrafont::font_import()
+extrafont::loadfonts()
 
 # vérifier que agg est le moteur graphique (global options/R général/Graphics sélectionner AGG)
