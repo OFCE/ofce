@@ -22,7 +22,7 @@ Imports:
     tidyr,
     dplyr,
     rlang,
-    vctrs,
+    vctrs (>= 0.4.0),
     scales,
     ggh4x,
     qs,
