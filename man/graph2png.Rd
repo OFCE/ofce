@@ -13,7 +13,7 @@ graph2png(
   width = 18,
   units = "cm",
   bg = "white",
-  dpi = 300,
+  dpi = 600,
   ...
 )
 }

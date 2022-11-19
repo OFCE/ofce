@@ -19,9 +19,6 @@ Imports:
     dplyr,
     rlang,
     scales,
-    qs,
-    fs, 
-    showtext
 Depends: 
     R (>= 4.1)
 Suggests:
@@ -31,6 +28,10 @@ Suggests:
     cowplot,
     ggpp,
     magick,
-    ggh4x
+    ggh4x,
+    qs,
+    fs, 
+    showtext
+
     
     

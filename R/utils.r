@@ -101,11 +101,16 @@ make_filename <- function(x, file="", rep="", env, ext)
 #' @export
 #'
 
-graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", dpi=300, ...)
+graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", dpi=600, ...)
 {
+  if(!requireNamespace("showtext", quietly = TRUE))
+    showtext = FALSE
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
-  fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "png")
+  fn <- make_filename(rlang::as_name(rlang::enquo(graph)),
+                      file,
+                      rep,
+                      parent.frame(), "png")
 
   cl <- dplyr::case_when(
     "gg" %in% class(graph) ~ "gg",
