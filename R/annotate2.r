@@ -27,7 +27,7 @@ annotate2 <- function (geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
                      lengths[bad], ")", sep = "", collapse = ", ")
     rlang::abort(glue::glue("Unequal parameter lengths: {details}"))
   }
-  data <-do.call(dtaa.frame,deposition)
+  data <-do.call(data.frame,deposition)
   ggplot2::layer(geom = geom, params = list(na.rm = na.rm, ...), stat = StatIdentity,
                  position = position, data = data, mapping = aes_all(names(data)),
                  inherit.aes = FALSE, show.legend = FALSE)
