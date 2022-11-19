@@ -265,7 +265,7 @@ if2si2 <- function(text) {
     1e+24
   )
   names(lut) <- pre
-  value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") %>%
+  value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") |>
     as.numeric()
   unit <- stringr::str_extract(text, "(?<=[:digit:])[:alpha:]")
   unit[is.na(unit)] <- "1"
