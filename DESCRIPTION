@@ -12,23 +12,25 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.2
 Imports: 
-    cowplot,
     ggplot2,
-    ggpp,
     glue,
-    grid,
-    magick,
     plyr,
     tidyr,
     dplyr,
     rlang,
     scales,
-    ggh4x,
     qs,
     fs, 
     showtext
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1)
 Suggests:
     eurostat,
-    gt
+    gt,
+    grid,
+    cowplot,
+    ggpp,
+    magick,
+    ggh4x
+    
+    

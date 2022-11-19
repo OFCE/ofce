@@ -9,7 +9,6 @@
 #' @param ... paramètres passés à \code{\link[ggplot2]{theme}()}
 #'
 #' @return un thème qui peut être utilisé dans ggplot
-#' @import ggh4x ggplot2
 #' @family themes
 #' @export
 #' @examples
@@ -19,6 +18,10 @@
 #'     theme_ofce(base_family="sans")
 
 theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family"), ...) {
+ if(requireNamespace("ggh4x", quietly = TRUE))
+   ggh4xdef <-  ggplot2::theme(ggh4x.axis.ticks.length.minor = rel(0.66))
+ else
+   ggh4xdef <- NULL
   theme_foundation() +
     ggplot2::theme(
       # general
@@ -93,7 +96,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         size = unit(0.2, "pt")),
       axis.ticks.length.x = unit(-2.5,"pt"),
       axis.ticks.length.y = unit(-2.5,"pt"),
-      ggh4x.axis.ticks.length.minor = rel(0.66),
       axis.line = element_line(
         colour = "gray40",
         size = unit(0.2, "pt"),
@@ -115,6 +117,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         hjust = 0.5,
         vjust = 0.5,
         margin = margin(t=8, b=6)))+
+    ggh4xdef +
     ggplot2::theme(...) # pour passer les arguments en plus
 }
 
