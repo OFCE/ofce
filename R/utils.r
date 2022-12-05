@@ -125,9 +125,14 @@ graph2png <- function(graph, file="", rep="svg",
                       bg="white",
                       dpi=600, ...)
 {
+  if(!requireNamespace("showtext", quietly = TRUE))
+    showtext = FALSE
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
-  fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "png")
+  fn <- make_filename(rlang::as_name(rlang::enquo(graph)),
+                      file,
+                      rep,
+                      parent.frame(), "png")
 
   cl <- dplyr::case_when(
     "gg" %in% class(graph) ~ "gg",
@@ -287,7 +292,7 @@ if2si2 <- function(text) {
     1e+24
   )
   names(lut) <- pre
-  value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") %>%
+  value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") |>
     as.numeric()
   unit <- stringr::str_extract(text, "(?<=[:digit:])[:alpha:]")
   unit[is.na(unit)] <- "1"

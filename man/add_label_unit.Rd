@@ -22,6 +22,6 @@ library(ggplot2)
 plot <- ggplot(mtcars) +
         geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
         theme_ofce(base_family="sans")
-plot |> add_label_unit("horse power")
+# plot |> add_label_unit("horse power")
 
 }

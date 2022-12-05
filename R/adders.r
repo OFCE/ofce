@@ -9,15 +9,15 @@
 #' @return un graphique ggplot
 #' @export
 #' @seealso add_logo_ofce_inside
-#' @importFrom cowplot ggdraw draw_plot draw_image
-#' @import magick
 #' @examples
 #' library(ggplot2)
 #' plot <- ggplot(mtcars) +
 #'     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
 #'     theme_ofce(base_family="sans")
-#' plot |> add_logo_ofce()
+#' # plot |> add_logo_ofce()
 add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
+  rlang::check_installed("cowplot", reason = "to add a logo")
+  rlang::check_installed("magik", reason = "to add a logo inside")
   cowplot::ggdraw() +
     cowplot::draw_plot(plot)+
     cowplot::draw_image(
@@ -44,10 +44,12 @@ add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
 #' plot <- ggplot(mtcars) +
 #'         geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
 #'         theme_ofce(base_family="sans")
-#' plot |> add_logo_ofce_inside()
+#' # plot |> add_logo_ofce_inside()
 #'
 add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.25) {
-
+  rlang::check_installed("ggpp", reason = "to add a logo inside")
+  rlang::check_installed("magik", reason = "to add a logo inside")
+  rlang::check_installed("grid", reason = "to add a logo inside")
   grob <- grid::rasterGrob(logo, width=size, just = c("right", "bottom"))
   plot+ ggpp::annotate(geom = "grob_npc",
                        label=grob,
@@ -69,7 +71,7 @@ add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.25) {
 #' plot <- ggplot(mtcars) +
 #'         geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
 #'         theme_ofce(base_family="sans")
-#' plot |> add_label_unit("horse power")
+#' # plot |> add_label_unit("horse power")
 #'
 add_label_unit <- function(plot, ylabel="") {
   build <- ggplot_build(plot)
