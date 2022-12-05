@@ -14,7 +14,14 @@
 #' @return l'objet en entrée, invisible, enregistre un .svg dan le répertoire avec le nom donné
 #' @export
 #'
-graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white",...)
+graph2svg <- function(graph,
+                      file="",
+                      rep="svg",
+                      ratio = 4/3,
+                      height = width/ratio,
+                      width = 18,
+                      units="cm",
+                      bg="white",...)
 {
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
@@ -50,7 +57,16 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
 #' @export
 #'
 
-graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", quality = 100, dpi=300, ...)
+graph2jpg <- function(graph,
+                      file="",
+                      rep="svg",
+                      ratio = 4/3,
+                      height = width/ratio,
+                      width = 18,
+                      units="cm",
+                      bg="white",
+                      quality = 100,
+                      dpi=600, ...)
 {
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
@@ -101,7 +117,13 @@ make_filename <- function(x, file="", rep="", env, ext)
 #' @export
 #'
 
-graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", dpi=300, ...)
+graph2png <- function(graph, file="", rep="svg",
+                      ratio = 4/3,
+                      height = width/ratio,
+                      width = 18,
+                      units="cm",
+                      bg="white",
+                      dpi=600, ...)
 {
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
