@@ -62,7 +62,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
       plot.margin = margin(b=8, t=8, l=2, r=2),
       plot.caption.position = "panel",
       #Legend format
-      legend.position = c(0.9,0.9),
+      legend.position = "right",
       legend.justification= "center",
       legend.text.align = 0,
       legend.title = element_text(
