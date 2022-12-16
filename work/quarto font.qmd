@@ -48,5 +48,5 @@ library(palmerpenguins)
 
 ggplot(penguins |> mutate(body_mass_g = log(body_mass_g))) + 
   geom_boxplot(aes(x=factor(year), y=body_mass_g, col=sex))+
-  theme_ofce(base_family = "Nunito")
+  theme_ofce()
 ```
