@@ -193,6 +193,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
       axis.title  = element_blank(),
       axis.ticks = element_blank(),
       axis.line = element_blank(),
+      axis.text = element_blank(),
       #Grid lines
       panel.grid.minor = element_blank(),
       panel.grid.major.y = element_blank(),
