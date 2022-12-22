@@ -16,5 +16,5 @@ la liste des bases mises à jour
 MAJ le cache sna
 }
 \examples{
-sna_check_cache()
+if(interactive()) sna_check_cache()
 }

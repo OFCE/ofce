@@ -48,9 +48,9 @@ Elle utilise la fonction \code{\link[eurostat:get_eurostat]{get_eurostat}} et ef
 \examples{
 
 # récupère toute la base des comptes annuels pour le pib et ses composantes
-sna_get("nama_10_gdp")
+if(interactive()) sna_get("nama_10_gdp")
 # ne garde que certaines colonnes
-sna_get("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
+if(interactive()) sna_get("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
 
 }
 \seealso{

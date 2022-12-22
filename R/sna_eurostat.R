@@ -25,9 +25,9 @@
 #' @examples
 #'
 #' # récupère toute la base des comptes annuels pour le pib et ses composantes
-#' sna_get("nama_10_gdp")
+#' if(interactive()) sna_get("nama_10_gdp")
 #' # ne garde que certaines colonnes
-#' sna_get("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
+#' if(interactive()) sna_get("nama_10_gdp", unit='CLV05_MEUR', na_item = "B1G", geo=c("DE", "FR"))
 #'
 sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
                     cache="./data/eurostat", select_time=NULL, lang="en", force=FALSE) {
@@ -160,8 +160,10 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
 #' @export
 #'
 #' @examples
+#' if(interactive()) {
 #' data <- sna_get("nama_10_gdp")
 #' sna_show(data)
+#' }
 sna_show <- function(sna, lang="fr", n=100) {
   rlang::check_installed("qs", reason = "pour utiliser sna_get`")
   rlang::check_installed("eurostat", reason = "pour utiliser sna_get`")
@@ -198,7 +200,7 @@ sna_show <- function(sna, lang="fr", n=100) {
 #' @export
 #'
 #' @examples
-#' sna_check_cache()
+#' if(interactive()) sna_check_cache()
 sna_check_cache <- function(cache="./data/eurostat") {
   rlang::check_installed("qs", reason = "pour utiliser sna_get`")
   rlang::check_installed("fs", reason = "pour utiliser sna_get`")

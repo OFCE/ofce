@@ -9,6 +9,12 @@ theme_ofce(
   base_family = getOption("ofce.base_family"),
   ...
 )
+
+theme_ofce(
+  base_size = getOption("ofce.base_size"),
+  base_family = getOption("ofce.base_family"),
+  ...
+)
 }
 \arguments{
 \item{base_size}{double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).}
@@ -19,11 +25,16 @@ theme_ofce(
 }
 \value{
 un thème qui peut être utilisé dans ggplot
+
+un thème qui peut être utilisé dans ggplot
 }
 \description{
 Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 d'autres éléments de la norme comme les couleurs, l'allure générale du graphique
 sont à introduire par ailleurs
+
+Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
+Convient pour des cartes par exemple
 }
 \examples{
 library(ggplot2)
@@ -32,6 +43,9 @@ ggplot(mtcars) +
     theme_ofce(base_family="sans")
 }
 \seealso{
+Other themes: 
+\code{\link{theme_foundation}()}
+
 Other themes: 
 \code{\link{theme_foundation}()}
 }
