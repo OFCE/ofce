@@ -135,7 +135,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
 #' @export
 
 
-theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family"), ...) {
+theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family"), ...) {
   theme_foundation() +
     ggplot2::theme(
       # general
