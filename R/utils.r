@@ -23,6 +23,8 @@ graph2svg <- function(graph,
                       units="cm",
                       bg="white",...)
 {
+  file <- glue::glue(file)
+  rep <- glue::glue(rep)
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
   fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "svg")
@@ -68,6 +70,8 @@ graph2jpg <- function(graph,
                       quality = 100,
                       dpi=600, ...)
 {
+  file <- glue::glue(file)
+  rep <- glue::glue(rep)
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
   fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "jpg")
