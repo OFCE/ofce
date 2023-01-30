@@ -48,7 +48,7 @@ add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
 #'
 add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.25) {
   rlang::check_installed("ggpp", reason = "to add a logo inside")
-  rlang::check_installed("magik", reason = "to add a logo inside")
+  rlang::check_installed("magick", reason = "to add a logo inside")
   rlang::check_installed("grid", reason = "to add a logo inside")
   grob <- grid::rasterGrob(logo, width=size, just = c("right", "bottom"))
   plot+ ggpp::annotate(geom = "grob_npc",
