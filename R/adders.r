@@ -17,7 +17,7 @@
 #' # plot |> add_logo_ofce()
 add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
   rlang::check_installed("cowplot", reason = "to add a logo")
-  rlang::check_installed("magik", reason = "to add a logo inside")
+  rlang::check_installed("magick", reason = "to add a logo inside")
   cowplot::ggdraw() +
     cowplot::draw_plot(plot)+
     cowplot::draw_image(
