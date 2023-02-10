@@ -2,8 +2,7 @@
 title: "Fonts in Quarto"
 format: 
   pdf:
-    fontfamily: Stone Sans
-    pdf-engine: pdflatex
+     pdf-engine: pdflatex
     
   html:
     mainfont: Stone Sans
@@ -43,7 +42,7 @@ Normal text here
 
 ## Fonts available in system
 
-```{r, echo=TRUE}
+```{r}
 library(palmerpenguins)
 
 ggplot(penguins |> mutate(body_mass_g = log(body_mass_g))) + 
