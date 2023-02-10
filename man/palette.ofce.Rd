@@ -5,7 +5,7 @@
 \alias{palette.ofce}
 \title{couleur pays de la charte graphique de l'OFCE}
 \format{
-Un dataframe avec 19 observations  and 2 variable:
+Un dataframe avec 19 observations de 2 variables:
 \describe{
   \item{nom}{label, en français}
   \item{ISO}{le code iso, en 3 charactères}
