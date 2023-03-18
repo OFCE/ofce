@@ -41,7 +41,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
       plot.title = element_text(
         size = base_size,
         family = base_family,
-        face = "bold",
+        face = "plain",
         hjust = 0,
         margin = margin(b=2.5, t=2.5),
         lineheight = 1.5),
@@ -66,7 +66,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
       legend.justification= "center",
       legend.text.align = 0,
       legend.title = element_text(
-        face = "bold",
+        face = "plain",
         size = rel(0.85),
         color = "gray25"),
       legend.background = element_blank(),
