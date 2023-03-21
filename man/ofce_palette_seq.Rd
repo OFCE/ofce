@@ -11,6 +11,9 @@ ofce_palette_seq(colors = c("#005DA4", "#C51315"), n = NULL)
 
 \item{n}{integer, de couleurs}
 }
+\value{
+une palette de couleurs (format HEX)
+}
 \description{
 Palette de couleur associée de type sequentiel compatible avec les normes graphiques de la revue OFCE qui à partir de valeurs HEX produit une palette de n couleurs.
 }
