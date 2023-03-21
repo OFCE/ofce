@@ -18,7 +18,6 @@
 #' @return une palette de couleurs (format HEX)
 #' @export
 #'
-#' @examples
 ofce_palette_main <- function(ncolor=2) {
   if (ncolor<=2){
     # Bleu et rouge
@@ -48,10 +47,9 @@ ofce_palette_main <- function(ncolor=2) {
 #' @param colors vecteur de deux couleurs à partir duquel la palette est générée
 #' @param n integer, nombres de couleurs
 #'
-#' @return
+#' @return une palette de couleurs (format HEX)
 #' @export
 #'
-#' @examples
 ofce_palette_div <- function(colors = c("#005DA4", "#C51315"),
                              n = NULL)
 
@@ -77,10 +75,9 @@ ofce_palette_div <- function(colors = c("#005DA4", "#C51315"),
 #' @param colors vecteur de deux couleurs à partir duquel la palette est générée
 #' @param n integer, de couleurs
 #'
-#' @return
+#' @return une palette de couleurs (format HEX)
 #' @export
 #'
-#' @examples
 ofce_palette_seq <- function(colors = c("#005DA4", "#C51315"),
                              n = NULL)
 {
