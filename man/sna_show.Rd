@@ -18,6 +18,8 @@ Les informations sont en partie stockées dans les attributs du tibble.
 Ils peuvent être perdus en route.
 }
 \examples{
+if(interactive()) {
 data <- sna_get("nama_10_gdp")
 sna_show(data)
+}
 }

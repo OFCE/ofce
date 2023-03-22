@@ -24,7 +24,7 @@ library(ggplot2)
 plot <- ggplot(mtcars) +
     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
     theme_ofce(base_family="sans")
-plot |> add_logo_ofce()
+# plot |> add_logo_ofce()
 }
 \seealso{
 add_logo_ofce_inside

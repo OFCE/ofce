@@ -14,8 +14,17 @@
 #' @return l'objet en entrée, invisible, enregistre un .svg dan le répertoire avec le nom donné
 #' @export
 #'
-graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white",...)
+graph2svg <- function(graph,
+                      file="",
+                      rep="svg",
+                      ratio = 4/3,
+                      height = width/ratio,
+                      width = 18,
+                      units="cm",
+                      bg="white",...)
 {
+  file <- glue::glue(file)
+  rep <- glue::glue(rep)
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
   fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "svg")
@@ -50,8 +59,19 @@ graph2svg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/rat
 #' @export
 #'
 
-graph2jpg <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", quality = 100, dpi=300, ...)
+graph2jpg <- function(graph,
+                      file="",
+                      rep="svg",
+                      ratio = 4/3,
+                      height = width/ratio,
+                      width = 18,
+                      units="cm",
+                      bg="white",
+                      quality = 100,
+                      dpi=600, ...)
 {
+  file <- glue::glue(file)
+  rep <- glue::glue(rep)
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
   fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "jpg")
@@ -101,11 +121,22 @@ make_filename <- function(x, file="", rep="", env, ext)
 #' @export
 #'
 
-graph2png <- function(graph, file="", rep="svg", ratio = 4/3, height = width/ratio, width = 18, units="cm", bg="white", dpi=300, ...)
+graph2png <- function(graph, file="", rep="svg",
+                      ratio = 4/3,
+                      height = width/ratio,
+                      width = 18,
+                      units="cm",
+                      bg="white",
+                      dpi=600, ...)
 {
+  if(!requireNamespace("showtext", quietly = TRUE))
+    showtext = FALSE
   if(rep!="")
     dir.create(rep, recursive=TRUE, showWarnings = FALSE)
-  fn <- make_filename(rlang::as_name(rlang::enquo(graph)), file, rep, parent.frame(), "png")
+  fn <- make_filename(rlang::as_name(rlang::enquo(graph)),
+                      file,
+                      rep,
+                      parent.frame(), "png")
 
   cl <- dplyr::case_when(
     "gg" %in% class(graph) ~ "gg",
@@ -265,7 +296,7 @@ if2si2 <- function(text) {
     1e+24
   )
   names(lut) <- pre
-  value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") %>%
+  value <- stringr::str_extract(text, "[:digit:]+\\.?[:digit:]*") |>
     as.numeric()
   unit <- stringr::str_extract(text, "(?<=[:digit:])[:alpha:]")
   unit[is.na(unit)] <- "1"
