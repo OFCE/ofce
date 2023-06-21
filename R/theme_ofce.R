@@ -203,7 +203,9 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
       panel.spacing = unit(3, "pt"),
       strip.background = element_rect(fill="white"),
       strip.text = element_text(
-        size = rel(0.85), face = "bold",
+        family = base_family,
+        size = rel(0.85),
+        face = "bold",
         hjust = 0.5,
         vjust = 0.5,
         margin = margin(t=8, b=6)))+

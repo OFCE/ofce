@@ -22,28 +22,7 @@ annotate2(
 \arguments{
 \item{geom}{name of geom to use for annotation}
 
-\item{x}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{y}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{xmin}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{xmax}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{ymin}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{ymax}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{xend}{positioning aesthetics -
-you must specify at least one of these.}
-
-\item{yend}{positioning aesthetics -
+\item{x, y, xmin, ymin, xmax, ymax, xend, yend}{positioning aesthetics -
 you must specify at least one of these.}
 
 \item{position}{fonction position (comme position_nudge()) pour modifier la position de l'annotation}
