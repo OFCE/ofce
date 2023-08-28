@@ -1,0 +1,41 @@
+---
+title: "Titre du papier"
+subtitle: "Document de travail OFCE"
+author:
+  - name: "Prénom Nom auteur1"
+    email: "adresse@mail.com"
+    affiliation: OFCE, Sciences Po Paris
+    affiliation-url: "http://www.ofce.fr"
+institution: "Observatoire Français des Conjonctures Économiques"
+date: "DATE"
+lang: fr
+abstract: "L'OFCE est un organisme indépendant de prévision, de recherche et d’évaluation des politiques publiques, accueilli en son sein par la Fondation nationale des sciences politiques (FNSP), en application de la convention passée en 1981 entre l'Etat et la FNSP. « Mettre au service du débat public en économie les fruits de la rigueur scientifique et de l’indépendance universitaire ». Telle est la mission que l’Etat a confiée à l’OFCE et qu'il remplit en conduisant des travaux théoriques et empiriques, en participant aux réseaux scientifiques internationaux, en assurant une présence régulière dans les médias et en coopérant étroitement avec les pouvoirs publics français et européens."
+# Format de citation: changer le container-title et l'url
+citation:
+  type: article
+  container-title: "Document de travail de l'OFCE"
+  url: "url"
+# Mot clés à indiquer   
+keywords: [ keyword1, keyword2, keyword3]
+
+
+bibliography: references.bib
+---
+
+{{< pagebreak >}}
+
+# Introduction {#sec-introduction}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque. Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit. Scelerisque in dictum non consectetur a erat nam at. Elementum facilisis leo vel fringilla est. Libero enim sed faucibus turpis in eu. Ut lectus arcu bibendum at varius vel pharetra vel. Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget. Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum facilisis leo vel fringilla est. Iaculis eu non diam phasellus vestibulum lorem. Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.
+
+Curabitur vitae nunc sed velit dignissim sodales ut eu. Non arcu risus quis varius quam quisque. Nibh mauris cursus mattis molestie a. Suspendisse potenti nullam ac tortor vitae purus faucibus. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Dignissim suspendisse in est ante in nibh. Gravida cum sociis natoque penatibus et magnis. Tristique senectus et netus et malesuada fames ac turpis egestas. Purus non enim praesent elementum facilisis leo. Molestie nunc non blandit massa enim. At volutpat diam ut venenatis tellus in metus. Risus at ultrices mi tempus imperdiet.
+
+Diam vel quam elementum pulvinar etiam non quam lacus. Eu tincidunt tortor aliquam nulla facilisi cras fermentum odio eu. Massa placerat duis ultricies lacus sed. Ut tellus elementum sagittis vitae et leo duis ut. Mauris vitae ultricies leo integer malesuada nunc vel risus commodo. Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Pulvinar neque laoreet suspendisse interdum consectetur libero. Adipiscing commodo elit at imperdiet dui accumsan sit. Commodo viverra maecenas accumsan lacus vel. Ac odio tempor orci dapibus. Sem viverra aliquet eget sit amet tellus. Aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Pellentesque sit amet porttitor eget dolor morbi non arcu risus. Bibendum ut tristique et egestas quis ipsum. Lectus quam id leo in vitae turpis massa sed elementum. Tincidunt arcu non sodales neque sodales. Lorem donec massa sapien faucibus.
+
+# Section 1 {#sec-1}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque. Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit. Scelerisque in dictum non consectetur a erat nam at. Elementum facilisis leo vel fringilla est. Libero enim sed faucibus turpis in eu. Ut lectus arcu bibendum at varius vel pharetra vel. Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget. Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum facilisis leo vel fringilla est. Iaculis eu non diam phasellus vestibulum lorem. Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.
+
+Curabitur vitae nunc sed velit dignissim sodales ut eu. Non arcu risus quis varius quam quisque. Nibh mauris cursus mattis molestie a. Suspendisse potenti nullam ac tortor vitae purus faucibus. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Dignissim suspendisse in est ante in nibh. Gravida cum sociis natoque penatibus et magnis. Tristique senectus et netus et malesuada fames ac turpis egestas. Purus non enim praesent elementum facilisis leo. Molestie nunc non blandit massa enim. At volutpat diam ut venenatis tellus in metus. Risus at ultrices mi tempus imperdiet.
+
+Diam vel quam elementum pulvinar etiam non quam lacus. Eu tincidunt tortor aliquam nulla facilisi cras fermentum odio eu. Massa placerat duis ultricies lacus sed. Ut tellus elementum sagittis vitae et leo duis ut. Mauris vitae ultricies leo integer malesuada nunc vel risus commodo. Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Pulvinar neque laoreet suspendisse interdum consectetur libero. Adipiscing commodo elit at imperdiet dui accumsan sit. Commodo viverra maecenas accumsan lacus vel. Ac odio tempor orci dapibus. Sem viverra aliquet eget sit amet tellus. Aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Pellentesque sit amet porttitor eget dolor morbi non arcu risus. Bibendum ut tristique et egestas quis ipsum. Lectus quam id leo in vitae turpis massa sed elementum. Tincidunt arcu non sodales neque sodales. Lorem donec massa sapien faucibus.

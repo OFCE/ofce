@@ -1,0 +1,48 @@
+version: 0.0.1
+format:
+   html:
+    date-modified: today
+    toc: true
+    toc-location: left
+    toc-title: Table
+    number-sections: true
+    number-depth: 3
+    html-math-method: katex
+    fig-width: 7
+    fig-asp: 0.61
+    fig-format: svg
+    fig-dpi: 300
+    fig-cap-location: top
+    reference-location: margin
+    highlight-style: solarized
+    theme:
+      - cosmo
+      - theme.scss
+    cite-method: natbib
+    toc-depth: 1
+    lof: true
+    #mainfont: Nunito
+    fontsize: 9pt
+    extra_dependencies: ["float"]
+    cover-image: img/ofce
+   pdf:
+    pdf-engine: xelatex
+    documentclass: scrartcl
+    # #output-file: "nom_du_fichier"
+    mainfont: "Nunito"
+    toc: false
+    number-sections: false
+    classoption:
+      - DIV=10
+    papersize: a4
+    fontsize: 11pt
+    fig-width: 4
+    fig-asp: 0.61
+    fig-cap-location: top
+    fig-dpi: 600
+    fig-format: png
+    include-in-header: "header.tex"
+
+    extra_dependencies: ["float", "array"]
+crossref:
+  fig-prefix: graphique   # (default is "Figure")

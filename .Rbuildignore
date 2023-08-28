@@ -4,3 +4,4 @@
 ^pkg\*
 ^data\*
 ^svg\*
+^dev_history\.R$

@@ -7,6 +7,8 @@
 #' @importFrom glue glue
 #' @importFrom rlang abort
 #' @importFrom ggplot2 layer
+#' @importFrom ggplot2 PositionIdentity
+#' @importFrom ggplot2 StatIdentity
 #' @return une layer
 #'
 annotate2 <- function (geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
@@ -29,6 +31,6 @@ annotate2 <- function (geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   }
   data <-do.call(data.frame,deposition)
   ggplot2::layer(geom = geom, params = list(na.rm = na.rm, ...), stat = StatIdentity,
-                 position = position, data = data, mapping = aes_all(names(data)),
+                 position = position, data = data, mapping = ggplot2::aes_all(names(data)),
                  inherit.aes = FALSE, show.legend = FALSE)
 }

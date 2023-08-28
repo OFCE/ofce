@@ -1,0 +1,25 @@
+---
+title: "Titre du billet"
+date: today
+author:
+  - name: nom auteur
+    url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php
+    affiliation: OFCE 
+    affiliation-url: https://www.ofce.sciences-po.fr/
+    
+institution: "Observatoire Français des Conjonctures Économiques"
+
+
+categories: [keyword1, keyword2]
+
+subtitle: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
+
+# A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)
+# comments:
+#   hypothesis: true
+---
+
+
+![](img/image.jpg)
+
+# Introduction {#sec-introduction}
