@@ -63,3 +63,48 @@ graph2png <- function(graph, file="", rep="svg",
          err = message("save not implemented"))
   invisible(graph)
 }
+
+
+# non exporté
+# from ggplot2
+
+st_ggsave <- function (filename, plot = ggplot2::last_plot(), device = NULL, path = NULL,
+                       scale = 1, width = NA, height = NA,
+                       units = c("in", "cm","mm", "px"),
+                       dpi = 300, limitsize = TRUE, bg = NULL,
+                       showtext=FALSE,
+                       ...)
+{
+  dpi <- ggplot2:::parse_dpi(dpi)
+  dev <- ggplot2:::plot_dev(device, filename, dpi = dpi)
+  dim <- ggplot2:::plot_dim(c(width, height), scale = scale, units = units,
+                            limitsize = limitsize, dpi = dpi)
+  if (!is.null(path)) {
+    filename <- file.path(path, filename)
+  }
+  if (is.null(bg)) {
+    bbg <- if(is.null(ggplot2:::plot_theme(plot)$fill))
+      "transparent"
+    else
+      ggplot2:::plot_theme(plot)$fill
+    bg <- ggplot2:::calc_element("plot.background", bbg)
+  }
+  old_dev <- grDevices::dev.cur()
+  dev(filename = filename, width = dim[1], height = dim[2],
+      bg = bg, ...)
+  if(showtext) {
+    opts <- showtext::showtext_opts()
+    showtext::showtext_opts(dpi=dpi)
+    showtext::showtext_begin()
+  }
+  on.exit(utils::capture.output({
+    if(showtext) {
+      showtext::showtext_end()
+      showtext::showtext_opts(opts)
+    }
+    grDevices::dev.off()
+    if (old_dev > 1) grDevices::dev.set(old_dev)
+  }))
+  grid::grid.draw(plot)
+  invisible(filename)
+}
