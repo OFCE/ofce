@@ -42,7 +42,7 @@ graph2png <- function(graph, file="", rep="svg",
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg = ggplot2::st_ggsave(
+         gg = st_ggsave(
            filename=fn,
            device = ragg::agg_png,
            plot=graph,

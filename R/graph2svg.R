@@ -36,7 +36,7 @@ graph2svg <- function(graph,
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg =  ggplot2::st_ggsave(filename=fn, device = svglite::svglite,
+         gg =  st_ggsave(filename=fn, device = svglite::svglite,
                          plot=graph, height = height, width = width, units=units, bg=bg, showtext=FALSE, ...),
          tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, bg=bg, ...),
          err = message("save not implemented"))
