@@ -46,7 +46,7 @@ graph2jpg <- function(graph,
     "tmap" %in% class(graph) ~ "tmap",
     TRUE ~ "err")
   switch(cl,
-         gg = ggplot2::st_ggsave(filename=fn, device = ragg::agg_jpeg, plot=graph,
+         gg = st_ggsave(filename=fn, device = ragg::agg_jpeg, plot=graph,
                         height = height, width = width, units=units,
                         quality=quality, bg=bg, dpi=dpi, showtext = TRUE, ...),
          tmap = tmap::tmap_save(filename=fn, tm=graph, height = height, width = width, units=units, quality=quality, bg=bg, ...),
