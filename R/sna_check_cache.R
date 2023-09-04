@@ -14,18 +14,18 @@ sna_check_cache <- function(cache="./data/eurostat") {
 
   datasets <- eurostat::search_eurostat("") |>
     dplyr::distinct() |>
-    dplyr::mutate(update = lubridate::dmy(`last update of data`))
+    dplyr::mutate(update = lubridate::dmy(.data[["last update of data"]]))
   if(!fs::dir_exists(cache))
   {
     message("cache vide")
     return(NULL)
   }
   cached <- fs::file_info(fs::dir_ls(cache)) |>
-    dplyr::filter(type=="file") |>
-    dplyr::mutate(code = path |> fs::path_file() |> fs::path_ext_remove()) |>
-    dplyr::select(-type) |>
+    dplyr::filter(.data[["type"]]=="file") |>
+    dplyr::mutate(code = .data[["path"]] |> fs::path_file() |> fs::path_ext_remove()) |>
+    dplyr::select(-c("type")) |>
     dplyr::left_join(datasets, by = "code") |>
-    tidyr::drop_na(update)
+    tidyr::drop_na(.data[["update"]])
   updated <- purrr::map_chr(cached$path, ~{
     dd <- qs::qread(.x, nthreads = 4)
     cc <- as.character(attr(dd, "lastupdate"))
@@ -34,16 +34,19 @@ sna_check_cache <- function(cache="./data/eurostat") {
     else
       cc})
   cached <- cached |>
-    dplyr::mutate(previous_update = lubridate::ymd(updated),
-                  updated = previous_update<update|is.na(previous_update))
+    dplyr::mutate(
+      previous_update = lubridate::ymd(updated),
+      updated = .data[["previous_update"]]<.data[["update"]]|is.na(.data[["previous_update"]]))
   unvalid <- cached |>
     dplyr::filter(updated)
   purrr::walk(unvalid$code, ~sna_get(dataset = .x, force=TRUE, cache=cache))
   if(length(unvalid$code)==0)
-    message("pas de mises \\U+E00E0 jour")
+    message("pas de mises \u00e0 jour")
   else
     message(stringr::str_c(stringr::str_c(unvalid$code,collapse=", "), " MAJ"))
-  invisible(cached |> dplyr::select(updated, code, title, type, path, update, previous_update,
-                                    structure_change =`last table structure change`,
-                                    data_start = `data start`, data_end = `data end`))
+  invisible(cached |> dplyr::select(
+    dplyr::all_of(c("updated", "code", "title", "type", "path", "update", "previous_update")),
+    structure_change =.data[["last table structure change"]],
+    data_start = .data[["data start"]],
+    data_end = .data[["data end"]]))
 }

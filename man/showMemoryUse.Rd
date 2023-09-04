@@ -12,6 +12,12 @@ showMemoryUse(
 )
 }
 \arguments{
+\item{sort}{Variable sur lequel le tri est fait (défaut "size", alternative "alphabetical")}
+
+\item{decreasing}{En sens décroissant (défaut TRUE)}
+
+\item{limit}{Nombre de lignes affichées (défaut 10)}
+
 \item{envir}{l'environement dans lequel sont listé les objets. Mieux vaut ne pas le toucher si on ne sait pas à quoi ça sert.}
 }
 \value{

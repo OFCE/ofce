@@ -5,7 +5,9 @@
 #' copié de https://rdrr.io/github/zlfccnu/econophysics/ (merci!).
 #'
 #' @param envir l'environement dans lequel sont listé les objets. Mieux vaut ne pas le toucher si on ne sait pas à quoi ça sert.
-#'
+#' @param decreasing En sens décroissant (défaut TRUE)
+#' @param sort Variable sur lequel le tri est fait (défaut "size", alternative "alphabetical")
+#' @param limit Nombre de lignes affichées (défaut 10)
 #' @return Une liste des objets en mémoire, invisible et affiche dans la console cette liste
 #' @export
 #'

@@ -23,7 +23,8 @@
 #' @return un tibble, avec un attribut par colonne qui documente
 #' @seealso sna_show qui affiche des informations sur la base
 #' @export
-#' @importFrom rlang .data
+#' @importFrom rlang .data :=
+#' @importFrom dplyr all_of any_of
 #' @examples
 #'
 #' # récupère toute la base des comptes annuels pour le pib et ses composantes
@@ -47,9 +48,9 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
   else {
     # si pas de chache, on télécharge, on crée le cache et on cache
     updated <- eurostat::search_eurostat("") |>
-      dplyr::filter(code==dataset) |>
+      dplyr::filter(.data[["code"]]==dataset) |>
       dplyr::distinct() |>
-      dplyr::mutate(update = lubridate::dmy(`last update of data`)) |>
+      dplyr::mutate(update = lubridate::dmy(.data[["last update of data"]])) |>
       dplyr::pull()
     data.raw <- eurostat::get_eurostat(
       id=dataset,
@@ -91,8 +92,8 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
   data.raw <- switch(
     pivot,
     "geo" = {
-      sna_info$pivot_col <- dplyr::distinct(data.raw, geo) |> dplyr::pull(geo)
-      data.raw |> tidyr::pivot_wider(names_from = geo, values_from = values)},
+      sna_info$pivot_col <- dplyr::distinct(data.raw, all_of("geo")) |> dplyr::pull(all_of("geo"))
+      data.raw |> tidyr::pivot_wider(names_from = all_of(c("geo")), values_from = all_of("values"))},
     "auto" = {
       vvv <- data.raw |>
         dplyr::distinct(dplyr::across(-dplyr::any_of(c("values", "geo", "time"))))
@@ -119,7 +120,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
       if(length(pp)>0) {
         sna_info$pivot_col <- names(data.raw)
         data.raw <- data.raw |>
-          tidyr::pivot_wider(names_from = dplyr::all_of(names(pp)), values_from = values)
+          tidyr::pivot_wider(names_from = dplyr::all_of(names(pp)), values_from = all_of("values"))
         sna_info$pivot_col <- setdiff(names(data.raw), sna_info$pivot_col)
       }
       else
@@ -127,7 +128,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
         if(name=="")
           if(id=="") name <- "values" else name <- id
           sna_info$pivot_col <- NULL
-          data.raw <- data.raw |> dplyr::rename("{name}" := values)
+          data.raw <- data.raw |> dplyr::rename("{name}" := .data[["values"]])
       }
       sna_info$code <- id
       # sna_info$label <- label
@@ -136,7 +137,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
     "no" = {
       sna_info$pivot_cases <- NULL
       if(name=="") name <- "values"
-      data.raw |> dplyr::rename("{name}" := values)})
+      data.raw |> dplyr::rename("{name}" := .data[["values"]])})
   vu <- purrr::map(
     rlang::set_names(names(data.raw)),
     ~unique(data.raw[[.x]]))
