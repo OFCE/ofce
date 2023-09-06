@@ -1,12 +1,11 @@
 Package: ofce
 Type: Package
-Title: Applique les normes de la Revue
-Version: 0.6.0
+Title: Aide à la rédaction de documents scientifiques aux normes OFCE
+Version: 0.6.2
 Author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
 Maintainer: The package maintainer <xavier.timbeau@sciencespo.fr>
 Description: procure quelques fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue.
     Apporte des templates de rédaction sous quarto et d'autres outils d'aide à l'analyse de données sous R.
-License: LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -31,3 +30,4 @@ Imports:
     utils,
     zip
 RoxygenNote: 7.2.3
+License: GPL (>= 3)

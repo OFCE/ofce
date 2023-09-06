@@ -1,8 +1,8 @@
 #' template_OFCE_workingpaper
 #'
-#' charge un mod\\U+00E8le de document quarto selon le type de publication
+#' charge un mod\\U+00E8le pour un document de travail OFCE
 #'
-#' @param file_name Nom du nouveau fichier qmd et du sous-dossier dans lequel il est cr\\U+00E9\\U+00E9
+#' @param file_name Nom du nouveau fichier .qmd et du sous-dossier dans lequel il est cr\\U+00E9\\U+00E9
 #'
 #' @return Un message de confirmation
 #' @export
@@ -13,8 +13,6 @@ template_OFCE_workingpaper <- function(file_name = NULL) {
   if (is.null(file_name)) {
     stop("Veuillez donner un nom de fichier valide")
   }
-
-  if(is.null(ext_name)) {ext_name = "quartotemplate"}
 
   out_dir <- file_name
 
@@ -32,20 +30,10 @@ template_OFCE_workingpaper <- function(file_name = NULL) {
     replacement = ""
   )
 
-  ## Checks
-  # logic check to make sure extension files were moved
-  # n_files <- length(dir(paste0("temp/",ext_name)))
-  #
-  # if(n_files >= 2){
-  #   message(paste("Le template\"",ext_name,"\" version", ext_ver, "a ete installe dans le dossier ",out_dir))
-  # } else {
-  #   message("C'est genant... les  du modele n'ont pas ete chargees correctement")
-  # }
-  #
-
+  # Créer un dossier du nom de l'extension retenue
   if(!file.exists(ext_name)) dir.create(ext_name)
 
-  message(paste0("Le dossier `",ext_name,"' a \\U+00E9t\\U+00E9 cr\\U+00E9e \\U+00E0 la racine du projet"))
+  message(paste0(iconv("Le dossier `",ext_name,"' a \\U+00E9t\\U+00E9 cr\\U+00E9e \\U+00E0 la racine du projet")))
 
   # Unzip dans le dossier parent les diff\\U+00E9rents fichiers associ\\U+00E9 au document quarto
   file.copy(
@@ -62,10 +50,8 @@ template_OFCE_workingpaper <- function(file_name = NULL) {
                con = paste0(ext_name,"/",file_name, ".qmd", collapse = ""))
 
   unlink(paste0(ext_name,"/template.qmd"))
+
   # open the new file in the editor
   file.edit(paste0(ext_name,"/",file_name, ".qmd", collapse = ""))
-
-
-
 
 }

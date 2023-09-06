@@ -17,9 +17,60 @@ subtitle: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
 # A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)
 # comments:
 #   hypothesis: true
+
+bibliography: references.bib
 ---
 
 
 ![](img/image.jpg)
 
-# Introduction {#sec-introduction}
+
+# Introduction {#sec-introduction .unnumbered}
+
+"Lorem" "ipsum" dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.
+
+Voir @sec-ledebut (\nameref{sec-ledebut}). @efron1993i a montré que c'est vrai. Les contours sont matérialisés sur la @fig-cars.
+
+pour le dépôt voir {{< fa brands github >}}
+
+```{r}
+#| label: fig-cars
+#| fig-cap: Speed versus distance among cars
+#| echo : false
+#| message : false
+
+library(ofce)
+library(tidyverse)
+ggplot(cars)+
+    geom_point(aes(x=speed, y=dist))+
+    theme_ofce()
+```
+
+# Une section de niveau 1 pour commencer {#sec-ledebut}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.    
+
+## Section niveau 2 {#sec-cacontinue}
+
+Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit. 
+
+## Section niveau 2 {#sec-encore}
+
+Scelerisque in dictum non consectetur a erat nam at. Elementum facilisis leo vel fringilla est. Libero enim sed faucibus turpis in eu. Ut lectus arcu bibendum at varius vel pharetra vel.
+
+# Une autre section de niveau 1 {#sec-etencore}
+
+Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget.
+
+## Section niveau 2 {#sec-ca-continue}
+
+Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum facilisis leo vel fringilla est. Iaculis eu non diam phasellus vestibulum lorem.
+
+## Section niveau 2 {#sec-encoreetencore}
+
+Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.
+
+# Bibliographie {.unnumbered}
+
+:::{.refs}
+:::
