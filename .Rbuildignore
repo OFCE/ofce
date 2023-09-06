@@ -1,7 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-work
 pkg
-data
 svg
 ^dev_history\.R$
+^LICENSE\.md$
