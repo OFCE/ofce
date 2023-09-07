@@ -23,6 +23,7 @@ Imports:
     plyr,
     purrr,
     rlang,
+    rstudioapi,
     scales,
     stringr,
     sys,
