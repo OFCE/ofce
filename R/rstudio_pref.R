@@ -15,7 +15,6 @@ setOFCERStudio <- function() {
   rstudioapi::writeRStudioPreference("posix_terminal_shell", "bash")
   rstudioapi::writeRStudioPreference("save_workspace", "never")
   rstudioapi::writeRStudioPreference("load_workspace", FALSE)
-  rstudioapi::writeRStudioPreference("editor_theme", "iPlastic")
   rstudioapi::writeRStudioPreference("insert_native_pipe_operator", TRUE)
   rstudioapi::writeRStudioPreference("highlight_selected_line", TRUE)
   rstudioapi::writeRStudioPreference("show_margin", FALSE)
@@ -32,4 +31,14 @@ setOFCERStudio <- function() {
   rstudioapi::writeRStudioPreference("syntax_color_console", TRUE)
   rstudioapi::writeRStudioPreference("rmd_viewer_type", "pane")
   rstudioapi::writeRStudioPreference("load_workspace", FALSE )
+  rstudioapi::applyTheme("iPlastic")
+  rstudioapi::writeRStudioPreference(
+    "panes",
+    list(quadrants=c("Source","TabSet1","Console","TabSet2"),
+         tabSet1=c("Environment", "History","Connections","Build","VCS","Tutorial", "Presentation"),
+         tabSet2=c("Files", "Plots", "Packages", "Help", "Viewer", "Presentations"),
+         hiddenTabSet=c(),
+         console_left_on_top= FALSE,
+         console_right_on_top= TRUE,
+         additional_source_columns= 0L))
 }
