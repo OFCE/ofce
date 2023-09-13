@@ -13,5 +13,6 @@
 #'
 add_OFCE_quarto_extension <- function() {
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
-  cli::cli_alert_success("extensions OFCE installées, ofce-html ofce-pdf ofce-revealjs")
+  cli::cli_alert_success("extensions quarto OFCE installées,\nofce-html, ofce-pdf ou ofce-revealjs \npeuvent être utilisés comme format dans un document .qmd")
 }
+
