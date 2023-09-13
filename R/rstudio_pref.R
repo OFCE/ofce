@@ -2,6 +2,8 @@
 #'
 #' Principalement, pas d'enregistrement de l'environnement, pipe natif, ragg en backend graphique
 #'
+#' @param theme Theme à utiliser (défaut "iPlastic")
+#' @param right_console Met la console à droite (défaut TRUE)
 #' @return NULL
 #' @importFrom rstudioapi writeRStudioPreference
 #' @export
@@ -9,7 +11,7 @@
 #' @examples
 #' if(interactive()) setOFCERStudio()
 #'
-setOFCERStudio <- function() {
+setOFCERStudio <- function(theme="iPlastic", right_console = TRUE) {
   rstudioapi::writeRStudioPreference("jobs_tab_visibility", "shown")
   rstudioapi::writeRStudioPreference("initial_working_directory", "~")
   rstudioapi::writeRStudioPreference("posix_terminal_shell", "bash")
@@ -31,14 +33,16 @@ setOFCERStudio <- function() {
   rstudioapi::writeRStudioPreference("syntax_color_console", TRUE)
   rstudioapi::writeRStudioPreference("rmd_viewer_type", "pane")
   rstudioapi::writeRStudioPreference("load_workspace", FALSE )
-  rstudioapi::applyTheme("iPlastic")
-  rstudioapi::writeRStudioPreference(
+  rstudioapi::applyTheme(theme)
+  if(right_console) {
+    rstudioapi::writeRStudioPreference(
     "panes",
     list(quadrants=c("Source","TabSet1","Console","TabSet2"),
-         tabSet1=c("Environment", "History","Connections","Build","VCS","Tutorial", "Presentation"),
-         tabSet2=c("Files", "Plots", "Packages", "Help", "Viewer", "Presentations"),
-         hiddenTabSet=c(),
+         TabSet1=c("Environment", "History","Connections","Build","VCS","Tutorial", "Presentation"),
+         TabSet2=c("Files", "Plots", "Packages", "Help", "Viewer", "Presentations"),
+         hiddenTabSet=c("TabSet1"),
          console_left_on_top= FALSE,
          console_right_on_top= TRUE,
          additional_source_columns= 0L))
+  }
 }

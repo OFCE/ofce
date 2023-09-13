@@ -4,7 +4,12 @@
 \alias{setOFCERStudio}
 \title{Reset RStudio prefs}
 \usage{
-setOFCERStudio()
+setOFCERStudio(theme = "iPlastic", right_console = TRUE)
+}
+\arguments{
+\item{theme}{Theme à utiliser (défaut "iPlastic")}
+
+\item{right_console}{Met la console à droite (défaut TRUE)}
 }
 \description{
 Principalement, pas d'enregistrement de l'environnement, pipe natif, ragg en backend graphique
