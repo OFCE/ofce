@@ -12,5 +12,5 @@
 #' @export
 #'
 add_OFCE_qext <- function() {
-  shell("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
+  system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
 }
