@@ -8,9 +8,10 @@
 #'   ofce-revealjs: default # pour les présentations
 #'
 #'
-#' @return
+#' @return NULL
 #' @export
 #'
-add_OFCE_qext <- function() {
-  shell("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
+add_OFCE_quarto_extension <- function() {
+  system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
+  cli::cli_alert_success("extensions OFCE installées, ofce-html ofce-pdf ofce-revealjs")
 }
