@@ -7,7 +7,9 @@
 #'   ofce-pdf: default # pour les pdf, à affiner
 #'   ofce-revealjs: default # pour les présentations
 #'
-#'  Si le document à rendre est dans un dossier, il faut utiliser l'argument dir
+#' Il est possible de spécifier toutes les éléments habituels des formats sous jacents par la syntaxe habituelle
+#'
+#' Si le document à rendre est dans un dossier, il faut utiliser l'argument dir et l'extension sera installé à cet endroit
 #'
 #' @param dir Répertoire dans lequel l'extension est installée
 #' @return NULL
@@ -19,12 +21,13 @@ add_OFCE_quarto_extension <- function(dir=".") {
   setwd(dir)
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
   cli::cli_alert_success(
-    "extensions quarto OFCE installées dans {getwd()}
-      ofce-html, ofce-pdf ou ofce-revealjs pour un document .qmd
+    "extensions quarto OFCE dans {getwd()}
+     Mettre dans le yml ce qui suit
       ---
       format:
-        ofce-html: default
-        ofce-pdf:
+        ofce-html: default # html
+        ofce-revealjs: default # presentation
+        ofce-pdf: # document de travail en pdf
           mainfont: Arial
       ---
     ou

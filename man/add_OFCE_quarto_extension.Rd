@@ -18,5 +18,7 @@ format:
   ofce-revealjs: default # pour les présentations
 }
 \details{
-Si le document à rendre est dans un dossier, il faut utiliser l'argument dir
+Il est possible de spécifier toutes les éléments habituels des formats sous jacents par la syntaxe habituelle
+
+Si le document à rendre est dans un dossier, il faut utiliser l'argument dir et l'extension sera installé à cet endroit
 }
