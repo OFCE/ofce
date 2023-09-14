@@ -1,7 +1,7 @@
 Package: ofce
 Type: Package
 Title: Aide à la rédaction de documents scientifiques aux normes OFCE
-Version: 0.6.2
+Version: 0.6.3
 Author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
 Maintainer: The package maintainer <xavier.timbeau@sciencespo.fr>
 Description: procure quelques fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue.
@@ -11,6 +11,7 @@ LazyData: true
 Imports: 
     colorspace,
     cowplot,
+    curl,
     data.table,
     dplyr,
     farver,
@@ -27,6 +28,7 @@ Imports:
     scales,
     stringr,
     sys,
+    sysfonts,
     tidyr,
     utils,
     zip

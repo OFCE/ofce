@@ -18,7 +18,13 @@
 add_OFCE_quarto_extension <- function(dir=".") {
 
   wd_dir <- getwd()
-  setwd(dir)
+  if(dir.exists(dir))
+    setwd(dir)
+  else {
+    dir.create(dir)
+    setwd(dir)
+  }
+
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
   cli::cli_alert_success(
     "extensions quarto OFCE dans {getwd()}
