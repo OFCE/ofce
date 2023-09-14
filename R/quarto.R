@@ -19,7 +19,7 @@ add_OFCE_quarto_extension <- function(dir=".") {
   setwd(dir)
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
   cli::cli_alert_success(
-    "extensions quarto OFCE installées dans {dir}
+    "extensions quarto OFCE installées dans {getwd()}
       ofce-html, ofce-pdf ou ofce-revealjs pour un document .qmd
       ---
       format:
