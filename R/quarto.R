@@ -7,12 +7,28 @@
 #'   ofce-pdf: default # pour les pdf, à affiner
 #'   ofce-revealjs: default # pour les présentations
 #'
+#'  Si le document à rendre est dans un dossier, il faut utiliser l'argument dir
 #'
+#' @param dir Répertoire dans lequel l'extension est installée
 #' @return NULL
 #' @export
 #'
-add_OFCE_quarto_extension <- function() {
+add_OFCE_quarto_extension <- function(dir=".") {
+
+  wd_dir <- getwd()
+  setwd(dir)
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
-  cli::cli_alert_success("extensions quarto OFCE installées,\nofce-html, ofce-pdf ou ofce-revealjs \npeuvent être utilisés comme format dans un document .qmd")
+  cli::cli_alert_success(
+    "extensions quarto OFCE installées dans {dir}
+      ofce-html, ofce-pdf ou ofce-revealjs pour un document .qmd
+      ---
+      format:
+        ofce-html: default
+        ofce-pdf:
+          mainfont: Arial
+      ---
+    ou
+       format: ofce-html")
+  setwd(wd_dir)
 }
 

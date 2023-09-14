@@ -4,7 +4,10 @@
 \alias{add_OFCE_quarto_extension}
 \title{Extensions OFCE pour quarto}
 \usage{
-add_OFCE_quarto_extension()
+add_OFCE_quarto_extension(dir = ".")
+}
+\arguments{
+\item{dir}{Répertoire dans lequel l'extension est installée}
 }
 \description{
 Installe gentiment les extensions quarto suivantles templates OFCE
@@ -13,4 +16,7 @@ format:
   ofce-html: default # on peut ajouter tous les champs html
   ofce-pdf: default # pour les pdf, à affiner
   ofce-revealjs: default # pour les présentations
+}
+\details{
+Si le document à rendre est dans un dossier, il faut utiliser l'argument dir
 }
