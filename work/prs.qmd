@@ -1,6 +1,6 @@
 ---
 title: "Untitled avec des accents ààààéééê ö"
-format: ofce-revealjs
+format: ofce-html
 editor: visual
 author: 
   - name : Maxime Parodi
