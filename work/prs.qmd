@@ -1,7 +1,19 @@
 ---
-title: "Untitled"
+title: "Untitled avec des accents ààààéééê ö"
 format: ofce-revealjs
 editor: visual
+author: 
+  - name : Maxime Parodi
+    email: maxime.parodi@sciencespo.fr
+    affiliation: OFCE, Sciences Po Paris
+    affiliation-url: https://www.ofce.fr
+    orcid: 0009-0008-2543-5234
+  - name: Xavier Timbeau
+    email: xavier.timbeau@sciencespo.fr
+    corresponding: true
+    affiliation: OFCE, Ecole Urbaine, Sciences Po Paris
+    affiliation-url: https://www.ofce.fr
+    orcid: 0000-0002-6198-5953
 ---
 
 ## Quarto
