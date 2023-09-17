@@ -1,28 +1,30 @@
 /*-- scss:defaults --*/
 // fonts
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
 // Fonts (CSS rules)
 //$font-family-sans-serif: 'Nunito Sans', sans-serif;
 //$font-family-monospace: 'Roboto Mono', monospace;
-$font-family-serif: 'Merriweather', serif; 
-$font-family-sans-serif: 'Open Sans', sans-serif;
-$font-family-monospace: 'Fira Code', monospace;
+//$font-family-serif: 'Merriweather', serif;
+//$font-family-sans-serif: 'Open Sans', sans-serif;
+//$font-family-monospace: 'Fira Code', monospace;
 
 // couleurs
 $scpored: #e6142d;
+$scpodarkred: #770C19;
 $ofcered: #a22a2e;
-$darkgrey: #333333;
+$darkgrey: #555;
 $green: #079D10;
 $blue: #000080;
 $navbar-hl: #e6142d;
 $sidebar-hl: #e6142d;
 
 /*-- scss:rules --*/
-h1, h2, h3, h4, h5, h6, 
+h1, h2, h3, h4, h5, h6,
 .no-row-height.column-margin.column-container,
 .quarto-table-caption.margin-caption,
 .figure-caption.margin-caption {
   text-align: start;
+  color: $darkgrey;
 }
 
 .page-columns.page-full,
@@ -33,7 +35,7 @@ h1, h2, h3, h4, h5, h6,
 .align-left {
   text-align: left;
 }
- 
+
 .align-justify {
   text-align: justify;
 }
@@ -50,24 +52,19 @@ tfoot.gt_footnotes {
 }
 
 .wp {
-  font-size: 0.75em !important;
+  font-size: 0.875em !important;
 }
 
-.katex 
-{ font-size: 1.1em !important; } 
+.katex
+{ font-size: 1.1em !important; }
 
 h1, h2, h3, h4, h5 {
   line-height: 1.3;
 }
 
-.quarto-section-identifier {
-  color: $scpored !important;
+.header-section-number {
+  color: $scpodarkred !important;
   font-weight: normal;
-}
-
-.figure-caption.margin-caption {
-  color: $darkgrey !important;  
-  font-size: 1rem !important;
 }
 
 .nav-link {
@@ -96,31 +93,28 @@ h1, h2, h3, h4, h5 {
     background-color: #EFEFEF;
   --color1: #ddd;
   --color2: #ccc;
-  
+
   --border-color: var(--color2);
   --title-color: #1b1b1b;
   --title-background-color: var(--color1);
   --title-padding: 0.5rem;
   --border-radius: 0rem;
-  
+
   --padding-left: .8rem; /* for title (summary) and content (next div) */
-  --padding-content: 0.5rem; 
-  
+  --padding-content: 0.5rem;
+
   --thickshadow: 2px 2px 3px #aaa;
   --thinshadow: 1px 1px 2px #aaa;
   --noshadow: 0px 0px 0px #FFF;
 }
 
-.figure-caption {
-  text-align: start;
+.panel-caption,
+.figure-caption,
+.subfigure-caption,
+.table-caption,
+figcaption.quarto-float-caption,caption  {
   color: $darkgrey !important;
-  font-size: 1rem !important;
-  font-weight: bold !important;
-}
-
-.table-caption,caption {
-  text-align: start;
-  color: $darkgrey !important;
+  text-align: start !important;
   font-size: 1rem !important;
   font-weight: bold !important;
 }
@@ -137,7 +131,7 @@ h1, h2, h3, h4, h5 {
 .blockquote {
   color: var(--bs-body-color);
   font-size: 1rem;
-  border-left-color: $scpored;
+  border-left-color: $scpodarkred;
   border-left-width: 2px;
   line-height: 160%;
 }
