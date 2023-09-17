@@ -15,7 +15,8 @@
 #' @return NULL
 #' @export
 #'
-add_OFCE_quarto_extension <- function(dir=".") {
+#'
+ofce_quarto_extension <- function(dir=".") {
 
   wd_dir <- getwd()
   if(dir.exists(dir))
@@ -31,13 +32,16 @@ add_OFCE_quarto_extension <- function(dir=".") {
      Mettre dans le yml ce qui suit
       ---
       format:
-        ofce-html: default # html
+        ofcewp-html: default # Document de travail en html
+        ofcewp-pdf: default # Document de travail en pdf
         ofce-revealjs: default # presentation
-        ofce-pdf: # document de travail en pdf
-          mainfont: Arial
+        ofceblog-html: default # Post de blog en html
+        ofceblog-pdf: default # Post de blog en pdf
       ---
     ou
-       format: ofce-html")
+       format: ofce-html
+
+    consulter Anissa, Paul, Xavier ou https://quarto.org pour d'autres options")
   setwd(wd_dir)
 }
 

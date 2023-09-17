@@ -1,7 +1,13 @@
 ---
-title: "Untitled avec des accents ààààéééê ö"
-format: ofce-revealjs
+title: "Un titre"
+subtitle: "tout en finesse"
+format: ofcewp-html
+categories: Pôle spatial
+draft: true
+date: 6/23/2023
+date-modified: today
 editor: visual
+wp: 192
 author: 
   - name : Maxime Parodi
     email: maxime.parodi@sciencespo.fr
