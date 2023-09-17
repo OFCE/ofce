@@ -16,7 +16,6 @@
 #' @return NULL
 #' @export
 #'
-#'
 ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 
   wd_dir <- getwd()
@@ -39,7 +38,7 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
         ofceblog-html: default # Post de blog en html
         ofceblog-pdf: default # Post de blog en pdf
       ---
-    ou
+    ou (dans le yaml)
        format: ofce-html
 
     consulter Anissa, Paul, Xavier ou https://quarto.org pour d'autres options")
@@ -57,28 +56,49 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 #' @export
 #'
 #'
-quarto_wp <- function(nom = "wp", dir= nom) {
-     if(dir.exists(dir)) {
-       cli::cli_alert_danger("Le répertoire existe, impossible de continuer")
-       return(invisible(FALSE))
-     }
-     ofce_quarto_extension(dir, quiet = TRUE)
-     template <- system.file("extdata/templates/workingpaper",
-                             "template.qmd",
-                             package="ofce")
-     target <- stringr::str_c(dir, "/", nom, ".qmd")
-     bib <- system.file("extdata/templates/workingpaper",
-                        "references.bib",
-                        package="ofce")
-     file.copy(template, to = target)
-     file.copy(bib, to = stringr::str_c(dir, "/", "references.bib"))
-     rstudioapi::navigateToFile(
-       file = target,
-       line = -1L,
-       column = -1L,
-       moveCursor = TRUE
-     )
-     rstudioapi::executeCommand("foldAll")
-     cli::cli_alert_info("qmd initialisé, prêt à l'emploi")
-     return(invisible(TRUE))
+quarto_wp <- function(dir = NULL, nom = NULL) {
+  if(quarto::quarto_version()<"1.4.369")
+    cli::cli_alert_info(
+      "Quarto 1.4 est recommandé pour les fonctions avancées
+      (lightbox, manuscript, lua ...) et des corrections de bugs
+      https://github.com/quarto-dev/quarto-cli/releases")
+
+  if(is.null(dir)) {
+    if(is.null(nom))
+      dir <- nom <- "wp"
+    else
+      dir <- nom
+  }
+  if(is.null(nom))
+    nom <- last_dir(dir)
+
+  if(dir.exists(dir)) {
+    cli::cli_alert_danger("Le répertoire existe, impossible de continuer")
+    return(invisible(FALSE))
+  }
+  ofce_quarto_extension(dir, quiet = TRUE)
+  template <- system.file("extdata/templates/workingpaper",
+                          "template.qmd",
+                          package="ofce")
+  target <- stringr::str_c(dir, "/", nom, ".qmd")
+  bib <- system.file("extdata/templates/workingpaper",
+                     "references.bib",
+                     package="ofce")
+  file.copy(template, to = target)
+  file.copy(bib, to = stringr::str_c(dir, "/", "references.bib"))
+  rstudioapi::navigateToFile(
+    file = target,
+    line = -1L,
+    column = -1L,
+    moveCursor = TRUE
+  )
+  rstudioapi::executeCommand("foldAll")
+  cli::cli_alert_info("qmd initialisé, prêt à l'emploi")
+  quarto::quarto_preview(target, render="html")
+  return(invisible(TRUE))
+}
+
+last_dir <- function(string) {
+  string <- stringr::str_replace_all(string, "\\\\", "/")
+  stringr::str_extract(string, "(?<=/)\\w+$")
 }
