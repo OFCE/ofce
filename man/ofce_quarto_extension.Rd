@@ -4,10 +4,12 @@
 \alias{ofce_quarto_extension}
 \title{Extensions OFCE pour quarto}
 \usage{
-ofce_quarto_extension(dir = ".")
+ofce_quarto_extension(dir = ".", quiet = FALSE)
 }
 \arguments{
 \item{dir}{Répertoire dans lequel l'extension est installée}
+
+\item{quiet}{Ne fait pas de bruit (défault FALSE)}
 }
 \description{
 Installe gentiment les extensions quarto suivantles templates OFCE

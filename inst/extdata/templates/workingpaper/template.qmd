@@ -1,6 +1,7 @@
 ---
+# modifer les champs à votre convenance
 title: Vers l'infini et au delà
-subtitle: Document de travail de l'OFCE
+subtitle: Une analyse en profondeur
 author:
   - name: Albertine Retrouvée
     email: albertine.retrouvee@sciencespo.fr
@@ -8,23 +9,43 @@ author:
     affiliation-url: "http://www.ofce.fr"
 institution: "Observatoire Français des Conjonctures Économiques"
 date: today
+date-modified: today
 lang: fr
-abstract: "L'OFCE est un organisme indépendant de prévision, de recherche et d’évaluation des politiques publiques, accueilli en son sein par ..."
+abstract: "Nous analysons un problème et trouvons 3 éléments notables, petit 1 ..."
 citation:
   type: article
-  container-title: "Document de travail de l'OFCE"
-  url: ofce.github.io/nofuture
+  container-title: "Document de travail de l'OFCE n° 0"
+  url: https://ofce.github.io/nofuture
+wp: 000
 keywords: [passé, présent, futur]
-# Format de citation: changer le container-title et l'url
-citation:
-  type: article
-  container-title: "Document de travail de l'OFCE"
-  url: ofce.github.io/nofuture
-  
-bibliography: references.bib
----
 
-{{< pagebreak >}}
+format:
+  ofcewp-html: default
+  # on peut ici préciser d'autres options en pensant à enlever 'default'
+  # et à suivre scrupuleusement la syntaxe de YAML
+  ofcewp-pdf: default
+  # ici aussi
+
+bibliography: references.bib
+editor: visual
+---
+```{r, include=FALSE} 
+# Les options qui se trouvent là sont fortement conseillées
+library(knitr)
+library(tidyverse)
+library(showtext) 
+library(ofce)
+opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.pos="H", 
+  out.extra="",
+  dev="ragg_png",
+  fig.showtext=TRUE,
+  cache=FALSE)
+showtext_auto()
+```
 
 # Introduction {#sec-introduction .unnumbered}
 
@@ -67,8 +88,6 @@ Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum fac
 ## Section niveau 2 {#sec-encoreetencore}
 
 Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.
-
-# Bibliographie {.unnumbered}
 
 :::{.refs}
 :::

@@ -9,6 +9,7 @@ Description: procure quelques fonctions pour modifier les graphiques ggplot et l
 Encoding: UTF-8
 LazyData: true
 Imports: 
+    cli,
     colorspace,
     cowplot,
     curl,

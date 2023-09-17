@@ -47,7 +47,7 @@ contributes:
       #      label: "Encadré "
 
     html:
-      theme: [cosmo, ofce.scss]
+      theme: [cosmo, ofcewp.scss]
       mainfont: Open Sans
       toc-location: left
       toc-title: Sur cette page
@@ -62,6 +62,7 @@ contributes:
       template-partials:
         - title-block.html
         - title-metadata.html
+        - toc.html
     pdf:
       documentclass: scrartcl
       mainfont: Open Sans

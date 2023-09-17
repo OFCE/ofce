@@ -49,6 +49,10 @@ tfoot.gt_footnotes {
   font-size: .825rem;
 }
 
+.wp {
+  font-size: 0.75em !important;
+}
+
 .katex 
 { font-size: 1.1em !important; } 
 
@@ -57,12 +61,13 @@ h1, h2, h3, h4, h5 {
 }
 
 .quarto-section-identifier {
-  color: $scpored;
+  color: $scpored !important;
   font-weight: normal;
 }
 
 .figure-caption.margin-caption {
-  font-size: 1rem;
+  color: $darkgrey !important;  
+  font-size: 1rem !important;
 }
 
 .nav-link {
@@ -107,9 +112,26 @@ h1, h2, h3, h4, h5 {
 }
 
 .figure-caption {
-  color: $darkgrey;
-  font-size: 1rem;
-  font-weight: bold;
+  text-align: start;
+  color: $darkgrey !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
+
+.table-caption,caption {
+  text-align: start;
+  color: $darkgrey !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
+
+.csl-entry {
+  text-align: start;
+}
+
+.table {
+  font-size: 0.9rem !important;
+  text-align: start;
 }
 
 .blockquote {

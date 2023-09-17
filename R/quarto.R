@@ -12,11 +12,12 @@
 #' Si le document à rendre est dans un dossier, il faut utiliser l'argument dir et l'extension sera installé à cet endroit
 #'
 #' @param dir Répertoire dans lequel l'extension est installée
+#' @param quiet Ne fait pas de bruit (défault FALSE)
 #' @return NULL
 #' @export
 #'
 #'
-ofce_quarto_extension <- function(dir=".") {
+ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 
   wd_dir <- getwd()
   if(dir.exists(dir))
@@ -27,7 +28,7 @@ ofce_quarto_extension <- function(dir=".") {
   }
 
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
-  cli::cli_alert_success(
+  if(!quiet) cli::cli_alert_success(
     "extensions quarto OFCE dans {getwd()}
      Mettre dans le yml ce qui suit
       ---
@@ -45,3 +46,39 @@ ofce_quarto_extension <- function(dir=".") {
   setwd(wd_dir)
 }
 
+#' installe un squelette de document de travail
+#'
+#' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
+#'
+#' @param nom Nom du projet, "wp" par défaut,
+#' @param dir Répertoire à créer "wp" par défaut
+#'
+#' @return NULL
+#' @export
+#'
+#'
+quarto_wp <- function(nom = "wp", dir= nom) {
+     if(dir.exists(dir)) {
+       cli::cli_alert_danger("Le répertoire existe, impossible de continuer")
+       return(invisible(FALSE))
+     }
+     ofce_quarto_extension(dir, quiet = TRUE)
+     template <- system.file("extdata/templates/workingpaper",
+                             "template.qmd",
+                             package="ofce")
+     target <- stringr::str_c(dir, "/", nom, ".qmd")
+     bib <- system.file("extdata/templates/workingpaper",
+                        "references.bib",
+                        package="ofce")
+     file.copy(template, to = target)
+     file.copy(bib, to = stringr::str_c(dir, "/", "references.bib"))
+     rstudioapi::navigateToFile(
+       file = target,
+       line = -1L,
+       column = -1L,
+       moveCursor = TRUE
+     )
+     rstudioapi::executeCommand("foldAll")
+     cli::cli_alert_info("qmd initialisé, prêt à l'emploi")
+     return(invisible(TRUE))
+}
