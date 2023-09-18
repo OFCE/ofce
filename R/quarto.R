@@ -57,11 +57,11 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 #'
 #'
 ofce_quarto_wp <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.4.369")
+  if(quarto::quarto_version()<"1.4.358")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
-      (lightbox, manuscript, lua ...) et des corrections de bugs
-      https://github.com/quarto-dev/quarto-cli/releases")
+        (manuscript, lua, corrections de bugs, ...)
+      {.url https://github.com/quarto-dev/quarto-cli/releases}")
 
   if(is.null(dir)) {
     if(is.null(nom)) {
@@ -74,13 +74,13 @@ ofce_quarto_wp <- function(dir = NULL, nom = NULL) {
   if(is.null(nom))
     nom <- last_dir(dir)
   target <- stringr::str_c(dir, "/", nom, ".qmd")
-  refs <- stringr::str_c(dir, "/references.bib")
+  refs <- stringr::str_c(dir, "/", nom, "_references.bib")
   if(file.exists(target)) {
-    cli::cli_alert_danger("Il y déjà un '{nom}.qmd' dans le répertoire '{dir}', abort")
+    cli::cli_alert_danger("Il y déjà un '{nom}.qmd' dans le répertoire {.path {dir}}, abort")
     return(invisible(FALSE))
   }
   if(file.exists(refs)) {
-    cli::cli_alert_danger("Il y déjà un 'references.bib' dans le répertoire '{dir}', abort")
+    cli::cli_alert_danger("Il y déjà un 'references.bib' dans le répertoire {.path {dir}}, abort")
     return(invisible(FALSE))
   }
 
@@ -88,10 +88,16 @@ ofce_quarto_wp <- function(dir = NULL, nom = NULL) {
   template <- system.file("extdata/templates/workingpaper",
                           "template.qmd",
                           package="ofce")
+
   bib <- system.file("extdata/templates/workingpaper",
                      "references.bib",
                      package="ofce")
   file.copy(template, to = target)
+  readLines(target) |>
+    stringr::str_replace(
+      pattern = "bibliography: references.bib",
+      replace = stringr::str_c("bibliography: ", nom, "_references.bib")) |>
+    writeLines(con = target)
   file.copy(bib, to = refs)
   rstudioapi::navigateToFile(
     file = target,
@@ -99,9 +105,8 @@ ofce_quarto_wp <- function(dir = NULL, nom = NULL) {
     column = -1L,
     moveCursor = TRUE
   )
-  usethis::git_vaccinate()
-  usethis::use_git_ignore(stringr::str_c(nom, "_files"))
   rstudioapi::executeCommand("foldAll")
+  usethis::git_vaccinate()
   cli::cli_alert_info("qmd initialisé, .gitignore modifié")
   quarto::quarto_preview(target, render="html")
   return(invisible(TRUE))
