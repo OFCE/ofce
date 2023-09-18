@@ -56,7 +56,7 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 #' @export
 #'
 #'
-quarto_wp <- function(dir = NULL, nom = NULL) {
+ofce_quarto_wp <- function(dir = NULL, nom = NULL) {
   if(quarto::quarto_version()<"1.4.369")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
@@ -64,41 +64,53 @@ quarto_wp <- function(dir = NULL, nom = NULL) {
       https://github.com/quarto-dev/quarto-cli/releases")
 
   if(is.null(dir)) {
-    if(is.null(nom))
-      dir <- nom <- "wp"
+    if(is.null(nom)) {
+      dir <- "."
+      nom <- "wp"
+    }
     else
       dir <- nom
   }
   if(is.null(nom))
     nom <- last_dir(dir)
-
-  if(dir.exists(dir)) {
-    cli::cli_alert_danger("Le répertoire existe, impossible de continuer")
+  target <- stringr::str_c(dir, "/", nom, ".qmd")
+  refs <- stringr::str_c(dir, "/references.bib")
+  if(file.exists(target)) {
+    cli::cli_alert_danger("Il y déjà un '{nom}.qmd' dans le répertoire '{dir}', abort")
     return(invisible(FALSE))
   }
+  if(file.exists(refs)) {
+    cli::cli_alert_danger("Il y déjà un 'references.bib' dans le répertoire '{dir}', abort")
+    return(invisible(FALSE))
+  }
+
   ofce_quarto_extension(dir, quiet = TRUE)
   template <- system.file("extdata/templates/workingpaper",
                           "template.qmd",
                           package="ofce")
-  target <- stringr::str_c(dir, "/", nom, ".qmd")
   bib <- system.file("extdata/templates/workingpaper",
                      "references.bib",
                      package="ofce")
   file.copy(template, to = target)
-  file.copy(bib, to = stringr::str_c(dir, "/", "references.bib"))
+  file.copy(bib, to = refs)
   rstudioapi::navigateToFile(
     file = target,
     line = -1L,
     column = -1L,
     moveCursor = TRUE
   )
+  usethis::git_vaccinate()
+  usethis::use_git_ignore(stringr::str_c(nom, "_files"))
   rstudioapi::executeCommand("foldAll")
-  cli::cli_alert_info("qmd initialisé, prêt à l'emploi")
+  cli::cli_alert_info("qmd initialisé, .gitignore modifié")
   quarto::quarto_preview(target, render="html")
   return(invisible(TRUE))
 }
 
 last_dir <- function(string) {
   string <- stringr::str_replace_all(string, "\\\\", "/")
-  stringr::str_extract(string, "(?<=/)\\w+$")
+  if (stringr::str_detect(string, "/"))
+    stringr::str_extract(string, "(?<=/)\\w+$")
+  else
+    string
 }
