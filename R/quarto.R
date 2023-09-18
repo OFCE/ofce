@@ -41,7 +41,7 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
     ou (dans le yaml)
        format: ofce-html
 
-    consulter Anissa, Paul, Xavier ou https://quarto.org pour d'autres options")
+    consulter Anissa, Paul, Xavier ou {.url https://quarto.org} pour d'autres options")
   setwd(wd_dir)
 }
 
