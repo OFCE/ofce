@@ -33,6 +33,7 @@ Imports:
     sys,
     sysfonts,
     tidyr,
+    usethis,
     utils,
     zip
 RoxygenNote: 7.2.3
