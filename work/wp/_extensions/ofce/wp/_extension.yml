@@ -56,7 +56,7 @@ contributes:
         - title-metadata.html
         - toc.html
     pdf:
-      documentclass: scrreptr
+      documentclass: scrartcl
       mainfont: Open Sans
       toc-depth: 1
       number-sections: true

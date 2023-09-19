@@ -28,7 +28,7 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
   if(!quiet) cli::cli_alert_success(
-    "extensions quarto OFCE dans {getwd()}
+    "extensions quarto installées dans {.path {getwd()}}
      Mettre dans le yml ce qui suit
       ---
       format:
