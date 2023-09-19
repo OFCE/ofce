@@ -20,10 +20,10 @@ wp: 000
 keywords: [passé, présent, futur]
 draft: true
 format:
-  ofcewp-html: default
+  wp-html: default
   # on peut ici préciser d'autres options en pensant à enlever 'default'
   # et à suivre scrupuleusement la syntaxe de YAML
-  ofcewp-pdf: default
+  wp-pdf: default
   # ici aussi
 
 bibliography: references.bib

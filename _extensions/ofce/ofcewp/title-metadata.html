@@ -86,21 +86,22 @@ $endif$
     </div>
   </div>
   $endif$
+</div>
 
 $if(abstract)$
-<div>
-  <div class="abstract">
-    <div class="block-title">$labels.abstract$</div>
-    $abstract$
+  <div>
+    <div class="abstract">
+      <div class="block-title">$labels.abstract$</div>
+      $abstract$
+    </div>
   </div>
-</div>
 $endif$
 
 $if(keywords)$
-<div>
-  <div class="keywords">
-    <div class="block-title">$labels.keywords$</div>
-    <p>$for(keywords)$$it$$sep$, $endfor$</p>
+  <div>
+    <div class="keywords">
+      <div class="block-title">$labels.keywords$</div>
+      <p>$for(keywords)$$it$$sep$, $endfor$</p>
+    </div>
   </div>
-</div>
 $endif$
