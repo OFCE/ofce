@@ -31,7 +31,7 @@ format:
 # les substitutions sont faites en post traitement, donc elles ne sont pas visibles à l'édition
 search-replace: 
   oe    : "\u0153"
-  +ofce : [OFCE](http://www.ofce.fr) # remplace la chaine'+ofce' par le lien vers le site
+  +ofce : [OFCE](https://www.ofce.fr) 
 
 # d'autres filtres sont activés.
 # Les "" sont changés en << >> français, les  x : en x'demi-cadratin':
