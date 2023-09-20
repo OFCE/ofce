@@ -50,7 +50,6 @@ C'est pourquoi il ne faut pas mettre de contenu sur les slides de niveau 1
 
 Les niveaux 3 et au délà sont des intertitres sur une slide
 
-pour le dépôt voir {{< fa brands github >}}
 
 ## Slide de contenu 1.2
 

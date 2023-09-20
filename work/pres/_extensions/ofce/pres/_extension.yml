@@ -8,6 +8,8 @@ contributes:
     common:
       toc: true
       lang: fr
+      date-format: "dddd D MMMM YYYY"
+      footer: '{{< meta title >}} {{< fa ellipsis >}} {{< meta author >}} '
       language:
         fr:
           section-title-references: "Références"

@@ -10,22 +10,32 @@ author:
 institution: "Observatoire Français des Conjonctures Économiques"
 date: today
 date-modified: today
-lang: fr
-abstract: "Nous analysons un problème et trouvons 3 éléments notables, petit 1 ..."
+lang: fr # on peut utiliser d'autres langues, mais c'est encore sans garantie
+abstract: "Nous analysons un problème complexe avec des données originales et trouvons 3 éléments notables, 1 ... 2... 3..."
 citation:
   type: article
-  container-title: "Document de travail de l'OFCE n° 0"
+  container-title: "Document de travail de l'OFCE"
   url: https://ofce.github.io/nofuture
-wp: 000
+wp: (à venir)
 keywords: [passé, présent, futur]
-draft: true
+
+# les formats disponibles pour le wp sont html et pdf
+# on peut ici préciser d'autres options 
+# en pensant à enlever 'default' et à suivre scrupuleusement la syntaxe de YAML
+# pour l'exporter en docx, il suffit d'ajouter docx: default dansla liste des formats
 format:
   wp-html: default
-  # on peut ici préciser d'autres options en pensant à enlever 'default'
-  # et à suivre scrupuleusement la syntaxe de YAML
   wp-pdf: default
-  # ici aussi
 
+# on peut utiliser ce filtre en donnant des paires de substitution
+# les substitutions sont faites en post traitement, donc elles ne sont pas visibles à l'édition
+search-replace: 
+  oe    : "\u0153"
+  +ofce : "[OFCE](https://www.ofce.fr)"
+
+# d'autres filtres sont activés.
+# Les "" sont changés en << >> français, les  x : en x'demi-cadratin':
+# on peut utiliser les titres de section ou de graphique dasn les appels (nameref)
 bibliography: wp_references.bib
 editor: visual
 ---
@@ -36,15 +46,9 @@ library(knitr)
 library(tidyverse)
 library(showtext) 
 library(ofce)
-opts_chunk$set(
-  echo = FALSE,
-  warning = FALSE,
-  message = FALSE,
-  fig.pos="H", 
-  out.extra="",
-  dev="ragg_png",
-  fig.showtext=TRUE,
-  cache=FALSE)
+opts_chunk$set(echo = FALSE, warning = FALSE,
+  message = FALSE, fig.pos="H", out.extra="",
+  dev="ragg_png", fig.showtext=TRUE, cache=FALSE)
 showtext_auto()
 ```
 
@@ -54,7 +58,7 @@ showtext_auto()
 
 Voir @sec-ledebut (\nameref{sec-ledebut}). @efron1993i a montré que c'est vrai. Les contours sont matérialisés sur la @fig-cars.
 
-pour le dépôt voir {{< fa brands github >}}
+pour le dépôt voir {{< fa brands github >}} +ofce
 
 ```{r}
 #| label: fig-cars

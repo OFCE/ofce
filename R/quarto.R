@@ -136,7 +136,7 @@ last_dir <- function(string) {
 set_fontsize_reveal <- function(path=".", size=20) {
   scss <- stringr::str_c(path, "/_extensions/ofce/pres/ofce-pres.scss")
   if(!file.exists(scss)) {
-    cli::cli_alert_warning("pas de scss, exécutez ofce::ofce_quarto_extension({dirname(pres)})")
+    cli::cli_alert_warning('pas de scss, exécutez ofce::ofce_quarto_extension("{path}")')
     stop()
   }
   readLines(scss) |>
@@ -145,6 +145,31 @@ set_fontsize_reveal <- function(path=".", size=20) {
       replace = stringr::str_c("$presentation-font-size-root: ", size, "px;")) |>
     writeLines(con = scss)
 }
+
+#' Modifie l'icône de titre pour la présentation
+#'
+#' Attention cette fonction est un hack en attendant mieux
+#' Elle est assez fragile et peut ne pas fonctionner
+#'
+#' @param path chemin vers la présentation à modifier (le dossier qui contient la présentation)
+#' @param icon code unicode hexa de l'icone (f101 par défaut)
+#'
+#' @return NULL
+#' @export
+#'
+set_faicon_reveal <- function(path=".", unicode="f101") {
+  scss <- stringr::str_c(path, "/_extensions/ofce/pres/ofce-pres.scss")
+  if(!file.exists(scss)) {
+    cli::cli_alert_warning('pas de scss, exécutez ofce::ofce_quarto_extension("{path}")')
+    stop()
+  }
+  readLines(scss) |>
+    stringr::str_replace(
+      pattern = "content: \"\\\\[:alnum:]+\";",
+      replace = stringr::str_c("content: \"\\\\", unicode, "\";")) |>
+    writeLines(con = scss)
+}
+
 
 #' installe un squelette de présentation
 #'
