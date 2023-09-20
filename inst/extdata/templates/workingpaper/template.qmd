@@ -58,7 +58,7 @@ showtext_auto()
 
 Voir @sec-ledebut (\nameref{sec-ledebut}). @efron1993i a montré que c'est vrai. Les contours sont matérialisés sur la @fig-cars.
 
-pour le dépôt voir {{< fa brands github >}}
+pour le dépôt voir {{< fa brands github >}} +ofce
 
 ```{r}
 #| label: fig-cars
