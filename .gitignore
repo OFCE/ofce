@@ -8,3 +8,5 @@ svg/
 nul
 wp_files
 wp2_files
+
+/.luarc.json
