@@ -28,15 +28,17 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 
   system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
   if(!quiet) cli::cli_alert_success(
-    "extensions quarto OFCE dans {getwd()}
+    "extensions quarto installées dans {.path {getwd()}}
      Mettre dans le yml ce qui suit
       ---
       format:
-        ofcewp-html: default # Document de travail en html
-        ofcewp-pdf: default # Document de travail en pdf
-        ofce-revealjs: default # presentation
-        ofceblog-html: default # Post de blog en html
-        ofceblog-pdf: default # Post de blog en pdf
+        ofce-html: default # une page en html
+        ofce-pdf: default # une page en pdf
+        wp-html: default # Document de travail en html
+        wp-pdf: default # Document de travail en pdf
+        pres-revealjs: default # presentation
+        blog-html: default # Post de blog en html
+        blog-pdf: default # Post de blog en pdf
       ---
     ou (dans le yaml)
        format: ofce-html
@@ -57,7 +59,7 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 #'
 #'
 ofce_quarto_wp <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.4.358")
+  if(quarto::quarto_version()<"1.4.373")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
         (manuscript, lua, corrections de bugs, ...)
@@ -108,7 +110,7 @@ ofce_quarto_wp <- function(dir = NULL, nom = NULL) {
   rstudioapi::executeCommand("foldAll")
   usethis::git_vaccinate()
   cli::cli_alert_info("qmd initialisé, .gitignore modifié")
-  quarto::quarto_preview(target, render="html")
+  quarto::quarto_preview(target, render="wp-html")
   return(invisible(TRUE))
 }
 
@@ -118,4 +120,95 @@ last_dir <- function(string) {
     stringr::str_extract(string, "(?<=/)\\w+$")
   else
     string
+}
+
+#' Modifie la taille de police pour revealjs
+#'
+#' Attention cette fonction est un hack en attendant mieux
+#' Elle est assez fragile et peut ne pas fonctionner
+#'
+#' @param path chemin vers la présentation à modifier (le dossier qui contient la présentation)
+#' @param size taille en "px" de la police pour revealjs (20 par défaut)
+#'
+#' @return NULL
+#' @export
+#'
+set_fontsize_reveal <- function(path=".", size=20) {
+  scss <- stringr::str_c(path, "/_extensions/ofce/pres/ofce-pres.scss")
+  if(!file.exists(scss)) {
+    cli::cli_alert_warning("pas de scss, exécutez ofce::ofce_quarto_extension({dirname(pres)})")
+    stop()
+  }
+  readLines(scss) |>
+    stringr::str_replace(
+      pattern = "\\$presentation-font-size-root: [:digit:]+px;",
+      replace = stringr::str_c("$presentation-font-size-root: ", size, "px;")) |>
+    writeLines(con = scss)
+}
+
+#' installe un squelette de présentation
+#'
+#' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
+#'
+#' @param nom Nom du projet, "pres" par défaut,
+#' @param dir Répertoire à créer "pres" par défaut
+#'
+#' @return NULL
+#' @export
+#'
+#'
+ofce_quarto_presentation <- function(dir = NULL, nom = NULL) {
+  if(quarto::quarto_version()<"1.4.373")
+    cli::cli_alert_info(
+      "Quarto 1.4 est recommandé pour les fonctions avancées
+        (manuscript, lua, corrections de bugs, ...)
+      {.url https://github.com/quarto-dev/quarto-cli/releases}")
+
+  if(is.null(dir)) {
+    if(is.null(nom)) {
+      dir <- "."
+      nom <- "pres"
+    }
+    else
+      dir <- nom
+  }
+  if(is.null(nom))
+    nom <- last_dir(dir)
+  target <- stringr::str_c(dir, "/", nom, ".qmd")
+  refs <- stringr::str_c(dir, "/", nom, "_references.bib")
+  if(file.exists(target)) {
+    cli::cli_alert_danger("Il y déjà un '{nom}.qmd' dans le répertoire {.path {dir}}, abort")
+    return(invisible(FALSE))
+  }
+  if(file.exists(refs)) {
+    cli::cli_alert_danger("Il y déjà un 'references.bib' dans le répertoire {.path {dir}}, abort")
+    return(invisible(FALSE))
+  }
+
+  ofce_quarto_extension(dir, quiet = TRUE)
+  template <- system.file("extdata/templates/presentation",
+                          "template.qmd",
+                          package="ofce")
+
+  bib <- system.file("extdata/templates/presentation",
+                     "references.bib",
+                     package="ofce")
+  file.copy(template, to = target)
+  readLines(target) |>
+    stringr::str_replace(
+      pattern = "bibliography: references.bib",
+      replace = stringr::str_c("bibliography: ", nom, "_references.bib")) |>
+    writeLines(con = target)
+  file.copy(bib, to = refs)
+  rstudioapi::navigateToFile(
+    file = target,
+    line = -1L,
+    column = -1L,
+    moveCursor = TRUE
+  )
+  # rstudioapi::executeCommand("foldAll")
+  usethis::git_vaccinate()
+  cli::cli_alert_info("qmd initialisé, .gitignore modifié")
+  quarto::quarto_preview(target, render="pres-revealjs")
+  return(invisible(TRUE))
 }

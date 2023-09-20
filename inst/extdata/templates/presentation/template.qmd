@@ -1,6 +1,6 @@
 ---
 title: Vers l'infini et au delà
-subtitle: Document de travail de l'OFCE
+subtitle: Présentation au séminaire lunch
 author:
   - name: Albertine Retrouvée
     email: albertine.retrouvee@sciencespo.fr
@@ -10,8 +10,14 @@ institution: "Observatoire Français des Conjonctures Économiques"
 date: today
 lang: fr
 bibliography: references.bib
+toc-depth: 1
+format: 
+  pres-revealjs: default
+  # slide-level niveau des slides à prendre en compte (2 par défaut)
+  # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères
 ---
-```{r, include=FALSE} 
+
+```{r, include=FALSE}
 library(knitr)
 library(tidyverse) 
 library(showtext) 
@@ -26,18 +32,27 @@ opts_chunk$set(
   dev="ragg_png",
   fig.showtext=TRUE,
   cache=FALSE)
-sysfonts::font_add_google("Open sans", "open sans")
-options(ofce.base_family = "open sans")
-showtext_auto()
 ```
 
-# Introduction {#sec-introduction .unnumbered}
+# introduction
 
-"Lorem" "ipsum" dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.
+## Slide de contenu 1.1
 
-Voir @sec-ledebut (\nameref{sec-ledebut}). @efron1993i a montré que c'est vrai. Les contours sont matérialisés sur la @fig-cars.
+<br><br> <!--# pour insérer des lignes -->
+
+### remarque
+
+Une table des matières ainsi qu'un rappel du plan sur les slides de niveau 1 est automatiquement inclus.
+
+C'est pourquoi il ne faut pas mettre de contenu sur les slides de niveau 1
+
+### niveaux
+
+Les niveaux 3 et au délà sont des intertitres sur une slide
 
 pour le dépôt voir {{< fa brands github >}}
+
+## Slide de contenu 1.2
 
 ```{r}
 #| label: fig-cars
@@ -49,31 +64,23 @@ ggplot(cars)+
     theme_ofce()
 ```
 
-# Une section de niveau 1 pour commencer {#sec-ledebut}
+# intertitre
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.    
+## Slide 2.1
 
-## Section niveau 2 {#sec-cacontinue}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.
 
-Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit. 
+## Slide 2.2
 
-## Section niveau 2 {#sec-encore}
+Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit.
 
-Scelerisque in dictum non consectetur a erat nam at. Elementum facilisis leo vel fringilla est. Libero enim sed faucibus turpis in eu. Ut lectus arcu bibendum at varius vel pharetra vel.
+# Conclusions
 
-# Une autre section de niveau 1 {#sec-etencore}
+## Conclusion 1
 
-Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget.
+Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget. [@efron1993i]
 
-## Section niveau 2 {#sec-ca-continue}
+## Références
 
-Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum facilisis leo vel fringilla est. Iaculis eu non diam phasellus vestibulum lorem.
-
-## Section niveau 2 {#sec-encoreetencore}
-
-Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.
-
-# Bibliographie {.unnumbered}
-
-:::{.refs}
+::: {#refs}
 :::

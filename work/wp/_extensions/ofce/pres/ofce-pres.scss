@@ -1,0 +1,93 @@
+/*-- scss:defaults --*/
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+
+// couleurs
+$scpored: #e6142d;
+$ofcered: #a22a2e;
+$darkgrey: #333333;
+$green: #079D10;
+$blue: #000080;
+$presentation-color: $scpored;
+$body-bg: #fff;
+$body-color: #222;
+$link-color: $presentation-color;
+$presentation-heading-color: $presentation-color;
+$ligthcolor: #F9F9F9;
+$presentation-h1-font-size: 2.5em;
+$presentation-h2-font-size: 1.5em;
+$presentation-h3-font-size: 1.3em;
+$presentation-h4-font-size: 1.2em;
+$presentation-font-size-root: 36px;
+// callout
+$callout-color-note: $presentation-color;
+$callout-border-width: 1px;
+
+/*-- scss:rules --*/
+
+.reveal h1 {
+  font-weight: bold;
+}
+.reveal h2 {
+  border-bottom: 1px solid;
+  padding-left: 2px;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+.reveal h1.title {
+  font-size: 3em;
+  letter-spacing: 10px;
+  font-weight: bold;
+}
+
+.reveal h2::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f101";
+  letter-spacing: 10px;
+}
+
+.reveal .slide blockquote {
+  border-left: 3px solid $text-muted;
+  padding-left: 0.5em;
+}
+
+.reveal .footer.footer-default {
+  font-size: 0.75em;
+}
+
+.leaflet-container {
+  text-align: start !important;
+}
+
+.callout.callout-style-simple {
+  background-color: $ligthcolor !important;
+  padding-right: 1em !important;
+  padding-left: 1em !important;
+  margin-right: 3em !important;
+  margin-left: 3em !important;
+  font-size: 1em !important;
+  border-left: 0.15em solid $presentation-color !important;
+}
+
+.reveal .slide-logo {
+  height: 28px !important;
+  width: 60px!important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+.agenda-inactive {
+  font-size: 1.2em;
+  opacity: 0.25;
+  margin-top: -0.1em;
+  margin-bottom: -0.1em;
+}
+
+.agenda-active {
+  font-size: 2em;
+  color: $presentation-color;
+  margin-top: -0.1em;
+  margin-bottom: -0.1em;
+}
