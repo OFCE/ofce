@@ -24,8 +24,8 @@ keywords: [passé, présent, futur]
 # en pensant à enlever 'default' et à suivre scrupuleusement la syntaxe de YAML
 # pour l'exporter en docx, il suffit d'ajouter docx: default dansla liste des formats
 format:
-  ofcewp-html: default
-  ofcewp-pdf: default
+  wp-html: default
+  wp-pdf: default
 
 # on peut utiliser ce filtre en donnant des paires de substitution
 # les substitutions sont faites en post traitement, donc elles ne sont pas visibles à l'édition

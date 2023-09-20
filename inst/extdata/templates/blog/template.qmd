@@ -9,7 +9,9 @@ author:
     
 institution: "Observatoire Français des Conjonctures Économiques"
 
-
+format:
+  blog_html: default
+  blog-pdf: default
 categories: [keyword1, keyword2]
 
 subtitle: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
