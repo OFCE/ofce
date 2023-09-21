@@ -9,7 +9,8 @@ contributes:
       toc: true
       lang: fr
       date-format: "dddd D MMMM YYYY"
-      footer: '{{< meta title >}} {{< fa ellipsis >}} {{< meta author >}} '
+      author-footer: ""
+      footer: '{{< meta title >}} {{< fa ellipsis >}} {{< meta author-footer >}} '
       language:
         fr:
           section-title-references: "Références"

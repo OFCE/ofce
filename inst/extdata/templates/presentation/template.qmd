@@ -6,7 +6,8 @@ author:
     email: albertine.retrouvee@sciencespo.fr
     affiliation: OFCE, Sciences Po Paris
     affiliation-url: "http://www.ofce.fr"
-institution: "Observatoire Français des Conjonctures Économiques"
+author-footer: Retrouvée
+institution: Observatoire Français des Conjonctures Économiques
 date: today
 lang: fr
 bibliography: references.bib

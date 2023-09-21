@@ -11,6 +11,7 @@ date: today
 lang: fr
 bibliography: pres_references.bib
 toc-depth: 1
+author-footer: "Retrouvée"
 format: 
   pres-revealjs: default
   # slide-level niveau des slides à prendre en compte (2 par défaut)

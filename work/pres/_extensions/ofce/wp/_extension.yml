@@ -10,8 +10,10 @@ contributes:
       language:
         fr:
           section-title-references: "Références"
-          title-block-author-single: "Auteur"
-          title-block-author-plural: "Auteurs"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
       fig-asp: 0.61
       crossref:
         fig-prefix: figure
@@ -51,6 +53,7 @@ contributes:
       reference-location: margin
       logo: _extensions/ofce/wp/ofce.png
       lightbox: true
+      title-block-style: default
       template-partials:
         - title-block.html
         - title-metadata.html
