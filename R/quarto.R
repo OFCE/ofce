@@ -19,14 +19,12 @@
 ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
 
   wd_dir <- getwd()
-  if(dir.exists(dir))
-    setwd(dir)
-  else {
-    dir.create(dir)
-    setwd(dir)
-  }
+  if(!dir.exists(dir)) {
+    ok <- dir.create(dir, recursive = TRUE)
+    if(!ok) stop("Impossible de créer le dossier")
+}
 
-  system("quarto add ofce/ofce-quarto-extensions --no-prompt --quiet")
+  system("sh -c 'cd \"{dir}\"; quarto add ofce/ofce-quarto-extensions --no-prompt --quiet'" |> glue::glue())
   if(!quiet) cli::cli_alert_success(
     "extensions quarto installées dans {.path {getwd()}}
      Mettre dans le yml ce qui suit

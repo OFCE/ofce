@@ -13,7 +13,8 @@ bibliography: pres_references.bib
 toc-depth: 1
 author-footer: "Retrouvée"
 format: 
-  pres-revealjs: default
+  pres-revealjs:
+    transition: zoom
   # slide-level niveau des slides à prendre en compte (2 par défaut)
   # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères
 ---
