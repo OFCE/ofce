@@ -20,17 +20,18 @@ contributes:
         tbl-prefix: tableau
         eq-prefix: équation
         sec-prefix: section
-        fig-title: Figure
-        tbl-title: Tableau
+        fig-title: "**Figure**"
+        fig-delim: "**.**"
+        tbl-title: "**Tableau**"
+        tbl-delim: "**.**"
         lof-title: Figures
         lot-title: Tableaux
         logo: ofce.png
       filters:
         - nameref
-        - fr-nbsp
-       # - custom-numbered-blocks
         - quotes
         - search-replace
+        - fr-nbsp
       shortcodes:
         - fontawesome
         - downloadthis
