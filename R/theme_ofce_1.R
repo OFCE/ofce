@@ -7,7 +7,7 @@
 #' @param base_size double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).
 #' @param base_family character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Nunito"))
 #' @param ... paramètres passés à \code{\link[ggplot2]{theme}()}
-#'
+#' @inheritParams ggplot2::theme
 #' @return un thème qui peut être utilisé dans ggplot
 #' @family themes
 #' @export
@@ -19,25 +19,18 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
    ggh4xdef <-  ggplot2::theme(ggh4x.axis.ticks.length.minor = ggplot2::rel(0.66))
  else
    ggh4xdef <- NULL
-  theme_foundation() +
+   theme_foundation() +
     ggplot2::theme(
       # general
       plot.background = element_rect(fill="white"),
-      text = element_text(
-        family=base_family,
-        size = base_size),
+      text = element_text(family = base_family,
+                           size = base_size),
       rect = element_rect(
         fill = NA,
-        size = base_size,
         colour = NA,
         linetype = 0),
-      title = element_text(
-        family=base_family,
-        size = base_size),
       #Text format:
       plot.title = element_text(
-        size = base_size,
-        family = base_family,
         face = "plain",
         hjust = 0,
         margin = margin(b=2.5, t=2.5),
@@ -114,6 +107,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         hjust = 0.5,
         vjust = 0.5,
         margin = margin(t=8, b=6)))+
-    ggh4xdef +
+    # ggh4xdef +
     ggplot2::theme(...) # pour passer les arguments en plus
 }

@@ -21,8 +21,9 @@
 #' @export
 #' @return un thème qui peut être utilisé dans ggplot
 #' @family themes
-theme_foundation <- function(base_size=12, base_family="") {
-  thm <- ggplot2::theme_grey(base_size = base_size, base_family = base_family)
+theme_foundation <- function(une_base_size = 12, base_family="") {
+  thm <- ggplot2::theme_grey(base_size = une_base_size,
+                             base_family = base_family)
   for (i in names(thm)) {
     if ("colour" %in% names(thm[[i]])) {
       thm[[i]]["colour"] <- list(NULL)

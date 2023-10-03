@@ -14,12 +14,13 @@
 #' library(ggplot2)
 #' plot <- ggplot(mtcars) +
 #'     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
-#'     theme_ofce(base_family="Nunito")
+#'     theme_ofce()
 #' # plot |> add_logo_ofce()
 #' }
-add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
+add_logo_ofce <- function(plot, logo = NULL, size = 0.04) {
   rlang::check_installed("cowplot", reason = "to add a logo")
   rlang::check_installed("magick", reason = "to add a logo inside")
+  if(is.null(logo)) logo <- ofce_logo
   cowplot::ggdraw() +
     cowplot::draw_plot(plot)+
     cowplot::draw_image(
@@ -46,13 +47,14 @@ add_logo_ofce <- function(plot, logo = ofce_logo, size = 0.04) {
 #' library(ggplot2)
 #' plot <- ggplot(mtcars) +
 #'         geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
-#'         theme_ofce(base_family="Nunito")
+#'         theme_ofce()
 #' # plot |> add_logo_ofce_inside()
 #'}
-add_logo_ofce_inside <- function(plot, logo =  ofce_logo, size = 0.25) {
+add_logo_ofce_inside <- function(plot, logo =  NULL, size = 0.25) {
   rlang::check_installed("ggpp", reason = "to add a logo inside")
   rlang::check_installed("magick", reason = "to add a logo inside")
   rlang::check_installed("grid", reason = "to add a logo inside")
+  if(is.null(logo)) logo <- ofce_logo
   grob <- grid::rasterGrob(logo, width=size, just = c("right", "bottom"))
   plot+ ggpp::annotate(geom = "grob_npc",
                        label=grob,

@@ -4,7 +4,7 @@
 \alias{add_logo_ofce}
 \title{Add logo}
 \usage{
-add_logo_ofce(plot, logo = ofce_logo, size = 0.04)
+add_logo_ofce(plot, logo = NULL, size = 0.04)
 }
 \arguments{
 \item{plot}{un graphique ggplot}
@@ -24,7 +24,7 @@ Ajoute le logo de l'OFCE en bas à droite du graphique
 library(ggplot2)
 plot <- ggplot(mtcars) +
     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
-    theme_ofce(base_family="Nunito")
+    theme_ofce()
 # plot |> add_logo_ofce()
 }
 }
