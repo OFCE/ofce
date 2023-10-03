@@ -33,6 +33,9 @@ opts_chunk$set(
   dev="ragg_png",
   fig.showtext=TRUE,
   cache=FALSE)
+
+showtext_opts(dpi=200)
+showtext_auto()
 ```
 
 # introduction
