@@ -10,30 +10,38 @@ contributes:
       language:
         fr:
           section-title-references: "Références"
-          title-block-author-single: "Auteur"
-          title-block-author-plural: "Auteurs"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
       fig-asp: 0.61
       crossref:
         fig-prefix: figure
         tbl-prefix: tableau
         eq-prefix: équation
         sec-prefix: section
-        fig-title: Figure
-        tbl-title: Tableau
+        fig-title: "**Figure**"
+        fig-delim: "**.**"
+        tbl-title: "**Tableau**"
+        tbl-delim: "**.**"
         lof-title: Figures
         lot-title: Tableaux
         logo: ofce.png
       filters:
         - nameref
-        - fr-nbsp
-       # - custom-numbered-blocks
         - quotes
-       #- search-replace
+        # - search-replace
+        - fr-nbsp
       shortcodes:
         - fontawesome
         - downloadthis
+      google-scholar: true
+      appendix-style: default
+      appendix-cite-as: display
+      citation: true
+      license: CC BY
     html:
-      theme: [cosmo, ofce.scss]
+      theme: [cosmo, ofcewp.scss]
       mainfont: Open Sans
       toc-location: left
       toc-title: Sur cette page
@@ -41,9 +49,16 @@ contributes:
       number-depth: 3
       html-math-method: katex
       fig-dpi: 600
-      fig-format: svg
+      fig-format: png
       cap-location: top
       reference-location: margin
+      logo: _extensions/ofce/wp/ofce.png
+      lightbox: true
+      title-block-style: default
+      template-partials:
+        - title-block.html
+        - title-metadata.html
+        - toc.html
     pdf:
       documentclass: scrartcl
       mainfont: Open Sans
@@ -59,13 +74,5 @@ contributes:
       extra_dependencies: ["float"]
       fig-dpi: 600
       fig-format: png
-    revealjs:
-      logo: _extensions/ofce/ofce/ofce.png
-      mainfont: Open Sans
-      slide-level: 2
-      slide-number: c/t
-      center: false
-      theme: [simple, ofce-pres.scss]
-      navigation-mode: linear
-      code-fold: false
-      self-contained: false
+      include-in-header: "header.tex"
+      include-before-body: "titlepage.tex"

@@ -27,6 +27,21 @@ h1, h2, h3, h4, h5, h6,
   color: $darkgrey;
 }
 
+.quarto-title-block {
+    margin-left: -1px !important;
+    padding-left: 12px !important;
+    margin-right : 12px !important;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    border-left-color: $scpored !important;
+    border-left-width: 1px !important;
+    border-left-style: solid !important;
+}
+
+.sidebar {
+  padding-top: 32px !important;
+}
+
 .page-columns.page-full,
 .content, 
 .body {
@@ -54,6 +69,14 @@ tfoot.gt_footnotes {
 
 .wp {
   font-size: 0.875em !important;
+}
+
+.quarto-title-meta-author, .quarto-title-meta, .keywords {
+  font-size: 0.875rem !important;
+}
+
+.abstract {
+  font-size: 0.825rem !important;
 }
 
 .katex
@@ -117,7 +140,6 @@ figcaption.quarto-float-caption,caption  {
   color: $darkgrey !important;
   text-align: start !important;
   font-size: 1rem !important;
-  font-weight: bold !important;
 }
 
 .csl-entry {
@@ -125,7 +147,12 @@ figcaption.quarto-float-caption,caption  {
 }
 
 .table {
-  font-size: 0.9rem !important;
+  font-size: 0.875rem !important;
+  text-align: start;
+}
+
+.smtable {
+  font-size: 0.75rem !important;
   text-align: start;
 }
 

@@ -79,7 +79,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         vjust=0.5),
       axis.text.x = element_text(
         color = "gray25",
-        margin=margin(t=4, b=0),
+        margin=margin(t=6, b=0),
         hjust = 0.5),
       axis.ticks = element_line(
         color="gray50",
@@ -107,6 +107,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         hjust = 0.5,
         vjust = 0.5,
         margin = margin(t=8, b=6)))+
-    # ggh4xdef +
+    ggh4xdef +
     ggplot2::theme(...) # pour passer les arguments en plus
 }
