@@ -4,23 +4,16 @@ title: "un essai"
 author : "moi"
 
 format:
-  ofce-html: default
+  wp-html: default
+  docx: default
 ---
-
-# hello les gars
-## bonjour
-
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#| label: tbl-table1
 library(tidyverse)
-library(ofce)
-library(dint)
-data <- tibble(date = ymd("2019-01-01") + months(3*(0:32)), e = 0:32)
-ggplot(data) + 
-  aes(x= date, y = e) +
-  geom_col(width = 70) +
-  tsibble::scale_x_yearquarter(date_breaks = "3 months",
-                               limits = c(ymd("2019-11-01"), NA)) +
-  theme_ofce() 
-
+library(gt)
+table <- tribble(~a, ~b, ~c,
+                "text", 1, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh",
+                "others", 2, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh") 
+gt(table)
 ```
 

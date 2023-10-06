@@ -1,0 +1,100 @@
+---
+title: "Ralentissement contrôlé ? Dérapage contrôlé ? Le coût de l'inflation ? Les banques centrales envoient la facture ? Factures à payer ? Perspectives 2023 - 2024 pour l'économie mondiale"
+author: 
+  - name: "Département analyse et prévision"
+
+format:
+  wp-html: default
+  docx:
+    fig-format: svg
+    fig-width: 7
+    page-width: 9
+
+lang : fr
+
+fig-cap-location: top
+
+editor: visual
+---
+
+<!-- IMPORTANT: En cas d'erreur lors du Render, cliquer sur la petite flèche à côté du bouton "-> Render" et sélectionner "Render ofce-html" -->
+
+## Marchés du travail: après le pic de tensions
+
+La reprise de l'activité à la suite des chocs sanitaires a donné lieu à des marchés du travail très dynamiques. Aux Etats-Unis ainsi qu'au sein de la Zone Euro, les taux de chômage ont atteint un point bas sur les vingt-cinq dernières années (respectivement 3,5% et 6,3% au 2^e^ trimestre 2023; voir @fig-chomage). Le Royaume-Uni se distingue des autres économies majeures dans la mesure où le taux de chômage y est à un niveau bas en comparaison historique, mais supérieur aux creux de 2019 et 2022 (4,2% contre 3,6% et 3,8%). Notons par ailleurs que dans les cas américains et britanniques les taux d'activité et d'emploi sont encore légèrement en-dessous de leurs niveaux de 2019, indiquant que les niveaux élevés de tensions découlent à la fois par une forte hausse de la demande et une légère baisse de l'offre de travail.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.showtext=TRUE}
+#| label: fig-chomage
+#| fig-cap: "Taux de chômage"
+
+# knitr::include_graphics("Graphiques/Chomage_EUZ_GBR_USA.Graphiques")
+library(tidyverse)
+library(ofce)
+library(ggh4x)
+library(showtext)
+library(patchwork)
+showtext_opts(dpi=140) #devrait améliorer la résolution des graphiques
+
+
+load("Graphiques_BW.rda")
+chom +
+  labs(caption= "Le trait en pointillés indique le dernier point observé (2023 T2).\n Sources : Bureau of Labor Statistics, Eurostat, Office for National Statistics, calculs OFCE.") + theme_ofce(base_family = "Open Sans")
+```
+
+Les tensions récentes sur les marchés du travail ont été accompagnées de fortes hausses des salaires nominaux. En Europe, bien que la situation favorable de l'emploi ait pu soutenir le pouvoir de négociation des salariés, ces revalorisations salariales n'ont toutefois pas permis de préserver les salaires réels face aux chocs inflationnistes (@fig-salaires). Les deux composantes des salaires réels devraient permettre un rattrapage de ceux-ci : d'une part l'inflation devrait continuer à baisser en 2023-2024, et d'autre part on peut anticiper davantage de hausses des salaires nominaux à mesure que les renégociations salariales et les hausses de salaires minimum récentes produisent pleinement leurs effets. Néanmoins, en dehors de l'Espagne et des Etats-Unis, les niveaux atteints par les salaires réels seraient légèrement en-dessous de ceux de la fin 2019. Pour l'ensemble des économies, les hausse de salaires réels ne compenseraient pas les pertes de pouvoir d'achat subies en 2022.
+
+```{r, message=FALSE, warning=FALSE, fig.showtext=TRUE}
+#| label: fig-salaires
+#| echo: false
+#| fig-asp: 1
+#| fig-cap: "Evolutions des salaires nominaux et réels depuis le 4e trimestre 2019."
+Graph_salaires +
+  labs(caption="Les salaires réels sont calculés en déflatant des indices de prix à la consommation (IPCH pour les\npays de la Zone Euro).\nSources : Bureau of Labour Statistics, Eurostat, Office for National Statistics, calculs OFCE.")
+# knitr::include_graphics("Graphiques/Salaires_patchwork2.Graphiques")
+
+```
+
+Bien que les années post-COVID aient débouché sur des situtations historiquement favorables pour l'emploi, des indicateurs conjoncturels laissent entrevoir une baisse de la demande de travail. S'agissant des Etats-Unis, nous observons depuis un an une baisse du ratio de postes vacants par demandeur d'emploi (d'un pic de 1.9 au 2e trimestre 2022) ainsi que du taux de démissions (@fig-indicateurs)[^1]. Au Royaume-Uni, le taux de chômage a déjà augmenté de 0.6 points depuis le creux atteint au 2e trimestre 2022, tandis que le ratio de postes vacants par chomeur baissait d'un pic de 1,1 à 0,7. Pour la Zone Euro, malgré une légère baisse du taux de chômage en 2023, les enquêtes de la Commission Européenne indiquent que les perspectives de recrutement sont stables en Espagne et en Italie mais en baisse pour les entreprises allemandes et françaises. Par ailleurs, sur l'horizon de prévision les politiques monétaires restrictives, ainsi que l'extinction des soutiens budgétaires pèseront sur l'activité de l'ensemble des économies industrialisées et donc sur la demande de travail (Voir partie sur les politiques économiques).
+
+[^1]: Le taux de démissions a retrouvé son niveau de fin 2019, soit 2,3%, contre un pic à 2,8% au 2e trimestre 2022.
+
+```{r, message=FALSE, warning=FALSE, fig.showtext=TRUE}
+#| label: fig-indicateurs
+#| echo: false
+#| fig-asp: 1
+#| fig-cap: "Indicateurs conjoncturels des tensions sur le marché du travail"
+
+Graph_conjoncture_emploi+
+  plot_annotation(caption = "L’indicateur pour la Zone Euro est l’Employment Expectations Indicator, calculé par la Commission Européenne à partir\nd’enquêtes auprès des entreprises. L'indice est normalisé de façon à ce que la moyenne du solde des réponses\nsoit égale à 100.\nSources : Bureau of Labor Statistics, Commission Européenne, Office for National Statistics, calculs OFCE.") &
+  theme_ofce(plot.title = element_text(size = 12, face = "bold", hjust = 0.5))
+
+```
+
+Enfin, dans certaines économies (Allemagne, France, Royaume-Uni), les créations d'emploi ont été particulièrement fortes étant donnée la croissance de la valeur ajoutée, créant un écart entre la croissance de la productivité apparente du travail et sa tendance historique (@tbl-emploi). Considérant qu'il n'y pas à ce jour de preuve définitive que des chocs persistants sur la tendance soient à l'origine de cet écart, un rattrapage partiel de la productivité du travail devrait avoir lieu sur l'horizon de prévision pour ces pays. Ces regains de productivité se traduiraient par une pression à la baisse sur l'emploi (à taux de croissance de la production donné). En se basant sur les dynamiques récentes des indicateurs conjoncturels ainsi que les hypothèses sur l'évolution à venir de l'activité et de la productivité, nous anticipons donc une hausse du chômage au sein des principales économies développées du troisième trimestre 2023 à la fin 2024.
+
+```{r}
+#| label: tbl-emploi
+#| echo: false
+#| message: false
+#| warning: false
+#| tbl-cap: "Emploi, productivité et chômage"
+library(gt)
+
+# knitr::kable(emploi_prod)%>%
+#   pack_rows("Evolution depuis 2019 T4 (%)", 1,3)%>%
+#   pack_rows("Taux de chômage (2024 T4)", 4,5)%>%
+#   footnote(general_title = "Sources:", general = "<i>Destatis, INE, INSEE, ISTAT, ONS, BLS, calculs OFCE.</i>", footnote_as_chunk = T,
+#            escape = FALSE
+#            )
+
+emploi_prod %>%
+  mutate(groupe = c(rep("Emploi & productivité: évolution depuis 2019 T4 (%)",3),
+                    rep("Taux de chômage",2))) %>%
+  group_by(groupe) %>%
+  gt() %>%
+  tab_source_note(
+    md("*Sources: Destatis, INE, INSEE, ISTAT, ONS, BLS, calculs OFCE*")) %>%
+  tab_style(style = cell_text(weight = "bold"),
+            locations = list(cells_group(), cells_column_labels()))%>%
+   gt::opt_row_striping()
+```
