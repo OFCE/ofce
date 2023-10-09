@@ -60,8 +60,7 @@ contributes:
         - title-metadata.html
         - toc.html
     pdf:
-      documentclass: scrartcl
-      mainfont: Open Sans
+      documentclass: scrreprt
       toc-depth: 1
       number-sections: true
       number-depth: 3
@@ -74,5 +73,11 @@ contributes:
       extra_dependencies: ["float"]
       fig-dpi: 600
       fig-format: png
-      include-in-header: "header.tex"
-      include-before-body: "titlepage.tex"
+      logo: ofce.png
+      template-partials:
+        - _extensions/ofce/ofcewp/pdf_template/title.tex
+        - _extensions/ofce/ofcewp/pdf_template/before-body.tex
+        - _extensions/ofce/ofcewp/pdf_template/after-body.tex
+        - _extensions/ofce/ofcewp/pdf_template/toc.tex
+        - _extensions/ofce/ofcewp/pdf_template/biblio.tex
+      # - _extensions/ofce/ofcewp/pdf_template/pandoc.tex
