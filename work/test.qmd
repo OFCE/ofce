@@ -6,6 +6,7 @@ author : "moi"
 format:
   wp-html: default
   docx: default
+  blog-html: default
 ---
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #| label: tbl-table1
