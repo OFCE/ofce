@@ -1,10 +1,11 @@
 ---
-title: "Ralentissement contrôlé ? Dérapage contrôlé ? Le coût de l'inflation ? Les banques centrales envoient la facture ? Factures à payer ? Perspectives 2023 - 2024 pour l'économie mondiale"
+title: "Ralentissement contrôlé ? Dérapage contrôlé ? Le coût de linflation ? Les banques centrales envoient la facture ? Factures à payer ? Perspectives 2023 - 2024 pour léconomie mondiale"
 author: 
   - name: "Département analyse et prévision"
 
 format:
   wp-html: default
+  wp-pdf: default
   docx:
     fig-format: svg
     fig-width: 7

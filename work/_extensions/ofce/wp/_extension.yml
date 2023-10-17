@@ -52,7 +52,7 @@ contributes:
       fig-format: png
       cap-location: top
       reference-location: margin
-      logo: _extensions/ofce/wp/ofce.png
+      logo: _extensions/ofce/wp/ofce_m.png
       lightbox: true
       title-block-style: default
       template-partials:
@@ -60,7 +60,7 @@ contributes:
         - title-metadata.html
         - toc.html
     pdf:
-      documentclass: scrartcl
+      documentclass: scrreprt
       mainfont: Open Sans
       toc-depth: 1
       number-sections: true
@@ -74,5 +74,11 @@ contributes:
       extra_dependencies: ["float"]
       fig-dpi: 600
       fig-format: png
-      include-in-header: "header.tex"
-      include-before-body: "titlepage.tex"
+      logo: _extensions/ofce/ofcewp/ofce_m.png
+      logo2: _extensions/ofce/ofcewp/sciencespo.png
+      template-partials:
+        - _extensions/ofce/wp/pdf_template/title.tex
+        - _extensions/ofce/wp/pdf_template/before-body.tex
+        - _extensions/ofce/wp/pdf_template/after-body.tex
+        - _extensions/ofce/wp/pdf_template/toc.tex
+        - _extensions/ofce/wp/pdf_template/biblio.tex

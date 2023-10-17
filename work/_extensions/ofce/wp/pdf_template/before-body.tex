@@ -1,0 +1,94 @@
+
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+
+$if(title)$
+
+$if(beamer)$
+\frame{\titlepage}
+$else$
+
+\begin{titlepage}
+\raisebox{9.5cm}
+{
+   \begin{minipage}{0.22\linewidth}
+  
+  \large\textbf{OFCE}
+  \newline
+  \large\textbf{Working Paper}
+  \newline
+
+  N˚ \textcolor{red}{\LARGE\textbf{$wp$}}
+
+\end{minipage} 
+} 
+%
+%
+% Linebreak to separate code
+\begin{minipage}{0.02\linewidth}
+    \rule{1pt}{\textheight}
+\end{minipage} 
+%
+%
+%
+\begin{minipage}{0.7\linewidth}
+ \textcolor{red}{\Huge\textbf{\textsf{$title$}}}
+ 
+ $if(subtitle)$
+\vspace{5mm}
+ \textcolor{red}{\textbf{\textsf{$subtitle$}}}
+\vspace{5mm}
+ $endif$
+ \vspace{20mm}
+ 
+ %$for(authors)$$it.name.literal$$sep$ \newline $endfor$
+ $for(by-author)$ 
+ 
+  \textbf{$it.name.literal$}$if(by-author.affiliations)$$for(by-author.affiliations)$,$if(by-author.affiliations.name)$
+          $by-author.affiliations.name$$endif$$endfor$
+  $endif$
+$endfor$ % by-author
+\raisebox{-5cm}
+{
+  \includegraphics[height=1cm]{$logo$} \hspace{1cm}  \includegraphics[height=1cm]{$logo2$}
+}
+%
+\end{minipage}
+
+%
+\end{titlepage}
+$endif$
+%
+%
+\newpage
+%% deuxieme page
+\pagestyle{empty}
+\begin{minipage}{\linewidth}
+
+  \includegraphics[height=1cm]{$logo$} \hspace{8cm}  \includegraphics[height=1cm]{$logo2$}
+
+\end{minipage}
+
+\vspace{2cm}
+
+\LARGE\textbf{$title$}
+
+\large\textbf{$subtitle$}
+$if(abstract)$
+
+\vspace{2cm}
+
+\begin{center}
+
+\end{center}
+\par\rule{\textwidth}{0.5pt} 
+
+$abstract$
+
+\par\rule{\textwidth}{0.5pt} 
+
+
+$endif$
+$endif$
+$plop$
