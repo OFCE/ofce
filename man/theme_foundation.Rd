@@ -4,11 +4,9 @@
 \alias{theme_foundation}
 \title{Theme foundation}
 \usage{
-theme_foundation(base_size = 12, base_family = "")
+theme_foundation(une_base_size = 12, base_family = "")
 }
 \arguments{
-\item{base_size}{base font size, given in pts.}
-
 \item{base_family}{base font family}
 }
 \value{

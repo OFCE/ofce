@@ -2,12 +2,13 @@
 title: "un essai"
 
 author : "moi"
-
+cap-location: top
 format:
   wp-html: default
   docx: default
   blog-html: default
 ---
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #| label: tbl-table1
 library(tidyverse)
@@ -18,3 +19,14 @@ table <- tribble(~a, ~b, ~c,
 gt(table)
 ```
 
+```{r}
+#| label: fig-fig1
+#| echo: false
+#| message: false
+#| warning: false
+#| 
+
+library(tidyverse)
+ggplot(cars)+geom_line(aes(x=speed, y=dist))
+
+```

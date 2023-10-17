@@ -42,7 +42,6 @@ ofce_quarto_extension <- function(dir=".", quiet = FALSE) {
        format: ofce-html
 
     consulter Anissa, Paul, Xavier ou {.url https://quarto.org} pour d'autres options")
-  setwd(wd_dir)
 }
 
 #' installe un squelette de document de travail
