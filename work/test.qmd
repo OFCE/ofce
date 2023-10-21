@@ -1,11 +1,15 @@
 ---
-title: "un essai"
+title: "un essai avec un très long titre good good good"
 
-author : "moi"
+author : "Xavier Timbeau"
 cap-location: top
+wp: 42
+
 format:
   wp-html: default
+  wp-pdf: default
   docx: default
+  blog-html: default
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
