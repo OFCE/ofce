@@ -1,15 +1,94 @@
+
 $if(has-frontmatter)$
 \frontmatter
 $endif$
+
 $if(title)$
+
 $if(beamer)$
 \frame{\titlepage}
 $else$
-\maketitle
+\definecolor{ofcepbbleu}{RGB}{1, 97, 131}
+\definecolor{ofcerouge}{RGB}{198, 45, 43}
+
+\begin{titlepage}
+  \backgroundsetup{
+    scale=1,
+    angle=0,
+    opacity=1,
+    contents={
+  \begin{tikzpicture}[remember picture,overlay]
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \node [anchor = west] at (-8.25,12) {\includegraphics[width=2.5cm]{$logo$}};
+      \node [anchor = west] at (-8.5,-12){\includegraphics[width=3cm]{$logo2$}};
+      \node [anchor = east] at (8.5,-11.5){\textcolor{black}{Date de première publication : $date$}};
+      \node [anchor = east] at (8.5,-12){\textcolor{black}{Date de dernière modification : $date-modified$}};
+      \node [anchor = east] at (8.75,13-0.75){\textcolor{gray}{\Huge\textit{Working Paper}}};
+      \draw [thick,black](-5.25,-13) -- (-5.25,13);
+      \draw [color = white, fill=ofcepbbleu] (11-2,13-2) rectangle (11,13);
+      \draw [color = white, fill=ofcepbbleu,thick] (10-1-0.3,12-1-0.3) rectangle (10-0.2,12-0.2);
+      \node [anchor = east] at (11-0.65,13-0.75){\textcolor{white}{\huge\textbf{$wp$}}};
+      \node [anchor = east] at (10-0.25,12-0.7){\textcolor{white}{\large\textbf{$annee$}}};
+    \end{tikzpicture}
+  }
+}
+\BgThispage
+
+\hspace{3cm}
+\begin{minipage}{12.5cm}
+  \vspace{5cm}
+  \textcolor{ofcerouge}{\Huge\textbf{\textsf{$title$}}}
+ 
+  $if(subtitle)$
+ \vspace{5mm}
+  \textcolor{ofcerouge}{\large\textbf{\textsf{$subtitle$}}}
+ \vspace{5mm}
+  $endif$
+  \vspace{20mm}
+  
+  %$for(authors)$$it.name.literal$$sep$ \newline $endfor$
+  $for(by-author)$ 
+  
+   \textbf{$it.name.literal$}$if(by-author.affiliations)$$for(by-author.affiliations)$,$if(by-author.affiliations.name)$
+           $by-author.affiliations.name$$endif$$endfor$
+   $endif$
+ $endfor$ % by-author
+ \end{minipage}
+  
+
 $endif$
+%
+%
+\newpage
+%% deuxieme page
+\pagestyle{empty}
+\begin{minipage}{\linewidth}
+
+  \includegraphics[height=1cm]{$logo$} \hspace{8cm}  \includegraphics[height=1cm]{$logo2$}
+
+\end{minipage}
+
+\vspace{2cm}
+
+\LARGE\textbf{$title$}
+
+
+\large\textbf{$subtitle$}
 $if(abstract)$
-\begin{abstract}
+
+\vspace{2cm}
+
+\begin{center}
+
+\end{center}
+\par\rule{\textwidth}{0.5pt} 
+
 $abstract$
-\end{abstract}
+
+\par\rule{\textwidth}{0.5pt} 
+
+
 $endif$
 $endif$
+$plop$
+\end{titlepage}

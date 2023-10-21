@@ -10,10 +10,10 @@ author:
 institution: "Observatoire Français des Conjonctures Économiques"
 
 format:
-  blog_html: default
+  blog-html: default
   blog-pdf: default
 categories: [keyword1, keyword2]
-
+image: image.jpg
 subtitle: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
 
 # A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)
@@ -22,10 +22,6 @@ subtitle: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
 
 bibliography: references.bib
 ---
-
-
-![](img/image.jpg)
-
 
 # Introduction {#sec-introduction .unnumbered}
 

@@ -16,7 +16,8 @@ citation:
   type: article
   container-title: "Document de travail de l'OFCE n° 0"
   url: https://ofce.github.io/nofuture
-wp: 000
+wp: xxx
+annee: 2023
 keywords: [passé, présent, futur]
 draft: true
 format:
