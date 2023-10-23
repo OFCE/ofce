@@ -61,8 +61,9 @@ contributes:
         - html_template/toc.html
     pdf:
       documentclass: scrreprt
-      # mainfont: Open Sans
+      annee: 2023
       toc-depth: 1
+      pdffont: OpenSans
       number-sections: true
       number-depth: 3
       classoption:

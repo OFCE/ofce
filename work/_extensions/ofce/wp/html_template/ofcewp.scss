@@ -13,10 +13,13 @@ $scpored: #e6142d;
 $scpodarkred: #770C19;
 $ofcered: #a22a2e;
 $darkgrey: #555;
+$lightgrey: #EEE;
 $green: #079D10;
 $blue: #000080;
 $navbar-hl: #e6142d;
 $sidebar-hl: #e6142d;
+
+$callout-color-tip: #DDD;
 
 /*-- scss:rules --*/
 h1, h2, h3, h4, h5, h6,
@@ -43,7 +46,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .page-columns.page-full,
-.content, 
+.content,
 .body {
   text-align: justify !important;
 }
@@ -107,31 +110,6 @@ h1, h2, h3, h4, h5 {
   background-clip: padding-box;
 }
 
-.encadre {
-  font-size: .8rem;
-  border-radius: 0;
-  background-clip: content-box;
-}
-
-.fbx-default {
-    background-color: #EFEFEF;
-  --color1: #ddd;
-  --color2: #ccc;
-
-  --border-color: var(--color2);
-  --title-color: #1b1b1b;
-  --title-background-color: var(--color1);
-  --title-padding: 0.5rem;
-  --border-radius: 0rem;
-
-  --padding-left: .8rem; /* for title (summary) and content (next div) */
-  --padding-content: 0.5rem;
-
-  --thickshadow: 2px 2px 3px #aaa;
-  --thinshadow: 1px 1px 2px #aaa;
-  --noshadow: 0px 0px 0px #FFF;
-}
-
 .panel-caption,
 .figure-caption,
 .subfigure-caption,
@@ -163,3 +141,17 @@ figcaption.quarto-float-caption,caption  {
   border-left-width: 2px;
   line-height: 160%;
 }
+
+.encadre, .callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: $lightgrey !important;
+  border-left-color:$lightgrey !important;
+}
+
+.callout-tip>.callout-header {
+  background-color: $lightgrey !important;
+}
+
+

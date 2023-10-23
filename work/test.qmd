@@ -1,15 +1,11 @@
 ---
-title: "un essai avec un très long titre good good good"
-
-author : "Xavier Timbeau"
-cap-location: top
-wp: 42
+title: "Table in a div"
 
 format:
   wp-html: default
-  wp-pdf: default
+  wp-pdf:
+    keep-tex: true
   docx: default
-  blog-html: default
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -22,14 +18,22 @@ table <- tribble(~a, ~b, ~c,
 gt(table)
 ```
 
-```{r}
-#| label: fig-fig1
-#| echo: false
-#| message: false
-#| warning: false
-#| 
+texte avant
 
+::: {.callout-tip collapse="true" icon="false"}
+## titre de l'encadré
+
+blablbl
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#| label: tbl-table2
+#| fig-pos: "h"
 library(tidyverse)
-ggplot(cars)+geom_line(aes(x=speed, y=dist))
-
+library(gt)
+table <- tribble(~a, ~b, ~c,
+                "text", 1, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh",
+                "others", 2, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh") 
+gt(table) |> 
+  as_raw_html()
 ```
+:::

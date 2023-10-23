@@ -19,16 +19,16 @@ $else$
     contents={
   \begin{tikzpicture}[remember picture,overlay]
     \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-      \node [anchor = west] at (-8.25,12) {\includegraphics[width=2.5cm]{$logo$}};
-      \node [anchor = west] at (-8.5,-12){\includegraphics[width=3cm]{$logo2$}};
+      \node [anchor = west] at (-8.25,12.5) {\includegraphics[width=2.5cm]{$logo$}};
+      \node [anchor = west] at (-8.5,-12.75){\includegraphics[width=3cm]{$logo2$}};
       \node [anchor = east] at (8.5,-11.5){\textcolor{black}{Date de première publication : $date$}};
       \node [anchor = east] at (8.5,-12){\textcolor{black}{Date de dernière modification : $date-modified$}};
-      \node [anchor = east] at (8.75,13-0.75){\textcolor{gray}{\Huge\textit{Working Paper}}};
+      \node [anchor = east] at (8.2,13-0.7){\textcolor{gray}{\Huge\textit{Working Paper}}};
       \draw [thick,black](-5.25,-13) -- (-5.25,13);
-      \draw [color = white, fill=ofcepbbleu] (11-2,13-2) rectangle (11,13);
-      \draw [color = white, fill=ofcepbbleu,thick] (10-1-0.3,12-1-0.3) rectangle (10-0.2,12-0.2);
-      \node [anchor = east] at (11-0.65,13-0.75){\textcolor{white}{\huge\textbf{$wp$}}};
-      \node [anchor = east] at (10-0.25,12-0.7){\textcolor{white}{\large\textbf{$annee$}}};
+      \draw [color = white, fill=ofcepbbleu] (8.7,11.4) rectangle (10.45,13.15);
+      \draw [color = white, fill=ofcepbbleu, very thick] (8.75-.5,11.25-.5) rectangle (8.75+.6,11.25+.6);
+      \node [anchor = east] at (11-0.7,13-0.7){\textcolor{white}{\huge\textbf{$wp$}}};
+      \node [anchor = east] at (10-0.74,12-0.67){\textcolor{white}{\textbf{$annee$}}};
     \end{tikzpicture}
   }
 }
@@ -38,23 +38,22 @@ $else$
 \begin{minipage}{12.5cm}
   \vspace{5cm}
   \textcolor{ofcerouge}{\Huge\textbf{\textsf{$title$}}}
- 
+
   $if(subtitle)$
  \vspace{5mm}
   \textcolor{ofcerouge}{\large\textbf{\textsf{$subtitle$}}}
  \vspace{5mm}
   $endif$
   \vspace{20mm}
-  
+
   %$for(authors)$$it.name.literal$$sep$ \newline $endfor$
-  $for(by-author)$ 
-  
+  $for(by-author)$
    \textbf{$it.name.literal$}$if(by-author.affiliations)$$for(by-author.affiliations)$,$if(by-author.affiliations.name)$
            $by-author.affiliations.name$$endif$$endfor$
    $endif$
  $endfor$ % by-author
  \end{minipage}
-  
+
 
 $endif$
 %
@@ -64,7 +63,9 @@ $endif$
 \pagestyle{empty}
 \begin{minipage}{\linewidth}
 
-  \includegraphics[height=1cm]{$logo$} \hspace{8cm}  \includegraphics[height=1cm]{$logo2$}
+  \includegraphics[width=2cm]{$logo$}
+
+  \includegraphics[width=2cm]{$logo2$}
 
 \end{minipage}
 
@@ -81,11 +82,11 @@ $if(abstract)$
 \begin{center}
 
 \end{center}
-\par\rule{\textwidth}{0.5pt} 
+\par\rule{\textwidth}{0.5pt}
 
 $abstract$
 
-\par\rule{\textwidth}{0.5pt} 
+\par\rule{\textwidth}{0.5pt}
 
 
 $endif$

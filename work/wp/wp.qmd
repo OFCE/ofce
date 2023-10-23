@@ -16,7 +16,8 @@ citation:
   type: article
   container-title: "Document de travail de l'OFCE n° 0"
   url: https://ofce.github.io/nofuture
-wp: 000
+wp: xxx
+annee: 2023
 keywords: [passé, présent, futur]
 draft: true
 format:
@@ -83,6 +84,20 @@ Scelerisque in dictum non consectetur a erat nam at. Elementum facilisis leo vel
 # Une autre section de niveau 1 {#sec-etencore}
 
 Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget.
+
+::: {.callout-tip collapse="true" icon="false"}
+## les encadrés
+
+Pour faire un encadré, il faut créer un div .callout-tip. Le titre de l'encadré est en niveau 2 (##)
+
+En ajoutant l'attribute `collpase=true`, cet encadré sera replié en HTML.
+
+En ajoutant l'attribute `icon=false`, Il n'y a pas d'icone dans le titre
+
+Il faut utiliser callout-tip, les autres callouts donnent les résultats standards.
+
+Dans le futur, ce sera plus simple.
+:::
 
 ## Section niveau 2 {#sec-ca-continue}
 

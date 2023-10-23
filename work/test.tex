@@ -1,0 +1,318 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+  a4paper,
+  DIV=10]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{3}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{array}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table des matières}
+\else
+  \newcommand\contentsname{Table des matières}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Figures}
+\else
+  \newcommand\listfigurename{Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Tableaux}
+\else
+  \newcommand\listtablename{Tableaux}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tableau}
+\else
+  \newcommand\tablename{Tableau}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{Liste des Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{french}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Table in a div},
+  pdflang={fr},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+%%% title.tex we use to call other packages. Because this works
+\usepackage{titlepic}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{placeins}
+\usepackage{graphbox}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage[some]{background}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{datetime}
+\usepackage{xstring}
+
+\setmainfont{OpenSans}[
+  UprightFont = {*-Regular},
+  BoldFont = {*-Bold},
+  BoldItalicFont = {*-BoldItalic},
+  ItalicFont = {*-Italic},
+  Path = {_extensions/ofce/wp/OpenSans/},
+  Extension = {.ttf}
+]
+\setsansfont{OpenSans}[
+  UprightFont = {*-Regular},
+  BoldFont = {*-Bold},
+  BoldItalicFont = {*-BoldItalic},
+  ItalicFont = {*-Italic},
+  Path = {_extensions/ofce/wp/OpenSans/},
+  Extension = {.ttf}
+]
+\def\getYear#1{\StrLeft{#1}{4}}
+\def\getMonth#1{\StrMid{#1}{6}{7}}
+\def\getDay#1{\StrRight{#1}{2}}
+
+\def\jolimois#1{\monthname{\getMonth{#1}}}
+\begin{document}
+
+
+
+\definecolor{ofcepbbleu}{RGB}{1, 97, 131}
+\definecolor{ofcerouge}{RGB}{198, 45, 43}
+
+\begin{titlepage}
+  \backgroundsetup{
+    scale=1,
+    angle=0,
+    opacity=1,
+    contents={
+  \begin{tikzpicture}[remember picture,overlay]
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \node [anchor = west] at (-8.25,12.5) {\includegraphics[width=2.5cm]{\_extensions/ofce/wp/ofce\_m.png}};
+      \node [anchor = west] at (-8.5,-12.75){\includegraphics[width=3cm]{\_extensions/ofce/wp/sciencespo.png}};
+      \node [anchor = east] at (8.5,-11.5){\textcolor{black}{Date de première publication : }};
+      \node [anchor = east] at (8.5,-12){\textcolor{black}{Date de dernière modification : }};
+      \node [anchor = east] at (8.2,13-0.7){\textcolor{gray}{\Huge\textit{Working Paper}}};
+      \draw [thick,black](-5.25,-13) -- (-5.25,13);
+      \draw [color = white, fill=ofcepbbleu] (8.7,11.4) rectangle (10.45,13.15);
+      \draw [color = white, fill=ofcepbbleu, very thick] (8.75-.5,11.25-.5) rectangle (8.75+.6,11.25+.6);
+      \node [anchor = east] at (11-0.7,13-0.7){\textcolor{white}{\huge\textbf{}}};
+      \node [anchor = east] at (10-0.74,12-0.67){\textcolor{white}{\textbf{2023}}};
+    \end{tikzpicture}
+  }
+}
+\BgThispage
+
+\hspace{3cm}
+\begin{minipage}{12.5cm}
+  \vspace{5cm}
+  \textcolor{ofcerouge}{\Huge\textbf{\textsf{Table in a div}}}
+
+    \vspace{20mm}
+
+  %
+   % by-author
+ \end{minipage}
+
+
+%
+%
+\newpage
+%% deuxieme page
+\pagestyle{empty}
+\begin{minipage}{\linewidth}
+
+  \includegraphics[width=2cm]{\_extensions/ofce/wp/ofce\_m.png}
+
+  \includegraphics[width=2cm]{\_extensions/ofce/wp/sciencespo.png}
+
+\end{minipage}
+
+\vspace{2cm}
+
+\LARGE\textbf{Table in a div}
+
+
+\large\textbf{}
+
+\end{titlepage}\renewcommand*\contentsname{Table des matières}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{0}
+\tableofcontents
+}
+\begin{table}
+
+\caption{\label{tbl-table1}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\begin{longtable*}{lrl}
+\toprule
+a & b & c \\ 
+\midrule\addlinespace[2.5pt]
+text & 1 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\ 
+others & 2 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\ 
+\bottomrule
+\end{longtable*}
+
+}
+
+\end{table}%
+
+texte avant
+
+\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, bottomtitle=1mm, leftrule=.75mm, opacityback=0, title={titre de l'encadré}, arc=.35mm, opacitybacktitle=0.6, left=2mm, colbacktitle=quarto-callout-tip-color!10!white, colback=white, breakable]
+
+blablbl
+
+\phantomsection\label{tbl-table2}
+\begin{longtable}[]{@{}lrl@{}}
+\toprule\noalign{}
+a & b & c \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+text & 1 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\
+others & 2 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\
+\end{longtable}
+
+\end{tcolorbox}
+
+
+
+\end{document}
