@@ -37,17 +37,18 @@ $else$
 \hspace{3cm}
 \begin{minipage}{12.5cm}
   \vspace{5cm}
-  \begin{flushleft}
-    \textcolor{ofcerouge}{\Huge\textbf{\textsf{$title$}}}
-    $if(subtitle)$
-    \vspace{5mm}
-    \textcolor{ofcerouge}{\large\textbf{\textsf{$subtitle$}}}
-    \vspace{5mm}
-    $endif$
-  \end{flushleft}
+  \textcolor{ofcerouge}{\Huge\textbf{\textsf{$title$}}}
+
+  $if(subtitle)$
+ \vspace{5mm}
+  \textcolor{ofcerouge}{\large\textbf{\textsf{$subtitle$}}}
+ \vspace{5mm}
+  $endif$
   \vspace{20mm}
+
+  %$for(authors)$$it.name.literal$$sep$ \newline $endfor$
   $for(by-author)$
-   \textbf{$it.name.literal$}$if(by-author.affiliations)$$for(by-author.affiliations)$$if(by-author.affiliations.name)$
+   \textbf{$it.name.literal$}$if(by-author.affiliations)$$for(by-author.affiliations)$,$if(by-author.affiliations.name)$
            $by-author.affiliations.name$$endif$$endfor$
    $endif$
  $endfor$ % by-author

@@ -41,7 +41,7 @@ contributes:
       citation: true
       license: CC BY
     html:
-      theme: [cosmo, ofcewp.scss]
+      theme: [cosmo, html_template/ofcewp.scss]
       mainfont: Open Sans
       toc-location: left
       toc-title: Sur cette page
@@ -52,17 +52,18 @@ contributes:
       fig-format: png
       cap-location: top
       reference-location: margin
-      logo: _extensions/ofce/wp/ofce.png
+      logo: _extensions/ofce/wp/ofce_m.png
       lightbox: true
       title-block-style: default
       template-partials:
-        - title-block.html
-        - title-metadata.html
-        - toc.html
+        - html_template/title-block.html
+        - html_template/title-metadata.html
+        - html_template/toc.html
     pdf:
-      documentclass: scrartcl
-      mainfont: Open Sans
+      documentclass: scrreprt
+      annee: 2023
       toc-depth: 1
+      pdffont: OpenSans
       number-sections: true
       number-depth: 3
       classoption:
@@ -74,5 +75,11 @@ contributes:
       extra_dependencies: ["float"]
       fig-dpi: 600
       fig-format: png
-      include-in-header: "header.tex"
-      include-before-body: "titlepage.tex"
+      logo: _extensions/ofce/wp/ofce_m.png
+      logo2: _extensions/ofce/wp/sciencespo.png
+      template-partials:
+        - _extensions/ofce/wp/pdf_template/title.tex
+        - _extensions/ofce/wp/pdf_template/before-body.tex
+        - _extensions/ofce/wp/pdf_template/after-body.tex
+        - _extensions/ofce/wp/pdf_template/toc.tex
+        - _extensions/ofce/wp/pdf_template/biblio.tex

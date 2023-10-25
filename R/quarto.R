@@ -31,7 +31,6 @@ quarto_extension <- function(dir=".", quiet = FALSE) {
       ---
       format:
         ofce-html: default # une page en html
-        ofce-pdf: default # une page en pdf
         wp-html: default # Document de travail en html
         wp-pdf: default # Document de travail en pdf
         pres-revealjs: default # presentation
