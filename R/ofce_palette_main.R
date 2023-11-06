@@ -1,4 +1,4 @@
-#' OFCE palette principale
+#' Palette de cinq couleurs principales compatible avec les normes graphiques de la revue OFCE
 #'
 #' @param n number un nombre de couleurs à retenir pour la palette
 #'
@@ -17,13 +17,16 @@ ofce_palette_main <- function(n = 2) {
     return(c("#005DA4", "#F59C00", "#C51315"))
   }
 
-  if (n >= 4){
+  if (n == 4){
     # Bleu, Jaune, Rouge, Vert
     return(c("#005DA4", "#F59C00", "#C51315", "#008D36"))
   }
 
-  if (n >= 5){
+  if (n == 5){
     # Bleu, Jaune, Rouge, Vert, Violet
     return(c("#005DA4", "#F59C00", "#C51315", "#008D36", "#9900CC"))
+  }
+  if (n > 5){
+    cat("Nombre de couleurs dépassent celles enregistrées: il vaudrait mieux utiliser les fonctions `ofce_palette_seq` ou `ofce_palette_div`")
   }
 }
