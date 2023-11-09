@@ -1,11 +1,11 @@
 Package: ofce
 Type: Package
 Title: Aide à la rédaction de documents scientifiques aux normes OFCE
-Version: 0.7.0
+Version: 1.0.0
 Author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
 Maintainer: The package maintainer <xavier.timbeau@sciencespo.fr>
 Description: procure quelques fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue.
-    Apporte des templates de rédaction sous quarto et d'autres outils d'aide à l'analyse de données sous R.
+    Apporte des templates de rédaction sous quarto.
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -17,6 +17,7 @@ Imports:
     dplyr,
     farver,
     flextable,
+    gt,
     ggh4x,
     ggplot2,
     glue,
