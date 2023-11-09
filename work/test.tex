@@ -4,7 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  11pt,
+  8pt,
   a4paper,
   DIV=10]{scrreprt}
 
@@ -209,7 +209,6 @@
 \usepackage{titlepic}
 \usepackage{titling}
 \usepackage{graphicx}
-\usepackage{fancyhdr}
 \usepackage{fontspec}
 \usepackage{placeins}
 \usepackage{graphbox}
@@ -222,6 +221,8 @@
 \usepackage{caption}
 \usepackage{datetime}
 \usepackage{xstring}
+\usepackage{blindtext}
+\usepackage{scrlayer-scrpage}
 
 \setmainfont{OpenSans}[
   UprightFont = {*-Regular},
@@ -239,6 +240,9 @@
   Path = {_extensions/ofce/wp/OpenSans/},
   Extension = {.ttf}
 ]
+
+%% \KOMAoption{fontsize 8pt}
+
 \def\getYear#1{\StrLeft{#1}{4}}
 \def\getMonth#1{\StrMid{#1}{6}{7}}
 \def\getDay#1{\StrRight{#1}{2}}
@@ -248,12 +252,26 @@
 \definecolor{quarto-callout-color}{HTML}{eeeeee}
 \definecolor{quarto-callout-tip-color}{HTML}{dddddd}
 \definecolor{quarto-callout-tip-color-frame}{HTML}{eeeeee}
+
+\clearpairofpagestyles
+
+\KOMAoptions{headsepline=true, twoside=true}
+
+\pagestyle{scrheadings}
+\setkomafont{pageheadfoot}{\small}
+
+\rehead{Document de travail n°1xx}
+\lohead{\includegraphics[height=0.25cm]{\_extensions/ofce/wp/ofce\_m.png}}
+
+\lofoot*{\thepage}
+\refoot*{\thepage}
 \begin{document}
 
 
 
 \definecolor{ofcepbbleu}{RGB}{1, 97, 131}
 \definecolor{ofcerouge}{RGB}{198, 45, 43}
+\definecolor{scporouge}{RGB}{231, 0, 26}
 
 \begin{titlepage}
   \backgroundsetup{
@@ -263,29 +281,33 @@
     contents={
   \begin{tikzpicture}[remember picture,overlay]
     \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
-      \node [anchor = west] at (-8.25,12.5) {\includegraphics[width=2.5cm]{\_extensions/ofce/wp/ofce\_m.png}};
-      \node [anchor = west] at (-8.5,-12.75){\includegraphics[width=3cm]{\_extensions/ofce/wp/sciencespo.png}};
+      \node [anchor = center] at (-2.875-5.25,12.5) {\includegraphics[width=2.5cm]{\_extensions/ofce/wp/ofce\_m.png}};
+      \node [anchor = center] at (-2.875-5.25,-12.75){\includegraphics[width=2.5cm]{\_extensions/ofce/wp/sciencespo.png}};
       \node [anchor = east] at (8.5,-11.5){\textcolor{black}{Date de première publication : }};
       \node [anchor = east] at (8.5,-12){\textcolor{black}{Date de dernière modification : }};
-      \node [anchor = east] at (8.2,13-0.7){\textcolor{gray}{\Huge\textit{Working Paper}}};
-      \draw [thick,black](-5.25,-13) -- (-5.25,13);
+      \node [anchor = east] at (8.5,13-0.7){\textcolor{gray}{\Huge\textit{Working Paper}}};
+      \draw [thick,black](-5.75,-13) -- (-5.75,13);
       \draw [color = white, fill=ofcepbbleu] (8.7,11.4) rectangle (10.45,13.15);
       \draw [color = white, fill=ofcepbbleu, very thick] (8.75-.5,11.25-.5) rectangle (8.75+.6,11.25+.6);
-      \node [anchor = east] at (11-0.7,13-0.7){\textcolor{white}{\huge\textbf{}}};
+      \node [anchor = east] at (11-0.7,13-0.7){\textcolor{white}{\huge\textbf{1xx}}};
       \node [anchor = east] at (10-0.74,12-0.67){\textcolor{white}{\textbf{2023}}};
     \end{tikzpicture}
   }
 }
 \BgThispage
 
-\hspace{3cm}
+\hspace{4cm}
 \begin{minipage}{12.5cm}
   \vspace{5cm}
-  \textcolor{ofcerouge}{\Huge\textbf{\textsf{Table in a div}}}
-
+  \begin{flushleft}
+  \textcolor{scporouge}{\Huge\textbf{\textsf{Table in a div}}}
+  
+   \vspace{5mm}
+  \textcolor{scporouge}{\large\textbf{\textsf{hello div}}}
+ \vspace{5mm}
     \vspace{20mm}
-
-  %
+  \end{flushleft}
+  
    % by-author
  \end{minipage}
 
@@ -295,20 +317,43 @@
 \newpage
 %% deuxieme page
 \pagestyle{empty}
-\begin{minipage}{\linewidth}
-
-  \includegraphics[width=2cm]{\_extensions/ofce/wp/ofce\_m.png}
-
-  \includegraphics[width=2cm]{\_extensions/ofce/wp/sciencespo.png}
-
-\end{minipage}
-
-\vspace{2cm}
-
+%%  \raisebox{3cm}{\begin{minipage}{\linewidth}
+%%  \includegraphics[width=2cm]{\_extensions/ofce/wp/ofce\_m.png}
+%%
+%%  \includegraphics[width=2cm]{\_extensions/ofce/wp/sciencespo.png}
+%%  \end{minipage}}
+%%
+ 
 \LARGE\textbf{Table in a div}
 
+\large\textbf{hello div}
 
-\large\textbf{}
+\vspace{1cm}
+
+
+\par\rule{\textwidth}{0.5pt}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac augue
+quis velit varius cursus. Pellentesque a auctor lectus, at auctor neque.
+Maecenas lorem mauris, varius nec metus vel, varius pulvinar augue.
+Phasellus eget nisl commodo nunc vestibulum venenatis sed id lorem. Ut
+rutrum pretium dolor quis sagittis. Proin porttitor mollis fringilla.
+Praesent sed convallis odio. Vestibulum consequat, libero auctor
+hendrerit blandit, purus erat laoreet dolor, sit amet pellentesque neque
+arcu nec elit. Curabitur feugiat, dolor efficitur dapibus fermentum,
+eros lacus gravida dui, eget mattis magna orci quis dui. Etiam viverra
+ante lacus, quis congue lorem euismod sed. Proin sed elit interdum,
+pretium purus vitae, fermentum risus. Sed facilisis vehicula arcu vitae
+efficitur. Donec aliquet auctor dui in blandit.
+
+\par\rule{\textwidth}{0.5pt}
+
+
+\vspace{1cm}
+
+\begin{flushright}
+ % by-author
+\end{flushright}
 
 \end{titlepage}\renewcommand*\contentsname{Table des matières}
 {
@@ -339,7 +384,7 @@ others & 2 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\
 
 texte avant
 
-\begin{tcolorbox}[enhanced jigsaw, titlerule=0mm, coltitle=black, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, opacityback=0, toprule=.15mm, bottomrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, colback=white, left=2mm, leftrule=.75mm, breakable, rightrule=.15mm, title={titre de l'encadré}, arc=.35mm, toptitle=1mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomtitle=1mm, rightrule=.15mm, coltitle=black, title={titre de l'encadré}, colbacktitle=quarto-callout-tip-color!10!white, breakable, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, toprule=.15mm, bottomrule=.15mm, opacityback=0, left=2mm, opacitybacktitle=0.6, toptitle=1mm, titlerule=0mm, colback=white]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -348,33 +393,34 @@ texte avant
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): famille de
-police introuvable dans la base de données des polices Windows
-\end{verbatim}
-
-\begin{verbatim}
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-famille de police introuvable dans la base de données des polices Windows
-\end{verbatim}
-
 \includegraphics{test_files/figure-pdf/unnamed-chunk-2-1.png}
 
 blablbl
 
-\phantomsection\label{tbl-table2}
-\begin{longtable}[]{@{}lrl@{}}
-\toprule\noalign{}
-a & b & c \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-text & 1 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\
-others & 2 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\
-\end{longtable}
+\begin{table}[H]
+
+\caption{\label{tbl-table2}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\begin{longtable*}{lrl}
+\toprule
+a & b & c \\ 
+\midrule\addlinespace[2.5pt]
+text & 1 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\ 
+others & 2 & Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh \\ 
+\bottomrule
+\end{longtable*}
+
+}
+
+\end{table}%
 
 \end{tcolorbox}
+
+continuing
 
 
 

@@ -1,10 +1,15 @@
 ---
 title: "Table in a div"
-
+subtitle: "hello div"
+wp: 1xx
+abstract: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac augue quis velit varius cursus. Pellentesque a auctor lectus, at auctor neque. Maecenas lorem mauris, varius nec metus vel, varius pulvinar augue. Phasellus eget nisl commodo nunc vestibulum venenatis sed id lorem. Ut rutrum pretium dolor quis sagittis. Proin porttitor mollis fringilla. Praesent sed convallis odio. Vestibulum consequat, libero auctor hendrerit blandit, purus erat laoreet dolor, sit amet pellentesque neque arcu nec elit. Curabitur feugiat, dolor efficitur dapibus fermentum, eros lacus gravida dui, eget mattis magna orci quis dui. Etiam viverra ante lacus, quis congue lorem euismod sed. Proin sed elit interdum, pretium purus vitae, fermentum risus. Sed facilisis vehicula arcu vitae efficitur. Donec aliquet auctor dui in blandit."
 format:
   wp-html: default
   wp-pdf:
     keep-tex: true
+    classoption:
+      DIV=10
+    fontsize: 8pt
   docx: default
 ---
 
@@ -29,7 +34,6 @@ ggplot(cars)+geom_point(aes(x=speed, y=dist))+ofce::theme_ofce()
 
 ```
 
-
 blablbl
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -40,7 +44,8 @@ library(gt)
 table <- tribble(~a, ~b, ~c,
                 "text", 1, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh",
                 "others", 2, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh") 
-gt(table) |> 
-  as_raw_html()
+gt(table)
 ```
 :::
+
+continuing

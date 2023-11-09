@@ -8,9 +8,10 @@ format:
 
 Table in a div
 
-belabel
+before callout
 
 ::: {.callout-tip icon="false"}
+in callout
 ```{r}
 #| label: tbl-table1
 #| tbl-cap: "A table"
@@ -27,5 +28,6 @@ table <- tribble(~a, ~b, ~c,
 gt(table)
 ```
 
-balabal
+in after table
 :::
+out callout
