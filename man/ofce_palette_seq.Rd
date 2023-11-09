@@ -2,18 +2,18 @@
 % Please edit documentation in R/ofce_palette_seq.R
 \name{ofce_palette_seq}
 \alias{ofce_palette_seq}
-\title{Palette de couleur associée de type sequentiel compatible avec les normes graphiques de la revue OFCE qui à partir de valeurs HEX produit une palette de n couleurs.}
+\title{Palette de couleurs associée de type sequentiel qui à partir de deux codes HEX génère une palette de n couleur compatible avec les normes graphiques de la revue OFCE}
 \usage{
 ofce_palette_seq(colors = c("#005DA4", "#C51315"), n = NULL)
 }
 \arguments{
 \item{colors}{vecteur de deux couleurs à partir duquel la palette est générée}
 
-\item{n}{integer, de couleurs}
+\item{n}{integer, nombre de couleurs}
 }
 \value{
 une palette de couleurs (format HEX)
 }
 \description{
-Palette de couleur associée de type sequentiel compatible avec les normes graphiques de la revue OFCE qui à partir de valeurs HEX produit une palette de n couleurs.
+Palette de couleurs associée de type sequentiel qui à partir de deux codes HEX génère une palette de n couleur compatible avec les normes graphiques de la revue OFCE
 }

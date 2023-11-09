@@ -2,7 +2,7 @@
 % Please edit documentation in R/ofce_palette_div.R
 \name{ofce_palette_div}
 \alias{ofce_palette_div}
-\title{OFCE palette divergente}
+\title{Palette de couleurs associée de type divergente qui à partir de deux codes HEX génère une palette de n couleurs compatible avec les normes graphiques de la revue OFCE}
 \usage{
 ofce_palette_div(colors = c("#005DA4", "#C51315"), n = NULL)
 }
@@ -15,7 +15,7 @@ ofce_palette_div(colors = c("#005DA4", "#C51315"), n = NULL)
 un vecteur de couleurs de taille n
 }
 \description{
-OFCE palette divergente
+Palette de couleurs associée de type divergente qui à partir de deux codes HEX génère une palette de n couleurs compatible avec les normes graphiques de la revue OFCE
 }
 \examples{
 ofce_palette_div(n = 4)

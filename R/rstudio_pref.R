@@ -9,9 +9,9 @@
 #' @export
 #'
 #' @examples
-#' if(interactive()) setOFCERStudio()
+#' if(interactive()) setup_RStudio()
 #'
-setOFCERStudio <- function(theme="iPlastic", right_console = TRUE) {
+setup_RStudio <- function(theme="iPlastic", right_console = TRUE) {
   rstudioapi::writeRStudioPreference("jobs_tab_visibility", "shown")
   rstudioapi::writeRStudioPreference("initial_working_directory", "~")
   rstudioapi::writeRStudioPreference("posix_terminal_shell", "bash")

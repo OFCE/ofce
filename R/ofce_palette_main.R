@@ -6,8 +6,8 @@
 #' @export
 #'
 #' @examples
-#' ofce_palette_main(n = 3)
-ofce_palette_main <- function(n = 2) {
+#' ofce_palette(n = 3)
+ofce_palette <- function(n = 2) {
   if (n <= 2){
     # Bleu et rouge
     return(c("#005DA4","#C51315"))
@@ -27,6 +27,6 @@ ofce_palette_main <- function(n = 2) {
     return(c("#005DA4", "#F59C00", "#C51315", "#008D36", "#9900CC"))
   }
   if (n > 5){
-    cat("Nombre de couleurs dépassent celles enregistrées: il vaudrait mieux utiliser les fonctions `ofce_palette_seq` ou `ofce_palette_div`")
+    cat("Nombre de couleurs dépassent celles enregistrées: il vaudrait mieux utiliser les fonctions `ofce_palette_seq` ou `ofce_palette_div`\n")
   }
 }

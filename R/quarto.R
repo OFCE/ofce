@@ -16,7 +16,7 @@
 #' @return NULL
 #' @export
 #'
-quarto_extension <- function(dir=".", quiet = FALSE) {
+setup_quarto <- function(dir=".", quiet = FALSE) {
 
   wd_dir <- getwd()
   if(!dir.exists(dir)) {
@@ -54,7 +54,7 @@ quarto_extension <- function(dir=".", quiet = FALSE) {
 #' @export
 #'
 #'
-ofce_wp <- function(dir = NULL, nom = NULL) {
+setup_wp <- function(dir = NULL, nom = NULL) {
   if(quarto::quarto_version()<"1.4.373")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
@@ -84,7 +84,7 @@ ofce_wp <- function(dir = NULL, nom = NULL) {
     return(invisible(FALSE))
   }
 
-  quarto_extension(dir, quiet = TRUE)
+  setup_quarto(dir, quiet = TRUE)
   cli::cli_alert_info("extensions installées")
 
   template <- system.file(
@@ -140,7 +140,7 @@ set_fontsize_reveal <- function(path=".", size=20) {
   scss <- stringr::str_c(path, "/_extensions/ofce/pres/ofce-pres.scss")
   if(!file.exists(scss)) {
     cli::cli_alert_warning(
-      'pas de scss, exécutez ofce::ofce_quarto_extension("{path}")')
+      'pas de scss, exécutez ofce::setup_quarto("{path}")')
     stop()
   }
   readLines(scss) |>
@@ -165,7 +165,7 @@ set_faicon_reveal <- function(path=".", unicode="f101") {
   scss <- stringr::str_c(path, "/_extensions/ofce/pres/ofce-pres.scss")
   if(!file.exists(scss)) {
     cli::cli_alert_warning(
-      'pas de scss, exécutez ofce::ofce_quarto_extension("{path}")')
+      'pas de scss, exécutez ofce::setup_quarto("{path}")')
     stop()
   }
   readLines(scss) |>
@@ -187,7 +187,7 @@ set_faicon_reveal <- function(path=".", unicode="f101") {
 #' @export
 #'
 #'
-ofce_presentation <- function(dir = NULL, nom = NULL) {
+setup_pres <- function(dir = NULL, nom = NULL) {
   if(quarto::quarto_version()<"1.4.373")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
@@ -217,7 +217,7 @@ ofce_presentation <- function(dir = NULL, nom = NULL) {
     return(invisible(FALSE))
   }
 
-  quarto_extension(dir, quiet = TRUE)
+  setup_quarto(dir, quiet = TRUE)
   cli::cli_alert_info("extensions installées")
 
   template <- system.file(
@@ -260,7 +260,7 @@ ofce_presentation <- function(dir = NULL, nom = NULL) {
 #' @export
 #'
 #'
-ofce_blog <- function(dir = NULL, nom = NULL) {
+setup_blog <- function(dir = NULL, nom = NULL) {
   if(quarto::quarto_version()<"1.4.373")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
@@ -290,7 +290,7 @@ ofce_blog <- function(dir = NULL, nom = NULL) {
     return(invisible(FALSE))
   }
 
-  quarto_extension(dir, quiet = TRUE)
+  setup_quarto(dir, quiet = TRUE)
   cli::cli_alert_info("extensions installées")
 
   template <- system.file("extdata/templates/blog",
