@@ -1,4 +1,4 @@
-#' OFCE palette divergente
+#' Palette de couleurs associée de type divergente qui à partir de deux codes HEX génère une palette de n couleurs compatible avec les normes graphiques de la revue OFCE
 #'
 #' @param colors un vecteur de deux couleurs à partir duquel la palette est générée.
 #' @param n integer, nombre de couleurs

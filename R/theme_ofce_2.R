@@ -97,12 +97,12 @@ else
         hjust = 0.5),
       axis.ticks = element_line(
         color="#C51315",
-        size = unit(1.5, "pt")),
+        size = unit(0.5, "pt")),
       axis.ticks.length.x = unit(-4,"pt"),
       axis.ticks.length.y = unit(-4,"pt"),
       axis.line = element_line(
         colour = "#C51315",
-        size = unit(1, "pt"),
+        size = unit(0.3, "pt"),
         lineend="round"),
       #Grid lines
       panel.grid.minor = element_blank(),
