@@ -14,7 +14,7 @@ $body-color: #222;
 $link-color: $darkred;
 $presentation-heading-color: $presentation-color;
 $ligthcolor: #F9F9F9;
-$presentation-h1-font-size: 2.5em;
+$presentation-h1-font-size: 1.75em;
 $presentation-h2-font-size: 1.5em;
 $presentation-h3-font-size: 1.3em;
 $presentation-h4-font-size: 1.2em;
@@ -58,7 +58,7 @@ $callout-border-width: 1px;
 }
 
 .reveal .footer.footer-default {
-  font-size: 0.66em;
+  font-size: 0.50em;
 }
 
 .leaflet-container {
@@ -76,8 +76,8 @@ $callout-border-width: 1px;
 }
 
 .reveal .slide-logo {
-  height: 28px !important;
-  width: 60px!important;
+  height: 18px !important;
+  width: 40px!important;
   max-width: unset !important;
   max-height: unset !important;
 }

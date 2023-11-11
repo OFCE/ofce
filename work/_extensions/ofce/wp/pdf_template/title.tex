@@ -17,6 +17,7 @@
 \usepackage{blindtext}
 \usepackage{scrlayer-scrpage}
 
+\KOMAoptions{BCOR=5mm}
 \setmainfont{OpenSans}[
   UprightFont = {*-Regular},
   BoldFont = {*-Bold},
@@ -33,8 +34,6 @@
   Path = {_extensions/ofce/wp/OpenSans/},
   Extension = {.ttf}
 ]
-
-%% \KOMAoption{fontsize $fontsize$}
 
 \def\getYear#1{\StrLeft{#1}{4}}
 \def\getMonth#1{\StrMid{#1}{6}{7}}

@@ -50,6 +50,7 @@ contributes:
       html-math-method: katex
       fig-dpi: 600
       fig-format: png
+      fig-width: 6
       cap-location: top
       reference-location: margin
       logo: _extensions/ofce/wp/ofce_m.png
@@ -74,6 +75,7 @@ contributes:
       tbl-cap-location: top
       extra_dependencies: ["float"]
       fig-dpi: 600
+      fig-width: 5
       fig-format: png
       logo: _extensions/ofce/wp/ofce_m.png
       logo2: _extensions/ofce/wp/sciencespo.png
