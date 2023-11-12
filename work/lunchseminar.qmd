@@ -1,6 +1,6 @@
 ---
 title: "Séminaire Lunch : Le package ofce"
-subtitle: "C'est vraiment pas compliqué"
+subtitle: "*C'est vraiment pas compliqué*"
 author:
   - name: Paul Malliet
   - name: Anissa Saumtally
@@ -37,7 +37,6 @@ showtext_opts(dpi=200)
 showtext_auto()
 ```
 
-
 # Introduction
 
 ## Rappel sur les packages R
@@ -48,15 +47,43 @@ showtext_auto()
 
 # Fonctionnalités Quarto : les templates
 
-XAVIER
-
 ## Résumé des fonctions
 
-## Utilisation
+<br>
+
+Quelque part, sont ajoutés tous les éléments pour le `yaml`, des bouts de code html, latex pour faire le document. Tout se trouve dans `_extension`s.
+
+<br> On l'ajoute dans le dossier où se trouve le `qmd` et on fait référence dans le `yaml` avec les lignes :
+
+<br>
+
+``` bash
+---
+format:
+   wp-html: default
+   wp-pdf: default
+---
+```
+
+## Les différents types de document
+
+<br>
+
+-   *working paper* : ajoute le dossier `_extensions` et fait un document exemple que l'on peut modifier\
+    `setup_wp()` ou pour le faire dans un dossier spécifique `setup_wp("mon_dossier")`
+
+-   *blog* : `setup_blog()`
+
+-   *présentation* : `setup_pres()`
+
+-   pour appliquer à un `qmd` existant\
+    `setup_quarto()` (ne fait que remettre `_extensions`)
+
+Il est possible de spécifier des paramètres dans le `yaml` en plus ou de modifier les codes `html`, `latex`, `scss`.
 
 ## Demo Time!
 
-# Fonctionnalités graphiques : thèmes ggplot & co
+# theme_ofce
 
 ## Fonctions
 
@@ -64,19 +91,62 @@ XAVIER
 
 # Autres fonctionnalités
 
-## Exemple de fonctions
+## Exporter un graphique
 
-## Evolutivité du package : vous aussi vous pouvez contribuer
+<br>
 
-Conclusion
+Ces trois fonctions aident à exporter un graphique. Elles utilisent `showtext` pour assurer la bonne sortie des caractères à la bonne taille
+
+-   `graph2png(graph, file="", rep="svg", ratio = 4/3, dpi = 600)`
+
+pour un texte imprimé (A4), un bon ratio est 4/3, pour une présentation (16/10). Pour une carte ratio 1.
+
+-   `graph2svg`
+
+-   `graph2jpg`
+
+## f2si2
+
+<br>
+
+cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible. Pratique pour les messages ou les échelles.
+
+```{r}
+ofce::f2si2(c(142010, 2000000, 0.1928), digits = 2) 
+```
+
+## Evolutivité du package
+
+![](weneedyou.png){fig-align="center"}
+
+## Conclusion
 
 ## Pour Résumer
 
 ## Alors ?
 
-Merci pour votre attention
+## Prochaines étapes
+
+<br>
+
+-   package encore en évolution : signalez vos difficultés, les bugs, vos souhaits
+
+    -   modèle de documents supplémentaires (policy brief par exemple)
+
+-   définition d'une charte graphique du site web (html) aux documents (pdf)
+
+-   intégration de la production de documents quarto directement sur le site via un processus simple (github)
+
+    -   blogs
+
+    -   documents de travail
+
+    -   policy brief
+
+## Merci pour votre attention
 
 ## Références
 
 ::: {#refs}
 :::
+
