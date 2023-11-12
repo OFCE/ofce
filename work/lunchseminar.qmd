@@ -1,16 +1,15 @@
 ---
-title: Utiliser le package ofce
-subtitle: Présentation au séminaire lunch
+title: "Séminaire Lunch : Le package ofce"
+subtitle: "C'est vraiment pas compliqué"
 author:
-  - name: Albertine Retrouvée
-    email: albertine.retrouvee@sciencespo.fr
-    affiliation: OFCE, Sciences Po Paris
-    affiliation-url: "http://www.ofce.fr"
-author-footer: Retrouvée
+  - name: Paul Malliet
+  - name: Anissa Saumtally
+  - name: Xavier Timbeau
+author-footer: Package OFCE
 institution: Observatoire Français des Conjonctures Économiques
 date: today
 lang: fr
-bibliography: lunchseminar_references.bib
+#bibliography: lunchseminar_references.bib
 toc-depth: 1
 format: 
   pres-revealjs: default
@@ -38,51 +37,44 @@ showtext_opts(dpi=200)
 showtext_auto()
 ```
 
-# introduction
 
-## Slide de contenu 1.1
+# Introduction
 
-<br><br> <!--# pour insérer des lignes -->
+## Rappel sur les packages R
 
-### remarque
+## Package OFCE : Pourquoi ?
 
-Une table des matières ainsi qu'un rappel du plan sur les slides de niveau 1 est automatiquement inclus.
+## Installation du package
 
-C'est pourquoi il ne faut pas mettre de contenu sur les slides de niveau 1
+# Fonctionnalités Quarto : les templates
 
-### niveaux
+XAVIER
 
-Les niveaux 3 et au délà sont des intertitres sur une slide
+## Résumé des fonctions
 
-pour le dépôt voir {{< fa brands github >}}
+## Utilisation
 
-## Slide de contenu 1.2
+## Demo Time!
 
-```{r}
-#| label: fig-cars
-#| fig-cap: Speed versus distance among cars
+# Fonctionnalités graphiques : thèmes ggplot & co
 
-library(tidyverse)
-ggplot(cars)+
-    geom_point(aes(x=speed, y=dist))+
-    theme_ofce()
-```
+## Fonctions
 
-# intertitre
+## Utilisation
 
-## Slide 2.1
+# Autres fonctionnalités
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.
+## Exemple de fonctions
 
-## Slide 2.2
+## Evolutivité du package : vous aussi vous pouvez contribuer
 
-Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit.
+Conclusion
 
-# Conclusions
+## Pour Résumer
 
-## Conclusion 1
+## Alors ?
 
-Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget. [@efron1993i]
+Merci pour votre attention
 
 ## Références
 

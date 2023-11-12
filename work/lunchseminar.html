@@ -13,8 +13,10 @@
 <link href="lunchseminar_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.373">
 
-  <meta name="author" content="Albertine Retrouvée">
-  <title>Utiliser le package ofce</title>
+  <meta name="author" content="Paul Malliet">
+  <meta name="author" content="Anissa Saumtally">
+  <meta name="author" content="Xavier Timbeau">
+  <title>Séminaire Lunch : Le package ofce</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -36,7 +38,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -349,128 +350,170 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Utiliser le package ofce</h1>
-  <p class="subtitle">Présentation au séminaire lunch</p>
+  <h1 class="title">Séminaire Lunch : Le package ofce</h1>
+  <p class="subtitle">C’est vraiment pas compliqué</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Albertine Retrouvée 
+Paul Malliet 
 </div>
-<div class="quarto-title-author-email">
-<a href="mailto:albertine.retrouvee@sciencespo.fr">albertine.retrouvee@sciencespo.fr</a>
 </div>
-        <p class="quarto-title-affiliation">
-            <a href="http://www.ofce.fr">
-            OFCE, Sciences Po Paris
-            </a>
-          </p>
-    </div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Anissa Saumtally 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Xavier Timbeau 
+</div>
+</div>
 </div>
 
-  <p class="date">samedi 11 novembre 2023</p>
+  <p class="date">dimanche 12 novembre 2023</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Plan de la présentation</h2>
 <ul>
-<li>introduction</li>
-<li>intertitre</li>
-<li>Conclusions</li>
+<li>Introduction</li>
+<li>Fonctionnalités Quarto : les templates</li>
+<li>Fonctionnalités graphiques : thèmes ggplot &amp; co</li>
+<li>Autres fonctionnalités</li>
 </ul>
 </nav>
 </section>
 <section>
 <section class="title-slide slide level1 agenda-slide center">
-<h1>introduction</h1>
+<h1>Introduction</h1>
 <div class="agenda-heading">
 
 </div>
 <div class="agenda">
 <div class="agenda-active">
-<p>introduction</p>
+<p>Introduction</p>
 </div>
 <div class="agenda-inactive agenda-post-active">
-<p>intertitre</p>
+<p>Fonctionnalités Quarto : les templates</p>
 </div>
 <div class="agenda-inactive agenda-post-active">
-<p>Conclusions</p>
-</div>
-</div>
-</section>
-<section id="slide-de-contenu-1.1" class="slide level2">
-<h2>Slide de contenu 1.1</h2>
-<p><br><br> <!--# pour insérer des lignes --></p>
-<h3 id="remarque">remarque</h3>
-<p>Une table des matières ainsi qu’un rappel du plan sur les slides de niveau 1 est automatiquement inclus.</p>
-<p>C’est pourquoi il ne faut pas mettre de contenu sur les slides de niveau 1</p>
-<h3 id="niveaux">niveaux</h3>
-<p>Les niveaux 3 et au délà sont des intertitres sur une slide</p>
-<p>pour le dépôt voir <i class="fa-brands fa-github" aria-label="github"></i></p>
-</section>
-<section id="slide-de-contenu-1.2" class="slide level2">
-<h2>Slide de contenu 1.2</h2>
-
-<img data-src="lunchseminar_files/figure-revealjs/fig-cars-1.png" data-fig-pos="H" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;1: Speed versus distance among cars
-</p></section></section>
-<section>
-<section class="title-slide slide level1 agenda-slide center">
-<h1>intertitre</h1>
-<div class="agenda-heading">
-
-</div>
-<div class="agenda">
-<div class="agenda-inactive agenda-pre-active">
-<p>introduction</p>
-</div>
-<div class="agenda-active">
-<p>intertitre</p>
+<p>Fonctionnalités graphiques : thèmes ggplot &amp; co</p>
 </div>
 <div class="agenda-inactive agenda-post-active">
-<p>Conclusions</p>
+<p>Autres fonctionnalités</p>
 </div>
 </div>
 </section>
-<section id="slide-2.1" class="slide level2">
-<h2>Slide 2.1</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.</p>
+<section id="rappel-sur-les-packages-r" class="slide level2">
+<h2>Rappel sur les packages R</h2>
 </section>
-<section id="slide-2.2" class="slide level2">
-<h2>Slide 2.2</h2>
-<p>Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit.</p>
+<section id="package-ofce-pourquoi" class="slide level2">
+<h2>Package OFCE : Pourquoi ?</h2>
+</section>
+<section id="installation-du-package" class="slide level2">
+<h2>Installation du package</h2>
 </section></section>
 <section>
 <section class="title-slide slide level1 agenda-slide center">
-<h1>Conclusions</h1>
+<h1>Fonctionnalités Quarto : les templates</h1>
 <div class="agenda-heading">
 
 </div>
 <div class="agenda">
 <div class="agenda-inactive agenda-pre-active">
-<p>introduction</p>
-</div>
-<div class="agenda-inactive agenda-pre-active">
-<p>intertitre</p>
+<p>Introduction</p>
 </div>
 <div class="agenda-active">
-<p>Conclusions</p>
+<p>Fonctionnalités Quarto : les templates</p>
+</div>
+<div class="agenda-inactive agenda-post-active">
+<p>Fonctionnalités graphiques : thèmes ggplot &amp; co</p>
+</div>
+<div class="agenda-inactive agenda-post-active">
+<p>Autres fonctionnalités</p>
+</div>
+</div>
+<p>XAVIER</p>
+</section>
+<section id="résumé-des-fonctions" class="slide level2">
+<h2>Résumé des fonctions</h2>
+</section>
+<section id="utilisation" class="slide level2">
+<h2>Utilisation</h2>
+</section>
+<section id="demo-time" class="slide level2">
+<h2>Demo Time!</h2>
+</section></section>
+<section>
+<section class="title-slide slide level1 agenda-slide center">
+<h1>Fonctionnalités graphiques : thèmes ggplot &amp; co</h1>
+<div class="agenda-heading">
+
+</div>
+<div class="agenda">
+<div class="agenda-inactive agenda-pre-active">
+<p>Introduction</p>
+</div>
+<div class="agenda-inactive agenda-pre-active">
+<p>Fonctionnalités Quarto : les templates</p>
+</div>
+<div class="agenda-active">
+<p>Fonctionnalités graphiques : thèmes ggplot &amp; co</p>
+</div>
+<div class="agenda-inactive agenda-post-active">
+<p>Autres fonctionnalités</p>
 </div>
 </div>
 </section>
-<section id="conclusion-1" class="slide level2">
-<h2>Conclusion 1</h2>
-<p>Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget. <span class="citation" data-cites="efron1993i">(<a href="#/références" role="doc-biblioref" onclick="">Efron et Tibshirani 1993</a>)</span></p>
+<section id="fonctions" class="slide level2">
+<h2>Fonctions</h2>
+</section>
+<section id="utilisation-1" class="slide level2">
+<h2>Utilisation</h2>
+</section></section>
+<section>
+<section class="title-slide slide level1 agenda-slide center">
+<h1>Autres fonctionnalités</h1>
+<div class="agenda-heading">
+
+</div>
+<div class="agenda">
+<div class="agenda-inactive agenda-pre-active">
+<p>Introduction</p>
+</div>
+<div class="agenda-inactive agenda-pre-active">
+<p>Fonctionnalités Quarto : les templates</p>
+</div>
+<div class="agenda-inactive agenda-pre-active">
+<p>Fonctionnalités graphiques : thèmes ggplot &amp; co</p>
+</div>
+<div class="agenda-active">
+<p>Autres fonctionnalités</p>
+</div>
+</div>
+</section>
+<section id="exemple-de-fonctions" class="slide level2">
+<h2>Exemple de fonctions</h2>
+</section>
+<section id="evolutivité-du-package-vous-aussi-vous-pouvez-contribuer" class="slide level2">
+<h2>Evolutivité du package : vous aussi vous pouvez contribuer</h2>
+<p>Conclusion</p>
+</section>
+<section id="pour-résumer" class="slide level2">
+<h2>Pour Résumer</h2>
+</section>
+<section id="alors" class="slide level2">
+<h2>Alors ?</h2>
+<p>Merci pour votre attention</p>
 </section>
 <section id="références" class="slide level2 smaller scrollable">
 <h2>Références</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-efron1993i" class="csl-entry" role="listitem">
-Efron, Bradley, et Robert J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Springer US. <a href="https://doi.org/10.1007/978-1-4899-4541-9">https://doi.org/10.1007/978-1-4899-4541-9</a>.
-</div>
+<div id="refs" role="list">
+
 </div>
 
 <img src="_extensions/ofce/pres/ofce_m.png" class="slide-logo r-stretch"><div class="footer footer-default">
-<p>Utiliser le package ofce <i class="fa-solid fa-ellipsis" aria-label="ellipsis"></i> Retrouvée</p>
+<p>Séminaire Lunch : Le package ofce <i class="fa-solid fa-ellipsis" aria-label="ellipsis"></i> Package OFCE</p>
 </div>
 </section></section>
     </div>
