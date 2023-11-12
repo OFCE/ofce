@@ -442,7 +442,7 @@ Xavier Timbeau
 <h2 id="toc-title">Plan de la présentation</h2>
 <ul>
 <li>Introduction</li>
-<li>Fonctionnalités Quarto : les templates</li>
+<li>les templates Quarto</li>
 <li>theme_ofce</li>
 <li>Autres fonctionnalités</li>
 </ul>
@@ -459,7 +459,7 @@ Xavier Timbeau
 <p>Introduction</p>
 </div>
 <div class="agenda-inactive agenda-post-active">
-<p>Fonctionnalités Quarto : les templates</p>
+<p>les templates Quarto</p>
 </div>
 <div class="agenda-inactive agenda-post-active">
 <p>theme_ofce</p>
@@ -480,7 +480,7 @@ Xavier Timbeau
 </section></section>
 <section>
 <section class="title-slide slide level1 agenda-slide center">
-<h1>Fonctionnalités Quarto : les templates</h1>
+<h1>les templates Quarto</h1>
 <div class="agenda-heading">
 
 </div>
@@ -489,7 +489,7 @@ Xavier Timbeau
 <p>Introduction</p>
 </div>
 <div class="agenda-active">
-<p>Fonctionnalités Quarto : les templates</p>
+<p>les templates Quarto</p>
 </div>
 <div class="agenda-inactive agenda-post-active">
 <p>theme_ofce</p>
@@ -513,16 +513,20 @@ Xavier Timbeau
 </section>
 <section id="les-différents-types-de-document" class="slide level2">
 <h2>Les différents types de document</h2>
-<p><br></p>
 <ul>
 <li><p><em>working paper</em> : ajoute le dossier <code>_extensions</code> et fait un document exemple que l’on peut modifier<br>
 <code>setup_wp()</code> ou pour le faire dans un dossier spécifique <code>setup_wp("mon_dossier")</code></p></li>
 <li><p><em>blog</em> : <code>setup_blog()</code></p></li>
 <li><p><em>présentation</em> : <code>setup_pres()</code></p></li>
 <li><p>pour appliquer à un <code>qmd</code> existant<br>
-<code>setup_quarto()</code> (ne fait que remettre <code>_extensions</code>)</p></li>
+<code>setup_quarto()</code> (ne fait que remettre <code>_extensions</code> à jour)</p></li>
 </ul>
-<p>Il est possible de spécifier des paramètres dans le <code>yaml</code> en plus ou de modifier les codes <code>html</code>, <code>latex</code>, <code>scss</code>.</p>
+<p>Il est possible de spécifier</p>
+<ul>
+<li><p>des paramètres dans le <code>yaml</code></p></li>
+<li><p>d’ajouter des filtres lua</p></li>
+<li><p>de modifier les codes <code>html</code>, <code>latex</code>, <code>scss</code></p></li>
+</ul>
 </section>
 <section id="demo-time" class="slide level2">
 <h2>Demo Time!</h2>
@@ -538,7 +542,7 @@ Xavier Timbeau
 <p>Introduction</p>
 </div>
 <div class="agenda-inactive agenda-pre-active">
-<p>Fonctionnalités Quarto : les templates</p>
+<p>les templates Quarto</p>
 </div>
 <div class="agenda-active">
 <p>theme_ofce</p>
@@ -565,7 +569,7 @@ Xavier Timbeau
 <p>Introduction</p>
 </div>
 <div class="agenda-inactive agenda-pre-active">
-<p>Fonctionnalités Quarto : les templates</p>
+<p>les templates Quarto</p>
 </div>
 <div class="agenda-inactive agenda-pre-active">
 <p>theme_ofce</p>
@@ -591,15 +595,42 @@ Xavier Timbeau
 <section id="f2si2" class="slide level2">
 <h2>f2si2</h2>
 <p><br></p>
-<p>cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible. Pratique pour les messages ou les échelles.</p>
+<p>cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible en utilisant des puissance de 1&nbsp;000 et une notation standardisée (k, M, G, T, …).</p>
+<p>Pratique pour les messages ou les échelles.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "142.01k" "2000k"   "0"      </code></pre>
+<pre><code>[1] "2M" "3M"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "142.01k" "2000k"   "0.1k"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "142k"   "2M"     "192.8m"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1.1k"  "1.11k" "2k"    "2.1k" </code></pre>
 </div>
 </div>
 </section>
-<section id="evolutivité-du-package" class="slide level2">
-<h2>Evolutivité du package</h2>
+<section id="préférences-de-rstudio" class="slide level2">
+<h2>Préférences de RStudio</h2>
+<p><br></p>
+<p>la fonction <code>setup_RStudio()</code> force les préférences de RStudio à être :</p>
+<ul>
+<li><p>pas de <code>save</code> de <code>.Rdata</code></p></li>
+<li><p>utilisation du « pipe natif »</p></li>
+<li><p>utilisation du moteur graphique <code>ragg</code></p></li>
+<li><p>thème « iPlastic » (peut être un autre thème avec <code>theme="Unautretheme"</code>)</p></li>
+<li><p>console à droite</p></li>
+<li><p>et quelques autres</p></li>
+</ul>
+</section>
+<section id="evolutivité-du-package-ofce" class="slide level2">
+<h2>Evolutivité du package <code>{ofce}</code></h2>
 
 <img data-src="weneedyou.png" class="quarto-figure-center r-stretch"></section>
 <section id="conclusion" class="slide level2">
@@ -613,12 +644,20 @@ Xavier Timbeau
 </section>
 <section id="prochaines-étapes" class="slide level2">
 <h2>Prochaines étapes</h2>
+<p><br></p>
 <ul>
-<li><p>package encore en évolution : signalez vos difficultés, les bugs, vos souhaits</p>
+<li>package encore en évolution : signalez vos difficultés, les bugs, vos souhaits</li>
+</ul>
+<p><br></p>
 <ul>
-<li>modèle de documents supplémentaires (policy brief par exemple)</li>
-</ul></li>
-<li><p>définition d’une charte graphique du site web (html) aux documents (pdf)</p></li>
+<li>modèle de documents supplémentaires (policy brief, rapport)</li>
+</ul>
+<p><br></p>
+<ul>
+<li>définition d’une charte graphique du site web (html) aux documents (pdf)</li>
+</ul>
+<p><br></p>
+<ul>
 <li><p>intégration de la production de documents quarto directement sur le site via un processus simple (github)</p>
 <ul>
 <li><p>blogs</p></li>

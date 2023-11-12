@@ -67,8 +67,6 @@ format:
 
 ## Les différents types de document
 
-<br>
-
 -   *working paper* : ajoute le dossier `_extensions` et fait un document exemple que l'on peut modifier\
     `setup_wp()` ou pour le faire dans un dossier spécifique `setup_wp("mon_dossier")`
 
@@ -79,7 +77,13 @@ format:
 -   pour appliquer à un `qmd` existant\
     `setup_quarto()` (ne fait que remettre `_extensions` à jour)
 
-Il est possible de spécifier des paramètres dans le `yaml` en plus ou de modifier les codes `html`, `latex`, `scss`.
+Il est possible de spécifier
+
+-   des paramètres dans le `yaml`
+
+-   d'ajouter des filtres lua
+
+-   de modifier les codes `html`, `latex`, `scss`
 
 ## Demo Time!
 
@@ -113,12 +117,30 @@ cette fonction sert à appliquer le Système International pour produire une cha
 
 Pratique pour les messages ou les échelles.
 
-```{r}
+```{r, echo=TRUE}
 ofce::f2si2(c(2000000, 3000000), digits = 2) 
 ofce::f2si2(c(142010, 2000000, 100.1928), digits = 2) 
 purrr::map_chr(c(142010, 2000000, 0.1928), ofce::f2si2)
 ofce::uf2si2(c(1100,1110,2000,2100))
 ```
+
+## Préférences de RStudio
+
+<br>
+
+la fonction `setup_RStudio()` force les préférences de RStudio à être :
+
+-   pas de `save` de `.Rdata`
+
+-   utilisation du "pipe natif"
+
+-   utilisation du moteur graphique `ragg`
+
+-   thème "iPlastic" (peut être un autre thème avec `theme="Unautretheme"`)
+
+-   console à droite
+
+-   et quelques autres
 
 ## Evolutivité du package `{ofce}`
 
@@ -135,19 +157,13 @@ ofce::uf2si2(c(1100,1110,2000,2100))
 <br>
 
 -   package encore en évolution : signalez vos difficultés, les bugs, vos souhaits
-
-<br>
-
 -   modèle de documents supplémentaires (policy brief, rapport)
 
-<br>
-
+```{=html}
+<!-- -->
+```
 -   définition d'une charte graphique du site web (html) aux documents (pdf)
-
-<br>
-
 -   intégration de la production de documents quarto directement sur le site via un processus simple (github)
-
     -   blogs
 
     -   documents de travail

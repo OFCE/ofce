@@ -38,8 +38,8 @@ setup_RStudio <- function(theme="iPlastic", right_console = TRUE) {
     rstudioapi::writeRStudioPreference(
     "panes",
     list(quadrants=c("Source","TabSet1","Console","TabSet2"),
-         TabSet1=c("Environment", "History","Connections","Build","VCS","Tutorial", "Presentation"),
-         TabSet2=c("Files", "Plots", "Packages", "Help", "Viewer", "Presentations"),
+         TabSet1=c("Environment", "History","Connections","Build","Tutorial"),
+         TabSet2=c("Files", "Plots", "Packages", "Help", "Viewer", "Presentation"),
          hiddenTabSet=c("TabSet1"),
          console_left_on_top= FALSE,
          console_right_on_top= TRUE,
