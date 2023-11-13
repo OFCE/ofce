@@ -473,15 +473,66 @@ Xavier Timbeau
 <h2>Rappel sur les packages R</h2>
 <p><br></p>
 <ul>
-<li><p>un package est une librairie de fonctions développées par les utilisateurs de R dans le but d’ajouter des fonctionnalités à R</p></li>
-<li></li>
+<li>un package est une librairie de fonctions développées par les utilisateurs de R dans le but d’ajouter des fonctionnalités à R</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Commandes de base pour les packages</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">## on les installe avec :</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">install.packages</span>(<span class="st">"NOM_DU_PACKAGE"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="do">## on y fait appel avec</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(<span class="st">"NOM_DU_PACKAGE"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="do">## Référence à une fonction d'un package spécifique</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>NOM_DU_PACKAGE<span class="sc">::</span><span class="fu">la_super_fonction</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
 <li><p>On les trouve :</p>
 <ul>
 <li><p>sur le CRAN : il s’agit d’un répertoire « officiel » des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables</p></li>
 <li><p>sur GitHub : généralement pour les packages en développement</p></li>
-<li><p>via des canaux privés : attention à la source, peu de garanties sur leur utilisation</p></li>
+<li><p>via des canaux privés : le package est transmis directement au format <code>.tar.gz</code> ou <code>.zip</code>. Attention à la source, peu de garanties sur leur utilisation</p></li>
 </ul></li>
 </ul>
+</section>
+<section id="le-package-pak-une-alternative-pour-les-gens-cool" class="slide level2">
+<h2>Le package <code>{pak}</code> : une alternative pour les gens cool</h2>
+<ul>
+<li>Le package <code>{pak}</code> permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">install.packages</span>(<span class="st">"pak"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>Exemple d’utilisation sur un package du CRAN</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>Exemples d’utilisation sur un package sur GitHub</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"nom_utilisateur_git/nom_du_package"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"1961Shivani/hypothesis"</span>) <span class="do">## un package random sur GitHub</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"ThreeME-org/ermeeth"</span>) <span class="do">## le package de l'équipe ThreeME trop stylé</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="package-ofce-pourquoi" class="slide level2">
 <h2>Package OFCE : Pourquoi ?</h2>
@@ -490,13 +541,76 @@ Xavier Timbeau
 <li><p>Rassembler les outils développés en interne à l’OFCE :</p>
 <ul>
 <li><p>harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)</p></li>
-<li><p>partager les outils développés par chacung pour faciliter l’utilisation de R</p></li>
-<li></li>
+<li><p>partager les outils développés par chacun pour faciliter l’utilisation de R</p></li>
+</ul>
+<p><i class="fa-solid fa-arrow-right"></i> Gain de temps conséquent ! Promis!</p></li>
+<li><p>Où le trouver ?</p>
+<ul>
+<li><i class="fa-brands fa-github"></i> : <a href="https://github.com/OFCE/ofce.git" class="uri">https://github.com/OFCE/ofce.git</a></li>
 </ul></li>
 </ul>
 </section>
 <section id="installation-du-package" class="slide level2">
 <h2>Installation du package</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">1. Installation de R</a></li><li><a href="#tabset-1-2">2. Installation de Quarto</a></li><li><a href="#tabset-1-3">3. Installation du package <code>{ofce}</code></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<ul>
+<li>Vérifier que la version de R est à jour (au moins 4.3.0)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>R.version<span class="sc">$</span>version.string</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "R version 4.3.1 (2023-06-16)"</code></pre>
+</div>
+</div>
+<ul>
+<li><p>télécharger et installer la dernière version de R</p>
+<ul>
+<li><a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a></li>
+</ul></li>
+<li><p>(sur Windows) Activer cette version <code>tools/Global Options</code></p></li>
+<li><p>Installer R Studio (mais ça vous l’avez déjà, n’est-ce pas ?)</p>
+<ul>
+<li><a href="https://posit.co/products/open-source/rstudio/" class="uri">https://posit.co/products/open-source/rstudio/</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="tabset-1-2">
+<ul>
+<li><p>Il faut installer Quarto (l’application) <strong>au moins la version 1.4 (pre-release)</strong></p>
+<ul>
+<li><a href="https://quarto.org/docs/download/" class="uri">https://quarto.org/docs/download/</a></li>
+</ul></li>
+</ul>
+<div id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div>
+<img data-src="dl_quarto.png" id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure-center">
+</div>
+</figure>
+</div>
+<ul>
+<li>Installer le package <code>{quarto}</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"quarto"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Installer l’extension fontawesome (via le terminal)</li>
+</ul>
+<pre><code>#| echo: true
+#| eval: false
+
+quarto add quarto-ext/fontawesome
+</code></pre>
+</div>
+<div id="tabset-1-3">
+
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section class="title-slide slide level1 agenda-slide center">
@@ -525,11 +639,11 @@ Xavier Timbeau
 <p>Quelque part, sont ajoutés tous les éléments pour le <code>yaml</code>, des bouts de code html, latex pour faire le document. Tout se trouve dans <code>_extension</code>s.</p>
 <p><br> On l’ajoute dans le dossier où se trouve le <code>qmd</code> et on fait référence dans le <code>yaml</code> avec les lignes :</p>
 <p><br></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">---</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="ex">format:</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>   <span class="ex">wp-html:</span> default</span>
-<span id="cb1-4"><a href="#cb1-4"></a>   <span class="ex">wp-pdf:</span> default</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="ex">---</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="ex">---</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="ex">format:</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>   <span class="ex">wp-html:</span> default</span>
+<span id="cb9-4"><a href="#cb9-4"></a>   <span class="ex">wp-pdf:</span> default</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="ex">---</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="les-différents-types-de-document" class="slide level2">
 <h2>Les différents types de document</h2>
@@ -618,19 +732,19 @@ Xavier Timbeau
 <p>cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible en utilisant des puissance de 1&nbsp;000 et une notation standardisée (k, M, G, T, …).</p>
 <p>Pratique pour les messages ou les échelles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2M" "3M"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "142.01k" "2000k"   "0.1k"   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "142k"   "2M"     "192.8m"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1.1k"  "1.11k" "2k"    "2.1k" </code></pre>
 </div>
@@ -652,7 +766,7 @@ Xavier Timbeau
 <section id="evolutivité-du-package-ofce" class="slide level2">
 <h2>Evolutivité du package <code>{ofce}</code></h2>
 
-<img data-src="weneedyou.png" id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure-center r-stretch"></section>
+<img data-src="weneedyou.png" id="fig-539a35d47e664c97a50115a146a7f1bd-2" class="quarto-figure-center r-stretch"></section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 </section>
