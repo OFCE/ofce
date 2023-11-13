@@ -262,6 +262,8 @@ Il est possible de spécifier
 
 ## Demo Time!
 
+<iframe src="https://giphy.com/embed/XreQmk7ETCak0" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/retro-thumbs-up-XreQmk7ETCak0">via GIPHY</a></p>
+
 # theme_ofce
 
 ## Fonctions
@@ -321,12 +323,11 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 
 ![](weneedyou.png){fig-align="center"}
 
-::: {.incremental}
+
 
 ## Conclusion : pour résumer
 
-
-<br>
+::: {.incremental}
 
 - On installe R, RStudio, Quarto, le package `{ofce}`
 
@@ -351,7 +352,8 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 
 ## Alors ?
 
-<iframe src="https://giphy.com/embed/3o6MbkWQI5OazCn8cM" width="480" height="362" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/season-16-the-simpsons-16x3-3o6MbkWQI5OazCn8cM">via GIPHY</a></p>
+![](blow-mind-mind-blown.gif){fig-align="center"}
+
 
 ## Prochaines étapes
 
