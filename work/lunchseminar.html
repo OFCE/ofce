@@ -11,7 +11,7 @@
 <link href="lunchseminar_files/libs/quarto-contrib/reveal-auto-agenda-0.0.1/reveal-auto-agenda.css" rel="stylesheet">
 <link href="lunchseminar_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="lunchseminar_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.489">
+  <meta name="generator" content="quarto-1.4.373">
 
   <meta name="author" content="Paul Malliet">
   <meta name="author" content="Anissa Saumtally">
@@ -476,7 +476,7 @@ Xavier Timbeau
 <li>un package est une librairie de fonctions développées par les utilisateurs de R dans le but d’ajouter des fonctionnalités à R</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Commandes de base pour les packages</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">## on les installe avec :</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
@@ -506,7 +506,7 @@ Xavier Timbeau
 <li>Le package <code>{pak}</code> permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">install.packages</span>(<span class="st">"pak"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -515,7 +515,7 @@ Xavier Timbeau
 <li>Exemple d’utilisation sur un package du CRAN</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -524,7 +524,7 @@ Xavier Timbeau
 <li>Exemples d’utilisation sur un package sur GitHub</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"nom_utilisateur_git/nom_du_package"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
@@ -558,7 +558,7 @@ Xavier Timbeau
 <section id="installation-du-package" class="slide level2">
 <h2>Installation du package</h2>
 <div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">1. Installation de R</a></li><li><a href="#tabset-1-2">2. Installation de Quarto</a></li><li><a href="#tabset-1-3">3. Installation du package <code>{ofce}</code></a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">1. R</a></li><li><a href="#tabset-1-2">2. Quarto</a></li><li><a href="#tabset-1-3">3. <code>{ofce}</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
 <ul>
@@ -588,8 +588,19 @@ Xavier Timbeau
 <ul>
 <li><a href="https://quarto.org/docs/download/" class="uri">https://quarto.org/docs/download/</a></li>
 </ul></li>
+<li><p><a href="https://quarto.org/docs/download/" class="uri">https://quarto.org/docs/download/</a></p></li>
 </ul>
-<p><img data-src="dl_quarto.png" class="quarto-figure-center"></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure quarto-figure-center" data-fig-pos="H" data-fig-align="center" width="229">
+<figure class="quarto-float quarto-float-fig">
+<div>
+<img data-src="dl_quarto.png" id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure-center" data-fig-pos="H" width="229">
+</div>
+</figure>
+</div>
+</div>
+</div>
 <ul>
 <li>Installer le package <code>{quarto}</code></li>
 </ul>
@@ -599,13 +610,28 @@ Xavier Timbeau
 <ul>
 <li>Installer l’extension fontawesome (via le terminal)</li>
 </ul>
-<pre><code>#| echo: true
-#| eval: false
-
-quarto add quarto-ext/fontawesome</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>quarto add quarto<span class="sc">-</span>ext<span class="sc">/</span>fontawesome</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div id="tabset-1-3">
-
+<div>
+<ul>
+<li class="fragment"><p>Le package <code>{ofce}</code> est hébergé sur le compte GitHub de l’OFCE</p>
+<ul>
+<li class="fragment">…Donc ?</li>
+</ul></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"OFCE/ofce"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li class="fragment"><img data-src="juju.jpg" class="quarto-figure-center"></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -637,11 +663,11 @@ quarto add quarto-ext/fontawesome</code></pre>
 <p>Quelque part, sont ajoutés tous les éléments pour le <code>yaml</code>, des bouts de code html, latex pour faire le document. Tout se trouve dans <code>_extension</code>s.</p>
 <p><br> On l’ajoute dans le dossier où se trouve le <code>qmd</code> et on fait référence dans le <code>yaml</code> avec les lignes :</p>
 <p><br></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="ex">---</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="ex">format:</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>   <span class="ex">wp-html:</span> default</span>
-<span id="cb9-4"><a href="#cb9-4"></a>   <span class="ex">wp-pdf:</span> default</span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="ex">---</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">---</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="ex">format:</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>   <span class="ex">wp-html:</span> default</span>
+<span id="cb10-4"><a href="#cb10-4"></a>   <span class="ex">wp-pdf:</span> default</span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="ex">---</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="les-différents-types-de-document" class="slide level2">
 <h2>Les différents types de document</h2>
@@ -730,19 +756,19 @@ quarto add quarto-ext/fontawesome</code></pre>
 <p>cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible en utilisant des puissance de 1&nbsp;000 et une notation standardisée (k, M, G, T, …).</p>
 <p>Pratique pour les messages ou les échelles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2M" "3M"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "142.01k" "2000k"   "0.1k"   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "142k"   "2M"     "192.8m"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1.1k"  "1.11k" "2k"    "2.1k" </code></pre>
 </div>
@@ -764,7 +790,7 @@ quarto add quarto-ext/fontawesome</code></pre>
 <section id="evolutivité-du-package-ofce" class="slide level2">
 <h2>Evolutivité du package <code>{ofce}</code></h2>
 
-<img data-src="weneedyou.png" class="quarto-figure-center r-stretch"></section>
+<img data-src="weneedyou.png" id="fig-539a35d47e664c97a50115a146a7f1bd-2" class="quarto-figure-center r-stretch"></section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 </section>
