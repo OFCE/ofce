@@ -6,6 +6,7 @@
 $scpored: #e6142d;
 $ofcered: #a22a2e;
 $darkred: #640000;
+$darkgrey: #333333;
 $green: #079D10;
 $blue: #000080;
 $presentation-color: $scpored;
@@ -94,4 +95,8 @@ $callout-border-width: 1px;
   color: $presentation-color;
   margin-top: -0.1em;
   margin-bottom: -0.1em;
+}
+
+code {
+  color: $darkgrey !important;
 }

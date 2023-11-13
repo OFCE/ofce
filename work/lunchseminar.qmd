@@ -1,11 +1,11 @@
 ---
-title: "Séminaire Lunch : Le package `{OFCE}`"
+title: "Le package {OFCE}"
 subtitle: "*C'est vraiment pas compliqué*"
 author:
   - name: Paul Malliet
   - name: Anissa Saumtally
   - name: Xavier Timbeau
-author-footer: "13 nov. 2023"
+author-footer: "Séminaire Lunch"
 institution: Observatoire Français des Conjonctures Économiques
 date: today
 lang: fr
@@ -43,29 +43,29 @@ showtext_auto()
 
 <br>
 
-  - un package est une librairie de fonctions développées par les utilisateurs de R dans le but d'ajouter des fonctionnalités à R
-  
-  - 
-  
-  - On les trouve :
-  
-    + sur le CRAN : il s'agit d'un répertoire "officiel" des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables 
-    
-    + sur GitHub : généralement pour les packages en développement 
-    
-    + via des canaux privés : attention à la source, peu de garanties sur leur utilisation
+-   un package est une librairie de fonctions développées par les utilisateurs de R dans le but d'ajouter des fonctionnalités à R
+
+-   
+
+-   On les trouve :
+
+    -   sur le CRAN : il s'agit d'un répertoire "officiel" des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables
+
+    -   sur GitHub : généralement pour les packages en développement
+
+    -   via des canaux privés : attention à la source, peu de garanties sur leur utilisation
 
 ## Package OFCE : Pourquoi ?
 
-<br> 
+<br>
 
- - Rassembler les outils développés en interne à l'OFCE :
-  
-    + harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
-    
-    + partager les outils développés par chacung pour faciliter l'utilisation de R 
-    
-    + 
+-   Rassembler les outils développés en interne à l'OFCE :
+
+    -   harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
+
+    -   partager les outils développés par chacung pour faciliter l'utilisation de R
+
+    -   
 
 ## Installation du package
 
@@ -183,9 +183,8 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 -   package encore en évolution : signalez vos difficultés, les bugs, vos souhaits
 -   modèle de documents supplémentaires (policy brief, rapport)
 
-```{=html}
 <!-- -->
-```
+
 -   définition d'une charte graphique du site web (html) aux documents (pdf)
 -   intégration de la production de documents quarto directement sur le site via un processus simple (github)
     -   blogs
