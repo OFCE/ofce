@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.373">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Paul Malliet">
+<meta name="author" content="Anissa Saumtally">
+<meta name="author" content="Xavier Timbeau">
+
+<title>Le package {OFCE}</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="index_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="index_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+
+
+<meta name="citation_title" content="Le package {OFCE}">
+<meta name="citation_author" content="Paul Malliet">
+<meta name="citation_author" content="Anissa Saumtally">
+<meta name="citation_author" content="Xavier Timbeau">
+<meta name="citation_publication_date" content="2023-11-13">
+<meta name="citation_cover_date" content="2023-11-13">
+<meta name="citation_year" content="2023">
+<meta name="citation_online_date" content="2023-11-13">
+<meta name="citation_language" content="fr">
+<meta name="citation_firstpage" content="undefined">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+  
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#les-templates-quarto" id="toc-les-templates-quarto" class="nav-link" data-scroll-target="#les-templates-quarto"><span class="header-section-number">2</span> les templates Quarto</a></li>
+  <li><a href="#theme_ofce" id="toc-theme_ofce" class="nav-link" data-scroll-target="#theme_ofce"><span class="header-section-number">3</span> theme_ofce</a></li>
+  <li><a href="#autres-fonctionnalités" id="toc-autres-fonctionnalités" class="nav-link" data-scroll-target="#autres-fonctionnalités"><span class="header-section-number">4</span> Autres fonctionnalités</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+    <div class="quarto-title">
+        <h1 class="title">Le package {OFCE}</h1>
+            <p class="subtitle lead"><em>C’est vraiment pas compliqué</em></p>
+        
+        </div>
+
+    
+    
+    <div class="quarto-title-meta">
+
+        <div>
+        <div class="quarto-title-meta-heading">Par</div>
+        <div class="quarto-title-meta-contents">
+                 <p>Paul Malliet </p>
+                 <p>Anissa Saumtally </p>
+                 <p>Xavier Timbeau </p>
+              </div>
+      </div>
+      
+        <div>
+        <div class="quarto-title-meta-heading">Publié le</div>
+        <div class="quarto-title-meta-contents">
+          <p class="date">13 novembre 2023</p>
+        </div>
+      </div>
+      
+      
+      
+      
+        
+      </div>
+
+    </header>
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="rappel-sur-les-packages-r" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="rappel-sur-les-packages-r"><span class="header-section-number">1.1</span> Rappel sur les packages R</h2>
+<p><br></p>
+<ul>
+<li>un package est une librairie de fonctions développées par les utilisateurs de R dans le but d’ajouter des fonctionnalités à R</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Commandes de base pour les packages</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## on les installe avec :</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"NOM_DU_PACKAGE"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## on y fait appel avec</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"NOM_DU_PACKAGE"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Référence à une fonction d'un package spécifique</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>NOM_DU_PACKAGE<span class="sc">::</span><span class="fu">la_super_fonction</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li><p>On les <span style="white-space:nowrap">trouve :</span></p>
+<ul>
+<li><p>sur le <span style="white-space:nowrap">CRAN :</span> il s’agit d’un répertoire <span style="white-space:nowrap">« </span>officiel<span style="white-space:nowrap"> »</span> des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables</p></li>
+<li><p>sur <span style="white-space:nowrap">GitHub :</span> généralement pour les packages en développement</p></li>
+<li><p>via des canaux <span style="white-space:nowrap">privés :</span> le package est transmis directement au format <code>.tar.gz</code> ou <code>.zip</code>. Attention à la source, peu de garanties sur leur utilisation</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="pak-une-alternative-pour-les-gens-cool-xavier" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="pak-une-alternative-pour-les-gens-cool-xavier"><span class="header-section-number">1.2</span> <code>{pak}</code> : une alternative pour les gens <span style="white-space:nowrap">« </span>cool<span style="white-space:nowrap"> »</span> (Xavier)</h2>
+<ul>
+<li>Le package <code>{pak}</code> permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pak"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>Exemple d’utilisation sur un package du CRAN</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>Exemples d’utilisation sur un package sur GitHub</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"nom_utilisateur_git/nom_du_package"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"1961Shivani/hypothesis"</span>) <span class="do">## un package random sur GitHub</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"ThreeME-org/ermeeth"</span>) <span class="do">## le package de l'équipe ThreeME trop stylé</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="package-ofce-pourquoi" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="package-ofce-pourquoi"><span class="header-section-number">1.3</span> Package <span style="white-space:nowrap">OFCE :</span> <span style="white-space:nowrap">Pourquoi ?</span></h2>
+<p><br></p>
+<ul>
+<li><p>Rassembler les outils développés en interne à <span style="white-space:nowrap">l’OFCE :</span></p>
+<ul>
+<li><p>harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)</p></li>
+<li><p>partager les outils développés par chacun pour faciliter l’utilisation de R</p></li>
+</ul>
+<p><i class="fa-solid fa-arrow-right"></i> Gain de temps <span style="white-space:nowrap">conséquent !</span> Promis!</p></li>
+<li><p>Où le <span style="white-space:nowrap">trouver ?</span></p>
+<ul>
+<li><i class="fa-brands fa-github"></i> : <a href="https://github.com/OFCE/ofce.git" class="uri">https://github.com/OFCE/ofce.git</a></li>
+</ul></li>
+<li><p>Rassembler les outils développés en interne à <span style="white-space:nowrap">l’OFCE :</span></p>
+<ul>
+<li><p>harmoniser les pratiques (<em>patrons</em> de documents, chartes graphiques, thèmes graphiques)</p></li>
+<li><p>partager les outils développés par chacung pour faciliter l’utilisation de R</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="installation-du-package" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="installation-du-package"><span class="header-section-number">1.4</span> Installation du package</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">1. R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">2. Quarto</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">3. <code>{ofce}</code></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ul>
+<li>Vérifier que la version de R est à jour (au moins 4.3.0)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>R.version<span class="sc">$</span>version.string</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "R version 4.3.1 (2023-06-16)"</code></pre>
+</div>
+</div>
+<ul>
+<li><p>télécharger et installer la dernière version de R</p>
+<ul>
+<li><a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a></li>
+</ul></li>
+<li><p>(sur Windows) Activer cette version <code>tools/Global Options</code></p></li>
+<li><p>Installer R Studio (mais ça vous l’avez déjà, n’est-ce <span style="white-space:nowrap">pas ?)</span></p>
+<ul>
+<li><a href="https://posit.co/products/open-source/rstudio/" class="uri">https://posit.co/products/open-source/rstudio/</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ul>
+<li><p>Il faut installer Quarto (l’application) <strong>au moins la version 1.4 (pre-release)</strong></p>
+<ul>
+<li><a href="https://quarto.org/docs/download/" class="uri">https://quarto.org/docs/download/</a></li>
+</ul></li>
+<li><p><a href="https://quarto.org/docs/download/" class="uri">https://quarto.org/docs/download/</a></p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H" width="73" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div>
+<a href="work/dl_quarto.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" data-description=": "><img src="work/dl_quarto.png" id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="img-fluid quarto-figure-center figure-img" data-fig-pos="H" width="73"></a>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Installer le package <code>{quarto}</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"quarto"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Installer l’extension fontawesome (via le terminal)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>quarto add quarto<span class="sc">-</span>ext<span class="sc">/</span>fontawesome</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="incremental">
+<ul class="incremental">
+<li><p>Le package <code>{ofce}</code> est hébergé sur le compte GitHub de l’OFCE</p>
+<ul class="incremental">
+<li><span style="white-space:nowrap">…Donc ?</span></li>
+</ul></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"OFCE/ofce"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul class="incremental">
+<li><img src="work/juju.jpg" class="img-fluid quarto-figure-center"></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="les-templates-quarto" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> les templates Quarto</h1>
+<section id="résumé-des-fonctions" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="résumé-des-fonctions"><span class="header-section-number">2.1</span> Résumé des fonctions</h2>
+<p><br></p>
+<p>Quelque part, sont ajoutés tous les éléments pour le <code>yaml</code>, des bouts de code html, latex pour faire le document. Tout se trouve dans <code>_extension</code>s.</p>
+<p><br> On l’ajoute dans le dossier où se trouve le <code>qmd</code> et on fait référence dans le <code>yaml</code> avec les <span style="white-space:nowrap">lignes :</span></p>
+<p><br></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">format:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">wp-html:</span> default</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>   <span class="ex">wp-pdf:</span> default</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="les-différents-types-de-document" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="les-différents-types-de-document"><span class="header-section-number">2.2</span> Les différents types de document</h2>
+<ul>
+<li><p><em>working paper</em> : ajoute le dossier <code>_extensions</code> et fait un document exemple que l’on peut modifier<br>
+<code>setup_wp()</code> ou pour le faire dans un dossier spécifique <code>setup_wp("mon_dossier")</code></p></li>
+<li><p><em>blog</em> : <code>setup_blog()</code></p></li>
+<li><p><em>présentation</em> : <code>setup_pres()</code></p></li>
+<li><p>pour appliquer à un <code>qmd</code> existant<br>
+<code>setup_quarto()</code> (ne fait que remettre <code>_extensions</code> à jour)</p></li>
+</ul>
+<p>Il est possible de spécifier</p>
+<ul>
+<li><p>des paramètres dans le <code>yaml</code></p></li>
+<li><p>d’ajouter des filtres lua</p></li>
+<li><p>de modifier les codes <code>html</code>, <code>latex</code>, <code>scss</code></p></li>
+</ul>
+</section>
+<section id="demo-time" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="demo-time"><span class="header-section-number">2.3</span> Demo <span style="white-space:nowrap">Time !</span></h2>
+<iframe src="https://giphy.com/embed/XreQmk7ETCak0" width="480" height="360" frameborder="0" class="giphy-embed" allowfullscreen="">
+</iframe>
+<p>
+<a href="https://giphy.com/gifs/retro-thumbs-up-XreQmk7ETCak0">via GIPHY</a>
+</p>
+</section>
+</section>
+<section id="theme_ofce" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> theme_ofce</h1>
+<ul>
+<li><p>Le <span style="white-space:nowrap">package ‹</span>ofce› contient plusieurs fonctions associées à la réalisation d’un graphe sous R en <strong>format publiable</strong></p></li>
+<li><p>Les modifications apportées peuvent se distinguer en trois groupes:</p>
+<ul>
+<li>Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende…)</li>
+<li>La modification des couleurs utilisées</li>
+<li>L’ajout d’élements exterieurs supplémentaires hors thème</li>
+</ul></li>
+</ul>
+<section id="faire-un-graphique-sous-r" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="faire-un-graphique-sous-r"><span class="header-section-number">3.1</span> Faire un graphique sous R</h2>
+<section id="un-graphique-basique" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="un-graphique-basique"><span class="header-section-number">3.1.1</span> Un graphique basique</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Espagne"</span> , <span class="dv">3</span>) , <span class="fu">rep</span>(<span class="st">"France"</span> , <span class="dv">3</span>) , <span class="fu">rep</span>(<span class="st">"Allemagne"</span> , <span class="dv">3</span>) , <span class="fu">rep</span>(<span class="st">"Italie"</span> , <span class="dv">3</span>) )</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>condition <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"food index"</span> , <span class="st">"drink index"</span> , <span class="st">"beauty index"</span>) , <span class="dv">4</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>value <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">12</span> , <span class="dv">0</span> , <span class="dv">15</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(countries,condition,value)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">fill=</span>condition, <span class="at">y=</span>value, <span class="at">x=</span>countries)) <span class="sc">+</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="faire-un-graphique-sous-r-1" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="faire-un-graphique-sous-r-1"><span class="header-section-number">3.2</span> Faire un graphique sous R</h2>
+<section id="un-graphique-basique-1" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="un-graphique-basique-1"><span class="header-section-number">3.2.1</span> Un graphique basique</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bar_p" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar_p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Figure</strong>&nbsp;1: Un graphe simple de type <code>geom_bar</code>
+</figcaption>
+<div aria-describedby="fig-bar_p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-bar_p-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" data-description="Figure&nbsp;1: Un graphe simple de type geom_bar"><img src="index_files/figure-html/fig-bar_p-1.png" class="img-fluid figure-img" data-fig-pos="H"></a>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="faire-un-graphique-sous-r-2" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="faire-un-graphique-sous-r-2"><span class="header-section-number">3.3</span> Faire un graphique sous R</h2>
+<section id="ajout-du-theme-ofce" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="ajout-du-theme-ofce"><span class="header-section-number">3.3.1</span> Ajout du theme <code>ofce</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_ofce</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_ofce</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       <span class="co"># y = element_blank()</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Note sur 100"</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       )</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="faire-un-graphique-sous-r-3" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="faire-un-graphique-sous-r-3"><span class="header-section-number">3.4</span> Faire un graphique sous R</h2>
+<section id="ajout-du-theme-ofce-1" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="ajout-du-theme-ofce-1"><span class="header-section-number">3.4.1</span> Ajout du theme <code>ofce</code></h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bar2_p-1" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar2_p-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Figure</strong>&nbsp;2: Ajout d’un <span style="white-space:nowrap">theme ‹</span>ofce› et manipulations sur les fonctions themes
+</figcaption>
+<div aria-describedby="fig-bar2_p-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-bar2_p-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" data-description="Figure&nbsp;2: Ajout d’un ofce› et manipulations sur les fonctions themes"><img src="index_files/figure-html/fig-bar2_p-1.png" class="img-fluid figure-img" data-fig-pos="H"></a>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-bar2_p-2" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar2_p-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Figure</strong>&nbsp;3: Ajout d’un <span style="white-space:nowrap">theme ‹</span>ofce› et manipulations sur les fonctions themes
+</figcaption>
+<div aria-describedby="fig-bar2_p-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-bar2_p-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" data-description="Figure&nbsp;3: Ajout d’un ofce› et manipulations sur les fonctions themes"><img src="index_files/figure-html/fig-bar2_p-2.png" class="img-fluid figure-img" data-fig-pos="H"></a>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="faire-un-graphique-sous-r-4" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="faire-un-graphique-sous-r-4"><span class="header-section-number">3.5</span> Faire un graphique sous R</h2>
+<section id="changement-des-couleurs" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="changement-des-couleurs"><span class="header-section-number">3.5.1</span> Changement des couleurs</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Ex.1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Ex.2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Ex.3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Une palette 'basique' ofce_palette</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> ofce<span class="sc">::</span><span class="fu">ofce_palette</span>(<span class="at">n=</span><span class="dv">3</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-bar3.1" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar3.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Figure</strong>&nbsp;4: utilisation de palettes séquentielle (p1) et divergente(P2)
+</figcaption>
+<div aria-describedby="fig-bar3.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-bar3.1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" data-description="Figure&nbsp;4: utilisation de palettes séquentielle (p1) et divergente(P2)"><img src="index_files/figure-html/fig-bar3.1-1.png" class="img-fluid figure-img" data-fig-pos="H"></a>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Une palette 'sequentielle' ofce_palette_seq</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> ofce<span class="sc">::</span><span class="fu">ofce_palette_seq</span>(<span class="at">n=</span><span class="dv">3</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>p1</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-bar3.2" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar3.2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Figure</strong>&nbsp;5: utilisation de palettes séquentielle (p1) et divergente(P2)
+</figcaption>
+<div aria-describedby="fig-bar3.2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-bar3.2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" data-description="Figure&nbsp;5: utilisation de palettes séquentielle (p1) et divergente(P2)"><img src="index_files/figure-html/fig-bar3.2-1.png" class="img-fluid figure-img" data-fig-pos="H"></a>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Une palette 'divergente' ofce_palette_div</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> ofce<span class="sc">::</span><span class="fu">ofce_palette_div</span>(<span class="at">n=</span><span class="dv">3</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>p2</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-bar3.3" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar3.3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Figure</strong>&nbsp;6: utilisation de palettes séquentielle (p1) et divergente(P2)
+</figcaption>
+<div aria-describedby="fig-bar3.3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-bar3.3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" data-description="Figure&nbsp;6: utilisation de palettes séquentielle (p1) et divergente(P2)"><img src="index_files/figure-html/fig-bar3.3-1.png" class="img-fluid figure-img" data-fig-pos="H"></a>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="faire-un-graphique-sous-r-5" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="faire-un-graphique-sous-r-5"><span class="header-section-number">3.6</span> Faire un graphique sous R</h2>
+<section id="ajout-dun-logo" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="ajout-dun-logo"><span class="header-section-number">3.6.1</span> Ajout d’un logo</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Soit à l'exterieur du graphique</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>p <span class="sc">%&gt;%</span> <span class="fu">add_logo_ofce</span>()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Soit à l'intérieur du graphique</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>p <span class="sc">%&gt;%</span> <span class="fu">add_logo_ofce_inside</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="faire-un-graphique-sous-r-6" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="faire-un-graphique-sous-r-6"><span class="header-section-number">3.7</span> Faire un graphique sous R</h2>
+<section id="ajout-dun-logo-1" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="ajout-dun-logo-1"><span class="header-section-number">3.7.1</span> Ajout d’un logo</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bar4_p" class="quarto-figure quarto-figure-center anchored" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar4_p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<strong>Figure</strong>&nbsp;7: Ajout d’un logo (image)
+</figcaption>
+<div aria-describedby="fig-bar4_p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-bar4_p-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" data-description="Figure&nbsp;7: Ajout d’un logo (image)"><img src="index_files/figure-html/fig-bar4_p-1.png" class="img-fluid figure-img" data-fig-pos="H"></a>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="autres-fonctionnalités" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Autres fonctionnalités</h1>
+<section id="exporter-un-graphique" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="exporter-un-graphique"><span class="header-section-number">4.1</span> Exporter un graphique</h2>
+<p><br></p>
+<p>Ces trois fonctions aident à exporter un graphique. Elles utilisent <code>showtext</code> pour assurer la bonne sortie des caractères à la bonne taille</p>
+<ul>
+<li><code>graph2png(graph, file="", rep="svg", ratio = 4/3, dpi = 600)</code></li>
+</ul>
+<p>pour un texte imprimé (A4), un bon ratio est 4/3, pour une présentation (16/10). Pour une carte ratio 1.</p>
+<ul>
+<li><p><code>graph2svg</code></p></li>
+<li><p><code>graph2jpg</code></p></li>
+</ul>
+</section>
+<section id="f2si2" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="f2si2"><span class="header-section-number">4.2</span> f2si2</h2>
+<p><br></p>
+<p>cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible en utilisant des puissance de 1&nbsp;000 et une notation standardisée (k, M, G, <span style="white-space:nowrap">T, …).</span></p>
+<p>Pratique pour les messages ou les échelles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2M" "3M"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "142.01k" "2000k"   "0.1k"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "142k"   "2M"     "192.8m"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1.1k"  "1.11k" "2k"    "2.1k" </code></pre>
+</div>
+</div>
+</section>
+<section id="préférences-de-rstudio" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="préférences-de-rstudio"><span class="header-section-number">4.3</span> Préférences de RStudio</h2>
+<p><br></p>
+<p>la fonction <code>setup_RStudio()</code> force les préférences de RStudio à <span style="white-space:nowrap">être :</span></p>
+<ul>
+<li><p>pas de <code>save</code> de <code>.Rdata</code></p></li>
+<li><p>utilisation du <span style="white-space:nowrap">« </span>pipe natif<span style="white-space:nowrap"> »</span></p></li>
+<li><p>utilisation du moteur graphique <code>ragg</code></p></li>
+<li><p>thème <span style="white-space:nowrap">« </span>iPlastic<span style="white-space:nowrap"> »</span> (peut être un autre thème avec <code>theme="Unautretheme"</code>)</p></li>
+<li><p>console à droite</p></li>
+<li><p>et quelques autres</p></li>
+</ul>
+</section>
+<section id="evolutivité-du-package-ofce" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="evolutivité-du-package-ofce"><span class="header-section-number">4.4</span> Evolutivité du package <code>{ofce}</code></h2>
+<div id="fig-539a35d47e664c97a50115a146a7f1bd-2" class="quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div>
+<a href="work/weneedyou.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" data-description=": "><img src="work/weneedyou.png" id="fig-539a35d47e664c97a50115a146a7f1bd-2" class="img-fluid quarto-figure-center figure-img"></a>
+</div>
+</figure>
+</div>
+</section>
+<section id="conclusion-pour-résumer" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="conclusion-pour-résumer"><span class="header-section-number">4.5</span> <span style="white-space:nowrap">Conclusion :</span> pour résumer</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>On installe R, RStudio, Quarto, le package <code>{ofce}</code></li>
+</ul>
+<p><br></p>
+<ul class="incremental">
+<li>Un joli working paper en quarto prend 15 secondes avec <code>setup_wp</code></li>
+</ul>
+<p><br></p>
+<ul class="incremental">
+<li>Une présentation un peu moderne prend 10 secondes avec <code>setup_pres</code></li>
+</ul>
+<p><br></p>
+<ul class="incremental">
+<li>La mise en forme d’un graphique ggplot prend 5 secondes avec <code>theme_ofce()</code></li>
+</ul>
+<p><br></p>
+<ul class="incremental">
+<li>Le package <code>{ofce}</code> peut être encore meilleur grâce à <span style="white-space:nowrap">vous !</span></li>
+</ul>
+</div>
+</section>
+<section id="alors" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="alors"><span class="header-section-number">4.6</span> <span style="white-space:nowrap">Alors ?</span></h2>
+<div id="fig-539a35d47e664c97a50115a146a7f1bd-3" class="quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div>
+<a href="work/blow-mind-mind-blown.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-10" data-description=": "><img src="work/blow-mind-mind-blown.gif" id="fig-539a35d47e664c97a50115a146a7f1bd-3" class="img-fluid quarto-figure-center figure-img"></a>
+</div>
+</figure>
+</div>
+</section>
+<section id="prochaines-étapes" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="prochaines-étapes"><span class="header-section-number">4.7</span> Prochaines étapes</h2>
+<p><br></p>
+<ul>
+<li>package encore en <span style="white-space:nowrap">évolution :</span> signalez vos difficultés, les bugs, vos souhaits</li>
+<li>modèle de documents supplémentaires (policy brief, rapport)</li>
+</ul>
+<!-- -->
+<ul>
+<li>définition d’une charte graphique du site web (html) aux documents (pdf)</li>
+<li>intégration de la production de documents quarto directement sur le site via un processus simple (github)
+<ul>
+<li><p>blogs</p></li>
+<li><p>documents de travail</p></li>
+<li><p>policy brief</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="merci-pour-votre-attention" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="merci-pour-votre-attention"><span class="header-section-number">4.8</span> Merci pour votre attention</h2>
+<iframe src="https://giphy.com/embed/lD76yTC5zxZPG" width="480" height="352" frameborder="0" class="giphy-embed" allowfullscreen="">
+</iframe>
+<p>
+<a href="https://giphy.com/gifs/the-end-thats-all-folks-lD76yTC5zxZPG">via GIPHY</a>
+</p>
+</section>
+<section id="références" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="références"><span class="header-section-number">4.9</span> Références</h2>
+<div id="refs" role="list">
+
+</div>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Réutilisation</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.fr">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">Veuillez citer ce travail comme suit&nbsp;:</div><div id="ref-malliet2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Malliet, Paul, Anissa Saumtally, and Xavier Timbeau. 2023. <span>“Le
+package {OFCE}.”</span> November 13, 2023.
+</div></div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copié");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copié");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        console.log("RESIZE");
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","loop":true,"descPosition":"bottom","selector":".lightbox"});</script>
+
+
+
+
+</body></html>

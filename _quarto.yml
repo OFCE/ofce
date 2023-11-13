@@ -1,0 +1,22 @@
+project:
+  type: website
+
+website:
+  title: "Le package {OFCE} - Séminaire Lunch"
+  navbar:
+    pinned: true
+    left:
+      - href: index.qmd
+        text: Home
+    tools:
+    - icon: github
+      href: https://github.com/OFCE/ofce.git
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+
