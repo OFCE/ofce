@@ -364,25 +364,60 @@ p
 ## Faire un graphique sous R 
 ### Changement des couleurs
 
+
+::: panel-tabset
+
+### Ex.1  {.tabset}
+
 ```{r}
-#| label: fig-bar3
+#| label: fig-bar3.1
 #| fig-cap: utilisation de palettes séquentielle (p1) et divergente(P2)
 #| echo: TRUE
-#| eval: FALSE
+#| eval: TRUE
 
 
 # Une palette 'basique' ofce_palette
 p <- p + scale_fill_manual(values = ofce::ofce_palette(n=3))
 p
+
+
+```
+
+### Ex.2  {.tabset}
+
+```{r}
+#| label: fig-bar3.2
+#| fig-cap: utilisation de palettes séquentielle (p1) et divergente(P2)
+#| echo: TRUE
+#| eval: TRUE
+
+
 # Une palette 'sequentielle' ofce_palette_seq
 p1 <- p + scale_fill_manual(values = ofce::ofce_palette_seq(n=3))
-
-# Une palette 'divergente' ofce_palette_div
-p2 <- p + scale_fill_manual(values = ofce::ofce_palette_div(n=3))
+p1
 
 
 
 ```
+
+### Ex.3  {.tabset}
+
+```{r}
+#| label: fig-bar3.3
+#| fig-cap: utilisation de palettes séquentielle (p1) et divergente(P2)
+#| echo: TRUE
+#| eval: TRUE
+
+
+
+# Une palette 'divergente' ofce_palette_div
+p2 <- p + scale_fill_manual(values = ofce::ofce_palette_div(n=3))
+p2
+
+
+```
+
+:::
 
 ## Faire un graphique sous R 
 ### Ajout d'un logo
