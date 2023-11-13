@@ -12,7 +12,7 @@ pak::pak("ofce/ofce")
 
 ## Utilisation
 
-La présentation du 13 Novembre en séminaire lunch présente les principales fonctionnalités inclues dans le package (accessible via ce [lien]([https://github.com/OFCE/ofce/blob/master/work/lunchseminar.html](https://ofce.github.io/ofce/))). 
+La présentation du 13 Novembre en séminaire lunch présente les principales fonctionnalités inclues dans le package (accessible via ce [lien](https://ofce.github.io/ofce/)). 
 Pour une description plus complète, vous pouvez lancez la commande suivante dans la console RStudio qui recense l'ensemble des fonctions du package : `library(help="ofce")` ou `?nom_de_la_function`.
 
 
