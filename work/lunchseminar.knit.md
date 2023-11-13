@@ -17,25 +17,8 @@ format:
   # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères
 ---
 
-```{r, include=FALSE}
-library(knitr)
-library(tidyverse) 
-library(showtext) 
-library(ofce)
 
-opts_chunk$set(
-  echo = FALSE,
-  warning = FALSE,
-  message = FALSE,
-  fig.pos="H", 
-  out.extra="",
-  dev="ragg_png",
-  fig.showtext=TRUE,
-  cache=FALSE)
 
-showtext_opts(dpi=200)
-showtext_auto()
-```
 
 # Introduction
 
@@ -141,12 +124,62 @@ cette fonction sert à appliquer le Système International pour produire une cha
 
 Pratique pour les messages ou les échelles.
 
-```{r, echo=TRUE}
+
+::: {.cell}
+
+```{.r .cell-code}
 ofce::f2si2(c(2000000, 3000000), digits = 2) 
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "2M" "3M"
+```
+
+
+:::
+
+```{.r .cell-code}
 ofce::f2si2(c(142010, 2000000, 100.1928), digits = 2) 
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "142.01k" "2000k"   "0.1k"   
+```
+
+
+:::
+
+```{.r .cell-code}
 purrr::map_chr(c(142010, 2000000, 0.1928), ofce::f2si2)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "142k"   "2M"     "192.8m"
+```
+
+
+:::
+
+```{.r .cell-code}
 ofce::uf2si2(c(1100,1110,2000,2100))
 ```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] "1.1k"  "1.11k" "2k"    "2.1k" 
+```
+
+
+:::
+:::
+
 
 ## Préférences de RStudio
 
@@ -183,9 +216,11 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 -   package encore en évolution : signalez vos difficultés, les bugs, vos souhaits
 -   modèle de documents supplémentaires (policy brief, rapport)
 
+
 ```{=html}
 <!-- -->
 ```
+
 -   définition d'une charte graphique du site web (html) aux documents (pdf)
 -   intégration de la production de documents quarto directement sur le site via un processus simple (github)
     -   blogs
@@ -200,3 +235,4 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 
 ::: {#refs}
 :::
+
