@@ -5,3 +5,5 @@ svg
 ^dev_history\.R$
 ^LICENSE\.md$
 ^work$
+
+^_extensions$
