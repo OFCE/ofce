@@ -1,11 +1,10 @@
----
-title: "Séminaire Lunch : Le package `{OFCE}`"
+title: "Le package {OFCE}"
 subtitle: "*C'est vraiment pas compliqué*"
 author:
   - name: Paul Malliet
   - name: Anissa Saumtally
   - name: Xavier Timbeau
-author-footer: "13 nov. 2023"
+author-footer: "Séminaire Lunch"
 institution: Observatoire Français des Conjonctures Économiques
 date: today
 lang: fr
@@ -129,7 +128,7 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 
 ## Package OFCE : Pourquoi ?
 
-<br> 
+<br>
 
  - Rassembler les outils développés en interne à l'OFCE :
   
@@ -142,6 +141,13 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
   - Où le trouver ?
   
     + <i class="fa-brands fa-github"></i> : <https://github.com/OFCE/ofce.git> 
+-   Rassembler les outils développés en interne à l'OFCE :
+
+    -   harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
+
+    -   partager les outils développés par chacung pour faciliter l'utilisation de R
+
+    -   
 
 ## Installation du package
 
@@ -324,9 +330,8 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 -   package encore en évolution : signalez vos difficultés, les bugs, vos souhaits
 -   modèle de documents supplémentaires (policy brief, rapport)
 
-```{=html}
 <!-- -->
-```
+
 -   définition d'une charte graphique du site web (html) aux documents (pdf)
 -   intégration de la production de documents quarto directement sur le site via un processus simple (github)
     -   blogs
