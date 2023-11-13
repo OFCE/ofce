@@ -134,7 +134,7 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 
 -   Rassembler les outils développés en interne à l'OFCE :
 
-    -   harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
+    -   harmoniser les pratiques (*patrons* de documents, chartes graphiques, thèmes graphiques)
 
     -   partager les outils développés par chacung pour faciliter l'utilisation de R
 
