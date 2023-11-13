@@ -74,7 +74,7 @@ NOM_DU_PACKAGE::la_super_fonction()
 
     -   via des canaux privés : le package est transmis directement au format `.tar.gz` ou `.zip`. Attention à la source, peu de garanties sur leur utilisation
 
-## `{pak}` : une alternative pour les gens cool
+## `{pak}` : une alternative pour les gens "cool" (Xavier)
 
 -   Le package `{pak}` permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)
 
