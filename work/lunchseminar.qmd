@@ -43,10 +43,8 @@ showtext_auto()
 
 <br>
 
-  - un package est une librairie de fonctions développées par les utilisateurs de R dans le but d'ajouter des fonctionnalités à R
-  
+-   un package est une librairie de fonctions développées par les utilisateurs de R dans le but d'ajouter des fonctionnalités à R
 
-  
 ```{r}
 #| code-fold: true
 #| code-summary: "Commandes de base pour les packages"
@@ -68,22 +66,18 @@ NOM_DU_PACKAGE::la_super_fonction()
 
 ```
 
+-   On les trouve :
 
-  
-  - On les trouve :
-  
-    + sur le CRAN : il s'agit d'un répertoire "officiel" des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables 
-    
-    + sur GitHub : généralement pour les packages en développement 
-    
-    + via des canaux privés : le package est transmis directement au format `.tar.gz` ou `.zip`. 
-    Attention à la source, peu de garanties sur leur utilisation
-    
-    
-## Le package `{pak}` : une alternative pour les gens cool 
+    -   sur le CRAN : il s'agit d'un répertoire "officiel" des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables
 
-  - Le package `{pak}` permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)
-  
+    -   sur GitHub : généralement pour les packages en développement
+
+    -   via des canaux privés : le package est transmis directement au format `.tar.gz` ou `.zip`. Attention à la source, peu de garanties sur leur utilisation
+
+## `{pak}` : une alternative pour les gens cool
+
+-   Le package `{pak}` permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -94,9 +88,7 @@ install.packages("pak")
 
 ```
 
-
-  - Exemple d'utilisation sur un package du CRAN
-
+-   Exemple d'utilisation sur un package du CRAN
 
 ```{r}
 #| eval: false
@@ -108,7 +100,7 @@ pak::pak("tidyverse")
 
 ```
 
- - Exemples d'utilisation sur un package sur GitHub
+-   Exemples d'utilisation sur un package sur GitHub
 
 ```{r}
 #| eval: false
@@ -123,41 +115,35 @@ pak::pak("1961Shivani/hypothesis") ## un package random sur GitHub
 pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 
 ```
-  
-
-
 
 ## Package OFCE : Pourquoi ?
 
 <br>
 
- - Rassembler les outils développés en interne à l'OFCE :
-  
-    + harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
-    
-    + partager les outils développés par chacun pour faciliter l'utilisation de R 
-    
-    <i class="fa-solid fa-arrow-right"></i>  Gain de temps conséquent ! Promis!
-    
-  - Où le trouver ?
-  
-    + <i class="fa-brands fa-github"></i> : <https://github.com/OFCE/ofce.git> 
+-   Rassembler les outils développés en interne à l'OFCE :
+
+    -   harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
+
+    -   partager les outils développés par chacun pour faciliter l'utilisation de R
+
+    <i class="fa-solid fa-arrow-right"></i> Gain de temps conséquent ! Promis!
+
+-   Où le trouver ?
+
+    -   <i class="fa-brands fa-github"></i> : <https://github.com/OFCE/ofce.git>
+
 -   Rassembler les outils développés en interne à l'OFCE :
 
     -   harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
 
     -   partager les outils développés par chacung pour faciliter l'utilisation de R
 
-    -   
-
 ## Installation du package
 
-
 ::: panel-tabset
-
 ### 1. Installation de R {.tabset}
 
-- Vérifier que la version de R est à jour (au moins 4.3.0)
+-   Vérifier que la version de R est à jour (au moins 4.3.0)
 
 ```{r}
 #| eval: true
@@ -168,27 +154,25 @@ R.version$version.string
 
 ```
 
-- télécharger et installer la dernière version de R
+-   télécharger et installer la dernière version de R
 
-  + <https://cran.r-project.org>
-  
-- (sur Windows) Activer cette version `tools/Global Options`
+    -   <https://cran.r-project.org>
 
-- Installer R Studio (mais ça vous l'avez déjà, n'est-ce pas ?) 
+-   (sur Windows) Activer cette version `tools/Global Options`
 
-  + <https://posit.co/products/open-source/rstudio/>
+-   Installer R Studio (mais ça vous l'avez déjà, n'est-ce pas ?)
 
-
+    -   <https://posit.co/products/open-source/rstudio/>
 
 ### 2. Installation de Quarto {.tabset}
 
-- Il faut installer Quarto (l'application) **au moins la version 1.4 (pre-release)**
+-   Il faut installer Quarto (l'application) **au moins la version 1.4 (pre-release)**
 
-  + <https://quarto.org/docs/download/> 
-  
+    -   <https://quarto.org/docs/download/>
+
 ![](dl_quarto.png){fig-align="center"}
 
-  - Installer le package `{quarto}`
+-   Installer le package `{quarto}`
 
 ```{r}
 #| echo: true
@@ -197,25 +181,17 @@ R.version$version.string
 pak::pak("quarto")
 ```
 
-- Installer l'extension fontawesome (via le terminal)
+-   Installer l'extension fontawesome (via le terminal)
 
-```
+```         
 #| echo: true
 #| eval: false
 
 quarto add quarto-ext/fontawesome
-
 ```
 
-
-###  3. Installation du package `{ofce}` {.tabset}
-
-
-
+### 3. Installation du package `{ofce}` {.tabset}
 :::
-
-
-
 
 # les templates Quarto
 

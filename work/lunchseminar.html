@@ -11,7 +11,7 @@
 <link href="lunchseminar_files/libs/quarto-contrib/reveal-auto-agenda-0.0.1/reveal-auto-agenda.css" rel="stylesheet">
 <link href="lunchseminar_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="lunchseminar_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.373">
+  <meta name="generator" content="quarto-1.4.489">
 
   <meta name="author" content="Paul Malliet">
   <meta name="author" content="Anissa Saumtally">
@@ -476,7 +476,7 @@ Xavier Timbeau
 <li>un package est une librairie de fonctions développées par les utilisateurs de R dans le but d’ajouter des fonctionnalités à R</li>
 </ul>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Commandes de base pour les packages</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">## on les installe avec :</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
@@ -500,13 +500,13 @@ Xavier Timbeau
 </ul></li>
 </ul>
 </section>
-<section id="le-package-pak-une-alternative-pour-les-gens-cool" class="slide level2">
-<h2>Le package <code>{pak}</code> : une alternative pour les gens cool</h2>
+<section id="pak-une-alternative-pour-les-gens-cool" class="slide level2">
+<h2><code>{pak}</code> : une alternative pour les gens cool</h2>
 <ul>
 <li>Le package <code>{pak}</code> permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)</li>
 </ul>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">install.packages</span>(<span class="st">"pak"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -515,7 +515,7 @@ Xavier Timbeau
 <li>Exemple d’utilisation sur un package du CRAN</li>
 </ul>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -524,7 +524,7 @@ Xavier Timbeau
 <li>Exemples d’utilisation sur un package sur GitHub</li>
 </ul>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"nom_utilisateur_git/nom_du_package"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
@@ -552,7 +552,6 @@ Xavier Timbeau
 <ul>
 <li><p>harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)</p></li>
 <li><p>partager les outils développés par chacung pour faciliter l’utilisation de R</p></li>
-<li></li>
 </ul></li>
 </ul>
 </section>
@@ -590,13 +589,7 @@ Xavier Timbeau
 <li><a href="https://quarto.org/docs/download/" class="uri">https://quarto.org/docs/download/</a></li>
 </ul></li>
 </ul>
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure quarto-figure-center" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig">
-<div>
-<img data-src="dl_quarto.png" id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure-center">
-</div>
-</figure>
-</div>
+<p><img data-src="dl_quarto.png" class="quarto-figure-center"></p>
 <ul>
 <li>Installer le package <code>{quarto}</code></li>
 </ul>
@@ -609,8 +602,7 @@ Xavier Timbeau
 <pre><code>#| echo: true
 #| eval: false
 
-quarto add quarto-ext/fontawesome
-</code></pre>
+quarto add quarto-ext/fontawesome</code></pre>
 </div>
 <div id="tabset-1-3">
 
@@ -772,7 +764,7 @@ quarto add quarto-ext/fontawesome
 <section id="evolutivité-du-package-ofce" class="slide level2">
 <h2>Evolutivité du package <code>{ofce}</code></h2>
 
-<img data-src="weneedyou.png" id="fig-539a35d47e664c97a50115a146a7f1bd-2" class="quarto-figure-center r-stretch"></section>
+<img data-src="weneedyou.png" class="quarto-figure-center r-stretch"></section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 </section>
