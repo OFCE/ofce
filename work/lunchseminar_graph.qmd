@@ -1,0 +1,200 @@
+---
+title: "Séminaire Lunch : Le package `{OFCE}` et les graphes"
+subtitle: "*C'est vraiment pas sorcier*"
+author:
+  - name: Paul Malliet
+  - name: Anissa Saumtally
+  - name: Xavier Timbeau
+author-footer: "13 nov. 2023"
+institution: Observatoire Français des Conjonctures Économiques
+date: today
+lang: fr
+#bibliography: lunchseminar_references.bib
+toc-depth: 1
+format: 
+  pres-revealjs: default
+  # slide-level niveau des slides à prendre en compte (2 par défaut)
+  # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères
+---
+
+```{r, include=FALSE}
+library(knitr)
+library(tidyverse) 
+library(showtext) 
+library(ofce)
+
+opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.pos="H", 
+  out.extra="",
+  dev="ragg_png",
+  fig.showtext=TRUE,
+  cache=FALSE)
+
+showtext_opts(dpi=200)
+showtext_auto()
+```
+
+## Introduction
+
+- Le package 'ofce' contient plusieurs fonctions associées à la réalisation d'un graphe sous R en **format publiable**
+
+- Les modifications apportées peuvent se distinguer en trois groupes: 
+
+    - Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende...)
+    - La modification des couleurs utilisées
+    - L'ajout d'élements exterieurs supplémentaires hors thème
+
+## Faire un graphique sous R 
+### Un graphique basique
+
+```{r}
+#| label: fig-bar
+#| fig-cap: Un graphe simple de type `geom_bar`
+#| echo: TRUE
+#| eval: FALSE
+
+# create a dataset
+countries <- c(rep("Espagne" , 3) , rep("France" , 3) , rep("Allemagne" , 3) , rep("Italie" , 3) )
+condition <- rep(c("food index" , "drink index" , "beauty index") , 4)
+value <- abs(rnorm(12 , 0 , 15))
+data <- data.frame(countries,condition,value)
+ 
+# Grouped
+p <- ggplot(data, aes(fill=condition, y=value, x=countries)) + 
+    geom_bar(position="dodge", stat="identity")
+p
+
+```
+
+## Faire un graphique sous R 
+### Un graphique basique
+
+```{r}
+#| label: fig-bar_p
+#| fig-cap: Un graphe simple de type `geom_bar`
+#| echo: FALSE
+#| eval: TRUE
+
+# create a dataset
+countries <- c(rep("Espagne" , 3) , rep("France" , 3) , rep("Allemagne" , 3) , rep("Italie" , 3) )
+condition <- rep(c("food index" , "drink index" , "beauty index") , 4)
+value <- abs(rnorm(12 , 0 , 15))
+data <- data.frame(countries,condition,value)
+ 
+# Grouped
+p <- ggplot(data, aes(fill=condition, y=value, x=countries)) + 
+    geom_bar(position="dodge", stat="identity")
+p
+
+```
+
+## Faire un graphique sous R 
+### Ajout du theme `ofce`
+
+```{r}
+#| label: fig-bar2
+#| fig-cap: Ajout d'un theme 'ofce' et manipulations sur les fonctions themes
+#| echo: TRUE
+#| eval: FALSE
+
+p + theme_ofce()
+
+p <- p +
+   theme_ofce() +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom") + 
+  labs(x = element_blank(),
+       # y = element_blank()
+       y = "Note sur 100"
+       )
+p
+```
+
+## Faire un graphique sous R 
+### Ajout du theme `ofce`
+
+```{r}
+#| label: fig-bar2_p
+#| fig-cap: Ajout d'un theme 'ofce' et manipulations sur les fonctions themes
+#| echo: FALSE
+#| eval: TRUE
+
+p + theme_ofce()
+
+p <- p +
+   theme_ofce() +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom") + 
+  labs(x = element_blank(),
+       # y = element_blank()
+       y = "Note sur 25"
+       )
+p
+```
+
+## Faire un graphique sous R 
+### Changement des couleurs
+
+```{r}
+#| label: fig-bar3
+#| fig-cap: utilisation de palettes séquentielle (p1) et divergente(P2)
+#| echo: TRUE
+#| eval: FALSE
+
+
+# Une palette 'basique' ofce_palette
+p <- p + scale_fill_manual(values = ofce::ofce_palette(n=3))
+p
+# Une palette 'sequentielle' ofce_palette_seq
+p1 <- p + scale_fill_manual(values = ofce::ofce_palette_seq(n=3))
+
+# Une palette 'divergente' ofce_palette_div
+p2 <- p + scale_fill_manual(values = ofce::ofce_palette_div(n=3))
+
+
+
+```
+
+## Faire un graphique sous R 
+### Ajout d'un logo
+
+```{r}
+#| label: fig-bar4
+#| fig-cap: Ajout d'un logo (image)
+#| echo: TRUE
+#| eval: FALSE
+
+
+ 
+# Soit à l'exterieur du graphique
+p %>% add_logo_ofce()
+
+# Soit à l'intérieur du graphique
+p %>% add_logo_ofce_inside()
+
+
+```
+
+## Faire un graphique sous R 
+### Ajout d'un logo
+
+```{r}
+#| label: fig-bar4_p
+#| fig-cap: Ajout d'un logo (image)
+#| echo: FALSE
+#| eval: TRUE
+
+
+ 
+# Soit à l'exterieur du graphique
+p1 <- p %>% add_logo_ofce()
+
+# Soit à l'intérieur du graphique
+p2 <- p %>% add_logo_ofce_inside()
+
+# Regrouper les deux graphiques
+ggpubr::ggarrange(p1,p2)
+```
