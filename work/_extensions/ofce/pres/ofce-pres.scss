@@ -6,6 +6,7 @@
 $scpored: #e6142d;
 $ofcered: #a22a2e;
 $darkred: #640000;
+$darkgrey: #333333;
 $green: #079D10;
 $blue: #000080;
 $presentation-color: $scpored;
@@ -18,7 +19,7 @@ $presentation-h1-font-size: 1.75em;
 $presentation-h2-font-size: 1.5em;
 $presentation-h3-font-size: 1.3em;
 $presentation-h4-font-size: 1.2em;
-$presentation-font-size-root: 28px;
+$presentation-font-size-root: 24px;
 $font-family-sans-serif: "Open Sans", "Source Sans Pro", Helvetica, sans-serif !default;
 $font-family-monospace: "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas,
   "Liberation Mono", "Courier New", monospace !default;
@@ -94,4 +95,8 @@ $callout-border-width: 1px;
   color: $presentation-color;
   margin-top: -0.1em;
   margin-bottom: -0.1em;
+}
+
+code {
+  color: $darkgrey !important;
 }

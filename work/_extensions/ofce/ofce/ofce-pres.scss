@@ -5,7 +5,7 @@
 // Fonts (CSS rules)
 //$font-family-sans-serif: 'Nunito Sans', sans-serif;
 //$font-family-monospace: 'Roboto Mono', monospace;
-$font-family-serif: 'Libre Baskerville', serif; 
+$font-family-serif: 'Libre Baskerville', serif;
 $font-family-sans-serif: 'Open Sans', sans-serif;
 $font-family-monospace: 'Fira Code', monospace;
 
@@ -52,8 +52,8 @@ $headingFont: 'Nunito', sans-serif;
 }
 
 .reveal h2::before {
-  font-family: "Font Awesome 5 Free"; 
-  font-weight: 900; 
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: "\f24e";
   letter-spacing: 10px;
 }
@@ -101,3 +101,9 @@ $headingFont: 'Nunito', sans-serif;
   margin-top: -0.1em;
   margin-bottom: -0.1em;
 }
+
+.panel-tabset-tabby a {
+  color: $darkred;
+  font-size: 0.1em;
+}
+

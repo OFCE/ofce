@@ -1,11 +1,11 @@
 ---
-title: "Séminaire Lunch : Le package `{OFCE}`"
+title: "Le package {OFCE}"
 subtitle: "*C'est vraiment pas compliqué*"
 author:
   - name: Paul Malliet
   - name: Anissa Saumtally
   - name: Xavier Timbeau
-author-footer: "13 nov. 2023"
+author-footer: "Séminaire Lunch"
 institution: Observatoire Français des Conjonctures Économiques
 date: today
 lang: fr
@@ -43,31 +43,187 @@ showtext_auto()
 
 <br>
 
-  - un package est une librairie de fonctions développées par les utilisateurs de R dans le but d'ajouter des fonctionnalités à R
-  
-  - 
-  
-  - On les trouve :
-  
-    + sur le CRAN : il s'agit d'un répertoire "officiel" des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables 
-    
-    + sur GitHub : généralement pour les packages en développement 
-    
-    + via des canaux privés : attention à la source, peu de garanties sur leur utilisation
+-   un package est une librairie de fonctions développées par les utilisateurs de R dans le but d'ajouter des fonctionnalités à R
+
+```{r}
+#| code-fold: true
+#| code-summary: "Commandes de base pour les packages"
+#| eval: false
+#| echo: true
+
+## on les installe avec :
+
+install.packages("NOM_DU_PACKAGE")
+
+## on y fait appel avec
+
+library("NOM_DU_PACKAGE")
+
+## Référence à une fonction d'un package spécifique
+
+NOM_DU_PACKAGE::la_super_fonction()
+
+
+```
+
+-   On les trouve :
+
+    -   sur le CRAN : il s'agit d'un répertoire "officiel" des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables
+
+    -   sur GitHub : généralement pour les packages en développement
+
+    -   via des canaux privés : le package est transmis directement au format `.tar.gz` ou `.zip`. Attention à la source, peu de garanties sur leur utilisation
+
+## `{pak}` : une alternative pour les gens cool
+
+-   Le package `{pak}` permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: true
+
+install.packages("pak")
+
+
+```
+
+-   Exemple d'utilisation sur un package du CRAN
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: true
+
+pak::pak("tidyverse")
+
+
+```
+
+-   Exemples d'utilisation sur un package sur GitHub
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: true
+
+
+pak::pak("nom_utilisateur_git/nom_du_package")
+
+pak::pak("1961Shivani/hypothesis") ## un package random sur GitHub
+
+pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
+
+```
 
 ## Package OFCE : Pourquoi ?
 
-<br> 
+<br>
 
- - Rassembler les outils développés en interne à l'OFCE :
-  
-    + harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
-    
-    + partager les outils développés par chacung pour faciliter l'utilisation de R 
-    
-    + 
+-   Rassembler les outils développés en interne à l'OFCE :
+
+    -   harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
+
+    -   partager les outils développés par chacun pour faciliter l'utilisation de R
+
+    <i class="fa-solid fa-arrow-right"></i> Gain de temps conséquent ! Promis!
+
+-   Où le trouver ?
+
+    -   <i class="fa-brands fa-github"></i> : <https://github.com/OFCE/ofce.git>
+
+-   Rassembler les outils développés en interne à l'OFCE :
+
+    -   harmoniser les pratiques (*patrons* de documents, chartes graphiques, thèmes graphiques)
+
+    -   partager les outils développés par chacung pour faciliter l'utilisation de R
 
 ## Installation du package
+
+::: panel-tabset
+
+### 1.  R {.tabset}
+
+-   Vérifier que la version de R est à jour (au moins 4.3.0)
+
+```{r}
+#| eval: true
+#| echo: true
+
+R.version$version.string
+
+
+```
+
+-   télécharger et installer la dernière version de R
+
+    -   <https://cran.r-project.org>
+
+-   (sur Windows) Activer cette version `tools/Global Options`
+
+-   Installer R Studio (mais ça vous l'avez déjà, n'est-ce pas ?)
+
+    -   <https://posit.co/products/open-source/rstudio/>
+
+### 2. Quarto {.tabset}
+
+-   Il faut installer Quarto (l'application) **au moins la version 1.4 (pre-release)**
+
+    -   <https://quarto.org/docs/download/>
+
+  + <https://quarto.org/docs/download/> 
+  
+```{r}
+#| code-fold: true
+#| code-summary: "Commandes de base pour les packages"
+#| eval: true
+#| echo: false
+#| fig-align: center
+#| 
+knitr::include_graphics("dl_quarto.png")
+```
+
+
+-   Installer le package `{quarto}`
+
+```{r}
+#| echo: true
+#| eval: false
+
+pak::pak("quarto")
+```
+
+-   Installer l'extension fontawesome (via le terminal)
+
+```{r}
+#| echo: true
+#| eval: false
+
+quarto add quarto-ext/fontawesome
+```
+
+
+###  3. `{ofce}` {.tabset}
+
+::: {.incremental}
+- Le package `{ofce}` est hébergé sur le compte GitHub de l'OFCE 
+
+  +  ...Donc ?
+  
+```{r}
+#| code-fold: true
+#| eval: false
+#| echo: true
+
+pak::pak("OFCE/ofce")
+
+```
+
+  +   ![](juju.jpg){fig-align="center"}
+
+:::
+
+:::
 
 # les templates Quarto
 
@@ -183,9 +339,8 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 -   package encore en évolution : signalez vos difficultés, les bugs, vos souhaits
 -   modèle de documents supplémentaires (policy brief, rapport)
 
-```{=html}
 <!-- -->
-```
+
 -   définition d'une charte graphique du site web (html) aux documents (pdf)
 -   intégration de la production de documents quarto directement sur le site via un processus simple (github)
     -   blogs
