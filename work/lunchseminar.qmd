@@ -141,8 +141,7 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 ## Installation du package
 
 ::: panel-tabset
-
-### 1.  R {.tabset}
+### 1. R {.tabset}
 
 -   Vérifier que la version de R est à jour (au moins 4.3.0)
 
@@ -171,8 +170,8 @@ R.version$version.string
 
     -   <https://quarto.org/docs/download/>
 
-  + <https://quarto.org/docs/download/> 
-  
+-   <https://quarto.org/docs/download/>
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Commandes de base pour les packages"
@@ -182,7 +181,6 @@ R.version$version.string
 #| 
 knitr::include_graphics("dl_quarto.png")
 ```
-
 
 -   Installer le package `{quarto}`
 
@@ -202,14 +200,13 @@ pak::pak("quarto")
 quarto add quarto-ext/fontawesome
 ```
 
+### 3. `{ofce}` {.tabset}
 
-###  3. `{ofce}` {.tabset}
+::: incremental
+-   Le package `{ofce}` est hébergé sur le compte GitHub de l'OFCE
 
-::: {.incremental}
-- Le package `{ofce}` est hébergé sur le compte GitHub de l'OFCE 
+    -   ...Donc ?
 
-  +  ...Donc ?
-  
 ```{r}
 #| code-fold: true
 #| eval: false
@@ -219,10 +216,8 @@ pak::pak("OFCE/ofce")
 
 ```
 
-  +   ![](juju.jpg){fig-align="center"}
-
+-   ![](juju.jpg){fig-align="center"}
 :::
-
 :::
 
 # les templates Quarto
@@ -326,11 +321,37 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 
 ![](weneedyou.png){fig-align="center"}
 
-## Conclusion
+::: {.incremental}
 
-## Pour Résumer
+## Conclusion : pour résumer
+
+
+<br>
+
+- On installe R, RStudio, Quarto, le package `{ofce}`
+
+<br>
+
+
+- Un joli working paper en quarto prend 15 secondes avec `setup_wp` 
+
+<br>
+
+- Une présentation un peu moderne prend 10 secondes avec `setup_pres`
+
+<br>
+
+- La mise en forme d'un graphique ggplot prend 5 secondes avec `theme_ofce()`
+
+<br>
+
+- Le package `{ofce}` peut être encore meilleur grâce à vous !
+
+:::
 
 ## Alors ?
+
+<iframe src="https://giphy.com/embed/3o6MbkWQI5OazCn8cM" width="480" height="362" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/season-16-the-simpsons-16x3-3o6MbkWQI5OazCn8cM">via GIPHY</a></p>
 
 ## Prochaines étapes
 
@@ -350,6 +371,8 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
     -   policy brief
 
 ## Merci pour votre attention
+
+<iframe src="https://giphy.com/embed/lD76yTC5zxZPG" width="480" height="352" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/the-end-thats-all-folks-lD76yTC5zxZPG">via GIPHY</a></p>
 
 ## Références
 
