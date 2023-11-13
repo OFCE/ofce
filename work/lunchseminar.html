@@ -592,7 +592,7 @@ Xavier Timbeau
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure quarto-figure-center" width="229" data-fig-align="center" data-fig-pos="H">
+<div id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure quarto-figure-center" width="229" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig">
 <div>
 <img data-src="dl_quarto.png" id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure-center" data-fig-pos="H" width="229">
@@ -687,7 +687,7 @@ Xavier Timbeau
 </ul>
 </section>
 <section id="demo-time" class="slide level2">
-<h2>Demo Time!</h2>
+<h2>Demo Time !</h2>
 <iframe src="https://giphy.com/embed/XreQmk7ETCak0" width="480" height="360" frameborder="0" class="giphy-embed" allowfullscreen="">
 </iframe>
 <p>
@@ -714,13 +714,118 @@ Xavier Timbeau
 <p>Autres fonctionnalités</p>
 </div>
 </div>
+<ul>
+<li><p>Le package ‹ofce› contient plusieurs fonctions associées à la réalisation d’un graphe sous R en <strong>format publiable</strong></p></li>
+<li><p>Les modifications apportées peuvent se distinguer en trois groupes:</p>
+<ul>
+<li>Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende…)</li>
+<li>La modification des couleurs utilisées</li>
+<li>L’ajout d’élements exterieurs supplémentaires hors thème</li>
+</ul></li>
+</ul>
 </section>
-<section id="fonctions" class="slide level2">
-<h2>Fonctions</h2>
+<section id="faire-un-graphique-sous-r" class="slide level2">
+<h2>Faire un graphique sous R</h2>
+<h3 id="un-graphique-basique">Un graphique basique</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># create a dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>countries <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Espagne"</span> , <span class="dv">3</span>) , <span class="fu">rep</span>(<span class="st">"France"</span> , <span class="dv">3</span>) , <span class="fu">rep</span>(<span class="st">"Allemagne"</span> , <span class="dv">3</span>) , <span class="fu">rep</span>(<span class="st">"Italie"</span> , <span class="dv">3</span>) )</span>
+<span id="cb11-3"><a href="#cb11-3"></a>condition <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"food index"</span> , <span class="st">"drink index"</span> , <span class="st">"beauty index"</span>) , <span class="dv">4</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>value <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">12</span> , <span class="dv">0</span> , <span class="dv">15</span>))</span>
+<span id="cb11-5"><a href="#cb11-5"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(countries,condition,value)</span>
+<span id="cb11-6"><a href="#cb11-6"></a> </span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># Grouped</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">fill=</span>condition, <span class="at">y=</span>value, <span class="at">x=</span>countries)) <span class="sc">+</span> </span>
+<span id="cb11-9"><a href="#cb11-9"></a>    <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10"></a>p</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="utilisation" class="slide level2">
-<h2>Utilisation</h2>
-</section></section>
+<section id="faire-un-graphique-sous-r-1" class="slide level2">
+<h2>Faire un graphique sous R</h2>
+<h3 id="un-graphique-basique-1">Un graphique basique</h3>
+
+<img data-src="lunchseminar_files/figure-revealjs/fig-bar_p-1.png" data-fig-pos="H" width="960" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;1: Un graphe simple de type <code>geom_bar</code>
+</p></section>
+<section id="faire-un-graphique-sous-r-2" class="slide level2">
+<h2>Faire un graphique sous R</h2>
+<h3 id="ajout-du-theme-ofce">Ajout du theme <code>ofce</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>p <span class="sc">+</span> <span class="fu">theme_ofce</span>()</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>   <span class="fu">theme_ofce</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-6"><a href="#cb12-6"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-8"><a href="#cb12-8"></a>       <span class="co"># y = element_blank()</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>       <span class="at">y =</span> <span class="st">"Note sur 100"</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>       )</span>
+<span id="cb12-11"><a href="#cb12-11"></a>p</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="faire-un-graphique-sous-r-3" class="slide level2">
+<h2>Faire un graphique sous R</h2>
+<h3 id="ajout-du-theme-ofce-1">Ajout du theme <code>ofce</code></h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bar2_p-1" class="quarto-figure quarto-figure-center" data-fig-pos="H" width="960">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-bar2_p-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="lunchseminar_files/figure-revealjs/fig-bar2_p-1.png" data-fig-pos="H" width="960">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar2_p-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Ajout d’un theme ‹ofce› et manipulations sur les fonctions themes
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-bar2_p-2" class="quarto-figure quarto-figure-center" data-fig-pos="H" width="960">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-bar2_p-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="lunchseminar_files/figure-revealjs/fig-bar2_p-2.png" data-fig-pos="H" width="960">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bar2_p-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Ajout d’un theme ‹ofce› et manipulations sur les fonctions themes
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="faire-un-graphique-sous-r-4" class="slide level2">
+<h2>Faire un graphique sous R</h2>
+<h3 id="changement-des-couleurs">Changement des couleurs</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Une palette 'basique' ofce_palette</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> ofce<span class="sc">::</span><span class="fu">ofce_palette</span>(<span class="at">n=</span><span class="dv">3</span>))</span>
+<span id="cb13-3"><a href="#cb13-3"></a>p</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co"># Une palette 'sequentielle' ofce_palette_seq</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> ofce<span class="sc">::</span><span class="fu">ofce_palette_seq</span>(<span class="at">n=</span><span class="dv">3</span>))</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co"># Une palette 'divergente' ofce_palette_div</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> ofce<span class="sc">::</span><span class="fu">ofce_palette_div</span>(<span class="at">n=</span><span class="dv">3</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="faire-un-graphique-sous-r-5" class="slide level2">
+<h2>Faire un graphique sous R</h2>
+<h3 id="ajout-dun-logo">Ajout d’un logo</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Soit à l'exterieur du graphique</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>p <span class="sc">%&gt;%</span> <span class="fu">add_logo_ofce</span>()</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># Soit à l'intérieur du graphique</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>p <span class="sc">%&gt;%</span> <span class="fu">add_logo_ofce_inside</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="faire-un-graphique-sous-r-6" class="slide level2">
+<h2>Faire un graphique sous R</h2>
+<h3 id="ajout-dun-logo-1">Ajout d’un logo</h3>
+
+<img data-src="lunchseminar_files/figure-revealjs/fig-bar4_p-1.png" data-fig-pos="H" width="960" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;4: Ajout d’un logo (image)
+</p></section></section>
 <section>
 <section class="title-slide slide level1 agenda-slide center">
 <h1>Autres fonctionnalités</h1>
@@ -761,19 +866,19 @@ Xavier Timbeau
 <p>cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible en utilisant des puissance de 1&nbsp;000 et une notation standardisée (k, M, G, T, …).</p>
 <p>Pratique pour les messages ou les échelles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">2000000</span>, <span class="dv">3000000</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2M" "3M"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>ofce<span class="sc">::</span><span class="fu">f2si2</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">100.1928</span>), <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "142.01k" "2000k"   "0.1k"   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>purrr<span class="sc">::</span><span class="fu">map_chr</span>(<span class="fu">c</span>(<span class="dv">142010</span>, <span class="dv">2000000</span>, <span class="fl">0.1928</span>), ofce<span class="sc">::</span>f2si2)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "142k"   "2M"     "192.8m"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>ofce<span class="sc">::</span><span class="fu">uf2si2</span>(<span class="fu">c</span>(<span class="dv">1100</span>,<span class="dv">1110</span>,<span class="dv">2000</span>,<span class="dv">2100</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1.1k"  "1.11k" "2k"    "2.1k" </code></pre>
 </div>
