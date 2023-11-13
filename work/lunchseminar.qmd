@@ -1,3 +1,4 @@
+---
 title: "Le package {OFCE}"
 subtitle: "*C'est vraiment pas compliqué*"
 author:

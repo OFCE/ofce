@@ -13,7 +13,10 @@
 <link href="lunchseminar_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.373">
 
-  <title>lunchseminar</title>
+  <meta name="author" content="Paul Malliet">
+  <meta name="author" content="Anissa Saumtally">
+  <meta name="author" content="Xavier Timbeau">
+  <title>Le package {OFCE}</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -411,52 +414,39 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="TOC">
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Le package {OFCE}</h1>
+  <p class="subtitle"><em>C’est vraiment pas compliqué</em></p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Paul Malliet 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Anissa Saumtally 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Xavier Timbeau 
+</div>
+</div>
+</div>
+
+  <p class="date">lundi 13 novembre 2023</p>
+</section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Plan de la présentation</h2>
 <ul>
-<li></li>
-<li></li>
-<li>Introduction
-<ul>
-<li><a href="#/rappel-sur-les-packages-r" id="/toc-rappel-sur-les-packages-r">Rappel sur les packages R</a></li>
-<li><a href="#/le-package-pak-une-alternative-pour-les-gens-cool" id="/toc-le-package-pak-une-alternative-pour-les-gens-cool">Le package <code>{pak}</code> : une alternative pour les gens cool</a></li>
-<li><a href="#/package-ofce-pourquoi" id="/toc-package-ofce-pourquoi">Package OFCE : Pourquoi ?</a></li>
-<li><a href="#/installation-du-package" id="/toc-installation-du-package">Installation du package</a></li>
-</ul></li>
-<li>les templates Quarto
-<ul>
-<li><a href="#/résumé-des-fonctions" id="/toc-résumé-des-fonctions">Résumé des fonctions</a></li>
-<li><a href="#/les-différents-types-de-document" id="/toc-les-différents-types-de-document">Les différents types de document</a></li>
-<li><a href="#/demo-time" id="/toc-demo-time">Demo Time!</a></li>
-</ul></li>
-<li>theme_ofce
-<ul>
-<li><a href="#/fonctions" id="/toc-fonctions">Fonctions</a></li>
-<li><a href="#/utilisation" id="/toc-utilisation">Utilisation</a></li>
-</ul></li>
-<li>Autres fonctionnalités
-<ul>
-<li><a href="#/exporter-un-graphique" id="/toc-exporter-un-graphique">Exporter un graphique</a></li>
-<li><a href="#/f2si2" id="/toc-f2si2">f2si2</a></li>
-<li><a href="#/préférences-de-rstudio" id="/toc-préférences-de-rstudio">Préférences de RStudio</a></li>
-<li><a href="#/evolutivité-du-package-ofce" id="/toc-evolutivité-du-package-ofce">Evolutivité du package <code>{ofce}</code></a></li>
-<li><a href="#/conclusion" id="/toc-conclusion">Conclusion</a></li>
-<li><a href="#/pour-résumer" id="/toc-pour-résumer">Pour Résumer</a></li>
-<li><a href="#/alors" id="/toc-alors">Alors ?</a></li>
-<li><a href="#/prochaines-étapes" id="/toc-prochaines-étapes">Prochaines étapes</a></li>
-<li><a href="#/merci-pour-votre-attention" id="/toc-merci-pour-votre-attention">Merci pour votre attention</a></li>
-<li><a href="#/références" id="/toc-références">Références</a></li>
-</ul></li>
+<li>Introduction</li>
+<li>les templates Quarto</li>
+<li>theme_ofce</li>
+<li>Autres fonctionnalités</li>
 </ul>
 </nav>
-</section>
-<section class="slide level2">
-
-<p>title: « Le package {OFCE} » subtitle: « <em>C’est vraiment pas compliqué</em> » author: - name: Paul Malliet - name: Anissa Saumtally - name: Xavier Timbeau author-footer: « Séminaire Lunch » institution: Observatoire Français des Conjonctures Économiques date: today lang: fr #bibliography: lunchseminar_references.bib toc-depth: 1 format: pres-revealjs: default # slide-level niveau des slides à prendre en compte (2 par défaut) # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères</p>
-</section>
-<section class="slide level2">
-
 </section>
 <section>
 <section class="title-slide slide level1 agenda-slide center">
@@ -820,7 +810,7 @@ quarto add quarto-ext/fontawesome
 </div>
 
 <img src="_extensions/ofce/pres/ofce_m.png" class="slide-logo r-stretch"><div class="footer footer-default">
-<p><strong>?meta:title</strong> <i class="fa-solid fa-ellipsis" aria-label="ellipsis"></i> </p>
+<p>Le package {OFCE} <i class="fa-solid fa-ellipsis" aria-label="ellipsis"></i> Séminaire Lunch</p>
 </div>
 </section></section>
     </div>
