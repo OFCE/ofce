@@ -155,7 +155,7 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 
 ::: panel-tabset
 
-### 1. Installation de R {.tabset}
+### 1.  R {.tabset}
 
 - Vérifier que la version de R est à jour (au moins 4.3.0)
 
@@ -180,13 +180,22 @@ R.version$version.string
 
 
 
-### 2. Installation de Quarto {.tabset}
+### 2. Quarto {.tabset}
 
 - Il faut installer Quarto (l'application) **au moins la version 1.4 (pre-release)**
 
   + <https://quarto.org/docs/download/> 
   
-![](dl_quarto.png){fig-align="center"}
+```{r}
+#| code-fold: true
+#| code-summary: "Commandes de base pour les packages"
+#| eval: true
+#| echo: false
+#| fig-align: center
+#| 
+knitr::include_graphics("dl_quarto.png")
+```
+
 
   - Installer le package `{quarto}`
 
@@ -199,7 +208,7 @@ pak::pak("quarto")
 
 - Installer l'extension fontawesome (via le terminal)
 
-```
+```{r}
 #| echo: true
 #| eval: false
 
@@ -208,9 +217,25 @@ quarto add quarto-ext/fontawesome
 ```
 
 
-###  3. Installation du package `{ofce}` {.tabset}
+###  3. `{ofce}` {.tabset}
 
+::: {.incremental}
+- Le package `{ofce}` est hébergé sur le compte GitHub de l'OFCE 
 
+  +  ...Donc ?
+  
+```{r}
+#| code-fold: true
+#| eval: false
+#| echo: true
+
+pak::pak("OFCE/ofce")
+
+```
+
+  +   ![](juju.jpg){fig-align="center"}
+
+:::
 
 :::
 
