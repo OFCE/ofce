@@ -10,3 +10,5 @@ wp_files
 wp2_files
 
 /.luarc.json
+
+/.quarto/
