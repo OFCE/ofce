@@ -12,6 +12,7 @@ before callout
 
 ::: {.callout-tip icon="false"}
 in callout
+
 ```{r}
 #| label: tbl-table1
 #| tbl-cap: "A table"
@@ -30,4 +31,5 @@ gt(table)
 
 in after table
 :::
+
 out callout
