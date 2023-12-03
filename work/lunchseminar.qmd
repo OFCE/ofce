@@ -262,18 +262,24 @@ Il est possible de spécifier
 
 ## Demo Time !
 
-<iframe src="https://giphy.com/embed/XreQmk7ETCak0" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/retro-thumbs-up-XreQmk7ETCak0">via GIPHY</a></p>
+<iframe src="https://giphy.com/embed/XreQmk7ETCak0" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen>
+
+</iframe>
+
+<p><a href="https://giphy.com/gifs/retro-thumbs-up-XreQmk7ETCak0">via GIPHY</a></p>
 
 # theme_ofce
-- Le package 'ofce' contient plusieurs fonctions associées à la réalisation d'un graphe sous R en **format publiable**
 
-- Les modifications apportées peuvent se distinguer en trois groupes: 
+-   Le package 'ofce' contient plusieurs fonctions associées à la réalisation d'un graphe sous R en **format publiable**
 
-    - Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende...)
-    - La modification des couleurs utilisées
-    - L'ajout d'élements exterieurs supplémentaires hors thème
+-   Les modifications apportées peuvent se distinguer en trois groupes:
 
-## Faire un graphique sous R 
+    -   Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende...)
+    -   La modification des couleurs utilisées
+    -   L'ajout d'élements exterieurs supplémentaires hors thème
+
+## Faire un graphique sous R
+
 ### Un graphique basique
 
 ```{r}
@@ -295,7 +301,8 @@ p
 
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Un graphique basique
 
 ```{r}
@@ -317,7 +324,8 @@ p
 
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout du theme `ofce`
 
 ```{r}
@@ -339,7 +347,8 @@ p <- p +
 p
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout du theme `ofce`
 
 ```{r}
@@ -361,13 +370,12 @@ p <- p +
 p
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Changement des couleurs
 
-
 ::: panel-tabset
-
-### Ex.1  {.tabset}
+### Ex.1 {.tabset}
 
 ```{r}
 #| label: fig-bar3.1
@@ -383,7 +391,7 @@ p
 
 ```
 
-### Ex.2  {.tabset}
+### Ex.2 {.tabset}
 
 ```{r}
 #| label: fig-bar3.2
@@ -400,7 +408,7 @@ p1
 
 ```
 
-### Ex.3  {.tabset}
+### Ex.3 {.tabset}
 
 ```{r}
 #| label: fig-bar3.3
@@ -416,10 +424,10 @@ p2
 
 
 ```
-
 :::
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout d'un logo
 
 ```{r}
@@ -439,7 +447,8 @@ p %>% add_logo_ofce_inside()
 
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout d'un logo
 
 ```{r}
@@ -459,7 +468,6 @@ p2 <- p %>% add_logo_ofce_inside()
 # Regrouper les deux graphiques
 ggpubr::ggarrange(p1,p2)
 ```
-
 
 # Autres fonctionnalités
 
@@ -514,37 +522,31 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 
 ![](weneedyou.png){fig-align="center"}
 
-
-
 ## Conclusion : pour résumer
 
-::: {.incremental}
-
-- On installe R, RStudio, Quarto, le package `{ofce}`
-
-<br>
-
-
-- Un joli working paper en quarto prend 15 secondes avec `setup_wp` 
+::: incremental
+-   On installe R, RStudio, Quarto, le package `{ofce}`
 
 <br>
 
-- Une présentation un peu moderne prend 10 secondes avec `setup_pres`
+-   Un joli working paper en quarto prend 15 secondes avec `setup_wp`
 
 <br>
 
-- La mise en forme d'un graphique ggplot prend 5 secondes avec `theme_ofce()`
+-   Une présentation un peu moderne prend 10 secondes avec `setup_pres`
 
 <br>
 
-- Le package `{ofce}` peut être encore meilleur grâce à vous !
+-   La mise en forme d'un graphique ggplot prend 5 secondes avec `theme_ofce()`
 
+<br>
+
+-   Le package `{ofce}` peut être encore meilleur grâce à vous !
 :::
 
 ## Alors ?
 
 ![](blow-mind-mind-blown.gif){fig-align="center"}
-
 
 ## Prochaines étapes
 
@@ -565,7 +567,11 @@ la fonction `setup_RStudio()` force les préférences de RStudio à être :
 
 ## Merci pour votre attention
 
-<iframe src="https://giphy.com/embed/lD76yTC5zxZPG" width="480" height="352" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/the-end-thats-all-folks-lD76yTC5zxZPG">via GIPHY</a></p>
+<iframe src="https://giphy.com/embed/lD76yTC5zxZPG" width="480" height="352" frameBorder="0" class="giphy-embed" allowFullScreen>
+
+</iframe>
+
+<p><a href="https://giphy.com/gifs/the-end-thats-all-folks-lD76yTC5zxZPG">via GIPHY</a></p>
 
 ## Références
 
