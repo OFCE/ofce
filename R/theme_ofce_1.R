@@ -106,6 +106,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         hjust = 0.5,
         vjust = 0.5,
         margin = margin(t=8, b=6)))+
-    ggh4xdef +
+    # ggh4xdef +
     ggplot2::theme(...) # pour passer les arguments en plus
 }
