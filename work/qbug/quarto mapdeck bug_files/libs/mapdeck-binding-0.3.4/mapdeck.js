@@ -1,9 +1,3 @@
-
-// issue 357
-if( typeof globalThis === 'undefined') {
-	var globalThis = window;
-}
-
 HTMLWidgets.widget({
 
   name: 'mapdeck',
@@ -11,53 +5,19 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-		var deckgl;
-
     return {
 
       renderValue: function(x) {
 
-			// issue 349
-			/*
-			function removeCircular(obj) {
-				const seen = new WeakSet();
-				const recurse = obj => {
-					seen.add(obj,true);
-					for( let [k, v] of Object.entries(obj)) {
-					  if( typeof v === "object" && v !== null) {
-						  if(seen.has(v)) delete obj[k];
-						  else recurse(v);
-					  } else {
-						  continue;
-					  }
-					}
-				}
-				recurse(obj);
-				return(obj);
-			}
-			*/
-
-			// issue 364
-			function buildDragObject(info) {
-				var dragObject = {
-      		coordinate: info.coordinate,
-      		viewport: info.viewport,
-      		x: info.x,
-      		y: info.y
-      	};
-
-      	return(dragObject);
-			}
-
       	md_setup_window( el.id );
 
-      	if( x.show_view_state ) {
-					md_setup_view_state( el.id );
-					window[el.id + 'mapViewState'] = document.createElement("div");
-					window[el.id + 'mapViewState'].setAttribute('id', el.id + 'mapViewState');
-					window[el.id + 'mapViewState'].setAttribute('class', 'mapViewState');
-					var mapbox_ctrl = document.getElementById( "mapViewStateContainer"+el.id);
-					mapbox_ctrl.appendChild( window[el.id + 'mapViewState'] );
+				if( x.show_view_state ) {
+      	  md_setup_view_state( el.id );
+      	  window[el.id + 'mapViewState'] = document.createElement("div");
+      	  window[el.id + 'mapViewState'].setAttribute('id', el.id + 'mapViewState');
+      	  window[el.id + 'mapViewState'].setAttribute('class', 'mapViewState');
+      	  var mapbox_ctrl = document.getElementById( "mapViewStateContainer"+el.id);
+    			mapbox_ctrl.appendChild( window[el.id + 'mapViewState'] );
 				}
 
         // INITIAL VIEW
@@ -74,12 +34,10 @@ HTMLWidgets.widget({
         };
 
        if( x.access_token === null ) {
-       	 deckgl = new deck.DeckGL({
+       	 const deckgl = new deck.DeckGL({
        	 	  views: [ new deck.MapView({
        	 	  	id: el.id,
-       	 	  	repeat: x.repeat_view,
-//       	 	  	width: width,
-//		       	 	height: height
+       	 	  	repeat: x.repeat_view
        	 	  	}) ],
        	 	  map: false,
 			      container: el.id,
@@ -90,14 +48,11 @@ HTMLWidgets.widget({
 			   });
 			   window[el.id + 'map'] = deckgl;
        } else {
-        deckgl = new deck.DeckGL({
+        const deckgl = new deck.DeckGL({
         	  views: [ new deck.MapView({
         	  	id: el.id,
-        	  	repeat: x.repeat_view,
-//		       	 	width: width,
-//		       	 	height: height
-        	  	})
-        	  ],
+        	  	repeat: x.repeat_view
+        	  	}) ],
           	mapboxApiAccessToken: x.access_token,
 			      container: el.id,
 			      mapStyle: x.style,
@@ -141,39 +96,34 @@ HTMLWidgets.widget({
 
 						  Shiny.onInputChange(el.id + '_view_change', viewState);
 			      },
-
 			      onDragStart(info, event){
 			      	if (!HTMLWidgets.shinyMode) { return; }
-			      	//console.log("drag start");
 			      	//if( info.layer !== null ) { info.layer = null; }  // dragging a layer;
 			      	info.layer = undefined; // in case of dragging a layer
-			      	//console.log( info );
-			      	Shiny.onInputChange(el.id +'_drag_start', buildDragObject(info) );
+			      	Shiny.onInputChange(el.id +'_drag_start', info);
 			      },
 			      onDrag(info, event){
 			      	if (!HTMLWidgets.shinyMode) { return; }
 			      	//if( info.layer !== null ) { info.layer = null; }  // dragging a layer;
 			      	info.layer = undefined; // in case of dragging a layer
-			      	Shiny.onInputChange(el.id +'_drag', buildDragObject(info) );
+			      	Shiny.onInputChange(el.id +'_drag', info);
 			      },
 			      onDragEnd(info, event){
 			      	if (!HTMLWidgets.shinyMode) { return; }
 			      	//if( info.layer !== null ) { info.layer = null; }  // dragging a layer;
 			      	info.layer = undefined; // in case of dragging a layer
-			      	Shiny.onInputChange(el.id +'_drag_end', buildDragObject(info) );
+			      	Shiny.onInputChange(el.id +'_drag_end', info);
 			      },
 			      onResize(size) {
 			      	if (!HTMLWidgets.shinyMode) { return; }
 			      	Shiny.onInputChange(el.id +'_resize', size);
 			      }
-			      /*
-			      */
 			  });
 
 			  window[el.id + 'map'] = deckgl;
 
-       } // end if { access_token } else { }
-				md_initialise_map(el, x);
+       }
+			    md_initialise_map(el, x);
       },
 
       resize: function(width, height) {
@@ -183,6 +133,7 @@ HTMLWidgets.widget({
     };
   }
 });
+
 
 if (HTMLWidgets.shinyMode) {
 
