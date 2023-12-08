@@ -2,11 +2,6 @@
 function md_change_location( map_id, map_type, location, zoom, pitch, bearing, duration, transition ) {
   var currentLon, currentLat, currentPitch, currentBearing, currentZoom;
 
-	var currentMaxZoom;
-	var currentMinZoom;
-	var currentMaxPitch;
-	var currentMinPitch;
-
   if( map_type == "google_map" ) {
   	//console.log( location );
   	window[map_id + 'map'].setCenter( { lat: location[1], lng: location[0] } );
@@ -21,20 +16,12 @@ function md_change_location( map_id, map_type, location, zoom, pitch, bearing, d
 	    currentPitch = pitch === null ? window[ map_id + 'map'].viewState["default-view"].pitch : pitch;
 	    currentBearing = bearing === null ? window[ map_id + 'map' ].viewState["default-view"].bearing : bearing;
 	    currentZoom = zoom === null ? window[ map_id + 'map'].viewState["default-view"].zoom : zoom;
-	    currentMaxZoom = window[ map_id + 'map'].viewState["default-view"].maxZoom;
-	    currentMinZoom = window[ map_id + 'map'].viewState["default-view"].minZoom;
-	    currentMaxPitch = window[ map_id + 'map'].viewState["default-view"].maxPitch;
-	    currentMinPitch = window[ map_id + 'map'].viewState["default-view"].minPitch;
 	  } else {
 	  	currentLon = location === null ? window[ map_id + 'map'].viewState.longitude : location[0];
 	  	currentLat = location === null ? window[ map_id + 'map'].viewState.latitude : location[1];
 	    currentPitch = pitch === null ? window[ map_id + 'map'].viewState.pitch : pitch;
 	    currentBearing = bearing === null ? window[ map_id + 'map' ].viewState.bearing : bearing;
 	    currentZoom = zoom === null ? window[ map_id + 'map'].viewState.zoom : zoom;
-	    currentMaxZoom = window[ map_id + 'map'].viewState.maxZoom;
-	    currentMinZoom = window[ map_id + 'map'].viewState.minZoom;
-	  	currentMaxPitch = window[ map_id + 'map'].viewState.maxPitch;
-	    currentMinPitch = window[ map_id + 'map'].viewState.minPitch;
 	  }
 
 	  //console.log( currentLon );
@@ -44,10 +31,6 @@ function md_change_location( map_id, map_type, location, zoom, pitch, bearing, d
 	      longitude: currentLon,
 	      latitude: currentLat,
 	      zoom: currentZoom,
-	      maxZoom: currentMaxZoom,
-	      minZoom: currentMinZoom,
-	      maxPitch: currentMaxPitch,
-	      minPitch: currentMinPitch,
 	      pitch: currentPitch,
 	      bearing: currentBearing,
 	      transitionInterpolator: transition === "fly" ? new deck.FlyToInterpolator() : new deck.LinearInterpolator(),

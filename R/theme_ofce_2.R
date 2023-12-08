@@ -19,10 +19,10 @@ theme_ofce.2 <- function(base_size = getOption("ofce.base_size"),
                        base_family = getOption("ofce.base_family"),
                        ...) {
 
-if(requireNamespace("ggh4x", quietly = TRUE))
-  ggh4xdef <-  ggplot2::theme(ggh4x.axis.ticks.length.minor = rel(0.66))
-else
-  ggh4xdef <- NULL
+# if(requireNamespace("ggh4x", quietly = TRUE))
+#   ggh4xdef <-  ggplot2::theme(ggh4x.axis.ticks.length.minor = rel(0.66))
+# else
+#   ggh4xdef <- NULL
   theme_foundation() +
     ggplot2::theme(
       # general
