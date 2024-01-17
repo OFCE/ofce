@@ -113,7 +113,7 @@ setup_wp <- function(dir = NULL, nom = NULL) {
   usethis::git_vaccinate()
   cli::cli_alert_info(
     "qmd initialisé, .gitignore modifié")
-  quarto::quarto_preview(dir, render="wp-html")
+  quarto::quarto_preview(target, render="wp-html")
   return(invisible(TRUE))
 }
 
@@ -245,7 +245,7 @@ setup_pres <- function(dir = NULL, nom = NULL) {
   # rstudioapi::executeCommand("foldAll")
   usethis::git_vaccinate()
   cli::cli_alert_info("qmd initialisé, .gitignore modifié")
-  quarto::quarto_preview(dir, render="pres-revealjs")
+  quarto::quarto_preview(target, render="pres-revealjs")
   return(invisible(TRUE))
 }
 
@@ -316,6 +316,6 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   # rstudioapi::executeCommand("foldAll")
   usethis::git_vaccinate()
   cli::cli_alert_info("qmd initialisé, .gitignore modifié")
-  quarto::quarto_preview(dir, render="blog-html")
+  quarto::quarto_preview(target, render="blog-html")
   return(invisible(TRUE))
 }
