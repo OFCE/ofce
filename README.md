@@ -9,6 +9,8 @@ Le package s'installe par la commande du package `pak`(si vous ne l'avez pas dé
 ``` r
 pak::pak("ofce/ofce")
 ```
+## Mise à jour des templates quarto OFCE
+Les templates existants (hébergé sur le repo [OFCE Extensions](https://github.com/OFCE/ofce-quarto-extensions) sont mis-à-jour de manière continue dans un souçi d'amélioration constant. Pour récupérer la dernière version, il suffit de lançer la commande `setup_quarto`qui installera en local la dernière version des extensions pour votre document. 
 
 ## Utilisation
 
