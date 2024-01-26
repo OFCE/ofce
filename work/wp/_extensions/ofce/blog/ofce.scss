@@ -10,6 +10,7 @@ $font-family-monospace: 'Fira Code', monospace;
 
 // couleurs
 $scpored: #e6142d;
+$scpodarkred: #770C19;
 $ofcered: #a22a2e;
 $darkgrey: #333333;
 $green: #079D10;
@@ -136,4 +137,16 @@ h1, h2, h3, h4, h5 {
   border-left-color: $scpored;
   border-left-width: 2px;
   line-height: 160%;
+}
+
+.dbtn {
+  font-size: .8rem;
+  background-color: #FFF;
+  border-color: $link-color;
+  border-width: 1px;
+  border-radius: 12px;
+  color: $link-color;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
 }

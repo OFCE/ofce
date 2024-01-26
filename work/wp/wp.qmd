@@ -106,3 +106,16 @@ Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum fac
 ## Section niveau 2 {#sec-encoreetencore}
 
 Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.
+
+::: {#fig-test}
+```{r}
+library(tidyverse)
+ggplot(cars)+geom_point(aes(x=speed, y=dist, col=dist))
+```
+
+Note de lecture : Ce format est une alternative
+
+Source : une source
+
+lien entre speed et vitesse
+:::

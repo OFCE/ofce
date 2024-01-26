@@ -2,7 +2,6 @@
 \usepackage{titlepic}
 \usepackage{titling}
 \usepackage{graphicx}
-\usepackage{fancyhdr}
 \usepackage{fontspec}
 \usepackage{placeins}
 \usepackage{graphbox}
@@ -15,7 +14,10 @@
 \usepackage{caption}
 \usepackage{datetime}
 \usepackage{xstring}
+\usepackage{blindtext}
+\usepackage{scrlayer-scrpage}
 
+\KOMAoptions{BCOR=5mm}
 \setmainfont{OpenSans}[
   UprightFont = {*-Regular},
   BoldFont = {*-Bold},
@@ -32,6 +34,7 @@
   Path = {_extensions/ofce/wp/OpenSans/},
   Extension = {.ttf}
 ]
+
 \def\getYear#1{\StrLeft{#1}{4}}
 \def\getMonth#1{\StrMid{#1}{6}{7}}
 \def\getDay#1{\StrRight{#1}{2}}
@@ -41,3 +44,16 @@
 \definecolor{quarto-callout-color}{HTML}{eeeeee}
 \definecolor{quarto-callout-tip-color}{HTML}{dddddd}
 \definecolor{quarto-callout-tip-color-frame}{HTML}{eeeeee}
+
+\clearpairofpagestyles
+
+\KOMAoptions{headsepline=true, twoside=true}
+
+\pagestyle{scrheadings}
+\setkomafont{pageheadfoot}{\small}
+
+\rehead{Document de travail n°$wp$}
+\lohead{\includegraphics[height=0.25cm]{$logo$}}
+
+\lofoot*{\thepage}
+\refoot*{\thepage}
