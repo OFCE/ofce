@@ -39,15 +39,16 @@ showtext_auto()
 
 ## Introduction
 
-- Le package 'ofce' contient plusieurs fonctions associées à la réalisation d'un graphe sous R en **format publiable**
+-   Le package 'ofce' contient plusieurs fonctions associées à la réalisation d'un graphe sous R en **format publiable**
 
-- Les modifications apportées peuvent se distinguer en trois groupes: 
+-   Les modifications apportées peuvent se distinguer en trois groupes:
 
-    - Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende...)
-    - La modification des couleurs utilisées
-    - L'ajout d'élements exterieurs supplémentaires hors thème
+    -   Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende...)
+    -   La modification des couleurs utilisées
+    -   L'ajout d'élements exterieurs supplémentaires hors thème
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Un graphique basique
 
 ```{r}
@@ -69,7 +70,8 @@ p
 
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Un graphique basique
 
 ```{r}
@@ -91,7 +93,8 @@ p
 
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout du theme `ofce`
 
 ```{r}
@@ -113,7 +116,8 @@ p <- p +
 p
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout du theme `ofce`
 
 ```{r}
@@ -135,7 +139,8 @@ p <- p +
 p
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Changement des couleurs
 
 ```{r}
@@ -158,7 +163,8 @@ p2 <- p + scale_fill_manual(values = ofce::ofce_palette_div(n=3))
 
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout d'un logo
 
 ```{r}
@@ -178,7 +184,8 @@ p %>% add_logo_ofce_inside()
 
 ```
 
-## Faire un graphique sous R 
+## Faire un graphique sous R
+
 ### Ajout d'un logo
 
 ```{r}
