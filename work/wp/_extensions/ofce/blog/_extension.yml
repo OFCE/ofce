@@ -19,6 +19,7 @@ contributes:
           title-block-author-single: "Auteur"
           title-block-author-plural: "Auteurs"
       fig-asp: 0.61
+      cap-location: top
       crossref:
         fig-prefix: figure
         tbl-prefix: tableau
@@ -47,7 +48,9 @@ contributes:
       #      label: "Encadré "
 
     html:
-      theme: [cosmo, ofce.scss]
+      theme: 
+        - cosmo
+        - ofce.scss
       mainfont: Open Sans
       toc-location: left
       toc-title: Sur cette page
@@ -56,7 +59,6 @@ contributes:
       html-math-method: katex
       fig-dpi: 600
       fig-format: svg
-      cap-location: top
       reference-location: margin
       logo: _extensions/ofce/ofce/ofce.png
       template-partials:

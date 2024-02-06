@@ -1,27 +1,34 @@
 ---
 title: "Titre du billet"
+subtitle: "Sous-titre éventuel"
 date: today
 author:
-  - name: nom auteur
-    url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php
+  - name: Albertine Retrouvée
+    url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php # À changer avec le lien vers la page de l'auteur
     affiliation: OFCE 
     affiliation-url: https://www.ofce.sciences-po.fr/
     
 institution: "Observatoire Français des Conjonctures Économiques"
-
+description: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
 format:
   blog-html: default
   blog-pdf: default
-categories: [keyword1, keyword2]
+categories: ["keyword1", "keyword2"]
 image: image.jpg
-subtitle: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
+
 
 # A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)
 # comments:
 #   hypothesis: true
 
-bibliography: references.bib
+bibliography: blog_references.bib
 ---
+
+ <!-- Lien vers le billet de blog en format pdf. A compiler  avant avec la version finale du .qmd et en format blog-pdf puis à insérer dans le dossier du billet (attention à bien renommer le nom du fichier) -->
+
+::: {.content-visible when-format="html"}
+[{{< fa file-pdf size=2xl >}}](nomdufichier.pdf)
+:::
 
 # Introduction {#sec-introduction .unnumbered}
 

@@ -1,0 +1,43 @@
+---
+title: "Cache"
+subtitle: "hello cache"
+format:
+  html: default
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#| label: tbl-table1
+library(tidyverse)
+library(gt)
+table <- tribble(~a, ~b, ~c,
+                "text", 1, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh",
+                "others", 2, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh") 
+gt(table)
+```
+
+texte avant
+
+::: {.callout-tip collapse="true" icon="false"}
+## titre de l'encadré
+
+```{r, cache=TRUE}
+library(tidyverse)
+ggplot(cars)+geom_point(aes(x=speed, y=dist))+ofce::theme_ofce()
+
+```
+
+blablbl
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#| label: tbl-table2
+#| fig-pos: "H"
+library(tidyverse)
+library(gt)
+table <- tribble(~a, ~b, ~c,
+                "text", 1, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh",
+                "others", 2, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh") 
+gt(table)
+```
+:::
+
+continuing

@@ -1,11 +1,11 @@
 ---
 # modifer les champs à votre convenance
-title: Vers l'infini et au delà
-subtitle: Une analyse en profondeur
+title: "Vers l'infini et au delà"
+subtitle: "Une analyse en profondeur"
 author:
   - name: Albertine Retrouvée
     email: albertine.retrouvee@sciencespo.fr
-    affiliation: OFCE, Sciences Po Paris
+    affiliation: "OFCE, Sciences Po Paris"
     affiliation-url: "http://www.ofce.fr"
 institution: "Observatoire Français des Conjonctures Économiques"
 date: today
@@ -15,10 +15,12 @@ abstract: "Nous analysons un problème et trouvons 3 éléments notables, petit 
 citation:
   type: article
   container-title: "Document de travail de l'OFCE n° 0"
+  # A changer par l'adresse du lien vers la publication en pdf ou vers le site web dédié
   url: https://ofce.github.io/nofuture
 wp: xxx
 annee: 2023
-keywords: [passé, présent, futur]
+keywords: ["passé", "présent", "futur"]
+# Si le document est en mode draft, indiquez true ci-dessous pour qu'un watermark soit inscrit
 draft: true
 format:
   wp-html: default
@@ -85,7 +87,6 @@ Scelerisque in dictum non consectetur a erat nam at. Elementum facilisis leo vel
 
 Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget.
 
-::: callout-tip
 ::: {.callout-tip collapse="true" icon="false"}
 ## les encadrés
 
@@ -98,7 +99,6 @@ En ajoutant l'attribute `icon=false`, Il n'y a pas d'icone dans le titre
 Il faut utiliser callout-tip, les autres callouts donnent les résultats standards.
 
 Dans le futur, ce sera plus simple. Pour le moment, il faut les numéroter à la main.
-:::
 :::
 
 ## Section niveau 2 {#sec-ca-continue}

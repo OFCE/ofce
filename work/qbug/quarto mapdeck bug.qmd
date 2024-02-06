@@ -1,0 +1,25 @@
+---
+title: "tabset and mapdeck"
+format: html
+keep-md: true
+---
+
+::: panel-tabset
+## panel 1
+
+```{r}
+mapdeck::mapdeck()
+```
+
+## panel 2
+
+```{r}
+mapdeck::mapdeck()
+```
+:::
+
+::: {.callout-tip collapse="true"}
+```{r}
+mapdeck::mapdeck()
+```
+:::

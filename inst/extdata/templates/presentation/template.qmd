@@ -1,13 +1,13 @@
 ---
-title: Vers l'infini et au delà
-subtitle: Présentation au séminaire lunch
+title: "Vers l'infini et au delà"
+subtitle: "Présentation au séminaire lunch"
 author:
   - name: Albertine Retrouvée
     email: albertine.retrouvee@sciencespo.fr
     affiliation: OFCE, Sciences Po Paris
-    affiliation-url: "http://www.ofce.fr"
-author-footer: Retrouvée
-institution: Observatoire Français des Conjonctures Économiques
+    affiliation-url: http://www.ofce.fr
+author-footer: "Retrouvée"
+institution: "Observatoire Français des Conjonctures Économiques"
 date: today
 lang: fr
 bibliography: references.bib

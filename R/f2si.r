@@ -33,7 +33,7 @@ f2si2 <- function(number, rounding = TRUE, digits = 1, unit = "median") {
     scaled_number <- number/lut[ix]
 
   sistring <- paste0(scaled_number, pre[ix])
-  sistring[scaled_number==0] <- "0"
+  sistring[scaled_number==0] <- ifelse(number[scaled_number==0]==1, "1", "0")
   return(sistring)
 }
 

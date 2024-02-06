@@ -46,3 +46,35 @@ setup_RStudio <- function(theme="iPlastic", right_console = TRUE) {
          additional_source_columns= 0L))
   }
 }
+
+#' Set RStudio to french dictionary
+#'
+#' Pour écrire en français dans RStudio
+#' Attention un dictionnaire ne garantit en rien la qualité de l'expression
+#'
+#' @return NULL
+#' @importFrom rstudioapi writeRStudioPreference
+#' @export
+#'
+#' @examples
+#' if(interactive()) setup_french()
+#'
+setup_french <- function() {
+  rstudioapi::writeRStudioPreference("spelling_dictionary_language", "fr_FR")
+  }
+
+#' Set RStudio to english dictionary
+#'
+#' Pour écrire en anglais dans RStudio
+#' Attention un dictionnaire ne garantit en rien la qualité de l'expression
+#'
+#' @return NULL
+#' @importFrom rstudioapi writeRStudioPreference
+#' @export
+#'
+#' @examples
+#' if(interactive()) setup_english()
+#'
+setup_english <- function() {
+  rstudioapi::writeRStudioPreference("spelling_dictionary_language", "en_US")
+}
