@@ -21,21 +21,27 @@ contributes:
       fig-asp: 0.61
       cap-location: top
       crossref:
-        fig-prefix: figure
+        fig-prefix: graphique
         tbl-prefix: tableau
         eq-prefix: équation
         sec-prefix: section
-        fig-title: Figure
-        tbl-title: Tableau
-        lof-title: Figures
+        tip-prefix: encadré
+        fig-title: "**Graphique**"
+        tip-title: "**Encadré**"
+        title-delim: "**.**"
+        tbl-title: "**Tableau**"
+        lof-title: Graphiques
         lot-title: Tableaux
-        logo: ofce.png
+      logo: ofce.png
       filters:
         - nameref
         - fr-nbsp
        # - custom-numbered-blocks
         - quotes
        # - search-replace
+        - collapse-callout
+      collapse-callout:
+        tip: true
       shortcodes:
         - fontawesome
         - downloadthis
@@ -54,39 +60,35 @@ contributes:
       mainfont: Open Sans
       toc-location: left
       toc-title: Sur cette page
-      number-sections: true
+      number-sections: false
       number-depth: 3
       html-math-method: katex
       fig-dpi: 600
       fig-format: svg
       reference-location: margin
+      callout-icon: false
       logo: _extensions/ofce/ofce/ofce.png
       template-partials:
         - toc.html
     pdf:
-      documentclass: scrartcl
-      mainfont: Open Sans
+      documentclass: scrreprt
+      annee: 2024
       toc-depth: 1
-      number-sections: true
-      number-depth: 3
+      pdffont: OpenSans
+      number-sections: false
       classoption:
-        - DIV=10
+        - DIV=12
       papersize: a4
-      fontsize: 11pt
-      fig-cap-location: top
-      tbl-cap-location: top
+      fontsize: 9pt
       extra_dependencies: ["float"]
       fig-dpi: 600
+      fig-width: 5
       fig-format: png
-      include-in-header: "header.tex"
-      include-before-body: "titlepage.tex"
-    revealjs:
-      logo: _extensions/ofce/ofce/ofce.png
-      mainfont: Open Sans
-      slide-level: 2
-      slide-number: c/t
-      center: false
-      theme: [simple, ofce-pres.scss]
-      navigation-mode: linear
-      code-fold: false
-      self-contained: false
+      logo: ofce_m.png
+      logo2: sciencespo.png
+      template-partials:
+        - pdf_template/title.tex
+        - pdf_template/before-body.tex
+        - pdf_template/after-body.tex
+        - pdf_template/toc.tex
+        - pdf_template/biblio.tex

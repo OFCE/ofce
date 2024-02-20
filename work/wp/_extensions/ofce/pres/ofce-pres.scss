@@ -3,13 +3,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap');
 @import url('assets/css/all.css');
 // couleurs
+// couleurs
 $scpored: #e6142d;
+$scpodarkred: #770C19;
+$darkred:  #770C19;
 $ofcered: #a22a2e;
-$darkred: #640000;
+$lightgrey: #EEE;
+$darkgrey: #333333;
 $green: #079D10;
 $blue: #000080;
+$navbar-hl: #e6142d;
+$sidebar-hl: #e6142d;
+
 $presentation-color: $scpored;
-$scpodarkred: #770C19;
 $body-bg: #fff;
 $body-color: #222;
 $link-color: $darkred;
@@ -66,14 +72,16 @@ $callout-border-width: 1px;
   text-align: start !important;
 }
 
-.callout.callout-style-simple {
-  background-color: $ligthcolor !important;
-  padding-right: 1em !important;
-  padding-left: 1em !important;
-  margin-right: 3em !important;
-  margin-left: 3em !important;
-  font-size: 1em !important;
-  border-left: 0.15em solid $presentation-color !important;
+div.callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: $lightgrey !important;
+  border-left-color:$lightgrey !important;
+}
+
+div.callout-tip div.callout-header {
+  background-color: $lightgrey !important;
 }
 
 .reveal .slide-logo {

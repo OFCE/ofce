@@ -160,7 +160,15 @@ figcaption.quarto-float-caption,caption  {
   border-left-color:$lightgrey !important;
 }
 
-.callout-tip>.callout-header {
+div.callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: $lightgrey !important;
+  border-left-color:$lightgrey !important;
+}
+
+div.callout-tip div.callout-header {
   background-color: $lightgrey !important;
 }
 
@@ -179,4 +187,20 @@ figcaption.quarto-float-caption,caption  {
 .control-label {
   font-size: .8rem;
   text-align: start;
+}
+
+.quarto-figure-center>figure>div {
+  text-align: left !important;
+  font-size: .8rem !important;
+  color: $darkgrey !important;
+  line-height: 1rem !important;
+  margin-bottom: 0px !important;
+}
+
+.quarto-figure-center>figure>div>p {
+  margin-bottom: 0.2rem !important;
+}
+
+.figure.figure {
+  margin-bottom: 0 !important;
 }

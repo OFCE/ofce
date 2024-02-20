@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.542">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -66,10 +66,10 @@ div.csl-indent {
 <meta name="citation_abstract" content="Nous analysons un problème et trouvons 3 éléments notables, petit 1 ...">
 <meta name="citation_keywords" content="passé,présent,futur">
 <meta name="citation_author" content="Albertine Retrouvée">
-<meta name="citation_publication_date" content="2024-01-20">
-<meta name="citation_cover_date" content="2024-01-20">
+<meta name="citation_publication_date" content="2024-02-20">
+<meta name="citation_cover_date" content="2024-02-20">
 <meta name="citation_year" content="2024">
-<meta name="citation_online_date" content="2024-01-20">
+<meta name="citation_online_date" content="2024-02-20">
 <meta name="citation_fulltext_html_url" content="https://ofce.github.io/nofuture">
 <meta name="citation_language" content="fr">
 <meta name="citation_journal_title" content="Document de travail de l&amp;amp;#039;OFCE n° 0">
@@ -138,14 +138,14 @@ div.csl-indent {
       <div>
       <div class="quarto-title-meta-heading">Publié le</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">20 janvier 2024</p>
+        <p class="date">20 février 2024</p>
       </div>
     </div>
     
       <div>
       <div class="quarto-title-meta-heading">Modifié le</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">20 janvier 2024</p>
+        <p class="date-modified">20 février 2024</p>
       </div>
     </div>
     
@@ -434,7 +434,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -656,7 +661,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
