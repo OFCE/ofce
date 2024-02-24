@@ -1,0 +1,135 @@
+
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+
+$if(title)$
+
+$if(beamer)$
+\frame{\titlepage}
+$else$
+\definecolor{ofcepbjaune}{RGB}{251, 186, 0}
+\definecolor{ofcepbbleu}{RGB}{1, 97, 131}
+\definecolor{ofcerouge}{RGB}{198, 45, 43}
+\definecolor{scporouge}{RGB}{231, 0, 26}
+
+\begin{titlepage}
+  \backgroundsetup{
+    scale=1,
+    angle=0,
+    opacity=1,
+    contents={
+  \begin{tikzpicture}[remember picture,overlay]
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \node [anchor = center] at (-2.875-5.25,12.5) {\includegraphics[width=2.5cm]{$logo$}};
+      \node [anchor = center] at (-2.875-5.25,-12.75){\includegraphics[width=2.5cm]{$logo2$}};
+      \node [anchor = east] at (8.5,-11.5){\textcolor{black}{Date publication : $date$}};
+      % \node [anchor = east] at (8.5,-12){\textcolor{black}{Date de dernière modification : $date-modified$}};
+      \draw [thick,black](-5.75,-13) -- (-5.75,13);
+      \draw [color = white, fill=ofcepbjaune] (8.7,11.4) rectangle (10.45,13.15);
+      \draw [color = white, fill=ofcepbjaune, very thick] (8.75-.5,11.25-.5) rectangle (8.75+.6,11.25+.6);
+      \node [anchor = east] at (11-0.7,13-0.7){\textcolor{white}{\huge\textbf{$wp$}}};
+      \node [anchor = east] at (10-0.74,12-0.67){\textcolor{white}{\textbf{}}};
+      \node [anchor = east] at (10.2,13-0.7){\textcolor{white}{\Huge\textit{Blog}}};
+    \end{tikzpicture}
+  }
+}
+\BgThispage
+
+\hspace{4cm}
+ \begin{minipage}{12.5cm}
+   \vspace{5cm}
+   \begin{flushleft}
+   \textcolor{scporouge}{\Huge\textbf{\textsf{$title$}}}
+ 
+   $if(subtitle)$
+  \vspace{5mm}
+   \textcolor{scporouge}{\large\textbf{\textsf{$subtitle$}}}
+  \vspace{5mm}
+   $endif$
+   \vspace{20mm}
+   \end{flushleft}
+  
+   $for(by-author)$
+  
+    \textbf{$it.name.literal$}$if(by-author.affiliations)$$for(by-author.affiliations)$,$if(by-author.affiliations.name)$
+            $by-author.affiliations.name$$endif$$endfor$
+    $endif$
+  $endfor$ % by-author
+  \end{minipage}
+
+
+$endif$
+%%
+%% deuxieme page
+% % \newpage
+% \pagestyle{empty}
+% \raisebox{-22cm}{
+%     \begin{minipage}[b]{40em}
+%        \textcolor{scporouge}{
+%         \textbf{CONTACT}}{
+
+%            \vspace{0.2cm}
+%           \vspace{0.2cm}
+        
+%         \textbf{OFCE} 
+  
+%          10 place de Catalogne 
+        
+%          75014 Paris, FRANCE 
+        
+%         Tel : +33 1 44 18 54 24
+        
+%          \url{https://www.ofce.sciences-po.fr}
+%        }
+%      \end{minipage}
+% }
+% %%
+% %%
+%\newpage
+%% troisieme page
+%\pagestyle{empty}
+%%  \raisebox{3cm}{\begin{minipage}{\linewidth}
+%%  \includegraphics[width=2cm]{$logo$}
+%%
+%%  \includegraphics[width=2cm]{$logo2$}
+%%  \end{minipage}}
+%%
+
+
+%\large\textbf{$subtitle$}
+
+%\vspace{1cm}
+
+% $if(abstract)$
+
+% \par\rule{\textwidth}{0.5pt}
+
+% $abstract$
+
+% \par\rule{\textwidth}{0.5pt}
+
+% $endif$
+
+%\vspace{1cm}
+
+% \begin{flushright}
+% $for(by-author)$
+%    \linespread{1}\small{\textbf{$it.name.literal$}}, {\small{$it.email$}}\par
+% $endfor$ % by-author
+% \end{flushright}
+$endif$
+$if(thanks)$
+\vspace{2.5cm}
+\begin{minipage}[b]{40em}
+  \textcolor{scporouge}{
+    \textbf{Remerciements}}{
+
+      \vspace{0.2cm}
+      \vspace{0.2cm}
+    
+    \textit{\small{$thanks$}} 
+  }
+\end{minipage}
+$endif$
+\end{titlepage}

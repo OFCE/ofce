@@ -175,6 +175,36 @@ set_faicon_reveal <- function(path=".", unicode="f101") {
     writeLines(con = scss)
 }
 
+#' Modifie la justification des textes en HTML
+#'
+#' Attention cette fonction est un hack en attendant mieux
+#' Elle est assez fragile et peut ne pas fonctionner
+#'
+#' @param path chemin vers le ou les documents HTML
+#' @param justify (boolean) TRUE pour justifier, FALSE pour aligner à gauche
+#' @param ext (string) extension des fichiers à modifier (ofce par défaut)
+#' @return NULL
+#' @export
+#'
+set_justify <- function(path=".", justify=TRUE, ext="ofce") {
+  if(ext=="ofce")
+    scss <- stringr::str_c(path, "/_extensions/ofce/ofce/ofce.scss")
+  else
+    scss <- stringr::str_c(path, "/_extensions/ofce/wp/html_template/ofcewp.scss")
+
+  if(!file.exists(scss)) {
+    cli::cli_alert_warning(
+      'pas de scss, exécutez ofce::setup_quarto("{path}")')
+    stop()
+  }
+  readLines(scss) |>
+    stringr::str_replace(
+      pattern = "\\$aligment: [:alpha:]*;",
+      replace = stringr::str_c("$aligment: ",
+                               ifelse(justify, "justify;", "left;"))) |>
+    writeLines(con = scss)
+}
+
 
 #' installe un squelette de présentation
 #'

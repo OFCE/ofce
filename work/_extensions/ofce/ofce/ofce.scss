@@ -18,6 +18,7 @@ $green: #079D10;
 $blue: #000080;
 $navbar-hl: #e6142d;
 $sidebar-hl: #e6142d;
+$aligment: justify;
 
 $callout-color-tip: #DDD;
 
@@ -48,7 +49,7 @@ h1, h2, h3, h4, h5, h6,
 .page-columns.page-full,
 .content,
 .body {
-  text-align: justify !important;
+  text-align: $aligment !important;
 }
 
 .align-left {
