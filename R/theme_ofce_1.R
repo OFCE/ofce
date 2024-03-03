@@ -55,12 +55,12 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
       legend.position = "right",
       legend.justification= "center",
       legend.text.align = 0,
-      legend.title = ggtext::element_markdown(
+      legend.title = element_text(
         face = "plain",
         size = ggplot2::rel(0.85),
         color = "gray25"),
       legend.background = element_blank(),
-      legend.text = ggtext::element_markdown(
+      legend.text = element_text(
         face = "plain",
         size = ggplot2::rel(0.75),
         color = "gray25"),
@@ -140,7 +140,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
         size = base_size,
         colour = NA,
         linetype = 0),
-      title = ggtext::element_markdown(
+      title = element_text(
         family=base_family,
         size = base_size),
       #Text format:
