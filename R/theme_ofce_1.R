@@ -50,7 +50,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         margin = margin(b=0, t=12),
         lineheight=1.1),
       plot.margin = margin(b=8, t=8, l=2, r=2),
-      plot.caption.position = "panel",
+      plot.caption.position = "plot",
       #Legend format
       legend.position = "right",
       legend.justification= "center",
@@ -166,7 +166,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
         margin = margin(b=0, t=12),
         lineheight=1.1),
       plot.margin = margin(b=8, t=8, l=2, r=2),
-      plot.caption.position = "panel",
+      plot.caption.position = "plot",
       #Legend format
       legend.position = "right",
       legend.justification= "center",
