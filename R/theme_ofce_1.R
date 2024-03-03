@@ -22,7 +22,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
     ggplot2::theme(
       # general
       plot.background = element_rect(fill="white"),
-      text = element_text(family = base_family,
+      text = ggtext::element_markdown(family = base_family,
                            size = base_size),
       rect = element_rect(
         fill = NA,
@@ -34,7 +34,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         hjust = 0,
         margin = margin(b=2.5, t=2.5),
         lineheight = 1.5),
-      plot.subtitle =  ggtext::element_markown(
+      plot.subtitle =  ggtext::element_markdown(
         size = ggplot2::rel(0.85),
         face = "plain",
         hjust = 0,
@@ -54,7 +54,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
       legend.position = "right",
       legend.justification= "center",
       legend.text.align = 0,
-      legend.title = element_text(
+      legend.title = ggtext::element_markdown(
         face = "plain",
         size = ggplot2::rel(0.85),
         color = "gray25"),
@@ -101,7 +101,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         colour = getOption("ofce.background_color")),
       panel.spacing = unit(3, "pt"),
       strip.background = element_rect(fill="white"),
-      strip.text = element_text(
+      strip.text = ggtext::element_markdown(
         size = ggplot2::rel(0.85), face = "bold",
         hjust = 0.5,
         vjust = 0.5,
