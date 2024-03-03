@@ -48,6 +48,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         hjust = 0,
         vjust = 0.5,
         margin = unit(c(12, 0, 0, 0), 'pt'),
+        padding = unit(c(0, 0, 6, 0), 'pt'),
         lineheight=1.1),
       plot.margin = margin(b=8, t=8, l=2, r=2),
       plot.caption.position = "plot",
