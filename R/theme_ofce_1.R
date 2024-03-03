@@ -40,10 +40,10 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         hjust = 0,
         margin = margin(b=2.5, t=2.5),
         lineheight = 1.2),
-      plot.caption = element_text(
-        size = ggplot2::rel(0.75),
+      plot.caption = ggtext::element_markdown(
+        size = ggplot2::rel(0.8),
         color = "gray25",
-        face="italic",
+        face="plain",
         hjust = 0,
         vjust = 0.5,
         margin = margin(b=0, t=12),
