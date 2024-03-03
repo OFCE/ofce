@@ -102,7 +102,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         colour = getOption("ofce.background_color")),
       panel.spacing = unit(3, "pt"),
       strip.background = element_rect(fill="white"),
-      strip.text = ggtext::element_markdown(
+      strip.text = element_text(
         size = ggplot2::rel(0.85), face = "bold",
         hjust = 0.5,
         vjust = 0.5,
@@ -194,7 +194,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
       panel.background = element_blank(),
       panel.spacing = unit(3, "pt"),
       strip.background = element_rect(fill="white"),
-      strip.text = ggtext::element_markdown(
+      strip.text = element_text(
         family = base_family,
         size = rel(0.85),
         face = "bold",
