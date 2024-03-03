@@ -22,8 +22,9 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
     ggplot2::theme(
       # general
       plot.background = element_rect(fill="white"),
-      text = ggtext::element_markdown(family = base_family,
-                           size = base_size),
+      text = element_text(
+        family = base_family,
+        size = base_size),
       rect = element_rect(
         fill = NA,
         colour = NA,
@@ -59,7 +60,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         size = ggplot2::rel(0.85),
         color = "gray25"),
       legend.background = element_blank(),
-      legend.text = element_text(
+      legend.text = ggtext::element_markdown(
         face = "plain",
         size = ggplot2::rel(0.75),
         color = "gray25"),
