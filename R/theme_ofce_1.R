@@ -169,7 +169,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
       plot.caption.position = "plot",
       #Legend format
       legend.position = "right",
-      legend.justification= "center",
+      legend.justification= c(1,1),
       legend.text.align = 0,
       legend.title = element_text(
         face = "bold",
