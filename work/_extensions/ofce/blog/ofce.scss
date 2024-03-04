@@ -1,0 +1,190 @@
+/*-- scss:defaults --*/
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+// Fonts (CSS rules)
+//$font-family-sans-serif: 'Nunito Sans', sans-serif;
+//$font-family-monospace: 'Roboto Mono', monospace;
+$font-family-serif: 'Merriweather', serif; 
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-monospace: 'Fira Code', monospace;
+
+// couleurs
+$scpored: #e6142d;
+$scpodarkred: #770C19;
+$ofcered: #a22a2e;
+$lightgrey: #EEE;
+$darkgrey: #333333;
+$green: #079D10;
+$blue: #000080;
+$navbar-hl: #e6142d;
+$sidebar-hl: #e6142d;
+
+/*-- scss:rules --*/
+h1, h2, h3, h4, h5, h6, 
+.no-row-height.column-margin.column-container,
+.quarto-table-caption.margin-caption,
+.figure-caption.margin-caption {
+  text-align: start;
+}
+
+.page-columns.page-full,
+.content {
+  text-align: justify;
+}
+
+.align-left {
+  text-align: left;
+}
+ 
+.align-justify {
+  text-align: justify;
+}
+
+.leaflet-container {
+  text-align: start !important;
+}
+
+.sidebar-item-container {
+  font-size: 0.8rem !important;
+  line-height: 1.1rem !important;
+}
+
+.nav-page-text {
+  font-size: 0.8rem !important;
+}
+
+tfoot.gt_sourcenotes,
+tfoot.gt_footnotes {
+  text-align: start;
+  color: #787e83;
+  font-size: .825rem;
+}
+
+.katex 
+{ font-size: 1.1em !important; } 
+
+h1, h2, h3, h4, h5 {
+  line-height: 1.3;
+}
+
+.quarto-section-identifier {
+  color: $scpored !important;
+  font-weight: normal;
+}
+
+.figure-caption.margin-caption {
+  color: $darkgrey !important;  
+  font-size: 1rem !important;
+}
+
+.nav-link {
+  font-size: .8rem;
+}
+
+.theorem {
+  background-color: #EFEFEF;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  padding-bottom: 3px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  font-size: .8rem;
+  background-clip: padding-box;
+}
+
+.encadre {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+}
+
+.fbx-default {
+    background-color: #EFEFEF;
+  --color1: #ddd;
+  --color2: #ccc;
+  
+  --border-color: var(--color2);
+  --title-color: #1b1b1b;
+  --title-background-color: var(--color1);
+  --title-padding: 0.5rem;
+  --border-radius: 0rem;
+  
+  --padding-left: .8rem; /* for title (summary) and content (next div) */
+  --padding-content: 0.5rem; 
+  
+  --thickshadow: 2px 2px 3px #aaa;
+  --thinshadow: 1px 1px 2px #aaa;
+  --noshadow: 0px 0px 0px #FFF;
+}
+
+.figure-caption {
+  text-align: start;
+  color: $darkgrey !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
+
+.table-caption,caption {
+  text-align: start;
+  color: $darkgrey !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
+
+.csl-entry {
+  text-align: start;
+}
+
+.table {
+  font-size: 0.9rem !important;
+  text-align: start;
+}
+
+.blockquote {
+  color: var(--bs-body-color);
+  font-size: 1rem;
+  border-left-color: $scpored;
+  border-left-width: 2px;
+  line-height: 160%;
+}
+
+.dbtn {
+  font-size: .8rem;
+  background-color: #FFF;
+  border-color: $link-color;
+  border-width: 1px;
+  border-radius: 12px;
+  color: $link-color;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+div.callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: $lightgrey !important;
+  border-left-color:$lightgrey !important;
+}
+
+div.callout-tip div.callout-header {
+  background-color: $lightgrey !important;
+}
+
+.quarto-figure-center>figure>div {
+  text-align: left !important;
+  font-size: .8rem !important;
+  color: $darkgrey !important;
+  line-height: 1rem !important;
+  margin-bottom: 0px !important;
+}
+
+.quarto-figure-center>figure>div>p {
+  margin-bottom: 0.2rem !important;
+}
+
+.figure.figure {
+  margin-bottom: 0 !important;
+}

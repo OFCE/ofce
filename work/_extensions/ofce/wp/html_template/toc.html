@@ -1,0 +1,11 @@
+<nav id="$idprefix$TOC" role="doc-toc">
+  $if(wp)$ <p class="wp">
+    Document de travail<br>de l’
+    <img src="_extensions/ofce/wp/ofce_m.png" width = "30" height="15" style="margin:0px -4px">
+    &nbsp;n°$wp$-$annee$</p>
+  $endif$
+  $if(toc-title)$
+  <h2 id="$idprefix$toc-title">$toc-title$</h2>
+  $endif$ 
+  $table-of-contents$
+</nav>

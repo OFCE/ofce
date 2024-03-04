@@ -1,0 +1,117 @@
+/*-- scss:defaults --*/
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap');
+@import url('assets/css/all.css');
+// couleurs
+// couleurs
+$scpored: #e6142d;
+$scpodarkred: #770C19;
+$darkred:  #770C19;
+$ofcered: #a22a2e;
+$lightgrey: #EEE;
+$darkgrey: #333333;
+$green: #079D10;
+$blue: #000080;
+$navbar-hl: #e6142d;
+$sidebar-hl: #e6142d;
+
+$presentation-color: $scpored;
+$body-bg: #fff;
+$body-color: #222;
+$link-color: $darkred;
+$presentation-heading-color: $presentation-color;
+$ligthcolor: #F9F9F9;
+$presentation-h1-font-size: 1.75em;
+$presentation-h2-font-size: 1.5em;
+$presentation-h3-font-size: 1.3em;
+$presentation-h4-font-size: 1.2em;
+$presentation-font-size-root: 24px;
+$font-family-sans-serif: "Open Sans", "Source Sans Pro", Helvetica, sans-serif !default;
+$font-family-monospace: "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace !default;
+// callout
+$callout-color-note: $presentation-color;
+$callout-border-width: 1px;
+
+/*-- scss:rules --*/
+.reveal h1, h2, h3, h4 {
+  letter-spacing: 0.2rem !important;
+  font-weight: 1000 !important;
+}
+
+
+.reveal h2 {
+  border-bottom: 1px solid;
+  padding-left: 2px;
+  padding-bottom: 5px;
+}
+
+.reveal h1.title {
+  font-size: 3em;
+  letter-spacing: 0.4rem !important;
+  font-weight: bold;
+}
+
+.reveal h2::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f101";
+  letter-spacing: 10px;
+}
+
+.reveal .slide blockquote {
+  border-left: 3px solid $text-muted;
+  padding-left: 0.5em;
+}
+
+.reveal .footer.footer-default {
+  font-size: 0.50em;
+}
+
+.leaflet-container {
+  text-align: start !important;
+}
+
+div.callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: $lightgrey !important;
+  border-left-color:$lightgrey !important;
+}
+
+div.callout-tip div.callout-header {
+  background-color: $lightgrey !important;
+}
+
+.reveal .slide-logo {
+  height: 18px !important;
+  width: 40px!important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+.agenda-inactive {
+  font-size: 1.2em;
+  opacity: 0.25;
+  margin-top: -0.1em;
+  margin-bottom: -0.1em;
+}
+
+.agenda-active {
+  font-size: 2em;
+  color: $presentation-color;
+  margin-top: -0.1em;
+  margin-bottom: -0.1em;
+}
+
+.dnwld_button {
+  font-size: .8rem;
+  background-color: #EEE;
+  border-color: $scpodarkred;
+  border-width: 1px;
+  border-radius: 5%;
+  color: #222;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
