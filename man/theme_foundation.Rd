@@ -29,8 +29,8 @@ and-non colour defaults of the default \pkg{ggplot2} themes in place.
 }
 \seealso{
 Other themes: 
+\code{\link{theme_ofce}()},
 \code{\link{theme_ofce.2}()},
-\code{\link{theme_ofce_void}()},
-\code{\link{theme_ofce}()}
+\code{\link{theme_ofce_void}()}
 }
 \concept{themes}

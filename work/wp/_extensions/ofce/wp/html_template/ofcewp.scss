@@ -19,11 +19,11 @@ $blue: #000080;
 $navbar-hl: #e6142d;
 $navbar-bg: $lightgrey;
 $sidebar-hl: #e6142d;
+$aligment: left;
 
 $callout-color-tip: #DDD;
 
 /*-- scss:rules --*/
-
 h1, h2, h3, h4, h5, h6,
 .no-row-height.column-margin.column-container,
 .quarto-table-caption.margin-caption,
@@ -47,6 +47,11 @@ h1, h2, h3, h4, h5, h6,
   padding-top: 32px !important;
 }
 
+.sidebar-item-container {
+  font-size: 0.8rem !important;
+  line-height: 1.1rem !important;
+}
+
 .nav-page-text {
   font-size: 0.8rem !important;
 }
@@ -54,7 +59,7 @@ h1, h2, h3, h4, h5, h6,
 .page-columns.page-full,
 .content,
 .body {
-  text-align: justify !important;
+  text-align: $aligment !important;
 }
 
 .align-left {

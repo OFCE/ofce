@@ -12,6 +12,7 @@ $font-family-monospace: 'Fira Code', monospace;
 $scpored: #e6142d;
 $scpodarkred: #770C19;
 $ofcered: #a22a2e;
+$lightgrey: #EEE;
 $darkgrey: #333333;
 $green: #079D10;
 $blue: #000080;
@@ -41,6 +42,15 @@ h1, h2, h3, h4, h5, h6,
 
 .leaflet-container {
   text-align: start !important;
+}
+
+.sidebar-item-container {
+  font-size: 0.8rem !important;
+  line-height: 1.1rem !important;
+}
+
+.nav-page-text {
+  font-size: 0.8rem !important;
 }
 
 tfoot.gt_sourcenotes,
@@ -149,4 +159,32 @@ h1, h2, h3, h4, h5 {
   text-align: center;
   margin-top: 6px;
   margin-bottom: 12px;
+}
+
+div.callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: $lightgrey !important;
+  border-left-color:$lightgrey !important;
+}
+
+div.callout-tip div.callout-header {
+  background-color: $lightgrey !important;
+}
+
+.quarto-figure-center>figure>div {
+  text-align: left !important;
+  font-size: .8rem !important;
+  color: $darkgrey !important;
+  line-height: 1rem !important;
+  margin-bottom: 0px !important;
+}
+
+.quarto-figure-center>figure>div>p {
+  margin-bottom: 0.2rem !important;
+}
+
+.figure.figure {
+  margin-bottom: 0 !important;
 }

@@ -17,22 +17,26 @@ contributes:
       fig-asp: 0.61
       cap-location: top
       crossref:
-        fig-prefix: figure
+        fig-prefix: graphique
         tbl-prefix: tableau
         eq-prefix: équation
         sec-prefix: section
-        fig-title: "**Figure**"
-        fig-delim: "**.**"
+        tip-prefix: encadré
+        fig-title: "**Graphique**"
+        tip-title: "**Encadré**"
+        title-delim: "**.**"
         tbl-title: "**Tableau**"
-        tbl-delim: "**.**"
-        lof-title: Figures
+        lof-title: Graphiques
         lot-title: Tableaux
-        logo: ofce.png
+      logo: ofce.png
       filters:
         - nameref
         - quotes
         # - search-replace
         - fr-nbsp
+        - collapse-callout
+      collapse-callout:
+        tip: true
       shortcodes:
         - fontawesome
         - downloadthis
@@ -42,7 +46,7 @@ contributes:
       citation: true
       license: CC BY
     html:
-      theme:
+      theme: 
         - cosmo
         - html_template/ofcewp.scss
       mainfont: Open Sans
@@ -55,7 +59,8 @@ contributes:
       fig-format: png
       fig-width: 6
       reference-location: margin
-      logo: _extensions/ofce/wp/ofce_m.png
+      logo: ofce_m.png
+      callout-icon: false
       lightbox: true
       title-block-style: default
       template-partials:
@@ -73,15 +78,16 @@ contributes:
         - DIV=11
       papersize: a4
       fontsize: 9pt
+      linestretch: 1.25
       extra_dependencies: ["float"]
       fig-dpi: 600
       fig-width: 5
       fig-format: png
-      logo: _extensions/ofce/wp/ofce_m.png
-      logo2: _extensions/ofce/wp/sciencespo.png
+      logo: ofce_m.png
+      logo2: sciencespo.png
       template-partials:
-        - _extensions/ofce/wp/pdf_template/title.tex
-        - _extensions/ofce/wp/pdf_template/before-body.tex
-        - _extensions/ofce/wp/pdf_template/after-body.tex
-        - _extensions/ofce/wp/pdf_template/toc.tex
-        - _extensions/ofce/wp/pdf_template/biblio.tex
+        - pdf_template/title.tex
+        - pdf_template/before-body.tex
+        - pdf_template/after-body.tex
+        - pdf_template/toc.tex
+        - pdf_template/biblio.tex

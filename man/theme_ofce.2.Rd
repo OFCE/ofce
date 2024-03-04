@@ -28,7 +28,7 @@ sont à introduire par ailleurs
 \seealso{
 Other themes: 
 \code{\link{theme_foundation}()},
-\code{\link{theme_ofce_void}()},
-\code{\link{theme_ofce}()}
+\code{\link{theme_ofce}()},
+\code{\link{theme_ofce_void}()}
 }
 \concept{themes}
