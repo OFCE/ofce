@@ -1,0 +1,384 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  9pt,
+  a4paper,
+  DIV=11]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{3}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table des matières}
+\else
+  \newcommand\contentsname{Table des matières}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Graphiques}
+\else
+  \newcommand\listfigurename{Graphiques}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Tableaux}
+\else
+  \newcommand\listtablename{Tableaux}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{\textbf{Graphique}}
+\else
+  \newcommand\figurename{\textbf{Graphique}}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{\textbf{Tableau}}
+\else
+  \newcommand\tablename{\textbf{Tableau}}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{Liste des Listings}}
+\captionsetup{labelsep=period}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{french}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={PB creation},
+  pdfauthor={Anissa},
+  pdflang={fr},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+%%% title.tex we use to call other packages. Because this works
+\usepackage{titlepic}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{placeins}
+\usepackage{graphbox}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage[some]{background}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{datetime}
+\usepackage{xstring}
+\usepackage{blindtext}
+\usepackage{scrlayer-scrpage}
+
+\KOMAoptions{BCOR=5mm}
+\setmainfont{OpenSans}[
+  UprightFont = {*-Regular},
+  BoldFont = {*-Bold},
+  BoldItalicFont = {*-BoldItalic},
+  ItalicFont = {*-Italic},
+  Path = {_extensions/ofce/pb/OpenSans/},
+  Extension = {.ttf}
+]
+\setsansfont{OpenSans}[
+  UprightFont = {*-Regular},
+  BoldFont = {*-Bold},
+  BoldItalicFont = {*-BoldItalic},
+  ItalicFont = {*-Italic},
+  Path = {_extensions/ofce/pb/OpenSans/},
+  Extension = {.ttf}
+]
+
+\def\getYear#1{\StrLeft{#1}{4}}
+\def\getMonth#1{\StrMid{#1}{6}{7}}
+\def\getDay#1{\StrRight{#1}{2}}
+
+\def\jolimois#1{\monthname{\getMonth{#1}}}
+
+\definecolor{quarto-callout-color}{HTML}{eeeeee}
+\definecolor{quarto-callout-tip-color}{HTML}{dddddd}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{eeeeee}
+
+\clearpairofpagestyles
+
+\KOMAoptions{headsepline=true, twoside=true}
+
+\pagestyle{scrheadings}
+\setkomafont{pageheadfoot}{\small}
+
+\rehead{Policy Brief n°001}
+\lohead{\includegraphics[height=0.25cm]{\_extensions/ofce/pb/ofce\_m.png}}
+
+\lofoot*{\thepage}
+\refoot*{\thepage}
+\begin{document}
+
+
+
+\definecolor{ofcepbbleu}{RGB}{1, 97, 131}
+\definecolor{ofcerouge}{RGB}{198, 45, 43}
+\definecolor{scporouge}{RGB}{231, 0, 26}
+
+\begin{titlepage}
+  \backgroundsetup{
+    scale=1,
+    angle=0,
+    opacity=1,
+    contents={
+  \begin{tikzpicture}[remember picture,overlay]
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \node [anchor = center] at (-2.875-5.25,12.5) {\includegraphics[width=2.5cm]{\_extensions/ofce/pb/ofce\_m.png}};
+      \node [anchor = center] at (-2.875-5.25,-12.75){\includegraphics[width=2.5cm]{\_extensions/ofce/pb/sciencespo.png}};
+      \node [anchor = east] at (8.5,-11.5){\textcolor{black}{Date de première publication : }};
+      \node [anchor = east] at (8.5,-12){\textcolor{black}{Date de dernière modification : }};
+      \node [anchor = east] at (8.5,13-0.7){\textcolor{gray}{\Huge\textit{Policy Brief}}};
+      \draw [thick,black](-5.75,-13) -- (-5.75,13);
+      \draw [color = white, fill=ofcepbbleu] (8.7,11.4) rectangle (10.45,13.15);
+      \draw [color = white, fill=ofcepbbleu, very thick] (8.75-.5,11.25-.5) rectangle (8.75+.6,11.25+.6);
+      \node [anchor = east] at (11-0.7,13-0.7){\textcolor{white}{\huge\textbf{001}}};
+      \node [anchor = east] at (10-0.74,12-0.67){\textcolor{white}{\textbf{2023}}};
+    \end{tikzpicture}
+  }
+}
+\BgThispage
+
+\hspace{4cm}
+\begin{minipage}{12.5cm}
+  \vspace{5cm}
+  \begin{flushleft}
+  \textcolor{scporouge}{\Huge\textbf{\textsf{PB creation}}}
+  
+    \vspace{20mm}
+  \end{flushleft}
+  
+    
+   \textbf{Anissa}
+  % by-author
+ \end{minipage}
+
+
+%%
+%% deuxieme page
+\newpage
+\pagestyle{empty}
+\raisebox{-22cm}{
+    \begin{minipage}[b]{40em}
+      \textcolor{scporouge}{
+        \textbf{CONTACT}}{
+
+          \vspace{0.2cm}
+          \vspace{0.2cm}
+        
+        \textbf{OFCE} 
+  
+        10 place de Catalogne 
+        
+        75014 Paris, FRANCE 
+        
+        Tel : +33 1 44 18 54 24
+        
+        \url{https://www.ofce.sciences-po.fr}
+      }
+    \end{minipage}
+}
+%%
+%%
+\newpage
+%% troisieme page
+\pagestyle{empty}
+%%  \raisebox{3cm}{\begin{minipage}{\linewidth}
+%%  \includegraphics[width=2cm]{\_extensions/ofce/pb/ofce\_m.png}
+%%
+%%  \includegraphics[width=2cm]{\_extensions/ofce/pb/sciencespo.png}
+%%  \end{minipage}}
+%%
+ 
+\LARGE\textbf{PB creation}
+
+\large\textbf{}
+
+\vspace{1cm}
+
+
+\vspace{1cm}
+
+\begin{flushright}
+   \linespread{1}\small{\textbf{Anissa}}, {\small{}}\par
+ % by-author
+\end{flushright}
+\end{titlepage}
+\renewcommand*\contentsname{Table des matières}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{0}
+\tableofcontents
+}
+\chapter{Quarto}\label{quarto}
+
+Quarto enables you to weave together content and executable code into a
+finished document. To learn more about Quarto see
+\url{https://quarto.org}.
+
+\chapter{Running Code}\label{running-code}
+
+When you click the \textbf{Render} button a document will be generated
+that includes both content and the output of embedded code. You can
+embed code like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \SpecialCharTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2
+\end{verbatim}
+
+You can add options to executable code like this
+
+\begin{verbatim}
+[1] 4
+\end{verbatim}
+
+The \texttt{echo:\ false} option disables the printing of code (only
+output is displayed).
+
+
+
+\end{document}

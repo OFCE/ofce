@@ -1,0 +1,54 @@
+\usepackage{titlepic}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{placeins}
+\usepackage{graphbox}
+
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage[some]{background}
+\usepackage{lipsum}
+\usepackage{caption}
+
+\renewcommand{\topfraction}{.9}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.1}
+\renewcommand{\floatpagefraction}{.5}
+\renewcommand{\textfloatsep}{14pt}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
+
+\usepackage{xcolor} % Required for specifying custom colours
+\definecolor{grey}{rgb}{0.9,0.9,0.9} % Colour of the box surrounding the title
+
+
+\let\maketitle\relax
+
+\DeclareFixedFont{\bigsf}{T1}{phv}{b}{n}{1.5cm}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+
+
+\captionsetup[figure]{name={Graphique}}
+\captionsetup[wrapfigure]{name={Graphique}}
+
+% \setmainfont{Nunito} [
+%   Extension=.ttf,
+%   UprightFront=*-Regular,
+%   Path = fonts/,
+%   ]
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO, RE]{Document de travail}
+\fancyhead[RO, LE]{\includegraphics[align=c, width=0.8cm]{_extensions/ofce/ofce/ofce.png}}
+\fancyfoot[LO, LE]{\small{}}
+\fancyfoot[RE, RO]{\small{\thepage}}
+
+
+
