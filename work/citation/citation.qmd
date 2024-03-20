@@ -1,0 +1,20 @@
+---
+title: "un texte en français"
+lang: fr
+author:
+  - pim
+  - pam
+  - toto
+date: today
+
+citation:
+  container-title: "Revue des faits improbables"
+  
+appendix-style: plain
+
+format:
+  html: default
+bibliography: references.bib
+---
+
+[@aitchison1989]
