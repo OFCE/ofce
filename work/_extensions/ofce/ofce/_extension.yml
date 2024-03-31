@@ -13,27 +13,40 @@ contributes:
           title-block-author-single: "Auteur"
           title-block-author-plural: "Auteurs"
       fig-asp: 0.61
+      cap-location: top
       crossref:
-        fig-prefix: figure
+        fig-prefix: graphique
         tbl-prefix: tableau
         eq-prefix: équation
         sec-prefix: section
-        fig-title: Figure
-        tbl-title: Tableau
-        lof-title: Figures
+        tip-prefix: encadré
+        fig-title: "**Graphique**"
+        tip-title: "**Encadré**"
+        title-delim: "**.**"
+        tbl-title: "**Tableau**"
+        lof-title: Graphiques
         lot-title: Tableaux
-        logo: ofce.png
+      logo: ofce.png
       filters:
         - nameref
         - fr-nbsp
        # - custom-numbered-blocks
         - quotes
-       #- search-replace
+        - search-replace
+        - collapse-callout
+      collapse-callout:
+        tip: true
       shortcodes:
         - fontawesome
         - downloadthis
+      search-replace:
+        oe : "\u0153"
+        ae : "\u00e6"
+      csl: csl/revue-francaise-de-gestion.csl
     html:
-      theme: [cosmo, ofce.scss]
+      theme: 
+        - cosmo
+        - ofce.scss
       mainfont: Open Sans
       toc-location: left
       toc-title: Sur cette page
@@ -42,8 +55,8 @@ contributes:
       html-math-method: katex
       fig-dpi: 600
       fig-format: png
-      cap-location: top
       reference-location: margin
-      logo: _extensions/ofce/wp/ofce_m.png
+      logo: ofce_m.png
+      callout-icon: false
       lightbox: true
       title-block-style: default

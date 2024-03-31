@@ -1,0 +1,92 @@
+title: Format Policy Brief OFCE
+author: Anissa Saumtally et Xavier Timbeau
+version: 0.2.0
+quarto-required: ">=1.4.300"
+contributes:
+  formats:
+    common:
+      toc: true
+      lang: fr
+      language:
+        fr:
+          section-title-references: "Références"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
+      fig-asp: 0.61
+      cap-location: top
+      crossref:
+        fig-prefix: graphique
+        tbl-prefix: tableau
+        eq-prefix: équation
+        sec-prefix: section
+        tip-prefix: encadré
+        fig-title: "**Graphique**"
+        tip-title: "**Encadré**"
+        title-delim: "**.**"
+        tbl-title: "**Tableau**"
+        lof-title: Graphiques
+        lot-title: Tableaux
+      logo: ofce.png
+      filters:
+        - nameref
+        - quotes
+        # - search-replace
+        - fr-nbsp
+        - collapse-callout
+      collapse-callout:
+        tip: true
+      shortcodes:
+        - fontawesome
+        - downloadthis
+      google-scholar: true
+      appendix-style: default
+      appendix-cite-as: display
+      citation: true
+      license: CC BY
+    html:
+      theme: 
+        - cosmo
+        - html_template/ofcepb.scss
+      mainfont: Open Sans
+      toc-location: left
+      toc-title: Sur cette page
+      number-sections: true
+      number-depth: 3
+      html-math-method: katex
+      fig-dpi: 600
+      fig-format: png
+      fig-width: 6
+      reference-location: margin
+      logo: ofce_m.png
+      callout-icon: false
+      lightbox: true
+      title-block-style: default
+      template-partials:
+        - html_template/title-block.html
+        - html_template/title-metadata.html
+        - html_template/toc.html
+    pdf:
+      documentclass: scrreprt
+      annee: 2023
+      toc-depth: 1
+      pdffont: OpenSans
+      number-sections: true
+      number-depth: 3
+      classoption:
+        - DIV=11
+      papersize: a4
+      fontsize: 9pt
+      extra_dependencies: ["float"]
+      fig-dpi: 600
+      fig-width: 5
+      fig-format: png
+      logo: ofce_m.png
+      logo2: sciencespo.png
+      template-partials:
+        - pdf_template/title.tex
+        - pdf_template/before-body.tex
+        - pdf_template/after-body.tex
+        - pdf_template/toc.tex
+        - pdf_template/biblio.tex

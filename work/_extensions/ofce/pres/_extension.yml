@@ -38,7 +38,7 @@ contributes:
         - fontawesome
         - downloadthis
     revealjs:
-      logo: _extensions/ofce/pres/ofce_m.png
+      logo: ofce_m.png
       language:
         fr:
           toc-title-document: "Plan de la présentation"
@@ -48,7 +48,9 @@ contributes:
       slide-level: 2
       slide-number: c/t
       center: false
-      theme: [simple, ofce-pres.scss]
+      theme: 
+        - simple
+        - ofce-pres.scss
       navigation-mode: linear
       code-fold: false
       self-contained: false
