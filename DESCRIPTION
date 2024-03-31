@@ -26,6 +26,7 @@ Imports:
     officer,
     plyr,
     purrr,
+    quarto,
     rlang,
     rstudioapi,
     scales,

@@ -17,14 +17,18 @@
 #' @export
 #'
 setup_quarto <- function(dir=".", quiet = FALSE) {
-
   wd_dir <- getwd()
   if(!dir.exists(dir)) {
     ok <- dir.create(dir, recursive = TRUE)
     if(!ok) stop("Impossible de créer le dossier")
   }
+  setwd(dir)
+  # system("sh -c 'cd \"{dir}\"; quarto add ofce/ofce-quarto-extensions --no-prompt --quiet'" |> glue::glue())
+  quarto::quarto_add_extension(
+    "ofce/ofce-quarto-extensions",
+    no_prompt = TRUE,
+    quiet = TRUE)
 
-  system("sh -c 'cd \"{dir}\"; quarto add ofce/ofce-quarto-extensions --no-prompt --quiet'" |> glue::glue())
   if(!quiet) cli::cli_alert_success(
     "extensions quarto installées dans {.path {getwd()}}
      Mettre dans le yml ce qui suit
@@ -41,6 +45,7 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
        format: ofce-html
 
     consulter Anissa, Paul, Xavier ou {.url https://quarto.org} pour d'autres options")
+  setwd(wd_dir)
 }
 
 #' installe un squelette de document de travail
