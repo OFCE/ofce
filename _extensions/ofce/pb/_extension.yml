@@ -59,7 +59,7 @@ contributes:
       fig-format: png
       fig-width: 6
       reference-location: margin
-      logo: _extensions/ofce/pb/ofce_m.png
+      logo: ofce_m.png
       callout-icon: false
       lightbox: true
       title-block-style: default
@@ -82,11 +82,11 @@ contributes:
       fig-dpi: 600
       fig-width: 5
       fig-format: png
-      logo: _extensions/ofce/pb/ofce_m.png
-      logo2: _extensions/ofce/pb/sciencespo.png
+      logo: ofce_m.png
+      logo2: sciencespo.png
       template-partials:
-        - _extensions/ofce/pb/pdf_template/title.tex
-        - _extensions/ofce/pb/pdf_template/before-body.tex
-        - _extensions/ofce/pb/pdf_template/after-body.tex
-        - _extensions/ofce/pb/pdf_template/toc.tex
-        - _extensions/ofce/pb/pdf_template/biblio.tex
+        - pdf_template/title.tex
+        - pdf_template/before-body.tex
+        - pdf_template/after-body.tex
+        - pdf_template/toc.tex
+        - pdf_template/biblio.tex

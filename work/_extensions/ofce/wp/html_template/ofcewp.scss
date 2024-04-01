@@ -1,12 +1,10 @@
 /*-- scss:defaults --*/
 // fonts
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 // Fonts (CSS rules)
-//$font-family-sans-serif: 'Nunito Sans', sans-serif;
-//$font-family-monospace: 'Roboto Mono', monospace;
-//$font-family-serif: 'Merriweather', serif;
-//$font-family-sans-serif: 'Open Sans', sans-serif;
-//$font-family-monospace: 'Fira Code', monospace;
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-monospace: 'Firacode', monospace;
 
 // couleurs
 $scpored: #e6142d;
@@ -50,6 +48,11 @@ h1, h2, h3, h4, h5, h6,
 .sidebar-item-container {
   font-size: 0.8rem !important;
   line-height: 1.1rem !important;
+}
+
+.dropdown-item, .dropdown-menu {
+  font-size: 0.8rem !important;
+  background-color: $navbar-bg !important;
 }
 
 .nav-page-text {

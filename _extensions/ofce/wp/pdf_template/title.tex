@@ -10,7 +10,9 @@
 \usepackage{xcolor}
 \usepackage{amsmath}
 \usepackage[some]{background}
-$if(draft)$\usepackage[stamp,color=red!10]{draftwatermark}$endif$
+$if(draft)$
+\usepackage[stamp,color=red!10]{draftwatermark}
+$endif$
 \usepackage{lipsum}
 \usepackage{caption}
 \usepackage{datetime}
@@ -53,7 +55,7 @@ $if(draft)$\usepackage[stamp,color=red!10]{draftwatermark}$endif$
 \pagestyle{scrheadings}
 \setkomafont{pageheadfoot}{\small}
 
-\rehead{Document de travail n°$wp$}
+\rehead{Document de travail n°$wp$-$annee$}
 \lohead{\includegraphics[height=0.25cm]{$logo$}}
 
 \lofoot*{\thepage}

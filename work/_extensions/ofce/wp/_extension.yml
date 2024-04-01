@@ -9,25 +9,48 @@ contributes:
       lang: fr
       language:
         fr:
-          section-title-references: "Références"
+          section-title-references: "Bibliograhie"
           title-block-author-single: "Par"
           title-block-author-plural: "Par"
           title-block-published: "Publié le"
           title-block-modified: "Modifié le"
+          launch-dev-container-title: "Document de travail de l'OFCE"
+          callout-tip-title: "Encadré"
+        en:
+          section-title-references: "Bibilography"
+          title-block-author-single: "Author"
+          title-block-author-plural: "Authors"
+          title-block-published: "Published on"
+          title-block-modified: "Modified on"
+          launch-dev-container-title: "OFCE working paper"
+          callout-tip-title: "Box"
       fig-asp: 0.61
       cap-location: top
       crossref:
-        fig-prefix: graphique
-        tbl-prefix: tableau
-        eq-prefix: équation
-        sec-prefix: section
-        tip-prefix: encadré
-        fig-title: "**Graphique**"
-        tip-title: "**Encadré**"
-        title-delim: "**.**"
-        tbl-title: "**Tableau**"
-        lof-title: Graphiques
-        lot-title: Tableaux
+        fr:
+          fig-prefix: graphique
+          tbl-prefix: tableau
+          eq-prefix: équation
+          sec-prefix: section
+          tip-prefix: encadré
+          fig-title: "**Graphique**"
+          tip-title: "**Encadré**"
+          title-delim: "**.**"
+          tbl-title: "**Tableau**"
+          lof-title: Graphiques
+          lot-title: Tableaux
+        en:
+          fig-prefix: figure
+          tbl-prefix: table
+          eq-prefix: equation
+          sec-prefix: section
+          tip-prefix: box
+          fig-title: "**figure**"
+          tip-title: "**Box**"
+          title-delim: "**.**"
+          tbl-title: "**Table**"
+          lof-title: Figures
+          lot-title: Tables
       logo: ofce.png
       filters:
         - nameref

@@ -7,38 +7,64 @@ contributes:
     common:
       toc: true
       lang: fr
+      french: true
       language:
         fr:
-          section-title-references: "Références"
-          title-block-author-single: "Auteur"
-          title-block-author-plural: "Auteurs"
+          section-title-references: "Bibliograhie"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
+        en:
+          section-title-references: "Bibilography"
+          title-block-author-single: "Author"
+          title-block-author-plural: "Authors"
+          title-block-published: "Published on"
+          title-block-modified: "Modified on"
       fig-asp: 0.61
       cap-location: top
       crossref:
-        fig-prefix: graphique
-        tbl-prefix: tableau
-        eq-prefix: équation
-        sec-prefix: section
-        tip-prefix: encadré
-        fig-title: "**Graphique**"
-        tip-title: "**Encadré**"
-        title-delim: "**.**"
-        tbl-title: "**Tableau**"
-        lof-title: Graphiques
-        lot-title: Tableaux
+        fr:
+          fig-prefix: graphique
+          tbl-prefix: tableau
+          eq-prefix: équation
+          sec-prefix: section
+          tip-prefix: encadré
+          fig-title: "**Graphique**"
+          tip-title: "**Encadré**"
+          title-delim: "**.**"
+          tbl-title: "**Tableau**"
+          lof-title: Graphiques
+          lot-title: Tableaux
+        en:
+          fig-prefix: figure
+          tbl-prefix: table
+          eq-prefix: equation
+          sec-prefix: section
+          tip-prefix: box
+          fig-title: "**figure**"
+          tip-title: "**Box**"
+          title-delim: "**.**"
+          tbl-title: "**Table**"
+          lof-title: Figures
+          lot-title: Tables
       logo: ofce.png
       filters:
         - nameref
         - fr-nbsp
        # - custom-numbered-blocks
         - quotes
-       #- search-replace
+        - search-replace
         - collapse-callout
       collapse-callout:
         tip: true
       shortcodes:
         - fontawesome
         - downloadthis
+      search-replace:
+        oe : "\u0153"
+        ae : "\u00e6"
+      csl: csl/revue-francaise-de-gestion.csl
     html:
       theme: 
         - cosmo
@@ -52,7 +78,7 @@ contributes:
       fig-dpi: 600
       fig-format: png
       reference-location: margin
-      logo: _extensions/ofce/wp/ofce_m.png
+      logo: ofce_m.png
       callout-icon: false
       lightbox: true
       title-block-style: default

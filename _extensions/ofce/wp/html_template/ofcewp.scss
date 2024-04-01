@@ -1,22 +1,21 @@
 /*-- scss:defaults --*/
 // fonts
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 // Fonts (CSS rules)
-//$font-family-sans-serif: 'Nunito Sans', sans-serif;
-//$font-family-monospace: 'Roboto Mono', monospace;
-//$font-family-serif: 'Merriweather', serif;
-//$font-family-sans-serif: 'Open Sans', sans-serif;
-//$font-family-monospace: 'Fira Code', monospace;
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-monospace: 'Firacode', monospace;
 
 // couleurs
 $scpored: #e6142d;
 $scpodarkred: #770C19;
 $ofcered: #a22a2e;
-$darkgrey: #555;
+$darkgrey: #777;
 $lightgrey: #EEE;
 $green: #079D10;
 $blue: #000080;
 $navbar-hl: #e6142d;
+$navbar-bg: $lightgrey;
 $sidebar-hl: #e6142d;
 $aligment: justify;
 
@@ -36,7 +35,7 @@ h1, h2, h3, h4, h5, h6,
     padding-left: 12px !important;
     margin-right : 12px !important;
     margin-top: 6px !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 12px !important;
     border-left-color: $scpored !important;
     border-left-width: 1px !important;
     border-left-style: solid !important;
@@ -44,6 +43,20 @@ h1, h2, h3, h4, h5, h6,
 
 .sidebar {
   padding-top: 32px !important;
+}
+
+.sidebar-item-container {
+  font-size: 0.8rem !important;
+  line-height: 1.1rem !important;
+}
+
+.dropdown-item, .dropdown-menu {
+  font-size: 0.8rem !important;
+  background-color: $navbar-bg !important;
+}
+
+.nav-page-text {
+  font-size: 0.8rem !important;
 }
 
 .page-columns.page-full,
@@ -142,7 +155,7 @@ figcaption.quarto-float-caption,caption  {
   line-height: 160%;
 }
 
-.encadre, .callout-tip {
+div.callout-tip {
   font-size: .8rem;
   border-radius: 0;
   background-clip: content-box;
@@ -150,6 +163,44 @@ figcaption.quarto-float-caption,caption  {
   border-left-color:$lightgrey !important;
 }
 
-.callout-tip>.callout-header {
+div.callout-tip div.callout-header {
   background-color: $lightgrey !important;
+}
+
+.dbtn {
+  font-size: .8rem;
+  background-color: #FFF;
+  border-color: $link-color;
+  border-width: 1px;
+  border-radius: 12px;
+  color: $link-color;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.control-label {
+  font-size: .8rem;
+  text-align: start;
+}
+
+.quarto-figure-center>figure>div {
+  text-align: left !important;
+  font-size: .8rem !important;
+  color: $darkgrey !important;
+  line-height: 1rem !important;
+  margin-bottom: 0px !important;
+}
+
+.quarto-figure-center>figure>div>p {
+  margin-bottom: 0.2rem !important;
+}
+
+.figure.figure {
+  margin-bottom: 0 !important;
+}
+
+.csl-entry {
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
 }
