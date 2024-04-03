@@ -27,23 +27,21 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
   quarto::quarto_add_extension(
     "ofce/ofce-quarto-extensions",
     no_prompt = TRUE,
-    quiet = TRUE)
+    quiet = quiet)
 
   if(!quiet) cli::cli_alert_success(
-    "extensions quarto installées dans {.path {getwd()}}
-     Mettre dans le yml ce qui suit
+    "Mettre dans le yaml ce qui suit:
       ---
       format:
         ofce-html: default # une page en html
         wp-html: default # Document de travail en html
         wp-pdf: default # Document de travail en pdf
+        wp-en-html: default # Document de travail html en anglais
+        wp-en-html: default # Document de travail pdf en anglais
         pres-revealjs: default # presentation
         blog-html: default # Post de blog en html
         blog-pdf: default # Post de blog en pdf
       ---
-    ou (dans le yaml)
-       format: ofce-html
-
     consulter Anissa, Paul, Xavier ou {.url https://quarto.org} pour d'autres options")
   setwd(wd_dir)
 }
