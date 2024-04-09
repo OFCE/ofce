@@ -2,21 +2,21 @@
 #'
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 #'
-#' @param col_width largeur des colonnes (en px)
 #' @param ... autres arguments à passer dans la fonction
 #' @param data un objet gt
+#' @param largeur_colonne
 #'
 #' @return un objet gt, décoré
 #' @export
 
 theme.gt_ofce <- function(data,
-                          col_width = NULL,
+                          largeur_colonne = NULL,
                           ...){
 
   stopifnot("'data' must be a 'gt_tbl', have you accidentally passed raw $data?" = "gt_tbl" %in% class(data))
   rlang::check_installed("gt", reason = "pour utiliser theme.gt_ofce")
 
-  if (is.null(col_width)){col_width = 100 }
+  if (is.null(largeur_colonne)){col_width = 100 }
 
   data |>
     # Défini la largeur des colonnes (sauf la première)

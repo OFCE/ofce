@@ -44,12 +44,29 @@ pour le dépôt voir {{< fa brands github >}}
 #| echo : false
 #| message : false
 
-library(ofce)
 library(tidyverse)
+library(ofce)
+
 ggplot(cars)+
     geom_point(aes(x=speed, y=dist))+
     theme_ofce()
 ```
+
+
+```{r}
+#| label: tab-cars
+#| tab-cap: Speed versus distance among cars
+#| echo : false
+#| message : false
+
+library(gt)
+
+gt.cars <- cars |> mutate(names = str_c("name_",row_number())) |>
+  select(names, speed, dist) |> gt()
+
+theme.gt_ofce(gt.cars)
+```
+
 
 # Une section de niveau 1 pour commencer {#sec-ledebut}
 
