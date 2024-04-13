@@ -42,13 +42,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
         margin = margin(b=2.5, t=2.5),
         lineheight = 1.2),
       plot.caption = ggtext::element_markdown(
-        size = ggplot2::rel(0.8),
+        size = ggplot2::rel(0.85),
         color = "gray25",
         face="plain",
         hjust = 0,
         vjust = 0.5,
         margin = unit(c(12, 0, 0, 0), 'pt'),
-        lineheight=1.1),
+        lineheight=1.2),
       plot.margin = margin(b=8, t=8, l=2, r=2),
       plot.caption.position = "plot",
       #Legend format
@@ -158,13 +158,13 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
         margin = margin(b=2.5, t=2.5),
         lineheight = 1.2),
       plot.caption = ggtext::element_markdown(
-        size = rel(0.8),
+        size = rel(0.85),
         color = "gray25",
         face="plain",
         hjust = 0,
         vjust = 0.5,
         margin = margin(b=0, t=12),
-        lineheight=1.1),
+        lineheight=1.2),
       plot.margin = margin(b=8, t=8, l=2, r=2),
       plot.caption.position = "plot",
       #Legend format
