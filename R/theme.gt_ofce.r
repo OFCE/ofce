@@ -21,7 +21,7 @@ theme.gt_ofce <- function(data,
   data |>
     # Défini la largeur des colonnes (sauf la première)
     gt::cols_width(
-      gt::matches(colnames(data$`_data`[-1])) ~ gt::px(col_width)
+      -1 ~ gt::px(col_width)
     ) |>
     # General options
     gt::opt_table_lines("default") |>
