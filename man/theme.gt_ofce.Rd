@@ -4,12 +4,12 @@
 \alias{theme.gt_ofce}
 \title{Thème OFCE pour les tableaux pour {gt}}
 \usage{
-theme.gt_ofce(data, col_width = NULL, ...)
+theme.gt_ofce(data, largeur_colonne = NULL, ...)
 }
 \arguments{
 \item{data}{un objet gt}
 
-\item{col_width}{largeur des colonnes (en px)}
+\item{largeur_colonne}{largeur de colonne (en px)}
 
 \item{...}{autres arguments à passer dans la fonction}
 }

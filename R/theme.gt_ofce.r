@@ -4,7 +4,7 @@
 #'
 #' @param ... autres arguments à passer dans la fonction
 #' @param data un objet gt
-#' @param largeur_colonne
+#' @param largeur_colonne largeur de colonne (en px)
 #'
 #' @return un objet gt, décoré
 #' @export
