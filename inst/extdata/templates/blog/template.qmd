@@ -13,7 +13,7 @@ description: "Chapeau du texte qui apparait dans la vignette du billet sur le me
 format:
   blog-html: default
   blog-pdf: default
-categories: ["keyword1", "keyword2"]
+categories: ["keyword1", "keyword2"] # Le choix des keywords doit être fait en lien avec la responsable du blog (liste de termes à suivre) 
 image: image.jpg
 
 
@@ -23,12 +23,6 @@ image: image.jpg
 
 bibliography: blog_references.bib
 ---
-
- <!-- Lien vers le billet de blog en format pdf. A compiler  avant avec la version finale du .qmd et en format blog-pdf puis à insérer dans le dossier du billet (attention à bien renommer le nom du fichier) -->
-
-::: {.content-visible when-format="html"}
-[{{< fa file-pdf size=2xl >}}](nomdufichier.pdf)
-:::
 
 # Introduction {#sec-introduction .unnumbered}
 
