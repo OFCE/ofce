@@ -138,8 +138,7 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 
     -   harmoniser les pratiques (*patrons* de documents, chartes graphiques, thèmes graphiques)
 
-    -   partager les outils développés par chacung pour faciliter l'utilisation de R
-## Installation du package
+    -   partager les outils développés par chacung pour faciliter l'utilisation de R \## Installation du package
 
 ::: panel-tabset
 ### 1. R {.tabset}
@@ -161,7 +160,7 @@ R.version$version.string
 
 -   télécharger et installe Rtools 43 (pour être compatible avec R 4.3.x)
 
-    - <https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html>
+    -   <https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html>
 
 -   (sur Windows) Activer cette version `tools/Global Options`
 
