@@ -12,106 +12,112 @@
 #' @export
 #' @importFrom ggplot2 theme_grey element_text element_line element_rect element_blank margin unit
 
+theme_ofce <- function(base_size = getOption("ofce.base_size"),
+                       base_family = getOption("ofce.base_family"), ...) {
 
-theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family"), ...) {
- # if(requireNamespace("ggh4x", quietly = TRUE))
- #   ggh4xdef <-  ggplot2::theme(ggh4x.axis.ticks.length.minor = ggplot2::rel(0.66))
- # else
- #   ggh4xdef <- NULL
-   theme_foundation() +
-    ggplot2::theme(
-      # general
-      plot.background = element_rect(fill="white"),
-      text = element_text(
-        family = base_family,
-        size = base_size),
-      rect = element_rect(
-        fill = NA,
-        colour = NA,
-        linetype = 0),
-      #Text format:
-      plot.title = ggtext::element_markdown(
-        face = "plain",
-        hjust = 0,
-        margin = margin(b=2.5, t=2.5),
-        lineheight = 1.5),
-      plot.subtitle =  ggtext::element_markdown(
-        size = ggplot2::rel(0.85),
-        face = "plain",
-        hjust = 0,
-        margin = margin(b=2.5, t=2.5),
-        lineheight = 1.2),
-      plot.caption = ggtext::element_markdown(
-        size = ggplot2::rel(0.85),
-        color = "gray25",
-        face="plain",
-        hjust = 0,
-        vjust = 0.5,
-        margin = unit(c(12, 0, 0, 0), 'pt'),
-        lineheight=1.2),
-      plot.margin = margin(b=8, t=8, l=2, r=2),
-      plot.caption.position = "plot",
-      #Legend format
-      legend.position = "right",
-      legend.justification= "center",
-      legend.text.align = 0,
-      legend.title = element_text(
-        face = "plain",
-        size = ggplot2::rel(0.85),
-        color = "gray25"),
-      legend.background = element_blank(),
-      legend.text = element_text(
-        face = "plain",
-        size = ggplot2::rel(0.75),
-        color = "gray25"),
-      legend.margin = margin(t=0, r=0, b=0, l=0),
-      # #Axis format
-      axis.title  = element_text(
-        size = ggplot2::rel(0.75),
-        color = "#222222"),
-      axis.text = element_text(
-        size = ggplot2::rel(0.75),
-        color = "#222222"),
-      axis.text.y = element_text(
-        color = "gray25",
-        margin=margin(r=5, b=0, t=0, l=1.5),
-        hjust = 1,
-        vjust=0.5),
-      axis.text.x = element_text(
-        color = "gray25",
-        margin=margin(t=6, b=0),
-        hjust = 0.5),
-      axis.ticks = element_line(
-        color="gray50",
-        size = unit(0.2, "pt")),
-      axis.ticks.length.x = unit(-2.5,"pt"),
-      axis.ticks.length.y = unit(-2.5,"pt"),
-      axis.line = element_line(
-        colour = "gray40",
-        size = unit(0.2, "pt"),
-        lineend="round"),
-      #Grid lines
-      panel.grid.minor = element_blank(),
-      panel.grid.major.y = element_line(
-        size = unit(0.1, "pt"),
-        color = "gray80"),
-      panel.grid.major.x = element_blank(),
-      #Blank background
-      panel.background = element_rect(
-        fill = getOption("ofce.background_color"),
-        colour = getOption("ofce.background_color")),
-      panel.spacing = unit(3, "pt"),
-      strip.background = element_rect(fill="white"),
-      strip.text = element_text(
-        size = ggplot2::rel(0.85), face = "bold",
-        hjust = 0.5,
-        vjust = 0.5,
-        margin = margin(t=8, b=6)))+
-    # ggh4xdef +
+  ofce_style <- marquee::classic_style(
+    base_size = base_size,
+    body_font = base_family,
+    header_font = base_family,
+    code_font = "Fira Code")
+
+  ggplot2::theme(
+    # general
+    plot.background = ggplot2::element_rect(fill="white"),
+
+    rect = ggplot2::element_rect(
+      fill = NA,
+      colour = NA,
+      linetype = 0),
+    # Text format:
+    text = ggplot2::element_text(
+      family = base_family,
+      size = base_size
+    ),
+    plot.title.position = "panel",
+    plot.title = marquee::element_marquee(
+      style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
+      hjust = 0,
+      vjust = 0.5,
+      margin = ggplot2::margin(b=-6, t=0),
+      lineheight = 1),
+    plot.subtitle = marquee::element_marquee(
+      style = ofce_style,
+      size = ggplot2::rel(0.75),
+      hjust = 0,
+      margin = ggplot2::margin(b=0, t=-6),
+      lineheight = 1),
+    plot.margin = ggplot2::margin(b=2, t=2, l=2, r=2),
+    plot.caption.position = "panel",
+    plot.caption = marquee::element_marquee(
+      style = ofce_style,
+      size = ggplot2::rel(0.75),
+      hjust = 0,
+      margin = margin(l = 0, t= 9),
+      width = 0.9),
+
+    # Legend format
+    legend.justification= "center",
+    legend.text.align = 0,
+    legend.title = ggplot2::element_text(
+      size = ggplot2::rel(0.75),
+      color = "gray25"),
+    legend.background = element_blank(),
+    legend.text = ggplot2::element_text(
+      size = ggplot2::rel(0.75),
+      color = "gray25"),
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.key.height = unit(9, "pt"),
+    legend.key.width = unit(9, "pt"),
+    legend.key.size = unit(9, "pt"),
+    legend.margin = ggplot2::margin(t=-12, r=0, b=0, l=0),
+    # #Axis format
+    axis.title  = ggplot2::element_text(
+      size = ggplot2::rel(0.75),
+      color = "#222222",
+      margin = margin(t = 0, b=0, l= 0, r=0)),
+    axis.title.x = element_text(hjust=1),
+    axis.title.y = element_text(hjust=1),
+    axis.text = ggplot2::element_text(
+      family = base_family,
+      size = ggplot2::rel(0.75)),
+    axis.text.y = ggplot2::element_text(
+      color = "gray25",
+      hjust = 1,
+      vjust=0.5),
+    axis.text.x = ggplot2::element_text(
+      color = "gray25",
+      margin=margin(t=3, b=0),
+      hjust = 0.5),
+    axis.ticks = element_line(
+      color="gray50",
+      size = unit(0.2, "pt")),
+    axis.ticks.length.x = unit(-2.5,"pt"),
+    axis.ticks.length.y = unit(-2.5,"pt"),
+    axis.line = element_line(
+      colour = "gray40",
+      size = unit(0.2, "pt"),
+      lineend="round"),
+    # Grid lines
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_line(
+      size = unit(0.1, "pt"),
+      color = "gray80"),
+    panel.grid.major.x = element_blank(),
+    # Blank background
+    panel.background = element_rect(
+      fill = getOption("ofce.background_color"),
+      colour = getOption("ofce.background_color")),
+    panel.spacing = unit(3, "pt"),
+    # strip.text = marquee::element_marquee(
+    #   size = ggplot2::rel(0.85),
+    #   hjust = 0.5,
+    #   vjust = 0.5,
+    #   margin = margin(t=8, b=6)),
+    strip.background = element_rect(fill="white"))+
     ggplot2::theme(...) # pour passer les arguments en plus
 }
-
-
 
 #' Thème OFCE void
 #'
@@ -128,7 +134,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"), base_family = ge
 
 
 theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family"), ...) {
-  theme_foundation() +
     ggplot2::theme(
       # general
       plot.background = element_rect(fill="white"),
@@ -144,28 +149,27 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
         family=base_family,
         size = base_size),
       #Text format:
-      plot.title = ggtext::element_markdown(
-        size = base_size,
-        family = base_family,
-        face = "bold",
-        hjust = 0,
-        margin = margin(b=2.5, t=2.5),
-        lineheight = 1.5),
-      plot.subtitle =  ggtext::element_markdown(
-        size = rel(0.85),
-        face = "plain",
-        hjust = 0,
-        margin = margin(b=2.5, t=2.5),
-        lineheight = 1.2),
-      plot.caption = ggtext::element_markdown(
-        size = rel(0.85),
-        color = "gray25",
-        face="plain",
+      plot.title.position = "panel",
+      plot.title = marquee::element_marquee(
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
         hjust = 0,
         vjust = 0.5,
-        margin = margin(b=0, t=12),
-        lineheight=1.2),
-      plot.margin = margin(b=8, t=8, l=2, r=2),
+        margin = ggplot2::margin(b=-6, t=0),
+        lineheight = 1),
+      plot.subtitle = marquee::element_marquee(
+        style = ofce_style,
+        size = ggplot2::rel(0.75),
+        hjust = 0,
+        margin = ggplot2::margin(b=0, t=-6),
+        lineheight = 1),
+      plot.margin = ggplot2::margin(b=2, t=2, l=2, r=2),
+      plot.caption = marquee::element_marquee(
+        style = ofce_style,
+        size = ggplot2::rel(0.75),
+        hjust = 0,
+        margin = margin(l = 0, t= 9),
+        width = 0.9),
+
       plot.caption.position = "plot",
       #Legend format
       legend.position = "right",
