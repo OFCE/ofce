@@ -66,7 +66,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       plot.caption = ggtext::element_markdown(
         size = ggplot2::rel(0.75),
         hjust = 0,
-        margin = ggplot2::margin(l = 0, t = 0),
+        margin = ggplot2::margin(l = 0, t = 6),
         lineheight = 1.25),
       strip.text = ggplot2::element_text(
         size = ggplot2::rel(0.85),
