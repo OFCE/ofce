@@ -59,17 +59,17 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
       plot.subtitle = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.80),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
       plot.caption = ggtext::element_markdown(
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.80),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
         lineheight = 1.25),
       strip.text = ggplot2::element_text(
-        size = ggplot2::rel(0.85),
+        size = ggplot2::rel(0.9),
         hjust = 0.5,
         vjust = 0.5,
         margin = ggplot2::margin(t=6, b=6)))
@@ -94,11 +94,11 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.justification= "center",
       legend.text.align = 0,
       legend.title = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.80),
         color = "gray25"),
       legend.background = element_blank(),
       legend.text = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.80),
         color = "gray25"),
       legend.location = "plot",
       legend.position = "bottom",
@@ -109,7 +109,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.margin = ggplot2::margin(t=6, r=0, b=6, l=0),
       # #Axis format
       axis.title  = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.80),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0)),
       axis.title.x = element_text(hjust=1),
@@ -190,14 +190,14 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
       lineheight = 1),
     plot.subtitle = marquee::element_marquee(
       style = ofce_style,
-      size = ggplot2::rel(0.75),
+      size = ggplot2::rel(0.80),
       hjust = 0,
       margin = ggplot2::margin(b=0, t=-6),
       lineheight = 1),
     plot.margin = ggplot2::margin(b=2, t=2, l=2, r=2),
     plot.caption = marquee::element_marquee(
       style = ofce_style,
-      size = ggplot2::rel(0.75),
+      size = ggplot2::rel(0.80),
       hjust = 0,
       margin = margin(l = 0, t= 9),
       width = 0.9),
@@ -214,7 +214,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
     legend.background = element_blank(),
     legend.text = element_text(
       face = "plain",
-      size = rel(0.75),
+      size = rel(0.80),
       color = "gray25"),
     legend.margin = margin(t=0, r=0, b=0, l=0),
     # #Axis format
