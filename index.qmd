@@ -74,8 +74,6 @@ NOM_DU_PACKAGE::la_super_fonction()
 
     -   via des canaux privés : le package est transmis directement au format `.tar.gz` ou `.zip`. Attention à la source, peu de garanties sur leur utilisation
 
-
-
 ## `{pak}` : une alternative pour les gens "cool" (Xavier)
 
 -   Le package `{pak}` permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)
@@ -142,10 +140,10 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 
 ## Installation du package
 
-::: panel-tabset
+:::: panel-tabset
 ### 1. R {.tabset}
 
--   Vérifier que la version de R est à jour (au moins 4.3.0)
+-   Vérifier que la version de R est à jour (au moins 4.4.0)
 
 ```{r}
 #| eval: true
@@ -162,7 +160,7 @@ R.version$version.string
 
 -   télécharger et installe Rtools 43 (pour être compatible avec R 4.3.x)
 
-    - <https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html>
+    -   <https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html>
 
 -   (sur Windows) Activer cette version `tools/Global Options`
 
@@ -172,7 +170,7 @@ R.version$version.string
 
 ### 2. Quarto {.tabset}
 
--   Il faut installer Quarto (l'application) **au moins la version 1.4 (pre-release)**
+-   Il faut installer Quarto (l'application) **au moins la version 1.5**
 
     -   <https://quarto.org/docs/download/>
 
@@ -224,7 +222,7 @@ pak::pak("OFCE/ofce")
 
 -   ![](work/juju.jpg){fig-align="center"}
 :::
-:::
+::::
 
 # les templates Quarto
 

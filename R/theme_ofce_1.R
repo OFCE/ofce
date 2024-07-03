@@ -106,7 +106,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.key.height = unit(9, "pt"),
       legend.key.width = unit(9, "pt"),
       legend.key.size = unit(9, "pt"),
-      legend.margin = ggplot2::margin(t=0, r=0, b=6, l=0),
+      legend.margin = ggplot2::margin(t=6, r=0, b=6, l=0),
       # #Axis format
       axis.title  = ggplot2::element_text(
         size = ggplot2::rel(0.75),
