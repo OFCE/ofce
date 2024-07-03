@@ -140,7 +140,7 @@ pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
 
     -   partager les outils développés par chacung pour faciliter l'utilisation de R \## Installation du package
 
-::: panel-tabset
+:::: panel-tabset
 ### 1. R {.tabset}
 
 -   Vérifier que la version de R est à jour (au moins 4.3.0)
@@ -231,7 +231,7 @@ pak::pak("OFCE/ofce")
 
 -   ![](work/juju.jpg){fig-align="center"}
 :::
-:::
+::::
 
 # les templates Quarto
 
