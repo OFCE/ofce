@@ -77,9 +77,174 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ofce.github.io/ofce/">ofce</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<p>Cette page fournit les informations nécessaires à la rédaction d’un
+billet de blog sous <a href="https://quarto.org/" class="external-link">Quarto</a>. Il
+s’appuie sur les différents programmes développés en interne pour
+définir une charte graphique commune et faciliter leur intégration à la
+rédaction.</p>
+<div class="section level2">
+<h2 id="créer-un-document-blog-à-laide-du-package-ofce">Créer un document <em>blog</em> à l’aide du package
+<code>ofce</code><a class="anchor" aria-label="anchor" href="#cr%C3%A9er-un-document-blog-%C3%A0-laide-du-package-ofce"></a>
+</h2>
+<p>La première étape est de générer un template d’un document quarto
+intégrant l’ensemble des méta-données assurant sa compilation dans le
+format souhaité (render) par Rstudio. Il suffit pour cela d’executer la
+commande suivante: <code><a href="../reference/setup_blog.html">setup_blog()</a></code> qui va automatiquement
+générer un document quarto, l’ajout des extensions qui regroupent les
+métadonnées associées aux questions de style, ainsi qu’un document de
+gestion des références bibliographiques <code>.bib</code></p>
+</div>
+<div class="section level2">
+<h2 id="yaml-du-document">Yaml du document<a class="anchor" aria-label="anchor" href="#yaml-du-document"></a>
+</h2>
+<p>Le Yaml est le préambule au script inclus entre les caractères
+suivants <code>---</code> <code>---</code> qui regroupe les métadonnées
+du document ainsi que certains paramètres comme le titre ou le nom des
+auteurs. Il se présente de la façon suivante:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Titre du billet"</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Albertine Retrouvée</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">    </span><span class="fu">url</span><span class="kw">:</span><span class="at"> https://www.ofce.sciences-po.fr/ofce/chercheurs1.php</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> OFCE </span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation-url</span><span class="kw">:</span><span class="at"> https://www.ofce.sciences-po.fr/</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">institution</span><span class="kw">:</span><span class="at"> </span><span class="st">"Observatoire Français des Conjonctures Économiques"</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">  </span><span class="fu">blog-html</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="at">  </span><span class="fu">blog-pdf</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">categories</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"keyword1"</span><span class="kw">,</span><span class="at"> </span><span class="st">"keyword2"</span><span class="kw">]</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> image.jpg</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapeau du texte qui apparait dans la vignette du billet sur le menu"</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co"># comments:</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#   hypothesis: true</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> billet_exemple_references.bib</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>Les seules informations à modifier par l’auteur sont les
+suivantes:</p>
+<ul>
+<li>title:</li>
+<li>author:
+<ul>
+<li>name:</li>
+<li>url:</li>
+</ul>
+</li>
+<li>categories:</li>
+<li>description:</li>
+</ul>
+<p>Dans le cas où l’auteur aurait d’autres affiliation, il conviendrait
+de modifier également les deux lignes suivantes:</p>
+<ul>
+<li>affiliation:</li>
+<li>affiliation-url:</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="rédaction-du-document">Rédaction du document<a class="anchor" aria-label="anchor" href="#r%C3%A9daction-du-document"></a>
+</h2>
+<p>La rédaction peut se faire sur Rstudio en mode source ou en mode
+visual (en haut à gauche de la fenêtre). Le mode source montre le code
+tel qu’il est écrit, tandis que le mode visual procède à donner un rendu
+visuel qui s’approche de celui final (<em>What You See Is What You
+Get</em>). Le mode visuel intègre un menu qui permet d’accéder aux
+différentes commandes de mise en forme via une interface
+ergonomique.</p>
+<p>Les templates suivants</p>
+<div class="section level3">
+<h3 id="gestion-des-notes-de-bas-de-page-et-des-références-bibliographiques">Gestion des notes de bas de page et des références
+bibliographiques<a class="anchor" aria-label="anchor" href="#gestion-des-notes-de-bas-de-page-et-des-r%C3%A9f%C3%A9rences-bibliographiques"></a>
+</h3>
+<p>L’ajout de notes de bas de page se fait via la commande suivante sous
+Quarto <code>[^]</code> et comprends deux manières. Une première où est
+intégré dans le texte une balise <code>[^]</code> associée à un repère
+(un numéro) et auquel est ensuite associé une note de bas de page. La
+seconde est l’intégration directe de la note de bas de page au sein de
+la balise <code>[^]</code> (Exemple 2).</p>
+<pre class="quarto"><code># Exemple 1
+«Mademoiselle Albertine est revenue!»[^1]
+
+[^1]: Elle n'a jamais été perdue.
+
+# Exemple 2
+
+«Mademoiselle Albertine est revenue!»[^Elle n'a jamais été perdue.]
+</code></pre>
+</div>
+<div class="section level3">
+<h3 id="gestion-des-références-bibliographiques">Gestion des références bibliographiques<a class="anchor" aria-label="anchor" href="#gestion-des-r%C3%A9f%C3%A9rences-bibliographiques"></a>
+</h3>
+<p>Les citations sont indiqué par le caractère <code>@</code> suivi de
+la référence bibliographique du bibtex de l’article à citer.</p>
+<pre class="quarto"><code>Comme la souffrance va plus loin en psychologie que la psychologie [@ryan1991vanishing]
+
+avec le BibteX dans le fichier .bib associé au billet: 
+  
+@book{ryan1991vanishing,
+  title={The vanishing subject: early psychology and literary modernism},
+  author={Ryan, Judith},
+  year={1991},
+  publisher={University of Chicago Press}
+}
+</code></pre>
+<p>Comme la souffrance va plus loin en psychologie que la psychologie
+<span class="citation">[@ryan1991vanishing]</span></p>
+<p>L’auteur pourra se référer à l’<a href="https://quarto.org/docs/authoring/footnotes-and-citations.html" class="external-link">aide
+en ligne Quarto</a> pour des explications complémentaires sur ces deux
+points.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="transmission-au-responsable-du-blog-et-circuit-de-relecture">Transmission au responsable du blog et circuit de relecture<a class="anchor" aria-label="anchor" href="#transmission-au-responsable-du-blog-et-circuit-de-relecture"></a>
+</h2>
+<div class="section level3">
+<h3 id="procédure-principale-via-github">Procédure principale via Github<a class="anchor" aria-label="anchor" href="#proc%C3%A9dure-principale-via-github"></a>
+</h3>
+<p>La transmission du billet au responsable du blog doit se faire
+directement sur le <a href="https://github.com/OFCE/Blog_OFCE" class="external-link">repo du
+blog</a> du <a href="https://github.com/OFCE" class="external-link">Github de l’OFCE</a> à
+l’aide d’un <code>pull request</code>, et en assignant le responsable
+(pour plus d’information, voir la page <a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests" class="external-link">suivante</a>).
+Ce dernier aura ensuite la charge de l’organisation du circuit de
+relecture (pour plus d’information, voir la page
+<code>blog_reviewers</code>).</p>
+</div>
+<div class="section level3">
+<h3 id="procédure-alternative-et-de-dernier-recours">Procédure alternative et de dernier recours<a class="anchor" aria-label="anchor" href="#proc%C3%A9dure-alternative-et-de-dernier-recours"></a>
+</h3>
+<p>La transmission du billet au responsable du blog s’effectue par un
+envoi du <strong>dossier</strong> du billet comprenant l’ensemble des
+élements nécessaires à sa compilation (le document <code>.qmd</code>, le
+fichier de références <code>.bib</code>, les images et les données):</p>
+<p><em>Dossier du billet en format</em> <code>.qmd</code></p>
+<pre><code>├── Billet.qmd              // Document texte du billet
+├── figures/                // Dossier des images utilisées dans le document
+│   ├── IMG_01.png          // fichier image 1
+│   └── ...                 // fichier image ...
+├── data/                   // Dossier des dataset associés aux graphiques
+│   ├── dataset_01.csv      // fichier csv 1
+│   └── ...                 // fichier csv ...
+└── billet_references.bib   // fichier des citations en format .bibtex</code></pre>
+<p>L’organisation de la relecture et du versionnage du document se fait
+sur une branche Github dédiée. L’auteur se verra notifier par mail des
+évolutions du statut du document, et le cas échéant de l’intégration des
+remarques et commentaires. Une fois le processus de relecture aboutit,
+le responsable pourra accepter le pull_request, et introduire la version
+finalisée du billet sur la branche principale à partir de laquelle le
+site est généré.</p>
+<p>PS: Dans le cas où des modifications ultérieures devraient être
+apportées, l’auteur devra réitérer la même procédure de pull_request que
+pour la soumission initiale, et ce sera au responsable de s’assurer de
+leur intégration à la branche principale.</p>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
