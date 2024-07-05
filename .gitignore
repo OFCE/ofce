@@ -12,3 +12,5 @@ wp2_files
 /.luarc.json
 
 /.quarto/
+docs
+inst/doc

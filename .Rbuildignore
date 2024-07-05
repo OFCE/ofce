@@ -8,3 +8,6 @@ svg
 ^docs$
 
 ^_extensions$
+^_pkgdown\.yml$
+^pkgdown$
+^\.github$

@@ -1,0 +1,19 @@
+---
+title: "Recommandations pour les graphiques OFCE"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Recommandations pour les graphiques OFCE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ofce)
+```

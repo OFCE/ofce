@@ -39,7 +39,12 @@ Imports:
     usethis,
     utils,
     zip
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 License: GPL (>= 3)
 Depends: 
     R (>= 2.10)
+URL: https://ofce.github.io/ofce/
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
