@@ -1,6 +1,30 @@
 url: https://ofce.github.io/ofce/
 template:
   bootstrap: 5
+  theme: breeze-light
+  bslib:
+    base_font: {google: "Open Sans"}
+    heading_font: {google: "Open Sans"}
+    code_font: {google: "Fira Code"}
 
 deploy:
   install_metadata: true
+
+components:
+   articles:
+    text: Articles
+    menu:
+    - text: Sites dédiés
+      href: articles/site.html
+    - text: Le blog
+      href: articles/blog.html
+    - text: -------
+    - text: Premiers pas en Quarto
+      href: articles/quarto.html
+    - text: Graphiques
+      href: articles/graphiques.html
+    - text: Tableaux
+      href: articles/tableaux.html
+    - text: -------
+    - text: Outils
+      href: articles/outils.html

@@ -22,11 +22,11 @@ Les sites dédiés sont un ensemble de documents autour d'un sujet. Le site s'in
 
 Un site dédié se compose donc :
 
-1.  d'un nom de domaine le reliant au site de l'OFCE et lui donnant son propre espace
+1.  d'un nom de domaine le reliant au site de l'OFCE et lui donnant son propre espace et son identification.
 
-2.  d'un dépôt github sur le compte OFCE, accessible sur [github.com](https://github.com/ofce). Les contributeurs ont le droit d'écriture, il y a un ou plusieurs administrateurs. Les administrateurs assurent la publication du site, le fonctionnement du travail. Ce dépôt est accessible à l'ensemble des membres du compet OFCE en lecture et ils peuvent s'en inspirer pour d'autres travaux
+2.  d'un dépôt github sur le compte OFCE, accessible sur [github.com](https://github.com/ofce). Les contributeurs ont le droit d'écriture, il y a un ou plusieurs administrateurs. Les administrateurs assurent la publication du site, le fonctionnement du travail. Ce dépôt est accessible à l'ensemble des membres du compet OFCE en lecture et ils peuvent s'en inspirer comme point de départ pour d'autres travaux.
 
-3.  de contenus, c'est-à-dire de documents `.qmd`, avec des graphiques, si possible en `{ggplot2}` (voir la `vignette("graphiques")`), interactifs (`{ggiraph}`) dont les données sont téléchargeables et dont les codes sont accessibles (reproductibilité et transparence). La tableaux sont préférablement en `{gt}` (voir la vignette sur les tableaux `vignette("tableaux")`).
+3.  de contenus, c'est-à-dire de documents `.qmd` (voir `vignette("quarto")`) avec des graphiques, si possible en `{ggplot2}` (voir la `vignette("graphiques")`), interactifs (`{ggiraph}`) dont les données sont téléchargeables `{downloadthis}` et dont les codes sont accessibles (reproductibilité et transparence). La tableaux sont préférablement en `{gt}` (voir la vignette sur les tableaux `vignette("tableaux")`).
 
 4.  d'une structure (des menus, une hiérarchie) qui est spécifiée dans un fichier particulier : `_quarto.yml` (ou le iamèle). Ce fichier contient également plein d'éléments généraux, comme le titre du site, son numéro Google Analytics, des instructions pour la mise en page, etc.
 
@@ -34,7 +34,7 @@ Un site dédié se compose donc :
 
 Le blog de l'OFCE sera (le 5/7/2024 le futur est encore de mise) un site dédié, ouvert à tous les contributeurs avec quelques administrateurs permanents. Les règles de cette vignette s'y appliquent donc et la `vignette("blog")` détaille les spécificités.
 
-## Comment contribuer : Pull Request&co
+## Comment contribuer : *pull request*
 
 Pour contribuer nous vous demandons de suivre une procédure stricte. Elle peut paraître compliquée, mais elle est fluide et permet d'éviter des bêtises. En effet, la branche `master` et la branche du site (`gh-pages`) sont protégées : il faut des droits administrateur pour les modifier. Cela évite les mauvaises manipulations et sécurise le site.
 
@@ -42,18 +42,18 @@ Il est possible d'utiliser plusieurs outils pour travailler. Le premier combo es
 
 ### Comment faire ?
 
-1.  créer une branche à partir de `master`. C'est simple avec `github desktop` (`menu branch/new branch`). Cette branche est modifiable par celui qui l'a créée (mais aussi par d'autres, s'il le souhaite, ce qui peut permettre la mise au point). Elle contient une copie de `master` donc vous pouvez tout modifier dedans. Cependant, afin d'éviter le chaos, il est préférable de modifier le contenu pour lequel on est contributeur et s'en tenir à ça. Si vous voulez corriger le contenu d'autres auteurs ou intervenir sur la structure générale c'est bien sûr possible. \
+1.  créer une branche à partir de `master`. C'est simple avec `github desktop` (`menu branch/new branch`). Cette branche est modifiable par celui qui l'a créée (mais aussi par d'autres, s'il le souhaite, ce qui peut permettre la mise au point). Elle contient une copie de `master` donc vous pouvez tout modifier dedans. Cependant, afin d'éviter le chaos, il est préférable de modifier le contenu pour lequel on est contributeur et s'en tenir à ça. Si vous voulez corriger le contenu d'autres auteurs ou intervenir sur la structure générale c'est bien sûr possible.\
     Si vous continuez sur votre branche, elle est sans doute en retard. Vous pouvez la mettre à jour à partir de `master` (menu `branch/Update from master` dans `github desktop`) afin d'éviter de vous trouver trop en retard et Vous pouvez aussi faire un *merge* de `master` dans votre branche. Ne pas le faire va multiplier les conflits et rendre l'inclusion de vos modifications pénibles.
 
-2.  Modifier, ajouter, bricoler et... **tester**. Dans RStudio vous pouvez à tout moment faire un *render* du site (bouton `render`). Si ça ne marche pas dans votre branche, il y a peu de chance que ça s'arrange tout seul en suite. Vous pouvez toujours appeler à l'aide quand ça ne marche pas.
+2.  Modifier, ajouter, bricoler et... **tester**. Dans RStudio vous pouvez à tout moment faire un *render* du site (bouton `render`). Si ça ne marche pas dans votre branche, il y a peu de chance que ça s'arrange tout seul en suite. Vous pouvez toujours appeler à l'aide quand ça ne marche pas. Vérifiez que les liens sont bons, que la mise en page vous convient, etc.
 
-3.  A chaque fois que vous avez franchi une étape dans votre travail, faites un `commit`. Pas besoin nécessairment de le *pusher* (c'est mieux pour sauvegarder ou partager avec quelqu'un ce qu'il y a dans votre branche). Un `commit` c'est une sauvegarde. Avant de lancer une nouvelle tâche, faites le `commit`, ça pourra toujours servir et il n'y a pas d'excès de commit.
+3.  A chaque fois que vous avez franchi une étape dans votre travail, faites un *commit*. Pas besoin nécessairement de le *pusher* (c'est mieux pour sauvegarder ou partager avec quelqu'un ce qu'il y a dans votre branche). Un *commit* c'est une sauvegarde. Avant de lancer une nouvelle tâche, faites le *commit*, ça pourra toujours servir et il n'y a pas d'excès de *commit*.
 
-4.  Quand vous êtes satisfait, vous faites une `pull request` (facile dans `github desktop`, il le propose une fois *pushé* votre dernier `commit`). La `pull request` n'est possible que lorsque tous vos changements sont *commités* et que votre branche est *pushée*. La possibilité de le faire apparaît dans la fenêtre principale de `github desktop` lorsque les conditions sont réunies.
+4.  Quand vous êtes satisfait, vous faites une *pull request* (facile dans `github desktop`, il le propose une fois *pushé* votre dernier *commit*). La *pull request* n'est possible que lorsque tous vos changements sont *commités* et que votre branche est *pushée*. La possibilité de le faire apparaît dans la fenêtre principale de `github desktop` lorsque les conditions sont réunies.
 
-5.  Si vous êtes consciencieux, vous pouvez faire le menu `branch/update from master` avant de faire la `pull request`. Cela permet de vérifier (et de résoudre) les éventuels conflits qui existeraient entre votre branche la branche `master`.
+5.  Si vous êtes consciencieux, vous pouvez vérifier que votre branche est compatible avec `master` et faire le *merge.* Passez par le menu `branch/update from master` avant de faire la `pull request`. Cela permet de vérifier (et de résoudre) les éventuels conflits qui existeraient entre votre branche la branche `master`.
 
-6.  Une fois la `pull request` envoyée, elle va être validée (et les conflits résolus si vous ne l'avez pas fait) puis intégrée à la branche `master` ce qui permettra de mettre à jour le site en ligne et de détruire votre branche. (Pourquoi la détruire ? 1. votre travail est intégré dans `master` donc il est en sécurité, 2. si vous refaites des modifications, **il faut partir de la dernière version disponible**, i.e. `master` et non pas votre branche qui va devenir très en retard).
+6.  Une fois la *pull request* envoyée, elle va être validée par les administrateurs (et les conflits résolus si vous ne l'avez pas fait). Au moment de la *pull request* vous pouvez assigner un *reviewer.* Une fois validée, votre branche est intégrée (*mergée)* à la branche `master` ce qui permettra de mettre à jour le site en ligne et de détruire votre branche. (Pourquoi la détruire ? 1. votre travail est intégré dans `master` donc il est en sécurité, 2. si vous refaites des modifications, **il faut partir de la dernière version disponible**, i.e. `master` et non pas votre branche qui va devenir très en retard).
 
 ## Quelques conseils aux administrateurs de projets
 
@@ -69,4 +69,4 @@ Il est possible d'utiliser plusieurs outils pour travailler. Le premier combo es
 
 6.  N'hésitez pas à la faire la police (`qmd` dans les bons dossiers, `yml` nettoyés, chasse aux chemins absolus. A force, les déviances devraient se réduire.
 
-7.  Répondez rapidement aux `pull request`. On est souvent impatient de voir son travail déployé.
+7.  Répondez rapidement aux *pull request*. On est souvent impatient de voir son travail déployé.
