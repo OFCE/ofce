@@ -9,7 +9,9 @@
 <title>Des sites dédiés • ofce</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Des sites dédiés">
 <meta property="og:description" content="ofce">
@@ -82,19 +84,21 @@ navigateurs.</p>
 <p>Un site dédié se compose donc :</p>
 <ol style="list-style-type: decimal">
 <li><p>d’un nom de domaine le reliant au site de l’OFCE et lui donnant
-son propre espace</p></li>
+son propre espace et son identification.</p></li>
 <li><p>d’un dépôt github sur le compte OFCE, accessible sur <a href="https://github.com/ofce" class="external-link">github.com</a>. Les contributeurs ont le
 droit d’écriture, il y a un ou plusieurs administrateurs. Les
 administrateurs assurent la publication du site, le fonctionnement du
 travail. Ce dépôt est accessible à l’ensemble des membres du compet OFCE
-en lecture et ils peuvent s’en inspirer pour d’autres travaux</p></li>
-<li><p>de contenus, c’est-à-dire de documents <code>.qmd</code>, avec
-des graphiques, si possible en <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> (voir la
-<code><a href="../articles/graphiques.html">vignette("graphiques")</a></code>), interactifs
-(<a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a>) dont les données sont téléchargeables et dont
-les codes sont accessibles (reproductibilité et transparence). La
-tableaux sont préférablement en <a href="https://gt.rstudio.com" class="external-link">gt</a> (voir la vignette sur
-les tableaux <code><a href="../articles/tableaux.html">vignette("tableaux")</a></code>).</p></li>
+en lecture et ils peuvent s’en inspirer comme point de départ pour
+d’autres travaux.</p></li>
+<li><p>de contenus, c’est-à-dire de documents <code>.qmd</code> (voir
+<code><a href="../articles/quarto.html">vignette("quarto")</a></code>) avec des graphiques, si possible en
+<a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> (voir la <code><a href="../articles/graphiques.html">vignette("graphiques")</a></code>),
+interactifs (<a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a>) dont les données sont
+téléchargeables <a href="https://github.com/fmmattioni/downloadthis" class="external-link">downloadthis</a> et dont les codes sont
+accessibles (reproductibilité et transparence). La tableaux sont
+préférablement en <a href="https://gt.rstudio.com" class="external-link">gt</a> (voir la vignette sur les tableaux
+<code><a href="../articles/tableaux.html">vignette("tableaux")</a></code>).</p></li>
 <li><p>d’une structure (des menus, une hiérarchie) qui est spécifiée
 dans un fichier particulier : <code>_quarto.yml</code> (ou le iamèle).
 Ce fichier contient également plein d’éléments généraux, comme le titre
@@ -111,7 +115,7 @@ site dédié, ouvert à tous les contributeurs avec quelques
 administrateurs permanents. Les règles de cette vignette s’y appliquent
 donc et la <code><a href="../articles/blog.html">vignette("blog")</a></code> détaille les spécificités.</p>
 <div class="section level2">
-<h2 id="comment-contribuer-pull-requestco">Comment contribuer : Pull Request&amp;co<a class="anchor" aria-label="anchor" href="#comment-contribuer-pull-requestco"></a>
+<h2 id="comment-contribuer-pull-request">Comment contribuer : <em>pull request</em><a class="anchor" aria-label="anchor" href="#comment-contribuer-pull-request"></a>
 </h2>
 <p>Pour contribuer nous vous demandons de suivre une procédure stricte.
 Elle peut paraître compliquée, mais elle est fluide et permet d’éviter
@@ -149,34 +153,38 @@ modifications pénibles.</p></li>
 RStudio vous pouvez à tout moment faire un <em>render</em> du site
 (bouton <code>render</code>). Si ça ne marche pas dans votre branche, il
 y a peu de chance que ça s’arrange tout seul en suite. Vous pouvez
-toujours appeler à l’aide quand ça ne marche pas.</p></li>
+toujours appeler à l’aide quand ça ne marche pas. Vérifiez que les liens
+sont bons, que la mise en page vous convient, etc.</p></li>
 <li><p>A chaque fois que vous avez franchi une étape dans votre travail,
-faites un <code>commit</code>. Pas besoin nécessairment de le
+faites un <em>commit</em>. Pas besoin nécessairement de le
 <em>pusher</em> (c’est mieux pour sauvegarder ou partager avec quelqu’un
-ce qu’il y a dans votre branche). Un <code>commit</code> c’est une
+ce qu’il y a dans votre branche). Un <em>commit</em> c’est une
 sauvegarde. Avant de lancer une nouvelle tâche, faites le
-<code>commit</code>, ça pourra toujours servir et il n’y a pas d’excès
-de commit.</p></li>
-<li><p>Quand vous êtes satisfait, vous faites une
-<code>pull request</code> (facile dans <code>github desktop</code>, il
-le propose une fois <em>pushé</em> votre dernier <code>commit</code>).
-La <code>pull request</code> n’est possible que lorsque tous vos
-changements sont <em>commités</em> et que votre branche est
-<em>pushée</em>. La possibilité de le faire apparaît dans la fenêtre
-principale de <code>github desktop</code> lorsque les conditions sont
-réunies.</p></li>
-<li><p>Si vous êtes consciencieux, vous pouvez faire le menu
+<em>commit</em>, ça pourra toujours servir et il n’y a pas d’excès de
+<em>commit</em>.</p></li>
+<li><p>Quand vous êtes satisfait, vous faites une <em>pull request</em>
+(facile dans <code>github desktop</code>, il le propose une fois
+<em>pushé</em> votre dernier <em>commit</em>). La <em>pull request</em>
+n’est possible que lorsque tous vos changements sont <em>commités</em>
+et que votre branche est <em>pushée</em>. La possibilité de le faire
+apparaît dans la fenêtre principale de <code>github desktop</code>
+lorsque les conditions sont réunies.</p></li>
+<li><p>Si vous êtes consciencieux, vous pouvez vérifier que votre
+branche est compatible avec <code>master</code> et faire le
+<em>merge.</em> Passez par le menu
 <code>branch/update from master</code> avant de faire la
 <code>pull request</code>. Cela permet de vérifier (et de résoudre) les
 éventuels conflits qui existeraient entre votre branche la branche
 <code>master</code>.</p></li>
-<li><p>Une fois la <code>pull request</code> envoyée, elle va être
-validée (et les conflits résolus si vous ne l’avez pas fait) puis
-intégrée à la branche <code>master</code> ce qui permettra de mettre à
-jour le site en ligne et de détruire votre branche. (Pourquoi la
-détruire ? 1. votre travail est intégré dans <code>master</code> donc il
-est en sécurité, 2. si vous refaites des modifications, <strong>il faut
-partir de la dernière version disponible</strong>,
+<li><p>Une fois la <em>pull request</em> envoyée, elle va être validée
+par les administrateurs (et les conflits résolus si vous ne l’avez pas
+fait). Au moment de la <em>pull request</em> vous pouvez assigner un
+<em>reviewer.</em> Une fois validée, votre branche est intégrée
+(<em>mergée)</em> à la branche <code>master</code> ce qui permettra de
+mettre à jour le site en ligne et de détruire votre branche. (Pourquoi
+la détruire ? 1. votre travail est intégré dans <code>master</code> donc
+il est en sécurité, 2. si vous refaites des modifications, <strong>il
+faut partir de la dernière version disponible</strong>,
 i.e. <code>master</code> et non pas votre branche qui va devenir très en
 retard).</p></li>
 </ol>
@@ -211,7 +219,7 @@ analytics.</p></li>
 <li><p>N’hésitez pas à la faire la police (<code>qmd</code> dans les
 bons dossiers, <code>yml</code> nettoyés, chasse aux chemins absolus. A
 force, les déviances devraient se réduire.</p></li>
-<li><p>Répondez rapidement aux <code>pull request</code>. On est souvent
+<li><p>Répondez rapidement aux <em>pull request</em>. On est souvent
 impatient de voir son travail déployé.</p></li>
 </ol>
 </div>

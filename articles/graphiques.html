@@ -9,7 +9,9 @@
 <title>Recommandations pour les graphiques OFCE • ofce</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Recommandations pour les graphiques OFCE">
 <meta property="og:description" content="ofce">
@@ -75,9 +77,191 @@
 
     
     
+<p>Pour les graphiques on dispose de plusieurs options :
+<a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>, copier-coller, fichier image.</p>
+<div class="section level2">
+<h2 id="les-trois-méthodes">Les trois méthodes<a class="anchor" aria-label="anchor" href="#les-trois-m%C3%A9thodes"></a>
+</h2>
+<div class="section level3">
+<h3 id="ggplot2">ggplot2<a class="anchor" aria-label="anchor" href="#ggplot2"></a>
+</h3>
+<p>La façon préférée de faire un graphique est <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>.
+Elle est la plus flexible, permet d’avoir une source unique, peut être
+facilement modifiée (uniformisation, traduction, correction,
+raffinements) et s’intègre parfaitement en html et en pdf.</p>
+<p>Avec un faible coût on peut rendre le graphique interactif (avec
+<a href="https://plotly-r.com" class="external-link">plotly</a> ou <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a>).</p>
+<p>Un graphique <code>ggplot</code> doit contenir une couche (layer)
+<code><a href="../reference/theme_ofce.html">theme_ofce()</a></code> et limiter au maximum les définitions de
+taille (par exemple de police de caractère). Ces définitions doivent
+être faites de façon globale pour assurer l’homogénéité. <strong>Il est
+important de ne pas définir la taille de la figure, ça risque de
+produire des images avec des caractères trop petits</strong>.</p>
+<p>Pour changer les dimensions d’un graphique, il faut utiliser<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;donc on n’utilise pas &lt;code&gt;#| fig-width&lt;/code&gt; ou
+&lt;code&gt;fig-heigth&lt;/code&gt;.&lt;/p&gt;"><sup>1</sup></a>
+<code>#| fig-asp : x</code> ou <code>x</code> est le ratio entre la
+hauteur et la longueur. 0.61 est la valeur par défaut et correspond au
+nombre d’or soit entre 16/9 et 16/10. Pour des graphiques particuliers
+(par exemple deux graphiques empilés ou une carte) on peut mettre 1
+(format carré) ou 1.4 quand on veut prendre toute la page A4.</p>
+<p>Le code d’un graphique <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> :</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ofce.github.io/ofce/">ofce</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span><span class="co">#| label: fig-tauxapp</span></span>
+<span><span class="co">#| fig-cap: Taux de taxation apparent sur le patrimoine des ménages</span></span>
+<span><span class="co">#| fig-asp: 0.61</span></span>
+<span><span class="co"># pas besoin d'en mettre plus, echo, message, warning sont déjà définis</span></span>
+<span><span class="co"># les données sont dans excel -- elles pourraient venir de R ou d'ailleurs</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu">read_xlsx</span><span class="op">(</span><span class="st">"analyses/Tables/patrimoine menages.v2.xlsx"</span>, sheet <span class="op">=</span> <span class="st">"tapp"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"date"</span>, <span class="st">"vn"</span>, <span class="st">"pib"</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span>date <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ym</a></span><span class="op">(</span><span class="fu">str_c</span><span class="op">(</span><span class="va">date</span>, <span class="st">"-01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">vn</span>, <span class="va">pib</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">name</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vn"</span>, <span class="st">"pib"</span><span class="op">)</span>,</span>
+<span>                       <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"En % de la valeur nette"</span>, <span class="st">"En % du PIB"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>                       </span>
+<span><span class="co"># un ggplot et ses différentes couches</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">value</span>, group <span class="op">=</span> <span class="va">name</span>, col <span class="op">=</span> <span class="va">name</span>, fill <span class="op">=</span> <span class="va">name</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># important utiliser le theme_ofce pour uniformiser l'aspect des graphiques</span></span>
+<span>  <span class="fu"><a href="../reference/theme_ofce.html">theme_ofce</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># scale date est important lorsqu'on présente des données temporelles</span></span>
+<span>  <span class="co"># il faut penser à convertir les dates en dates (as.Date() ou lubridate::ymd() et consorts)</span></span>
+<span>  <span class="co"># c'est important même si les dates ne sont que des années</span></span>
+<span>  <span class="co"># ca permet aussi de mélanger facilement des fréquences différentes</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html" class="external-link">scale_x_date</a></span><span class="op">(</span>date_breaks <span class="op">=</span> <span class="st">"2 years"</span>, date_labels <span class="op">=</span> <span class="st">"%Y"</span>, </span>
+<span>               date_minor_breaks <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># le choix des couleurs est tjrs délicat, Paul Malliet est un maître en la matière</span></span>
+<span>  <span class="co"># uniformiser ses choix de couleurs le long d'un document c'est bien</span></span>
+<span>  <span class="co"># donner une signification à ses couleurs c'est mieux</span></span>
+<span>  <span class="co"># quand en plus c'est harmonieux, c'est PM (plus que mieux ou Paul Malliet)</span></span>
+<span>  <span class="fu">PrettyCols</span><span class="fu">::</span><span class="fu">scale_color_pretty_d</span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, palette <span class="op">=</span> <span class="st">"Summer"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">PrettyCols</span><span class="fu">::</span><span class="fu">scale_fill_pretty_d</span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, palette <span class="op">=</span> <span class="st">"Summer"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"%"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># les sources -- notez qu'on ne met pas de titre au graphique </span></span>
+<span>  <span class="co"># (voir la section références croisées)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span></span>
+<span>         <span class="st">"La fiscalité sur le patrimoine est composée ici de la taxe foncière payée par les ménages, &lt;br&gt;</span></span>
+<span><span class="st">       des droits d'enregistrement sur les transactions immobilières, des droits de mutation sur les successions et les donations et de l'Impôt sur la Fortune Immobilière (ex-ISF)&lt;br&gt;</span></span>
+<span><span class="st">       *Sources* : Insee, calculs OFCE"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="copier-coller">Copier-coller<a class="anchor" aria-label="anchor" href="#copier-coller"></a>
+</h3>
+<p>On peut copier coller un graphique (de word, d’excel, d’ailleurs)
+dans le mode visuel de RStudio. Ça marche mais c’est pas le mieux. Quand
+on copie colle, on fait quelque chose qui ressemble à l’option qui
+suit.</p>
+</div>
+<div class="section level3">
+<h3 id="image-au-format-pngjpegjpgsvg">Image au format png/jpeg/jpg/svg<a class="anchor" aria-label="anchor" href="#image-au-format-pngjpegjpgsvg"></a>
+</h3>
+<p>On peut enregistrer une image (au format que l’on veut,
+<code>quarto</code> accepte pas mal d’options, dont les plus courantes)
+et l’insérer dans le texte. Il y a deux façon de faire soit en
+<code>markdown</code> (dans le qmd, comme un lien ou autre chose), soit
+en utilisant <code>include_graphics</code>. L’intérêt par rapport au
+copier-coller est que si on change le fichier qui contient l’image, à
+chaque <em>render</em> du document, la bonne (la dernière version) image
+sera utilisée. Si on utilise des images venant de <code>eviews</code> 💀
+ou <code>stata</code> 😵, c’est la meilleure méthode.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">[</span><span class="ot">Titre de la figure</span><span class="co">](rep/fig.png)</span></span></code></pre></div>
+<p>Le <strong>répertoire est toujours relatif</strong>.</p>
+<p>(<em>jamais de chemin absolu</em> comme
+“<code>c:/user/machin/montravail/monrepo/monimage.png</code>” parce que
+ça ne marchera pas sur un autre ordinateur et en plus
+<code>github</code> ne copiera pas l’image) et par celui qui contient le
+<code>.qmd</code>. Il est toujours possible de mettre les images dans un
+sous dossier.</p>
+<p>Plus c’est simple et clair, mieux c’est (i.e. gardez les noms courts,
+explicites, pas de majuscules, bien rangés, conservateurs dans
+l’utilisation des caractères <span class="math display">\[pas
+d'accents, pas de blancs, pas de symboles spéciaux\]</span>). Donc
+“<code>donnees/img.png</code>” ou
+“<code>donnees/graphique 1a5.png</code>” ne sont pas des bons noms. Mais
+“<code>figures/revenu.png</code>” ou
+“<code>figures/pib_par_tete.png</code>” sont mieux.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#| label fig-pib2008_2024</span></span>
+<span><span class="co">#| fig-cap: PIB entre 2008 et 2024</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html" class="external-link">include_graphics</a></span><span class="op">(</span><span class="st">"pib2008_2024.png"</span><span class="op">)</span></span></code></pre></div>
+<p>Notez la cohérence des id, nom et titre.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="quelques-exemples-de-graphiques">Quelques exemples de graphiques<a class="anchor" aria-label="anchor" href="#quelques-exemples-de-graphiques"></a>
+</h2>
+<div class="section level3">
+<h3 id="série-temporelle">Série temporelle<a class="anchor" aria-label="anchor" href="#s%C3%A9rie-temporelle"></a>
+</h3>
+<div class="section level4">
+<h4 id="interactif">interactif<a class="anchor" aria-label="anchor" href="#interactif"></a>
+</h4>
+</div>
+<div class="section level4">
+<h4 id="inset-et-zoom">inset et zoom<a class="anchor" aria-label="anchor" href="#inset-et-zoom"></a>
+</h4>
+</div>
+<div class="section level4">
+<h4 id="double-échelle">double échelle<a class="anchor" aria-label="anchor" href="#double-%C3%A9chelle"></a>
+</h4>
+<p>Non mais ca va pas ?</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="graphique-xy">Graphique XY<a class="anchor" aria-label="anchor" href="#graphique-xy"></a>
+</h3>
+<div class="section level4">
+<h4 id="interactif-1">interactif<a class="anchor" aria-label="anchor" href="#interactif-1"></a>
+</h4>
+</div>
+</div>
+<div class="section level3">
+<h3 id="graphiques-en-colonnes-empilées">Graphiques en colonnes empilées<a class="anchor" aria-label="anchor" href="#graphiques-en-colonnes-empil%C3%A9es"></a>
+</h3>
+<div class="section level4">
+<h4 id="interactif-2">interactif<a class="anchor" aria-label="anchor" href="#interactif-2"></a>
+</h4>
+</div>
+<div class="section level4">
+<h4 id="alternatives">alternatives<a class="anchor" aria-label="anchor" href="#alternatives"></a>
+</h4>
+<div class="section level5">
+<h5 id="wafle">wafle<a class="anchor" aria-label="anchor" href="#wafle"></a>
+</h5>
+</div>
+<div class="section level5">
+<h5 id="treemap">treemap<a class="anchor" aria-label="anchor" href="#treemap"></a>
+</h5>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="lollypop">Lollypop<a class="anchor" aria-label="anchor" href="#lollypop"></a>
+</h3>
+<div class="section level4">
+<h4 id="interactif-3">interactif<a class="anchor" aria-label="anchor" href="#interactif-3"></a>
+</h4>
+</div>
+</div>
+<div class="section level3">
+<h3 id="boites-à-moustache">Boites à moustache<a class="anchor" aria-label="anchor" href="#boites-%C3%A0-moustache"></a>
+</h3>
+<div class="section level4">
+<h4 id="interactif-4">interactif<a class="anchor" aria-label="anchor" href="#interactif-4"></a>
+</h4>
+</div>
+</div>
+<div class="section level3">
+<h3 id="cartes">Cartes<a class="anchor" aria-label="anchor" href="#cartes"></a>
+</h3>
+</div>
+</div>
+
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
