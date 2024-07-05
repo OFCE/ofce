@@ -1,0 +1,15 @@
+pandoc: 3.1.11
+pkgdown: 2.0.9
+pkgdown_sha: ~
+articles:
+  blog: blog.html
+  graphiques: graphiques.html
+  outils: outils.html
+  quarto: quarto.html
+  site: site.html
+  tableaux: tableaux.html
+last_built: 2024-07-05T12:46Z
+urls:
+  reference: https://ofce.github.io/ofce/reference
+  article: https://ofce.github.io/ofce/articles
+
