@@ -1,8 +1,8 @@
 ---
-title: "Sous site OFCE thématique"
+title: "Des sites dédiés"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Sous site OFCE thématique}
+  %\VignetteIndexEntry{Des sites dédiés}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,13 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include=FALSE}
 library(ofce)
 ```
 
-# Des sites dédiés
-
-Les sites dédiés sont un ensemble de documents autour d'un sujet. Le site s'intègre (et s'intègrera de mieux en mieux) sur le site principal de l'OFCE, l'objectif étant une fluidité invisible aux yeaux des navigateurs.
+Les sites dédiés sont un ensemble de documents autour d'un sujet. Le site s'intègre (et s'intègrera de mieux en mieux) sur le site principal de l'OFCE, l'objectif étant une fluidité invisible aux yeux des navigateurs.
 
 Un site dédié se compose donc :
 
@@ -28,7 +26,7 @@ Un site dédié se compose donc :
 
 2.  d'un dépôt github sur le compte OFCE, accessible sur [github.com](https://github.com/ofce). Les contributeurs ont le droit d'écriture, il y a un ou plusieurs administrateurs. Les administrateurs assurent la publication du site, le fonctionnement du travail. Ce dépôt est accessible à l'ensemble des membres du compet OFCE en lecture et ils peuvent s'en inspirer pour d'autres travaux
 
-3.  de contenus, c'est-à-dire de documents `.qmd`, avec des graphiques, si possible en `{ggplot}` (voir la `vignette("graphiques")`), interactifs (`{ggiraph}`) dont les données sont téléchargeables et dont les codes sont accessibles (reproductibilité et transparence). La tableaux sont préférablement en `{gt}` (voir la vignette sur les tableaux `vignette("tableaux")`).
+3.  de contenus, c'est-à-dire de documents `.qmd`, avec des graphiques, si possible en `{ggplot2}` (voir la `vignette("graphiques")`), interactifs (`{ggiraph}`) dont les données sont téléchargeables et dont les codes sont accessibles (reproductibilité et transparence). La tableaux sont préférablement en `{gt}` (voir la vignette sur les tableaux `vignette("tableaux")`).
 
 4.  d'une structure (des menus, une hiérarchie) qui est spécifiée dans un fichier particulier : `_quarto.yml` (ou le iamèle). Ce fichier contient également plein d'éléments généraux, comme le titre du site, son numéro Google Analytics, des instructions pour la mise en page, etc.
 
