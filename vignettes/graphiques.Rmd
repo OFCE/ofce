@@ -18,9 +18,13 @@ knitr::opts_chunk$set(
 library(ofce)
 ```
 
-Pour les graphiques on dispose de plusieurs options : `{ggplot2}`, copier-coller, fichier image.
+Dans cette (longue) vignette, les recommandations pour les graphiques sont détaillées.
+
+On commence par des éléments généraux (les 3 méthodes), puis des recommandations (une charte graphique) pour les diférents types de graphiques (séries temporelles, catégories, etc) qui sont les plus fréquents.
 
 ## Les trois méthodes
+
+Pour les graphiques on dispose de plusieurs options : `{ggplot2}`, copier-coller, fichier image.
 
 ### ggplot2
 
@@ -30,9 +34,9 @@ Avec un faible coût on peut rendre le graphique interactif (avec `{plotly}` ou 
 
 Un graphique `ggplot` doit contenir une couche (layer) `theme_ofce()` et limiter au maximum les définitions de taille (par exemple de police de caractère). Ces définitions doivent être faites de façon globale pour assurer l'homogénéité. **Il est important de ne pas définir la taille de la figure, ça risque de produire des images avec des caractères trop petits**.
 
-Pour changer les dimensions d'un graphique, il faut utiliser[^readme-1] `#| fig-asp : x` ou `x` est le ratio entre la hauteur et la longueur. 0.61 est la valeur par défaut et correspond au nombre d'or soit entre 16/9 et 16/10. Pour des graphiques particuliers (par exemple deux graphiques empilés ou une carte) on peut mettre 1 (format carré) ou 1.4 quand on veut prendre toute la page A4.
+Pour changer les dimensions d'un graphique, il faut utiliser[^1] `#| fig-asp : x` ou `x` est le ratio entre la hauteur et la longueur. 0.61 est la valeur par défaut et correspond au nombre d'or soit entre 16/9 et 16/10. Pour des graphiques particuliers (par exemple deux graphiques empilés ou une carte) on peut mettre 1 (format carré) ou 1.4 quand on veut prendre toute la page A4.
 
-[^readme-1]: donc on n'utilise pas `#| fig-width` ou `fig-heigth`.
+[^1]: donc on n'utilise pas `#| fig-width` ou `fig-height`.
 
 Le code d'un graphique `{ggplot2}` :
 
@@ -92,9 +96,9 @@ On peut enregistrer une image (au format que l'on veut, `quarto` accepte pas mal
 
 Le **répertoire est toujours relatif**.
 
-(*jamais de chemin absolu* comme "`c:/user/machin/montravail/monrepo/monimage.png`" parce que ça ne marchera pas sur un autre ordinateur et en plus `github` ne copiera pas l'image) et par celui qui contient le `.qmd`. Il est toujours possible de mettre les images dans un sous dossier.
+*Jamais de chemin absolu* comme "`c:/user/machin/montravail/monrepo/monimage.png`" parce que ça ne marchera pas sur un autre ordinateur et en plus `github` ne copiera pas l'image) et par celui qui contient le `.qmd`. Il est toujours possible de mettre les images dans un sous dossier.
 
-Plus c'est simple et clair, mieux c'est (i.e. gardez les noms courts, explicites, pas de majuscules, bien rangés, conservateurs dans l'utilisation des caractères \[pas d'accents, pas de blancs, pas de symboles spéciaux\]). Donc "`donnees/img.png`" ou "`donnees/graphique 1a5.png`" ne sont pas des bons noms. Mais "`figures/revenu.png`" ou "`figures/pib_par_tete.png`" sont mieux.
+Plus c'est simple et clair, mieux c'est (i.e. gardez les noms courts, explicites, pas de majuscules, bien rangés, conservateurs dans l'utilisation des caractères (**pas d'accents, pas de blancs, pas de symboles spéciaux**). Donc `donnees/img.png` ou `donnees/graphique 1a5.png` ne sont pas des bons noms. Mais `figures/revenu.png` ou `figures/pib_par_tete.png` sont mieux.
 
 ``` r
 #| label fig-pib2008_2024
@@ -105,13 +109,197 @@ knitr::include_graphics("pib2008_2024.png")
 
 Notez la cohérence des id, nom et titre.
 
-## Quelques exemples de graphiques
+## Les types de graphiques
 
-### Série temporelle
+### Séries temporelles
 
-#### interactif
+#### données
 
-#### inset et zoom
+Pour les séries temporelles, il y a deux recommandations pour les données :
+
+1.  utilisez le format long pour le graphique. Il peut être plus simple pour calculer des taux de croissance ou des ratios de passer en format large, mais c'est mieux de passer en format long pour la partie graphique, avec une ou plusieurs colonnes pour différencier les lignes. Cela permettra d'associer une couleur à chaque série et une facette à chque pays par exemple.
+
+2.  le champ décrivant les dates doit être en type `date`. ce n'est pas toujours évident quand les séries sont à fréquence annuelle, mais c'est très utile pour mélanger des séries de fréquence irrégulière, pour homogénéiser l'aspect des axes de dates ert mieux maîtriser le formatage des dates. Pour convertir une date en date, soit elle est au format charactere et de type "2022-12-01" et la fonction `base::as.Date()` fonctionne très bien. Sinon, pur les autres cas, le package `{lubridate}` (formation R niv. 1) est très pratique et dispose de plein de fonctions permettant d'absorber beaucoup de cas (les fonctions sont par exemple `lubridate::ymd` `lubridate::dmy` `lubridate::my` etc...).
+
+```{r}
+dates <- c(2023, 2024, 2025)
+as.Date(as.character(dates), format  = "%Y")
+dates <- c("1/2023", "2/2024", "3/2025")
+lubridate::my(dates)
+```
+
+Prenons l'exemple du graphiques sur les spreads (legislatives2024, Blot Gerrolf Plane). Les données sont égénrées par un scrapping sur investing.com (en attendant une solution API sur une banque de données bien faite). Les données se présentent sous la forme.
+
+```{r}
+load("data/spreads.rds")
+spreads
+```
+
+Le fichier est au format long (avec deux modalités pour `pays`), les dates sont au format `<date>`, donc tout va presque bien. La colonne `pays` est un peu brute. On la transforme pour avoir un label plus propre et en facteur, pour contrôler l'ordre (on met France en premier, Italie en second). Il y a plusieurs méthodes pour arriver à ce résultat. Ici, on reste très simple parce qu'il n'y a que deux modalités. Si il y en avait plus de deux (et surtout un grand nombre, possiblement évolutif), on aurait fait quelques manipulations de chaînes et on aurait utilisé le package `{countrycode}` pour transformer les code pays en texte lisible, possiblement traduit dans différentes langues.
+
+```{r}
+library(tidyverse, quietly = TRUE)
+spreads <- spreads |> 
+  mutate(pays = factor( pays, c("spreadfra", "spreadita"), c("France", "Italie")))
+spreads
+```
+
+#### la base
+
+Le graphique de base est alors simple à contruire. On utilise une couche `geom_line` et `geom_point`, une couche `aes` avec comme `x` les dates, `y` les taux et couleurs les pays. Pour `geom_line`, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d'une autre variable).
+
+```{r}
+library(ofce)
+cc <- PrettyCols::prettycols("Summer", n=2)
+date_maj <- "2024-07-01"
+main <- ggplot(spreads) +
+  aes(x=date, y=taux, color=pays, group=pays) +
+  geom_line(linewidth = 0.75, alpha = 0.5) +
+  geom_point(stroke = 0.1, size = 0.75)+
+  scale_color_manual(name = NULL, values = cc) +
+  labs(
+    y="Ecart de taux à 10 ans en %",
+    x=NULL,
+    caption="Source: investing.com") +
+  theme_ofce()+
+  guides(x = guide_axis(minor.ticks = TRUE),
+         y = guide_axis(minor.ticks = TRUE)) +
+  theme(legend.position = "none")+
+  labs(colour=NULL,
+       caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
+  scale_x_date(labels = scales::label_date_short(format = c("%Y")),
+               date_breaks = "5 years")
+main
+```
+
+On utilise la palette `summer` de `{PrettyCols}` (affaire de goût). On utilise la fonction `theme_ofce()` pour homogénéiser la présentation des graphiques. On précise les labels des axes inutile pour `x`, explicite pour `y`. Et la source, en notant que l'on peut utiliser `markdown` dans le texte de la source, ce qui permet de mettre *Source* en italique.
+
+Le recours à `scale_x_date` permet de spécifier facilement le format des dates (avec la syntaxe de `base::strptime()`) et la fonction `scale::label_date_short()` permet un formatage élégant des dates (voir plus bas la partie insert).
+
+On ajoute au graphique des annotations. C'est ici faid de façon laborieuse, on peut construire des fonctions (formation R niv. 2) ou utiliser `{esquisse}` ou `{gganotate}` mais ces deux solutions ont des défauts.
+
+#### les annotations
+
+```{r}
+annotations <-  list(
+  annotate(
+    "text", x = as.Date("2013-12-01"), y= 1, 
+    label="France" , color=cc[[1]] , size=3, fontface ="bold"),
+  annotate(
+    "text", x = as.Date("2010-06-01"), y= 3 ,
+    label="Italie" , color=cc[[2]], size=3, fontface ="bold"),
+  annotate(
+    "text", 
+    x = as.Date("2009-12-01"), 
+    y= 5 , 
+    label="Crise des dettes souveraines\n26 juillet 2012 : Mario Draghi \n 'Whatever it takes'" ,
+    color= "grey33", 
+    size=2,
+    hjust=1),
+  annotate(
+    "segment", 
+    x = as.Date("2010-03-01"), 
+    xend = as.Date("2011-07-01"), 
+    y = 5, 
+    yend = 4.6, 
+    colour = "grey33",
+    linewidth=0.25,
+    arrow= arrow(length = unit(4, "point"))),
+  annotate(
+    "text",
+    x = as.Date("2017-9-01"),
+    y= 4.5 ,
+    size = 2,
+    label="4 mars 2018 : Élections italiennes\n1er juin : gouvernement de coalition" ,
+    color= "grey33"),
+  annotate(
+    "segment",
+    x = as.Date("2017-09-01"), 
+    xend = as.Date("2018-05-01"), 
+    y = 4.2,
+    yend = 3,
+    colour = "grey33", 
+    linewidth=0.25, 
+    arrow=arrow(length = unit(4, "point"))),
+  annotate(
+    "text",
+    x = as.Date("2022-01-01"), 
+    hjust = 1, 
+    y= 0.8, 
+    label="Annonce de la dissolution" , 
+    color= "grey33",
+    size=2),
+  annotate(
+    "segment",
+    x = as.Date("2022-03-01"), 
+    xend = as.Date("2024-04-01"), 
+    y = 0.8, 
+    yend = 0.7, 
+    colour = "grey33",
+    linewidth=0.25,
+    arrow= arrow(length = unit(4, "point"))))
+
+main + annotations
+```
+
+Le résultat est intéressant, mais le graphique a cependant un défaut, il y a trop de points, ce qui est du à la fréquence quotidienne et donc il perd en clarté. On va donc faire deux choses : réduire la fréquence en agrégeant les données par mois, puis on va ajouter un insert.
+
+#### fréquence mensuelle et insert
+
+Pour construire les données à la fréquence mensuelle, on va créer un champ de date, mais retenant une seule date par mois (au milieu du mois).
+
+```{r}
+dates <- spreads$date
+lubridate::day(dates) <- 15
+spreads_m <- spreads |> 
+  mutate( date = dates) |> 
+  group_by(date, pays) |> 
+  summarize(taux_max = max(taux, na.rm=TRUE),
+            taux_min = min(taux, na.rm=TRUE),
+            taux = mean(taux, na.rm=TRUE))
+spreads_m
+```
+
+On peut alors facilement modifier le graphique `main` en utilisant `%+%` (cette instruction modifie les données en entrée du graphique par le nouveau jeu de données qu'on vient de construire qui a exactement la même structure, comme on a utilisé les dates le passage du quotidien au mensuel se fait automatiquement, les axes sont parfaitement construits) :
+
+```{r}
+main %+% spreads_m
+```
+
+L'insert est le même graphique, en enlevant les annotations, en simplifiant les axes et en zoomant sur les deux derniers mois.
+
+```{r}
+inset <- ggplot(spreads) +
+  aes(x=date, y=taux, color=pays, group=pays) +
+  geom_vline(xintercept = as.Date("2024-06-09"),
+             linewidth = 0.1,
+             color = "grey50") +
+  geom_line( linewidth = 0.25, alpha=0.75) +
+  geom_point(stroke = 0.1, size = .75)+
+  guides(color = "none") +
+  scale_color_manual(name = NULL, values = cc) +
+  theme_ofce(base_size = 7,
+             axis.line.x = element_blank(),
+             axis.line.y = element_blank(),
+             plot.background = element_rect(fill = "white")) + 
+  scale_x_date(labels = scales::label_date_short(format = c("%Y", "%B")),
+               date_breaks = "1 month",
+               limits = c(Sys.Date()-months(2), NA)) +
+  ylim(c(0, 2)) + xlab(NULL) +ylab(NULL) 
+inset
+```
+
+On l'insère dans le graphique principal en utilisant `{patchwork}`, ce qui donne le graphique, plus lisible et plus élégant.
+
+```{r}
+library(patchwork)
+main <- (main + annotations) %+% spreads_m
+main  + inset_element(inset, 0.75, 0.5, 1, 1)
+```
+
+#### Interactif
+
+La dernière étape est l'interctaivité. On utilise le package `{ggiraph}` qui va permettre d'intégrer des tooltips très simplement et très efficacement. On peut aussi avec des sélections dyanamiques ou encore des zooms.
 
 #### double échelle
 

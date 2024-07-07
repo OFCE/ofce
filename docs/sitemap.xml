@@ -1,138 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ofce.github.io/ofce/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/articles/blog.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/articles/graphiques.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/articles/outils.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/articles/quarto.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/articles/site.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/articles/tableaux.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/add_label_unit.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/add_logo_ofce.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/add_logo_ofce_inside.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/annotate2.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/f2si2.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/graph2jpg.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/graph2png.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/graph2svg.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/if2si2.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/make_filename.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/ofce_palette.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/ofce_palette_div.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/ofce_palette_pays.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/ofce_palette_seq.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/setup_blog.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/setup_english.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/setup_french.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/setup_pres.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/setup_quarto.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/setup_RStudio.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/setup_wp.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/set_faicon_reveal.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/set_fontsize_reveal.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/set_justify.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/showMemoryUse.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/table_ofce.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/theme.gt_ofce.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/theme_foundation.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/theme_ofce.2.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/theme_ofce.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/theme_ofce_void.html</loc>
-  </url>
-  <url>
-    <loc>https://ofce.github.io/ofce/reference/uf2si2.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ofce.github.io/ofce/404.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/LICENSE-text.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/LICENSE.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/articles/blog.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/articles/graphiques.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/articles/index.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/articles/outils.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/articles/quarto.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/articles/site.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/articles/tableaux.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/authors.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/index.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/add_label_unit.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/add_logo_ofce.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/add_logo_ofce_inside.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/annotate2.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/f2si2.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/graph2jpg.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/graph2png.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/graph2svg.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/if2si2.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/index.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/make_filename.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_palette.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_palette_div.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_palette_pays.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_palette_seq.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/set_faicon_reveal.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/set_fontsize_reveal.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/set_justify.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_RStudio.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_blog.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_english.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_french.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_pres.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_quarto.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_wp.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/showMemoryUse.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/table_ofce.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/theme.gt_ofce.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/theme_foundation.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/theme_ofce.2.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/theme_ofce.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/theme_ofce_void.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/uf2si2.html</loc></url>
 </urlset>
+
