@@ -11,3 +11,6 @@ svg
 ^_pkgdown\.yml$
 ^pkgdown$
 ^\.github$
+^vignettes/*_files$
+vignettes/*.html⁠
+^vignettes/*

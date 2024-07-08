@@ -15,9 +15,9 @@ setup_quarto(dir = ".", quiet = FALSE)
 Installe gentiment les extensions quarto suivantles templates OFCE
 Trois templates sont prévus et s'insèrent dans un yml (ou dans la section yml) comme suit
 format:
-  ofce-html: default # on peut ajouter tous les champs html
-  ofce-pdf: default # pour les pdf, à affiner
-  ofce-revealjs: default # pour les présentations
+ofce-html: default # on peut ajouter tous les champs html
+ofce-pdf: default # pour les pdf, à affiner
+ofce-revealjs: default # pour les présentations
 }
 \details{
 Il est possible de spécifier toutes les éléments habituels des formats sous jacents par la syntaxe habituelle

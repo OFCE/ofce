@@ -1,0 +1,579 @@
+---
+title: "Le package `{OFCE}`"
+subtitle: "*C'est vraiment pas compliqué*"
+author:
+  - name: Paul Malliet
+  - name: Anissa Saumtally
+  - name: Xavier Timbeau
+date: today
+lang: fr
+vignette: >
+  %\VignetteIndexEntry{Outils}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+library(knitr)
+library(tidyverse) 
+library(showtext) 
+library(ofce)
+
+opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.pos="H", 
+  out.extra="",
+  dev="ragg_png",
+  fig.showtext=TRUE,
+  cache=FALSE)
+
+showtext_opts(dpi=200)
+showtext_auto()
+```
+
+# Introduction
+
+## Rappel sur les packages R
+
+<br>
+
+-   un package est une librairie de fonctions développées par les utilisateurs de R dans le but d'ajouter des fonctionnalités à R
+
+```{r}
+#| code-fold: true
+#| code-summary: "Commandes de base pour les packages"
+#| eval: false
+#| echo: true
+
+## on les installe avec :
+
+install.packages("NOM_DU_PACKAGE")
+
+## on y fait appel avec
+
+library("NOM_DU_PACKAGE")
+
+## Référence à une fonction d'un package spécifique
+
+NOM_DU_PACKAGE::la_super_fonction()
+
+
+```
+
+-   On les trouve :
+
+    -   sur le CRAN : il s'agit d'un répertoire "officiel" des packages. Ils répondent à de hautes exigences qui font que ces packages sont fiables
+
+    -   sur GitHub : généralement pour les packages en développement
+
+    -   via des canaux privés : le package est transmis directement au format `.tar.gz` ou `.zip`. Attention à la source, peu de garanties sur leur utilisation
+
+## `{pak}` : une alternative pour les gens "cool" (Xavier)
+
+-   Le package `{pak}` permet une installation simplifiée des packages à la fois provenant du CRAN et de GitHub (il gère mieux les conflits de version et dépendances)
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: true
+
+install.packages("pak")
+
+
+```
+
+-   Exemple d'utilisation sur un package du CRAN
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: true
+
+pak::pak("tidyverse")
+
+
+```
+
+-   Exemples d'utilisation sur un package sur GitHub
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: true
+
+
+pak::pak("nom_utilisateur_git/nom_du_package")
+
+pak::pak("1961Shivani/hypothesis") ## un package random sur GitHub
+
+pak::pak("ThreeME-org/ermeeth") ## le package de l'équipe ThreeME trop stylé
+
+```
+
+## Package OFCE : Pourquoi ?
+
+<br>
+
+-   Rassembler les outils développés en interne à l'OFCE :
+
+    -   harmoniser les pratiques (templates de documents, chartes graphiques, thèmes graphiques)
+
+    -   partager les outils développés par chacun pour faciliter l'utilisation de R
+
+    <i class="fa-solid fa-arrow-right"></i> Gain de temps conséquent ! Promis!
+
+-   Où le trouver ?
+
+    -   <i class="fa-brands fa-github"></i> : <https://github.com/OFCE/ofce.git>
+
+-   Rassembler les outils développés en interne à l'OFCE :
+
+    -   harmoniser les pratiques (*patrons* de documents, chartes graphiques, thèmes graphiques)
+
+    -   partager les outils développés par chacung pour faciliter l'utilisation de R
+
+## Installation du package
+
+:::: panel-tabset
+### 1. R {.tabset}
+
+-   Vérifier que la version de R est à jour (au moins 4.4.0)
+
+```{r}
+#| eval: true
+#| echo: true
+
+R.version$version.string
+
+
+```
+
+-   télécharger et installer la dernière version de R
+
+    -   <https://cran.r-project.org>
+
+-   télécharger et installe Rtools 43 (pour être compatible avec R 4.3.x)
+
+    -   <https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html>
+
+-   (sur Windows) Activer cette version `tools/Global Options`
+
+-   Installer R Studio (mais ça vous l'avez déjà, n'est-ce pas ?)
+
+    -   <https://posit.co/products/open-source/rstudio/>
+
+### 2. Quarto {.tabset}
+
+-   Il faut installer Quarto (l'application) **au moins la version 1.5**
+
+    -   <https://quarto.org/docs/download/>
+
+-   <https://quarto.org/docs/download/>
+
+```{r}
+#| code-fold: true
+#| code-summary: "Commandes de base pour les packages"
+#| eval: true
+#| echo: false
+#| fig-align: center
+#| 
+knitr::include_graphics("images/dl_quarto.png")
+```
+
+-   Installer le package `{quarto}`
+
+```{r}
+#| echo: true
+#| eval: false
+
+pak::pak("quarto")
+```
+
+-   Installer l'extension fontawesome (via le terminal)
+
+```{r}
+#| echo: true
+#| eval: false
+
+quarto add quarto-ext/fontawesome
+```
+
+### 3. `{ofce}` {.tabset}
+
+::: incremental
+-   Le package `{ofce}` est hébergé sur le compte GitHub de l'OFCE
+
+    -   ...Donc ?
+
+```{r}
+#| code-fold: true
+#| eval: false
+#| echo: true
+
+pak::pak("OFCE/ofce")
+
+```
+
+-   ![](images/juju.jpg){fig-align="center"}
+:::
+::::
+
+# les templates Quarto
+
+## Résumé des fonctions
+
+<br>
+
+Quelque part, sont ajoutés tous les éléments pour le `yaml`, des bouts de code html, latex pour faire le document. Tout se trouve dans `_extension`s.
+
+<br> On l'ajoute dans le dossier où se trouve le `qmd` et on fait référence dans le `yaml` avec les lignes :
+
+<br>
+
+``` bash
+---
+format:
+   wp-html: default
+   wp-pdf: default
+---
+```
+
+## Les différents types de document
+
+-   *working paper* : ajoute le dossier `_extensions` et fait un document exemple que l'on peut modifier\
+    `setup_wp()` ou pour le faire dans un dossier spécifique `setup_wp("mon_dossier")`
+
+-   *blog* : `setup_blog()`
+
+-   *présentation* : `setup_pres()`
+
+-   pour appliquer à un `qmd` existant\
+    `setup_quarto()` (ne fait que remettre `_extensions` à jour)
+
+Il est possible de spécifier
+
+-   des paramètres dans le `yaml`
+
+-   d'ajouter des filtres lua
+
+-   de modifier les codes `html`, `latex`, `scss`
+
+## Demo Time !
+
+<iframe src="https://giphy.com/embed/XreQmk7ETCak0" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen>
+
+</iframe>
+
+<p><a href="https://giphy.com/gifs/retro-thumbs-up-XreQmk7ETCak0">via GIPHY</a></p>
+
+# theme_ofce
+
+-   Le package 'ofce' contient plusieurs fonctions associées à la réalisation d'un graphe sous R en **format publiable**
+
+-   Les modifications apportées peuvent se distinguer en trois groupes:
+
+    -   Les modifications de thème: tout ce qui a a attrait aux différents élements du graphe (axes, fond, légende...)
+    -   La modification des couleurs utilisées
+    -   L'ajout d'élements exterieurs supplémentaires hors thème
+
+## Faire un graphique sous R
+
+### Un graphique basique
+
+```{r}
+#| label: fig-bar
+#| fig-cap: Un graphe simple de type `geom_bar`
+#| echo: TRUE
+#| eval: FALSE
+
+# create a dataset
+countries <- c(rep("Espagne" , 3) , rep("France" , 3) , rep("Allemagne" , 3) , rep("Italie" , 3) )
+condition <- rep(c("food index" , "drink index" , "beauty index") , 4)
+value <- abs(rnorm(12 , 0 , 15))
+data <- data.frame(countries,condition,value)
+ 
+# Grouped
+p <- ggplot(data, aes(fill=condition, y=value, x=countries)) + 
+    geom_bar(position="dodge", stat="identity")
+p
+
+```
+
+## Faire un graphique sous R
+
+### Un graphique basique
+
+```{r}
+#| label: fig-bar_p
+#| fig-cap: Un graphe simple de type `geom_bar`
+#| echo: FALSE
+#| eval: TRUE
+
+# create a dataset
+countries <- c(rep("Espagne" , 3) , rep("France" , 3) , rep("Allemagne" , 3) , rep("Italie" , 3) )
+condition <- rep(c("food index" , "drink index" , "beauty index") , 4)
+value <- abs(rnorm(12 , 0 , 15))
+data <- data.frame(countries,condition,value)
+ 
+# Grouped
+p <- ggplot(data, aes(fill=condition, y=value, x=countries)) + 
+    geom_bar(position="dodge", stat="identity")
+p
+
+```
+
+## Faire un graphique sous R
+
+### Ajout du theme `ofce`
+
+```{r}
+#| label: fig-bar2
+#| fig-cap: Ajout d'un theme 'ofce' et manipulations sur les fonctions themes
+#| echo: TRUE
+#| eval: FALSE
+
+p + theme_ofce()
+
+p <- p +
+   theme_ofce() +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom") + 
+  labs(x = element_blank(),
+       # y = element_blank()
+       y = "Note sur 100"
+       )
+p
+```
+
+## Faire un graphique sous R
+
+### Ajout du theme `ofce`
+
+```{r}
+#| label: fig-bar2_p
+#| fig-cap: Ajout d'un theme 'ofce' et manipulations sur les fonctions themes
+#| echo: FALSE
+#| eval: TRUE
+
+p + theme_ofce()
+
+p <- p +
+   theme_ofce() +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom") + 
+  labs(x = element_blank(),
+       # y = element_blank()
+       y = "Note sur 25"
+       )
+p
+```
+
+## Faire un graphique sous R
+
+### Changement des couleurs
+
+::: panel-tabset
+### Ex.1 {.tabset}
+
+```{r}
+#| label: fig-bar3.1
+#| fig-cap: utilisation de palettes séquentielle (p1) et divergente(P2)
+#| echo: TRUE
+#| eval: TRUE
+
+
+# Une palette 'basique' ofce_palette
+p <- p + scale_fill_manual(values = ofce::ofce_palette(n=3))
+p
+
+
+```
+
+### Ex.2 {.tabset}
+
+```{r}
+#| label: fig-bar3.2
+#| fig-cap: utilisation de palettes séquentielle (p1) et divergente(P2)
+#| echo: TRUE
+#| eval: TRUE
+
+
+# Une palette 'sequentielle' ofce_palette_seq
+p1 <- p + scale_fill_manual(values = ofce::ofce_palette_seq(n=3))
+p1
+
+
+
+```
+
+### Ex.3 {.tabset}
+
+```{r}
+#| label: fig-bar3.3
+#| fig-cap: utilisation de palettes séquentielle (p1) et divergente(P2)
+#| echo: TRUE
+#| eval: TRUE
+
+
+
+# Une palette 'divergente' ofce_palette_div
+p2 <- p + scale_fill_manual(values = ofce::ofce_palette_div(n=3))
+p2
+
+
+```
+:::
+
+## Faire un graphique sous R
+
+### Ajout d'un logo
+
+```{r}
+#| label: fig-bar4
+#| fig-cap: Ajout d'un logo (image)
+#| echo: TRUE
+#| eval: FALSE
+
+
+ 
+# Soit à l'exterieur du graphique
+p %>% add_logo_ofce()
+
+# Soit à l'intérieur du graphique
+p %>% add_logo_ofce_inside()
+
+
+```
+
+## Faire un graphique sous R
+
+### Ajout d'un logo
+
+```{r}
+#| label: fig-bar4_p
+#| fig-cap: Ajout d'un logo (image)
+#| echo: FALSE
+#| eval: TRUE
+
+
+ 
+# Soit à l'exterieur du graphique
+p1 <- p %>% add_logo_ofce()
+
+# Soit à l'intérieur du graphique
+p2 <- p %>% add_logo_ofce_inside()
+
+# Regrouper les deux graphiques
+ggpubr::ggarrange(p1,p2)
+```
+
+# Autres fonctionnalités
+
+## Exporter un graphique
+
+<br>
+
+Ces trois fonctions aident à exporter un graphique. Elles utilisent `showtext` pour assurer la bonne sortie des caractères à la bonne taille
+
+-   `graph2png(graph, file="", rep="svg", ratio = 4/3, dpi = 600)`
+
+pour un texte imprimé (A4), un bon ratio est 4/3, pour une présentation (16/10). Pour une carte ratio 1.
+
+-   `graph2svg`
+
+-   `graph2jpg`
+
+## f2si2
+
+<br>
+
+cette fonction sert à appliquer le Système International pour produire une chaîne de caractère compacte et lisible en utilisant des puissance de 1 000 et une notation standardisée (k, M, G, T, ...).
+
+Pratique pour les messages ou les échelles.
+
+```{r, echo=TRUE}
+ofce::f2si2(c(2000000, 3000000), digits = 2) 
+ofce::f2si2(c(142010, 2000000, 100.1928), digits = 2) 
+purrr::map_chr(c(142010, 2000000, 0.1928), ofce::f2si2)
+ofce::uf2si2(c(1100,1110,2000,2100))
+```
+
+## Préférences de RStudio
+
+<br>
+
+la fonction `setup_RStudio()` force les préférences de RStudio à être :
+
+-   pas de `save` de `.Rdata`
+
+-   utilisation du "pipe natif"
+
+-   utilisation du moteur graphique `ragg`
+
+-   thème "iPlastic" (peut être un autre thème avec `theme="Unautretheme"`)
+
+-   console à droite
+
+-   et quelques autres
+
+## Evolutivité du package `{ofce}`
+
+![](images/weneedyou.png){fig-align="center"}
+
+## Conclusion : pour résumer
+
+::: incremental
+-   On installe R, RStudio, Quarto, le package `{ofce}`
+
+<br>
+
+-   Un joli working paper en quarto prend 15 secondes avec `setup_wp`
+
+<br>
+
+-   Une présentation un peu moderne prend 10 secondes avec `setup_pres`
+
+<br>
+
+-   La mise en forme d'un graphique ggplot prend 5 secondes avec `theme_ofce()`
+
+<br>
+
+-   Le package `{ofce}` peut être encore meilleur grâce à vous !
+:::
+
+## Alors ?
+
+![](images/blow-mind-mind-blown.gif){fig-align="center"}
+
+## Prochaines étapes
+
+<br>
+
+-   package encore en évolution : signalez vos difficultés, les bugs, vos souhaits
+-   modèle de documents supplémentaires (policy brief, rapport)
+
+<!-- -->
+
+-   définition d'une charte graphique du site web (html) aux documents (pdf)
+-   intégration de la production de documents quarto directement sur le site via un processus simple (github)
+    -   blogs
+
+    -   documents de travail
+
+    -   policy brief
+
+## Merci pour votre attention
+
+<iframe src="https://giphy.com/embed/lD76yTC5zxZPG" width="480" height="352" frameBorder="0" class="giphy-embed" allowFullScreen>
+
+</iframe>
+
+<p><a href="https://giphy.com/gifs/the-end-thats-all-folks-lD76yTC5zxZPG">via GIPHY</a></p>
+
+## Références
+
+::: {#refs}
+:::

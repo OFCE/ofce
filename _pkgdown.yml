@@ -1,32 +1,27 @@
 url: https://ofce.github.io/ofce/
+
 template:
   bootstrap: 5
-  bootswatch: cosmo
-  theme: github-light
-  bslib:
-    base_font: {google: "Open Sans"}
-    heading_font: {google: "Open Sans"}
-    code_font: {google: "Fira Code"}
 
 deploy:
   install_metadata: true
 
 navbar:
+  structure:
+     left: [reference, guides, charte, news]
+
   components:
-     articles:
-      text: Articles
+    guides:
+      text: Guides
       menu:
-      - text: Sites dédiés
-        href: articles/site.html
-      - text: Le blog
-        href: articles/blog.html
-      - text: -------
-      - text: Premiers pas en Quarto
-        href: articles/quarto.html
-      - text: Graphiques
-        href: articles/graphiques.html
-      - text: Tableaux
-        href: articles/tableaux.html
-      - text: -------
-      - text: Outils
-        href: articles/outils.html
+        - text: Le Blog
+          href: articles/blog.html
+        - text: Outils
+          href: articles/outils.html
+        - text: Faire un graphique
+          file: articles/graphiques.html
+    charte:
+      text: Chartes graphiques
+      menu:
+        - text: Séries temporelles
+          href: articles/temporelles.html

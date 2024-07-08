@@ -1,2 +1,5 @@
+*_files
+
+/.quarto/
 *.html
 *.R

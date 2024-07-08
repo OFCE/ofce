@@ -6,7 +6,6 @@ Author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
 Maintainer: The package maintainer <xavier.timbeau@sciencespo.fr>
 Description: procure quelques fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue.
     Apporte des templates de rédaction sous quarto.
-Encoding: UTF-8
 LazyData: true
 Imports: 
     cli,
@@ -39,7 +38,6 @@ Imports:
     usethis,
     utils,
     zip
-RoxygenNote: 7.3.2
 License: GPL (>= 3)
 Depends: 
     R (>= 2.10)
@@ -47,4 +45,11 @@ URL: https://ofce.github.io/ofce/
 Suggests: 
     knitr,
     rmarkdown
-VignetteBuilder: knitr
+VignetteBuilder: 
+    quarto
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+SystemRequirements: Quarto command line tools
+    (https://github.com/quarto-dev/quarto-cli).

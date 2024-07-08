@@ -14,7 +14,10 @@ Les templates existants (hébergés sur le repo [ofce-quarto-extensions](https:/
 
 ## Utilisation
 
-La présentation du 13 Novembre en séminaire lunch présente les principales fonctionnalités inclues dans le package (accessible via ce [lien](https://ofce.github.io/ofce/)). 
+La présentation du 13 Novembre en séminaire lunch est une rapide introduction au package (reproduite via ce [lien](https://ofce.github.io/ofce/)). 
+
 Pour une description plus complète, vous pouvez lancez la commande suivante dans la console RStudio qui recense l'ensemble des fonctions du package : `library(help="ofce")` ou `?nom_de_la_function`.
+
+Sur le [site qui documente le package](https://ofce.github.io/ofce/)) vous trouverez des documents détaillant tous les aspects de l'utilisation du package et de la réalisation de documents à l'OFCE -- les chartes graphiques.
 
 

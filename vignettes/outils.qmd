@@ -1,0 +1,9 @@
+---
+title: "Outils"
+vignette: >
+  %\VignetteIndexEntry{Outils}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## blabla
