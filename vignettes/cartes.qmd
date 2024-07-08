@@ -1,0 +1,13 @@
+---
+title: "Cartes"
+vignette: >
+  %\VignetteIndexEntry{Cartes}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Données
+
+## Carte de base
+
+## Interactivité

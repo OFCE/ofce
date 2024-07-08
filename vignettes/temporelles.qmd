@@ -6,7 +6,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## données
+## Données
 
 Pour les séries temporelles, il y a deux recommandations pour les données :
 
@@ -15,8 +15,16 @@ Pour les séries temporelles, il y a deux recommandations pour les données :
 2.  le champ décrivant les dates doit être en type `date`. ce n'est pas toujours évident quand les séries sont à fréquence annuelle, mais c'est très utile pour mélanger des séries de fréquence irrégulière, pour homogénéiser l'aspect des axes de dates ert mieux maîtriser le formatage des dates. Pour convertir une date en date, soit elle est au format charactere et de type "2022-12-01" et la fonction `base::as.Date()` fonctionne très bien. Sinon, pur les autres cas, le package `{lubridate}` (formation R niv. 1) est très pratique et dispose de plein de fonctions permettant d'absorber beaucoup de cas (les fonctions sont par exemple `lubridate::ymd` `lubridate::dmy` `lubridate::my` etc...).
 
 ```{r}
+library(ofce)
+library(tidyverse, quietly = TRUE, verbose = FALSE)
+source("rinit.r")
+
 dates <- c(2023, 2024, 2025)
 as.Date(as.character(dates), format  = "%Y")
+
+# si on veut préciser le moment de l'année
+as.Date(str_c(dates, "-01-01"))
+
 dates <- c("1/2023", "2/2024", "3/2025")
 lubridate::my(dates)
 ```
@@ -24,20 +32,19 @@ lubridate::my(dates)
 Prenons l'exemple du graphiques sur les spreads (legislatives2024, Blot Gerrolf Plane). Les données sont égénrées par un scrapping sur investing.com (en attendant une solution API sur une banque de données bien faite). Les données se présentent sous la forme.
 
 ```{r}
-library(ofce)
-library(tidyverse, quietly = TRUE)
 spreads
 ```
 
 Le fichier est au format long (avec deux modalités pour `pays`), les dates sont au format `<date>`, donc tout va presque bien. La colonne `pays` est un peu brute. On la transforme pour avoir un label plus propre et en facteur, pour contrôler l'ordre (on met France en premier, Italie en second). Il y a plusieurs méthodes pour arriver à ce résultat. Ici, on reste très simple parce qu'il n'y a que deux modalités. Si il y en avait plus de deux (et surtout un grand nombre, possiblement évolutif), on aurait fait quelques manipulations de chaînes et on aurait utilisé le package `{countrycode}` pour transformer les code pays en texte lisible, possiblement traduit dans différentes langues.
 
 ```{r}
-spreads <- spreads |> 
+spreads_data <- spreads |>
+  distinct(date, pays, .keep_all = TRUE) |> 
   mutate(pays = factor( pays, c("spreadfra", "spreadita"), c("France", "Italie")))
 spreads
 ```
 
-## la base du graphique
+## La base du graphique
 
 Le graphique de base est alors simple à contruire. On utilise une couche `geom_line` et `geom_point`, une couche `aes` avec comme `x` les dates, `y` les taux et couleurs les pays. Pour `geom_line`, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d'une autre variable).
 
@@ -45,21 +52,20 @@ Le graphique de base est alors simple à contruire. On utilise une couche `geom_
 library(ofce)
 cc <- PrettyCols::prettycols("Summer", n=2)
 date_maj <- "2024-07-01"
-main <- ggplot(spreads) +
-  aes(x=date, y=taux, color=pays, group=pays) +
-  geom_line(linewidth = 0.75, alpha = 0.5) +
-  geom_point(stroke = 0.1, size = 0.75)+
-  scale_color_manual(name = NULL, values = cc) +
-  labs(
-    y="Ecart de taux à 10 ans en %",
-    x=NULL,
-    caption="Source: investing.com") +
+main <- ggplot(spreads_data) +
+  aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
+  geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
+  geom_point(stroke = 0.2, size = 1, col = "white", shape = 21, show.legend = FALSE)+
+  scale_color_manual(aesthetics = c("fill", "color"), 
+                     name = NULL, values = cc) +
   theme_ofce()+
   guides(x = guide_axis(minor.ticks = TRUE),
          y = guide_axis(minor.ticks = TRUE)) +
-  theme(legend.position = "none")+
-  labs(colour=NULL,
-       caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
+  labs(
+    y="Ecart de taux à 10 ans en %",
+    x=NULL,
+    colour=NULL,
+    caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
   scale_x_date(labels = scales::label_date_short(format = c("%Y")),
                date_breaks = "5 years")
 main
@@ -71,7 +77,7 @@ Le recours à `scale_x_date` permet de spécifier facilement le format des dates
 
 On ajoute au graphique des annotations. C'est ici faid de façon laborieuse, on peut construire des fonctions (formation R niv. 2) ou utiliser `{esquisse}` ou `{gganotate}` mais ces deux solutions ont des défauts.
 
-## les annotations
+## Les annotations
 
 ```{r}
 annotations <-  list(
@@ -142,9 +148,10 @@ Le résultat est intéressant, mais le graphique a cependant un défaut, il y a 
 Pour construire les données à la fréquence mensuelle, on va créer un champ de date, mais retenant une seule date par mois (au milieu du mois).
 
 ```{r}
-dates <- spreads$date
+dates <- spreads_data$date
+# on force le jour à être le 15 du mois, il n'y aura qu'une date par mois!
 lubridate::day(dates) <- 15
-spreads_m <- spreads |> 
+spreads_m <- spreads_data |> 
   mutate( date = dates) |> 
   group_by(date, pays) |> 
   summarize(taux_max = max(taux, na.rm=TRUE),
@@ -159,18 +166,11 @@ On peut alors facilement modifier le graphique `main` en utilisant `%+%` (cette 
 main %+% spreads_m
 ```
 
+\
 L'insert est le même graphique, en enlevant les annotations, en simplifiant les axes et en zoomant sur les deux derniers mois.
 
 ```{r}
-inset <- ggplot(spreads) +
-  aes(x=date, y=taux, color=pays, group=pays) +
-  geom_vline(xintercept = as.Date("2024-06-09"),
-             linewidth = 0.1,
-             color = "grey50") +
-  geom_line( linewidth = 0.25, alpha=0.75) +
-  geom_point(stroke = 0.1, size = .75)+
-  guides(color = "none") +
-  scale_color_manual(name = NULL, values = cc) +
+inset <- main  + 
   theme_ofce(base_size = 7,
              axis.line.x = element_blank(),
              axis.line.y = element_blank(),
@@ -178,22 +178,83 @@ inset <- ggplot(spreads) +
   scale_x_date(labels = scales::label_date_short(format = c("%Y", "%B")),
                date_breaks = "1 month",
                limits = c(Sys.Date()-months(2), NA)) +
-  ylim(c(0, 2)) + xlab(NULL) +ylab(NULL) 
+  geom_vline(xintercept = as.Date("2024-06-09"),
+             linewidth = 0.1,
+             color = "grey50") +
+  ylim(c(0, 2)) +
+  labs(y= NULL, caption=NULL, color = NULL, fill = NULL)
 inset
 ```
 
-On l'insère dans le graphique principal en utilisant `{patchwork}`, ce qui donne le graphique, plus lisible et plus élégant.
+On l'insère dans le graphique principal en utilisant `{patchwork}`, ce qui donne le graphique, plus lisible et plus élégant. Les paramètres de `inset` sont choisis après quelques essais et erreurs.
 
 ```{r}
 library(patchwork)
-main <- (main + annotations) %+% spreads_m
-main  + inset_element(inset, 0.75, 0.5, 1, 1)
+main_m <- (main + annotations) %+% spreads_m
+main_m  + inset_element(inset, 0.75, 0.5, 1, 1)
 ```
 
 ## Interactif
 
-La dernière étape est l'interctaivité. On utilise le package `{ggiraph}` qui va permettre d'intégrer des tooltips très simplement et très efficacement. On peut aussi avec des sélections dyanamiques ou encore des zooms.
+La dernière étape est l'interactivité. On utilise le package `{ggiraph}` qui va permettre d'intégrer des *tooltips* très simplement et très efficacement. On peut aussi avec des sélections dynamiques ou encore des zooms.
+
+Pour ajouter l'interactivité, la première étape est de générer le texte des *tooltips* dans le tableau de données. Notez l'utilisation de `lubridate::stamp_date()` pour formater les dates simplement
+
+```{r}
+f_taux <- function(x) {
+  str_replace(str_c(signif(x,3),"%"), "\\.", ",")
+}
+spreads_m <- spreads_m |>
+ mutate(
+    tooltip = str_c("<b>", pays, "</b><br>",
+                    stamp_date("24/7/2024",  locale = "fr_FR.utf8", quiet = TRUE)(date),
+                    "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)))
+```
+
+L'interactivité est alors ajoutée par des instructions spécifiques qui se substituent aux `geom_*` en ajoutant un suffix, `geom_*_interactive`. Ces `geom_*_interactive` acceptent un `aes` avec deux paramètres supplémentaire, le premier définissant le `tooltip` et le second, `data_id`, une variable qui relie les éléments graphiques entre eux pour qu'ils soient modifiés lors du survol avec la souris. La fonction `girafy` qui est définie par `source("rinit.r")` et finalise le rendu. `{ggiraph}` conserve tous les éléments du graphique et il est possible de l'appliquer avec `{patchwork}` pour combiner les interactivités.
+
+```{r}
+library(ggiraph)
+main_i <- ggplot(spreads_m) +
+  aes(x=date, y=taux, color=pays, group=pays, fill = pays) +
+  geom_line(linewidth = 0.75, alpha = 0.5) +
+  geom_point_interactive(aes(tooltip = tooltip, data_id = date), 
+                         stroke = 0.1, size = 1, col = "white", shape = 21, hover_nearest = TRUE)+
+  scale_color_manual(name = NULL, values = cc, aesthetics = c("fill", "color")) +
+  labs(
+    y="Ecart de taux à 10 ans en %",
+    x=NULL,
+    caption="Source: investing.com") +
+  theme_ofce()+
+  guides(x = guide_axis(minor.ticks = TRUE),
+         y = guide_axis(minor.ticks = TRUE)) +
+  theme(legend.position = "none")+
+  labs(colour=NULL,
+       caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
+  scale_x_date(labels = scales::label_date_short(format = c("%Y", "%B")),
+               date_breaks = "5 years")
+
+girafy(main_i, r=3)
+```
+
+La clef pour l'interactivité est d'apporter de l'information à l'utilisateur par le texte du *tooltip*. Il est possible d'avoir des interactivités plus avancées, en déclenchant une action sur un click par exemple. L'approche par `{ggiraph}` est applicable à de nombreux graphiques.
 
 ## double échelle
 
 Non mais ca va pas ?
+
+## dygraphs
+
+Il est possible d'utiliser un autre package poru l'interactivité. Il s'utilise asez simplement et présente l'avantage d'intégrer un *slider* de date. Il est pratique pour les fréquences élevées mais est moins général pour la personnalisation du graphique. Il ne fonctionne qu'avec les séries temporelles.
+
+```{r}
+library(dygraphs)
+dyspreads <- spreads_data |> 
+  pivot_wider(id_cols = date, names_from = pays, values_from = taux)
+
+dygraph(dyspreads) |> 
+  dyOptions(colors = cc, drawGrid = FALSE) |> 
+  dyRangeSelector(height = 30)
+```
+
+## D'autres exemples de graphiques

@@ -1,0 +1,100 @@
+title: Format OFCE
+author: Anissa Saumtally et Xavier Timbeau
+version: 0.2.0
+quarto-required: ">=1.4.300"
+contributes:
+  formats:
+    common:
+      toc: true
+      lang: fr
+      french: true
+      language:
+        fr:
+          section-title-references: "Bibliograhie"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
+          toc-title: "Sur cette page"
+      fig-asp: 0.61
+      cap-location: top
+      citation:
+        type: article-journal
+      crossref:
+        fig-prefix: figure
+        tbl-prefix: tableau
+        eq-prefix: équation
+        sec-prefix: section
+        tip-prefix: encadré
+        fig-title: "**Figure**"
+        tip-title: "**Encadré**"
+        title-delim: "**.**"
+        tbl-title: "**Tableau**"
+        lof-title: Figures
+        lot-title: Tableaux
+      logo: ofce.png
+      filters:
+        - nameref
+        - quotes
+        - search-replace
+        - fr-nbsp
+        - collapse-callout
+      quot-lang: fr
+      collapse-callout:
+        tip: true
+      shortcodes:
+        - fontawesome
+        - downloadthis
+        - wordcount 
+      search-replace:
+        ae : "\u00e6"
+      google-scholar: true
+      appendix-style: default
+      appendix-cite-as: [display, bibtex]
+      license: CC BY
+      csl: csl/revue-francaise-de-gestion.csl
+    html:
+      theme: 
+        - cosmo
+        - html_template/ofcewp.scss
+      mainfont: Open Sans
+      toc-location: left
+      number-sections: true
+      number-depth: 3
+      html-math-method: katex
+      fig-dpi: 600
+      fig-format: png
+      fig-width: 6
+      reference-location: margin
+      logo: ofce_m.png
+      callout-icon: false
+      lightbox: true
+      title-block-style: default
+      template-partials:
+        - html_template/title-block.html
+        - html_template/title-metadata.html
+        - html_template/toc.html
+    pdf:
+      documentclass: scrreprt
+      toc-depth: 1
+      pdffont: OpenSans
+      number-sections: true
+      number-depth: 3
+      classoption:
+        - DIV=11
+        - twoside=semi
+      papersize: a4
+      fontsize: 9pt
+      linestretch: 1.25
+      extra_dependencies: ["float"]
+      fig-dpi: 600
+      fig-width: 5
+      fig-format: png
+      logo: ofce_m.png
+      logo2: sciencespo.png
+      template-partials:
+        - pdf_template/title.tex
+        - pdf_template/before-body.tex
+        - pdf_template/after-body.tex
+        - pdf_template/toc.tex
+        - pdf_template/biblio.tex

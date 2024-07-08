@@ -32,18 +32,25 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../articles/blog.html">Le Blog</a></li>
+<li><a class="dropdown-item" href="../articles/site.html">Sites dédiés</a></li>
+    <li><a class="dropdown-item" href="../articles/blog.html">Le Blog</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">Ecrire un texte en quarto</a></li>
+    <li><a class="dropdown-item" href="../articles/graphiques.html">Faire un graphique</a></li>
+    <li><a class="dropdown-item" href="../articles/tableaux.html">Faire un tableau</a></li>
     <li><a class="dropdown-item" href="../articles/outils.html">Outils</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Faire un graphique</h6></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-chartes-graphiques" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Chartes graphiques</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-chartes-graphiques">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-biblioth-que-graphique" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Bibliothèque graphique</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-biblioth-que-graphique">
 <li><a class="dropdown-item" href="../articles/temporelles.html">Séries temporelles</a></li>
+    <li><a class="dropdown-item" href="../articles/xy.html">Graphiques XY</a></li>
+    <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
+    <li><a class="dropdown-item" href="../articles/distributions.html">Distributions</a></li>
+    <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -75,13 +82,9 @@
 
 
 
-    <p>Dans cette (longue) vignette, les recommandations pour les graphiques sont détaillées.</p>
-<p>On commence par des éléments généraux (les 3 méthodes), puis des recommandations (une charte graphique) pour les diférents types de graphiques (séries temporelles, catégories, etc) qui sont les plus fréquents.</p>
-<section class="level2"><h2 id="les-trois-méthodes">Les trois méthodes<a class="anchor" aria-label="anchor" href="#les-trois-m%C3%A9thodes"></a>
+    <p>Il y a au moins trois méthodes pour mettre un graphique dans dans un document quarto : <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>, copier-coller, fichier image.</p>
+<section class="level2"><h2 id="ggplot2">ggplot2<a class="anchor" aria-label="anchor" href="#ggplot2"></a>
 </h2>
-<p>Pour les graphiques on dispose de plusieurs options : <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>, copier-coller, fichier image.</p>
-<section class="level3"><h3 id="ggplot2">ggplot2<a class="anchor" aria-label="anchor" href="#ggplot2"></a>
-</h3>
 <p>La façon préférée de faire un graphique est <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>. Elle est la plus flexible, permet d’avoir une source unique, peut être facilement modifiée (uniformisation, traduction, correction, raffinements) et s’intègre parfaitement en html et en pdf.</p>
 <p>Avec un faible coût on peut rendre le graphique interactif (avec <a href="https://plotly-r.com" class="external-link">plotly</a> ou <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a>).</p>
 <p>Un graphique <code>ggplot</code> doit contenir une couche (layer) <code><a href="../reference/theme_ofce.html">theme_ofce()</a></code> et limiter au maximum les définitions de taille (par exemple de police de caractère). Ces définitions doivent être faites de façon globale pour assurer l’homogénéité. <strong>Il est important de ne pas définir la taille de la figure, ça risque de produire des images avec des caractères trop petits</strong>.</p>
@@ -127,11 +130,11 @@
 <span>         <span class="st">"La fiscalité sur le patrimoine est composée ici de la taxe foncière payée par les ménages, &lt;br&gt;</span></span>
 <span><span class="st">       des droits d'enregistrement sur les transactions immobilières, des droits de mutation sur les successions et les donations et de l'Impôt sur la Fortune Immobilière (ex-ISF)&lt;br&gt;</span></span>
 <span><span class="st">       *Sources* : Insee, calculs OFCE"</span><span class="op">)</span></span></code></pre></div>
-</section><section class="level3"><h3 id="copier-coller">Copier-coller<a class="anchor" aria-label="anchor" href="#copier-coller"></a>
-</h3>
+</section><section class="level2"><h2 id="copier-coller">Copier-coller<a class="anchor" aria-label="anchor" href="#copier-coller"></a>
+</h2>
 <p>On peut copier coller un graphique (de word, d’excel, d’ailleurs) dans le mode visuel de RStudio. Ça marche mais c’est pas le mieux. Quand on copie colle, on fait quelque chose qui ressemble à l’option qui suit.</p>
-</section><section class="level3"><h3 id="image-au-format-pngjpegjpgsvg">Image au format png/jpeg/jpg/svg<a class="anchor" aria-label="anchor" href="#image-au-format-pngjpegjpgsvg"></a>
-</h3>
+</section><section class="level2"><h2 id="image-au-format-pngjpegjpgsvg">Image au format png/jpeg/jpg/svg<a class="anchor" aria-label="anchor" href="#image-au-format-pngjpegjpgsvg"></a>
+</h2>
 <p>On peut enregistrer une image (au format que l’on veut, <code>quarto</code> accepte pas mal d’options, dont les plus courantes) et l’insérer dans le texte. Il y a deux façon de faire soit en <code>markdown</code> (dans le qmd, comme un lien ou autre chose), soit en utilisant <code>include_graphics</code>. L’intérêt par rapport au copier-coller est que si on change le fichier qui contient l’image, à chaque <em>render</em> du document, la bonne (la dernière version) image sera utilisée. Si on utilise des images venant de <code>eviews</code> 💀 ou <code>stata</code> 😵, c’est la meilleure méthode.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Titre de la figure</span><span class="co">](rep/fig.png)</span></span></code></pre></div>
 <p>Le <strong>répertoire est toujours relatif</strong>.</p>
@@ -143,7 +146,10 @@
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html" class="external-link">include_graphics</a></span><span class="op">(</span><span class="st">"pib2008_2024.png"</span><span class="op">)</span></span></code></pre></div>
 <p>Notez la cohérence des id, nom et titre.</p>
-</section></section><script id="quarto-html-after-body" type="application/javascript">
+</section><section class="level2"><h2 id="les-autres-packages">Les autres packages<a class="anchor" aria-label="anchor" href="#les-autres-packages"></a>
+</h2>
+<p>On peut faire des graphiques avec d’autres packages dans R, voire même utiliser base R. Nous ne recommandons pas cette voie, parce qu’elle rend très difficile l’harmonisation des graphiques et les fonctionnalités avancées. Parfois, cependant, il n’y a pas d’autres solutions.</p>
+</section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

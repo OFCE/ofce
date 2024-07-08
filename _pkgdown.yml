@@ -14,14 +14,29 @@ navbar:
     guides:
       text: Guides
       menu:
+        - text: Sites dédiés
+          href: articles/site.html
         - text: Le Blog
           href: articles/blog.html
+        - text: Ecrire un texte en quarto
+          href: articles/quarto.html
+        - text: Faire un graphique
+          href: articles/graphiques.html
+        - text: Faire un tableau
+          href: articles/tableaux.html
         - text: Outils
           href: articles/outils.html
-        - text: Faire un graphique
-          file: articles/graphiques.html
     charte:
-      text: Chartes graphiques
+      text: Bibliothèque graphique
       menu:
         - text: Séries temporelles
           href: articles/temporelles.html
+        - text: Graphiques XY
+          href: articles/xy.html
+        - text: Barres empilées, wafle, treemap, lollypop
+          href: articles/categories.html
+        - text: Distributions
+          href: articles/distributions.html
+        - text: Cartes
+          href: articles/cartes.html
+

@@ -1,12 +1,19 @@
-pandoc: 3.1.12.3
+pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   blog: blog.html
+  cartes: cartes.html
+  categories: categories.html
+  distributions: distributions.html
   graphiques: graphiques.html
   outils: outils.html
+  quarto: quarto.html
+  site: site.html
+  tableaux: tableaux.html
   temporelles: temporelles.html
-last_built: 2024-07-08T10:20Z
+  xy: xy.html
+last_built: 2024-07-08T15:21Z
 urls:
   reference: https://ofce.github.io/ofce/reference
   article: https://ofce.github.io/ofce/articles

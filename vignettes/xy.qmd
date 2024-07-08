@@ -1,0 +1,13 @@
+---
+title: "Graphiques XY"
+vignette: >
+  %\VignetteIndexEntry{Graphiques XY}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Données
+
+## Graphique de base
+
+## Interactivité

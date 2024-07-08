@@ -1,0 +1,167 @@
+---
+title: "Premiers pas avec Quarto"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Premiers pas avec Quarto}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  eval=FALSE
+)
+```
+
+```{r setup}
+library(ofce)
+```
+## Quelques conseils d'écriture et de format
+
+### Au commencement
+
+Tout commence par un `.qmd`. Il doit être placé dans un sous dossier du projet général, pour être rangé de façon compréhensible par tout le monde. Demandez à votre administratrice de projet les règles qu'elle souhaite voir appliquées.
+
+Un exemple de projet est ci-dessous. Il ne respecte pas toutes les règles recommandées, mais c'est souvent comme ça. Notez les fichiers importants :
+
+-   `_quarto.yml` : dans lequel sont spécifiés les options principales et communes ainsi que les menus et la structure du site
+
+-   `index.qmd` qui est la page de démarrage du site et qui doit toujours être à la racine du projet et s'appeler `index.qmd`
+
+-   `rinit.r` qui contient des options par défaut pour les chunks R (c'est important pour le rendu des graphiques)
+
+-   `README.md` qui apparaît sur la première page du projet sur [github.com](https://github.com/ofce/legislatives2024)
+
+-   `_extensions` qui contient tous les *templates* `quarto`, il faut absolument que ce dossier soit présent (et il ne faut pas y toucher).
+
+```         
+legislatives2024
+  _quarto.yml
+  index.qmd
+  about.qmd
+  rinit.r
+  README.md
+  .gitignore
+  _extensions/
+    ofce/
+      ...
+  programmes/
+    rn.qmd
+    nfp.qmd
+    Comparatif programmes législatives 2024.xlsx
+    ...
+  analyses/
+    transition.qmd
+    tissu_productif.qmd
+    ...
+    Tables/
+      Tableau_retraite.xlsx
+      Spreads.xlsx
+      spread.rds
+      ...
+```
+
+Donnez un nom simple (court, explicite, pas de majuscules, pas de caractères spéciaux), pour que le contenu soit clair, mais aussi qu'il soit facile à retaper quelque part si nécessaire. Les noms à rallonge sont donc à proscrire. Tâchez aussi d'éviter la multiplication des versions dans le dossier (dont une seule est ok), si vous avez des déchets, mettez dans un sous dossier spécifique (moi je l'appelle `rkiv`) de façon à garder les vieux morceaux d'essais.
+
+Le `.qmd` est très simple, l'entête `yaml` n'a besoin que d'un champ : le titre. L'auteur est aussi utile, mais pas obligatoire. Pas besoin d'ajouter un format (ils sont communs au site et défini dans `_quarto.yml`), ni d'options spécifiques (définies aussi ailleurs). Eventuellement, on peut ajouter des éléments spécifiques au texte comme le champ `date` ou `keyword` ou `bibliography`.
+
+Notez qu'il n'y pas de section de niveau `header 1`. Ce n'est pas possible parce qu'il y a un titre et que le titre est considéré comme la section `header 1` : une alternative au titre dans le yml est une section de niveau `header 1` ou simple `#`. S'il n'y a pas d'auteur ou d'autre champ, l'ensemble `yml` peut être omis avec simplement le `header 1`.
+
+Dernier petit détail, il faut *sourcer* le fichier `rinit.r`. Ce fichier définit les options par défaut des chunks et permet d'avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. Il faut le mettre au début et à part pour que ces options s'appliquent aux chunks suivants. Si vos graphiques sont moches, si les polices de caractère sont toutes petites, avant d'appeler à l'aide, vérifiez 1. sur `rinit.r` est bien *sourcé* 2. que vous n'avez pas un `fig-width` ou un `fig-heigth` quelque part dans le chunk ou dans le `yml`.
+
+````qmd
+---
+title: Mon texte en qmd
+author: Georgette
+---
+
+`r ''````{r, include=FALSE}
+source("../rinit.r")
+```
+
+## section 1
+ 
+blabla
+
+## section 2
+
+blabla
+````
+
+Gardez vos `yml` les plus simples possibles, c'est le moyen d'assurer l'homogénéité des documents sur le site.
+
+[Quarto.org](https://quarto.org/docs/guide/) est une excellente source d'informations et d'aide sur l'écriture en `markdown` et la variante particulière que nous utilisons ici. La section "Authoring" est à avoir lu au moins une fois.
+
+### les règles typographiques
+
+Grace à `quarto` et un filtre développé par Romain Lesur de l'INSEE, les règles typographiques standards au français sont appliquées automatiquement. Par exemple les guillemets sont mis conformément à la pratique en France «...» à partir du caractère tapé directement ("). Les espaces avant les signes de ponctuation ( : ;) sont remplacés par des demi cadratins et les espaces séparateurs des milliers sont remplacés par des espaces insécables. Pas besoin donc de s'embêter avec ça. Juste, pensez à mettre les espaces avant ":".
+
+Pour un document en anglais, il suffit de rajouter dans le `yml` la langue anglaise pour que la typographie correspondante soit appliquée. Les principaux champs (date, auteur, tableau, figure, graphique) sont aussi traduits.
+
+``` qmd
+---
+title: English Version of the Document
+author: William 
+lang: en
+---
+```
+### Les références croisées
+
+Les références croisées demandent un peu de soin, mais permettent de produire des documents plus propres dans lesquels :
+
+-   La numérotation des tableaux et figures, mais aussi tout autre type de documents (un encadré par ex.) est faite automatiquement. La mise en page est automatisée (avec quelques gains en html), les mots récurrents sont traduits automatiquement.
+
+-   On peut appeler la référence croisée dans le texte. En html, cela créé un lien qui permet de naviguer directement vers la référence croisée.
+
+-   On peut générer des tables des tableaux et des figures.
+
+Le secret d'une référence croisée c'est l'instruction (le tag) `#|` que l'on met en tête d'un chunk. `label` est l'id du document. Il définit le type (`fig` pour un graphique ; `tbl` pour un tableau ; `tip` pour un encadré ; `eq` pour une équation) et après le tiret le nom (sans espace ni tiret) qui sera appelé dans le texte par la séquence `@fig-id` (voir [quarto cross references](https://quarto.org/docs/authoring/cross-references.html) pour plus de détails).
+
+On définit également le titre du graphique qui est donc identifié pour être mis en page, utilisé par ailleurs (par exemple la table des figures) et agrémenté des mots récurrents (par exemple tableau pour un tableau, donc on ne met pas dans le titre tableau ou son numéro).
+
+Pour un graphique (on ne met pas le numéro du graphique dans le titre, c'est fait automatiquement) :
+
+``` r
+#| label: fig-id
+#| fig-cap: Le titre du graphique
+#| fig-asp: 0.8
+```
+
+Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait automatiquement) :
+
+``` r
+#| label: tbl-id
+#| tbl-cap: Le titre du tableau
+```
+
+Pour un encadré, c'est un peu plus compliqué (pour le moment). `tip` est le *hack* pour la catégorie, .callout-tip pour le style. Le champ `collapse` permet de replier l'encadré par défaut et l'option `"false"` (notez les guillemets et les minuscules) permet de le déplier par défaut.
+
+``` qmd
+::: {#tip-id .callout-tip collapse="true"}
+## titre de l'encadré
+texte de l'encadré
+:::
+```
+
+### La bibliographie
+
+Il est très facile d'insérer une bibliogrphie. La première chose est d'indiquer un (ou plusieurs) fichier `.bib` à `quarto` :
+
+``` qmd
+---
+title: Mon titre
+bibliography: references.bib
+---
+```
+
+Le fichier `references.bib` doit être à la racine du projet et contient dans la syntaxe `bibtex` les références. Pour entrer une référence, avec RStudio, il y a plusieurs façon de faire.
+
+1.  Dans RStudio, en mode visuel, on fait insérer une citation. Plusieurs sources sont possibles : Zotero, un DOI, une recherche sur Crossref, etc...
+
+<!-- -->
+
+2.  Directement en copiant dans le `.bib` les références (on peut ainsi utiliser la biblio d'un autre document).
+
+Les appels de références sont alors simplement fait en utilisant @angel2021 où angel2021 est l'id de la référence. L'appel de référence, la biblio sera insérée et formattée automatiquement. Les appels de référence peuvent se mettre également en note de bas de page ou dans un tableau en syntaxe `markdown`.

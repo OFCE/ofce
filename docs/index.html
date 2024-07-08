@@ -35,15 +35,22 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="articles/blog.html">Le Blog</a></li>
+<li><a class="dropdown-item" href="articles/site.html">Sites dédiés</a></li>
+    <li><a class="dropdown-item" href="articles/blog.html">Le Blog</a></li>
+    <li><a class="dropdown-item" href="articles/quarto.html">Ecrire un texte en quarto</a></li>
+    <li><a class="dropdown-item" href="articles/graphiques.html">Faire un graphique</a></li>
+    <li><a class="dropdown-item" href="articles/tableaux.html">Faire un tableau</a></li>
     <li><a class="dropdown-item" href="articles/outils.html">Outils</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Faire un graphique</h6></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-chartes-graphiques" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Chartes graphiques</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-chartes-graphiques">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-biblioth-que-graphique" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Bibliothèque graphique</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-biblioth-que-graphique">
 <li><a class="dropdown-item" href="articles/temporelles.html">Séries temporelles</a></li>
+    <li><a class="dropdown-item" href="articles/xy.html">Graphiques XY</a></li>
+    <li><a class="dropdown-item" href="articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
+    <li><a class="dropdown-item" href="articles/distributions.html">Distributions</a></li>
+    <li><a class="dropdown-item" href="articles/cartes.html">Cartes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -73,12 +80,26 @@
 <div class="section level2">
 <h2 id="mise-à-jour-des-templates-quarto-ofce">Mise à jour des templates quarto OFCE<a class="anchor" aria-label="anchor" href="#mise-%C3%A0-jour-des-templates-quarto-ofce"></a>
 </h2>
-<p>Les templates existants (hébergés sur le repo <a href="https://github.com/OFCE/ofce-quarto-extensions" class="external-link">ofce-quarto-extensions</a>) sont mis-à-jour de manière continue dans un souçi d’amélioration constant. Pour récupérer la dernière version, il suffit de lançer la commande <code>setup_quarto</code>qui installera en local la dernière version des extensions pour votre document.</p>
+<p>Les templates existants (hébergés sur le repo <a href="https://github.com/OFCE/ofce-quarto-extensions" class="external-link">ofce-quarto-extensions</a>) sont mis-à-jour de manière continue dans un souçi d’amélioration constant. Pour récupérer la dernière version, il suffit de lancer la commande <code>setup_quarto</code> qui installera en local la dernière version des extensions pour votre document.</p>
+<p>Les formats disponibles sont :</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>format<span class="sc">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  ofce<span class="sc">-</span>html<span class="sc">:</span> default <span class="co"># une page en html</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  wp<span class="sc">-</span>html<span class="sc">:</span> default <span class="co"># Document de travail en html</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  wp<span class="sc">-</span>pdf<span class="sc">:</span> default <span class="co"># Document de travail en pdf</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  wp<span class="sc">-</span>en<span class="sc">-</span>html<span class="sc">:</span> default <span class="co"># Document de travail html en anglais</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  wp<span class="sc">-</span>en<span class="sc">-</span>html<span class="sc">:</span> default <span class="co"># Document de travail pdf en anglais</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  pres<span class="sc">-</span>revealjs<span class="sc">:</span> default <span class="co"># presentation</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  blog<span class="sc">-</span>html<span class="sc">:</span> default <span class="co"># Post de blog en html</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  blog<span class="sc">-</span>pdf<span class="sc">:</span> default <span class="co"># Post de blog en pdf</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="utilisation">Utilisation<a class="anchor" aria-label="anchor" href="#utilisation"></a>
 </h2>
-<p>La présentation du 13 Novembre en séminaire lunch présente les principales fonctionnalités inclues dans le package (accessible via ce <a href="https://ofce.github.io/ofce/">lien</a>). Pour une description plus complète, vous pouvez lancez la commande suivante dans la console RStudio qui recense l’ensemble des fonctions du package : <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(help="ofce")</a></code> ou <code>?nom_de_la_function</code>.</p>
+<p>La présentation du 13 Novembre en séminaire lunch est une rapide introduction au package (reproduite via ce <a href="https://ofce.github.io/ofce/">lien</a>).</p>
+<p>Pour une description plus complète, vous pouvez lancez la commande suivante dans la console RStudio qui recense l’ensemble des fonctions du package : <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(help="ofce")</a></code> ou <code>?nom_de_la_function</code>.</p>
+<p>Sur le <a href="https://ofce.github.io/ofce/">site qui documente le package</a>) vous trouverez des documents détaillant tous les aspects de l’utilisation du package et de la réalisation de documents à l’OFCE – les chartes graphiques.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">

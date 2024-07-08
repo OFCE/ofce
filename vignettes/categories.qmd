@@ -1,0 +1,13 @@
+---
+title: "Barres empilées, wafle, treemap, lollypop"
+vignette: >
+  %\VignetteIndexEntry{Barres empilées, wafle, treemap, lollypop}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Données
+
+## Graphique de base
+
+## Interactivité

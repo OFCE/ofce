@@ -1,0 +1,13 @@
+---
+title: "Les distributions"
+vignette: >
+  %\VignetteIndexEntry{Les distributions}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Données
+
+## Graphique de base
+
+## Interactivité

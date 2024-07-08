@@ -35,15 +35,22 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../articles/blog.html">Le Blog</a></li>
+<li><a class="dropdown-item" href="../articles/site.html">Sites dédiés</a></li>
+    <li><a class="dropdown-item" href="../articles/blog.html">Le Blog</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">Ecrire un texte en quarto</a></li>
+    <li><a class="dropdown-item" href="../articles/graphiques.html">Faire un graphique</a></li>
+    <li><a class="dropdown-item" href="../articles/tableaux.html">Faire un tableau</a></li>
     <li><a class="dropdown-item" href="../articles/outils.html">Outils</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Faire un graphique</h6></li>
   </ul>
 </li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-chartes-graphiques" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Chartes graphiques</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-chartes-graphiques">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-biblioth-que-graphique" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Bibliothèque graphique</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-biblioth-que-graphique">
 <li><a class="dropdown-item" href="../articles/temporelles.html">Séries temporelles</a></li>
+    <li><a class="dropdown-item" href="../articles/xy.html">Graphiques XY</a></li>
+    <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
+    <li><a class="dropdown-item" href="../articles/distributions.html">Distributions</a></li>
+    <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -75,10 +82,8 @@
 
 
 
-    <section class="section level2"><h2 id="séries-temporelles">Séries temporelles<a class="anchor" aria-label="anchor" href="#s%C3%A9ries-temporelles"></a>
+    <section class="level2"><h2 id="données">données<a class="anchor" aria-label="anchor" href="#donn%C3%A9es"></a>
 </h2>
-<section class="level2"><h3 id="données">données<a class="anchor" aria-label="anchor" href="#donn%C3%A9es"></a>
-</h3>
 <p>Pour les séries temporelles, il y a deux recommandations pour les données :</p>
 <ol type="1">
 <li><p>utilisez le format long pour le graphique. Il peut être plus simple pour calculer des taux de croissance ou des ratios de passer en format large, mais c’est mieux de passer en format long pour la partie graphique, avec une ou plusieurs colonnes pour différencier les lignes. Cela permettra d’associer une couleur à chaque série et une facette à chque pays par exemple.</p></li>
@@ -157,8 +162,8 @@
 # ℹ 10,107 more rows</code></pre>
 </div>
 </div>
-</section><section class="level2"><h3 id="la-base-du-graphique">la base du graphique<a class="anchor" aria-label="anchor" href="#la-base-du-graphique"></a>
-</h3>
+</section><section class="level2"><h2 id="la-base-du-graphique">la base du graphique<a class="anchor" aria-label="anchor" href="#la-base-du-graphique"></a>
+</h2>
 <p>Le graphique de base est alors simple à contruire. On utilise une couche <code>geom_line</code> et <code>geom_point</code>, une couche <code>aes</code> avec comme <code>x</code> les dates, <code>y</code> les taux et couleurs les pays. Pour <code>geom_line</code>, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d’une autre variable).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
@@ -187,6 +192,30 @@
 <pre><code>Warning: Removed 858 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
+not found in Windows font database
+Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
+not found in Windows font database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="temporelles_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
@@ -197,10 +226,10 @@
 <p>On utilise la palette <code>summer</code> de <a href="https://nrennie.rbind.io/PrettyCols/" class="external-link">PrettyCols</a> (affaire de goût). On utilise la fonction <code><a href="../reference/theme_ofce.html">theme_ofce()</a></code> pour homogénéiser la présentation des graphiques. On précise les labels des axes inutile pour <code>x</code>, explicite pour <code>y</code>. Et la source, en notant que l’on peut utiliser <code>markdown</code> dans le texte de la source, ce qui permet de mettre <em>Source</em> en italique.</p>
 <p>Le recours à <code>scale_x_date</code> permet de spécifier facilement le format des dates (avec la syntaxe de <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">base::strptime()</a></code>) et la fonction <code>scale::label_date_short()</code> permet un formatage élégant des dates (voir plus bas la partie insert).</p>
 <p>On ajoute au graphique des annotations. C’est ici faid de façon laborieuse, on peut construire des fonctions (formation R niv. 2) ou utiliser <a href="https://dreamrs.github.io/esquisse/" class="external-link">esquisse</a> ou <code>{gganotate}</code> mais ces deux solutions ont des défauts.</p>
-</section><section class="level2"><h3 id="les-annotations">les annotations<a class="anchor" aria-label="anchor" href="#les-annotations"></a>
-</h3>
+</section><section class="level2"><h2 id="les-annotations">les annotations<a class="anchor" aria-label="anchor" href="#les-annotations"></a>
+</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">annotations</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span></span>
 <span>    <span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2013-12-01"</span><span class="op">)</span>, y<span class="op">=</span> <span class="fl">1</span>, </span>
@@ -264,6 +293,24 @@
 <pre><code>Warning: Removed 858 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="temporelles_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
@@ -272,11 +319,11 @@
 </div>
 </div>
 <p>Le résultat est intéressant, mais le graphique a cependant un défaut, il y a trop de points, ce qui est du à la fréquence quotidienne et donc il perd en clarté. On va donc faire deux choses : réduire la fréquence en agrégeant les données par mois, puis on va ajouter un insert.</p>
-</section><section class="level2"><h3 id="fréquence-mensuelle-et-insert">fréquence mensuelle et insert<a class="anchor" aria-label="anchor" href="#fr%C3%A9quence-mensuelle-et-insert"></a>
-</h3>
+</section><section class="level2"><h2 id="fréquence-mensuelle-et-insert">fréquence mensuelle et insert<a class="anchor" aria-label="anchor" href="#fr%C3%A9quence-mensuelle-et-insert"></a>
+</h2>
 <p>Pour construire les données à la fréquence mensuelle, on va créer un champ de date, mais retenant une seule date par mois (au milieu du mois).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="va">spreads</span><span class="op">$</span><span class="va">date</span></span>
 <span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html" class="external-link">day</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">15</span></span>
 <span><span class="va">spreads_m</span> <span class="op">&lt;-</span> <span class="va">spreads</span> <span class="op">|&gt;</span> </span>
@@ -289,7 +336,7 @@
 <pre><code>`summarise()` has grouped output by 'date'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spreads_m</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 422 × 5
@@ -311,8 +358,26 @@
 </div>
 <p>On peut alors facilement modifier le graphique <code>main</code> en utilisant <code>%+%</code> (cette instruction modifie les données en entrée du graphique par le nouveau jeu de données qu’on vient de construire qui a exactement la même structure, comme on a utilisé les dates le passage du quotidien au mensuel se fait automatiquement, les axes sont parfaitement construits) :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">main</span> <span class="op"><a href="https://ggplot2.tidyverse.org/reference/gg-add.html" class="external-link">%+%</a></span> <span class="va">spreads_m</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="temporelles_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
@@ -322,7 +387,7 @@
 </div>
 <p>L’insert est le même graphique, en enlevant les annotations, en simplifiant les axes et en zoomant sur les deux derniers mois.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">inset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">spreads</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">date</span>, y<span class="op">=</span><span class="va">taux</span>, color<span class="op">=</span><span class="va">pays</span>, group<span class="op">=</span><span class="va">pays</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-06-09"</span><span class="op">)</span>,</span>
@@ -349,6 +414,10 @@
 <pre><code>Warning: Removed 10033 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
+not found in Windows font database</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="temporelles_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
@@ -358,10 +427,14 @@
 </div>
 <p>On l’insère dans le graphique principal en utilisant <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a>, ce qui donne le graphique, plus lisible et plus élégant.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">main</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">main</span> <span class="op">+</span> <span class="va">annotations</span><span class="op">)</span> <span class="op"><a href="https://ggplot2.tidyverse.org/reference/gg-add.html" class="external-link">%+%</a></span> <span class="va">spreads_m</span></span>
 <span><span class="va">main</span>  <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/inset_element.html" class="external-link">inset_element</a></span><span class="op">(</span><span class="va">inset</span>, <span class="fl">0.75</span>, <span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 10033 rows containing missing values or values outside the scale range
 (`geom_line()`).</code></pre>
@@ -370,6 +443,26 @@
 <pre><code>Warning: Removed 10033 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+font family not found in Windows font database</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure><p><img src="temporelles_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
@@ -377,13 +470,13 @@
 </div>
 </div>
 </div>
-</section><section class="level2"><h3 id="interactif">Interactif<a class="anchor" aria-label="anchor" href="#interactif"></a>
-</h3>
+</section><section class="level2"><h2 id="interactif">Interactif<a class="anchor" aria-label="anchor" href="#interactif"></a>
+</h2>
 <p>La dernière étape est l’interctaivité. On utilise le package <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> qui va permettre d’intégrer des tooltips très simplement et très efficacement. On peut aussi avec des sélections dyanamiques ou encore des zooms.</p>
-</section><section class="level2"><h3 id="double-échelle">double échelle<a class="anchor" aria-label="anchor" href="#double-%C3%A9chelle"></a>
-</h3>
+</section><section class="level2"><h2 id="double-échelle">double échelle<a class="anchor" aria-label="anchor" href="#double-%C3%A9chelle"></a>
+</h2>
 <p>Non mais ca va pas ?</p>
-</section></section><script id="quarto-html-after-body" type="application/javascript">
+</section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
