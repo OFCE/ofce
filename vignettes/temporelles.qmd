@@ -346,6 +346,41 @@ girafy(main_i, r=2.5)
 
 La clef pour l'interactivité est d'apporter de l'information à l'utilisateur par le texte du *tooltip*. Il est possible d'avoir des interactivités plus avancées, en déclenchant une action sur un *click* par exemple. L'approche par `{ggiraph}` est applicable simplement à de nombreux graphiques avec un rendu satisfaisant. Cela marche également pour des `facet` et donc ça ouvre beaucoup de possibilités.
 
+## Fréquence trimestrielle
+
+On transforme les données en fréquence trimestrielle en utilisant la fonction `lubridate::floor_date()`.
+
+```{r}
+spreads_q <- spreads_data |> 
+  mutate(date_q = lubridate::floor_date(date, unit="quarter")) |> 
+  group_by(date_q, pays) |> 
+  summarize(taux_max = max(taux, na.rm=TRUE),
+            taux_min = min(taux, na.rm=TRUE),
+            taux = mean(taux, na.rm=TRUE)) |> 
+  rename(date = date_q)
+
+ggplot(spreads_q) +
+  aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
+  geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
+  geom_point(stroke = 0.5, size = 1, 
+             col = "white", shape = 21, show.legend = FALSE)+
+  scale_color_manual(aesthetics = c("fill", "color"), 
+                     name = NULL, values = cc) +
+  theme_ofce()+
+  guides(x = guide_axis(minor.ticks = TRUE),
+         y = guide_axis(minor.ticks = TRUE)) +
+  labs(
+    y="Ecart de taux à 10 ans",
+    x=NULL,
+    colour=NULL,
+    caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
+  scale_x_date(labels = scales::label_date_short(format = c("%y", "%Q")),
+               date_breaks = "1 year", 
+               date_minor_breaks = "1 year",
+               guide = "minor_ticks") +
+  scale_y_continuous(labels = ~str_c(.x, "%"))
+```
+
 ## Double échelle
 
 Non mais ca va pas ?
