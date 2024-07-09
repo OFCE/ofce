@@ -1,12 +1,20 @@
 ---
-title: "charte graphique"
-format: html
-editor: visual
+title: "Charte graphique"
+vignette: >
+  %\VignetteIndexEntry{Charte graphique}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+  
+echo: true
+message: false
+warning: false
+format:
+  html:
+    code-fold: true
+    code-summary: "code"
 ---
 
-L'utilisation de `R` permet l'intégration directe de la charte graphique de l'OFCE directement dans la rédaction du code, que ce soit pour la production de graphiques, ou celle de tables. 
-Cela passe par la définition d'un thème qui en reprends les différents élements et qui est ensuite associé à l'objet `ggplot2` ou `gt`.
-
+L'utilisation de `R` permet l'intégration directe de la charte graphique de l'OFCE directement dans la rédaction du code, que ce soit pour la production de graphiques, ou celle de tables. Cela passe par la définition d'un thème qui en reprends les différents élements et qui est ensuite associé à l'objet `ggplot2` ou `gt`.
 
 ```{r setup, include=FALSE}
 #| echo: false
@@ -15,10 +23,10 @@ library(ofce)
 library(tidyverse)
 ```
 
-
 ## ggplot2
 
-Un graphique ggplot2 par défaut aura le rendu suivant: 
+Un graphique ggplot2 par défaut aura le rendu suivant:
+
 ```{r}
 
 p <- ggplot(iris) + 
@@ -35,19 +43,18 @@ L'ajout de la commande `theme_XXX` permet d'appliquer un thème spécifique au g
 p + theme_classic()
 ```
 
-Un thème spécifique à l'OFCE existe dans le package ofce et permet d'appliquer des modifications de forme qui reprenne les élements de la charte graphique définie par ailleurs. 
+Un thème spécifique à l'OFCE existe dans le package ofce et permet d'appliquer des modifications de forme qui reprenne les élements de la charte graphique définie par ailleurs.
 
 ```{r}
 
 p + ofce::theme_ofce()
 ```
 
-
 ## Palettes de couleur
 
-Il est également possible de spécifier manuellement les couleurs dans un graphe à l'aide de la commande `scale_XXX_manual` [^1], en y associant un vecteur de couleur. 
+Il est également possible de spécifier manuellement les couleurs dans un graphe à l'aide de la commande `scale_XXX_manual` [^1], en y associant un vecteur de couleur.
 
-[^1]: selon le type de `geom` XXX sera soit un `color` (pour `geom_point` et `geom_line`) soit `fill` (pour les graphiques avec des zones à remplir comme `geom_area`). 
+[^1]: selon le type de `geom` XXX sera soit un `color` (pour `geom_point` et `geom_line`) soit `fill` (pour les graphiques avec des zones à remplir comme `geom_area`).
 
 ```{r}
 
@@ -57,7 +64,8 @@ ofce::theme_ofce() +
 
 ```
 
-Ou en reprenant la palette intégrée au package ofce qui intègre les couleurs définies dans la charte graphique.  
+Ou en reprenant la palette intégrée au package ofce qui intègre les couleurs définies dans la charte graphique.
+
 ```{r}
 
 p + 
@@ -66,13 +74,10 @@ ofce::theme_ofce() +
 
 ```
 
-
 <!-- ## Tableaux  -->
-
 
 <!-- ```{r} -->
 
 <!-- ofce::theme.gt_ofce() -->
 
 <!-- ``` -->
-
