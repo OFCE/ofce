@@ -8,9 +8,10 @@ L'utilisation de `R` permet l'intégration directe de la charte graphique de l'O
 Cela passe par la définition d'un thème qui en reprends les différents élements et qui est ensuite associé à l'objet `ggplot2` ou `gt`.
 
 
-```{r}
+```{r setup, include=FALSE}
 #| echo: false
 
+library(ofce)
 library(tidyverse)
 ```
 
