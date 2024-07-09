@@ -29,6 +29,8 @@ navbar:
     charte:
       text: Bibliothèque graphique
       menu:
+        - text: Charte Graphique
+          href: articles/charte_graphique.html
         - text: Séries temporelles
           href: articles/temporelles.html
         - text: Graphiques XY
