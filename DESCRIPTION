@@ -41,7 +41,7 @@ Imports:
     usethis,
     utils,
     zip
-License: GPL (>= 3)
+License: CC BY 4.0
 Depends: 
     R (>= 2.10)
 URL: https://ofce.github.io/ofce/

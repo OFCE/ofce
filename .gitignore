@@ -13,3 +13,5 @@ wp2_files
 
 /.quarto/
 inst/doc
+inst/.DS_Store
+.DS_Store

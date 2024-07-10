@@ -8,11 +8,11 @@ deploy:
 
 navbar:
   structure:
-     left: [reference, guides, charte, news]
+     left: [guides, charte, reference, news]
 
   components:
     guides:
-      text: Guides
+      text: Manuels
       menu:
         - text: Sites dédiés
           href: articles/site.html
@@ -27,14 +27,14 @@ navbar:
         - text: Outils
           href: articles/outils.html
     charte:
-      text: Bibliothèque graphique
+      text: Tutoriaux
       menu:
         - text: Charte Graphique
           href: articles/charte_graphique.html
         - text: Séries temporelles
           href: articles/temporelles.html
         - text: Graphiques XY
-          href: articles/xy.html
+          href: ar    ticles/xy.html
         - text: Barres empilées, wafle, treemap, lollypop
           href: articles/categories.html
         - text: Distributions
