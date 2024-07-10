@@ -1,5 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://ofce.github.io/ofce/404.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/LICENSE-text.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/LICENSE.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/articles/blog.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/articles/cartes.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/articles/categories.html</loc></url>
@@ -15,8 +17,6 @@
 <url><loc>https://ofce.github.io/ofce/articles/xy.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/authors.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/index.html</loc></url>
-<url><loc>https://ofce.github.io/ofce/LICENSE-text.html</loc></url>
-<url><loc>https://ofce.github.io/ofce/LICENSE.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/news/index.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/add_label_unit.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/add_logo_ofce.html</loc></url>
@@ -33,16 +33,16 @@
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_div.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_pays.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_seq.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/set_faicon_reveal.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/set_fontsize_reveal.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/set_justify.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_RStudio.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_blog.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_english.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_french.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_pres.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_quarto.html</loc></url>
-<url><loc>https://ofce.github.io/ofce/reference/setup_RStudio.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_wp.html</loc></url>
-<url><loc>https://ofce.github.io/ofce/reference/set_faicon_reveal.html</loc></url>
-<url><loc>https://ofce.github.io/ofce/reference/set_fontsize_reveal.html</loc></url>
-<url><loc>https://ofce.github.io/ofce/reference/set_justify.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/showMemoryUse.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/table_ofce.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/theme.gt_ofce.html</loc></url>

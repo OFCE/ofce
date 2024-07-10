@@ -1,10 +1,10 @@
 # package OFCE pour R
 
-Ce package met à dispositon des outils utilisés régulièrement à l'OFCE, que ce soit pour la production de documents quarto ou de mise en page de graphiques `ggplot2`
+Ce package met à disposition des outils utilisés régulièrement à l'OFCE, que ce soit pour la production de documents quarto ou de mise en page de graphiques `ggplot2`
 
 ## Installation
 
-Le package s'installe par la commande du package `pak`(si vous ne l'avez pas déjà installé, lancez d'abord la commande suivante:`install.packages("pak")`)
+Le package s'installe par la commande du package `pak` (si vous ne l'avez pas déjà installé, lancez d'abord la commande suivante : `install.packages("pak")`)
 
 ``` r
 pak::pak("ofce/ofce")

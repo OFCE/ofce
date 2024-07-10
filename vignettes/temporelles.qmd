@@ -287,7 +287,7 @@ f_taux <- function(x) {
 spreads_m <- spreads_m |>
  mutate(
     tooltip = str_c("<b>", pays, "</b><br>",
-                    stamp("juillet 2024", orders = "%B %Y",  locale = "fr_FR.utf8", quiet = TRUE)(date),
+                    stamp("juillet 2024", orders = "%B %Y",  locale = "fr_FR", quiet = TRUE)(date),
                     "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)))
 ```
 
