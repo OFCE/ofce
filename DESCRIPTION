@@ -2,7 +2,10 @@ Package: ofce
 Type: Package
 Title: Aide à la rédaction de documents scientifiques aux normes OFCE
 Version: 1.1.0
-Author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
+Authors@R: c(
+    person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut")),
+    person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),
+    person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut")))
 Maintainer: The package maintainer <xavier.timbeau@sciencespo.fr>
 Description: procure quelques fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue.
     Apporte des templates de rédaction sous quarto.
