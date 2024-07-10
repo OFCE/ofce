@@ -16,13 +16,11 @@ theme.gt_ofce <- function(data,
   stopifnot("'data' must be a 'gt_tbl', have you accidentally passed raw $data?" = "gt_tbl" %in% class(data))
   rlang::check_installed("gt", reason = "pour utiliser theme.gt_ofce")
 
-  if (is.null(largeur_colonne)){col_width = 100 }
+  if (is.null(largeur_colonne)){largeur_colonne = 100}
 
   data |>
     # Défini la largeur des colonnes (sauf la première)
-    gt::cols_width(
-      -1 ~ gt::px(col_width)
-    ) |>
+    # gt::cols_width(-1 ~ gt::px(largeur_colonne)) |>
     # General options
     gt::opt_table_lines("default") |>
     gt::opt_table_font(font = gt::google_font("Open Sans")) |>
@@ -64,7 +62,7 @@ theme.gt_ofce <- function(data,
     ) |>
     # title
     gt::tab_style(
-      style = gt::cell_borders(sides = "left", color ="#e8142c", "solid", px(5)),
+      style = gt::cell_borders(sides = "left", color ="#e8142c", "solid", gt::px(5)),
       location = gt::cells_title(groups="title")) |>
     # Source note
     gt::tab_style(
