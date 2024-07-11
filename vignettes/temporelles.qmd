@@ -71,15 +71,15 @@ girafy <- function(plot, r=4, ...) {
 
 ## Règles d'or
 
-1.  On utilise `theme_ofce()`
+**Règle 1** : On utilise `theme_ofce()`
 
-2.  Les dates sont au format `<date>` même lorsque la fréquence est annuelle
+**Règle 2** :Les dates sont au format `<date>` même lorsque la fréquence est annuelle
 
-3.  On utilise `scale_x_date(date_breaks = "5 years", date_minor_breaks = "1 year", guide = "minor_ticks")` en définissant `date_breaks` à la fréquence souhaitée (en évitant trop de dates) et `date_minor_breaks` à une année (`"1 year"`).
+**Règle 3** : On utilise `scale_x_date(date_breaks = "5 years", date_minor_breaks = "1 year", guide = "minor_ticks")` en définissant `date_breaks` à la fréquence souhaitée (en évitant trop de dates) et `date_minor_breaks` à une année (`"1 year"`).
 
-4.  Si les *y* sont en %, alors mettre "%" dans le format de l'axe des *y*
+**Règle 4** : Si les *y* sont en %, alors mettre "%" dans le format de l'axe des *y*
 
-5.  On choisit un `line_width` entre 0.5 et 1 pour le `geom_line()`, on ajoute un `geom_point(shape=21, stroke=0.25, col="white")` pour marquer les points auxquels on a des données. Si on peut mettre la légende sous forme de *labels*, c'est mieux car cela allège le graphique.
+**Règle 5** : On choisit un `line_width` entre 0.5 et 1 pour le `geom_line()`, on ajoute un `geom_point(shape=21, stroke=0.25, col="white")` pour marquer les points auxquels on a des données. Si on peut mettre la légende sous forme de *labels*, c'est mieux car cela allège le graphique.
 
 ## Données
 
@@ -159,7 +159,12 @@ On ajoute au graphique des annotations. C'est ici faid de façon laborieuse, on 
 
 ## Les annotations
 
+Pour les annotations on peut utiliser différentes méthodes. La plus laborieuse est la fonction `ggplot2::annotate()`. La plus élégante est `ggforce::geom_mark_circle()` ou `ggrepel::geom_repel_text()`.
+
 ```{r}
+
+# méthode 1 : annotate
+
 annotations <-  list(
   annotate(
     "text", x = as.Date("2013-12-01"), y= 1, 
@@ -221,6 +226,53 @@ annotations <-  list(
 main + annotations
 ```
 
+```{r}
+# méthode 2 : ggrepel
+# on enrichit les données des labels
+
+library(ggrepel)
+
+events <- tribble(
+  ~date, ~pays, ~event,
+  "2012-01-02", "Italie", "Crise des dettes souveraines\n26 juillet 2012 : Mario Draghi \n 'Whatever it takes'",
+  "2018-06-01", "Italie", "4 mars 2018 : Élections italiennes\n1er juin : gouvernement de coalition",
+  "2024-06-10", "France", "Annonce de la dissolution") |> 
+  mutate(date = as.Date(date) |> floor_date("week", week_start = 1)) 
+
+label_pays <- tribble(
+  ~date, ~pays, 
+  "2009-01-01", "Italie",
+  "2013-12-01", "France") |> 
+  mutate(date = as.Date(date), 
+         date = floor_date(date, "week", week_start = 1),
+         label_pays = pays)
+
+ss <- spreads_data |> 
+  left_join(events, by = c("date", "pays")) |> 
+  left_join(label_pays, by = c("date", "pays")) |> 
+  mutate(
+    label_pays = replace_na(label_pays, ""),
+    event = replace_na(event, "")) |> 
+  arrange(pays, date)
+
+(main %+% ss) +
+  ggrepel::geom_text_repel(aes(label=label_pays, color = pays), 
+                           size = 3, show.legend=FALSE, 
+                           segment.size = 0.2, min.segment.length = 2,
+                           max.overlaps = Inf, hjust= 0.5) +
+  ggrepel::geom_text_repel(aes(label=event), color = "black", 
+                           size = 2, show.legend=FALSE, 
+                           segment.size = 0.2, min.segment.length = 0.1,
+                           max.overlaps = Inf, hjust= 0.5,nudge_x = c(-500, -250, -250), nudge_y = c(-0.3,1, -0.5),
+                           arrow = arrow(length = unit(0.015, "npc"))) +
+   scale_y_continuous(labels = ~str_c(.x, "%"), limits = c(0, 6)) +
+  scale_x_date(labels = scales::label_date_short(format = c("%Y")),
+               date_breaks = "5 years", 
+               date_minor_breaks = "1 year",
+               guide = "minor_ticks",
+               limits  = c(as.Date("2008-01-01"), NA))
+```
+
 Le résultat est intéressant, mais le graphique a cependant un défaut, il y a trop de points, ce qui est du à la fréquence quotidienne et donc il perd en clarté. On va donc faire deux choses : réduire la fréquence en agrégeant les données par mois, puis on va ajouter un insert.
 
 ## Fréquence mensuelle et insert
@@ -261,6 +313,9 @@ inset <- main  +
   geom_vline(xintercept = as.Date("2024-06-09"),
              linewidth = 0.1,
              color = "grey50") +
+  geom_vline(xintercept = as.Date("2024-07-08"),
+             linewidth = 0.1,
+             color = "grey50") +
   scale_y_continuous(labels = ~str_c(.x, "%"), limits = c(0, 2)) +
   labs(y= NULL, caption=NULL, color = NULL, fill = NULL)
 inset
@@ -287,7 +342,7 @@ f_taux <- function(x) {
 spreads_m <- spreads_m |>
  mutate(
     tooltip = str_c("<b>", pays, "</b><br>",
-                    stamp("juillet 2024", orders = "%B %Y",  locale = "fr_FR", quiet = TRUE)(date),
+                    stamp("juillet 2024", orders = "%B %Y",  locale = "fr_FR.utf8", quiet = TRUE)(date),
                     "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)))
 ```
 
@@ -359,6 +414,17 @@ spreads_q <- spreads_data |>
             taux = mean(taux, na.rm=TRUE)) |> 
   rename(date = date_q)
 
+
+year_quarter <- function(x) {
+  map_chr(x, ~{
+    if(is.na(.x)) return("")
+    q <- lubridate::quarter(.x)
+    y <- lubridate::year(.x)
+    if(q==1) return(str_c("T", q, "\n", y))
+    str_c("T", q)
+  })
+}
+
 ggplot(spreads_q) +
   aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
   geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
@@ -374,10 +440,12 @@ ggplot(spreads_q) +
     x=NULL,
     colour=NULL,
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
-  scale_x_date(labels = scales::label_date_short(format = c("%y", "%Q")),
-               date_breaks = "1 year", 
-               date_minor_breaks = "1 year",
-               guide = "minor_ticks") +
+  scale_x_date(
+    labels = year_quarter,
+    date_breaks = "3 months", 
+    date_minor_breaks = "3 months",
+    guide = "minor_ticks", limits = c(as.Date("2020-01-01"), NA)) +
+  theme(axis.text.x = element_text(hjust=0))+
   scale_y_continuous(labels = ~str_c(.x, "%"))
 ```
 

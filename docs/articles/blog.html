@@ -31,12 +31,23 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-manuels" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Manuels</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-manuels">
+<li><a class="dropdown-item" href="../articles/site.html">Sites dédiés</a></li>
+    <li><a class="dropdown-item" href="../articles/blog.html">Le Blog</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">Ecrire un texte en quarto</a></li>
+    <li><a class="dropdown-item" href="../articles/graphiques.html">Faire un graphique</a></li>
+    <li><a class="dropdown-item" href="../articles/tableaux.html">Faire un tableau</a></li>
+    <li><a class="dropdown-item" href="../articles/outils.html">Outils</a></li>
+  </ul>
+</li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-tutoriaux" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Tutoriaux</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-tutoriaux">
 <li><a class="dropdown-item" href="../articles/charte_graphique.html">Charte Graphique</a></li>
     <li><a class="dropdown-item" href="../articles/temporelles.html">Séries temporelles</a></li>
-    <li><a class="dropdown-item" href="../articles/xy.html">Graphiques XY</a></li>
+    <li><a class="dropdown-item" href="../ar%20%20%20%20ticles/xy.html">Graphiques XY</a></li>
     <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
     <li><a class="dropdown-item" href="../articles/distributions.html">Distributions</a></li>
     <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
@@ -80,32 +91,30 @@
 </section><section class="level2"><h2 id="yaml-du-document">Yaml du document<a class="anchor" aria-label="anchor" href="#yaml-du-document"></a>
 </h2>
 <p>Le Yaml est le préambule au script inclus entre les caractères suivants <code>---</code> <code>---</code> qui regroupe les métadonnées du document ainsi que certains paramètres comme le titre ou le nom des auteurs. Il se présente de la façon suivante:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Titre du billet"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Albertine Retrouvée</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">url</span><span class="kw">:</span><span class="at"> https://www.ofce.sciences-po.fr/ofce/chercheurs1.php</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> OFCE </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation-url</span><span class="kw">:</span><span class="at"> https://www.ofce.sciences-po.fr/</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">institution</span><span class="kw">:</span><span class="at"> </span><span class="st">"Observatoire Français des Conjonctures Économiques"</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">blog-html</span><span class="kw">:</span><span class="at"> default</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">blog-pdf</span><span class="kw">:</span><span class="at"> default</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">categories</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"keyword1"</span><span class="kw">,</span><span class="at"> </span><span class="st">"keyword2"</span><span class="kw">]</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> image.jpg</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapeau du texte qui apparait dans la vignette du billet sur le menu"</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># comments:</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   hypothesis: true</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> billet_exemple_references.bib</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
-</div>
+<pre class="qmd"><code>---
+title: "Titre du billet"
+date: today
+author:
+  - name: Albertine Retrouvée
+    url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php
+    affiliation: OFCE
+    affiliation-url: https://www.ofce.sciences-po.fr/
+
+institution: "Observatoire Français des Conjonctures Économiques"
+
+format:
+  blog-html: default
+  blog-pdf: default
+categories: ["keyword1", "keyword2"]
+image: image.jpg
+description: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
+
+# A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)
+# comments:
+#   hypothesis: true
+
+bibliography: billet_exemple_references.bib
+---</code></pre>
 <p>Les seules informations à modifier par l’auteur sont les suivantes:</p>
 <ul>
 <li>title:</li>
@@ -129,8 +138,7 @@
 <section class="level3"><h3 id="gestion-des-notes-de-bas-de-page-et-des-références-bibliographiques">Gestion des notes de bas de page et des références bibliographiques<a class="anchor" aria-label="anchor" href="#gestion-des-notes-de-bas-de-page-et-des-r%C3%A9f%C3%A9rences-bibliographiques"></a>
 </h3>
 <p>L’ajout de notes de bas de page se fait via la commande suivante sous Quarto <code>[^]</code> et comprends deux manières. Une première où est intégré dans le texte une balise <code>[^]</code> associée à un repère (un numéro) et auquel est ensuite associé une note de bas de page. La seconde est l’intégration directe de la note de bas de page au sein de la balise <code>[^]</code> (Exemple 2).</p>
-<div class="cell">
-<pre class="quarto cell-code"><code># Exemple 1
+<pre class="qmd"><code># Exemple 1
 «Mademoiselle Albertine est revenue!»[^1]
 
 [^1]: Elle n'a jamais été perdue.
@@ -138,13 +146,12 @@
 # Exemple 2
 
 «Mademoiselle Albertine est revenue!»[^Elle n'a jamais été perdue.]
+
 </code></pre>
-</div>
 </section><section class="level3"><h3 id="gestion-des-références-bibliographiques">Gestion des références bibliographiques<a class="anchor" aria-label="anchor" href="#gestion-des-r%C3%A9f%C3%A9rences-bibliographiques"></a>
 </h3>
 <p>Les citations sont indiqué par le caractère <code>@</code> suivi de la référence bibliographique du bibtex de l’article à citer.</p>
-<div class="cell">
-<pre class="quarto cell-code"><code>Comme la souffrance va plus loin en psychologie que la psychologie [@ryan1991vanishing]
+<pre class="qmd"><code>Comme la souffrance va plus loin en psychologie que la psychologie [@ryan1991vanishing]
 
 avec le BibteX dans le fichier .bib associé au billet:
 
@@ -155,7 +162,6 @@ avec le BibteX dans le fichier .bib associé au billet:
   publisher={University of Chicago Press}
 }
 </code></pre>
-</div>
 <p>Comme la souffrance va plus loin en psychologie que la psychologie <span class="citation" data-cites="ryan1991vanishing">[@ryan1991vanishing]</span></p>
 <p>L’auteur pourra se référer à l’<a href="https://quarto.org/docs/authoring/footnotes-and-citations.html" class="external-link">aide en ligne Quarto</a> pour des explications complémentaires sur ces deux points.</p>
 </section></section><section class="level2"><h2 id="transmission-au-responsable-du-blog-et-circuit-de-relecture">Transmission au responsable du blog et circuit de relecture<a class="anchor" aria-label="anchor" href="#transmission-au-responsable-du-blog-et-circuit-de-relecture"></a>

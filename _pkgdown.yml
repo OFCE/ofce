@@ -6,6 +6,10 @@ template:
 deploy:
   install_metadata: true
 
+footer:
+  left: RTFM
+  right: CC BY 4.0
+
 navbar:
   structure:
      left: [guides, charte, reference, news]

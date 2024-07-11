@@ -31,10 +31,7 @@ La première étape est de générer un template d'un document quarto intégrant
 
 Le Yaml est le préambule au script inclus entre les caractères suivants `---` `---` qui regroupe les métadonnées du document ainsi que certains paramètres comme le titre ou le nom des auteurs. Il se présente de la façon suivante:
 
-```{yaml}
-#| eval: false
-#| echo: true
-
+```qmd
 ---
 title: "Titre du billet"
 date: today
@@ -85,10 +82,7 @@ Les templates suivants
 
 L'ajout de notes de bas de page se fait via la commande suivante sous Quarto `[^]` et comprends deux manières. Une première où est intégré dans le texte une balise `[^]` associée à un repère (un numéro) et auquel est ensuite associé une note de bas de page. La seconde est l'intégration directe de la note de bas de page au sein de la balise `[^]` (Exemple 2).
 
-```{quarto}
-#| eval: false
-#| echo: true
-
+```qmd
 # Exemple 1
 «Mademoiselle Albertine est revenue!»[^1]
 
@@ -105,9 +99,7 @@ L'ajout de notes de bas de page se fait via la commande suivante sous Quarto `[^
 
 Les citations sont indiqué par le caractère `@` suivi de la référence bibliographique du bibtex de l'article à citer.
 
-```{quarto}
-#| eval: false
-#| echo: true
+```qmd
 Comme la souffrance va plus loin en psychologie que la psychologie [@ryan1991vanishing]
 
 avec le BibteX dans le fichier .bib associé au billet: 
