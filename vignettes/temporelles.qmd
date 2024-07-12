@@ -415,7 +415,7 @@ spreads_q <- spreads_data |>
   rename(date = date_q)
 
 
-year_quarter <- function(x) {
+label_yq <- function(x) {
   map_chr(x, ~{
     if(is.na(.x)) return("")
     q <- lubridate::quarter(.x)
@@ -424,6 +424,12 @@ year_quarter <- function(x) {
     str_c("T", q)
   })
 }
+
+label_q <- function(x) {
+    q <- lubridate::quarter(x)
+    str_c("T", q)
+  }
+
 
 ggplot(spreads_q) +
   aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
@@ -441,12 +447,40 @@ ggplot(spreads_q) +
     colour=NULL,
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
   scale_x_date(
-    labels = year_quarter,
+    labels = label_q,
     date_breaks = "3 months", 
     date_minor_breaks = "3 months",
     guide = "minor_ticks", limits = c(as.Date("2020-01-01"), NA)) +
   theme(axis.text.x = element_text(hjust=0))+
   scale_y_continuous(labels = ~str_c(.x, "%"))
+
+
+library(gguidance)
+ggplot(spreads_q) +
+  aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
+  geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
+  geom_point(stroke = 0.5, size = 1, 
+             col = "white", shape = 21, show.legend = FALSE)+
+  scale_color_manual(aesthetics = c("fill", "color"), 
+                     name = NULL, values = cc) +
+  theme_ofce()+
+  guides(x = guide_axis(minor.ticks = TRUE),
+         y = guide_axis(minor.ticks = TRUE)) +
+  labs(
+    y="Ecart de taux à 10 ans",
+    x=NULL,
+    colour=NULL,
+    caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
+  scale_x_date(
+    labels = quarter,
+    date_breaks = "3 months", 
+    date_minor_breaks = "3 months",
+    guide = "minor_ticks", limits = c(as.Date("2020-01-01"), NA)) +
+  theme(axis.text.x = element_text(hjust=0))+
+  scale_y_continuous(labels = ~str_c(.x, "%")) +
+  guides(x = compose_stack(
+    "axis", "axis"))
+
 ```
 
 ## Double échelle
