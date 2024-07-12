@@ -1,56 +1,22 @@
 #' Add logo
 #'
-#' Ajoute le logo de l'OFCE en bas à droite du graphique
-#'
-#' @param plot un graphique ggplot
-#' @param logo un logo au format png, avec une transparence
-#' @param size la taille du logo (relative)
-#'
-#' @return un graphique ggplot
-#' @export
-#' @seealso add_logo_ofce_inside
-#' @examples
-#' \dontrun{
-#' library(ggplot2)
-#' plot <- ggplot(mtcars) +
-#'     geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
-#'     theme_ofce()
-#' # plot |> add_logo_ofce()
-#' }
-add_logo_ofce <- function(plot, logo = NULL, size = 0.04) {
-  rlang::check_installed("cowplot", reason = "to add a logo")
-  rlang::check_installed("magick", reason = "to add a logo inside")
-  if(is.null(logo)) logo <- ofce_logo
-  cowplot::ggdraw() +
-    cowplot::draw_plot(plot)+
-    cowplot::draw_image(
-      logo,
-      x=0.99, y=0.01,
-      width=size, height=size,
-      hjust=1, vjust=0,
-      valign = 0, halign = 1)
-}
-
-#' Add logo inside
-#'
 #' Ajoute le logo de l'OFCE sur le graphique (inside donc)
 #'
 #' @param plot un graphique ggplot
-#' @param logo un logo au format png, avec une transparence
+#' @param logo un logo au format png, avec une transparence (si NULL utilise le logo OFCE)
 #' @param size la taille du logo (relative)
 #'
 #' @return un graphique ggplot
 #' @export
-#' @seealso add_logo_ofce
 #' @examples
 #' \dontrun{
 #' library(ggplot2)
 #' plot <- ggplot(mtcars) +
 #'         geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
 #'         theme_ofce()
-#' # plot |> add_logo_ofce_inside()
+#' # plot |> add_logo()
 #'}
-add_logo_ofce_inside <- function(plot, logo =  NULL, size = 0.25) {
+add_logo <- function(plot, logo =  NULL, size = 0.25) {
   rlang::check_installed("ggpp", reason = "to add a logo inside")
   rlang::check_installed("magick", reason = "to add a logo inside")
   rlang::check_installed("grid", reason = "to add a logo inside")

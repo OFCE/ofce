@@ -394,7 +394,7 @@ inset_i <- (main_i %+% spreads_data)  +
   scale_y_continuous(labels = ~str_c(.x, "%"), limits = c(0, 2)) +
   labs(y= NULL, caption=NULL, color = NULL, fill = NULL)
 
-main_i <- (main_i + annotations) %+% spreads_m
+main_i <- ((main_i + annotations) %+% spreads_m) |> add_logo()
 main_i <- main_i  + inset_element(inset_i, 0.75, 0.5, 1, 1) 
 girafy(main_i, r=2.5)
 ```
