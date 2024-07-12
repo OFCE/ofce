@@ -20,6 +20,8 @@ Imports:
     gt,
     ggplot2,
     ggtext,
+    ggh4x,
+    ggmagnify,
     glue,
     quarto,
     lubridate,

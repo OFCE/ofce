@@ -67,6 +67,9 @@ girafy <- function(plot, r=4, ...) {
     girafe_options(...)
 }
 
+f_taux <- function(x) {
+  str_replace(str_c(signif(x,3),"%"), "\\.", ",")
+}
 ```
 
 ## Règles d'or
@@ -191,14 +194,14 @@ annotations <-  list(
     arrow= arrow(length = unit(4, "point"))),
   annotate(
     "text",
-    x = as.Date("2017-9-01"),
+    x = as.Date("2016-9-01"),
     y= 4.5 ,
     size = 2,
     label="4 mars 2018 : Élections italiennes\n1er juin : gouvernement de coalition" ,
     color= "grey33"),
   annotate(
     "segment",
-    x = as.Date("2017-09-01"), 
+    x = as.Date("2016-09-01"), 
     xend = as.Date("2018-05-01"), 
     y = 4.2,
     yend = 3,
@@ -329,6 +332,73 @@ main_m <- (main + annotations) %+% spreads_m
 main_m  + inset_element(inset, 0.75, 0.5, 1, 1)
 ```
 
+::: {#tip-id .callout-tip collapse="true"}
+## Une alternative avec {ggmagnify}
+Le package `{ggmagnify}` simplifie la tâche et offre quelques améliorations esthétiques. Il faut cependant que les dataset principal et inset soit les mêmes. On reprend l'agrégation temporelle en l'arrêtant aux deux derniers mois.
+On peut facilement complexifier l'insert pour intégrer plus d'éléments en utilisant l'argument `plot` de `ggmagnify::geom_magnify()`.
+
+```{r}
+# pak::pak("hughjonesd/ggmagnify")
+library(ggmagnify)
+
+spreads_hyb <- spreads_data |> 
+  mutate(agg = date < now()-months(2), 
+         date_h = floor_date(date, unit="month"),
+         date_h = if_else(agg, date_h, date)) |> 
+  group_by(date_h, pays) |> 
+  summarize(
+    taux= mean(taux, na.rm=TRUE),
+    n = n(), .groups = "drop"
+  ) |> 
+  rename(
+    date = date_h) |> 
+  mutate(
+    date_label = ifelse(n>1,
+                        stamp("juillet 2024", orders = "%B %Y",  locale = "fr_FR.utf8", quiet = TRUE)(date),
+                        stamp("22/12/2024", orders = "%d/%m/%Y",  locale = "fr_FR.utf8", quiet = TRUE)(date)),
+    tooltip = str_c(
+        "<b>", pays, "</b><br>",
+        date_label,
+        "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)),
+      )
+
+md <- max(spreads_hyb$date)
+from <- list(md-days(50), md, 0, 2)
+to <- list(md-years(5), md, 3.5, 5)
+sh <- ggplot(spreads_hyb) +
+  aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
+  geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
+  geom_point_interactive(
+    aes(tooltip = tooltip, data_id = date),
+    stroke = 0.5, size = 1, 
+    col = "white", shape = 21, show.legend = FALSE)+
+  scale_color_manual(aesthetics = c("fill", "color"), 
+                     name = NULL, values = cc) +
+  theme_ofce()+
+  guides(x = guide_axis(minor.ticks = TRUE),
+         y = guide_axis(minor.ticks = TRUE)) +
+  labs(
+    y="Ecart de taux à 10 ans",
+    x=NULL,
+    colour=NULL,
+    caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
+  scale_x_date(labels = scales::label_date_short(format = c("%Y")),
+               date_breaks = "5 years", 
+               date_minor_breaks = "1 year",
+               guide = "minor_ticks") +
+  scale_y_continuous(labels = ~str_c(.x, "%")) +
+  annotations +
+  ggmagnify::geom_magnify(from = from, to = to, linewidth = 0.1, 
+                          colour = "grey25", shadow = TRUE, 
+                          shadow.args = list(sigma = 5, colour = "grey80", x_offset = 5, y_offset = 5)) 
+
+girafy(sh, r=2.5)
+
+```
+
+
+:::
+
 ## Interactif
 
 La dernière étape est l'interactivité. On utilise le package `{ggiraph}` qui va permettre d'intégrer des *tooltips* très simplement et très efficacement. On peut aussi avec des sélections dynamiques ou encore des zooms.
@@ -336,9 +406,6 @@ La dernière étape est l'interactivité. On utilise le package `{ggiraph}` qui 
 Pour ajouter l'interactivité, la première étape est de générer le texte des *tooltips* dans le tableau de données. Notez l'utilisation de `lubridate::stamp_date()` pour formater les dates simplement.
 
 ```{r}
-f_taux <- function(x) {
-  str_replace(str_c(signif(x,3),"%"), "\\.", ",")
-}
 spreads_m <- spreads_m |>
  mutate(
     tooltip = str_c("<b>", pays, "</b><br>",
@@ -403,9 +470,14 @@ La clef pour l'interactivité est d'apporter de l'information à l'utilisateur p
 
 ## Fréquence trimestrielle
 
-On transforme les données en fréquence trimestrielle en utilisant la fonction `lubridate::floor_date()`.
+On transforme les données en fréquence trimestrielle en utilisant la fonction `lubridate::floor_date()`. En calculant les variables année (`y`) et trimestre (`q`), on peut avec le package `{ggh4x}` produire facilement un joli graphique trimestriel. Les clefs sont de mettre en x l'interaction entre ces deux éléments discrets (attention à l'ordre, attention à trier les données avec `arrange`). La magie opère ensuite avec `guide = "axis_nested"`. Cete fonction est généralisable à bien des cas.
 
 ```{r}
+
+library(lubridate)
+# pak::pak("teunbrand/ggh4x")
+library(ggh4x)
+
 spreads_q <- spreads_data |> 
   mutate(
     y = lubridate::year(date),
@@ -415,76 +487,27 @@ spreads_q <- spreads_data |>
   summarize(taux_max = max(taux, na.rm=TRUE),
             taux_min = min(taux, na.rm=TRUE),
             taux = mean(taux, na.rm=TRUE), .groups = "drop") |> 
-  rename(date = date_q)
-
-
-label_yq <- function(x) {
-  map_chr(x, ~{
-    if(is.na(.x)) return("")
-    q <- lubridate::quarter(.x)
-    y <- lubridate::year(.x)
-    if(q==1) return(str_c("T", q, "\n", y))
-    str_c("T", q)
-  })
-}
-
-label_q <- function(x) {
-    q <- lubridate::quarter(x)
-    str_c("T", q)
-  }
-
+  rename(date = date_q) |> 
+  arrange(date) |> 
+  filter(date>="2018-01-01")
 
 ggplot(spreads_q) +
-  aes(x=q, y=taux, fill = pays, color=pays, group=pays) +
+  aes(x=interaction(q, y), y=taux, fill = pays, color=pays, group=pays) +
   geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
   geom_point(stroke = 0.5, size = 1, 
              col = "white", shape = 21, show.legend = FALSE)+
   scale_color_manual(aesthetics = c("fill", "color"), 
                      name = NULL, values = cc) +
-  theme_ofce()+
-  guides(x = guide_axis(minor.ticks = TRUE),
-         y = guide_axis(minor.ticks = TRUE)) +
+  theme_ofce(
+    axis.text.x = element_text(size = rel(0.8), margin=margin(t=6)),
+    ggh4x.axis.nesttext.x  = element_text(size = rel(1.2), margin = margin(t=3)))+
   labs(
     y="Ecart de taux à 10 ans",
     x=NULL,
     colour=NULL,
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
-  theme(axis.text.x = element_text(hjust=0))+
   scale_y_continuous(labels = ~str_c(.x, "%")) +
-    facet_wrap(vars(y), nrow = 1, strip.position = "bottom") +
-  theme(strip.placement = "outside",
-        strip.text = element_text(margin = margin()),
-        axis.text.x = element_text(margin = margin(t=3, b=-2))) + 
-  scale_y_continuous(labels = ~str_c(.x, "%"))+
-  scale_x_discrete( )
-
-
-
-library(gguidance)
-ggplot(spreads_q) +
-  aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
-  geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
-  geom_point(stroke = 0.5, size = 1, 
-             col = "white", shape = 21, show.legend = FALSE)+
-  scale_color_manual(aesthetics = c("fill", "color"), 
-                     name = NULL, values = cc) +
-  theme_ofce()+
-  guides(x = guide_axis(minor.ticks = TRUE),
-         y = guide_axis(minor.ticks = TRUE)) +
-  labs(
-    y="Ecart de taux à 10 ans",
-    x=NULL,
-    colour=NULL,
-    caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
-  scale_x_date(
-    labels = quarter,
-    date_breaks = "3 months", 
-    date_minor_breaks = "3 months",
-    guide = "minor_ticks", limits = c(as.Date("2020-01-01"), NA)) +
-  theme(axis.text.x = element_text(hjust=0))+
-  scale_y_continuous(labels = ~str_c(.x, "%")) +
-  guides(x = compose_stack(
-    "axis", "axis"))
+  scale_x_discrete(guide = "axis_nested")
 ```
 
 ## Double échelle

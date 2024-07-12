@@ -8,7 +8,9 @@
 <title>Faire un graphique • ofce</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="graphiques_files/libs/quarto-html/popper.min.js"></script><script src="graphiques_files/libs/quarto-html/tippy.umd.min.js"></script><link href="graphiques_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="graphiques_files/libs/quarto-html/light-border.css" rel="stylesheet">
@@ -106,17 +108,17 @@
 <span>                       <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"En % de la valeur nette"</span>, <span class="st">"En % du PIB"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>                       </span>
 <span><span class="co"># un ggplot et ses différentes couches</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">value</span>, group <span class="op">=</span> <span class="va">name</span>, col <span class="op">=</span> <span class="va">name</span>, fill <span class="op">=</span> <span class="va">name</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">value</span>, group <span class="op">=</span> <span class="va">name</span>, col <span class="op">=</span> <span class="va">name</span>, fill <span class="op">=</span> <span class="va">name</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># important utiliser le theme_ofce pour uniformiser l'aspect des graphiques</span></span>
 <span>  <span class="fu"><a href="../reference/theme_ofce.html">theme_ofce</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># scale date est important lorsqu'on présente des données temporelles</span></span>
 <span>  <span class="co"># il faut penser à convertir les dates en dates (as.Date() ou lubridate::ymd() et consorts)</span></span>
 <span>  <span class="co"># c'est important même si les dates ne sont que des années</span></span>
 <span>  <span class="co"># ca permet aussi de mélanger facilement des fréquences différentes</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html" class="external-link">scale_x_date</a></span><span class="op">(</span>date_breaks <span class="op">=</span> <span class="st">"2 years"</span>, date_labels <span class="op">=</span> <span class="st">"%Y"</span>, </span>
+<span>  <span class="fu">scale_x_date</span><span class="op">(</span>date_breaks <span class="op">=</span> <span class="st">"2 years"</span>, date_labels <span class="op">=</span> <span class="st">"%Y"</span>, </span>
 <span>               date_minor_breaks <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># le choix des couleurs est tjrs délicat, Paul Malliet est un maître en la matière</span></span>
 <span>  <span class="co"># uniformiser ses choix de couleurs le long d'un document c'est bien</span></span>
@@ -124,10 +126,10 @@
 <span>  <span class="co"># quand en plus c'est harmonieux, c'est PM (plus que mieux ou Paul Malliet)</span></span>
 <span>  <span class="fu">PrettyCols</span><span class="fu">::</span><span class="fu"><a href="https://nrennie.github.io/PrettyCols/reference/scale_color_pretty_d.html" class="external-link">scale_color_pretty_d</a></span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, palette <span class="op">=</span> <span class="st">"Summer"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">PrettyCols</span><span class="fu">::</span><span class="fu"><a href="https://nrennie.github.io/PrettyCols/reference/scale_fill_pretty_d.html" class="external-link">scale_fill_pretty_d</a></span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, palette <span class="op">=</span> <span class="st">"Summer"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"%"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"%"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># les sources -- notez qu'on ne met pas de titre au graphique </span></span>
 <span>  <span class="co"># (voir la section références croisées)</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>caption <span class="op">=</span></span>
 <span>         <span class="st">"La fiscalité sur le patrimoine est composée ici de la taxe foncière payée par les ménages, &lt;br&gt;</span></span>
 <span><span class="st">       des droits d'enregistrement sur les transactions immobilières, des droits de mutation sur les successions et les donations et de l'Impôt sur la Fortune Immobilière (ex-ISF)&lt;br&gt;</span></span>
 <span><span class="st">       *Sources* : Insee, calculs OFCE"</span><span class="op">)</span></span></code></pre></div>
