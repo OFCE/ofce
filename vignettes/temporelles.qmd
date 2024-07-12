@@ -151,7 +151,7 @@ main <- ggplot(spreads_data) +
                date_minor_breaks = "1 year",
                guide = "minor_ticks") +
   scale_y_continuous(labels = ~str_c(.x, "%"))
-main
+main |> add_logo()
 ```
 
 On utilise la palette *summer* de `{PrettyCols}` (affaire de goût). On utilise la fonction `theme_ofce()` pour homogénéiser la présentation des graphiques. On précise les labels des axes inutile pour `x`, explicite pour `y`. Et la source, en notant que l'on peut utiliser `markdown` dans le texte de la source, ce qui permet de mettre *Source* en italique.
@@ -226,7 +226,7 @@ annotations <-  list(
     linewidth=0.25,
     arrow= arrow(length = unit(4, "point"))))
 
-main + annotations
+(main + annotations) |> add_logo()
 ```
 
 ```{r}
@@ -258,7 +258,7 @@ ss <- spreads_data |>
     event = replace_na(event, "")) |> 
   arrange(pays, date)
 
-(main %+% ss) +
+add_logo(main %+% ss) +
   ggrepel::geom_text_repel(aes(label=label_pays, color = pays), 
                            size = 3, show.legend=FALSE, 
                            segment.size = 0.2, min.segment.length = 2,
@@ -268,7 +268,7 @@ ss <- spreads_data |>
                            segment.size = 0.2, min.segment.length = 0.1,
                            max.overlaps = Inf, hjust= 0.5,nudge_x = c(-500, -250, -250), nudge_y = c(-0.3,1, -0.5),
                            arrow = arrow(length = unit(0.015, "npc"))) +
-   scale_y_continuous(labels = ~str_c(.x, "%"), limits = c(0, 6)) +
+  scale_y_continuous(labels = ~str_c(.x, "%"), limits = c(0, 6)) +
   scale_x_date(labels = scales::label_date_short(format = c("%Y")),
                date_breaks = "5 years", 
                date_minor_breaks = "1 year",
@@ -298,7 +298,7 @@ spreads_m
 On peut alors facilement modifier le graphique `main` en utilisant `%+%` (cette instruction modifie les données en entrée du graphique par le nouveau jeu de données qu'on vient de construire qui a exactement la même structure, comme on a utilisé les dates le passage du quotidien au mensuel se fait automatiquement, les axes sont parfaitement construits) :
 
 ```{r}
-main %+% spreads_m
+add_logo(main %+% spreads_m)
 ```
 
 L'*insert* est le même graphique, en enlevant les annotations, en simplifiant les axes et en zoomant sur les deux derniers mois.
@@ -328,7 +328,7 @@ On l'insère dans le graphique principal en utilisant `{patchwork}`, ce qui donn
 
 ```{r}
 library(patchwork)
-main_m <- (main + annotations) %+% spreads_m
+main_m <- add_logo((main + annotations) %+% spreads_m)
 main_m  + inset_element(inset, 0.75, 0.5, 1, 1)
 ```
 
@@ -361,10 +361,31 @@ spreads_hyb <- spreads_data |>
         date_label,
         "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)),
       )
+inset_plot <- ggplot(spreads_hyb) +
+  aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
+  geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
+  geom_point_interactive(
+    aes(tooltip = tooltip, data_id = date),
+    stroke = 0.5, size = 1, 
+    col = "white", shape = 21, show.legend = FALSE)+
+  scale_color_manual(aesthetics = c("fill", "color"), 
+                     name = NULL, values = cc) +
+  theme_ofce(base_size = 7,
+             panel.grid.major.y = element_line(color = "gray", linewidth = 0.25),
+             axis.line.y = element_blank()) +
+  geom_vline(xintercept = as.Date("2024-7-7"))+ 
+  labs(
+    y=NULL,
+    x=NULL,
+    colour=NULL,
+    caption = NULL) + 
+  scale_x_date(labels = scales::label_date_short(format = c("%Y", "%B")),
+               date_breaks = "1 month") +
+  scale_y_continuous(labels = ~str_c(.x, "%"), breaks =seq(0,2))
 
 md <- max(spreads_hyb$date)
 from <- list(md-days(50), md, 0, 2)
-to <- list(md-years(5), md, 3.5, 5)
+to <- list(md-years(4), md+years(1), 3.5, 5)
 sh <- ggplot(spreads_hyb) +
   aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
   geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
@@ -374,7 +395,7 @@ sh <- ggplot(spreads_hyb) +
     col = "white", shape = 21, show.legend = FALSE)+
   scale_color_manual(aesthetics = c("fill", "color"), 
                      name = NULL, values = cc) +
-  theme_ofce()+
+  theme_ofce(plot.margin = ggplot2::margin(10, 60, 10, 10))+
   guides(x = guide_axis(minor.ticks = TRUE),
          y = guide_axis(minor.ticks = TRUE)) +
   labs(
@@ -386,13 +407,16 @@ sh <- ggplot(spreads_hyb) +
                date_breaks = "5 years", 
                date_minor_breaks = "1 year",
                guide = "minor_ticks") +
-  scale_y_continuous(labels = ~str_c(.x, "%")) +
+  scale_y_continuous(labels = ~str_c(.x, "%"), breaks=seq(0,5)) +
   annotations +
-  ggmagnify::geom_magnify(from = from, to = to, linewidth = 0.1, 
-                          colour = "grey25", shadow = TRUE, 
-                          shadow.args = list(sigma = 5, colour = "grey80", x_offset = 5, y_offset = 5)) 
+  coord_cartesian(clip = "off")+
+  ggmagnify::geom_magnify(
+    from = from, to = to, linewidth = 0.1, 
+    colour = "grey25", shadow = TRUE, 
+    plot = inset_plot, axes = 'xy',
+    shadow.args = list(sigma = 5, colour = "grey80", x_offset = 5, y_offset = 5)) 
 
-girafy(sh, r=2.5)
+girafy(add_logo(sh), r=2.5)
 
 ```
 
@@ -461,7 +485,7 @@ inset_i <- (main_i %+% spreads_data)  +
   scale_y_continuous(labels = ~str_c(.x, "%"), limits = c(0, 2)) +
   labs(y= NULL, caption=NULL, color = NULL, fill = NULL)
 
-main_i <- (main_i + annotations) %+% spreads_m
+main_i <- ((main_i + annotations) %+% spreads_m) |> add_logo()
 main_i <- main_i  + inset_element(inset_i, 0.75, 0.5, 1, 1) 
 girafy(main_i, r=2.5)
 ```
@@ -491,7 +515,7 @@ spreads_q <- spreads_data |>
   arrange(date) |> 
   filter(date>="2018-01-01")
 
-ggplot(spreads_q) +
+(ggplot(spreads_q) +
   aes(x=interaction(q, y), y=taux, fill = pays, color=pays, group=pays) +
   geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
   geom_point(stroke = 0.5, size = 1, 
@@ -507,7 +531,7 @@ ggplot(spreads_q) +
     colour=NULL,
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
   scale_y_continuous(labels = ~str_c(.x, "%")) +
-  scale_x_discrete(guide = "axis_nested")
+  scale_x_discrete(guide = "axis_nested")) |> add_logo()
 ```
 
 ## Double échelle
