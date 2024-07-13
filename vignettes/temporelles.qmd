@@ -334,8 +334,8 @@ main_m  + inset_element(inset, 0.75, 0.5, 1, 1)
 
 ::: {#tip-id .callout-tip collapse="true"}
 ## Une alternative avec {ggmagnify}
-Le package `{ggmagnify}` simplifie la tâche et offre quelques améliorations esthétiques. Il faut cependant que les dataset principal et inset soit les mêmes. On reprend l'agrégation temporelle en l'arrêtant aux deux derniers mois.
-On peut facilement complexifier l'insert pour intégrer plus d'éléments en utilisant l'argument `plot` de `ggmagnify::geom_magnify()`.
+
+Le package `{ggmagnify}` simplifie la tâche et offre quelques améliorations esthétiques. Il faut cependant que les dataset principal et inset soit les mêmes. On reprend l'agrégation temporelle en l'arrêtant aux deux derniers mois. On peut facilement complexifier l'insert pour intégrer plus d'éléments en utilisant l'argument `plot` de `ggmagnify::geom_magnify()`.
 
 ```{r}
 # pak::pak("hughjonesd/ggmagnify")
@@ -419,8 +419,6 @@ sh <- ggplot(spreads_hyb) +
 girafy(add_logo(sh), r=2.5)
 
 ```
-
-
 :::
 
 ## Interactif

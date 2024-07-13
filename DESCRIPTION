@@ -21,8 +21,6 @@ Imports:
     ggplot2,
     ggpp,
     ggtext,
-    ggh4x,
-    ggmagnify,
     glue,
     quarto,
     lubridate,
