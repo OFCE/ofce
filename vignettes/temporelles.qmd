@@ -92,7 +92,7 @@ Pour les séries temporelles, il y a deux recommandations pour les données :
 
 2.  le champ décrivant les dates doit être en type `date`. ce n'est pas toujours évident quand les séries sont à fréquence annuelle, mais c'est très utile pour mélanger des séries de fréquence irrégulière, pour homogénéiser l'aspect des axes de dates et mieux maîtriser le formatage des dates. Pour convertir une date en date, soit elle est au format `<character>` sous la forme `"2022-12-01"` et la fonction `base::as.Date()` fonctionne très bien. Sinon, pour les autres cas, le package `{lubridate}` (formation R niv. 1) est très pratique et propose de nombreuses fonctions permettant d'absorber beaucoup de cas (les fonctions sont par exemple `lubridate::ymd` `lubridate::dmy` `lubridate::my` etc...).
 
-```{r, echo=TRUE}
+```{r libs, echo=TRUE}
 library(ofce)
 library(tidyverse, quietly = TRUE, verbose = FALSE)
 
@@ -110,13 +110,13 @@ Dans le cas où les données proviennent d'Excel et sont en format numérique on
 
 Prenons l'exemple du graphiques sur les spreads ([legislatives2024, Blot Gerrolf Plane](https://www.ofce-legislatives2024.fr/analyses/spreads.html#fig-spread)). Les données sont générées par un scrapping sur *investing.com* (en attendant une solution API sur une banque de données bien faite). Les données se présentent sous la forme.
 
-```{r}
+```{r spreads}
 spreads
 ```
 
 Le fichier est au format long (avec deux modalités pour `pays`), les dates sont au format `<date>`, donc tout va presque bien. La colonne `pays` est un peu brute. On la transforme pour avoir un label plus propre et en facteur, pour contrôler l'ordre (on met France en premier, Italie en second). Il y a plusieurs méthodes pour arriver à ce résultat. Ici, on reste très simple parce qu'il n'y a que deux modalités. Si il y en avait plus de deux (et surtout un grand nombre, possiblement évolutif), on aurait fait quelques manipulations de chaînes et on aurait utilisé le package `{countrycode}` pour transformer les code pays en texte lisible, possiblement traduit dans différentes langues.
 
-```{r}
+```{r spreads_data}
 spreads_data <- spreads |>
   distinct(date, pays, .keep_all = TRUE) |> 
   mutate(pays = factor( pays, c("spreadfra", "spreadita"), c("France", "Italie")))
@@ -127,7 +127,7 @@ spreads
 
 Le graphique de base est alors simple à construire. On utilise une couche `geom_line` et `geom_point`, une couche `aes` avec comme `x` les dates, `y` les taux et couleurs les pays. Pour `geom_line`, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d'une autre variable). L'ordre est important et le `geom_line` est en premier et donc en dessous du `geom_point`.
 
-```{r}
+```{r base}
 library(ofce)
 cc <- PrettyCols::prettycols("Summer", n=2)
 date_maj <- "2024-07-01"
@@ -164,7 +164,7 @@ On ajoute au graphique des annotations. C'est ici faid de façon laborieuse, on 
 
 Pour les annotations on peut utiliser différentes méthodes. La plus laborieuse est la fonction `ggplot2::annotate()`. La plus élégante est `ggforce::geom_mark_circle()` ou `ggrepel::geom_repel_text()`.
 
-```{r}
+```{r annote}
 
 # méthode 1 : annotate
 
@@ -229,7 +229,7 @@ annotations <-  list(
 (main + annotations) |> add_logo()
 ```
 
-```{r}
+```{r ggrepel}
 # méthode 2 : ggrepel
 # on enrichit les données des labels
 
@@ -282,7 +282,7 @@ Le résultat est intéressant, mais le graphique a cependant un défaut, il y a 
 
 Pour construire les données à la fréquence mensuelle, on va créer un champ de date, mais retenant une seule date par mois (au milieu du mois). En agrégeant par mois (`summarise`) on construit la série en mensuel.
 
-```{r}
+```{r mensuelle}
 dates <- spreads_data$date
 # on force le jour à être le 15 du mois, il n'y aura qu'une date par mois!
 lubridate::day(dates) <- 15
@@ -297,13 +297,13 @@ spreads_m
 
 On peut alors facilement modifier le graphique `main` en utilisant `%+%` (cette instruction modifie les données en entrée du graphique par le nouveau jeu de données qu'on vient de construire qui a exactement la même structure, comme on a utilisé les dates le passage du quotidien au mensuel se fait automatiquement, les axes sont parfaitement construits) :
 
-```{r}
+```{r logo}
 add_logo(main %+% spreads_m)
 ```
 
 L'*insert* est le même graphique, en enlevant les annotations, en simplifiant les axes et en zoomant sur les deux derniers mois.
 
-```{r}
+```{r insert}
 inset <- main  + 
   theme_ofce(base_size = 7,
              axis.line.x = element_blank(),
@@ -312,7 +312,7 @@ inset <- main  +
   scale_x_date(labels = scales::label_date_short(format = c("%Y", "%B")),
                date_breaks = "1 month",
                limits = c(Sys.Date()-months(2), NA),
-               guide = "minor_ticks") +
+               guide = "minor_ticks") + 
   geom_vline(xintercept = as.Date("2024-06-09"),
              linewidth = 0.1,
              color = "grey50") +
@@ -326,18 +326,18 @@ inset
 
 On l'insère dans le graphique principal en utilisant `{patchwork}`, ce qui donne le graphique, plus lisible et plus élégant. Les paramètres de `inset` sont choisis après quelques essais et erreurs. On a réduit la taille de la police de caractère pour accentuer l'effet visuel.
 
-```{r}
+```{r patchwork}
 library(patchwork)
 main_m <- add_logo((main + annotations) %+% spreads_m)
 main_m  + inset_element(inset, 0.75, 0.5, 1, 1)
 ```
 
-::: {#tip-id .callout-tip collapse="true"}
+::: {#tip-id .callout-tip collapse="true" appearance="minimal" icon="false"}
 ## Une alternative avec {ggmagnify}
 
-Le package `{ggmagnify}` simplifie la tâche et offre quelques améliorations esthétiques. Il faut cependant que les dataset principal et inset soit les mêmes. On reprend l'agrégation temporelle en l'arrêtant aux deux derniers mois. On peut facilement complexifier l'insert pour intégrer plus d'éléments en utilisant l'argument `plot` de `ggmagnify::geom_magnify()`.
+Le package `{ggmagnify}` simplifie la tâche et offre quelques améliorations esthétiques. Il faut cependant que les *dataset* principal et *inset* soit les mêmes \[pas sûr en fait\]. On reprend l'agrégation temporelle en l'arrêtant aux deux derniers mois. On complexifie l'insert pour intégrer plus d'éléments en utilisant l'argument `plot` de `ggmagnify::geom_magnify()`.
 
-```{r}
+```{r ggmagnify}
 # pak::pak("hughjonesd/ggmagnify")
 library(ggmagnify)
 
@@ -370,9 +370,10 @@ inset_plot <- ggplot(spreads_hyb) +
     col = "white", shape = 21, show.legend = FALSE)+
   scale_color_manual(aesthetics = c("fill", "color"), 
                      name = NULL, values = cc) +
-  theme_ofce(base_size = 7,
-             panel.grid.major.y = element_line(color = "gray", linewidth = 0.25),
-             axis.line.y = element_blank()) +
+  theme_ofce(
+      base_size = 7,
+      panel.grid.major.y = element_line(color = "gray", linewidth = 0.25),
+      axis.line.y = element_blank()) +
   geom_vline(xintercept = as.Date("2024-7-7"))+ 
   labs(
     y=NULL,
@@ -427,7 +428,7 @@ La dernière étape est l'interactivité. On utilise le package `{ggiraph}` qui 
 
 Pour ajouter l'interactivité, la première étape est de générer le texte des *tooltips* dans le tableau de données. Notez l'utilisation de `lubridate::stamp_date()` pour formater les dates simplement.
 
-```{r}
+```{r tooltip}
 spreads_m <- spreads_m |>
  mutate(
     tooltip = str_c("<b>", pays, "</b><br>",
@@ -437,7 +438,7 @@ spreads_m <- spreads_m |>
 
 L'interactivité est alors ajoutée par des instructions spécifiques qui se substituent aux `geom_*` en ajoutant un suffix, `geom_*_interactive`. Ces `geom_*_interactive` acceptent un `aes` avec deux paramètres supplémentaire, le premier définissant le `tooltip` et le second, `data_id`, une variable qui relie les éléments graphiques entre eux pour qu'ils soient modifiés lors du survol avec la souris. La fonction `girafy` qui est définie par `source("rinit.r")` et finalise le rendu. `{ggiraph}` conserve tous les éléments du graphique et il est possible de l'appliquer avec `{patchwork}` pour combiner les interactivités.
 
-```{r}
+```{r interactif}
 library(ggiraph)
 main_i <- ggplot(spreads_m) +
   aes(x=date, y=taux, color=pays, group=pays, fill = pays) +
@@ -494,7 +495,7 @@ La clef pour l'interactivité est d'apporter de l'information à l'utilisateur p
 
 On transforme les données en fréquence trimestrielle en utilisant la fonction `lubridate::floor_date()`. En calculant les variables année (`y`) et trimestre (`q`), on peut avec le package `{ggh4x}` produire facilement un joli graphique trimestriel. Les clefs sont de mettre en x l'interaction entre ces deux éléments discrets (attention à l'ordre, attention à trier les données avec `arrange`). La magie opère ensuite avec `guide = "axis_nested"`. Cete fonction est généralisable à bien des cas.
 
-```{r}
+```{r trim}
 
 library(lubridate)
 # pak::pak("teunbrand/ggh4x")
