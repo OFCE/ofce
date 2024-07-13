@@ -19,8 +19,6 @@ knitr::opts_chunk$set(
 library(ofce)
 ```
 
-
-
 Cette page fournit les informations nécessaires à la rédaction d'un billet de blog sous [Quarto](https://quarto.org/). Il s'appuie sur les différents programmes développés en interne pour définir une charte graphique commune et faciliter leur intégration à la rédaction.
 
 ## Créer un document *blog* à l'aide du package `ofce`

@@ -2,7 +2,7 @@ url: https://ofce.github.io/ofce/
 
 template:
   bootstrap: 5
-  theme: github-light
+  theme: arrow-light
   bslib:
     base_font: {google: "Open Sans"}
     heading_font: {google: "Open Sans"}
