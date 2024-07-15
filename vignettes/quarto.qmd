@@ -147,7 +147,7 @@ Pour un encadré, c'est un peu plus compliqué (pour le moment). `tip` est le *h
 
 ``` markdown
 ::: {#tip-id .callout-tip collapse="true"}
-## titre de l'encadré
+## titre  l'encadré
 texte de l'encadré
 :::
 ```
@@ -185,7 +185,7 @@ du code R, du texte, des images
 
 ### La bibliographie
 
-Il est très facile d'insérer une bibliographie. La première chose est d'indiquer un (ou plusieurs) fichier `.bib` à `quarto` :
+Il est facile d'insérer une bibliographie. La première chose est d'indiquer un (ou plusieurs) fichier `.bib` à `quarto` :
 
 ``` markdown
 ---

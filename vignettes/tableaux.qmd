@@ -6,15 +6,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 ```{r setup, include=FALSE}
 library(ofce)
+init_qmd()
+
 ```
 
 ### Comment faire un tableau

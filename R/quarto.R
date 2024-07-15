@@ -352,3 +352,29 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   quarto::quarto_preview(target, render="blog-html")
   return(invisible(TRUE))
 }
+
+#' exécute le fichier rinit.R à la racine du projet
+#'
+#' @param init Nom du projet, "pres" par défaut,
+#'
+#' @return NULL
+#' @export
+#'
+
+init_qmd <- function(init = "rinit.r") {
+  root <- Sys.getenv("QUARTO_PROJECT_DIR")
+  browser()
+  if(root=="")
+    root <- "."
+  init <- c(glue::glue("{root}/{init}"),
+           glue::glue("{root}/R/{init}"),
+           glue::glue("{root}/vignettes/{init}"))
+  init <- c(init, stringr::str_replace(init, "R$", "r"))
+  for(i in init)
+    if(file.exists(i)) {
+      source(glue::glue("{root}/{i}"), echo = FALSE)
+      return(invisible(TRUE))
+    }
+  source(fs::path_package("ofce", "rinit.r"))
+  return(invisible(FALSE))
+}

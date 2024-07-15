@@ -5,9 +5,6 @@ vignette: >
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 
-echo: true
-message: false
-warning: false
 format:
   html:
     code-fold: true
@@ -92,7 +89,7 @@ if(.Platform$OS.type=="windows")
 
 Pour les séries temporelles, il y a deux recommandations pour les données :
 
-1.  utilisez le format long pour le graphique. Il peut être plus simple pour calculer des taux de croissance ou des ratios de passer en format large, mais c'est mieux de passer en format long pour la partie graphique, avec une ou plusieurs colonnes pour différencier les lignes. Cela permettra d'associer une couleur à chaque série et une facette à chaque pays par exemple.
+1.  utilisez le format long pour les données du graphique. Il peut être plus simple pour calculer des taux de croissance ou des ratios de passer en format large, mais c'est mieux de passer en format long pour la partie graphique, avec une ou plusieurs colonnes pour différencier les lignes. Cela permettra d'associer une couleur à chaque série et une facette à chaque pays par exemple.
 
 2.  le champ décrivant les dates doit être en type `date`. ce n'est pas toujours évident quand les séries sont à fréquence annuelle, mais c'est très utile pour mélanger des séries de fréquence irrégulière, pour homogénéiser l'aspect des axes de dates et mieux maîtriser le formatage des dates. Pour convertir une date en date, soit elle est au format `<character>` sous la forme `"2022-12-01"` et la fonction `base::as.Date()` fonctionne très bien. Sinon, pour les autres cas, le package `{lubridate}` (formation R niv. 1) est très pratique et propose de nombreuses fonctions permettant d'absorber beaucoup de cas (les fonctions sont par exemple `lubridate::ymd` `lubridate::dmy` `lubridate::my` etc...).
 
@@ -118,7 +115,7 @@ Prenons l'exemple du graphiques sur les spreads ([legislatives2024, Blot Gerrolf
 spreads
 ```
 
-Le fichier est au format long (avec deux modalités pour `pays`), les dates sont au format `<date>`, donc tout va presque bien. La colonne `pays` est un peu brute. On la transforme pour avoir un label plus propre et en facteur, pour contrôler l'ordre (on met France en premier, Italie en second). Il y a plusieurs méthodes pour arriver à ce résultat. Ici, on reste très simple parce qu'il n'y a que deux modalités. Si il y en avait plus de deux (et surtout un grand nombre, possiblement évolutif), on aurait fait quelques manipulations de chaînes et on aurait utilisé le package `{countrycode}` pour transformer les code pays en texte lisible, possiblement traduit dans différentes langues.
+Les données sont au format long (avec deux modalités pour `pays` et donc 3 colonnes), les dates sont au format `<date>`, donc tout va presque bien. La colonne `pays` est un peu brute. On la transforme pour avoir un label plus propre et en facteur, pour contrôler l'ordre (on met France en premier, Italie en second). Il y a plusieurs méthodes pour arriver à ce résultat. Ici, on reste très simple parce qu'il n'y a que deux modalités. Si il y en avait plus de deux (et surtout un grand nombre, possiblement évolutif), on aurait fait quelques manipulations de chaînes et on aurait utilisé le package `{countrycode}` pour transformer les code pays en texte lisible, possiblement traduit dans différentes langues.
 
 ```{r spreads_data}
 spreads_data <- spreads |>
