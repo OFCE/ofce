@@ -93,57 +93,70 @@
 <p>Un graphique <code>ggplot</code> doit contenir une couche (layer) <code><a href="../reference/theme_ofce.html">theme_ofce()</a></code> et limiter au maximum les définitions de taille (par exemple de police de caractère). Ces définitions doivent être faites de façon globale pour assurer l’homogénéité. <strong>Il est important de ne pas définir la taille de la figure, ça risque de produire des images avec des caractères trop petits</strong>.</p>
 <p>Pour changer les dimensions d’un graphique, il faut utiliser<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;donc on n’utilise pas &lt;code&gt;#| fig-width&lt;/code&gt; ou &lt;code&gt;fig-height&lt;/code&gt;.&lt;/p&gt;"><sup>1</sup></a> <code>#| fig-asp : x</code> ou <code>x</code> est le ratio entre la hauteur et la longueur. 0.61 est la valeur par défaut et correspond au nombre d’or soit entre 16/9 et 16/10. Pour des graphiques particuliers (par exemple deux graphiques empilés ou une carte) on peut mettre 1 (format carré) ou 1.4 quand on veut prendre toute la page A4.</p>
 <p>Le code d’un graphique <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> :</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#| label: fig-tauxapp</span></span>
-<span><span class="co">#| fig-cap: Taux de taxation apparent sur le patrimoine des ménages</span></span>
-<span><span class="co">#| fig-asp: 0.61</span></span>
-<span><span class="co"># pas besoin d'en mettre plus, echo, message, warning sont déjà définis</span></span>
-<span><span class="co"># les données sont dans excel -- elles pourraient venir de R ou d'ailleurs</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span><span class="st">"analyses/Tables/patrimoine menages.v2.xlsx"</span>, sheet <span class="op">=</span> <span class="st">"tapp"</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"date"</span>, <span class="st">"vn"</span>, <span class="st">"pib"</span><span class="op">)</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span>date <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ym</a></span><span class="op">(</span><span class="fu">str_c</span><span class="op">(</span><span class="va">date</span>, <span class="st">"-01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">vn</span>, <span class="va">pib</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">name</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vn"</span>, <span class="st">"pib"</span><span class="op">)</span>,</span>
-<span>                       <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"En % de la valeur nette"</span>, <span class="st">"En % du PIB"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>                       </span>
-<span><span class="co"># un ggplot et ses différentes couches</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">value</span>, group <span class="op">=</span> <span class="va">name</span>, col <span class="op">=</span> <span class="va">name</span>, fill <span class="op">=</span> <span class="va">name</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co"># important utiliser le theme_ofce pour uniformiser l'aspect des graphiques</span></span>
-<span>  <span class="fu"><a href="../reference/theme_ofce.html">theme_ofce</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co"># scale date est important lorsqu'on présente des données temporelles</span></span>
-<span>  <span class="co"># il faut penser à convertir les dates en dates (as.Date() ou lubridate::ymd() et consorts)</span></span>
-<span>  <span class="co"># c'est important même si les dates ne sont que des années</span></span>
-<span>  <span class="co"># ca permet aussi de mélanger facilement des fréquences différentes</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html" class="external-link">scale_x_date</a></span><span class="op">(</span>date_breaks <span class="op">=</span> <span class="st">"2 years"</span>, date_labels <span class="op">=</span> <span class="st">"%Y"</span>, </span>
-<span>               date_minor_breaks <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co"># le choix des couleurs est tjrs délicat, Paul Malliet est un maître en la matière</span></span>
-<span>  <span class="co"># uniformiser ses choix de couleurs le long d'un document c'est bien</span></span>
-<span>  <span class="co"># donner une signification à ses couleurs c'est mieux</span></span>
-<span>  <span class="co"># quand en plus c'est harmonieux, c'est PM (plus que mieux ou Paul Malliet)</span></span>
-<span>  <span class="fu">PrettyCols</span><span class="fu">::</span><span class="fu"><a href="https://nrennie.github.io/PrettyCols/reference/scale_color_pretty_d.html" class="external-link">scale_color_pretty_d</a></span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, palette <span class="op">=</span> <span class="st">"Summer"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">PrettyCols</span><span class="fu">::</span><span class="fu"><a href="https://nrennie.github.io/PrettyCols/reference/scale_fill_pretty_d.html" class="external-link">scale_fill_pretty_d</a></span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, palette <span class="op">=</span> <span class="st">"Summer"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"%"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co"># les sources -- notez qu'on ne met pas de titre au graphique </span></span>
-<span>  <span class="co"># (voir la section références croisées)</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span></span>
-<span>         <span class="st">"La fiscalité sur le patrimoine est composée ici de la taxe foncière payée par les ménages, &lt;br&gt;</span></span>
-<span><span class="st">       des droits d'enregistrement sur les transactions immobilières, des droits de mutation sur les successions et les donations et de l'Impôt sur la Fortune Immobilière (ex-ISF)&lt;br&gt;</span></span>
-<span><span class="st">       *Sources* : Insee, calculs OFCE"</span><span class="op">)</span></span></code></pre></div>
-</section><section class="level2"><h2 id="copier-coller">Copier-coller<a class="anchor" aria-label="anchor" href="#copier-coller"></a>
+<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-tauxapp</span></span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Taux de taxation apparent sur le patrimoine des ménages</span></span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-asp: 0.61</span></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pas besoin d'en mettre plus, echo, message, warning sont déjà définis</span></span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"analyses/Tables/patrimoine menages.v2.xlsx"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sheet =</span> <span class="st">"tapp"</span>)</span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"date"</span>, <span class="st">"vn"</span>, <span class="st">"pib"</span>)</span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">date =</span> lubridate<span class="sc">::</span><span class="fu">ym</span>(<span class="fu">str_c</span>(date, <span class="st">"-01"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols  =</span> <span class="fu">c</span>(vn, pib)) <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="fu">c</span>(<span class="st">"vn"</span>, <span class="st">"pib"</span>),</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">c</span>(<span class="st">"En % de la valeur nette"</span>, <span class="st">"En % du PIB"</span>)))</span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>                       </span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># un ggplot et ses différentes couches</span></span>
+<span id="annotated-cell-1-17"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span> </span>
+<span id="annotated-cell-1-18"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value, <span class="at">group =</span> name, <span class="at">col =</span> name, <span class="at">fill =</span> name) <span class="sc">+</span></span>
+<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-21" class="code-annotation-target"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ofce</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"2 years"</span>, <span class="at">date_labels =</span> <span class="st">"%Y"</span>, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-23" class="code-annotation-target"><a href="#annotated-cell-1-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">date_minor_breaks =</span> <span class="st">"year"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-24" class="code-annotation-target"><a href="#annotated-cell-1-24" aria-hidden="true" tabindex="-1"></a>  PrettyCols<span class="sc">::</span><span class="fu">scale_color_pretty_d</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">palette =</span> <span class="st">"Summer"</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-1-25"><a href="#annotated-cell-1-25" aria-hidden="true" tabindex="-1"></a>  PrettyCols<span class="sc">::</span><span class="fu">scale_fill_pretty_d</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">palette =</span> <span class="st">"Summer"</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-1-26"><a href="#annotated-cell-1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Taux apparent"</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scae_y_continuous</span>(<span class="at">labels =</span> \(x) <span class="fu">str_c</span>(x, <span class="st">"%"</span>)) <span class="sc">+</span></span>
+<span id="annotated-cell-1-28"><a href="#annotated-cell-1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span></span>
+<span id="annotated-cell-1-29"><a href="#annotated-cell-1-29" aria-hidden="true" tabindex="-1"></a>         <span class="st">"La fiscalité sur le patrimoine est composée ici de la taxe foncière payée par les ménages, &lt;br&gt;</span></span>
+<span id="annotated-cell-1-30"><a href="#annotated-cell-1-30" aria-hidden="true" tabindex="-1"></a><span class="st">       des droits d'enregistrement sur les transactions immobilières, des droits de mutation sur les successions et les donations et de l'Impôt sur la Fortune Immobilière (ex-ISF)&lt;br&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-31" class="code-annotation-target"><a href="#annotated-cell-1-31" aria-hidden="true" tabindex="-1"></a><span class="st">       *Sources* : Insee, calculs OFCE"</span>)</span><div class="code-annotation-gutter-bg"></div>
+<div class="code-annotation-gutter"></div></code></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="8" data-code-annotation="1">Les données sont dans excel – elles pourraient venir de R ou d’ailleurs. La feuille <code>tapp</code> est formattée simplement</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="21" data-code-annotation="2">Utilisez le <code>theme_ofce</code> pour uniformiser l’aspect des graphiques</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="23" data-code-annotation="3"><code>scale_date</code> est important lorsqu’on présente des données temporelles, il faut penser à convertir les dates en dates (as.Date() ou lubridate::ymd() et consorts), même si les dates ne sont que des années.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="24" data-code-annotation="4">Le choix des couleurs est tjrs délicat, Paul Malliet est un maître en la matière, uniformiser ses choix de couleurs le long d’un document c’est bien, donner une signification à ses couleurs c’est mieux, quand en plus c’est harmonieux, c’est PM (plus que mieux ou Paul Malliet)</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="31" data-code-annotation="5">Les sources – notez qu’on ne met pas de titre au graphique (voir la section références croisées)</span>
+</dd>
+</dl></section><section class="level2"><h2 id="copier-coller">Copier-coller<a class="anchor" aria-label="anchor" href="#copier-coller"></a>
 </h2>
 <p>On peut copier coller un graphique (de word, d’excel, d’ailleurs) dans le mode visuel de RStudio. Ça marche mais c’est pas le mieux. Quand on copie colle, on fait quelque chose qui ressemble à l’option qui suit.</p>
 </section><section class="level2"><h2 id="image-au-format-pngjpegjpgsvg">Image au format png/jpeg/jpg/svg<a class="anchor" aria-label="anchor" href="#image-au-format-pngjpegjpgsvg"></a>
 </h2>
 <p>On peut enregistrer une image (au format que l’on veut, <code>quarto</code> accepte pas mal d’options, dont les plus courantes) et l’insérer dans le texte. Il y a deux façon de faire soit en <code>markdown</code> (dans le qmd, comme un lien ou autre chose), soit en utilisant <code>include_graphics</code>. L’intérêt par rapport au copier-coller est que si on change le fichier qui contient l’image, à chaque <em>render</em> du document, la bonne (la dernière version) image sera utilisée. Si on utilise des images venant de <code>eviews</code> 💀 ou <code>stata</code> 😵, c’est la meilleure méthode.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Titre de la figure</span><span class="co">](rep/fig.png)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Titre de la figure</span><span class="co">](rep/fig.png)</span></span></code></pre></div>
 <p>Le <strong>répertoire est toujours relatif</strong>.</p>
 <p><em>Jamais de chemin absolu</em> comme “<code>c:/user/machin/montravail/monrepo/monimage.png</code>” parce que ça ne marchera pas sur un autre ordinateur et en plus <code>github</code> ne copiera pas l’image) et par celui qui contient le <code>.qmd</code>. Il est toujours possible de mettre les images dans un sous dossier.</p>
 <p>Plus c’est simple et clair, mieux c’est (i.e. gardez les noms courts, explicites, pas de majuscules, bien rangés, conservateurs dans l’utilisation des caractères (<strong>pas d’accents, pas de blancs, pas de symboles spéciaux</strong>). Donc <code>donnees/img.png</code> ou <code>donnees/graphique 1a5.png</code> ne sont pas des bons noms. Mais <code>figures/revenu.png</code> ou <code>figures/pib_par_tete.png</code> sont mieux.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#| label fig-pib2008_2024</span></span>
 <span><span class="co">#| fig-cap: PIB entre 2008 et 2024</span></span>
 <span></span>
@@ -215,6 +228,158 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     window.tippy(el, config);
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]
+          }
+        };
+        window.tippy(annoteTarget, config);
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -263,7 +428,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
 </div>
 
     </footer>

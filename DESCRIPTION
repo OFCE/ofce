@@ -3,9 +3,9 @@ Type: Package
 Title: Documents scientifiques aux normes OFCE
 Version: 1.1.0
 Authors@R: c(
-    person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut")),
+    person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut", "cre")),
     person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut", "cre")),
-    person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut")))
+    person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut", "cre")))
 Description: Procure des fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue ; des templates pour quarto ; documente les normes et pratiques attendues.
 LazyData: true
 Imports: 

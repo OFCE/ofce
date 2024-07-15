@@ -2,7 +2,7 @@ url: https://ofce.github.io/ofce/
 
 template:
   bootstrap: 5
-  theme: arrow-light
+  theme: atom-one-light
   bslib:
     base_font: {google: "Open Sans"}
     heading_font: {google: "Open Sans"}
@@ -12,8 +12,12 @@ deploy:
   install_metadata: true
 
 footer:
-  left: RTFM
-  right: CC BY 4.0
+  structure:
+    left: [developed_by]
+    right: [rtfm, ccby, built_with]
+  components:
+    rtfm: RTFM
+    ccby: CC BY 4.0
 
 navbar:
   structure:

@@ -85,11 +85,7 @@
 
 
 
-    <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ofce.github.io/ofce/">ofce</a></span><span class="op">)</span></span></code></pre></div>
-</div>
-<section class="level2"><h2 id="quelques-conseils-décriture-et-de-format">Quelques conseils d’écriture et de format<a class="anchor" aria-label="anchor" href="#quelques-conseils-d%C3%A9criture-et-de-format"></a>
+    <section class="level2"><h2 id="quelques-conseils-décriture-et-de-format">Quelques conseils d’écriture et de format<a class="anchor" aria-label="anchor" href="#quelques-conseils-d%C3%A9criture-et-de-format"></a>
 </h2>
 <section class="level3"><h3 id="au-commencement">Au commencement<a class="anchor" aria-label="anchor" href="#au-commencement"></a>
 </h3>
@@ -102,61 +98,56 @@
 <li><p><code>README.md</code> qui apparaît sur la première page du projet sur <a href="https://github.com/ofce/legislatives2024" class="external-link">github.com</a></p></li>
 <li><p><code>_extensions</code> qui contient tous les <em>templates</em> <code>quarto</code>, il faut absolument que ce dossier soit présent (et il ne faut pas y toucher).</p></li>
 </ul>
-<pre><code>legislatives2024
-  _quarto.yml
-  index.qmd
-  about.qmd
-  rinit.r
-  README.md
-  .gitignore
-  _extensions/
-    ofce/
-      ...
-  programmes/
-    rn.qmd
-    nfp.qmd
-    Comparatif programmes législatives 2024.xlsx
-    ...
-  analyses/
-    transition.qmd
-    tissu_productif.qmd
-    ...
-    Tables/
-      Tableau_retraite.xlsx
-      Spreads.xlsx
-      spread.rds
-      ...</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">legislatives2024</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">_quarto.yml</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">index.qmd</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">about.qmd</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">rinit.r</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">README.md</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.gitignore</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="ex">_extensions/</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="ex">ofce/</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="ex">...</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">programmes/</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">rn.qmd</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="ex">nfp.qmd</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="ex">Comparatif</span> programmes législatives 2024.xlsx</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="ex">...</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">analyses/</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="ex">transition.qmd</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="ex">tissu_productif.qmd</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="ex">...</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="ex">Tables/</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="ex">Tableau_retraite.xlsx</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            <span class="ex">Spreads.xlsx</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            <span class="ex">spread.rds</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            <span class="ex">...</span></span></code></pre></div>
 <p>Donnez un nom simple (court, explicite, pas de majuscules, pas de caractères spéciaux), pour que le contenu soit clair, mais aussi qu’il soit facile à retaper quelque part si nécessaire. Les noms à rallonge sont donc à proscrire. Tâchez aussi d’éviter la multiplication des versions dans le dossier (dont une seule est ok), si vous avez des déchets, mettez dans un sous dossier spécifique (moi je l’appelle <code>rkiv</code>) de façon à garder les vieux morceaux d’essais.</p>
 <p>Le <code>.qmd</code> est très simple, l’entête <code>yaml</code> n’a besoin que d’un champ : le titre. L’auteur est aussi utile, mais pas obligatoire. Pas besoin d’ajouter un format (ils sont communs au site et défini dans <code>_quarto.yml</code>), ni d’options spécifiques (définies aussi ailleurs). Eventuellement, on peut ajouter des éléments spécifiques au texte comme le champ <code>date</code> ou <code>keyword</code> ou <code>bibliography</code>.</p>
 <p>Notez qu’il n’y pas de section de niveau <code>header 1</code>. Ce n’est pas possible parce qu’il y a un titre et que le titre est considéré comme la section <code>header 1</code> : une alternative au titre dans le yml est une section de niveau <code>header 1</code> ou simple <code>#</code>. S’il n’y a pas d’auteur ou d’autre champ, l’ensemble <code>yml</code> peut être omis avec simplement le <code>header 1</code>.</p>
 <p>Dernier petit détail, il faut <em>sourcer</em> le fichier <code>rinit.r</code>. Ce fichier définit les options par défaut des chunks et permet d’avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. Il faut le mettre au début et à part pour que ces options s’appliquent aux chunks suivants. Si vos graphiques sont moches, si les polices de caractère sont toutes petites, avant d’appeler à l’aide, vérifiez 1. sur <code>rinit.r</code> est bien <em>sourcé</em> 2. que vous n’avez pas un <code>fig-width</code> ou un <code>fig-heigth</code> quelque part dans le chunk ou dans le <code>yml</code>.</p>
-<pre class="qmd"><code>---
-title: Mon texte en qmd
-author: Georgette
----
-
-```{r, include=FALSE}
-source("../rinit.r")
-```
-
-## section 1
-
-blabla
-
-## section 2
-
-blabla</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Mon texte en qmd</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Georgette</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">source("../rinit.r")</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## section 1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>blabla</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## section 2</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>blabla</span></code></pre></div>
 <p>Gardez vos <code>yml</code> les plus simples possibles, c’est le moyen d’assurer l’homogénéité des documents sur le site.</p>
 <p><a href="https://quarto.org/docs/guide/" class="external-link">Quarto.org</a> est une excellente source d’informations et d’aide sur l’écriture en <code>markdown</code> et la variante particulière que nous utilisons ici. La section “Authoring” est à avoir lu au moins une fois.</p>
 </section><section class="level3"><h3 id="les-règles-typographiques">les règles typographiques<a class="anchor" aria-label="anchor" href="#les-r%C3%A8gles-typographiques"></a>
 </h3>
 <p>Grace à <code>quarto</code> et un filtre développé par Romain Lesur de l’INSEE, les règles typographiques standards au français sont appliquées automatiquement. Par exemple les guillemets sont mis conformément à la pratique en France «…» à partir du caractère tapé directement (“). Les espaces avant les signes de ponctuation ( : ;) sont remplacés par des demi cadratins et les espaces séparateurs des milliers sont remplacés par des espaces insécables. Pas besoin donc de s’embêter avec ça. Juste, pensez à mettre les espaces avant”:“.</p>
 <p>Pour un document en anglais, il suffit de rajouter dans le <code>yml</code> la langue anglaise pour que la typographie correspondante soit appliquée. Les principaux champs (date, auteur, tableau, figure, graphique) sont aussi traduits.</p>
-<pre class="qmd"><code>---
-title: English Version of the Document
-author: William
-lang: en
----</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> English Version of the Document</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> William </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> en</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 </section><section class="level3"><h3 id="les-références-croisées">Les références croisées<a class="anchor" aria-label="anchor" href="#les-r%C3%A9f%C3%A9rences-crois%C3%A9es"></a>
 </h3>
 <p>Les références croisées demandent un peu de soin, mais permettent de produire des documents plus propres dans lesquels :</p>
@@ -167,33 +158,66 @@ lang: en
 </ul>
 <p>Le secret d’une référence croisée c’est l’instruction (le tag) <code>#|</code> que l’on met en tête d’un chunk. <code>label</code> est l’id du document. Il définit le type (<code>fig</code> pour un graphique ; <code>tbl</code> pour un tableau ; <code>tip</code> pour un encadré ; <code>eq</code> pour une équation) et après le tiret le nom (sans espace ni tiret) qui sera appelé dans le texte par la séquence <code>@fig-id</code> (voir <a href="https://quarto.org/docs/authoring/cross-references.html" class="external-link">quarto cross references</a> pour plus de détails).</p>
 <p>On définit également le titre du graphique qui est donc identifié pour être mis en page, utilisé par ailleurs (par exemple la table des figures) et agrémenté des mots récurrents (par exemple tableau pour un tableau, donc on ne met pas dans le titre tableau ou son numéro).</p>
+<section class="level4"><h4 id="graphiques">graphiques<a class="anchor" aria-label="anchor" href="#graphiques"></a>
+</h4>
 <p>Pour un graphique (on ne met pas le numéro du graphique dans le titre, c’est fait automatiquement) :</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#| label: fig-id</span></span>
-<span><span class="co">#| fig-cap: Le titre du graphique</span></span>
-<span><span class="co">#| fig-asp: 0.8</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-id</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: Le titre du graphique</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-asp: 0.8</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p>Si c’est un graphique produit autrement que par <code>R</code>, la syntaxe standard de <code>markdown</code> fonctionne aussi de cette façon (en changeant <code>image</code> en fonction du contexte !):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="al">![Le titre de l'image](limage.png)</span>{#fig-image}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>This is illustrated well by @fig-image.</span></code></pre></div>
+</section><section class="level4"><h4 id="tableaux">tableaux<a class="anchor" aria-label="anchor" href="#tableaux"></a>
+</h4>
 <p>Pour un tableau (on ne met pas le numéro du tableau dans le titre, c’est fait automatiquement) :</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#| label: tbl-id</span></span>
-<span><span class="co">#| tbl-cap: Le titre du tableau</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: tbl-id</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| tbl-cap: Le titre du tableau</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+</section><section class="level4"><h4 id="encadrés">encadrés<a class="anchor" aria-label="anchor" href="#encadr%C3%A9s"></a>
+</h4>
 <p>Pour un encadré, c’est un peu plus compliqué (pour le moment). <code>tip</code> est le <em>hack</em> pour la catégorie, .callout-tip pour le style. Le champ <code>collapse</code> permet de replier l’encadré par défaut et l’option <code>"false"</code> (notez les guillemets et les minuscules) permet de le déplier par défaut.</p>
-<pre class="qmd"><code>::: {#tip-id .callout-tip collapse="true"}
-## titre de l'encadré
-texte de l'encadré
-:::</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::: {#tip-id .callout-tip collapse="true"}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## titre de l'encadré</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>texte de l'encadré</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
+</section><section class="level4"><h4 id="un-cas-plus-général">un cas plus général<a class="anchor" aria-label="anchor" href="#un-cas-plus-g%C3%A9n%C3%A9ral"></a>
+</h4>
+<p>On peut être dans le cas où le contenu n’est pas une image ou un tableau (par exemple une composition d’images, un tableau sous forme d’un png). Dans ce cas <code>quarto</code> protestera. C’est dans la <a href="https://quarto.org/docs/authoring/cross-references-divs.html" class="external-link">documentation de Quarto</a> et cela prend la forme suivante (l’utilisation du tag <code>fig</code> implique une <em>figure</em>, la première ligne est le contenu, la dernière est le titre, les autres lignes sont affichées comme CONTENT) :</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>::: {#fig-example}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>CONTENT</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Caption</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
+<p>Par ailleurs, on peut définir d’autres catégories de références croisées si nécessaire, par exemple en distinguant les <em>cartes</em> des <em>figures</em>.</p>
+</section></section><section class="level3"><h3 id="les-tabsets">Les tabsets<a class="anchor" aria-label="anchor" href="#les-tabsets"></a>
+</h3>
+<p>Les tabsets sont un moyen commode de proposer des options pour un tableau, un graphique sans entrer dans des complications trop grandes d’interactivité.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## tab 1</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>du code R, du texte, des images</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## tab2</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>du code R, du texte, des images</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
 </section><section class="level3"><h3 id="la-bibliographie">La bibliographie<a class="anchor" aria-label="anchor" href="#la-bibliographie"></a>
 </h3>
-<p>Il est très facile d’insérer une bibliogrphie. La première chose est d’indiquer un (ou plusieurs) fichier <code>.bib</code> à <code>quarto</code> :</p>
-<pre class="qmd"><code>---
-title: Mon titre
-bibliography: references.bib
----</code></pre>
+<p>Il est très facile d’insérer une bibliographie. La première chose est d’indiquer un (ou plusieurs) fichier <code>.bib</code> à <code>quarto</code> :</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Mon titre</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div>
 <p>Le fichier <code>references.bib</code> doit être à la racine du projet et contient dans la syntaxe <code>bibtex</code> les références. Pour entrer une référence, avec RStudio, il y a plusieurs façon de faire.</p>
 <ol type="1">
-<li>Dans RStudio, en mode visuel, on fait insérer une citation. Plusieurs sources sont possibles : Zotero, un DOI, une recherche sur Crossref, etc…</li>
-</ol>
-<!-- --><ol start="2" type="1">
-<li>Directement en copiant dans le <code>.bib</code> les références (on peut ainsi utiliser la biblio d’un autre document).</li>
+<li><p>Dans RStudio, en mode visuel, on fait insérer une citation. Plusieurs sources sont possibles : Zotero, un DOI, une recherche sur Crossref, etc…</p></li>
+<li><p>Directement en copiant dans le <code>.bib</code> les références (on peut ainsi utiliser la biblio d’un autre document).</p></li>
 </ol>
 <p>Les appels de références sont alors simplement fait en utilisant <span class="citation" data-cites="angel2021">@angel2021</span> où angel2021 est l’id de la référence. L’appel de référence, la biblio sera insérée et formattée automatiquement. Les appels de référence peuvent se mettre également en note de bas de page ou dans un tableau en syntaxe <code>markdown</code>.</p>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
@@ -307,7 +331,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
 </div>
 
     </footer>

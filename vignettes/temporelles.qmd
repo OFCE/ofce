@@ -69,14 +69,17 @@ girafy <- function(plot, r=4, ...) {
 
 f_taux <- function(x) {
   str_replace(str_c(signif(x,3),"%"), "\\.", ",")
-}
+} 
+if(.Platform$OS.type=="windows")
+ Sys.setlocale(locale = "fr_FR.utf8") else
+  Sys.setlocale(locale = "fr_FR") 
 ```
 
 ## Règles d'or
 
 **Règle 1** : On utilise `theme_ofce()`
 
-**Règle 2** :Les dates sont au format `<date>` même lorsque la fréquence est annuelle
+**Règle 2** : Les dates sont au format `<date>` même lorsque la fréquence est annuelle
 
 **Règle 3** : On utilise `scale_x_date(date_breaks = "5 years", date_minor_breaks = "1 year", guide = "minor_ticks")` en définissant `date_breaks` à la fréquence souhaitée (en évitant trop de dates) et `date_minor_breaks` à une année (`"1 year"`).
 
@@ -128,30 +131,30 @@ spreads
 Le graphique de base est alors simple à construire. On utilise une couche `geom_line` et `geom_point`, une couche `aes` avec comme `x` les dates, `y` les taux et couleurs les pays. Pour `geom_line`, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d'une autre variable). L'ordre est important et le `geom_line` est en premier et donc en dessous du `geom_point`.
 
 ```{r base}
-library(ofce)
-cc <- PrettyCols::prettycols("Summer", n=2)
-date_maj <- "2024-07-01"
+library(ofce) 
+cc <- PrettyCols::prettycols("Summer", n=2) 
+date_maj <- "2024-07-01" 
 main <- ggplot(spreads_data) +
-  aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
-  geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
-  geom_point(stroke = 0.5, size = 1, 
-             col = "white", shape = 21, show.legend = FALSE)+
-  scale_color_manual(aesthetics = c("fill", "color"), 
-                     name = NULL, values = cc) +
-  theme_ofce()+
-  guides(x = guide_axis(minor.ticks = TRUE),
-         y = guide_axis(minor.ticks = TRUE)) +
-  labs(
-    y="Ecart de taux à 10 ans",
-    x=NULL,
-    colour=NULL,
-    caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) + 
-  scale_x_date(labels = scales::label_date_short(format = c("%Y")),
-               date_breaks = "5 years", 
-               date_minor_breaks = "1 year",
-               guide = "minor_ticks") +
-  scale_y_continuous(labels = ~str_c(.x, "%"))
-main |> add_logo()
+     aes(x=date, y=taux, fill = pays, color=pays, group=pays) +
+     geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +   
+     geom_point(stroke = 0.5, size = 1,
+     col = "white", shape = 21, show.legend = FALSE)+   
+      scale_color_manual(aesthetics = c("fill", "color"),  
+                         name = NULL, values = cc) +
+     theme_ofce()+
+     guides(x = guide_axis(minor.ticks = TRUE), 
+            y = guide_axis(minor.ticks = TRUE)) +   
+     labs(
+        y="Ecart de taux à 10 ans",
+        x=NULL,     
+        colour=NULL,     
+        caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) +    
+      scale_x_date(labels = scales::label_date_short(format = c("%Y")),   
+                   date_breaks = "5 years",   
+                   date_minor_breaks = "1 year", 
+                   guide = "minor_ticks") +
+      scale_y_continuous(labels = ~str_c(.x, "%")) 
+  main |> add_logo()
 ```
 
 On utilise la palette *summer* de `{PrettyCols}` (affaire de goût). On utilise la fonction `theme_ofce()` pour homogénéiser la présentation des graphiques. On précise les labels des axes inutile pour `x`, explicite pour `y`. Et la source, en notant que l'on peut utiliser `markdown` dans le texte de la source, ce qui permet de mettre *Source* en italique.
@@ -231,7 +234,9 @@ annotations <-  list(
 
 ```{r ggrepel}
 # méthode 2 : ggrepel
-# on enrichit les données des labels
+# on enrichit les données des labels,
+# le code est plus compact et surtout plus facile à manier 
+# (pour modifier les annotations, on le fait dans les deux tribbles)
 
 library(ggrepel)
 
@@ -259,21 +264,26 @@ ss <- spreads_data |>
   arrange(pays, date)
 
 add_logo(main %+% ss) +
-  ggrepel::geom_text_repel(aes(label=label_pays, color = pays), 
-                           size = 3, show.legend=FALSE, 
-                           segment.size = 0.2, min.segment.length = 2,
-                           max.overlaps = Inf, hjust= 0.5) +
-  ggrepel::geom_text_repel(aes(label=event), color = "black", 
-                           size = 2, show.legend=FALSE, 
-                           segment.size = 0.2, min.segment.length = 0.1,
-                           max.overlaps = Inf, hjust= 0.5,nudge_x = c(-500, -250, -250), nudge_y = c(-0.3,1, -0.5),
-                           arrow = arrow(length = unit(0.015, "npc"))) +
+  ggrepel::geom_text_repel(
+    aes(label=label_pays, color = pays), 
+    fontface = "bold",
+    size = 3, show.legend=FALSE, 
+    min.segment.length = Inf,
+    max.overlaps = Inf, hjust= 0.5) +
+  ggrepel::geom_text_repel(
+    aes(label=event), color = "black", 
+    size = 2, show.legend=FALSE, 
+    segment.size = 0.2, min.segment.length = 0.1,
+    max.overlaps = Inf, hjust= 0.5,
+    nudge_x = c(-500, -250, -250), nudge_y = c(-0.3,1, -0.5),
+    arrow = arrow(length = unit(0.015, "npc"))) +
   scale_y_continuous(labels = ~str_c(.x, "%"), limits = c(0, 6)) +
-  scale_x_date(labels = scales::label_date_short(format = c("%Y")),
-               date_breaks = "5 years", 
-               date_minor_breaks = "1 year",
-               guide = "minor_ticks",
-               limits  = c(as.Date("2008-01-01"), NA))
+  scale_x_date(
+    labels = scales::label_date_short(format = c("%Y")),
+    date_breaks = "5 years", 
+    date_minor_breaks = "1 year",
+    guide = "minor_ticks",
+    limits  = c(as.Date("2008-01-01"), NA))
 ```
 
 Le résultat est intéressant, mais le graphique a cependant un défaut, il y a trop de points, ce qui est du à la fréquence quotidienne et donc il perd en clarté. On va donc faire deux choses : réduire la fréquence en agrégeant les données par mois, puis on va ajouter un insert.
@@ -354,8 +364,10 @@ spreads_hyb <- spreads_data |>
     date = date_h) |> 
   mutate(
     date_label = ifelse(n>1,
-                        stamp("juillet 2024", orders = "%B %Y",  locale = "fr_FR.utf8", quiet = TRUE)(date),
-                        stamp("22/12/2024", orders = "%d/%m/%Y",  locale = "fr_FR.utf8", quiet = TRUE)(date)),
+                        stamp(orders = "%B %Y",  
+                              locale = "fr_FR.utf8", exact = TRUE, quiet = TRUE)(date),
+                        stamp("22/12/2024", orders = "%d/%m/%Y",  
+                              locale = "fr_FR.utf8", quiet = TRUE)(date)),
     tooltip = str_c(
         "<b>", pays, "</b><br>",
         date_label,
@@ -373,14 +385,15 @@ inset_plot <- ggplot(spreads_hyb) +
   theme_ofce(
       base_size = 7,
       panel.grid.major.y = element_line(color = "gray", linewidth = 0.25),
-      axis.line.y = element_blank()) +
-  geom_vline(xintercept = as.Date("2024-7-7"))+ 
+      axis.line = element_blank()) +
+  geom_vline(xintercept = as.Date("2024-6-30"), linewidth = 0.25, color = "grey")+ 
   labs(
     y=NULL,
     x=NULL,
     colour=NULL,
     caption = NULL) + 
-  scale_x_date(labels = scales::label_date_short(format = c("%Y", "%B")),
+  scale_x_date(
+    labels = scales::label_date_short(format = c("%Y", "%B")),
                date_breaks = "1 month") +
   scale_y_continuous(labels = ~str_c(.x, "%"), breaks =seq(0,2))
 
@@ -408,7 +421,8 @@ sh <- ggplot(spreads_hyb) +
                date_breaks = "5 years", 
                date_minor_breaks = "1 year",
                guide = "minor_ticks") +
-  scale_y_continuous(labels = ~str_c(.x, "%"), breaks=seq(0,5)) +
+  scale_y_continuous(labels = ~str_c(.x, "%"), breaks=seq(0,5),
+                     expand = expansion()) +
   annotations +
   coord_cartesian(clip = "off")+
   ggmagnify::geom_magnify(
@@ -432,7 +446,8 @@ Pour ajouter l'interactivité, la première étape est de générer le texte des
 spreads_m <- spreads_m |>
  mutate(
     tooltip = str_c("<b>", pays, "</b><br>",
-                    stamp("juillet 2024", orders = "%B %Y",  locale = "fr_FR.utf8", quiet = TRUE)(date),
+                    stamp(exact = TRUE, orders = "%B %Y", 
+                          locale = "fr_FR.utf8", quiet = TRUE)(date),
                     "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)))
 ```
 
