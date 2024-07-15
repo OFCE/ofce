@@ -112,7 +112,7 @@ lubridate::my(dates)
 
 Dans le cas où les données proviennent d'Excel et sont en format numérique on peut utiliser `as.Date(df$date, origin = "1899-12-30")` pour les convertir en `<date>`.
 
-Prenons l'exemple du graphiques sur les spreads ([legislatives2024, Blot Gerrolf Plane](https://www.ofce-legislatives2024.fr/analyses/spreads.html#fig-spread)). Les données sont générées par un scrapping sur *investing.com* (en attendant une solution API sur une banque de données bien faite). Les données se présentent sous la forme.
+Prenons l'exemple du graphiques sur les spreads ([legislatives2024, Blot Geerolf Plane](https://www.ofce-legislatives2024.fr/analyses/spreads.html#fig-spread)). Les données sont générées par un scrapping sur *investing.com* (en attendant une solution API sur une banque de données bien faite). Les données se présentent sous la forme.
 
 ```{r spreads}
 spreads
