@@ -294,7 +294,9 @@ add_logo(main %+% ss) +
     date_breaks = "5 years",
     date_minor_breaks = "1 year",
     guide = "minor_ticks",
-    limits = c(as.Date("2008-01-01"), NA)```
+    limits = c(as.Date("2008-01-01"), NA))
+
+```
 
 Le résultat est intéressant, mais le graphique a cependant un défaut, il y a trop de points, ce qui est du à la fréquence quotidienne et donc il perd en clarté. On va donc faire deux choses : réduire la fréquence en agrégeant les données par mois, puis on va ajouter un insert.
 
@@ -475,7 +477,9 @@ sh <- ggplot(spreads_hyb) +
     shadow.args = list(sigma = 5, colour = "grey80", x_offset = 5, y_offset = 5)
   )
 
-girafy(add_logo(sh), r = 2.5):::
+girafy(add_logo(sh), r = 2.5)
+```
+:::
 
 ## Interactif
 
