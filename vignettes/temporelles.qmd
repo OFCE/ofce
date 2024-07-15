@@ -74,7 +74,6 @@ f_taux <- function(x) {
 if(.Platform$OS.type=="windows")
   Sys.setlocale(locale = "fr_FR.utf8") else
   Sys.setlocale(locale = "fr_FR")
-load("../data/spreads.rda")
 ```
 
 ## Règles d'or
