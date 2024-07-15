@@ -4,11 +4,11 @@ Title: Documents scientifiques aux normes OFCE
 Version: 1.1.0
 Authors@R: c(
     person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut", "cre")),
-    person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut", "cre")),
-    person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut", "cre")))
+    person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),
+    person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut")))
 Description: Procure des fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue ; des templates pour quarto ; documente les normes et pratiques attendues.
 LazyData: true
-Imports: 
+Imports:
     cli,
     colorspace,
     cowplot,
@@ -41,13 +41,13 @@ Imports:
     utils,
     zip
 License: CC BY 4.0
-Depends: 
+Depends:
     R (>= 2.10)
 URL: https://ofce.github.io/ofce/
-Suggests: 
+Suggests:
     knitr,
     rmarkdown
-VignetteBuilder: 
+VignetteBuilder:
     quarto
 Config/testthat/edition: 3
 Encoding: UTF-8

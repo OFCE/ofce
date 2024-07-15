@@ -21,7 +21,7 @@ footer:
 
 navbar:
   structure:
-     left: [guides, charte, reference, news]
+    left: [guides, charte, reference, news]
 
   components:
     guides:
@@ -54,4 +54,3 @@ navbar:
           href: articles/distributions.html
         - text: Cartes
           href: articles/cartes.html
-
