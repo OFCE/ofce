@@ -1,7 +1,7 @@
 
 #' Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE
 #'
-#' @param lang
+#' @param lang chr, le choix de la langue c("fr","en")
 #' @param list_iso3 chr, une liste de nom de pays
 #'
 #' @importFrom dplyr filter
@@ -10,7 +10,7 @@
 #' @importFrom purrr set_names
 #'
 #' @return une palette de couleur (format HEX)
-#' @export a scale_color
+#' @export
 #'
 #'
 #'

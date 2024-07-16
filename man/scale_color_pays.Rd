@@ -8,6 +8,8 @@ scale_color_pays(list_iso3 = NULL, lang = NULL)
 }
 \arguments{
 \item{list_iso3}{chr, une liste de nom de pays}
+
+\item{lang}{chr, le choix de la langue c("fr","en")}
 }
 \value{
 une palette de couleur (format HEX)
