@@ -23,8 +23,7 @@ ofce::init_qmd()
 
 Un graphique ggplot2 par défaut aura le rendu suivant:
 
-```{r}
-
+```{r, echo = TRUE}
 p <- ggplot(iris) + 
   aes(x = Sepal.Width, y = Sepal.Length, group = Species, color = Species) +
   geom_point(size = 2)
@@ -34,14 +33,14 @@ p
 
 L'ajout de la commande `theme_{nomdutheme}` permet d'appliquer un thème spécifique au graphe produit (ici `theme_classic`). Plusieurs sont déjà pré-enregistrés dans ggplot2.
 
-```{r}
+```{r, echo = TRUE}
 
 p + theme_classic()
 ```
 
 Un thème spécifique à l'OFCE existe dans le package ofce et permet d'appliquer des modifications de forme qui reprenne les élements de la charte graphique définie par ailleurs.
 
-```{r}
+```{r, echo = TRUE}
 
 p + ofce::theme_ofce()
 ```
@@ -52,10 +51,10 @@ Il est également possible de spécifier manuellement les couleurs dans un graph
 
 [^1]: selon le type de `geom` XXX sera soit un `color` (pour `geom_point` et `geom_line`) soit `fill` (pour les graphiques avec des zones à remplir comme `geom_area`).
 
-```{r}
+```{r, echo = TRUE}
 
 p + 
-ofce::theme_ofce() + 
+  ofce::theme_ofce() + 
   scale_color_manual(values = c("darkred", "darkblue", "darkgreen"))
 
 ```
@@ -70,13 +69,39 @@ Les palettes de couleur OFCE peuvent être directement chargées depuis le packa
 
 Elles sont également intégrées à des fonctions du package `{ofce}` qui permettent d'avoir un vecteur de couleurs directement en fonction d'un nombre pour `ofce_palette` et d'un vecteur de code `iso3` pour les pays pour `ofce_palette_pays`.
 
-```{r}
+```{r, echo = TRUE}
 
 p + 
-ofce::theme_ofce() + 
+  ofce::theme_ofce() + 
   scale_color_manual(values = ofce::ofce_palette(n=3))
 
 ```
+
+
+Pour le choix des couleurs de pays, il est également possible de passer par une fonction de type `scale_manual` dans le package `ofce` `scale_color_pays` qui intègre directement l'application des codes couleurs de la charte graphique en plus d'offrir des options supplémentaires en termes de labelling.
+
+Note: Il est essentiel à ce qu'il existe une colonne dans le dataframe qui contiennent les codes pays au format [*ISO 3166-1 alpha-3*](https://www.iban.com/country-codes).
+
+```{r, echo = TRUE}
+
+vec_iso <- c("ESP", "DEU", "FRA")
+data <- data.frame("value" = c(1:30), 
+                    "iso" = vec_iso) |> 
+  arrange(iso) |> 
+  mutate(date = c(2011:2020, 2011:2020, 2011:2020))
+
+
+data |> 
+  ggplot()  +
+  geom_line(aes(x= date, y = value, color = iso )) +
+  ofce::scale_color_pays(vec_iso,
+                   lang = "en") +
+  ofce::theme_ofce()
+
+
+```
+
+## Documentation Charte Graphique
 
 Les références de code couleurs peuvent être consultés dans les documents suivants:
 
