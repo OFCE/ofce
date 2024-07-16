@@ -1,7 +1,0 @@
-title: Non breaking space french
-author: INSEE
-version: 0.1.0
-quarto-required: ">=1.2.269"
-contributes:
-  filters:
-    - fr-nbsp.lua

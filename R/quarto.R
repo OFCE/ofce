@@ -354,6 +354,8 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 }
 
 #' exécute le fichier rinit.R à la racine du file, ou au dessus
+#' s'il ne le trouve pas il utilise une version par défaut,
+#' stockée dans le package
 #'
 #' @param init Nom du projet, "pres" par défaut,
 #'
@@ -364,7 +366,8 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 init_qmd <- function(init = "rinit.r") {
   init <- c(glue::glue("./{init}"),
            glue::glue("../{init}"),
-           glue::glue("../../{init}"))
+           glue::glue("../../{init}"),
+           glue::glue("../../../{init}"))
   init <- c(init, stringr::str_replace(init, "R$", "r"))
   for(i in init)
     if(file.exists(i)) {

@@ -576,3 +576,31 @@ spreads_q <- spreads_data |>
 ## Double échelle
 
 Non mais ca va pas ?
+
+## Une dernière chose : transparence
+
+Une bonne pratique est de mettre à disposition les données et le code ayant servi à produire le graphique. Une façon est d'utiliser les boutons code présents dans ce document pour publier le code. La seconde est de mettre tous les codes sur un dépôt github 😸 public. Une autre option est d'ajouter un bouton pour télécharger les données. C'est simple à faire avec `{downloadthis}` et ce bout de code qui peut être mis juste après un graphique. On reprend le fichier de données, tel quel, modifié éventuellement pour enlever ou renommer une colonne, et qui sera disponible en csv, UTF8, avec des virgules comme séprateurs et des points comme marque décimale (i.e. pas ce qu'Excel FR attend ☠️).
+
+Pour que les boutons soient sur la même ligne on utilise la syntaxe *inline* `'r une_expression_R'` :
+
+```{r}
+library(downloadthis)
+b1 <- download_this(
+  spreads_m |> select(-tooltip),
+  icon = "fa fa-download",
+  class = "dbtn",
+  button_label  = "Taux mensuels",
+  output_name = "taux_mensuels"
+)
+b2 <- download_this(
+  spreads_data,
+  icon = "fa fa-download",
+  class = "dbtn",
+  button_label  = "Taux quotidiens",
+  output_name = "taux_quotidiens"
+)
+```
+
+`r b1` `r b2`
+
+On peut aussi les mettre dans la marge en entourant le chunk R de `::: column-margin ⏎ un_code_r``⏎``:::` (visuellement c'est mieux quand il y a le graphique juste avant le div).
