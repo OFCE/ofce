@@ -32,6 +32,12 @@ jobs:
         with:
           use-public-rspm: true
 
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::pkgdown, local::.
