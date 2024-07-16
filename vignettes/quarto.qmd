@@ -120,11 +120,13 @@ On définit également le titre du graphique qui est donc identifié pour être 
 
 Pour un graphique (on ne met pas le numéro du graphique dans le titre, c'est fait automatiquement) :
 
+````         
 ``` {{r}}
 #| label: fig-id
 #| fig-cap: Le titre du graphique
 #| fig-asp: 0.8
 ```
+````
 
 Si c'est un graphique produit autrement que par `R`, la syntaxe standard de `markdown` fonctionne aussi de cette façon (en changeant `image` en fonction du contexte !):
 
@@ -138,10 +140,12 @@ This is illustrated well by @fig-image.
 
 Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait automatiquement) :
 
+````         
 ``` {{r}}
 #| label: tbl-id
 #| tbl-cap: Le titre du tableau
 ```
+````
 
 #### encadrés
 
@@ -156,7 +160,7 @@ texte de l'encadré
 
 #### un cas plus général
 
-On peut être dans le cas où le contenu n'est pas une image ou un tableau (par exemple une composition d'images, un tableau sous forme d'un png). Dans ce cas `quarto` protestera. C'est dans la [documentation de Quarto ](https://quarto.org/docs/authoring/cross-references-divs.html) et cela prend la forme suivante (l'utilisation du tag `fig` implique une *figure*, la première ligne est le contenu, la dernière est le titre, les autres lignes sont affichées comme CONTENT) :
+On peut être dans le cas où le contenu n'est pas une image ou un tableau (par exemple une composition d'images, un tableau sous forme d'un png). Dans ce cas `quarto` protestera. C'est dans la [documentation de Quarto](https://quarto.org/docs/authoring/cross-references-divs.html) et cela prend la forme suivante (l'utilisation du tag `fig` implique une *figure*, la première ligne est le contenu, la dernière est le titre, les autres lignes sont affichées comme CONTENT) :
 
 ``` markdown
 ::: {#fig-example}
@@ -167,6 +171,7 @@ Caption
 
 :::
 ```
+
 Par ailleurs, on peut définir d'autres catégories de références croisées si nécessaire, par exemple en distinguant les *cartes* des *figures*.
 
 ### Les tabsets

@@ -61,7 +61,7 @@ p +
 
 ### Palettes de couleur OFCE
 
-Les palettes de couleur OFCE peuvent être directement chargées depuis le package à l'aide de la commande `load`. Trois palettes sont actuellements enregistrées:
+Les palettes de couleur OFCE peuvent être directement chargées depuis le package à l'aide de la commande `load`. Trois palettes sont actuellement enregistrées :
 
 -   `palette_pays`: couleurs associées à une sélection large de pays (pour certains deux couleurs sont possibles, le choix résultant de son accord avec les autres)
 -   `palette_principale`: couleurs principales utilisées à l'OFCE
@@ -76,7 +76,6 @@ p +
   scale_color_manual(values = ofce::ofce_palette(n=3))
 
 ```
-
 
 Pour le choix des couleurs de pays, il est également possible de passer par une fonction de type `scale_manual` dans le package `ofce` `scale_color_pays` qui intègre directement l'application des codes couleurs de la charte graphique en plus d'offrir des options supplémentaires en termes de labelling.
 
