@@ -4,10 +4,14 @@
 \alias{ofce_palette_pays}
 \title{Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE}
 \usage{
-ofce_palette_pays(list_iso3 = palette.ofce$ISO)
+ofce_palette_pays(list_iso3 = NULL, HEX = NULL, RVB = NULL)
 }
 \arguments{
 \item{list_iso3}{chr, une liste de nom de pays}
+
+\item{HEX}{boolean (by default) set TRUE to have the color code in HEX}
+
+\item{RVB}{boolean set TRUE to have the color code in RVB}
 }
 \value{
 une palette de couleur (format HEX)

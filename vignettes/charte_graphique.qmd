@@ -4,7 +4,6 @@ vignette: >
   %\VignetteIndexEntry{Charte graphique}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
-  
 echo: true
 message: false
 warning: false
@@ -20,7 +19,7 @@ L'utilisation de `R` permet l'intégration directe de la charte graphique de l'O
 ofce::init_qmd()
 ```
 
-## ggplot2
+## Pour les graphiques (ggplot2)
 
 Un graphique ggplot2 par défaut aura le rendu suivant:
 
@@ -33,7 +32,7 @@ p <- ggplot(iris) +
 p
 ```
 
-L'ajout de la commande `theme_XXX` permet d'appliquer un thème spécifique au graphe produit (ici `theme_classic`). Plusieurs sont déjà pré-enregistrés dans ggplot2.
+L'ajout de la commande `theme_{nomdutheme}` permet d'appliquer un thème spécifique au graphe produit (ici `theme_classic`). Plusieurs sont déjà pré-enregistrés dans ggplot2.
 
 ```{r}
 
@@ -61,7 +60,15 @@ ofce::theme_ofce() +
 
 ```
 
-Ou en reprenant la palette intégrée au package ofce qui intègre les couleurs définies dans la charte graphique.
+### Palettes de couleur OFCE
+
+Les palettes de couleur OFCE peuvent être directement chargées depuis le package à l'aide de la commande `load`. Trois palettes sont actuellements enregistrées:
+
+-   `palette_pays`: couleurs associées à une sélection large de pays (pour certains deux couleurs sont possibles, le choix résultant de son accord avec les autres)
+-   `palette_principale`: couleurs principales utilisées à l'OFCE
+-   `palette_degrades`: Palettes réduites pour des degradés autour de certaines couleurs (entre 3 et 6 couleurs)
+
+Elles sont également intégrées à des fonctions du package ofce qui permettent d'avoir un vecteur de couleurs directement en fonction d'un nombre pour `ofce_palette` et d'un vecteur de code `iso3` pour les pays pour `ofce_palette_pays`.
 
 ```{r}
 
@@ -70,6 +77,14 @@ ofce::theme_ofce() +
   scale_color_manual(values = ofce::ofce_palette(n=3))
 
 ```
+
+Les références de code couleurs peuvent être consultés dans les documents suivants:
+
+###  Pour les pays
+![](images/TableCoul_Pays_OFCE2024-juin.pdf){width="990" height="740"}
+
+###  Pour les palettes principales
+x![](images/Couleurs_Graphes_2024-juin.pdf){width="990" height="740"}
 
 <!-- ## Tableaux  -->
 
