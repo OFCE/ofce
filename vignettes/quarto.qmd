@@ -66,7 +66,9 @@ Le `.qmd` est très simple, l'entête `yaml` n'a besoin que d'un champ : le titr
 
 Notez qu'il n'y pas de section de niveau `header 1`. Ce n'est pas possible parce qu'il y a un titre et que le titre est considéré comme la section `header 1` : une alternative au titre dans le yml est une section de niveau `header 1` ou simple `#`. S'il n'y a pas d'auteur ou d'autre champ, l'ensemble `yml` peut être omis avec simplement le `header 1`.
 
-Dernier petit détail, il faut *sourcer* le fichier `rinit.r`. Ce fichier définit les options par défaut des chunks et permet d'avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. La fonction `ofce::init_qmd()` simplifie le process et toruve ce fichier même s'il est bine caché. Il faut le mettre au début et à part pour que ces options s'appliquent aux chunks suivants. Si vos graphiques sont moches, si les polices de caractère sont toutes petites, avant d'appeler à l'aide, vérifiez 1. sur `rinit.r` est bien *sourcé* 2. que vous n'avez pas un `fig-width` ou un `fig-heigth` quelque part dans le chunk ou dans le `yml`.
+Dernier petit détail, il faut *sourcer* le fichier `rinit.r`. Ce fichier définit les options par défaut des chunks et permet d'avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. La fonction `ofce::init_qmd()` simplifie le process et toruve ce fichier même s'il est bien caché. Il faut le mettre au début et à part pour que ces options s'appliquent aux chunks suivants. Il est toujours possible de modifier le `rinit.r` de votre projet pour des variables globales, comme la taille de la police de tous les graphiques, et des fonctions disponibles dans chaque `.qmd`.
+
+> Si vos graphiques sont moches, si les polices de caractère sont toutes petites ou trop grandes, avant d'appeler à l'aide, vérifiez 1. sur `rinit.r` est bien *sourcé* 2. que vous n'avez pas un `fig-width` ou un `fig-heigth` quelque part dans le chunk ou dans le `yml`.
 
 ```` markdown
 ---
@@ -102,7 +104,7 @@ lang: en
 
 ### Les références croisées
 
-Les références croisées demandent un peu de soin, mais permettent de produire des documents plus propres dans lesquels :
+Les références croisées demandent un peu de soin, mais permettent de produire des documents plus riches dans lesquels :
 
 -   La numérotation des tableaux et figures, mais aussi tout autre type de documents (un encadré par ex.) est faite automatiquement. La mise en page est automatisée (avec quelques gains en html), les mots récurrents sont traduits automatiquement.
 
@@ -110,19 +112,21 @@ Les références croisées demandent un peu de soin, mais permettent de produire
 
 -   On peut générer des tables des tableaux et des figures.
 
-Le secret d'une référence croisée c'est l'instruction (le tag) `#|` que l'on met en tête d'un chunk. `label` est l'id du document. Il définit le type (`fig` pour un graphique ; `tbl` pour un tableau ; `tip` pour un encadré ; `eq` pour une équation) et après le tiret le nom (sans espace ni tiret) qui sera appelé dans le texte par la séquence `@fig-id` (voir [quarto cross references](https://quarto.org/docs/authoring/cross-references.html) pour plus de détails).
+Le secret d'une référence croisée c'est l'instruction (le tag) `#| label: xxx` que l'on met en tête d'un chunk. "xxx" est l'id du document. Il définit le type (`fig` pour un graphique ; `tbl` pour un tableau ; `tip` pour un encadré ; `eq` pour une équation) et après le tiret le nom (sans espace ni tiret) qui sera appelé dans le texte par la séquence `@fig-id` ou `@tbl-id` (voir [quarto cross references](https://quarto.org/docs/authoring/cross-references.html) pour plus de détails).
 
-On définit également le titre du graphique qui est donc identifié pour être mis en page, utilisé par ailleurs (par exemple la table des figures) et agrémenté des mots récurrents (par exemple tableau pour un tableau, donc on ne met pas dans le titre tableau ou son numéro).
+On définit également le titre du graphique qui est donc identifié pour être mis en page, utilisé par ailleurs (par exemple la table des figures) et agrémenté des mots récurrents (par exemple tableau pour un tableau, donc on ne met pas dans le titre tableau ou son numéro). Le titre est déini par le tag `#| fig-caption: xxx`
 
 #### graphiques
 
 Pour un graphique (on ne met pas le numéro du graphique dans le titre, c'est fait automatiquement) :
 
+````         
 ``` {{r}}
 #| label: fig-id
 #| fig-cap: Le titre du graphique
 #| fig-asp: 0.8
 ```
+````
 
 Si c'est un graphique produit autrement que par `R`, la syntaxe standard de `markdown` fonctionne aussi de cette façon (en changeant `image` en fonction du contexte !):
 
@@ -136,10 +140,12 @@ This is illustrated well by @fig-image.
 
 Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait automatiquement) :
 
+````         
 ``` {{r}}
 #| label: tbl-id
 #| tbl-cap: Le titre du tableau
 ```
+````
 
 #### encadrés
 
@@ -154,7 +160,7 @@ texte de l'encadré
 
 #### un cas plus général
 
-On peut être dans le cas où le contenu n'est pas une image ou un tableau (par exemple une composition d'images, un tableau sous forme d'un png). Dans ce cas `quarto` protestera. C'est dans la [documentation de Quarto ](https://quarto.org/docs/authoring/cross-references-divs.html) et cela prend la forme suivante (l'utilisation du tag `fig` implique une *figure*, la première ligne est le contenu, la dernière est le titre, les autres lignes sont affichées comme CONTENT) :
+On peut être dans le cas où le contenu n'est pas une image ou un tableau (par exemple une composition d'images, un tableau sous forme d'un png). Dans ce cas `quarto` protestera. C'est dans la [documentation de Quarto](https://quarto.org/docs/authoring/cross-references-divs.html) et cela prend la forme suivante (l'utilisation du tag `fig` implique une *figure*, la première ligne est le contenu, la dernière est le titre, les autres lignes sont affichées comme CONTENT) :
 
 ``` markdown
 ::: {#fig-example}
@@ -165,6 +171,7 @@ Caption
 
 :::
 ```
+
 Par ailleurs, on peut définir d'autres catégories de références croisées si nécessaire, par exemple en distinguant les *cartes* des *figures*.
 
 ### Les tabsets

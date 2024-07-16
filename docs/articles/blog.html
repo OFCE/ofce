@@ -93,30 +93,30 @@
 </section><section class="level2"><h2 id="yaml-du-document">Yaml du document<a class="anchor" aria-label="anchor" href="#yaml-du-document"></a>
 </h2>
 <p>Le Yaml est le préambule au script inclus entre les caractères suivants <code>---</code> <code>---</code> qui regroupe les métadonnées du document ainsi que certains paramètres comme le titre ou le nom des auteurs. Il se présente de la façon suivante:</p>
-<pre class="qmd"><code>---
-title: "Titre du billet"
-date: today
-author:
-  - name: Albertine Retrouvée
-    url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php
-    affiliation: OFCE
-    affiliation-url: https://www.ofce.sciences-po.fr/
-
-institution: "Observatoire Français des Conjonctures Économiques"
-
-format:
-  blog-html: default
-  blog-pdf: default
-categories: ["keyword1", "keyword2"]
-image: image.jpg
-description: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
-
-# A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)
-# comments:
-#   hypothesis: true
-
-bibliography: billet_exemple_references.bib
----</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Titre du billet"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> today</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: Albertine Retrouvée</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliation: OFCE </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliation-url: https://www.ofce.sciences-po.fr/</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">institution:</span><span class="co"> "Observatoire Français des Conjonctures Économiques"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  blog-html: default</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  blog-pdf: default</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> ["keyword1", "keyword2"]</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> image.jpg</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Chapeau du texte qui apparait dans la vignette du billet sur le menu"</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># comments:</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   hypothesis: true</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> billet_exemple_references.bib</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div>
 <p>Les seules informations à modifier par l’auteur sont les suivantes:</p>
 <ul>
 <li>title:</li>
@@ -140,30 +140,28 @@ bibliography: billet_exemple_references.bib
 <section class="level3"><h3 id="gestion-des-notes-de-bas-de-page-et-des-références-bibliographiques">Gestion des notes de bas de page et des références bibliographiques<a class="anchor" aria-label="anchor" href="#gestion-des-notes-de-bas-de-page-et-des-r%C3%A9f%C3%A9rences-bibliographiques"></a>
 </h3>
 <p>L’ajout de notes de bas de page se fait via la commande suivante sous Quarto <code>[^]</code> et comprends deux manières. Une première où est intégré dans le texte une balise <code>[^]</code> associée à un repère (un numéro) et auquel est ensuite associé une note de bas de page. La seconde est l’intégration directe de la note de bas de page au sein de la balise <code>[^]</code> (Exemple 2).</p>
-<pre class="qmd"><code># Exemple 1
-«Mademoiselle Albertine est revenue!»[^1]
-
-[^1]: Elle n'a jamais été perdue.
-
-# Exemple 2
-
-«Mademoiselle Albertine est revenue!»[^Elle n'a jamais été perdue.]
-
-</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exemple 1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>«Mademoiselle Albertine est revenue!»<span class="ot">[^1]</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>Elle n'a jamais été perdue.</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exemple 2</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>«Mademoiselle Albertine est revenue!»<span class="ot">[^Elle n'a jamais été perdue.]</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
 </section><section class="level3"><h3 id="gestion-des-références-bibliographiques">Gestion des références bibliographiques<a class="anchor" aria-label="anchor" href="#gestion-des-r%C3%A9f%C3%A9rences-bibliographiques"></a>
 </h3>
 <p>Les citations sont indiqué par le caractère <code>@</code> suivi de la référence bibliographique du bibtex de l’article à citer.</p>
-<pre class="qmd"><code>Comme la souffrance va plus loin en psychologie que la psychologie [@ryan1991vanishing]
-
-avec le BibteX dans le fichier .bib associé au billet:
-
-@book{ryan1991vanishing,
-  title={The vanishing subject: early psychology and literary modernism},
-  author={Ryan, Judith},
-  year={1991},
-  publisher={University of Chicago Press}
-}
-</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Comme la souffrance va plus loin en psychologie que la psychologie <span class="co">[</span><span class="ot">@ryan1991vanishing</span><span class="co">]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>avec le BibteX dans le fichier .bib associé au billet: </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>@book{ryan1991vanishing,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  title={The vanishing subject: early psychology and literary modernism},</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  author={Ryan, Judith},</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  year={1991},</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  publisher={University of Chicago Press}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Comme la souffrance va plus loin en psychologie que la psychologie <span class="citation" data-cites="ryan1991vanishing">[@ryan1991vanishing]</span></p>
 <p>L’auteur pourra se référer à l’<a href="https://quarto.org/docs/authoring/footnotes-and-citations.html" class="external-link">aide en ligne Quarto</a> pour des explications complémentaires sur ces deux points.</p>
 </section></section><section class="level2"><h2 id="transmission-au-responsable-du-blog-et-circuit-de-relecture">Transmission au responsable du blog et circuit de relecture<a class="anchor" aria-label="anchor" href="#transmission-au-responsable-du-blog-et-circuit-de-relecture"></a>
@@ -175,14 +173,14 @@ avec le BibteX dans le fichier .bib associé au billet:
 </h3>
 <p>La transmission du billet au responsable du blog s’effectue par un envoi du <strong>dossier</strong> du billet comprenant l’ensemble des élements nécessaires à sa compilation (le document <code>.qmd</code>, le fichier de références <code>.bib</code>, les images et les données):</p>
 <p><em>Dossier du billet en format</em> <code>.qmd</code></p>
-<pre><code>├── Billet.qmd              // Document texte du billet
-├── figures/                // Dossier des images utilisées dans le document
-│   ├── IMG_01.png          // fichier image 1
-│   └── ...                 // fichier image ...
-├── data/                   // Dossier des dataset associés aux graphiques
-│   ├── dataset_01.csv      // fichier csv 1
-│   └── ...                 // fichier csv ...
-└── billet_references.bib   // fichier des citations en format .bibtex</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> Billet.qmd              // Document texte du billet</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> figures/                // Dossier des images utilisées dans le document</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── IMG_01.png          // fichier image 1</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ...                 // fichier image ...</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/                   // Dossier des dataset associés aux graphiques</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── dataset_01.csv      // fichier csv 1</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ...                 // fichier csv ...</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> billet_references.bib   // fichier des citations en format .bibtex</span></code></pre></div>
 <p>L’organisation de la relecture et du versionnage du document se fait sur une branche Github dédiée. L’auteur se verra notifier par mail des évolutions du statut du document, et le cas échéant de l’intégration des remarques et commentaires. Une fois le processus de relecture aboutit, le responsable pourra accepter le pull_request, et introduire la version finalisée du billet sur la branche principale à partir de laquelle le site est généré.</p>
 <p>PS: Dans le cas où des modifications ultérieures devraient être apportées, l’auteur devra réitérer la même procédure de pull_request que pour la soumission initiale, et ce sera au responsable de s’assurer de leur intégration à la branche principale.</p>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
