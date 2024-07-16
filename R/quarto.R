@@ -362,19 +362,20 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #'
 
 init_qmd <- function(init = "rinit.r") {
-  root <- Sys.getenv("QUARTO_PROJECT_DIR")
-  browser()
-  if(root=="")
-    root <- "."
-  init <- c(glue::glue("{root}/{init}"),
-           glue::glue("{root}/R/{init}"),
-           glue::glue("{root}/vignettes/{init}"))
+  init <- c(glue::glue("./{init}"),
+           glue::glue("../{init}"),
+           glue::glue("../../{init}"))
   init <- c(init, stringr::str_replace(init, "R$", "r"))
   for(i in init)
     if(file.exists(i)) {
-      source(glue::glue("{root}/{i}"), echo = FALSE)
-      return(invisible(TRUE))
+      source(i, echo = FALSE, verbose = FALSE)
+      return(invisible(i))
     }
-  source(fs::path_package("ofce", "rinit.r"))
-  return(invisible(FALSE))
+  if(file.exists(fs::path_package("ofce", "rinit.r"))) {
+    source(fs::path_package("ofce", "rinit.r"),
+           echo = FALSE, verbose = FALSE)
+    return(invisible("package"))
+    }
+
+  return(invisible("pas trouvé"))
 }

@@ -17,10 +17,7 @@ format:
 L'utilisation de `R` permet l'intégration directe de la charte graphique de l'OFCE directement dans la rédaction du code, que ce soit pour la production de graphiques, ou celle de tables. Cela passe par la définition d'un thème qui en reprends les différents élements et qui est ensuite associé à l'objet `ggplot2` ou `gt`.
 
 ```{r setup, include=FALSE}
-#| echo: false
-
-library(ofce)
-library(tidyverse)
+ofce::init_qmd()
 ```
 
 ## ggplot2
