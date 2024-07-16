@@ -353,7 +353,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   return(invisible(TRUE))
 }
 
-#' exécute le fichier rinit.R à la racine du projet
+#' exécute le fichier rinit.R à la racine du file, ou au dessus
 #'
 #' @param init Nom du projet, "pres" par défaut,
 #'
@@ -368,12 +368,12 @@ init_qmd <- function(init = "rinit.r") {
   init <- c(init, stringr::str_replace(init, "R$", "r"))
   for(i in init)
     if(file.exists(i)) {
-      source(i, echo = FALSE, verbose = FALSE)
+      source(i, echo = FALSE, verbose = FALSE, local = .GlobalEnv)
       return(invisible(i))
     }
   if(file.exists(fs::path_package("ofce", "rinit.r"))) {
     source(fs::path_package("ofce", "rinit.r"),
-           echo = FALSE, verbose = FALSE)
+           echo = FALSE, verbose = FALSE, local = .GlobalEnv)
     return(invisible("package"))
     }
 

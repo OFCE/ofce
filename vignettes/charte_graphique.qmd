@@ -68,7 +68,7 @@ Les palettes de couleur OFCE peuvent être directement chargées depuis le packa
 -   `palette_principale`: couleurs principales utilisées à l'OFCE
 -   `palette_degrades`: Palettes réduites pour des degradés autour de certaines couleurs (entre 3 et 6 couleurs)
 
-Elles sont également intégrées à des fonctions du package ofce qui permettent d'avoir un vecteur de couleurs directement en fonction d'un nombre pour `ofce_palette` et d'un vecteur de code `iso3` pour les pays pour `ofce_palette_pays`.
+Elles sont également intégrées à des fonctions du package `{ofce}` qui permettent d'avoir un vecteur de couleurs directement en fonction d'un nombre pour `ofce_palette` et d'un vecteur de code `iso3` pour les pays pour `ofce_palette_pays`.
 
 ```{r}
 
@@ -80,10 +80,12 @@ ofce::theme_ofce() +
 
 Les références de code couleurs peuvent être consultés dans les documents suivants:
 
-###  Pour les pays
+### Pour les pays
+
 ![](images/TableCoul_Pays_OFCE2024-juin.pdf){width="990" height="740"}
 
-###  Pour les palettes principales
+### Pour les palettes principales
+
 x![](images/Couleurs_Graphes_2024-juin.pdf){width="990" height="740"}
 
 <!-- ## Tableaux  -->

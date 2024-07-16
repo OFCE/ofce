@@ -61,3 +61,11 @@ milliards <- function(x, n_signif = 3L) {
       decimal.mark = ","),
     " milliards d'euros")
 }
+
+f_taux <- function(x) {
+  str_replace(str_c(signif(x,3),"%"), "\\.", ",")
+}
+
+if(.Platform$OS.type=="windows")
+  Sys.setlocale(locale = "fr_FR.utf8") else
+    Sys.setlocale(locale = "fr_FR")
