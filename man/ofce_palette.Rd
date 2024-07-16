@@ -16,5 +16,5 @@ un vector de couleurs de taille compris entre 2 et 5
 Palette de cinq couleurs principales compatible avec les normes graphiques de la revue OFCE
 }
 \examples{
-ofce_palette(n = 3)
+ofce_palette(n = 2)
 }
