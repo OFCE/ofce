@@ -17,26 +17,28 @@
 scale_color_pays <- function(list_iso3 = NULL,
                              lang = NULL) {
 
-  load("data/palette_pays.rda")
+  # load("data/palette_pays.rda")
 
   if (is.null(list_iso3)){list_iso3 = c("FRA", "ITA")}
   if (is.null(lang)){lang = "fr"}
 
-  dat <- palette_pays |>
+  dat <- ofce::palette_pays |>
     dplyr::filter(ISO3 %in% list_iso3) |>
-    dplyr::arrange(match(ISO3, list_iso3))
+    dplyr::arrange(match(.data[["ISO3"]], list_iso3))
 
   if(lang == "fr"){
 
-    dat <- dat |> dplyr::mutate(label = label_fr)} else {
+    dat <- dat |> dplyr::mutate(label = .data[["label_fr"]])} else {
 
       if(lang == "en"){
 
-        dat <- dat |> dplyr::mutate(label = label_en)} else {
+        dat <- dat |> dplyr::mutate(label = .data[["label_en"]])} else {
 
-          dat <- dat |> dplyr::mutate(label = ISO3)}
+          dat <- dat |> dplyr::mutate(label = .data[["ISO3"]])
 
-      cat("Il n'existe pas de traduction pour la langue demandée. Seuls le français (\"fr\") et l'anglais (\"en\") sont pour l'instant proposés.")
+          cat("Il n'existe pas de traduction pour la langue demandée. Seuls le français (\"fr\") et l'anglais (\"en\") sont pour l'instant proposés.")
+          }
+
 
     }
 
