@@ -603,4 +603,4 @@ b2 <- download_this(
 
 `r b1` `r b2`
 
-On peut aussi les mettre dans la marge en entourant le chunk R de `::: column-margin ⏎ un_code_r``⏎``:::` (visuellement c'est mieux quand il y a le graphique juste avant le div).
+On peut aussi les mettre dans la marge en entourant le chunk R de ``` ::: column-margin ⏎ un_code_r``⏎``::: ``` (visuellement c'est mieux quand il y a le graphique juste avant le div).
