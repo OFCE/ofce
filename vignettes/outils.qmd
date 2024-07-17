@@ -11,10 +11,10 @@ Quels outils pour travailler ? Il n'y en a pas 3 000 mais quelques uns incontour
 Les illustrations sont de [Alison Horst](https://allisonhorst.com/).
 
 > **Règle 1** : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.
->
+
 > **Règle 2** : **Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)**.Si il est sur un disque partagé des catastrophes vont arriver.
->
-> **Règle 3** : *git* (*github desktop,* *github.com*) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n'y a pas d'alternatives.
+
+> **Règle 3** : *git* (*github desktop,* *github.com*) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n'y a pas d'alternative.
 
 ## ![](images/paste-6.png)
 

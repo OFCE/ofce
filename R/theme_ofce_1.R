@@ -254,6 +254,8 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
       axis.title  = ggplot2::element_blank(),
       axis.ticks = ggplot2::element_blank(),
       axis.line = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_blank(),
       #Grid lines
       panel.grid = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),
