@@ -6,7 +6,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Quels outils pour travailler ? Il n'y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans **RStudio** et **R**, **github**, **github desktop**.
+Quels outils pour travailler ? Il n'y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans **RStudio** et **R**, **github**, **github desktop**.
+
+Les illustrations sont de [Alison Horst](https://allisonhorst.com/).
 
 > **Règle 1** : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.
 >
@@ -18,7 +20,7 @@ Quels outils pour travailler ? Il n'y en a pas 3 000 mais quelques uns incontour
 
 ## R, Julia, Python ou Stata
 
-Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :
+Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :
 
 1.  **la reproductibilité** : les traitements sont fait de façon séquentielle par un code ; ce code réalise toutes les opérations, du téléchargement des données brutes jusqu'à la production des analyses. C'est une différence importante par rapport à Excel et Eviews où il n'est pas possible de définir les opérations permettant d'arriver à un résultat. La reproductibilité est assurée par l'utilisation d'un logiciel open source accessible facilement – Stata est un cas limite. La reproductibilité facilite le travail collaboratif (reproduire dans l'équipe), la mise à jour (reproduire dans 6 mois), la détection des erreurs (relecture, reproduction) et la diffusion des bonnes pratiques.
 2.  **la transparence** : la transparence repose en partie sur la reproductibilité. Elle consiste à permettre l'accès à l'ensemble des codes, données source[^1] et de les documenter de façon à rendre possible leur utilisation par quiconque. La transparence repose sur des outils dont *github* est un des plus importants. Les logiciels *open source* en font partie. Pour aller un cran plus loin dans la transparence, on s'attache à produire des documents exécutables, c'est-à-dire que le résultat final (pdf, site internet, document docx) est produit par un code, si possible exécutable avec des outils *open source.*
