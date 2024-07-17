@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 #toc-title.h2 {
-  font-size: 0.8rem !important;
+  font-size: 0.9rem !important;
 }
 
 .quarto-title-block {
@@ -47,17 +47,13 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .sidebar-item-container {
-  font-size: 0.8rem !important;
+  font-size: 0.9rem !important;
   line-height: 1.1rem !important;
 }
 
 .dropdown-item, .dropdown-menu {
-  font-size: 0.8rem !important;
+  font-size: 1rem !important;
   background-color: $navbar-bg !important;
-}
-
-.nav-page-text {
-  font-size: 0.8rem !important;
 }
 
 .page-columns.page-full,
@@ -110,8 +106,8 @@ h1, h2, h3, h4, h5 {
   font-weight: bold;
 }
 
-.nav-link {
-  font-size: .8rem;
+.nav-link, .nav-text, .nav-page-text {
+  font-size: 1rem;
 }
 
 .theorem {

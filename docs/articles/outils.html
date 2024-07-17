@@ -14,6 +14,7 @@
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="outils_files/libs/quarto-html/popper.min.js"></script><script src="outils_files/libs/quarto-html/tippy.umd.min.js"></script><link href="outils_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="outils_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<script src="outils_files/libs/quarto-diagram/mermaid.min.js"></script><script src="outils_files/libs/quarto-diagram/mermaid-init.js"></script><link href="outils_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Outils">
 </head>
 <body>
@@ -85,8 +86,99 @@
 
 
 
-    <section class="level2"><h2 id="blabla">blabla<a class="anchor" aria-label="anchor" href="#blabla"></a>
+    <p>Quels outils pour travailler ? En bref : unprojet dans <strong>RStudio</strong>, <strong>github</strong>, <strong>github desktop</strong>.</p>
+<blockquote>
+<p><strong>Règle 1</strong> : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.</p>
+<p><strong>Règle 2</strong> : <strong>Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)</strong>.Si il est sur un disque partagé des catastrophes vont arriver.</p>
+<p><strong>Règle 3</strong> : git (github desktop, github.com) est l’outil qu’on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n’y a pas d’alternatives.</p>
+</blockquote>
+<section class="level2"><h2 id="quarto">
+<img src="images/paste-6.png">Quarto<a class="anchor" aria-label="anchor" href="#quarto"></a>
 </h2>
+<p>Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de R. Il est développé par RStudio et sert à transformer les <code>.qmd</code> en documents publiables (<code>.docx</code>, <code>.html</code>, <code>.pdf</code>). Quarto est distinct de RStudio – ce qui explique que la version de Quarto n’est pas liée à celle de RStudio.</p>
+<blockquote>
+<p><strong>Règle 4</strong> : Il faut utiliser au moins Quarto 1.5 (<a href="https://quarto.org/docs/download/" class="external-link">la version actuelle est 1.5.54</a>). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionalités importantes.</p>
+</blockquote>
+<p>Quarto a besoin d’être installé, mais il n’y a pas d’interface quarto à manipuler. Vous pouvez installer dans R le package <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> qui est un lien entre R et Quarto (et permet d’excuter Quarto par des commandes R, comme par exemple <code><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_version.html" class="external-link">quarto::quarto_version()</a></code> qui vous indique quelle est la version de quarto installée). Installer le package R <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> n’installe pas la dernière version de Quarto.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img src="images/paste-1.png" class="quarto-figure quarto-figure-center" width="600"></p>
+</figure>
+</div>
+</section><section class="level2"><h2 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
+</h2>
+<p>RStudio est l’outil central (pour le moment). C’est un IDE qui permet à la fois d’éditer les textes (.r, .qmd), d’organiser son travail en projets et d’exécuter le code R ou Pyhton. Il comporte de nombreux outils pour simplifier la vie (en compliquant un peu l’interface) en automatisant la publication, la construction des sites, le débugage de code, l’interface entre R et Python, le fonctionnement multiplaterforme, etc…. Pour certaines opérations, il faut utiliser le terminal comme pour la commande <code>quarto publish gh-pages</code>.</p>
+<blockquote>
+<p><strong>Règle 5</strong> : Il faut utiliser une version récente (<a href="https://posit.co/downloads/" class="external-link">2024.07 au moins, disponible ici</a>). Les mises à jour sont moins fréquentes que pour Quarto. Mettre à jour RStudio induit une mise à jour de Quarto, mais généralement pas la dernière version de Quarto.</p>
+</blockquote>
+<p>L’interface de RStudio est assez touffue et peut effrayer au premier abord. C’est pourtant une interface qui a été soigneusement élaborée au fil du temps. On finit par en comprendre la logique et elle est assez efficace. Il y a de nombreux tutoriaux, cheat sheet, manuels. Lisez les, ça aide.</p>
+<p>RStudio permet d’éditer les documents <code>.qmd</code> avec le mode “<em>visual</em>”. Ce mode s’active facilement et permet de disposer d’une interface moderne pour éditer un texte en <em>markdown</em> avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l’interface avec le code R, Python, Julia, SQL, etc…</p>
+</section><section class="level2"><h2 id="git-github-github-com-github-desktop">git, Github, Github.com, Github desktop<a class="anchor" aria-label="anchor" href="#git-github-github-com-github-desktop"></a>
+</h2>
+<p>git est l’outil charnière qui permet le travail collaboratif, le versionnage du code, son archivage mais aussi toute une chaîne d’outils qui permettent par exemple la mise en ligne de sites.</p>
+<p>Le fonctionnement de git est déroutant (son concepteur Linus Torwald l’a voulu impénétrable et réservé aux geeks hard core). Mais c’est un outil puissant qui est incontournable et maintenant enveloppé d’un ensemble d’outils qui en facilitent l’usage, github, github desktop, github.com.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img src="images/paste-3.png" class="quarto-figure quarto-figure-center" width="614"></p>
+</figure>
+</div>
+<p><strong>Github</strong> est une version particulière de <em>git</em> (rachetée par Microsoft). <strong>github.com</strong> est un service de cloud associé à <strong>github</strong>. Il donne des espaces sécurisés sur lesquels on peut mettre ses dépôts et définir qui peut y accéder. <strong>github.com</strong> fournit aussi de nombreux outils de consultation du code, du code à divers moment, d’outils pour <em>merger,</em> gérer les <em>pull resquest,</em> ouvrir des <em>issues, cloner</em> ou <em>forker</em> des dépôts, diffuser des nouvelles à propos d’un dépôt, rechercher des solutions, publier un site, définir de nombreux paramètres de votre dépôt, le fermer, le rendre pivé ou public, l’archiver, le détruire. C’est en fait l’outil central de gestion des dépôt, qui facilite la tâche par rapport au plan initial de Linus Torwald (si vous êtes plus <em>hard core</em>, allez voir <strong>gitlab</strong> ou l’alterntive open source française <strong>adulac</strong>).</p>
+<p><strong>github desktop</strong> est une application (que l’on installe sur son ordinateur donc) qui sert d’interface pour certaines opérations avec <strong>github.com</strong>. On y fait simplement les <em>commit</em>, les <em>pull</em>, les <em>push</em>, les <em>merge</em> et les <em>pull request</em>. On peut aussi examiner les <em>commit</em>, les fichiers modifiés, les modifications des fichiers et annuler un <em>commit</em>. Dans 95% des cas, on a besoin que de <strong>github desktop</strong>.</p>
+<section class="level3"><h3 id="commit-push-pull-conflit">commit, push, pull, conflit<a class="anchor" aria-label="anchor" href="#commit-push-pull-conflit"></a>
+</h3>
+<p>Le vocabulaire de git est particulier : un <em>commit</em> est une balise dans votre travail. git vous permet de revenir à un <em>commit</em> passé.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img src="images/paste-2.png" class="quarto-figure quarto-figure-center" width="581"></p>
+</figure>
+</div>
+<p><strong>git</strong> consiste à avoir une copie en local et une copie sur un serveur, dans le cloud, qui dans notre cas sera systématiquement <strong>github.com</strong>, qui sert de référence. Un <em>pull</em> consiste à prendre sur le serveur les derniers <em>commit</em> et à les ajouter sur le disque local. C’est un ajout et non un remplacement. Il est toujours possible de revenir en arrière, d’examiner les changements apportés par les <em>commit.</em> La collaboration se fait par les <em>commit</em> qui sont additionnés les uns aux autres.</p>
+<div>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>Attention, pour les fichiers non différentiables (Excel, word, rds, données non csv), la fusion des modifications n’est pas possible et on devra choisir (résolution des conflits) quelle est la version que l’on conserve. C’est pour cela qu’on ne peut pas utiliser ces fichiers dans un travail collaboratif sans une grande discipline.</p>
+</blockquote>
+</div>
+<p>Un <em>push</em> est l’opération qui consiste à envoyer sur le serveur les <em>commit</em> qui sont sur votre disque local.</p>
+<p><img src="images/paste-4.png" width="496"></p>
+<p>Et il y a potentiellement des conflits : c’est lorsque des <em>commit</em> (les vôtres et ceux d’autres) opèrent sur un même endroit dans un même fichier. Il n’est pas possible simplement d’ajouter ces <em>commit</em> les uns aux autres et c’est donc un conflit. Pour sortir d’un conflit, le plus simple est d’utiliser VSCode ou, plus root, d’éditer le fichier <em>mergé</em> avec les conflits pour résoudre à la main les conflits. Dans github desktop, lorsqu’il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur. Attention, faire ça efface le travail de quelqu’un.</p>
+<p><img src="images/paste-5.png"></p>
+</section></section><section class="level2"><h2 id="branche">branche<a class="anchor" aria-label="anchor" href="#branche"></a>
+</h2>
+<p>Comme il est expliqué dans la <a href="blog.qmd">vignette blog</a> ou dans la <a href="site.qmd">vignette sur les sites</a>, le travail collaboratif peut demander quelques sécurités supplémentaires. La branche <code>master</code> (ou <code>main</code> pour ceux qui pensent que l’utilisation du mot <em>master</em> fait de vous sans le dire un esclavagiste) est alors protégée. Seul l’administrateur du site peut la modifier ou autoriser les modifications. Chaque intervention sur le contenu doit se faire sur une branche <em>ad hoc</em> créée pour l’occasion. Le process est représenté sur le diagramme. On copie tout le contenu dans une branche, on le modifie, le teste. Puis on demande à l’intégrer dans <code>master</code> à l’administrateur du dépôt par une pull request. L’administrateur peut alors vérifier que les modifications sont OK et les <em>merger</em> dans <code>master</code>. Pourquoi faire comme ça et pas limiter les droits de modifications à seulement quelques fichiers. 1. Parce que c’est plus simple et flexible que de figer des accès fichier par fichier 2. ca permet à chacun de tester et de débugger ses modifs 3. ça permet de vérifier que les modifications ne sont pas allé trop loin. 4. on peut <em>blamer</em> c’est-à-dire savoir qui a fait quoi.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p>
+<figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+A[contenu dans branch master]
+  A --&gt;|"&lt;i&gt;clone&lt;i/&gt;"| B(modifications)
+  B --&gt;|"&lt;i&gt;pull request&lt;/i&gt;"| D
+  A --&gt;|"&lt;b&gt;master est protégé&lt;b/&gt;"| D[master modifié]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section class="level3"><h3 id="gitignore">.gitignore<a class="anchor" aria-label="anchor" href="#gitignore"></a>
+</h3>
+<p>Ce fichier, à la racine du projet, permet d’exclure de <em>github</em> des fichiers ou des dossiers. C’est très utile, par exemple pour les données ou les informations confidentielles (mot de passe, <em>token</em>) ou encore les nombreux fichiers générés par les programmes ou les générations de site ou le <em>render</em>.</p>
+</section><section class="level3"><h3 id="données">Données<a class="anchor" aria-label="anchor" href="#donn%C3%A9es"></a>
+</h3>
+<p>Les données ne sont pas les bienvenues sur <em>github</em> : les fichiers (sauf <code>.csv</code>) ne sont pas différentiables, cela génère beaucoup de conflits et le risque d’écraser des données modifiées par quelqu’un d’autre. <em>github</em> n’accepte pas les fichiers supérieurs à 100Mo. On peut dépasser cette limite en utilisant <em>git LFS</em>.</p>
+<p>Malgré tout, il est parfois pratique d’avoir des données dans son <em>github</em>. Il est parfois très pratique de les avoir dans Excel. On perd alors toute possibilité de reproductibilité et de transparence, sauf si on s’astreint à ne stocker que des fichiers téléchargés sur un site. Mais il est mieux de remplacer le stockage par une instruction qui fait le téléchargement (dans un dossier spécifique, <code>data</code> par exemple, qui peut être mis dans <code>.gitgnore</code> et qui éventuellement ne le télécharge que si le fichier n’est pas présent).</p>
+<p>On peut parfois quand même préférer la solution de données dans le dépôt, sur le serveur quand on ne sait pas faire autrement (calculs exclusifs à Excel ☠️, données entrées manuellement).</p>
+<p>Sinon, il est préférable d’utiliser un drive partagé pour les données. Je recommande l’utilisation du package <a href="https://pins.rstudio.com/" class="external-link">pins</a> en conjonction avec Azure (encore Microsoft, mais ça marche avec d’autres systèmes). cela permet d’avoir un espace partagé, sur lequel on peut définir facilement des droits d’accès et avec un simple <em>token</em> d’avoir tout ce qu’il faut pour ouvrir l’accès. C’est multi-plateforme et cela intègre un <em>versioning</em> intégral qui peut être pratique pour les accès simultanés et très robuste. Un système de cache automatique évite les téléchargements multiples. Cela permet aussi le partage des données entre projets.</p>
+<p>Il y a des cas plus lourds, où on veut des accès concurrents à une même base de données. Pas d’autre solution que d’utiliser des outils plus sophistiqués (serveur SQL par exemple).</p>
+<blockquote>
+<p><strong>Règle 6</strong> : la façon dont les données sont stockées peut entrainer de nombreux problèmes. Une architecture spécifique doit être réfléchie et communiquée à tous les contributeurs du projet. <a href="https://pins.rstudio.com/" class="external-link">pins</a> est une solution simple, sûre et rapide à déployer.</p>
+</blockquote>
+</section></section><section class="level2"><h2 id="vscode-et-positron">VSCode et Positron<a class="anchor" aria-label="anchor" href="#vscode-et-positron"></a>
+</h2>
+<p><strong>VSCode</strong> est une alternative à <strong>RStudio</strong>. Développé par Microsoft (et oui, Microsoft est partout et ne fait pas que Word, Excel et Powerpoint), il est en train de s’imposer comme standard dans le domaine des usages avancés. VSCode est organisé autour d’un éditeur de texte (de code en fait) repose sur une structure très (un peu trop) ouverte. Il peut être étendu facilement et articulé avec de nombreux outils : <em>formateurs</em>, <em>linteurs</em>, <em>highlighters</em>, <em>debogguers</em>, <em>compilateurs</em>, accès distants, <em>dockers</em>, <em>correcteurs</em>, IA. La liste est presque infinie et en tout cas grossit chaque jour. C’est aussi un outil assez léger, rapide, sûr et très fonctionnel.</p>
+<p>Il dispose d’un module d’extension <em>github</em> très bien fait et très facile à utiliser. Avce <em>gitlens</em> on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des <em>commit</em>. C’est très utile pour s’y retrouver et bénéficier de la puissance de <em>git</em> instantanément. <em>pusher</em> ou <em>commiter</em> se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).</p>
+<p>Il est possible d’éditer les documents <code>.qmd</code> en mode visuel dans <strong>VSCode</strong> et avec son module github, le travail y est plus facile que dans RStudio. Pour ceux qui ne font que la <em>review</em> et l’<em>editing</em>, c’est une excellente alternative, avec une interface moins riche (moins confuse surtout) que celle de RStudio.</p>
+<p><strong>Positron</strong> est la fusion entre <strong>RStudio</strong> et <strong>VSCode</strong>. C’est encore une version en développement (la <a href="https://github.com/posit-dev/positron" class="external-link"><em>pre release</em> date de juin 2024</a>), mais elle fonctionne à peu près. Il n’est pas recommandé de l’utiliser pour le moment pour des projets, sauf si vous avez le goût de l’aventure et un peu de patience.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -188,7 +280,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script></main>
+</script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

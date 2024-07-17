@@ -17,15 +17,15 @@ ofce::init_qmd()
 
 ## Règles d'or
 
-**Règle 1** : On utilise `theme_ofce()` !
+> **Règle 1** : On utilise `theme_ofce()` !
 
-**Règle 2** : Les dates sont au format `<date>` même lorsque la fréquence est annuelle.
+> **Règle 2** : Les dates sont au format `<date>` même lorsque la fréquence est annuelle.
 
-**Règle 3** : On utilise `scale_x_date(date_breaks = "5 years", date_minor_breaks = "1 year", guide = "minor_ticks")` en définissant `date_breaks` à la fréquence souhaitée (en évitant trop de dates) et `date_minor_breaks` à une année (`"1 year"`).
+> **Règle 3** : On utilise `scale_x_date(date_breaks = "5 years", date_minor_breaks = "1 year", guide = "minor_ticks")` en définissant `date_breaks` à la fréquence souhaitée (en évitant trop de dates) et `date_minor_breaks` à une année (`"1 year"`).
 
-**Règle 4** : Si les *y* sont en %, alors mettre "%" dans le format de l'axe des *y*.
+> **Règle 4** : Si les *y* sont en %, alors mettre "%" dans le format de l'axe des *y*.
 
-**Règle 5** : On choisit un `line_width` entre 0.5 et 1 pour le `geom_line()`, on ajoute un `geom_point(shape=21, stroke=0.25, col="white")` pour marquer les points auxquels on a des données. Si on peut mettre la légende sous forme de *labels*, c'est mieux car cela allège le graphique.
+> **Règle 5** : On choisit un `line_width` entre 0.5 et 1 pour le `geom_line()`, on ajoute un `geom_point(shape=21, stroke=0.25, col="white")` pour marquer les points auxquels on a des données. Si on peut mettre la légende sous forme de *labels*, c'est mieux car cela allège le graphique.
 
 ## Données
 
