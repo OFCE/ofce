@@ -85,11 +85,11 @@ Attention, pour les fichiers non différentiables (Excel, word, rds, données no
 
 Un *push* est l'opération qui consiste à envoyer sur le serveur les *commit* qui sont sur votre disque local.
 
-![](images/paste-4.png){width="496"}
+![](images/paste-4.png){fig-align="center" width="496"}
 
 Et il y a potentiellement des conflits : c'est lorsque des *commit* (les vôtres et ceux d'autres) opèrent sur un même endroit dans un même fichier. Il n'est pas possible simplement d'ajouter ces *commit* les uns aux autres et c'est donc un conflit. Pour sortir d'un conflit, le plus simple est d'utiliser VSCode ou, plus root, d'éditer le fichier *mergé* avec les conflits pour résoudre à la main les conflits. Dans github desktop, lorsqu'il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur. Attention, faire ça efface le travail de quelqu'un.
 
-![](images/paste-5.png)
+![](images/paste-5.png){fig-align="center"}
 
 ## Branches
 

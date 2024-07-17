@@ -86,14 +86,36 @@
 
 
 
-    <p>Quels outils pour travailler ? En bref : unprojet dans <strong>RStudio</strong>, <strong>github</strong>, <strong>github desktop</strong>.</p>
+    <p>Quels outils pour travailler ? Il n’y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans <strong>RStudio</strong> et <strong>R</strong>, <strong>github</strong>, <strong>github desktop</strong>.</p>
 <blockquote>
 <p><strong>Règle 1</strong> : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.</p>
 <p><strong>Règle 2</strong> : <strong>Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)</strong>.Si il est sur un disque partagé des catastrophes vont arriver.</p>
-<p><strong>Règle 3</strong> : git (github desktop, github.com) est l’outil qu’on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n’y a pas d’alternatives.</p>
+<p><strong>Règle 3</strong> : <em>git</em> (<em>github desktop,</em> <em>github.com</em>) est l’outil qu’on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n’y a pas d’alternatives.</p>
 </blockquote>
-<section class="level2"><h2 id="quarto">
-<img src="images/paste-6.png">Quarto<a class="anchor" aria-label="anchor" href="#quarto"></a>
+<section class="level2"><h2 id="section">
+<img src="images/paste-6.png"><a class="anchor" aria-label="anchor" href="#section"></a>
+</h2>
+</section><section class="level2"><h2 id="r-julia-python-ou-stata">R, Julia, Python ou Stata<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata"></a>
+</h2>
+<p>Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :</p>
+<ol type="1">
+<li>
+<strong>la reproductibilité</strong> : les traitements sont fait de façon séquentielle par un code ; ce code réalise toutes les opérations, du téléchargement des données brutes jusqu’à la production des analyses. C’est une différence importante par rapport à Excel et Eviews où il n’est pas possible de définir les opérations permettant d’arriver à un résultat. La reproductibilité est assurée par l’utilisation d’un logiciel open source accessible facilement – Stata est un cas limite. La reproductibilité facilite le travail collaboratif (reproduire dans l’équipe), la mise à jour (reproduire dans 6 mois), la détection des erreurs (relecture, reproduction) et la diffusion des bonnes pratiques.</li>
+<li>
+<strong>la transparence</strong> : la transparence repose en partie sur la reproductibilité. Elle consiste à permettre l’accès à l’ensemble des codes, données source<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;On respecte bien sûr les licences associées aux données. lorsqu’elles sont protégées parce que commerciales ou par le secret statistique, l’argument de reproductibilité ne s’applique pas. Une solution est d’avoir un prétraitement des données sous une forme diffusable et de faire partir l’exigence de reproductibilité de ces données.&lt;/p&gt;"><sup>1</sup></a> et de les documenter de façon à rendre possible leur utilisation par quiconque. La transparence repose sur des outils dont <em>github</em> est un des plus importants. Les logiciels <em>open source</em> en font partie. Pour aller un cran plus loin dans la transparence, on s’attache à produire des documents exécutables, c’est-à-dire que le résultat final (pdf, site internet, document docx) est produit par un code, si possible exécutable avec des outils <em>open source.</em>
+</li>
+</ol>
+<section class="level3"><h3 id="r">R<a class="anchor" aria-label="anchor" href="#r"></a>
+</h3>
+<p>R est un logiciel de traitement statistique libre. Il y a un grand nombre de packages qui étendent les fonctionnalités de R, certaines modifiant profondément son fonctionnement comme <a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a>, ajoutant un écosystème de production de graphiques comme <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> + <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> + <a href="https://wilkelab.org/ggtext/" class="external-link">ggtext</a> + …, de production de tableaux comme <a href="https://gt.rstudio.com" class="external-link">gt</a> ou encore de procédures statistiques comme <a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a> ou d’interface avec des librairies de calcul comme <a href="https://github.com/dmlc/xgboost" class="external-link">xgboost</a>. Bien que R ne soit pas un langage très rapide, son interface avec le C/C++ ou la possibilité de faire du calcul parallèle ou d’utiliser des systèmes avancés comme <a href="https://torch.mlverse.org/docs" class="external-link">torch</a> permet d’atteindre des performances de calculs maximales (i.e. utilisant au mieux le hardware dont on dispose). R est multi-platerforme on peut l’utiliser sur de nombreux systèmes y compris distants ce qui ouvre la porte au calcul haute performance.</p>
+<p>Pour installer R (la dernière version est 4.4.1) :</p>
+<ul>
+<li><p>sur MacOS : <a href="https://cran.r-project.org/bin/macosx/" class="external-link">R for macOS (r-project.org)</a></p></li>
+<li><p>sur Windows : <a href="https://cran.r-project.org/bin/windows/base/" class="external-link">Download R-4.4.1 for Windows. The R-project for statistical computing.</a> et <a href="https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html" class="external-link">Rtools44 for Windows (r-project.org)</a></p></li>
+</ul></section><section class="level3"><h3 id="quelques-détails">Quelques détails<a class="anchor" aria-label="anchor" href="#quelques-d%C3%A9tails"></a>
+</h3>
+<p>Il est <em>recommandé</em> d’installer les versions <strong>fixes (non variables)</strong> d’Open Sans <a href="https://fonts.google.com/specimen/Open+Sans" class="external-link">Open Sans - Google Fonts</a> et de Fira Code <a href="https://fonts.google.com/specimen/Fira+Code" class="external-link">Fira Code - Google Fonts</a>.</p>
+</section></section><section class="level2"><h2 id="quarto">Quarto<a class="anchor" aria-label="anchor" href="#quarto"></a>
 </h2>
 <p>Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de R. Il est développé par RStudio et sert à transformer les <code>.qmd</code> en documents publiables (<code>.docx</code>, <code>.html</code>, <code>.pdf</code>). Quarto est distinct de RStudio – ce qui explique que la version de Quarto n’est pas liée à celle de RStudio.</p>
 <blockquote>
@@ -112,7 +134,7 @@
 </blockquote>
 <p>L’interface de RStudio est assez touffue et peut effrayer au premier abord. C’est pourtant une interface qui a été soigneusement élaborée au fil du temps. On finit par en comprendre la logique et elle est assez efficace. Il y a de nombreux tutoriaux, cheat sheet, manuels. Lisez les, ça aide.</p>
 <p>RStudio permet d’éditer les documents <code>.qmd</code> avec le mode “<em>visual</em>”. Ce mode s’active facilement et permet de disposer d’une interface moderne pour éditer un texte en <em>markdown</em> avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l’interface avec le code R, Python, Julia, SQL, etc…</p>
-</section><section class="level2"><h2 id="git-github-github-com-github-desktop">git, Github, Github.com, Github desktop<a class="anchor" aria-label="anchor" href="#git-github-github-com-github-desktop"></a>
+</section><section class="level2"><h2 id="git-github-github-com-github-desktop">git, github, github.com, github desktop<a class="anchor" aria-label="anchor" href="#git-github-github-com-github-desktop"></a>
 </h2>
 <p>git est l’outil charnière qui permet le travail collaboratif, le versionnage du code, son archivage mais aussi toute une chaîne d’outils qui permettent par exemple la mise en ligne de sites.</p>
 <p>Le fonctionnement de git est déroutant (son concepteur Linus Torwald l’a voulu impénétrable et réservé aux geeks hard core). Mais c’est un outil puissant qui est incontournable et maintenant enveloppé d’un ensemble d’outils qui en facilitent l’usage, github, github desktop, github.com.</p>
@@ -140,7 +162,7 @@
 <p><img src="images/paste-4.png" width="496"></p>
 <p>Et il y a potentiellement des conflits : c’est lorsque des <em>commit</em> (les vôtres et ceux d’autres) opèrent sur un même endroit dans un même fichier. Il n’est pas possible simplement d’ajouter ces <em>commit</em> les uns aux autres et c’est donc un conflit. Pour sortir d’un conflit, le plus simple est d’utiliser VSCode ou, plus root, d’éditer le fichier <em>mergé</em> avec les conflits pour résoudre à la main les conflits. Dans github desktop, lorsqu’il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur. Attention, faire ça efface le travail de quelqu’un.</p>
 <p><img src="images/paste-5.png"></p>
-</section></section><section class="level2"><h2 id="branche">branche<a class="anchor" aria-label="anchor" href="#branche"></a>
+</section></section><section class="level2"><h2 id="branches">Branches<a class="anchor" aria-label="anchor" href="#branches"></a>
 </h2>
 <p>Comme il est expliqué dans la <a href="blog.qmd">vignette blog</a> ou dans la <a href="site.qmd">vignette sur les sites</a>, le travail collaboratif peut demander quelques sécurités supplémentaires. La branche <code>master</code> (ou <code>main</code> pour ceux qui pensent que l’utilisation du mot <em>master</em> fait de vous sans le dire un esclavagiste) est alors protégée. Seul l’administrateur du site peut la modifier ou autoriser les modifications. Chaque intervention sur le contenu doit se faire sur une branche <em>ad hoc</em> créée pour l’occasion. Le process est représenté sur le diagramme. On copie tout le contenu dans une branche, on le modifie, le teste. Puis on demande à l’intégrer dans <code>master</code> à l’administrateur du dépôt par une pull request. L’administrateur peut alors vérifier que les modifications sont OK et les <em>merger</em> dans <code>master</code>. Pourquoi faire comme ça et pas limiter les droits de modifications à seulement quelques fichiers. 1. Parce que c’est plus simple et flexible que de figer des accès fichier par fichier 2. ca permet à chacun de tester et de débugger ses modifs 3. ça permet de vérifier que les modifications ne sont pas allé trop loin. 4. on peut <em>blamer</em> c’est-à-dire savoir qui a fait quoi.</p>
 <div class="cell" data-layout-align="default">
@@ -176,7 +198,7 @@ A[contenu dans branch master]
 </section></section><section class="level2"><h2 id="vscode-et-positron">VSCode et Positron<a class="anchor" aria-label="anchor" href="#vscode-et-positron"></a>
 </h2>
 <p><strong>VSCode</strong> est une alternative à <strong>RStudio</strong>. Développé par Microsoft (et oui, Microsoft est partout et ne fait pas que Word, Excel et Powerpoint), il est en train de s’imposer comme standard dans le domaine des usages avancés. VSCode est organisé autour d’un éditeur de texte (de code en fait) repose sur une structure très (un peu trop) ouverte. Il peut être étendu facilement et articulé avec de nombreux outils : <em>formateurs</em>, <em>linteurs</em>, <em>highlighters</em>, <em>debogguers</em>, <em>compilateurs</em>, accès distants, <em>dockers</em>, <em>correcteurs</em>, IA. La liste est presque infinie et en tout cas grossit chaque jour. C’est aussi un outil assez léger, rapide, sûr et très fonctionnel.</p>
-<p>Il dispose d’un module d’extension <em>github</em> très bien fait et très facile à utiliser. Avce <em>gitlens</em> on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des <em>commit</em>. C’est très utile pour s’y retrouver et bénéficier de la puissance de <em>git</em> instantanément. <em>pusher</em> ou <em>commiter</em> se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).</p>
+<p>Il dispose d’un module d’extension <em>github</em> très bien fait et très facile à utiliser. Avec <em>gitlens</em> on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des <em>commit</em>. C’est très utile pour s’y retrouver et bénéficier de la puissance de <em>git</em> instantanément. <em>pusher</em> ou <em>commiter</em> se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).</p>
 <p>Il est possible d’éditer les documents <code>.qmd</code> en mode visuel dans <strong>VSCode</strong> et avec son module github, le travail y est plus facile que dans RStudio. Pour ceux qui ne font que la <em>review</em> et l’<em>editing</em>, c’est une excellente alternative, avec une interface moins riche (moins confuse surtout) que celle de RStudio.</p>
 <p><strong>Positron</strong> est la fusion entre <strong>RStudio</strong> et <strong>VSCode</strong>. C’est encore une version en développement (la <a href="https://github.com/posit-dev/positron" class="external-link"><em>pre release</em> date de juin 2024</a>), mais elle fonctionne à peu près. Il n’est pas recommandé de l’utiliser pour le moment pour des projets, sauf si vous avez le goût de l’aventure et un peu de patience.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
