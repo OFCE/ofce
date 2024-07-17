@@ -23,7 +23,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     code_font = "Fira Code")
 
   theme_text <- if(marquee)
-    theme(
+    ggplot2::theme(
       plot.title = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
         hjust = 0,
@@ -51,7 +51,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = margin(t=6, b=6)))
   else
-    theme(
+    ggplot2::theme(
       plot.title = ggtext::element_markdown(
         face = "bold",
         hjust = 0,
@@ -74,7 +74,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(t=6, b=6)))
 
- theme_foundation() +
+  theme_foundation() +
     ggplot2::theme(
       # general
       plot.background = ggplot2::element_rect(fill="white"),
@@ -175,7 +175,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
     code_font = "Fira Code")
 
   theme_text <- if(marquee)
-    theme(
+    ggplot2::theme(
       plot.title = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
         hjust = 0,
@@ -203,7 +203,10 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = margin(t=6, b=6)))
   else
-    theme(
+    ggplot2::theme(
+      legend.text = ggplot2::element_text(
+        size = ggplot2::rel(0.75),
+        color = "gray25"),
       plot.title = ggtext::element_markdown(
         face = "bold",
         hjust = 0,
@@ -226,39 +229,40 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(t=6, b=6)))
 
-  ggplot2::theme(
-    # general
-    plot.background = element_rect(fill="white"),
-    text = element_text(
-      family=base_family,
-      size = base_size),
-    rect = element_rect(
-      fill = NA,
-      size = base_size,
-      colour = NA,
-      linetype = 0),
-    plot.title.position = "panel",
-    plot.margin = ggplot2::margin(b=2, t=2, l=2, r=2),
-    plot.caption.position = "plot",
-    #Legend format
-    legend.position = "right",
-    legend.justification= c(1,1),
-    legend.text.align = 0,
-    legend.background = element_blank(),
-    legend.margin = margin(t=0, r=0, b=0, l=0),
-    # #Axis format
-    axis.title  = element_blank(),
-    axis.ticks = element_blank(),
-    axis.line = element_blank(),
-    #Grid lines
-    panel.grid = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.y = element_blank(),
-    panel.grid.major.x = element_blank(),
-    #Blank background
-    panel.background = element_blank(),
-    panel.spacing = unit(3, "pt"),
-    strip.background = element_rect(fill="white"))+
+  theme_foundation() +
+    ggplot2::theme(
+      # general
+      plot.background = ggplot2::element_rect(fill="white"),
+      text = ggplot2::element_text(
+        family=base_family,
+        size = base_size),
+      rect = ggplot2::element_rect(
+        fill = NA,
+        size = base_size,
+        colour = NA,
+        linetype = 0),
+      plot.title.position = "panel",
+      plot.margin = ggplot2::margin(b=2, t=2, l=2, r=2),
+      plot.caption.position = "plot",
+      #Legend format
+      legend.position = "right",
+      legend.justification= c(1,1),
+      legend.text.align = 0,
+      legend.background = ggplot2::element_blank(),
+      legend.margin = ggplot2::margin(t=0, r=0, b=0, l=0),
+      # #Axis format
+      axis.title  = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank(),
+      #Grid lines
+      panel.grid = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      panel.grid.major.y = ggplot2::element_blank(),
+      panel.grid.major.x = ggplot2::element_blank(),
+      #Blank background
+      panel.background = ggplot2::element_blank(),
+      panel.spacing = ggplot2::unit(3, "pt"),
+      strip.background = ggplot2::element_rect(fill="white"))+
     theme_text +
     ggplot2::theme(...) # pour passer les arguments en plus
 }
