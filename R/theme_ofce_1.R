@@ -165,7 +165,66 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
 #' @export
 
 
-theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family = getOption("ofce.base_family"), ...) {
+theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
+                            base_family = getOption("ofce.base_family"), ...) {
+  ofce_style <- marquee::classic_style(
+    base_size = base_size,
+    body_font = base_family,
+    header_font = base_family,
+    code_font = "Fira Code")
+
+  theme_text <- if(marquee)
+    theme(
+      plot.title = marquee::element_marquee(
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
+        hjust = 0,
+        vjust = 0.5,
+        margin = ggplot2::margin(b=-6, t=0),
+        lineheight = 1),
+      plot.subtitle = marquee::element_marquee(
+        style = ofce_style,
+        size = ggplot2::rel(0.75),
+        hjust = 0,
+        margin = ggplot2::margin(b=0, t=-6),
+        lineheight = 1),
+      plot.caption = marquee::element_marquee(
+        style = marquee::modify_style(
+          ofce_style, tag = "p",
+          margin = marquee::trbl(2, 0, 0, 0)),
+        size = ggplot2::rel(0.75),
+        hjust = 0,
+        margin = margin(l = 0, t = 0),
+        width = 0.8),
+      strip.text = marquee::element_marquee(
+        style = ofce_style,
+        size = ggplot2::rel(0.85),
+        hjust = 0.5,
+        vjust = 0.5,
+        margin = margin(t=6, b=6)))
+  else
+    theme(
+      plot.title = ggtext::element_markdown(
+        face = "bold",
+        hjust = 0,
+        vjust = 0.5,
+        margin = ggplot2::margin(b=0, t=0),
+        lineheight = 1.25),
+      plot.subtitle = ggplot2::element_text(
+        size = ggplot2::rel(0.80),
+        hjust = 0,
+        margin = ggplot2::margin(b=0, t=0),
+        lineheight = 1.25),
+      plot.caption = ggtext::element_markdown(
+        size = ggplot2::rel(0.80),
+        hjust = 0,
+        margin = ggplot2::margin(l = 0, t = 6),
+        lineheight = 1.25),
+      strip.text = ggplot2::element_text(
+        size = ggplot2::rel(0.9),
+        hjust = 0.5,
+        vjust = 0.5,
+        margin = ggplot2::margin(t=6, b=6)))
+
   ggplot2::theme(
     # general
     plot.background = element_rect(fill="white"),
@@ -177,51 +236,19 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
       size = base_size,
       colour = NA,
       linetype = 0),
-    title = element_text(
-      family=base_family,
-      size = base_size),
-    #Text format:
     plot.title.position = "panel",
-    plot.title = marquee::element_marquee(
-      style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
-      hjust = 0,
-      vjust = 0.5,
-      margin = ggplot2::margin(b=-6, t=0),
-      lineheight = 1),
-    plot.subtitle = marquee::element_marquee(
-      style = ofce_style,
-      size = ggplot2::rel(0.80),
-      hjust = 0,
-      margin = ggplot2::margin(b=0, t=-6),
-      lineheight = 1),
     plot.margin = ggplot2::margin(b=2, t=2, l=2, r=2),
-    plot.caption = marquee::element_marquee(
-      style = ofce_style,
-      size = ggplot2::rel(0.80),
-      hjust = 0,
-      margin = margin(l = 0, t= 9),
-      width = 0.9),
-
     plot.caption.position = "plot",
     #Legend format
     legend.position = "right",
     legend.justification= c(1,1),
     legend.text.align = 0,
-    legend.title = element_text(
-      face = "plain",
-      size = rel(0.85),
-      color = "gray25"),
     legend.background = element_blank(),
-    legend.text = element_text(
-      face = "plain",
-      size = rel(0.75),
-      color = "gray25"),
     legend.margin = margin(t=0, r=0, b=0, l=0),
     # #Axis format
     axis.title  = element_blank(),
     axis.ticks = element_blank(),
     axis.line = element_blank(),
-    axis.text = element_blank(),
     #Grid lines
     panel.grid = element_blank(),
     panel.grid.minor = element_blank(),
@@ -230,13 +257,8 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"), base_family
     #Blank background
     panel.background = element_blank(),
     panel.spacing = unit(3, "pt"),
-    strip.background = element_rect(fill="white"),
-    strip.text = marquee::element_marquee(
-      style = ofce_style,
-      size = ggplot2::rel(0.85),
-      hjust = 0.5,
-      vjust = 0.5,
-      margin = margin(t=6, b=6)))+
+    strip.background = element_rect(fill="white"))+
+    theme_text +
     ggplot2::theme(...) # pour passer les arguments en plus
 }
 
