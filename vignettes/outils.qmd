@@ -6,13 +6,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Quels outils pour travailler ? En bref : un projet dans **RStudio** et **R**, **github**, **github desktop**.
+Quels outils pour travailler ? Il n'y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans **RStudio** et **R**, **github**, **github desktop**.
 
 > **Règle 1** : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.
 >
 > **Règle 2** : **Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)**.Si il est sur un disque partagé des catastrophes vont arriver.
 >
-> **Règle 3** : git (github desktop, github.com) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n'y a pas d'alternatives.
+> **Règle 3** : *git* (*github desktop,* *github.com*) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n'y a pas d'alternatives.
 
 ## ![](images/paste-6.png)
 
@@ -59,7 +59,7 @@ L'interface de RStudio est assez touffue et peut effrayer au premier abord. C'es
 
 RStudio permet d'éditer les documents `.qmd` avec le mode "*visual*". Ce mode s'active facilement et permet de disposer d'une interface moderne pour éditer un texte en *markdown* avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l'interface avec le code R, Python, Julia, SQL, etc...
 
-## git, Github, Github.com, Github desktop
+## git, github, github.com, github desktop
 
 git est l'outil charnière qui permet le travail collaboratif, le versionnage du code, son archivage mais aussi toute une chaîne d'outils qui permettent par exemple la mise en ligne de sites.
 
@@ -91,7 +91,7 @@ Et il y a potentiellement des conflits : c'est lorsque des *commit* (les vôtres
 
 ![](images/paste-5.png)
 
-## branche
+## Branches
 
 Comme il est expliqué dans la [vignette blog](blog.qmd) ou dans la [vignette sur les sites](site.qmd), le travail collaboratif peut demander quelques sécurités supplémentaires. La branche `master` (ou `main` pour ceux qui pensent que l'utilisation du mot *master* fait de vous sans le dire un esclavagiste) est alors protégée. Seul l'administrateur du site peut la modifier ou autoriser les modifications. Chaque intervention sur le contenu doit se faire sur une branche *ad hoc* créée pour l'occasion. Le process est représenté sur le diagramme. On copie tout le contenu dans une branche, on le modifie, le teste. Puis on demande à l'intégrer dans `master` à l'administrateur du dépôt par une pull request. L'administrateur peut alors vérifier que les modifications sont OK et les *merger* dans `master`. Pourquoi faire comme ça et pas limiter les droits de modifications à seulement quelques fichiers. 1. Parce que c'est plus simple et flexible que de figer des accès fichier par fichier 2. ca permet à chacun de tester et de débugger ses modifs 3. ça permet de vérifier que les modifications ne sont pas allé trop loin. 4. on peut *blamer* c'est-à-dire savoir qui a fait quoi.
 
@@ -125,7 +125,7 @@ Il y a des cas plus lourds, où on veut des accès concurrents à une même base
 
 **VSCode** est une alternative à **RStudio**. Développé par Microsoft (et oui, Microsoft est partout et ne fait pas que Word, Excel et Powerpoint), il est en train de s'imposer comme standard dans le domaine des usages avancés. VSCode est organisé autour d'un éditeur de texte (de code en fait) repose sur une structure très (un peu trop) ouverte. Il peut être étendu facilement et articulé avec de nombreux outils : *formateurs*, *linteurs*, *highlighters*, *debogguers*, *compilateurs*, accès distants, *dockers*, *correcteurs*, IA. La liste est presque infinie et en tout cas grossit chaque jour. C'est aussi un outil assez léger, rapide, sûr et très fonctionnel.
 
-Il dispose d'un module d'extension *github* très bien fait et très facile à utiliser. Avce *gitlens* on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des *commit*. C'est très utile pour s'y retrouver et bénéficier de la puissance de *git* instantanément. *pusher* ou *commiter* se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).
+Il dispose d'un module d'extension *github* très bien fait et très facile à utiliser. Avec *gitlens* on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des *commit*. C'est très utile pour s'y retrouver et bénéficier de la puissance de *git* instantanément. *pusher* ou *commiter* se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).
 
 Il est possible d'éditer les documents `.qmd` en mode visuel dans **VSCode** et avec son module github, le travail y est plus facile que dans RStudio. Pour ceux qui ne font que la *review* et l'*editing*, c'est une excellente alternative, avec une interface moins riche (moins confuse surtout) que celle de RStudio.
 

@@ -104,7 +104,6 @@ Les références de code couleurs peuvent être consultés dans les documents su
 
 x![](images/Couleurs_Graphes_2024-juin.pdf){width="990" height="740"}
 
-
 <!-- ## Tableaux  -->
 
 <!-- ```{r} -->
