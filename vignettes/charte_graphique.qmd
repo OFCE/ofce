@@ -74,6 +74,37 @@ ofce::theme_ofce() +
 
 ```
 
+Pour le choix des couleurs de pays, il est également possible de passer par une fonction de type `scale_manual` dans le package `ofce` `scale_color_pays` qui intègre directement l'application des codes couleurs de la charte graphique en plus d'offrir des options supplémentaires en termes de labelling.
+
+Note: Il est essentiel à ce qu'il existe une colonne dans le dataframe qui contiennent les codes pays au format [*ISO 3166-1 alpha-3*](https://www.iban.com/country-codes).
+
+```{r}
+vec_iso <- c("ESP", "DEU", "FRA")
+data <- data.frame("value" = c(1:30), 
+                    "iso" = vec_iso) |> 
+  arrange(iso) |> 
+  mutate(date = c(2011:2020, 2011:2020, 2011:2020))
+data |> 
+  ggplot()  +
+  geom_line(aes(x= date, y = value, color = iso )) +
+  ofce::scale_color_pays(vec_iso,
+                   lang = "en") +
+  ofce::theme_ofce()
+```
+
+## Documentation Charte Graphique
+
+Les références de code couleurs peuvent être consultés dans les documents suivants:
+
+### Pour les pays
+
+![](images/TableCoul_Pays_OFCE2024-juin.pdf){width="990" height="740"}
+
+### Pour les palettes principales
+
+x![](images/Couleurs_Graphes_2024-juin.pdf){width="990" height="740"}
+
+
 <!-- ## Tableaux  -->
 
 <!-- ```{r} -->
