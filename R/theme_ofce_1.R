@@ -166,7 +166,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
 
 
 theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
-                            base_family = getOption("ofce.base_family"), ...) {
+                            base_family = getOption("ofce.base_family"),
+                            marquee = FALSE, ...) {
   ofce_style <- marquee::classic_style(
     base_size = base_size,
     body_font = base_family,
