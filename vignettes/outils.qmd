@@ -6,4 +6,82 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## blabla
+> **Règle 1** : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.
+>
+> **Règle 2** : **Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)**.Si il est sur un disque partagé des catastrophes vont arriver.
+>
+> **Règle 3** : git (github desktop, github.com) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n'y a pas d'alternatives.
+
+## ![](images/paste-6.png)Quarto
+
+Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de R. Il est développé par RStudio et sert à transformer les `.qmd` en documents publiables (`.docx`, `.html`, `.pdf`). Quarto est distinct de RStudio -- ce qui explique que la version de Quarto n'est pas liée à celle de RStudio.
+
+> **Règle 4** : Il faut utiliser au moins Quarto 1.5 ([la version actuelle est 1.5.54](https://quarto.org/docs/download/)). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionalités importantes.
+
+Quarto a besoin d'être installé, mais il n'y a pas d'interface quarto à manipuler. Vous pouvez installer dans R le package `{quarto}` qui est un lien entre R et Quarto (et permet d'excuter Quarto par des commandes R, comme par exemple `quarto::quarto_version()` qui vous indique quelle est la version de quarto installée). Installer le package R `{quarto}` n'installe pas la dernière version de Quarto.
+
+![](images/paste-1.png){fig-align="center" width="600"}
+
+## RStudio
+
+RStudio est l'outil central (pour le moment). C'est un IDE qui permet à la fois d'éditer les textes (.r, .qmd), d'organiser son travail en projets et d'exécuter le code R ou Pyhton. Il comporte de nombreux outils pour simplifier la vie (en compliquant un peu l'interface) en automatisant la publication, la construction des sites, le débugage de code, l'interface entre R et Python, le fonctionnement multiplaterforme, etc.... Pour certaines opérations, il faut utiliser le terminal comme pour la commande `quarto publish gh-pages`.
+
+> **Règle 5** : Il faut utiliser une version récente ([2024.07 au moins, disponible ici](https://posit.co/downloads/)). Les mises à jour sont moins fréquentes que pour Quarto. Mettre à jour RStudio induit une mise à jour de Quarto, mais généralement pas la dernière version de Quarto.
+
+L'interface de RStudio est assez touffue et peut effrayer au premier abord. C'est pourtant une interface qui a été soigneusement élaborée au fil du temps. On finit par en comprendre la logique et elle est assez efficace. Il y a de nombreux tutoriaux, cheat sheet, manuels. Lisez les, ça aide.
+
+RStudio permet d'éditer les documents `.qmd` avec le mode "*visual*". Ce mode s'active facilement et permet de disposer d'une interface moderne pour éditer un texte en *markdown* avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l'interface avec le code R, Python, Julia, SQL, etc...
+
+## git, Github, Github.com, Github desktop
+
+git est l'outil charnière qui permet le travail collaboratif, le versionnage du code, son archivage mais aussi toute une chaîne d'outils qui permettent par exemple la mise en ligne de sites.
+
+Le fonctionnement de git est déroutant (son concepteur Linus Torwald l'a voulu impénétrable et réservé aux geeks hard core). Mais c'est un outil puissant qui est incontournable et maintenant enveloppé d'un ensemble d'outils qui en facilitent l'usage, github, github desktop, github.com.
+
+![](images/paste-3.png){fig-align="center" width="614"}
+
+**Github** est une version particulière de *git* (rachetée par Microsoft). **github.com** est un service de cloud associé à **github**. Il donne des espaces sécurisés sur lesquels on peut mettre ses dépôts et définir qui peut y accéder. **github.com** fournit aussi de nombreux outils de consultation du code, du code à divers moment, d'outils pour *merger,* gérer les *pull resquest,* ouvrir des *issues, cloner* ou *forker* des dépôts, diffuser des nouvelles à propos d'un dépôt, rechercher des solutions, publier un site, définir de nombreux paramètres de votre dépôt, le fermer, le rendre pivé ou public, l'archiver, le détruire. C'est en fait l'outil central de gestion des dépôt, qui facilite la tâche par rapport au plan initial de Linus Torwald (si vous êtes plus *hard core*, allez voir **gitlab** ou l'alterntive open source française **adulac**).
+
+**github desktop** est une application (que l'on installe sur son ordinateur donc) qui sert d'interface pour certaines opérations avec **github.com**. On y fait simplement les *commit*, les *pull*, les *push*, les *merge* et les *pull request*. On peut aussi examiner les *commit*, les fichiers modifiés, les modifications des fichiers et annuler un *commit*. Dans 95% des cas, on a besoin que de **github desktop**.
+
+### commit, push, pull, conflit
+
+Le vocabulaire de git est particulier : un *commit* est une balise dans votre travail. git vous permet de revenir à un *commit* passé.
+
+![](images/paste-2.png){fig-align="center" width="581"}
+
+**git** consiste à avoir une copie en local et une copie sur un serveur, dans le cloud, qui dans notre cas sera systématiquement **github.com**, qui sert de référence. Un *pull* consiste à prendre sur le serveur les derniers *commit* et à les ajouter sur le disque local. C'est un ajout et non un remplacement. Il est toujours possible de revenir en arrière, d'examiner les changements apportés par les *commit.* La collaboration se fait par les *commit* qui sont additionnés les uns aux autres.
+
+::: callout-warning
+Attention, pour les fichiers non différentiables (Excel, word, rds, données non csv), la fusion des modifications n'est pas possible et on devra choisir (résolution des conflits) quelle est la version que l'on conserve. C'est pour cela qu'on ne peut pas utiliser ces fichiers dans un travail collaboratif sans une grande discipline.
+:::
+
+Un *push* est l'opération qui consiste à envoyer sur le serveur les *commit* qui sont sur votre disque local.
+
+![](images/paste-4.png){width="496"}
+
+Et il y a potentiellement des conflits : c'est lorsque des *commit* (les vôtres et ceux d'autres) opèrent sur un même endroit dans un même fichier. Il n'est pas possible simplement d'ajouter ces *commit* les uns aux autres et c'est donc un conflit. Pour sortir d'un conflit, le plus simple est d'utiliser VSCode ou, plus root, d'éditer le fichier *mergé* avec les conflits pour résoudre à la main les conflits. Dans github desktop, lorsqu'il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur. Attention, faire ça efface le travail de quelqu'un.
+
+![](images/paste-5.png)
+
+## branche
+
+Comme il est expliqué dans la [vignette blog](blog.qmd) ou dans la [vignette sur les sites](site.qmd), le travail collaboratif peut demander quelques sécurités supplémentaires. La branche `master` (ou `main` pour ceux qui pensent que l'utilisation du mot *master* fait de vous sans le dire un esclavagiste) est alors protégée. Seul l'administrateur du site peut la modifier ou autoriser les modifications. Chaque intervention sur le contenu doit se faire sur une branche *ad hoc* créée pour l'occasion. Le process est représenté sur le diagramme. On copie tout le contenu dans une branche, on le modifie, le teste. Puis on demande à l'intégrer dans `master` à l'administrateur du dépôt par une pull request. L'administrateur peut alors vérifier que les modifications sont OK et les *merger* dans `master`. Pourquoi faire comme ça et pas limiter les droits de modifications à seulement quelques fichiers. 1. Parce que c'est plus simple et flexible que de figer des accès fichier par fichier 2. ca permet à chacun de tester et de débugger ses modifs 3. ça permet de vérifier que les modifications ne sont pas allé trop loin. 4. on peut *blamer* c'est-à-dire savoir qui a fait quoi.
+
+```{mermaid}
+flowchart LR
+A[contenu dans branch master]
+  A -->|"<i>clone<i/>"| B(modifications)
+  B -->|"<i>pull request</i>"| D
+  A -->|"<b>master est protégé<b/>"| D[master modifié]
+```
+
+## VSCode et Positron
+
+**VSCode** est une alternative à **RStudio**. Développé par Microsoft (et oui, Microsoft est partout et ne fait pas que Word, Excel et Powerpoint), il est en train de s'imposer comme standard dans le domaine des usages avancés. VSCode est organisé autour d'un éditeur de texte (de code en fait) repose sur une structure très (un peu trop) ouverte. Il peut être étendu facilement et articulé avec de nombreux outils : *formateurs*, *linteurs*, *highlighters*, *debogguers*, *compilateurs*, accès distants, *dockers*, *correcteurs*, IA. La liste est presque infinie et en tout cas grossit chaque jour. C'est aussi un outil assez léger, rapide, sûr et très fonctionnel.
+
+Il dispose d'un module d'extension *github* très bien fait et très facile à utiliser. Avce *gitlens* on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des *commit*. C'est très utile pour s'y retrouver et bénéficier de la puissance de *git* instantanément. *pusher* ou *commiter* se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).
+
+Il est possible d'éditer les documents `.qmd` en mode visuel dans **VSCode** et avec son module github, le travail y est plus facile que dans RStudio. Pour ceux qui ne font que la *review* et l'*editing*, c'est une excellente alternative, avec une interface moins riche (moins confuse) que celle de RStudio.
+
+**Positron** est la fusion entre **RStudio** et **VSCode**. C'est encore une version en développement (la [*pre release* date de juin 2024](https://github.com/posit-dev/positron)), mais elle fonctionne à peu près. Il n'est pas recommandé de l'utiliser pour le moment pour des projets, sauf si vous avez le goût de l'aventure et un peu de patience.
