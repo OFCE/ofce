@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Outils • ofce</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
@@ -16,6 +22,7 @@
 <link href="outils_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <script src="outils_files/libs/quarto-diagram/mermaid.min.js"></script><script src="outils_files/libs/quarto-diagram/mermaid-init.js"></script><link href="outils_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Outils">
+<meta property="og:image" content="https://ofce.github.io/ofce/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -71,8 +78,7 @@
 </nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Outils</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Outils</h1>
 
 
 
@@ -86,7 +92,8 @@
 
 
 
-    <p>Quels outils pour travailler ? Il n’y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans <strong>RStudio</strong> et <strong>R</strong>, <strong>github</strong>, <strong>github desktop</strong>.</p>
+    <p>Quels outils pour travailler ? Il n’y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans <strong>RStudio</strong> et <strong>R</strong>, <strong>github</strong>, <strong>github desktop</strong>.</p>
+<p>Les illustrations sont de <a href="https://allisonhorst.com/" class="external-link">Alison Horst</a>.</p>
 <blockquote>
 <p><strong>Règle 1</strong> : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.</p>
 <p><strong>Règle 2</strong> : <strong>Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)</strong>.Si il est sur un disque partagé des catastrophes vont arriver.</p>
@@ -97,7 +104,7 @@
 </h2>
 </section><section class="level2"><h2 id="r-julia-python-ou-stata">R, Julia, Python ou Stata<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata"></a>
 </h2>
-<p>Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :</p>
+<p>Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :</p>
 <ol type="1">
 <li>
 <strong>la reproductibilité</strong> : les traitements sont fait de façon séquentielle par un code ; ce code réalise toutes les opérations, du téléchargement des données brutes jusqu’à la production des analyses. C’est une différence importante par rapport à Excel et Eviews où il n’est pas possible de définir les opérations permettant d’arriver à un résultat. La reproductibilité est assurée par l’utilisation d’un logiciel open source accessible facilement – Stata est un cas limite. La reproductibilité facilite le travail collaboratif (reproduire dans l’équipe), la mise à jour (reproduire dans 6 mois), la détection des erreurs (relecture, reproduction) et la diffusion des bonnes pratiques.</li>

@@ -61,7 +61,7 @@ h1, h2, h3, h4, h5, h6,
   text-align: $aligment !important;
 }
 
-.listing-subtitle, 
+.listing-subtitle,
 .listing-description,
 .listing-date,
 .align-left {
@@ -151,9 +151,9 @@ figcaption.quarto-float-caption,caption  {
 .blockquote {
   color: var(--bs-body-color);
   font-size: 1rem;
-  border-left-color: $scpodarkred;
-  border-left-width: 2px;
-  line-height: 160%;
+  border-left-color: $scpodarkred !important;
+  border-left-width: 1px;
+  line-height: 150%;
 }
 
 .encadre, .callout-tip {
