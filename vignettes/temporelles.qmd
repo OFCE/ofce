@@ -433,7 +433,7 @@ girafy(add_logo(sh), r = 2.5)
 ```
 :::
 
-## Interactif
+## L'interactivité
 
 La dernière étape est l'interactivité. On utilise le package `{ggiraph}` qui va permettre d'intégrer des *tooltips* très simplement et très efficacement. On peut aussi avec des sélections dynamiques ou encore des zooms.
 
