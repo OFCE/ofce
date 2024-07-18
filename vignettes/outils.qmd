@@ -4,6 +4,11 @@ vignette: >
   %\VignetteIndexEntry{Outils}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+  
+format: 
+  html:
+    mermaid:
+      theme: forest
 ---
 
 Quels outils pour travailler ? Il n'y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans **RStudio** et **R**, **github**, **github desktop**.
@@ -16,7 +21,7 @@ Les illustrations sont de [Alison Horst](https://allisonhorst.com/).
 
 > **Règle 3** : *git* (*github desktop,* *github.com*) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soi-même maintenant et dans 6 mois). Il n'y a pas d'alternative.
 
-## ![](images/paste-6.png)
+![](images/paste-6.png){fig-align="center" width="700"}
 
 ## R, Julia, Python ou Stata ou Eviews
 
@@ -25,9 +30,9 @@ Pour faire les calculs, traiter les données, produire les graphiques, il faut u
 1.  **la reproductibilité** : les traitements sont fait de façon séquentielle par un code ; ce code réalise toutes les opérations, du téléchargement des données brutes jusqu'à la production des analyses. C'est une différence importante par rapport à Excel et Eviews où il n'est pas possible de définir les opérations permettant d'arriver à un résultat. La reproductibilité est assurée par l'utilisation d'un logiciel open source accessible facilement – Stata est un cas limite. La reproductibilité facilite le travail collaboratif (reproduire dans l'équipe), la mise à jour (reproduire dans 6 mois), la détection des erreurs (relecture, reproduction) et la diffusion des bonnes pratiques.
 2.  **la transparence** : la transparence repose en partie sur la reproductibilité. Elle consiste à permettre l'accès à l'ensemble des codes, données source[^1] et de les documenter de façon à rendre possible leur utilisation par quiconque. La transparence repose sur des outils dont *github* est un des plus importants. Les logiciels *open source* en font partie. Pour aller un cran plus loin dans la transparence, on s'attache à produire des documents exécutables, c'est-à-dire que le résultat final (pdf, site internet, document docx) est produit par un code, si possible exécutable avec des outils *open source.*
 
-Donc, R, Julia, Python sont clairement dans cette catégorie. Stata n'est pas libre, mais largement répandu et donc acceptable. Excel et Eviews ne sont pas utilisables parce qu'ils ne sont pas séquentiels. L'épisode Reihnart-Rogoff découle de ça. Mais il y a des trillions d'erreurs qui continuent de se propager à cause des pratiques induites par Excel.
-
 [^1]: On respecte bien sûr les licences associées aux données. lorsqu'elles sont protégées parce que commerciales ou par le secret statistique, l'argument de reproductibilité ne s'applique pas. Une solution est d'avoir un prétraitement des données sous une forme diffusable et de faire partir l'exigence de reproductibilité de ces données.
+
+Donc, R, Julia, Python sont clairement dans cette catégorie. Stata n'est pas libre, mais largement répandu et donc acceptable. Excel et Eviews ne sont pas utilisables parce qu'ils ne sont pas séquentiels. L'épisode Reihnart-Rogoff découle de ça. Mais il y a des trillions d'erreurs qui continuent de se propager à cause des pratiques induites par Excel.
 
 ### R
 
@@ -51,7 +56,7 @@ Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de
 
 Quarto a besoin d'être installé, mais il n'y a pas d'interface quarto à manipuler. Vous pouvez installer dans R le package `{quarto}` qui est un lien entre R et Quarto (et permet d'excuter Quarto par des commandes R, comme par exemple `quarto::quarto_version()` qui vous indique quelle est la version de quarto installée). Installer le package R `{quarto}` n'installe pas la dernière version de Quarto.
 
-![](images/paste-1.png){fig-align="center" width="600"}
+![](images/paste-1.png){fig-align="center" width="700"}
 
 ## RStudio
 
@@ -63,13 +68,17 @@ L'interface de RStudio est assez touffue et peut effrayer au premier abord. C'es
 
 RStudio permet d'éditer les documents `.qmd` avec le mode "*visual*". Ce mode s'active facilement et permet de disposer d'une interface moderne pour éditer un texte en *markdown* avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l'interface avec le code R, Python, Julia, SQL, etc...
 
+### mode visuel/mode source
+
+Lorsqu'on édite un `.qmd` avec RStudio on dispose de deux modes. Le premier, *Source*, est l'édition d'un fichier en mode texte. On y utilise la syntaxe *markdown*. L'avantage est que quand il y a des petits bugs dans le texte on peut les repérer très vite. L'aternative est le mode *Visual* qui affiche le texte formaté et ajoute une barre de menu pratique pour le formattage ou l'insertion d'éléments.
+
 ## git, github, github.com, github desktop
 
 git est l'outil charnière qui permet le travail collaboratif, le versionnage du code, son archivage mais aussi toute une chaîne d'outils qui permettent par exemple la mise en ligne de sites.
 
 Le fonctionnement de git est déroutant (son concepteur Linus Torwald l'a voulu impénétrable et réservé aux geeks hard core). Mais c'est un outil puissant qui est incontournable et maintenant enveloppé d'un ensemble d'outils qui en facilitent l'usage, github, github desktop, github.com.
 
-![](images/paste-3.png){fig-align="center" width="614"}
+![](images/paste-3.png){fig-align="center" width="700"}
 
 **Github** est une version particulière de *git* (rachetée par Microsoft). **github.com** est un service de cloud associé à **github**. Il donne des espaces sécurisés sur lesquels on peut mettre ses dépôts et définir qui peut y accéder. **github.com** fournit aussi de nombreux outils de consultation du code, du code à divers moment, d'outils pour *merger,* gérer les *pull resquest,* ouvrir des *issues, cloner* ou *forker* des dépôts, diffuser des nouvelles à propos d'un dépôt, rechercher des solutions, publier un site, définir de nombreux paramètres de votre dépôt, le fermer, le rendre pivé ou public, l'archiver, le détruire. C'est en fait l'outil central de gestion des dépôt, qui facilite la tâche par rapport au plan initial de Linus Torwald (si vous êtes plus *hard core*, allez voir **gitlab** ou l'alterntive open source française **adulac**).
 
@@ -79,7 +88,7 @@ Le fonctionnement de git est déroutant (son concepteur Linus Torwald l'a voulu 
 
 Le vocabulaire de git est particulier : un *commit* est une balise dans votre travail. git vous permet de revenir à un *commit* passé.
 
-![](images/paste-2.png){fig-align="center" width="581"}
+![](images/paste-2.png){fig-align="center" width="700"}
 
 **git** consiste à avoir une copie en local et une copie sur un serveur, dans le cloud, qui dans notre cas sera systématiquement **github.com**, qui sert de référence. Un *pull* consiste à prendre sur le serveur les derniers *commit* et à les ajouter sur le disque local. C'est un ajout et non un remplacement. Il est toujours possible de revenir en arrière, d'examiner les changements apportés par les *commit.* La collaboration se fait par les *commit* qui sont additionnés les uns aux autres.
 
@@ -89,11 +98,11 @@ Attention, pour les fichiers non différentiables (Excel, word, rds, données no
 
 Un *push* est l'opération qui consiste à envoyer sur le serveur les *commit* qui sont sur votre disque local.
 
-![](images/paste-4.png){fig-align="center" width="496"}
+![](images/paste-4.png){fig-align="center" width="700"}
 
 Et il y a potentiellement des conflits : c'est lorsque des *commit* (les vôtres et ceux d'autres) opèrent sur un même endroit dans un même fichier. Il n'est pas possible simplement d'ajouter ces *commit* les uns aux autres et c'est donc un conflit. Pour sortir d'un conflit, le plus simple est d'utiliser VSCode ou, plus root, d'éditer le fichier *mergé* avec les conflits pour résoudre à la main les conflits. Dans github desktop, lorsqu'il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur. Attention, faire ça efface le travail de quelqu'un.
 
-![](images/paste-5.png){fig-align="center"}
+![](images/paste-5.png){fig-align="center" width="700"}
 
 ## Branches
 
@@ -110,6 +119,12 @@ A[contenu dans branch master]
 ### .gitignore
 
 Ce fichier, à la racine du projet, permet d'exclure de *github* des fichiers ou des dossiers. C'est très utile, par exemple pour les données ou les informations confidentielles (mot de passe, *token*) ou encore les nombreux fichiers générés par les programmes ou les générations de site ou le *render*.
+
+On peut avoir un `.gitgnore` dans un sous dossier pour qu'il ne s'applique qu'à partir de là.
+
+::: callout-warning
+Attention en modifiant `.gitignore` aux effets de bord que cela peut provoquer.
+:::
 
 ### Données
 

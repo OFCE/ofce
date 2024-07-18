@@ -103,10 +103,11 @@
 <blockquote>
 <p><strong>Règle 3</strong> : <em>git</em> (<em>github desktop,</em> <em>github.com</em>) est l’outil qu’on utilise pour travailler à plusieurs (ce qui inclut soi-même maintenant et dans 6 mois). Il n’y a pas d’alternative.</p>
 </blockquote>
-<section class="level2"><h2 id="section">
-<img src="images/paste-6.png"><a class="anchor" aria-label="anchor" href="#section"></a>
-</h2>
-</section><section class="level2"><h2 id="r-julia-python-ou-stata-ou-eviews">R, Julia, Python ou Stata ou Eviews<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata-ou-eviews"></a>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img src="images/paste-6.png" class="quarto-figure quarto-figure-center" width="700"></p>
+</figure>
+</div>
+<section class="level2"><h2 id="r-julia-python-ou-stata-ou-eviews">R, Julia, Python ou Stata ou Eviews<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata-ou-eviews"></a>
 </h2>
 <p>Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :</p>
 <ol type="1">
@@ -135,7 +136,7 @@
 </blockquote>
 <p>Quarto a besoin d’être installé, mais il n’y a pas d’interface quarto à manipuler. Vous pouvez installer dans R le package <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> qui est un lien entre R et Quarto (et permet d’excuter Quarto par des commandes R, comme par exemple <code><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_version.html" class="external-link">quarto::quarto_version()</a></code> qui vous indique quelle est la version de quarto installée). Installer le package R <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> n’installe pas la dernière version de Quarto.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="images/paste-1.png" class="quarto-figure quarto-figure-center" width="600"></p>
+<figure><p><img src="images/paste-1.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
 </section><section class="level2"><h2 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
@@ -146,12 +147,15 @@
 </blockquote>
 <p>L’interface de RStudio est assez touffue et peut effrayer au premier abord. C’est pourtant une interface qui a été soigneusement élaborée au fil du temps. On finit par en comprendre la logique et elle est assez efficace. Il y a de nombreux tutoriaux, cheat sheet, manuels. Lisez les, ça aide.</p>
 <p>RStudio permet d’éditer les documents <code>.qmd</code> avec le mode “<em>visual</em>”. Ce mode s’active facilement et permet de disposer d’une interface moderne pour éditer un texte en <em>markdown</em> avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l’interface avec le code R, Python, Julia, SQL, etc…</p>
-</section><section class="level2"><h2 id="git-github-github-com-github-desktop">git, github, github.com, github desktop<a class="anchor" aria-label="anchor" href="#git-github-github-com-github-desktop"></a>
+<section class="level3"><h3 id="mode-visuelmode-source">mode visuel/mode source<a class="anchor" aria-label="anchor" href="#mode-visuelmode-source"></a>
+</h3>
+<p>Lorsqu’on édite un <code>.qmd</code> avec RStudio on dispose de deux modes. Le premier, <em>Source</em>, est l’édition d’un fichier en mode texte. On y utilise la syntaxe <em>markdown</em>. L’avantage est que quand il y a des petits bugs dans le texte on peut les repérer très vite. L’aternative est le mode <em>Visual</em> qui affiche le texte formaté et ajoute une barre de menu pratique pour le formattage ou l’insertion d’éléments.</p>
+</section></section><section class="level2"><h2 id="git-github-github-com-github-desktop">git, github, github.com, github desktop<a class="anchor" aria-label="anchor" href="#git-github-github-com-github-desktop"></a>
 </h2>
 <p>git est l’outil charnière qui permet le travail collaboratif, le versionnage du code, son archivage mais aussi toute une chaîne d’outils qui permettent par exemple la mise en ligne de sites.</p>
 <p>Le fonctionnement de git est déroutant (son concepteur Linus Torwald l’a voulu impénétrable et réservé aux geeks hard core). Mais c’est un outil puissant qui est incontournable et maintenant enveloppé d’un ensemble d’outils qui en facilitent l’usage, github, github desktop, github.com.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="images/paste-3.png" class="quarto-figure quarto-figure-center" width="614"></p>
+<figure><p><img src="images/paste-3.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
 <p><strong>Github</strong> est une version particulière de <em>git</em> (rachetée par Microsoft). <strong>github.com</strong> est un service de cloud associé à <strong>github</strong>. Il donne des espaces sécurisés sur lesquels on peut mettre ses dépôts et définir qui peut y accéder. <strong>github.com</strong> fournit aussi de nombreux outils de consultation du code, du code à divers moment, d’outils pour <em>merger,</em> gérer les <em>pull resquest,</em> ouvrir des <em>issues, cloner</em> ou <em>forker</em> des dépôts, diffuser des nouvelles à propos d’un dépôt, rechercher des solutions, publier un site, définir de nombreux paramètres de votre dépôt, le fermer, le rendre pivé ou public, l’archiver, le détruire. C’est en fait l’outil central de gestion des dépôt, qui facilite la tâche par rapport au plan initial de Linus Torwald (si vous êtes plus <em>hard core</em>, allez voir <strong>gitlab</strong> ou l’alterntive open source française <strong>adulac</strong>).</p>
@@ -160,7 +164,7 @@
 </h3>
 <p>Le vocabulaire de git est particulier : un <em>commit</em> est une balise dans votre travail. git vous permet de revenir à un <em>commit</em> passé.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="images/paste-2.png" class="quarto-figure quarto-figure-center" width="581"></p>
+<figure><p><img src="images/paste-2.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
 <p><strong>git</strong> consiste à avoir une copie en local et une copie sur un serveur, dans le cloud, qui dans notre cas sera systématiquement <strong>github.com</strong>, qui sert de référence. Un <em>pull</em> consiste à prendre sur le serveur les derniers <em>commit</em> et à les ajouter sur le disque local. C’est un ajout et non un remplacement. Il est toujours possible de revenir en arrière, d’examiner les changements apportés par les <em>commit.</em> La collaboration se fait par les <em>commit</em> qui sont additionnés les uns aux autres.</p>
@@ -172,12 +176,12 @@
 </div>
 <p>Un <em>push</em> est l’opération qui consiste à envoyer sur le serveur les <em>commit</em> qui sont sur votre disque local.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="images/paste-4.png" class="quarto-figure quarto-figure-center" width="496"></p>
+<figure><p><img src="images/paste-4.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
 <p>Et il y a potentiellement des conflits : c’est lorsque des <em>commit</em> (les vôtres et ceux d’autres) opèrent sur un même endroit dans un même fichier. Il n’est pas possible simplement d’ajouter ces <em>commit</em> les uns aux autres et c’est donc un conflit. Pour sortir d’un conflit, le plus simple est d’utiliser VSCode ou, plus root, d’éditer le fichier <em>mergé</em> avec les conflits pour résoudre à la main les conflits. Dans github desktop, lorsqu’il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur. Attention, faire ça efface le travail de quelqu’un.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img src="images/paste-5.png" class="quarto-figure quarto-figure-center"></p>
+<figure><p><img src="images/paste-5.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
 </section></section><section class="level2"><h2 id="branches">Branches<a class="anchor" aria-label="anchor" href="#branches"></a>
@@ -203,6 +207,13 @@ A[contenu dans branch master]
 <section class="level3"><h3 id="gitignore">.gitignore<a class="anchor" aria-label="anchor" href="#gitignore"></a>
 </h3>
 <p>Ce fichier, à la racine du projet, permet d’exclure de <em>github</em> des fichiers ou des dossiers. C’est très utile, par exemple pour les données ou les informations confidentielles (mot de passe, <em>token</em>) ou encore les nombreux fichiers générés par les programmes ou les générations de site ou le <em>render</em>.</p>
+<p>On peut avoir un <code>.gitgnore</code> dans un sous dossier pour qu’il ne s’applique qu’à partir de là.</p>
+<div>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>Attention en modifiant <code>.gitignore</code> aux effets de bord que cela peut provoquer.</p>
+</blockquote>
+</div>
 </section><section class="level3"><h3 id="données">Données<a class="anchor" aria-label="anchor" href="#donn%C3%A9es"></a>
 </h3>
 <p>Les données ne sont pas les bienvenues sur <em>github</em> : les fichiers (sauf <code>.csv</code>) ne sont pas différentiables, cela génère beaucoup de conflits et le risque d’écraser des données modifiées par quelqu’un d’autre. <em>github</em> n’accepte pas les fichiers supérieurs à 100Mo. On peut dépasser cette limite en utilisant <em>git LFS</em>.</p>
