@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9.9000/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.9.9000/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="outils_files/libs/quarto-html/popper.min.js"></script><script src="outils_files/libs/quarto-html/tippy.umd.min.js"></script><link href="outils_files/libs/quarto-html/tippy.css" rel="stylesheet">
@@ -98,15 +98,15 @@
 <p><strong>Règle 1</strong> : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.</p>
 </blockquote>
 <blockquote>
-<p><strong>Règle 2</strong> : <strong>Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)</strong>.Si il est sur un disque partagé des catastrophes vont arriver.</p>
+<p><strong>Règle 2</strong> : <strong>Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)</strong>. Si il est sur un disque partagé, des catastrophes vont arriver.</p>
 </blockquote>
 <blockquote>
-<p><strong>Règle 3</strong> : <em>git</em> (<em>github desktop,</em> <em>github.com</em>) est l’outil qu’on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n’y a pas d’alternative.</p>
+<p><strong>Règle 3</strong> : <em>git</em> (<em>github desktop,</em> <em>github.com</em>) est l’outil qu’on utilise pour travailler à plusieurs (ce qui inclut soi-même maintenant et dans 6 mois). Il n’y a pas d’alternative.</p>
 </blockquote>
 <section class="level2"><h2 id="section">
 <img src="images/paste-6.png"><a class="anchor" aria-label="anchor" href="#section"></a>
 </h2>
-</section><section class="level2"><h2 id="r-julia-python-ou-stata">R, Julia, Python ou Stata<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata"></a>
+</section><section class="level2"><h2 id="r-julia-python-ou-stata-ou-eviews">R, Julia, Python ou Stata ou Eviews<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata-ou-eviews"></a>
 </h2>
 <p>Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :</p>
 <ol type="1">
@@ -116,6 +116,7 @@
 <strong>la transparence</strong> : la transparence repose en partie sur la reproductibilité. Elle consiste à permettre l’accès à l’ensemble des codes, données source<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;On respecte bien sûr les licences associées aux données. lorsqu’elles sont protégées parce que commerciales ou par le secret statistique, l’argument de reproductibilité ne s’applique pas. Une solution est d’avoir un prétraitement des données sous une forme diffusable et de faire partir l’exigence de reproductibilité de ces données.&lt;/p&gt;"><sup>1</sup></a> et de les documenter de façon à rendre possible leur utilisation par quiconque. La transparence repose sur des outils dont <em>github</em> est un des plus importants. Les logiciels <em>open source</em> en font partie. Pour aller un cran plus loin dans la transparence, on s’attache à produire des documents exécutables, c’est-à-dire que le résultat final (pdf, site internet, document docx) est produit par un code, si possible exécutable avec des outils <em>open source.</em>
 </li>
 </ol>
+<p>Donc, R, Julia, Python sont clairement dans cette catégorie. Stata n’est pas libre, mais largement répandu et donc acceptable. Excel et Eviews ne sont pas utilisables parce qu’ils ne sont pas séquentiels. L’épisode Reihnart-Rogoff découle de ça. Mais il y a des trillions d’erreurs qui continuent de se propager à cause des pratiques induites par Excel.</p>
 <section class="level3"><h3 id="r">R<a class="anchor" aria-label="anchor" href="#r"></a>
 </h3>
 <p>R est un logiciel de traitement statistique libre. Il y a un grand nombre de packages qui étendent les fonctionnalités de R, certaines modifiant profondément son fonctionnement comme <a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a>, ajoutant un écosystème de production de graphiques comme <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> + <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> + <a href="https://wilkelab.org/ggtext/" class="external-link">ggtext</a> + …, de production de tableaux comme <a href="https://gt.rstudio.com" class="external-link">gt</a> ou encore de procédures statistiques comme <a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a> ou d’interface avec des librairies de calcul comme <a href="https://github.com/dmlc/xgboost" class="external-link">xgboost</a>. Bien que R ne soit pas un langage très rapide, son interface avec le C/C++ ou la possibilité de faire du calcul parallèle ou d’utiliser des systèmes avancés comme <a href="https://torch.mlverse.org/docs" class="external-link">torch</a> permet d’atteindre des performances de calculs maximales (i.e. utilisant au mieux le hardware dont on dispose). R est multi-platerforme on peut l’utiliser sur de nombreux systèmes y compris distants ce qui ouvre la porte au calcul haute performance.</p>

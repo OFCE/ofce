@@ -1,17 +1,14 @@
 library(knitr)
 opts_chunk$set(
-  echo = FALSE,
-  warning = FALSE,
-  message = FALSE,
   fig.pos="htb",
   out.extra="",
   dev="ragg_png",
   out.width="100%",
   fig.showtext=TRUE,
-  cache=FALSE,
-  root.dir = Sys.getenv("QUARTO_PROJECT_DIR"))
+  cache=FALSE)
 
-library(tidyverse, quietly = TRUE, verbose = FALSE)
+suppressPackageStartupMessages(
+  library(tidyverse, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE))
 library(ofce, quietly = TRUE, verbose = FALSE)
 library(showtext, quietly = TRUE, verbose = FALSE)
 library(gt, quietly = TRUE, verbose = FALSE)

@@ -5,13 +5,18 @@ vignette: >
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 
+
 format:
   html:
     code-fold: true
     code-summary: "code"
+
+echo: true
+message: false
+warning: false
 ---
 
-```{r setup, include=FALSE}
+```{r rinit, include=FALSE}
 ofce::init_qmd()
 ```
 
@@ -35,10 +40,7 @@ Pour les séries temporelles, il y a deux recommandations pour les données :
 
 2.  le champ décrivant les dates doit être en type `date`. ce n'est pas toujours évident quand les séries sont à fréquence annuelle, mais c'est très utile pour mélanger des séries de fréquence irrégulière, pour homogénéiser l'aspect des axes de dates et mieux maîtriser le formatage des dates. Pour convertir une date en date, soit elle est au format `<character>` sous la forme `"2022-12-01"` et la fonction `base::as.Date()` fonctionne très bien. Sinon, pour les autres cas, le package `{lubridate}` (formation R niv. 1) est très pratique et propose de nombreuses fonctions permettant d'absorber beaucoup de cas (les fonctions sont par exemple `lubridate::ymd` `lubridate::dmy` `lubridate::my` etc...).
 
-```{r libs, echo=TRUE}
-library(ofce)
-library(tidyverse, quietly = TRUE, verbose = FALSE)
-
+```{r libs}
 dates <- c(2023, 2024, 2025)
 as.Date(as.character(dates), format  = "%Y")
 
@@ -604,3 +606,4 @@ b2 <- download_this(
 `r b1` `r b2`
 
 On peut aussi les mettre dans la marge en entourant le chunk R de ``` ::: column-margin ⏎ un_code_r``⏎``::: ``` (visuellement c'est mieux quand il y a le graphique juste avant le div).
+

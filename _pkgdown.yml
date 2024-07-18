@@ -55,12 +55,6 @@ navbar:
         - text: Cartes
           href: articles/cartes.html
 
-echo: FALSE
-message: FALSE
-warning: FALSE
-
-fig-pos: "htb"
-out-extra: ""
-dev: "ragg_png"
-out-width: "100%"
-fig-showtext: true
+echo: true
+message: false
+warning: false

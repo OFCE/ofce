@@ -21,13 +21,23 @@ $navbar-bg: $lightgrey;
 
 $callout-color-tip: #DDD;
 
+$font-size-root: 16px;
+
 /*-- scss:rules --*/
 h1, h2, h3, h4, h5, h6,
 .no-row-height.column-margin.column-container,
 .quarto-table-caption.margin-caption,
 .figure-caption.margin-caption {
   text-align: start;
-  color: $darkgrey;
+  color: $scpodarkred;
+}
+
+summary {
+  color: $scpodarkred;
+}
+
+code {
+  font-size: 1rem;
 }
 
 #toc-title.h2 {
@@ -148,12 +158,16 @@ figcaption.quarto-float-caption,caption  {
   text-align: start;
 }
 
-.blockquote {
+blockquote {
   color: var(--bs-body-color);
-  font-size: 1rem;
-  border-left-color: $scpodarkred !important;
-  border-left-width: 1px;
-  line-height: 150%;
+  font-size: 1.1rem;
+  border-left-color: $scpored;
+  border-left-width: 2px;
+  line-height: 160%;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 16px;
+  margin-top: 16px;
 }
 
 .encadre, .callout-tip {

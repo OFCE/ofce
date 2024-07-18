@@ -1,6 +1,5 @@
-# ofce <a href="https://ofce.github.io/ofce/"><img src="man/figures/logo.png" align="right" height="136" alt="ofce website" /></a>
+# Publication de documents scientifiques <a href="https://ofce.github.io/ofce/"><img src="man/figures/logo.png" align="right" height="136" alt="ofce website" /></a>
 
-# package OFCE pour R
 
 Ce package met à disposition des outils utilisés régulièrement à l'OFCE, que ce soit pour la production de documents quarto ou de mise en page de graphiques `ggplot2`.
 

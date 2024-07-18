@@ -12,18 +12,20 @@ Les illustrations sont de [Alison Horst](https://allisonhorst.com/).
 
 > **Règle 1** : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.
 
-> **Règle 2** : **Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)**.Si il est sur un disque partagé des catastrophes vont arriver.
+> **Règle 2** : **Ce dossier ne doit pas être sur un disque partagé (ni onedrive, ni google drive, ni dropbox, ni icloud)**. Si il est sur un disque partagé, des catastrophes vont arriver.
 
-> **Règle 3** : *git* (*github desktop,* *github.com*) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soit même et soit même dans 6 mois). Il n'y a pas d'alternative.
+> **Règle 3** : *git* (*github desktop,* *github.com*) est l'outil qu'on utilise pour travailler à plusieurs (ce qui inclut soi-même maintenant et dans 6 mois). Il n'y a pas d'alternative.
 
 ## ![](images/paste-6.png)
 
-## R, Julia, Python ou Stata
+## R, Julia, Python ou Stata ou Eviews
 
 Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :
 
 1.  **la reproductibilité** : les traitements sont fait de façon séquentielle par un code ; ce code réalise toutes les opérations, du téléchargement des données brutes jusqu'à la production des analyses. C'est une différence importante par rapport à Excel et Eviews où il n'est pas possible de définir les opérations permettant d'arriver à un résultat. La reproductibilité est assurée par l'utilisation d'un logiciel open source accessible facilement – Stata est un cas limite. La reproductibilité facilite le travail collaboratif (reproduire dans l'équipe), la mise à jour (reproduire dans 6 mois), la détection des erreurs (relecture, reproduction) et la diffusion des bonnes pratiques.
 2.  **la transparence** : la transparence repose en partie sur la reproductibilité. Elle consiste à permettre l'accès à l'ensemble des codes, données source[^1] et de les documenter de façon à rendre possible leur utilisation par quiconque. La transparence repose sur des outils dont *github* est un des plus importants. Les logiciels *open source* en font partie. Pour aller un cran plus loin dans la transparence, on s'attache à produire des documents exécutables, c'est-à-dire que le résultat final (pdf, site internet, document docx) est produit par un code, si possible exécutable avec des outils *open source.*
+
+Donc, R, Julia, Python sont clairement dans cette catégorie. Stata n'est pas libre, mais largement répandu et donc acceptable. Excel et Eviews ne sont pas utilisables parce qu'ils ne sont pas séquentiels. L'épisode Reihnart-Rogoff découle de ça. Mais il y a des trillions d'erreurs qui continuent de se propager à cause des pratiques induites par Excel.
 
 [^1]: On respecte bien sûr les licences associées aux données. lorsqu'elles sont protégées parce que commerciales ou par le secret statistique, l'argument de reproductibilité ne s'applique pas. Une solution est d'avoir un prétraitement des données sous une forme diffusable et de faire partir l'exigence de reproductibilité de ces données.
 
