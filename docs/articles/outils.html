@@ -187,13 +187,14 @@
 </section></section><section class="level2"><h2 id="branches">Branches<a class="anchor" aria-label="anchor" href="#branches"></a>
 </h2>
 <p>Comme il est expliqué dans la <code><a href="../articles/blog.html">vignette("blog")</a></code> ou dans la <code><a href="../articles/site.html">vignette("site")</a></code>, le travail collaboratif peut demander quelques sécurités supplémentaires. La branche <code>master</code> (ou <code>main</code> pour ceux qui pensent que l’utilisation du mot <em>master</em> fait de vous sans le dire un esclavagiste) est alors protégée. Seul l’administrateur du site peut la modifier ou autoriser les modifications. Chaque intervention sur le contenu doit se faire sur une branche <em>ad hoc</em> créée pour l’occasion. Le process est représenté sur le diagramme. On copie tout le contenu dans une branche, on le modifie, le teste. Puis on demande à l’intégrer dans <code>master</code> à l’administrateur du dépôt par une pull request. L’administrateur peut alors vérifier que les modifications sont OK et les <em>merger</em> dans <code>master</code>. Pourquoi faire comme ça et pas limiter les droits de modifications à seulement quelques fichiers. 1. Parce que c’est plus simple et flexible que de figer des accès fichier par fichier 2. ca permet à chacun de tester et de débugger ses modifs 3. ça permet de vérifier que les modifications ne sont pas allé trop loin. 4. on peut <em>blamer</em> c’est-à-dire savoir qui a fait quoi.</p>
-<div class="cell" data-layout-align="default">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p>
 <figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
+<pre class="mermaid mermaid-js">%%{init: {"theme": "neutral"} }%%
+flowchart LR
 A[contenu dans branch master]
   A --&gt;|"&lt;i&gt;clone&lt;i/&gt;"| B(modifications)
   B --&gt;|"&lt;i&gt;pull request&lt;/i&gt;"| D

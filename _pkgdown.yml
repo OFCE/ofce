@@ -55,6 +55,4 @@ navbar:
         - text: Cartes
           href: articles/cartes.html
 
-echo: true
-message: false
-warning: false
+

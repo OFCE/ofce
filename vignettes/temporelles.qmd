@@ -20,7 +20,7 @@ warning: false
 ofce::init_qmd()
 ```
 
-## Règles d'or
+## 5 Règles d'or
 
 > **Règle 1** : On utilise `theme_ofce()` !
 
@@ -32,7 +32,7 @@ ofce::init_qmd()
 
 > **Règle 5** : On choisit un `line_width` entre 0.5 et 1 pour le `geom_line()`, on ajoute un `geom_point(shape=21, stroke=0.25, col="white")` pour marquer les points auxquels on a des données. Si on peut mettre la légende sous forme de *labels*, c'est mieux car cela allège le graphique.
 
-## Données
+## Les Données
 
 Pour les séries temporelles, il y a deux recommandations pour les données :
 
@@ -579,9 +579,11 @@ spreads_q <- spreads_data |>
 
 Non mais ca va pas ?
 
-## Une dernière chose : transparence
+## Une dernière chose : la mise à dispostion des données
 
-Une bonne pratique est de mettre à disposition les données et le code ayant servi à produire le graphique. Une façon est d'utiliser les boutons code présents dans ce document pour publier le code. La seconde est de mettre tous les codes sur un dépôt github 😸 public. Une autre option est d'ajouter un bouton pour télécharger les données. C'est simple à faire avec `{downloadthis}` et ce bout de code qui peut être mis juste après un graphique. On reprend le fichier de données, tel quel, modifié éventuellement pour enlever ou renommer une colonne, et qui sera disponible en csv, UTF8, avec des virgules comme séprateurs et des points comme marque décimale (i.e. pas ce qu'Excel FR attend ☠️).
+Une bonne pratique est de mettre à disposition les données et le code ayant servi à produire le graphique. Une façon est d'utiliser les boutons code présents dans ce document pour publier le code. La seconde est de mettre tous les codes sur un dépôt github 😸 public.
+
+A minima, on ajoute un bouton pour télécharger les données. C'est simple à faire avec `{downloadthis}` et ce bout de code qui peut être mis juste après un graphique. On reprend le fichier de données, tel quel, modifié éventuellement pour enlever ou renommer une colonne, et qui sera disponible en csv, UTF8, avec des virgules comme sépérateurs et des points comme marque décimale (i.e. pas ce qu'Excel attend ☠️).
 
 Pour que les boutons soient sur la même ligne on utilise la syntaxe *inline* `'r une_expression_R'` :
 
@@ -605,5 +607,4 @@ b2 <- download_this(
 
 `r b1` `r b2`
 
-On peut aussi les mettre dans la marge en entourant le chunk R de ``` ::: column-margin ⏎ un_code_r``⏎``::: ``` (visuellement c'est mieux quand il y a le graphique juste avant le div).
-
+On peut aussi les mettre dans la marge en entourant le chunk R de `::: column-margin ⏎ un_code_r ⏎ :::` (visuellement c'est mieux quand il y a le graphique juste avant le div).

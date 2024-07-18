@@ -109,6 +109,8 @@ Et il y a potentiellement des conflits : c'est lorsque des *commit* (les vôtres
 Comme il est expliqué dans la `vignette("blog")` ou dans la `vignette("site")`, le travail collaboratif peut demander quelques sécurités supplémentaires. La branche `master` (ou `main` pour ceux qui pensent que l'utilisation du mot *master* fait de vous sans le dire un esclavagiste) est alors protégée. Seul l'administrateur du site peut la modifier ou autoriser les modifications. Chaque intervention sur le contenu doit se faire sur une branche *ad hoc* créée pour l'occasion. Le process est représenté sur le diagramme. On copie tout le contenu dans une branche, on le modifie, le teste. Puis on demande à l'intégrer dans `master` à l'administrateur du dépôt par une pull request. L'administrateur peut alors vérifier que les modifications sont OK et les *merger* dans `master`. Pourquoi faire comme ça et pas limiter les droits de modifications à seulement quelques fichiers. 1. Parce que c'est plus simple et flexible que de figer des accès fichier par fichier 2. ca permet à chacun de tester et de débugger ses modifs 3. ça permet de vérifier que les modifications ne sont pas allé trop loin. 4. on peut *blamer* c'est-à-dire savoir qui a fait quoi.
 
 ```{mermaid}
+%%| fig-align: "center"
+%%{init: {"theme": "neutral"} }%%
 flowchart LR
 A[contenu dans branch master]
   A -->|"<i>clone<i/>"| B(modifications)
