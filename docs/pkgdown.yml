@@ -1,6 +1,6 @@
-pandoc: 3.1.11
+pandoc: 3.1.12.3
 pkgdown: 2.1.0.9000
-pkgdown_sha: ~
+pkgdown_sha: ddb64b8c275e5a605896738ed84fd7a411854789
 articles:
   blog: blog.html
   cartes: cartes.html
@@ -14,7 +14,7 @@ articles:
   tableaux: tableaux.html
   temporelles: temporelles.html
   xy: xy.html
-last_built: 2024-07-18T12:45Z
+last_built: 2024-07-19T09:47Z
 urls:
   reference: https://ofce.github.io/ofce/reference
   article: https://ofce.github.io/ofce/articles
