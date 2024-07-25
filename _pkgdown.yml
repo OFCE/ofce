@@ -37,8 +37,10 @@ navbar:
           href: articles/graphiques.html
         - text: Faire un tableau
           href: articles/tableaux.html
-        - text: Outils
+        - text: Les outils
           href: articles/outils.html
+        - text: Le language des graphiques
+          href: articles/semio.html
     charte:
       text: Tutoriaux
       menu:
@@ -54,5 +56,3 @@ navbar:
           href: articles/distributions.html
         - text: Cartes
           href: articles/cartes.html
-
-
