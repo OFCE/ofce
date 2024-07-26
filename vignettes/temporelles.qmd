@@ -38,7 +38,7 @@ Pour les séries temporelles, il y a deux recommandations pour les données :
 
 1.  utilisez le format long pour les données du graphique. Il peut être plus simple pour calculer des taux de croissance ou des ratios de passer en format large, mais c'est mieux de passer en format long pour la partie graphique, avec une ou plusieurs colonnes pour différencier les lignes. Cela permettra d'associer une couleur à chaque série et une facette à chaque pays par exemple.
 
-2.  le champ décrivant les dates doit être en type `date`. ce n'est pas toujours évident quand les séries sont à fréquence annuelle, mais c'est très utile pour mélanger des séries de fréquence irrégulière, pour homogénéiser l'aspect des axes de dates et mieux maîtriser le formatage des dates. Pour convertir une date en date, soit elle est au format `<character>` sous la forme `"2022-12-01"` et la fonction `base::as.Date()` fonctionne très bien. Sinon, pour les autres cas, le package `{lubridate}` (formation R niv. 1) est très pratique et propose de nombreuses fonctions permettant d'absorber beaucoup de cas (les fonctions sont par exemple `lubridate::ymd` `lubridate::dmy` `lubridate::my` etc...).
+2.  le champ décrivant les dates doit être en type `date`. ce n'est pas toujours évident quand les séries sont à fréquence annuelle, mais c'est très utile pour mélanger des séries de fréquence irrégulière, pour homogénéiser l'aspect des axes de dates et mieux maîtriser le formatage des dates. Pour convertir une date en date, soit elle est au format `<character>` sous la forme `"2022-12-01"` et la fonction `base::as.Date()` fonctionne très bien. Sinon, pour les autres cas, le package `{lubridate}` (formation R niv. 1) est très pratique et propose de nombreuses fonctions permettant d'absorber beaucoup de cas (les fonctions sont par exemple `lubridate::ymd()` `lubridate::dmy()` `lubridate::my()` etc...).
 
 ```{r libs}
 dates <- c(2023, 2024, 2025)
@@ -51,7 +51,9 @@ dates <- c("1/2023", "2/2024", "3/2025")
 lubridate::my(dates)
 ```
 
+::: callout-note
 Dans le cas où les données proviennent d'Excel et sont en format numérique on peut utiliser `as.Date(df$date, origin = "1899-12-30")` pour les convertir en `<date>`.
+:::
 
 Prenons l'exemple du graphiques sur les spreads ([legislatives2024, Blot Geerolf Plane](https://www.ofce-legislatives2024.fr/analyses/spreads.html#fig-spread)). Les données sont générées par un scrapping sur *investing.com* (en attendant une solution API sur une banque de données bien faite). Les données se présentent sous la forme.
 
@@ -70,7 +72,7 @@ spreads
 
 ## La base du graphique
 
-Le graphique de base est alors simple à construire. On utilise une couche `geom_line` et `geom_point`, une couche `aes` avec comme `x` les dates, `y` les taux et couleurs les pays. Pour `geom_line`, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d'une autre variable). L'ordre est important et le `geom_line` est en premier et donc en dessous du `geom_point`.
+Le graphique de base est alors simple à construire. On utilise une couche `geom_line()` et `geom_point()`, une couche `aes()` avec comme `x` les dates, `y` les taux et couleurs les pays. Pour `geom_line()`, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d'une autre variable). L'ordre est important et le `geom_line()` est en premier et donc en dessous du `geom_point()`.
 
 ```{r base}
 library(ofce)
@@ -107,7 +109,7 @@ main <- ggplot(spreads_data) +
 
 On utilise la palette *summer* de `{PrettyCols}` (affaire de goût). On utilise la fonction `theme_ofce()` pour homogénéiser la présentation des graphiques. On précise les labels des axes inutile pour `x`, explicite pour `y`. Et la source, en notant que l'on peut utiliser `markdown` dans le texte de la source, ce qui permet de mettre *Source* en italique.
 
-Le recours à `scale_x_date` permet de spécifier facilement le format des dates (avec la syntaxe de `base::strptime()`) et la fonction `scale::label_date_short()` permet un formatage élégant des dates (voir plus bas la partie insert).
+Le recours à `scale_x_date()` permet de spécifier facilement le format des dates (avec la syntaxe de `base::strptime()`) et la fonction `scale::label_date_short()` permet un formatage élégant des dates (voir plus bas la partie insert).
 
 On ajoute au graphique des annotations. C'est ici faid de façon laborieuse, on peut construire des fonctions (formation R niv. 2) ou utiliser `{esquisse}` ou `{gganotate}` mais ces deux solutions ont des défauts.
 
