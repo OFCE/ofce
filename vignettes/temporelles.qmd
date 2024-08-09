@@ -44,7 +44,7 @@ Pour les séries temporelles, il y a deux recommandations pour les données :
 dates <- c(2023, 2024, 2025)
 as.Date(as.character(dates), format  = "%Y")
 
-# si on veut préciser le moment de l'année
+# si on veut préciser le jour et le mois de l'année
 as.Date(str_c(dates, "-01-01"))
 
 dates <- c("1/2023", "2/2024", "3/2025")
