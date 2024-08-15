@@ -39,7 +39,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
           ofce_style, tag = "p",
-          margin = marquee::trbl(2, 0, 0, 0)),
+          margin = marquee::trbl(6, 0, 0, 0)),
         size = ggplot2::rel(0.75),
         hjust = 0,
         margin = margin(l = 0, t = 0),
