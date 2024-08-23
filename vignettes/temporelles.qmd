@@ -510,8 +510,8 @@ inset_i <- (main_i %+% spreads_data) +
     linewidth = 0.1,
     color = "grey50"
   ) +
-  scale_y_continuous(labels = ~ str_c(.x, "%"), 
-                     limits = c(0, 2), 
+  scale_y_continuous(labels = ~ str_c(.x, "%"),
+                     limits = c(0, 2),
                      minor_breaks = scales::breaks_width(0.1),
                      guide = "axis_minor") +
   labs(y = NULL, caption = NULL, color = NULL, fill = NULL)

@@ -40,7 +40,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(
           ofce_style, tag = "p",
           margin = marquee::trbl(2, 0, 0, 0)),
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.6),
         hjust = 0,
         margin = margin(l = 0, t = 0),
         width = 0.8),
@@ -64,7 +64,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
       plot.caption = ggtext::element_markdown(
-        size = ggplot2::rel(0.80),
+        size = ggplot2::rel(0.60),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
         lineheight = 1.25),
@@ -268,4 +268,3 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
     theme_text +
     ggplot2::theme(...) # pour passer les arguments en plus
 }
-
