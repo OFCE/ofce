@@ -8,7 +8,7 @@ opts_chunk$set(
   cache=FALSE)
 
 suppressPackageStartupMessages(
-  library(tidyverse, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE))
+library(tidyverse, quietly = TRUE, verbose = FALSE, warn.conflicts = FALSE))
 library(ofce, quietly = TRUE, verbose = FALSE)
 library(showtext, quietly = TRUE, verbose = FALSE)
 library(gt, quietly = TRUE, verbose = FALSE)

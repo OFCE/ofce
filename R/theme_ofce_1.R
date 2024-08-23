@@ -42,7 +42,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
           margin = marquee::trbl(2, 0, 0, 0)),
         size = ggplot2::rel(0.6),
         hjust = 0,
-        margin = margin(l = 0, t = 0),
+        margin = ggplot2::margin(l = 0, t = 6),
         width = 0.8),
       strip.text = marquee::element_marquee(
         style = ofce_style,
