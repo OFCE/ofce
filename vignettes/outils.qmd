@@ -36,7 +36,7 @@ Donc, R, Julia, Python sont clairement dans cette catégorie. Stata n'est pas li
 
 ### R
 
-R est un logiciel de traitement statistique libre. Il y a un grand nombre de packages qui étendent les fonctionnalités de R, certaines modifiant profondément son fonctionnement comme `{tidyverse}`, ajoutant un écosystème de production de graphiques comme `{ggplot2}` + `{ggiraph}` + `{ggtext}` + ..., de production de tableaux comme `{gt}` ou encore de procédures statistiques comme `{fixest}` ou d'interface avec des librairies de calcul comme `{xgboost}`. Bien que R ne soit pas un langage très rapide, son interface avec le C/C++ ou la possibilité de faire du calcul parallèle ou d'utiliser des systèmes avancés comme `{torch}` permet d'atteindre des performances de calculs maximales (i.e. utilisant au mieux le hardware dont on dispose). R est multi-platerforme on peut l'utiliser sur de nombreux systèmes y compris distants ce qui ouvre la porte au calcul haute performance.
+R est un logiciel de traitement statistique libre. Il y a un grand nombre de packages qui étendent les fonctionnalités de R, certaines modifiant profondément son fonctionnement comme `{tidyverse}`, ajoutant un écosystème de production de graphiques comme `{ggplot2}` + `{ggiraph}` + `{ggtext}` + ..., de production de tableaux comme `{gt}` ou encore de procédures statistiques comme `{fixest}` ou d'interface avec des librairies de calcul comme `{xgboost}`. Bien que R ne soit pas un langage très rapide, son interface avec le C/C++ ou la possibilité de faire du calcul parallèle ou d'utiliser des systèmes avancés comme `{torch}` permet d'atteindre des performances de calculs maximales (i.e. utilisant au mieux le hardware dont on dispose). R est multi-plateforme on peut l'utiliser sur de nombreux systèmes y compris distants ce qui ouvre la porte au calcul haute performance.
 
 Pour installer R (la dernière version est 4.4.1) :
 
@@ -52,7 +52,7 @@ Il est *recommandé* d'installer les versions **fixes (non variables)** d'Open S
 
 Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de R. Il est développé par RStudio et sert à transformer les `.qmd` en documents publiables (`.docx`, `.html`, `.pdf`). Quarto est distinct de RStudio -- ce qui explique que la version de Quarto n'est pas liée à celle de RStudio.
 
-> **Règle 4** : Il faut utiliser au moins Quarto 1.5 ([la version actuelle est 1.5.54](https://quarto.org/docs/download/)). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionalités importantes.
+> **Règle 4** : Il faut utiliser au moins Quarto 1.5 ([la version actuelle est 1.5.57](https://quarto.org/docs/download/)). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionnalités importantes.
 
 Quarto a besoin d'être installé, mais il n'y a pas d'interface quarto à manipuler. Vous pouvez installer dans R le package `{quarto}` qui est un lien entre R et Quarto (et permet d'excuter Quarto par des commandes R, comme par exemple `quarto::quarto_version()` qui vous indique quelle est la version de quarto installée). Installer le package R `{quarto}` n'installe pas la dernière version de Quarto.
 
@@ -60,17 +60,17 @@ Quarto a besoin d'être installé, mais il n'y a pas d'interface quarto à manip
 
 ## RStudio
 
-RStudio est l'outil central (pour le moment). C'est un IDE qui permet à la fois d'éditer les textes (.r, .qmd), d'organiser son travail en projets et d'exécuter le code R ou Pyhton. Il comporte de nombreux outils pour simplifier la vie (en compliquant un peu l'interface) en automatisant la publication, la construction des sites, le débugage de code, l'interface entre R et Python, le fonctionnement multiplaterforme, etc.... Pour certaines opérations, il faut utiliser le terminal comme pour la commande `quarto publish gh-pages`.
+RStudio est l'outil central (pour le moment). C'est un IDE qui permet à la fois d'éditer les textes (.r, .qmd), d'organiser son travail en projets et d'exécuter le code R ou Pyhton. Il comporte de nombreux outils pour simplifier la vie (en compliquant un peu l'interface) en automatisant la publication, la construction des sites, le débugage de code, l'interface entre R et Python, le fonctionnement multi-plateforme, etc.... Pour certaines opérations, il faut utiliser le terminal (onglet `terminal`, à côté de l'onglet `console`) comme pour la commande `quarto publish gh-pages`.
 
-> **Règle 5** : Il faut utiliser une version récente ([2024.07 au moins, disponible ici](https://posit.co/downloads/)). Les mises à jour sont moins fréquentes que pour Quarto. Mettre à jour RStudio induit une mise à jour de Quarto, mais généralement pas la dernière version de Quarto.
+> **Règle 5** : Il faut utiliser une version récente ([2024.04 au moins, disponible ici](https://posit.co/download/rstudio-desktop/)). Les mises à jour sont moins fréquentes que pour Quarto. Mettre à jour RStudio apporte Quarto, mais généralement pas la dernière version de Quarto.
 
-L'interface de RStudio est assez touffue et peut effrayer au premier abord. C'est pourtant une interface qui a été soigneusement élaborée au fil du temps. On finit par en comprendre la logique et elle est assez efficace. Il y a de nombreux tutoriaux, cheat sheet, manuels. Lisez les, ça aide.
+L'interface de RStudio est assez touffue et peut effrayer au premier abord. C'est pourtant une interface qui a été soigneusement élaborée au fil du temps. On finit par en comprendre la logique et elle est assez efficace. Il y a de nombreux tutoriaux, cheat sheets, manuels. Lisez les, ça aide.
 
-RStudio permet d'éditer les documents `.qmd` avec le mode "*visual*". Ce mode s'active facilement et permet de disposer d'une interface moderne pour éditer un texte en *markdown* avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l'interface avec le code R, Python, Julia, SQL, etc...
+RStudio permet d'éditer les documents `.qmd` en mode "*visual*". Ce mode s'active facilement (menu, raccourci clavier {{< kbd Command-Shift-F4 >}}) et permet de disposer d'une interface moderne pour éditer un texte en *markdown* avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l'interface avec le code R, Python, Julia, SQL, etc...
 
 ### mode visuel/mode source
 
-Lorsqu'on édite un `.qmd` avec RStudio on dispose de deux modes. Le premier, *Source*, est l'édition d'un fichier en mode texte. On y utilise la syntaxe *markdown*. L'avantage est que quand il y a des petits bugs dans le texte on peut les repérer très vite. L'aternative est le mode *Visual* qui affiche le texte formaté et ajoute une barre de menu pratique pour le formattage ou l'insertion d'éléments.
+Lorsqu'on édite un `.qmd` avec RStudio on dispose de deux modes. Le premier, *Source*, est l'édition d'un fichier en mode texte. On y utilise la syntaxe *markdown*. L'avantage est que quand il y a des petits bugs dans le texte on peut les repérer très vite. L'alternative est le mode *Visual* qui affiche le texte formaté et ajoute une barre de menu pratique pour le formatage ou l'insertion d'éléments.
 
 ## git, github, github.com, github desktop
 
@@ -80,27 +80,31 @@ Le fonctionnement de git est déroutant (son concepteur Linus Torwald l'a voulu 
 
 ![](images/paste-3.png){fig-align="center" width="700"}
 
-**Github** est une version particulière de *git* (rachetée par Microsoft). **github.com** est un service de cloud associé à **github**. Il donne des espaces sécurisés sur lesquels on peut mettre ses dépôts et définir qui peut y accéder. **github.com** fournit aussi de nombreux outils de consultation du code, du code à divers moment, d'outils pour *merger,* gérer les *pull resquest,* ouvrir des *issues, cloner* ou *forker* des dépôts, diffuser des nouvelles à propos d'un dépôt, rechercher des solutions, publier un site, définir de nombreux paramètres de votre dépôt, le fermer, le rendre pivé ou public, l'archiver, le détruire. C'est en fait l'outil central de gestion des dépôt, qui facilite la tâche par rapport au plan initial de Linus Torwald (si vous êtes plus *hard core*, allez voir **gitlab** ou l'alterntive open source française **adulac**).
+**Github** est une version particulière de *git* (rachetée par Microsoft). **github.com** est un service de cloud associé à **github**. Il donne des espaces sécurisés sur lesquels on peut mettre ses dépôts et définir qui peut y accéder. **github.com** fournit aussi de nombreux outils de consultation du code, du versionnage du code, d'outils pour *merger,* gérer les *pull resquest,* ouvrir des *issues, cloner* ou *forker* des dépôts, diffuser des nouvelles à propos d'un dépôt, rechercher des solutions, publier un site, définir de nombreux paramètres de votre dépôt, le fermer, le rendre privé ou public, l'archiver, le détruire. C'est en fait l'outil central de gestion des dépôt, qui facilite la tâche par rapport au plan initial de Linus Torwald (si vous êtes plus *hard core*, allez voir **gitlab** ou l'alternative open source française **adulac**, mais nous on utilise **github**).
 
-**github desktop** est une application (que l'on installe sur son ordinateur donc) qui sert d'interface pour certaines opérations avec **github.com**. On y fait simplement les *commit*, les *pull*, les *push*, les *merge* et les *pull request*. On peut aussi examiner les *commit*, les fichiers modifiés, les modifications des fichiers et annuler un *commit*. Dans 95% des cas, on a besoin que de **github desktop**.
+**github desktop** est une application bureau (que l'on installe sur son ordinateur donc) qui sert d'interface pour certaines opérations avec **github.com**. On y fait simplement les *commit*, les *pull*, les *push*, les *merge* et les *pull request*. On peut aussi examiner les *commit*, les fichiers modifiés, les modifications des fichiers et annuler un *commit*. Dans 99% des cas, on a besoin que de **github desktop**.
 
 ### commit, push, pull, conflit
 
-Le vocabulaire de git est particulier : un *commit* est une balise dans votre travail. git vous permet de revenir à un *commit* passé.
+Le vocabulaire de *git* est particulier : un *commit* est une balise dans votre travail. *git* vous permet de revenir à un *commit* passé.
 
 ![](images/paste-2.png){fig-align="center" width="700"}
 
-**git** consiste à avoir une copie en local et une copie sur un serveur, dans le cloud, qui dans notre cas sera systématiquement **github.com**, qui sert de référence. Un *pull* consiste à prendre sur le serveur les derniers *commit* et à les ajouter sur le disque local. C'est un ajout et non un remplacement. Il est toujours possible de revenir en arrière, d'examiner les changements apportés par les *commit.* La collaboration se fait par les *commit* qui sont additionnés les uns aux autres.
+*git* consiste à avoir une copie en local et une copie sur un serveur, dans le cloud, qui dans notre cas sera systématiquement **github.com**, qui sert de référence. Un *pull* consiste à prendre sur le serveur les derniers *commit* et à les ajouter sur le disque local. C'est un ajout et non un remplacement. Il est toujours possible de revenir en arrière, d'examiner les changements apportés par les *commit.* La collaboration se fait par les *commit* qui sont additionnés les uns aux autres.
 
 ::: callout-warning
-Attention, pour les fichiers non différentiables (Excel, word, rds, données non csv), la fusion des modifications n'est pas possible et on devra choisir (résolution des conflits) quelle est la version que l'on conserve. C'est pour cela qu'on ne peut pas utiliser ces fichiers dans un travail collaboratif sans une grande discipline.
+Attention, pour les fichiers non différentiables (Excel, word, rds, données non csv), la fusion des modifications n'est pas possible et on devra choisir (résolution des conflits) quelle est la version que l'on conserve – celle sur votre disque (*local*) ou celle dans le cloud (*main)*. C'est pour cela qu'on ne peut pas utiliser ces types de fichiers dans un travail collaboratif sans une grande discipline ou sans écraser régulièrement le travail des autres. Pour partager des fichiers excel ou des données le mieux est d'utiliser un drive partagé, ou mieux `{pins}`.
 :::
 
 Un *push* est l'opération qui consiste à envoyer sur le serveur les *commit* qui sont sur votre disque local.
 
 ![](images/paste-4.png){fig-align="center" width="700"}
 
-Et il y a potentiellement des conflits : c'est lorsque des *commit* (les vôtres et ceux d'autres) opèrent sur un même endroit dans un même fichier. Il n'est pas possible simplement d'ajouter ces *commit* les uns aux autres et c'est donc un conflit. Pour sortir d'un conflit, le plus simple est d'utiliser VSCode ou, plus root, d'éditer le fichier *mergé* avec les conflits pour résoudre à la main les conflits. Dans github desktop, lorsqu'il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur. Attention, faire ça efface le travail de quelqu'un.
+Et il y a potentiellement des conflits : c'est lorsque des *commit* (les vôtres et ceux d'autres) opèrent sur un même endroit dans un même fichier. Il n'est pas possible simplement d'ajouter ces *commit* les uns aux autres et c'est donc un conflit. Pour sortir d'un conflit, le plus simple est d'utiliser VSCode ou, plus hard core, d'éditer le fichier *mergé* avec les conflits pour résoudre à la main les conflits. Dans **github desktop**, lorsqu'il détecte des conflits, vous avec la possibilité de résoudre les conflits en donnant la priorité à votre version ou celle du serveur.
+
+::: callout-warning
+Attention, choisir *local* au lieu de *main* dans un conflit efface le travail de quelqu'un.
+:::
 
 ![](images/paste-5.png){fig-align="center" width="700"}
 
@@ -130,7 +134,7 @@ Attention en modifiant `.gitignore` aux effets de bord que cela peut provoquer.
 
 ### Données
 
-Les données ne sont pas les bienvenues sur *github* : les fichiers (sauf `.csv`) ne sont pas différentiables, cela génère beaucoup de conflits et le risque d'écraser des données modifiées par quelqu'un d'autre. *github* n'accepte pas les fichiers supérieurs à 100Mo. On peut dépasser cette limite en utilisant *git LFS*.
+Les données ne sont pas les bienvenues sur *github* : les fichiers (sauf `.csv`) ne sont pas différentiables, cela génère beaucoup de conflits, ce qui rend pénible les *pull* et *push* et le risque d'écraser des données modifiées par quelqu'un d'autre. *github* n'accepte pas les fichiers supérieurs à 100Mo. On peut dépasser cette limite en utilisant *git LFS*.
 
 Malgré tout, il est parfois pratique d'avoir des données dans son *github*. Il est parfois très pratique de les avoir dans Excel. On perd alors toute possibilité de reproductibilité et de transparence, sauf si on s'astreint à ne stocker que des fichiers téléchargés sur un site. Mais il est mieux de remplacer le stockage par une instruction qui fait le téléchargement (dans un dossier spécifique, `data` par exemple, qui peut être mis dans `.gitgnore` et qui éventuellement ne le télécharge que si le fichier n'est pas présent).
 
