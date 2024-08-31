@@ -1,0 +1,149 @@
+---
+title: "Publication et outils pour la prévision"
+author:
+  - name: Xavier Timbeau
+    email: xavier.timbeau@sciencespo.fr
+    affiliation: OFCE, Sciences Po Paris
+    affiliation-url: http://www.ofce.fr
+author-footer: "prev&quarto"
+institution: "Observatoire Français des Conjonctures Économiques"
+date: today
+lang: fr
+bibliography: qprev_references.bib
+toc-depth: 1
+format: 
+  pres-revealjs: default
+  # slide-level niveau des slides à prendre en compte (2 par défaut)
+  # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères
+---
+
+```{r, include=FALSE}
+ofce::init_qmd()
+```
+
+# Les objectifs
+
+## Résultat final
+
+<br>
+
+### Un site présentant la prévision :
+
+-   sur le modèle de www.ofce-legislatives2024.fr
+
+-   incluant des graphiques interactifs
+
+-   un dashboard
+
+### Des documents en pdf
+
+-   avec numérotation dynamique et références croisées
+
+### Une source unique : 
+
+-   des données sous excel ou par un script R, ou Stata,
+
+-   reprises dans les graphiques et les tableaux
+
+### Des mises en graphique, en forme, en page
+
+-   qui seront reprises d'une fois l'autre
+
+## Pourquoi ?
+
+### Améliorer la lecture, l'accès, la diffusion
+
+-   format HTML, lu sur ordinateur ou mobile
+
+-   structuré, avec table, navigation, liens, popups
+
+-   recherche
+
+### Moderniser la présentation
+
+-   interactivité des graphiques
+
+### Accroitre l'impact
+
+-   qualité des graphiques
+
+-   réseaux sociaux
+
+### Aller vers la reproductibilité et la transparence
+
+-   plus d'intégration et de travail collectif
+
+-   un investissement mais plus d'efficacité ensuite
+
+-   mise à disposition (partielle) des données
+
+-   mise à disposition (partielle) des codes
+
+
+# Les outils
+
+## Outil #1 : quarto
+
+<br>
+
+-   Chaque document est un .qmd
+
+-   La structure d'ensemble est un projet, dont l'architecture est définie dans .yml
+
+-   Les graphiques sont fait en `{ggplot}`
+
+-   Les tableaux en `{gt}`
+
+-   La mise en forme avec `{ofce}`
+
+<br>
+
+Les formations R niveau 1 couvrent largement l'utilisation qui est attendue de quarto (y compris graphiques et tableaux)
+
+Le niveau 2 couvre le travail en projet (github)
+
+Une ressource : [ofce.github.io/ofce](https://ofce.github.io/ofce) à bookmarker
+
+Un exemple : le site legislatives2024 [github.com/OFCE/legislatives2024](https://github.com/OFCE/legislatives2024)
+
+Le github pour la prévision : [github.com/OFCE/prev2409](https://github.com/OFCE/prev2409)
+
+## Outil #2 : github
+
+<br>
+
+-   Chacun dispose d'une copie du site sur son ordinateur (**pas dans un disque partagé**) et travaille sur une branche
+
+-   On contribue par des Pull Request, c'est-à-dire qu'on demande l'autorisation d'intégrer ses modifications dans le principal
+
+-   Il y a un ou des administrateurs qui vérifient que l'intégrité du site est préservée (dont Elliot)
+
+-   Le site est en version *stage* (non public), on peut faire des commentaires dessus
+
+-   On peut définir et assigner des tâches dans github
+
+<br>
+
+-   github est central pour le travail collectif
+
+-   lire [ofce.github.io/ofce/articles/site.html](https://ofce.github.io/ofce/articles/site.html)
+
+-   des formations internes github ont été faites (Anissa) et seront refaites
+
+## Outil #3 : source unique
+
+### Chaque chiffre doit être dans un *process* et un seul
+
+-    ce peut être un fichier excel, avec des calculs, des liens (bref la routine habituelle). Une feuille de ce fichier excel exporte les données vers R. Les données sont ensuite lues et mise en forme (graphique, tableau, les deux) et intégrées dans un *chunk* R dans un .qmd
+
+-    ce peut être un script R, qui télécharge, modifie, arrange et met en forme des données, intégrées ensuite dans un *chunk* R d'un .qmd
+
+-    une autre source (une simulation émeraude), importée également dans R
+
+Le même chiffre peut être utilisé à des endroits différents, sous la même forme ou non (exemple coeur du texte et dashboard)
+
+Tout se trouve sur le github, rangé correctement
+
+### les chiffres de prévision suivent ce schéma
+
+-   un seul endroit, à jour, qui sert à la fois de référence et qu'on peut modifier, avec en cascade l'intégration dans l'ensemble des documents, sous toutes les formes.

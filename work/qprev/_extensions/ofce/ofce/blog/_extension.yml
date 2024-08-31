@@ -1,0 +1,94 @@
+title: Format OFCE
+author: XT
+version: 0.1.0
+quarto-required: ">=1.3.300"
+contributes:
+  formats:
+    common:
+      format-ressources:
+        - references.bib
+        - secrets
+        - ofce.png
+        - sciencespo.png
+        - _language-fr.yml
+      toc: true
+      lang: fr
+      language:
+        fr:
+          section-title-references: "Références"
+          title-block-author-single: "Auteur"
+          title-block-author-plural: "Auteurs"
+      fig-asp: 0.61
+      cap-location: top
+      crossref:
+        fig-prefix: graphique
+        tbl-prefix: tableau
+        eq-prefix: équation
+        sec-prefix: section
+        tip-prefix: encadré
+        fig-title: "**Graphique**"
+        tip-title: "**Encadré**"
+        title-delim: "**.**"
+        tbl-title: "**Tableau**"
+        lof-title: Graphiques
+        lot-title: Tableaux
+      logo: ofce.png
+      filters:
+        - nameref
+        - fr-nbsp
+       # - custom-numbered-blocks
+        - quotes
+       # - search-replace
+        - collapse-callout
+      collapse-callout:
+        tip: true
+      shortcodes:
+        - fontawesome
+        - downloadthis
+      #custom-numbered-blocks:
+      #  classes:
+      #   encadre:
+      #      numbered: false
+      #      collapse: true
+      #      colors: [EFEFEF, EEEEEE]
+      #      label: "Encadré "
+
+    html:
+      theme: 
+        - cosmo
+        - ofce.scss
+      mainfont: Open Sans
+      toc-location: left
+      toc-title: Sur cette page
+      number-sections: false
+      number-depth: 3
+      html-math-method: katex
+      fig-dpi: 600
+      fig-format: svg
+      reference-location: margin
+      callout-icon: false
+      logo: _extensions/ofce/ofce/ofce.png
+      template-partials:
+        - toc.html
+    pdf:
+      documentclass: scrreprt
+      annee: 2024
+      toc-depth: 1
+      pdffont: OpenSans
+      number-sections: false
+      classoption:
+        - DIV=12
+      papersize: a4
+      fontsize: 9pt
+      extra_dependencies: ["float"]
+      fig-dpi: 600
+      fig-width: 5
+      fig-format: png
+      logo: ofce_m.png
+      logo2: sciencespo.png
+      template-partials:
+        - pdf_template/title.tex
+        - pdf_template/before-body.tex
+        - pdf_template/after-body.tex
+        - pdf_template/toc.tex
+        - pdf_template/biblio.tex
