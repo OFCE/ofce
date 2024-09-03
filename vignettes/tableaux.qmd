@@ -12,6 +12,44 @@ init_qmd()
 
 ```
 
+
+
+## Les tableaux dans quarto
+
+### Différentes façons de faire apparaître un tableau dans un quarto
+
+Pour faire figurer un tableau dans un markdown, il y a plusieurs méthodes
+
+1. La capture d'écran
+
+Ça peut se faire, mais ça ne se fait pas, donc on ne fera pas.
+
+2. L'intégration brute du data.frame dans le qmd
+
+Dans l'absolu, un data.frame peut être directement intégré dans un qmd sans manipulation supplémentaire.
+
+Quelques remarques :
+
+ - En cas de base de données larges, cela prend trop de place sur le documents
+ - le formatage reste sommaire et difficile à améliorer
+ - des packages markdown peuvent être appelés pour 
+ 
+3. La syntaxe markdown
+
+Ce format peut convenir pour les tableaux à texte. Il est cependant difficile à formater et éditer.
+
+4. L'utilisation de packages R pour les tableaux formatés
+
+Cette méthode est à priviligier pour tout tableau contenant des données principalement numériques ou extraites de base de données.
+
+Plusieurs packages existent: `huxtable`, `flextable`, `formattable`, `gt` etc..
+
+Le package privilégié pour l'ofce est `gt`. 
+
+On notera cependant que d'autres package peuvent présenter quelques fonctionnalités supplémentaires qui peuvent être intéressantes pour certaines applications. Par exemple, le package `flextable` est très utiles si le document de sortie est un `.docx` et est plus flexible sur la gestion des cellules mergées.
+
+
+
 ### Comment faire un tableau
 
 Pour faire un tableau, nous conseillons *vivement* d'utiliser `{gt}`. Le principe est assez simple, un peu comme dans `{ggplot2}` on ajoute des couches qui petit à petit construisent le tableau. Ca peut paraître fastidieux, mais ça ne l'est pas tant que ça : c'est ce qu'on fait dans excel ou word pour mettre en forme un tableau. L'intérêt de `{gt}` c'est de dissocier la phase données de la phase mise en page.
@@ -62,7 +100,7 @@ readxl::read_xlsx(
   # on met les notes ici, ca permet corrections, uniformisation et traduction
   tab_source_note(
     md(
-      "Revenu disponible brut et actifs bruts (hors passif) par ménage, en euros, année 2022
+   22222   "Revenu disponible brut et actifs bruts (hors passif) par ménage, en euros, année 2022
       <br>Calculs réalisés à partir de l'enquête patrimoine des ménages 2017-2018 de l'Insee croisés avec les comptes nationaux du patrimoine de l'Insee de 2022
       <br>*Sources* : Insee, calculs OFCE"))
 ```
