@@ -254,6 +254,7 @@ Le résultat est intéressant, mais le graphique a cependant un défaut, il y a 
 Pour construire les données à la fréquence mensuelle, on va créer un champ de date, mais retenant une seule date par mois (au milieu du mois). En agrégeant par mois (`summarise`) on construit la série en mensuel.
 
 ```{r mensuelle}
+md <- max(spreads_data$date)
 dates <- spreads_data$date
 # on force le jour à être le 15 du mois, il n'y aura qu'une date par mois!
 lubridate::day(dates) <- 15
@@ -285,7 +286,7 @@ inset <- main +
   scale_x_date(
     labels = scales::label_date_short(format = c("%Y", "%B")),
     date_breaks = "1 month",
-    limits = c(Sys.Date() - months(2), NA),
+    limits = c(md - months(3), NA),
     guide = "minor_ticks"
   ) +
   geom_vline(
@@ -322,11 +323,12 @@ Le package `{ggmagnify}` simplifie la tâche et offre quelques améliorations es
 # pak::pak("hughjonesd/ggmagnify")
 library(ggmagnify)
 
+md <- max(spreads_data$date)
+date_inset <- floor_date(md - months(3), unit = "month")
 spreads_hyb <- spreads_data |>
   mutate(
-    agg = date < now() - months(2),
     date_h = floor_date(date, unit = "month"),
-    date_h = if_else(agg, date_h, date)
+    date_h = if_else(date < date_inset, date_h, date)
   ) |>
   group_by(date_h, pays) |>
   summarize(
@@ -384,7 +386,6 @@ inset_plot <- ggplot(spreads_hyb) +
   scale_y_continuous(
     labels = ~ str_c(.x, "%"), breaks = seq(0, 2))
 
-md <- max(spreads_hyb$date)
 from <- list(md - days(50), md, 0, 2)
 to <- list(md - years(4), md + years(1), 3.75, 5)
 sh <- ggplot(spreads_hyb) +
@@ -504,7 +505,7 @@ inset_i <- (main_i %+% spreads_data) +
     labels = scales::label_date_short(format = c("%Y", "%B")),
     date_breaks = "1 month",
     date_minor_breaks = "1 week",
-    limits = c(Sys.Date() - months(2), NA),
+    limits = c(md - months(2), NA),
     guide = "minor_ticks"
   ) +
   geom_vline(
