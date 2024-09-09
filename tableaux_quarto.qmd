@@ -1,0 +1,215 @@
+---
+title: "Les tableaux dans quartos"
+subtitle: "- atelier de rentrée -"
+author:
+  - name: Paul, Anissa, et Xavier
+author-footer: Paul, Anissa, et Xavier
+institution: "OFCE - Lunch-Séminaire"
+date: today
+lang: fr
+code-fold: true
+format: 
+  pres-revealjs: 
+    incremental: true   
+    toc: false
+  # slide-level niveau des slides à prendre en compte (2 par défaut)
+  # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères
+---
+
+```{r, include=FALSE}
+library(knitr)
+library(tidyverse) 
+library(showtext) 
+library(ofce)
+library(gt)
+
+opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.pos="H", 
+  out.extra="",
+  dev="ragg_png",
+  fig.showtext=TRUE,
+  cache=FALSE)
+
+showtext_opts(dpi=200)
+showtext_auto()
+tableau <- sample(iris)
+```
+
+# Introduction
+
+## Objectif de la session
+
+-   Présenter les outils disponibles pour la visualisation des données sous forme de tableau dans vos documents markdown
+
+-   Montrer pas à pas comment à partir d'un tableau de données brutes, on obtient un tableau présentable dans un document
+
+## Comment ne pas mettre un tableau ?
+
+<br>
+
+-   Toute mauvaise réponse est la bienvenue
+
+<br>
+
+-   **La copie d'écran image collée**
+-   aussi connue sous la forme de "Je fais dans excel et je mets une image dans quarto"
+
+<br>
+
+-   Pourquoi ?
+
+-   parce que nous valons tous mieux que ça.
+
+-   ce n'est pas éditable dans le code, ce qui implique :
+
+    -   Pas de traçabilité des changements
+    -   Des aller-retours entre plusieurs programmes
+    -   Uniformisation des formats fastidieuses
+    -   Peu de contrôle sur l'affichage
+
+## Comment mettre un tableau : niveau 0
+
+<br>
+
+-   Par exemple si dans votre code de qmd il y a ça :
+
+```{r}
+#| eval: false
+#| echo: true
+
+head(iris)
+
+```
+
+-   Cela affichera ça
+
+```{r}
+#| eval: true
+#| echo: false
+
+head(iris)
+
+```
+
+-   --\> Problèmes ?
+
+## Comment mettre un tableau manuellement sans jeux de données
+
+### La syntaxe markdown
+
+-   Ce format peut convenir pour les tableaux à texte.
+
+-   ça ressemble à ça dans votre .qmd (en dehors d'un chunk)
+
+```{r}
+#| eval: false
+#| echo: true
+
+    |  Du texte | Du chiffre | Un emoji |
+    |-----------|------------|----------|
+    |  Or       | 16         | 🥇       |
+    | Argent    | 26         | 🥈       |
+    | Bronze    | 22         | 🥉       |
+
+```
+
+-   la structure peut se faire automatiquement dans le mode `visual` en faisant \`insert`>`\`table\`
+
+    | Du texte | Du chiffre | Un emoji |
+    |----------|------------|----------|
+    | Or       | 16         | 🥇       |
+    | Argent   | 26         | 🥈       |
+    | Bronze   | 22         | 🥉       |
+
+-   Il est cependant difficile à formater et éditer.
+
+## Comment mettre un *beau* tableau
+
+### L'utilisation de packages R pour les tableaux formatés
+
+-   Cette méthode est à priviligier pour tout tableau contenant des données principalement numériques ou extraites de base de données.
+
+-   Plusieurs packages existent: `huxtable`, `flextable`, `formattable`, `gt` etc..
+
+-   **Le package privilégié pour l'ofce est `gt`.**
+
+-   *On notera cependant que d'autres packages peuvent présenter quelques fonctionnalités supplémentaires qui peuvent être intéressantes pour certaines applications. Par exemple, le package `flextable` est très utile si le document de sortie est un `.docx` et est plus flexible sur la gestion des cellules mergées.*
+
+## Le package `gt`
+
+-   Le package gt est conçu pour générer des tableaux dans R avec une syntaxe simple et bien intégrée dans le `tidyverse`
+
+-   Il permet de créer des tableaux propres, lisibles et personnalisables pour les inclure dans un document
+
+-   Comparé à d'autres packages, gt offre une approche plus intuitive pour la stylisation des tableaux.
+
+## Installation
+
+```{r}
+#| echo: true
+#| eval: false
+
+
+```
+
+## Organisation du format des tableaux `gt`
+
+<br>
+
+![](gt_parts_of_a_table.svg)
+
+## Quelques rappels de bonnes pratiques au sujet des données
+
+<br>
+
+-   les données sur R sont stockées dans un objet data.frame
+-   
+
+# Un worflow avec `gt`
+
+## Etapes
+
+-   obtention des données
+-   préparation des données
+-   création de la table `gt`
+-   mise en forme simple
+-   ajout de titres et notes de tableaux
+-   fonctions plus esthétiques
+
+## Etape 0 : Tout commence au `data.frame`
+
+-   Dans un premier temps, il vous faut obtenir les données. C'est à dire avoir data.frame dans votre
+
+## Etape 1 : Les données brutes
+
+## Etape 2 : Passage à `gt`
+
+## Etape 3 : Mise en forme basique
+
+## Etape 3.1 : Les groupes
+
+## Etape 4 : En-têtes et Notes de bas de page
+
+## Etape 5 : Quelques fonctions esthétiques
+
+## Etape bonus : références croisées !
+
+## Etape super-bonus : les fonctionnalités avancées
+
+<br>
+
+-   Le package `gt` est riche en fonctionnalités.
+
+    -   La package `gtExtras` vient complémenter `gt` en ajoutant des options de visualisations telles que les mini graphiques dans les tableaux
+
+    -   On peut générer des lignes de résumé (type ligne "total" ou "moyenne" ) automatiquement par la fonction `summary_rows()`
+
+# Conclusion
+
+<br>
+
+-   Voir la doc du package sur https://gt.rstudio.com/
+-   En cas de besoin : demandez !
