@@ -36,11 +36,18 @@ opts_chunk$set(
 showtext_opts(dpi=200)
 showtext_auto()
 tableau <- sample(iris)
+donnees <- readRDS("data_sim.rds")
+
+source("secret.R")
+
+
 ```
 
 # Introduction
 
 ## Objectif de la session
+
+<br>
 
 -   Présenter les outils disponibles pour la visualisation des données sous forme de tableau dans vos documents markdown
 
@@ -84,7 +91,7 @@ head(iris)
 
 ```
 
--   Cela affichera ça
+-   Cela affichera ça :
 
 ```{r}
 #| eval: true
@@ -94,15 +101,21 @@ head(iris)
 
 ```
 
--   --\> Problèmes ?
+-   
 
-## Comment mettre un tableau manuellement sans jeux de données
+    -   --\> Problèmes ?
 
-### La syntaxe markdown
+## Comment faire un tableau sans jeu de données
+
+## la syntaxe markdown
 
 -   Ce format peut convenir pour les tableaux à texte.
 
 -   ça ressemble à ça dans votre .qmd (en dehors d'un chunk)
+
+-   convient pour des tableaux rédigés
+
+-   la structure peut se faire automatiquement dans le mode `visual` en faisant `insert` \> `table`
 
 ```{r}
 #| eval: false
@@ -116,13 +129,13 @@ head(iris)
 
 ```
 
--   la structure peut se faire automatiquement dans le mode `visual` en faisant \`insert`>`\`table\`
-
-    | Du texte | Du chiffre | Un emoji |
-    |----------|------------|----------|
-    | Or       | 16         | 🥇       |
-    | Argent   | 26         | 🥈       |
-    | Bronze   | 22         | 🥉       |
+```         
+| Du texte | Du chiffre | Un emoji |
+|----------|------------|----------|
+| Or       | 16         | 🥇       |
+| Argent   | 26         | 🥈       |
+| Bronze   | 22         | 🥉       |
+```
 
 -   Il est cependant difficile à formater et éditer.
 
@@ -130,30 +143,138 @@ head(iris)
 
 ### L'utilisation de packages R pour les tableaux formatés
 
--   Cette méthode est à priviligier pour tout tableau contenant des données principalement numériques ou extraites de base de données.
+-   Cette méthode est à priviligier pour tout tableau contenant extraites de base de données
 
 -   Plusieurs packages existent: `huxtable`, `flextable`, `formattable`, `gt` etc..
 
 -   **Le package privilégié pour l'ofce est `gt`.**
 
+<br>
+
 -   *On notera cependant que d'autres packages peuvent présenter quelques fonctionnalités supplémentaires qui peuvent être intéressantes pour certaines applications. Par exemple, le package `flextable` est très utile si le document de sortie est un `.docx` et est plus flexible sur la gestion des cellules mergées.*
 
 ## Le package `gt`
 
+<br>
+
 -   Le package gt est conçu pour générer des tableaux dans R avec une syntaxe simple et bien intégrée dans le `tidyverse`
 
--   Il permet de créer des tableaux propres, lisibles et personnalisables pour les inclure dans un document
+-   Il permet de créer des tableaux propres, lisibles et personnalisables pour les inclure dans un document `html` et `pdf`
 
--   Comparé à d'autres packages, gt offre une approche plus intuitive pour la stylisation des tableaux.
+-   `gt` offre une approche intuitive pour la stylisation des tableaux.
+
+-   Les tableaux `gt` peuvent accueillir tout type de données (texte, chiffres) et les représenter
 
 ## Installation
+
+<br>
+
+```{r}
+#| echo: true
+#| eval: false
+
+## Le plus important 
+pak::pak("gt")
+
+# Compléments
+pak::pak("gtsummary")
+pak::pak("gtExtras")
+
+
+# Appel
+library("gt")
+library("gtsummary")
+library("gtExtras")
+
+```
+
+-   ⚠️ ne pas confondre avec `gtable`
+
+## Exemples de tableaux
+
+### Exemple 1
+
+
+```{r}
+
+tbl_grav_nl <- bd_read("estmeaps") |>
+  select(id, nom, obj, nbp, dl, p1, p2, p3, r2kl, r2kli) |>
+  filter(str_detect(nom, "Grav")) |>
+  mutate(id = 1:n()) |>
+  gt() |>
+  cols_label(id="", nom = "", obj="objectif",
+             nbp = "p", dl = "DL",
+             r2kl = md("R^2^~KLu~"), r2kli = md("R^2^~KLi~"),
+             p1 = md("\u03B4"), p2 = md("\u03B1"), p3 = md("\u03B2")) |>
+  tab_spanner(label = "Modèle", col=c(obj, nbp, dl)) |>
+  tab_spanner(label = "Paramètres", col=c(p1, p2, p3)) |>
+  tab_spanner(label = "Métriques", col=c(r2kl, r2kli)) |>
+  fmt_markdown(c(p1, p2, p3, obj)) |>
+  fmt_percent(columns = c(r2kl,r2kli), decimals = 1) |>
+  sub_missing() |>
+  cols_align(columns = -c(id,nom), align = "center") |>
+  # tab_style(locations = cells_body(rows = seq(4, 11, by = 3)), style = cell_borders(sides="top")) |>
+  tab_footnote(
+    md("log(f~ij~)=\u03B1xlog(n~ij~)+\u03B2xlog(e~ij~)-\u03B4xlog(d~ij~)+a~i~ ; simple contrainte (en ligne)"),
+    locations = cells_body(columns=nom, rows = str_detect(nom, "ligne"))) |>
+  tab_footnote(
+    md("log(f~ij~)=\u03B1xlog(n~ij~)+\u03B2xlog(e~ij~)-\u03B4xlog(d~ij~)+a~i~+b~j~ ; double contrainte (lignes et colonnes)"),
+    locations = cells_body(columns=nom, rows = str_detect(nom, "l&c")))
+
+bd_read("tbl_grav_nl")
+
+
+```
+
+------------------------------------------------------------------------
+
+### Exemple 1 code
 
 ```{r}
 #| echo: true
 #| eval: false
 
 
+tbl_grav_nl <- bd_read("estmeaps") |>
+  
+  # Preparation de la base de données
+  select(id, nom, obj, nbp, dl, p1, p2, p3, r2kl, r2kli) |>
+  filter(str_detect(nom, "Grav")) |>
+  mutate(id = 1:n()) |>
+  
+  # Passage en format gt
+  gt() |>
+  
+  # Formatage 
+  cols_label(id="", nom = "", obj="objectif",
+             nbp = "p", dl = "DL",
+             r2kl = md("R^2^~KLu~"), r2kli = md("R^2^~KLi~"),
+             p1 = md("\u03B4"), p2 = md("\u03B1"), p3 = md("\u03B2")) |>
+  tab_spanner(label = "Modèle", col=c(obj, nbp, dl)) |>
+  tab_spanner(label = "Paramètres", col=c(p1, p2, p3)) |>
+  tab_spanner(label = "Métriques", col=c(r2kl, r2kli)) |>
+  fmt_markdown(c(p1, p2, p3, obj)) |>
+  fmt_percent(columns = c(r2kl,r2kli), decimals = 1) |>
+  sub_missing() |>
+  cols_align(columns = -c(id,nom), align = "center") |>
+  # tab_style(locations = cells_body(rows = seq(4, 11, by = 3)), style = cell_borders(sides="top")) |>
+  tab_footnote(
+    md("log(f~ij~)=\u03B1xlog(n~ij~)+\u03B2xlog(e~ij~)-\u03B4xlog(d~ij~)+a~i~ ; simple contrainte (en ligne)"),
+    locations = cells_body(columns=nom, rows = str_detect(nom, "ligne"))) |>
+  tab_footnote(
+    md("log(f~ij~)=\u03B1xlog(n~ij~)+\u03B2xlog(e~ij~)-\u03B4xlog(d~ij~)+a~i~+b~j~ ; double contrainte (lignes et colonnes)"),
+    locations = cells_body(columns=nom, rows = str_detect(nom, "l&c")))
+
+bd_read("tbl_grav_nl")
+
+
 ```
+
+------------------------------------------------------------------------
+
+### Exemple 2
+
+![](Screenshot%202024-09-09%20at%2009.17.36.png)
 
 ## Organisation du format des tableaux `gt`
 
@@ -161,41 +282,228 @@ head(iris)
 
 ![](gt_parts_of_a_table.svg)
 
-## Quelques rappels de bonnes pratiques au sujet des données
+
+# Un *workflow* avec `gt`
+
+## Étapes basiques
 
 <br>
-
--   les données sur R sont stockées dans un objet data.frame
--   
-
-# Un worflow avec `gt`
-
-## Etapes
 
 -   obtention des données
 -   préparation des données
 -   création de la table `gt`
 -   mise en forme simple
 -   ajout de titres et notes de tableaux
--   fonctions plus esthétiques
+-   fonctions esthétiques / thèmes
 
 ## Etape 0 : Tout commence au `data.frame`
 
--   Dans un premier temps, il vous faut obtenir les données. C'est à dire avoir data.frame dans votre
+-   Dans un premier temps, il vous faut obtenir les données. C'est-à-dire avoir `data.frame` dans votre environnement avec les données que vous souhaitez mettre dans votre tableaux
+
+-   Rappel Pour charger les données, vous pouvez passer par exemple, par un `.rdata`, `.rds`, `.rda` , un fichier type csv ou excel
+
+```{r}
+#| echo: true
+#| eval: false
+
+# rdata ou rda 
+load("data_sim.rdata")
+
+# rds
+donnees <- readRDS("data_sim.rds")
+
+# csv
+donnees <- read.csv("data_sim.csv")
+
+```
+
+-   Si j'essaie d'afficher ces données :
+
+```{r}
+print(donnees)
+```
 
 ## Etape 1 : Les données brutes
 
-## Etape 2 : Passage à `gt`
+<br>
 
-## Etape 3 : Mise en forme basique
+-   Le première étape consiste à effectuer les transformations nécessaires sur la base de données
+
+-   Ici on veut représenter les taux de croissance pour les années de 2020 à 2025
+
+```{r}
+#| echo: true
+#| 
+
+donnees_simples <- donnees |> 
+  group_by(variable,scenario) |> arrange(year) |> 
+  mutate( value_gr = 100* (values / lag(values) - 1 )) |> 
+  ungroup() |> 
+  filter(year >= 2020 & year <= 2025) |> 
+  select(year, variable, scenario, value_gr) 
+  
+donnees_simples
+
+```
+
+## Etape 2 : Préparation des données passage à `gt`
+
+-   La deuxième étape de préparation consiste à donner une forme finale au `data.frame` telle qu'on voudrait l'afficher
+
+-   supprimer les colonnes inutiles, réordonner les variables, on peut changer le format d'affichage (arrondis etc)
+
+-   une bonne partie de ce formatage peut être réalisé après le passage à `gt`
+
+```{r}
+#| echo: true
+
+donnees_gt <- donnees_simples |> 
+  mutate(value_gr = round(value_gr,1)) |> 
+  select( variable, year,value_gr ) |> 
+  
+  pivot_wider(id_cols = c( "variable") , values_from = "value_gr" , names_from =  "year") |> 
+  
+  mutate(variable = fct_relevel(factor(c("GDP","CH","G","I","X","M"), levels = c("GDP","CH","G","I","X","M"))) ) |> 
+  mutate(type = ifelse(variable %in% c("X","M"), "Commerce extérieur", "Demande intérieure" ),
+         type = ifelse(variable %in% c("GDP"), " ", type)
+         )
+
+
+donnees_gt
+
+```
+
+## Etape 3 : Mise en forme basique `gt`
+
+-   La table est prête à etre mise au format `gt`
+
+```{r}
+#| echo: true
+
+gt(donnees_gt)
+```
 
 ## Etape 3.1 : Les groupes
 
+-   Pour ajouter les lignes "groupes"
+
+```{r}
+#| echo: true
+gt(donnees_gt |> group_by(type))  
+```
+
 ## Etape 4 : En-têtes et Notes de bas de page
+
+-   Ajout d'en-tête
+
+```{r}
+#| echo: true
+gt(donnees_gt |> group_by(type))  |> 
+  tab_header(
+    title = "Résultats macroéconomiques",
+    subtitle = "Scénario du bouclier tarifaire"
+  ) |> 
+    cols_label(variable = "") |> 
+  tab_spanner(label = "BT", col=c(`2021`, `2022`, `2023`)) |> 
+  tab_footnote("Sources : Simulations ThreeME")  |> 
+  tab_footnote(
+    md("Bouclier gaz uniquement"),
+    locations = cells_column_labels(columns=`2021`) )
+
+
+```
 
 ## Etape 5 : Quelques fonctions esthétiques
 
-## Etape bonus : références croisées !
+```{r}
+#| echo: true
+
+
+gt(donnees_gt |> group_by(type))  |> 
+  
+  tab_header(
+    title = "Résultats macroéconomiques",
+    subtitle = "Scénario du bouclier tarifaire"
+  ) |> 
+    cols_label(variable = "") |> 
+  tab_spanner(label = "BT", col=c(`2021`, `2022`, `2023`)) |> 
+  tab_footnote("Sources : Simulations ThreeME")  |> 
+  tab_footnote(
+    md("Bouclier gaz uniquement"),
+    locations = cells_column_labels(columns=`2021`) ) |> 
+  
+  tab_options(table.background.color = "lightyellow")
+  
+  
+
+
+```
+
+## Etape 5.1 : Les thèmes
+
+```{r}
+#| echo: true
+
+
+gt(donnees_gt |> group_by(type))  |> 
+  
+  tab_header(
+    title = "Résultats macroéconomiques",
+    subtitle = "Scénario du bouclier tarifaire"
+  ) |> 
+    cols_label(variable = "") |> 
+  tab_spanner(label = "BT", col=c(`2021`, `2022`, `2023`)) |> 
+  tab_footnote("Sources : Simulations ThreeME")  |> 
+  tab_footnote(
+    md("Bouclier gaz uniquement"),
+    locations = cells_column_labels(columns=`2021`) ) |> 
+  
+ theme.gt_ofce()
+  
+  
+
+
+```
+
+## Etape bonus : références croisées dans votre qmd
+
+Tout comme pour une figure dans un document quarto, les tableaux dans votre document peuvent être référencés :
+
+```{r}
+#| eval: false
+#| echo: true
+
+##| label: tbl-macro
+##| tbl-cap: Résultats simulation 1
+##| 
+```
+
+```{r}
+#| echo: false
+#| label: tbl-macro
+#| tbl-cap: Résultats simulation 1
+
+
+
+gt(donnees_gt |> group_by(type))  |> 
+  
+  tab_header(
+    title = "Résultats macroéconomiques",
+    subtitle = "Scénario du bouclier tarifaire"
+  ) |> 
+    cols_label(variable = "") |> 
+  tab_spanner(label = "BT", col=c(`2021`, `2022`, `2023`)) |> 
+  tab_footnote("Sources : Simulations ThreeME")  |> 
+  tab_footnote(
+    md("Bouclier gaz uniquement"),
+    locations = cells_column_labels(columns=`2021`) ) |> 
+  
+ theme.gt_ofce()
+  
+
+```
+
+Dans le tableau @tbl-macro, onvoit que...
 
 ## Etape super-bonus : les fonctionnalités avancées
 
@@ -207,9 +515,14 @@ head(iris)
 
     -   On peut générer des lignes de résumé (type ligne "total" ou "moyenne" ) automatiquement par la fonction `summary_rows()`
 
+    -   Des packages avec des tableaux `gt` pré-programmés pour exploiter avec des tableaux spécifiques type regression
+
 # Conclusion
 
 <br>
 
--   Voir la doc du package sur https://gt.rstudio.com/
--   En cas de besoin : demandez !
+- Faites vos premiers essais !
+
+- Voir la doc du package sur https://gt.rstudio.com/
+
+- En cas de besoin : demandez !

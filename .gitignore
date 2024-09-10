@@ -15,3 +15,4 @@ wp2_files
 inst/doc
 inst/.DS_Store
 .DS_Store
+secret.R
