@@ -149,7 +149,7 @@ Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait a
 
 #### encadrés
 
-Pour un encadré, c'est un peu plus compliqué (pour le moment). `tip` est le *hack* pour la catégorie, .callout-tip pour le style. Le champ `collapse` permet de replier l'encadré par défaut et l'option `"false"` (notez les guillemets et les minuscules) permet de le déplier par défaut.
+Pour un encadré, c'est un peu plus compliqué (pour le moment). `tip` est le *hack* pour la catégorie, `.callout-tip` pour le style. Le champ `collapse` permet de replier l'encadré par défaut et l'option `"false"` (notez les guillemets et les minuscules) permet de le déplier par défaut. L'encadré sera numéroté et on peut le cross référencer par `@tip_id`.
 
 ``` markdown
 ::: {#tip-id .callout-tip collapse="true"}
