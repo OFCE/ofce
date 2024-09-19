@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Quelques conseils d'écriture et de format
 
-### Au commencement
+### au commencement
 
 Tout commence par un `.qmd`. Il doit être placé dans un sous dossier du projet général, pour être rangé de façon compréhensible par tout le monde. Demandez à votre administratrice de projet les règles qu'elle souhaite voir appliquées.
 
@@ -66,9 +66,9 @@ Le `.qmd` est très simple, l'entête `yaml` n'a besoin que d'un champ : le titr
 
 Notez qu'il n'y pas de section de niveau `header 1`. Ce n'est pas possible parce qu'il y a un titre et que le titre est considéré comme la section `header 1` : une alternative au titre dans le yml est une section de niveau `header 1` ou simple `#`. S'il n'y a pas d'auteur ou d'autre champ, l'ensemble `yml` peut être omis avec simplement le `header 1`.
 
-Dernier petit détail, il faut *sourcer* le fichier `rinit.r`. Ce fichier définit les options par défaut des chunks et permet d'avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. La fonction `ofce::init_qmd()` simplifie le process et toruve ce fichier même s'il est bien caché. Il faut le mettre au début et à part pour que ces options s'appliquent aux chunks suivants. Il est toujours possible de modifier le `rinit.r` de votre projet pour des variables globales, comme la taille de la police de tous les graphiques, et des fonctions disponibles dans chaque `.qmd`.
+Dernier petit détail, il faut *sourcer* le fichier `rinit.r`. Ce fichier définit les options par défaut des chunks et permet d'avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. La fonction `ofce::init_qmd()` simplifie le process et trouve le fichier `rinit.r` même s'il est bien caché. Il faut le mettre au début et à part pour que ces options s'appliquent aux chunks suivants. Il est toujours possible de modifier le `rinit.r` de votre projet pour des variables globales, comme la taille de la police de tous les graphiques, et des fonctions disponibles dans chaque `.qmd`.
 
-> Si vos graphiques sont moches, si les polices de caractère sont toutes petites ou trop grandes, avant d'appeler à l'aide, vérifiez 1. sur `rinit.r` est bien *sourcé* 2. que vous n'avez pas un `fig-width` ou un `fig-heigth` quelque part dans le chunk ou dans le `yml`.
+> Si vos graphiques sont moches, si les polices de caractère sont toutes petites ou trop grandes, avant d'appeler à l'aide, vérifiez 1. que `ofce::init_qmd()` est bien appelé ; 2. que vous n'avez pas un `fig-width` ou un `fig-heigth` quelque part dans le chunk ou dans le `yml` de votre `.qmd`.
 
 ```` markdown
 ---
@@ -102,7 +102,7 @@ lang: en
 ---
 ```
 
-### Les références croisées
+### les références croisées
 
 Les références croisées demandent un peu de soin, mais permettent de produire des documents plus riches dans lesquels :
 
@@ -116,7 +116,7 @@ Le secret d'une référence croisée c'est l'instruction (le tag) `#| label: xxx
 
 On définit également le titre du graphique qui est donc identifié pour être mis en page, utilisé par ailleurs (par exemple la table des figures) et agrémenté des mots récurrents (par exemple tableau pour un tableau, donc on ne met pas dans le titre tableau ou son numéro). Le titre est déini par le tag `#| fig-caption: xxx`
 
-### graphiques
+### le cas des graphiques
 
 Pour un graphique (on ne met pas le numéro du graphique dans le titre, c'est fait automatiquement) :
 
@@ -136,7 +136,7 @@ Si c'est un graphique produit autrement que par `R`, la syntaxe standard de `mar
 This is illustrated well by @fig-image.
 ```
 
-### tableaux
+### le cas des tableaux
 
 Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait automatiquement) :
 
@@ -147,7 +147,7 @@ Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait a
 ```
 ````
 
-### encadrés
+### les encadrés
 
 Pour un encadré, c'est un peu plus compliqué (pour le moment). `tip` est le *hack* pour la catégorie, .callout-tip pour le style. Le champ `collapse` permet de replier l'encadré par défaut et l'option `"false"` (notez les guillemets et les minuscules) permet de le déplier par défaut.
 
@@ -190,7 +190,7 @@ du code R, du texte, des images
 :::
 ```
 
-### La bibliographie
+### une bibliographie
 
 Il est facile d'insérer une bibliographie. La première chose est d'indiquer un (ou plusieurs) fichier `.bib` à `quarto` :
 
