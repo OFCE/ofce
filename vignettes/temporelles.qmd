@@ -22,7 +22,7 @@ ofce::init_qmd()
 
 ## 5 Règles d'or
 
-> **Règle 1** : On utilise `theme_ofce()` !
+> **Règle 1** : On utilise `theme_ofce()` pour les graphiques !
 
 > **Règle 2** : Les dates sont au format `<date>` même lorsque la fréquence est annuelle.
 
