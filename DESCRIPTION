@@ -7,6 +7,7 @@ Authors@R: c(
     person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),
     person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut")))
 Description: Procure des fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue ; des templates pour quarto ; documente les normes et pratiques attendues.
+URL: https://github.com/ofce/ofce
 LazyData: true
 Imports:
     cli,
@@ -43,7 +44,6 @@ Imports:
 License: CC BY 4.0
 Depends:
     R (>= 2.10)
-URL: https://ofce.github.io/ofce/
 Suggests:
     knitr,
     rmarkdown

@@ -22,7 +22,7 @@ footer:
 navbar:
   structure:
     left: [guides, charte, reference, news]
-    right: [github]
+    right: [search, github]
 
   components:
     github:
