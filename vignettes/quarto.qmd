@@ -116,7 +116,7 @@ Le secret d'une référence croisée c'est l'instruction (le tag) `#| label: xxx
 
 On définit également le titre du graphique qui est donc identifié pour être mis en page, utilisé par ailleurs (par exemple la table des figures) et agrémenté des mots récurrents (par exemple tableau pour un tableau, donc on ne met pas dans le titre tableau ou son numéro). Le titre est déini par le tag `#| fig-caption: xxx`
 
-#### graphiques
+### graphiques
 
 Pour un graphique (on ne met pas le numéro du graphique dans le titre, c'est fait automatiquement) :
 
@@ -136,7 +136,7 @@ Si c'est un graphique produit autrement que par `R`, la syntaxe standard de `mar
 This is illustrated well by @fig-image.
 ```
 
-#### tableaux
+### tableaux
 
 Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait automatiquement) :
 
@@ -147,7 +147,7 @@ Pour un tableau (on ne met pas le numéro du tableau dans le titre, c'est fait a
 ```
 ````
 
-#### encadrés
+### encadrés
 
 Pour un encadré, c'est un peu plus compliqué (pour le moment). `tip` est le *hack* pour la catégorie, .callout-tip pour le style. Le champ `collapse` permet de replier l'encadré par défaut et l'option `"false"` (notez les guillemets et les minuscules) permet de le déplier par défaut.
 
@@ -158,7 +158,7 @@ texte de l'encadré
 :::
 ```
 
-#### un cas plus général
+### un cas plus général
 
 On peut être dans le cas où le contenu n'est pas une image ou un tableau (par exemple une composition d'images, un tableau sous forme d'un png). Dans ce cas `quarto` protestera. C'est dans la [documentation de Quarto](https://quarto.org/docs/authoring/cross-references-divs.html) et cela prend la forme suivante (l'utilisation du tag `fig` implique une *figure*, la première ligne est le contenu, la dernière est le titre, les autres lignes sont affichées comme CONTENT) :
 
