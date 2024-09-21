@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9.9000/font.css" rel="stylesheet">
-<link href="../deps/Fira_Code-0.4.9.9000/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="quarto_files/libs/quarto-html/popper.min.js"></script><script src="quarto_files/libs/quarto-html/tippy.umd.min.js"></script><link href="quarto_files/libs/quarto-html/tippy.css" rel="stylesheet">
@@ -84,7 +84,7 @@
 
 
 
-
+      <small class="dont-index">Source: <a href="https://github.com/ofce/ofce/blob/HEAD/vignettes/quarto.qmd" class="external-link"><code>vignettes/quarto.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -95,7 +95,7 @@
 
     <section class="level2"><h2 id="quelques-conseils-décriture-et-de-format">Quelques conseils d’écriture et de format<a class="anchor" aria-label="anchor" href="#quelques-conseils-d%C3%A9criture-et-de-format"></a>
 </h2>
-<section class="level3"><h3 id="au-commencement">Au commencement<a class="anchor" aria-label="anchor" href="#au-commencement"></a>
+<section class="level3"><h3 id="au-commencement">au commencement<a class="anchor" aria-label="anchor" href="#au-commencement"></a>
 </h3>
 <p>Tout commence par un <code>.qmd</code>. Il doit être placé dans un sous dossier du projet général, pour être rangé de façon compréhensible par tout le monde. Demandez à votre administratrice de projet les règles qu’elle souhaite voir appliquées.</p>
 <p>Un exemple de projet est ci-dessous. Il ne respecte pas toutes les règles recommandées, mais c’est souvent comme ça. Notez les fichiers importants :</p>
@@ -133,9 +133,9 @@
 <p>Donnez un nom simple (court, explicite, pas de majuscules, pas de caractères spéciaux), pour que le contenu soit clair, mais aussi qu’il soit facile à retaper quelque part si nécessaire. Les noms à rallonge sont donc à proscrire. Tâchez aussi d’éviter la multiplication des versions dans le dossier (dont une seule est ok), si vous avez des déchets, mettez dans un sous dossier spécifique (moi je l’appelle <code>rkiv</code>) de façon à garder les vieux morceaux d’essais.</p>
 <p>Le <code>.qmd</code> est très simple, l’entête <code>yaml</code> n’a besoin que d’un champ : le titre. L’auteur est aussi utile, mais pas obligatoire. Pas besoin d’ajouter un format (ils sont communs au site et défini dans <code>_quarto.yml</code>), ni d’options spécifiques (définies aussi ailleurs). Eventuellement, on peut ajouter des éléments spécifiques au texte comme le champ <code>date</code> ou <code>keyword</code> ou <code>bibliography</code>.</p>
 <p>Notez qu’il n’y pas de section de niveau <code>header 1</code>. Ce n’est pas possible parce qu’il y a un titre et que le titre est considéré comme la section <code>header 1</code> : une alternative au titre dans le yml est une section de niveau <code>header 1</code> ou simple <code>#</code>. S’il n’y a pas d’auteur ou d’autre champ, l’ensemble <code>yml</code> peut être omis avec simplement le <code>header 1</code>.</p>
-<p>Dernier petit détail, il faut <em>sourcer</em> le fichier <code>rinit.r</code>. Ce fichier définit les options par défaut des chunks et permet d’avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. La fonction <code><a href="../reference/init_qmd.html">ofce::init_qmd()</a></code> simplifie le process et toruve ce fichier même s’il est bien caché. Il faut le mettre au début et à part pour que ces options s’appliquent aux chunks suivants. Il est toujours possible de modifier le <code>rinit.r</code> de votre projet pour des variables globales, comme la taille de la police de tous les graphiques, et des fonctions disponibles dans chaque <code>.qmd</code>.</p>
+<p>Dernier petit détail, il faut <em>sourcer</em> le fichier <code>rinit.r</code>. Ce fichier définit les options par défaut des chunks et permet d’avoir les bonnes polices de caractère dans la bonne taille pour tous les graphiques. La fonction <code><a href="../reference/init_qmd.html">ofce::init_qmd()</a></code> simplifie le process et trouve le fichier <code>rinit.r</code> même s’il est bien caché. Il faut le mettre au début et à part pour que ces options s’appliquent aux chunks suivants. Il est toujours possible de modifier le <code>rinit.r</code> de votre projet pour des variables globales, comme la taille de la police de tous les graphiques, et des fonctions disponibles dans chaque <code>.qmd</code>.</p>
 <blockquote>
-<p>Si vos graphiques sont moches, si les polices de caractère sont toutes petites ou trop grandes, avant d’appeler à l’aide, vérifiez 1. sur <code>rinit.r</code> est bien <em>sourcé</em> 2. que vous n’avez pas un <code>fig-width</code> ou un <code>fig-heigth</code> quelque part dans le chunk ou dans le <code>yml</code>.</p>
+<p>Si vos graphiques sont moches, si les polices de caractère sont toutes petites ou trop grandes, avant d’appeler à l’aide, vérifiez 1. que <code><a href="../reference/init_qmd.html">ofce::init_qmd()</a></code> est bien appelé ; 2. que vous n’avez pas un <code>fig-width</code> ou un <code>fig-heigth</code> quelque part dans le chunk ou dans le <code>yml</code> de votre <code>.qmd</code>.</p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Mon texte en qmd</span></span>
@@ -159,7 +159,7 @@
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> William </span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> en</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
-</section><section class="level3"><h3 id="les-références-croisées">Les références croisées<a class="anchor" aria-label="anchor" href="#les-r%C3%A9f%C3%A9rences-crois%C3%A9es"></a>
+</section><section class="level3"><h3 id="les-références-croisées">les références croisées<a class="anchor" aria-label="anchor" href="#les-r%C3%A9f%C3%A9rences-crois%C3%A9es"></a>
 </h3>
 <p>Les références croisées demandent un peu de soin, mais permettent de produire des documents plus riches dans lesquels :</p>
 <ul>
@@ -169,8 +169,8 @@
 </ul>
 <p>Le secret d’une référence croisée c’est l’instruction (le tag) <code>#| label: xxx</code> que l’on met en tête d’un chunk. “xxx” est l’id du document. Il définit le type (<code>fig</code> pour un graphique ; <code>tbl</code> pour un tableau ; <code>tip</code> pour un encadré ; <code>eq</code> pour une équation) et après le tiret le nom (sans espace ni tiret) qui sera appelé dans le texte par la séquence <code>@fig-id</code> ou <code>@tbl-id</code> (voir <a href="https://quarto.org/docs/authoring/cross-references.html" class="external-link">quarto cross references</a> pour plus de détails).</p>
 <p>On définit également le titre du graphique qui est donc identifié pour être mis en page, utilisé par ailleurs (par exemple la table des figures) et agrémenté des mots récurrents (par exemple tableau pour un tableau, donc on ne met pas dans le titre tableau ou son numéro). Le titre est déini par le tag <code>#| fig-caption: xxx</code></p>
-<section class="level4"><h4 id="graphiques">graphiques<a class="anchor" aria-label="anchor" href="#graphiques"></a>
-</h4>
+</section><section class="level3"><h3 id="le-cas-des-graphiques">le cas des graphiques<a class="anchor" aria-label="anchor" href="#le-cas-des-graphiques"></a>
+</h3>
 <p>Pour un graphique (on ne met pas le numéro du graphique dans le titre, c’est fait automatiquement) :</p>
 <pre><code>``` {{r}}
 #| label: fig-id
@@ -181,22 +181,22 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="al">![Le titre de l'image](limage.png)</span>{#fig-image}</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>This is illustrated well by @fig-image.</span></code></pre></div>
-</section><section class="level4"><h4 id="tableaux">tableaux<a class="anchor" aria-label="anchor" href="#tableaux"></a>
-</h4>
+</section><section class="level3"><h3 id="le-cas-des-tableaux">le cas des tableaux<a class="anchor" aria-label="anchor" href="#le-cas-des-tableaux"></a>
+</h3>
 <p>Pour un tableau (on ne met pas le numéro du tableau dans le titre, c’est fait automatiquement) :</p>
 <pre><code>``` {{r}}
 #| label: tbl-id
 #| tbl-cap: Le titre du tableau
 ```</code></pre>
-</section><section class="level4"><h4 id="encadrés">encadrés<a class="anchor" aria-label="anchor" href="#encadr%C3%A9s"></a>
-</h4>
+</section><section class="level3"><h3 id="les-encadrés">les encadrés<a class="anchor" aria-label="anchor" href="#les-encadr%C3%A9s"></a>
+</h3>
 <p>Pour un encadré, c’est un peu plus compliqué (pour le moment). <code>tip</code> est le <em>hack</em> pour la catégorie, <code>.callout-tip</code> pour le style. Le champ <code>collapse</code> permet de replier l’encadré par défaut et l’option <code>"false"</code> (notez les guillemets et les minuscules) permet de le déplier par défaut. L’encadré sera numéroté et on peut le cross référencer par <code>@tip_id</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::: {#tip-id .callout-tip collapse="true"}</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## titre  l'encadré</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>texte de l'encadré</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
-</section><section class="level4"><h4 id="un-cas-plus-général">un cas plus général<a class="anchor" aria-label="anchor" href="#un-cas-plus-g%C3%A9n%C3%A9ral"></a>
-</h4>
+</section><section class="level3"><h3 id="un-cas-plus-général">un cas plus général<a class="anchor" aria-label="anchor" href="#un-cas-plus-g%C3%A9n%C3%A9ral"></a>
+</h3>
 <p>On peut être dans le cas où le contenu n’est pas une image ou un tableau (par exemple une composition d’images, un tableau sous forme d’un png). Dans ce cas <code>quarto</code> protestera. C’est dans la <a href="https://quarto.org/docs/authoring/cross-references-divs.html" class="external-link">documentation de Quarto</a> et cela prend la forme suivante (l’utilisation du tag <code>fig</code> implique une <em>figure</em>, la première ligne est le contenu, la dernière est le titre, les autres lignes sont affichées comme CONTENT) :</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>::: {#fig-example}</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -206,19 +206,19 @@
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
 <p>Par ailleurs, on peut définir d’autres catégories de références croisées si nécessaire, par exemple en distinguant les <em>cartes</em> des <em>figures</em>.</p>
-</section></section><section class="level3"><h3 id="les-tabsets">Les tabsets<a class="anchor" aria-label="anchor" href="#les-tabsets"></a>
+</section><section class="level3"><h3 id="les-tabsets">Les tabsets<a class="anchor" aria-label="anchor" href="#les-tabsets"></a>
 </h3>
 <p>Les tabsets sont un moyen commode de proposer des options pour un tableau, un graphique sans entrer dans des complications trop grandes d’interactivité.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## tab 1</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>du code R, du texte, des images</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>du code R, du texte ou des images</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## tab2</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>du code R, du texte, des images</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>du code R, du texte ou des images</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div>
-</section><section class="level3"><h3 id="la-bibliographie">La bibliographie<a class="anchor" aria-label="anchor" href="#la-bibliographie"></a>
+</section><section class="level3"><h3 id="une-bibliographie">une bibliographie<a class="anchor" aria-label="anchor" href="#une-bibliographie"></a>
 </h3>
 <p>Il est facile d’insérer une bibliographie. La première chose est d’indiquer un (ou plusieurs) fichier <code>.bib</code> à <code>quarto</code> :</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
@@ -342,7 +342,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
+  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
