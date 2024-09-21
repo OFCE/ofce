@@ -182,11 +182,11 @@ Les tabsets sont un moyen commode de proposer des options pour un tableau, un gr
 ::: {.panel-tabset}
 ## tab 1
 
-du code R, du texte, des images
+du code R, du texte ou des images
 
 ## tab2
 
-du code R, du texte, des images
+du code R, du texte ou des images
 :::
 ```
 
