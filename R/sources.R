@@ -26,14 +26,14 @@ ofce_caption <- function(source = "Calculs OFCE",
     not <- "*Note* : "
     ofc <- "Calculs OFCE"
     der <- ", dernier point connu : "
-    Der <- "Dernier point connu : "}
+    Der <- "*Dernier point connu* : "}
   else {
     lec <- "*Reading*: "
     src <- "*Source*: "
     not <- "*Note*: "
     ofc <- "Computation by OFCE"
     der <- ", last known point: "
-    Der <- "Last known point: "
+    Der <- "*Last known point*: "
   }
   caption <- ""
 
@@ -52,6 +52,10 @@ ofce_caption <- function(source = "Calculs OFCE",
     caption <- caption |>
       str_c(addcaption)
   }
+  if(ofce) {
+    source <- str_c(source , ofc, sep = ", ")
+  }
+
   if(!is.null(source)) {
     if(length(caption>0))
       caption <- caption |> str_c("<br>")
@@ -64,15 +68,8 @@ ofce_caption <- function(source = "Calculs OFCE",
       str_c(addcaption)
   }
 
-  if(ofce) {
-    if(length(caption>0))
-      caption <- caption |> str_c("<br>")
-    caption <- caption |> str_c(ofc)
-  }
   if(!is.null(dpt)) {
-    if(ofce)
-      caption <- caption |> str_c(der, dernier_point(dpt, dptf, lang)) else
-        if(length(caption>0))
+    if(length(caption>0))
         caption <- caption |> str_c("<br>", Der, dernier_point(dpt, dptf, lang)) else
           caption <- caption |> str_c(Der, dernier_point(dpt, dptf, lang))
   }
