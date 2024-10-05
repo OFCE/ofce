@@ -16,6 +16,7 @@
 #' @return NULL
 #' @export
 #'
+
 setup_quarto <- function(dir=".", quiet = FALSE) {
   wd_dir <- getwd()
   if(!dir.exists(dir)) {

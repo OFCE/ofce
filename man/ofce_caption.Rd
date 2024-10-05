@@ -8,6 +8,8 @@ ofce_caption(
   source = "Calculs OFCE",
   note = NULL,
   lecture = NULL,
+  dpt = NULL,
+  dptf = "monthly",
   wrap = 120,
   lang = "fr",
   ofce = TRUE
@@ -19,6 +21,10 @@ ofce_caption(
 \item{note}{texte de la note}
 
 \item{lecture}{texte de la note de lecture}
+
+\item{dpt}{dernier point connu}
+
+\item{dptf}{fréquence du dernier point connu (day, month, quarter, year)}
 
 \item{wrap}{largeur du texte}
 

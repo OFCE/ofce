@@ -2,6 +2,7 @@
 
 export(add_label_unit)
 export(add_logo)
+export(dernier_point)
 export(f2si2)
 export(graph2jpg)
 export(graph2png)
