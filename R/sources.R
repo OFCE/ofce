@@ -18,20 +18,22 @@ ofce_caption <- function(source = "Calculs OFCE",
                          note = NULL,
                          lecture = NULL,
                          dpt = NULL,
-                         dptf = "monthly",
+                         dptf = "month",
                          wrap = 120, lang = "fr", ofce=TRUE) {
   if(lang=="fr") {
     lec <- "*Lecture* : "
     src <- "*Source* : "
     not <- "*Note* : "
     ofc <- "Calculs OFCE"
-    der <- "*Dernier point* "}
+    der <- ", dernier point connu : "
+    Der <- "Dernier point connu : "}
   else {
     lec <- "*Reading*: "
     src <- "*Source*: "
     not <- "*Note*: "
     ofc <- "Computation by OFCE"
-    der <- "*Last point* "
+    der <- ", last known point: "
+    Der <- "Last known point: "
   }
   caption <- ""
 
@@ -67,10 +69,12 @@ ofce_caption <- function(source = "Calculs OFCE",
       caption <- caption |> str_c("<br>")
     caption <- caption |> str_c(ofc)
   }
-  if(!is.null(dernierpt)) {
+  if(!is.null(dpt)) {
     if(ofce)
-      caption <- caption |> str_c(", ", der, dernier_point(dernierpt, dptf, lang)) else
-        caption <- caption |> str_c("<br>", der, dernier_point(dernierpt, dptf, lang))
+      caption <- caption |> str_c(der, dernier_point(dpt, dptf, lang)) else
+        if(length(caption>0))
+        caption <- caption |> str_c("<br>", Der, dernier_point(dpt, dptf, lang)) else
+          caption <- caption |> str_c(Der, dernier_point(dpt, dptf, lang))
   }
 
   labs(caption = caption)
@@ -87,20 +91,18 @@ ofce_caption <- function(source = "Calculs OFCE",
 dernier_point <- function(date, freq = "month", lang = "fr") {
   date <- max(date)
   if(lang== "fr") {
-    locale <- if(.Platform$OS.type=="windows")
-      Sys.setlocale(locale = "fr_FR.utf8") else
-        Sys.setlocale(locale = "fr_FR")
+    locale <- if(.Platform$OS.type=="windows") "fr_FR.utf8" else "fr_FR"
   } else {
-    locale <- Sys.setlocale(locale = "en_UK")
+    locale <-  "en_UK"
   }
 
   if(freq == "day")
     return(str_c(lubridate::day(date),
-                 lubridate::month(date, label = TRUE, abbr = false, locale = locale),
+                 lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
                  lubridate::year(date), sep = " "))
 
   if(freq == "month")
-    return(str_c(lubridate::month(date, label = TRUE, abbr = false, locale = locale),
+    return(str_c(lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
                  lubridate::year(date), sep = " "))
 
   if(freq == "quarter")
