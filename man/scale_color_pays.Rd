@@ -4,15 +4,27 @@
 \alias{scale_color_pays}
 \title{Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE}
 \usage{
-scale_color_pays(list_iso3 = NULL, lang = NULL)
+scale_color_pays(
+  list_iso3 = c("FRA", "ITA", "ESP", "DEU"),
+  lang = "fr",
+  name = NULL,
+  aesthetics = c("color", "fill"),
+  ...
+)
 }
 \arguments{
 \item{list_iso3}{chr, une liste de nom de pays}
 
 \item{lang}{chr, le choix de la langue c("fr","en")}
+
+\item{name}{titre de la légende}
+
+\item{aesthetics}{couleur ou fill ou les deux}
+
+\item{...}{passé à scale_colour_manual}
 }
 \value{
-une palette de couleur (format HEX)
+un scale configuré
 }
 \description{
 Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE
