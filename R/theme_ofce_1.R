@@ -32,7 +32,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         lineheight = 1),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
-        size = ggplot2::rel(0.6),
+        size = ggplot2::rel(0.75),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=-6),
         lineheight = 1),
@@ -40,13 +40,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(
           ofce_style, tag = "p",
           margin = marquee::trbl(2, 0, 0, 0)),
-        size = ggplot2::rel(0.6),
+        size = ggplot2::rel(0.75),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
         width = 0.9),
       strip.text = marquee::element_marquee(
         style = ofce_style,
-        size = ggplot2::rel(0.85),
+        size = ggplot2::rel(0.8),
         hjust = 0.5,
         vjust = 0.5,
         margin = margin(t=6, b=6)))
@@ -59,17 +59,17 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
       plot.subtitle = ggtext::element_markdown(
-        size = ggplot2::rel(0.60),
+        size = ggplot2::rel(0.75),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
       plot.caption = ggtext::element_markdown(
-        size = ggplot2::rel(0.60),
+        size = ggplot2::rel(0.75),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
         lineheight = 1.25),
       strip.text = ggplot2::element_text(
-        size = ggplot2::rel(0.9),
+        size = ggplot2::rel(0.8),
         hjust = 0.5,
         vjust = 0.5,
         margin = ggplot2::margin(t=6, b=6)))
@@ -109,7 +109,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.margin = ggplot2::margin(t=6, r=0, b=6, l=0),
       # #Axis format
       axis.title  = ggplot2::element_text(
-        size = ggplot2::rel(0.80),
+        size = ggplot2::rel(0.75),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0)),
       axis.title.x = element_text(hjust=1),
@@ -128,8 +128,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       axis.ticks = element_line(
         color="gray50",
         size = unit(0.2, "pt")),
-      axis.ticks.length.x = unit(-4,"pt"),
-      axis.ticks.length.y = unit(-4,"pt"),
+      axis.ticks.length.x = unit(-3,"pt"),
+      axis.ticks.length.y = unit(-3,"pt"),
       axis.minor.ticks.length = rel(0.75),
       axis.line = element_line(
         colour = "gray40",
@@ -140,7 +140,9 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       panel.grid.major.y = element_line(
         size = unit(0.1, "pt"),
         color = "gray80"),
-      panel.grid.major.x = element_blank(),
+      panel.grid.major.x = element_blank(
+        size = unit(0.1, "pt"),
+        color = "gray80"),
       # Blank background
       panel.background = element_rect(
         fill = getOption("ofce.background_color"),

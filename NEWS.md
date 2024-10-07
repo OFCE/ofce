@@ -1,3 +1,9 @@
+# OFCE 1.2.0
+  
+* ajout de ofce_caption() ; ajout de scale_date_ofce()
+
+* corrections de bugs mineurs
+
 # OFCE 1.1.0
 
 * documentation et vignettes
