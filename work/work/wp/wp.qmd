@@ -1,0 +1,98 @@
+---
+# modifer les champs à votre convenance
+title: "Vers l'infini et au delà"
+subtitle: "Une analyse en profondeur"
+author:
+  - name: Albertine Retrouvée
+    email: albertine.retrouvee@sciencespo.fr
+    affiliation: "OFCE, Sciences Po Paris"
+    affiliation-url: "http://www.ofce.fr"
+institution: "Observatoire Français des Conjonctures Économiques"
+date: today
+date-modified: today
+lang: fr
+abstract: "Nous analysons un problème et trouvons 3 éléments notables, petit 1 ..."
+citation:
+  type: article
+  container-title: "Document de travail de l'OFCE n° 0"
+  # A changer par l'adresse du lien vers la publication en pdf ou vers le site web dédié
+  url: https://ofce.github.io/nofuture
+wp: xxx
+annee: 2023
+keywords: ["passé", "présent", "futur"]
+# Si le document est en mode draft, indiquez true ci-dessous pour qu'un watermark soit inscrit
+draft: true
+format:
+  wp-html: default
+  # on peut ici préciser d'autres options en pensant à enlever 'default'
+  # et à suivre scrupuleusement la syntaxe de YAML
+  wp-pdf: default
+  # ici aussi
+
+bibliography: wp_references.bib
+editor: visual
+---
+
+```{r, include=FALSE}
+# Les options qui se trouvent là sont fortement conseillées
+ofce::init_qmd() # obviously, ofce doit être installé
+```
+
+# Introduction {#sec-introduction .unnumbered}
+
+Beaucoup de choses sont détaillées sur [ofce.github.io/ofce](https://ofce.github.io/ofce). Lisez le attentivement avant tout.
+
+"Lorem" "ipsum" dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.
+
+Voir @sec-ledebut (\nameref{sec-ledebut}). @efron1993i a montré que c'est vrai. Les contours sont matérialisés sur la @fig-cars.
+
+pour le dépôt voir {{< fa brands github >}}
+
+```{r}
+#| label: fig-cars
+#| fig-cap: Speed versus distance among cars
+
+library(tidyverse)
+ggplot(cars)+
+    geom_point(aes(x=speed, y=dist))+
+    theme_ofce() +
+  ofce_caption()
+```
+
+# Une section de niveau 1 pour commencer {#sec-ledebut}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.
+
+## Section niveau 2 {#sec-cacontinue}
+
+Faucibus turpis in eu mi bibendum. Etiam tempor orci eu lobortis. Sit amet consectetur adipiscing elit pellentesque habitant. Quam viverra orci sagittis eu volutpat odio facilisis mauris sit.
+
+## Section niveau 2 {#sec-encore}
+
+Scelerisque in dictum non consectetur a erat nam at. Elementum facilisis leo vel fringilla est. Libero enim sed faucibus turpis in eu. Ut lectus arcu bibendum at varius vel pharetra vel.
+
+# Une autre section de niveau 1 {#sec-etencore}
+
+Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Vivamus arcu felis bibendum ut tristique. Non nisi est sit amet facilisis magna. Consectetur libero id faucibus nisl tincidunt eget.
+
+::: {.callout-tip collapse="true" icon="false"}
+## les encadrés
+
+Pour faire un encadré, il faut créer un div .callout-tip. Le titre de l'encadré est en niveau 2 (##)
+
+En ajoutant l'attribute `collpase=true`, cet encadré sera replié en HTML.
+
+En ajoutant l'attribute `icon=false`, Il n'y a pas d'icone dans le titre
+
+Il faut utiliser callout-tip, les autres callouts donnent les résultats standards.
+
+Dans le futur, ce sera plus simple. Pour le moment, il faut les numéroter à la main.
+:::
+
+## Section niveau 2 {#sec-ca-continue}
+
+Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum facilisis leo vel fringilla est. Iaculis eu non diam phasellus vestibulum lorem.
+
+## Section niveau 2 {#sec-encoreetencore}
+
+Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.

@@ -1,0 +1,58 @@
+title: Format OFCE
+author: Anissa Saumtally et Xavier Timbeau
+version: 0.2.0
+quarto-required: ">=1.4.300"
+contributes:
+  contributes:
+  formats:
+    common:
+      toc: true
+      lang: fr
+      date-format: "dddd D MMMM YYYY"
+      author-footer: ""
+      footer: '{{< meta title >}} {{< fa ellipsis >}} {{< meta author-footer >}} '
+      language:
+        fr:
+          section-title-references: "Références"
+          title-block-author-single: "Auteur"
+          title-block-author-plural: "Auteurs"
+      fig-asp: 0.61
+      crossref:
+        fig-prefix: figure
+        tbl-prefix: tableau
+        eq-prefix: équation
+        sec-prefix: section
+        fig-title: Figure
+        tbl-title: Tableau
+        lof-title: Figures
+        lot-title: Tableaux
+        logo: ofce.png
+      filters:
+        - nameref
+        - fr-nbsp
+       #- custom-numbered-blocks
+        - quotes
+       #- search-replace
+        - reveal-auto-agenda
+      shortcodes:
+        - fontawesome
+    revealjs:
+      logo: ofce_m.png
+      language:
+        fr:
+          toc-title-document: "Plan de la présentation"
+        en:
+          toc-title-document: "Presentation outline"
+      mainfont: Open Sans
+      slide-level: 2
+      slide-number: c/t
+      center: false
+      theme:
+        - simple
+        - ofce-pres.scss
+      navigation-mode: linear
+      code-fold: false
+      self-contained: false
+      auto-agenda:
+        bullets: none
+        heading: ""

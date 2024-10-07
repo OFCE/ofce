@@ -1,0 +1,65 @@
+/*-- scss:defaults --*/
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap');
+
+// Fonts (CSS rules)
+//$font-family-sans-serif: 'Nunito Sans', sans-serif;
+//$font-family-monospace: 'Roboto Mono', monospace;
+$font-family-serif: 'Merriweather', serif; 
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-monospace: 'Fira Code', monospace;
+
+// gris ofce
+$scpored: #e6142d;
+$ofcered: #a22a2e;
+$darkgrey: #333333;
+$green: #079D10;
+$blue: #000080;
+
+/*-- scss:rules --*/
+h1, h2, h3, h4, h5, h6, 
+.no-row-height.column-margin.column-container,
+.quarto-table-caption.margin-caption,
+.figure-caption.margin-caption {
+  text-align: start;
+}
+
+.page-columns.page-full,
+.content {
+  text-align: justify;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-justify {
+  text-align: justify;
+}
+
+tfoot.gt_sourcenotes,
+tfoot.gt_footnotes {
+  text-align: start;
+  color: #787e83;
+  font-size: .825rem;
+}
+
+.katex 
+{ font-size: 1.1em !important; } 
+
+h1, h2, h3, h4, h5 {
+  line-height: 1.3;
+}
+
+.quarto-section-identifier {
+  color: #6C6C6C;
+  font-weight: normal;
+}
+
+.figure-caption.margin-caption {
+  font-size: 1rem;
+}
+
+.nav-link {
+  font-size: .8rem;
+}
