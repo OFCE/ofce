@@ -59,7 +59,7 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
 #'
 #'
 setup_wp <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.4.373")
+  if(quarto::quarto_version()<"1.5.57")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
         (manuscript, lua, corrections de bugs, ...)
@@ -222,7 +222,7 @@ set_justify <- function(path=".", justify=TRUE, ext="ofce") {
 #'
 #'
 setup_pres <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.4.373")
+  if(quarto::quarto_version()<"1.5.57")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
         (manuscript, lua, lightbox, corrections de bugs, ...)
@@ -295,7 +295,7 @@ setup_pres <- function(dir = NULL, nom = NULL) {
 #'
 #'
 setup_blog <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.4.373")
+  if(quarto::quarto_version()<"1.5.57")
     cli::cli_alert_info(
       "Quarto 1.4 est recommandé pour les fonctions avancées
         (manuscript, lua, lightbox, corrections de bugs, ...)
