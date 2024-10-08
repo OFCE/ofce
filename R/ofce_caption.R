@@ -19,7 +19,7 @@ ofce_caption <- function(source = NULL,
                          lecture = NULL,
                          dpt = NULL,
                          dptf = "month",
-                         wrap = 120, lang = "fr", ofce=TRUE) {
+                         wrap = 110, lang = "fr", ofce=TRUE) {
   if(lang=="fr") {
     lec <- "*Lecture* : "
     src <- "*Source* : "
