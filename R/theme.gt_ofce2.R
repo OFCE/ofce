@@ -52,10 +52,10 @@ theme.gt_ofce_2 <- function(data,
     ) |>
     ## Surlignage
     gt::tab_style(
-      style = list(cell_text(weight = "normal", color = "gray45")),
-      locations = cells_body(
-        columns = everything(),
-        rows = everything())) |>
+      style = list( gt::cell_text(weight = "normal", color = "gray45")),
+      locations =  gt::cells_body(
+        columns = tidyselect::everything(),
+        rows = tidyselect::everything())) |>
     # Labels
     gt::tab_style(
       style = list(
@@ -65,10 +65,10 @@ theme.gt_ofce_2 <- function(data,
     ) |>
     gt::tab_style(
       style = list(
-        cell_fill(color = "gray90"),
+        gt::cell_fill(color = "#ffe6e6"),
         #cell_borders(color = "gray80"),
-        cell_text(style = "normal", color = "darkred",weight = "bold")),
-      locations = cells_body(
+        gt::cell_text(style = "normal", color = "darkred",weight = "bold")),
+      locations =  gt::cells_body(
         columns = col_highlight
       )) |>
     # gt::tab_style(
