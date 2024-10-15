@@ -30,6 +30,14 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
     no_prompt = TRUE,
     quiet = quiet)
 
+  ##enlever le dossier blog-site
+  old_ext <- file.path("_extensions","ofce","blog_site")
+  if(dir.exists(old_ext)){
+    unlink(old_ext, recursive = TRUE)
+  }
+
+
+
   if(!quiet) cli::cli_alert_success(
     "Mettre dans le yaml ce qui suit:
       ---
