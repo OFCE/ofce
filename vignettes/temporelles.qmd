@@ -5,7 +5,6 @@ vignette: >
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 
-
 format:
   html:
     code-fold: true
@@ -22,7 +21,7 @@ ofce::init_qmd()
 
 ## 5 Règles d'or
 
-> **Règle 1** : On utilise `theme_ofce()` !
+> **Règle 1** : On utilise `theme_ofce()` pour les graphiques !
 
 > **Règle 2** : Les dates sont au format `<date>` même lorsque la fréquence est annuelle.
 
@@ -87,23 +86,17 @@ main <- ggplot(spreads_data) +
         aesthetics = c("fill", "color"),
         name = NULL, values = cc) +
   theme_ofce()+
+  scale_ofce_date() + 
   guides(
-    x = guide_axis(minor.ticks = TRUE),
-    y = guide_axis(minor.ticks = TRUE)) +
+      y = guide_axis(minor.ticks = TRUE)) +
   labs(
         y="Ecart de taux à 10 ans",
         x=NULL,
         colour=NULL,
         caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")) +
-      scale_x_date(
-        labels = scales::label_date_short(format = c("%Y")),
-        date_breaks = "5 years",
-        date_minor_breaks = "1 year",
-        guide = "minor_ticks") +
       scale_y_continuous(
         labels = ~str_c(.x, "%"),
-        minor_breaks = scales::breaks_width(0.1),
-        guide = "axis_minor")
+        minor_breaks = scales::breaks_width(0.1))
   main |> add_logo()
 ```
 
@@ -238,12 +231,7 @@ add_logo(main %+% ss) +
   scale_y_continuous(labels = ~ str_c(.x, "%"), limits = c(0, 6),
                      minor_breaks = scales::breaks_width(0.1),
                      guide = "axis_minor") +
-  scale_x_date(
-    labels = scales::label_date_short(format = c("%Y")),
-    date_breaks = "5 years",
-    date_minor_breaks = "1 year",
-    guide = "minor_ticks",
-    limits = c(as.Date("2008-01-01"), NA))
+  scale_ofce_date(limits = c(as.Date("2008-01-01"), NA))
 
 ```
 
@@ -283,12 +271,10 @@ inset <- main +
     axis.line.y = element_blank(),
     plot.background = element_rect(fill = "white")
   ) +
-  scale_x_date(
+  scale_ofce_date(
     labels = scales::label_date_short(format = c("%Y", "%B")),
     date_breaks = "1 month",
-    limits = c(md - months(3), NA),
-    guide = "minor_ticks"
-  ) +
+    limits = c(md - months(3), NA)) +
   geom_vline(
     xintercept = as.Date("2024-06-09"),
     linewidth = 0.1,
@@ -411,12 +397,8 @@ sh <- ggplot(spreads_hyb) +
     colour = NULL,
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")
   ) +
-  scale_x_date(
-    labels = scales::label_date_short(format = c("%Y")),
-    date_breaks = "5 years",
-    date_minor_breaks = "1 year",
-    guide = "minor_ticks"
-  ) +
+  scale_ofce_date(
+    labels = scales::label_date_short(format = c("%Y")) ) +
   scale_y_continuous(
     labels = ~ str_c(.x, "%"), breaks = seq(0, 5),
     minor_breaks = scales::breaks_width(0.1),
@@ -470,19 +452,14 @@ main_i <- ggplot(spreads_m) +
   ) +
   theme_ofce() +
   guides(
-    x = guide_axis(minor.ticks = TRUE),
     y = guide_axis(minor.ticks = TRUE)
   ) +
   labs(
     colour = NULL,
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")
   ) +
-  scale_x_date(
-    labels = scales::label_date_short(format = c("%Y", "%B")),
-    date_breaks = "5 years",
-    date_minor_breaks = "1 year",
-    guide = "minor_ticks"
-  ) +
+  scale_ofce_date(
+    labels = scales::label_date_short(format = c("%Y", "%B")) ) +
   scale_y_continuous(labels = ~ str_c(.x, "%"))
 
 spreads_data <- spreads_data |>
@@ -590,7 +567,7 @@ A minima, on ajoute un bouton pour télécharger les données. C'est simple à f
 
 Pour que les boutons soient sur la même ligne on utilise la syntaxe *inline* `'r une_expression_R'` :
 
-```{r}
+```{r, fenced=TRUE}
 library(downloadthis)
 b1 <- download_this(
   spreads_m |> select(-tooltip),

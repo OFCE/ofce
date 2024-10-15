@@ -5,6 +5,9 @@ opts_chunk$set(
   dev="ragg_png",
   out.width="100%",
   fig.showtext=TRUE,
+  echo=FALSE,
+  message=FALSE,
+  warning=FALSE,
   cache=FALSE)
 
 suppressPackageStartupMessages(

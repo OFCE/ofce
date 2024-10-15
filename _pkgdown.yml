@@ -22,8 +22,12 @@ footer:
 navbar:
   structure:
     left: [guides, charte, reference, news]
+    right: [search, github]
 
   components:
+    github:
+      icon: fa-github
+      href: https://github.com/ofce/ofce
     guides:
       text: Manuels
       menu:

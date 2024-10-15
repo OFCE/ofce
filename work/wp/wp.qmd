@@ -1,11 +1,11 @@
 ---
 # modifer les champs à votre convenance
-title: Vers l'infini et au delà
-subtitle: Une analyse en profondeur
+title: "Vers l'infini et au delà"
+subtitle: "Une analyse en profondeur"
 author:
   - name: Albertine Retrouvée
     email: albertine.retrouvee@sciencespo.fr
-    affiliation: OFCE, Sciences Po Paris
+    affiliation: "OFCE, Sciences Po Paris"
     affiliation-url: "http://www.ofce.fr"
 institution: "Observatoire Français des Conjonctures Économiques"
 date: today
@@ -15,10 +15,12 @@ abstract: "Nous analysons un problème et trouvons 3 éléments notables, petit 
 citation:
   type: article
   container-title: "Document de travail de l'OFCE n° 0"
+  # A changer par l'adresse du lien vers la publication en pdf ou vers le site web dédié
   url: https://ofce.github.io/nofuture
 wp: xxx
 annee: 2023
-keywords: [passé, présent, futur]
+keywords: ["passé", "présent", "futur"]
+# Si le document est en mode draft, indiquez true ci-dessous pour qu'un watermark soit inscrit
 draft: true
 format:
   wp-html: default
@@ -33,25 +35,12 @@ editor: visual
 
 ```{r, include=FALSE}
 # Les options qui se trouvent là sont fortement conseillées
-library(knitr)
-library(tidyverse)
-library(showtext) 
-library(ofce)
-opts_chunk$set(
-  echo = FALSE,
-  warning = FALSE,
-  message = FALSE,
-  fig.pos="H", 
-  out.extra="",
-  dev="ragg_png",
-  fig.showtext=TRUE,
-  cache=FALSE)
-
-showtext_opts(dpi=200)
-showtext_auto()
+ofce::init_qmd() # obviously, ofce doit être installé
 ```
 
 # Introduction {#sec-introduction .unnumbered}
+
+Beaucoup de choses sont détaillées sur [ofce.github.io/ofce](https://ofce.github.io/ofce). Lisez le attentivement avant tout.
 
 "Lorem" "ipsum" dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor morbi non arcu risus quis varius quam quisque.
 
@@ -66,8 +55,15 @@ pour le dépôt voir {{< fa brands github >}}
 library(tidyverse)
 ggplot(cars)+
     geom_point(aes(x=speed, y=dist))+
-    theme_ofce()
+    theme_ofce() +
+  ofce_caption()
 ```
+
+::: column-margin
+```{r}
+downloadthis::download_this(cars)
+```
+:::
 
 # Une section de niveau 1 pour commencer {#sec-ledebut}
 
@@ -96,7 +92,7 @@ En ajoutant l'attribute `icon=false`, Il n'y a pas d'icone dans le titre
 
 Il faut utiliser callout-tip, les autres callouts donnent les résultats standards.
 
-Dans le futur, ce sera plus simple.
+Dans le futur, ce sera plus simple. Pour le moment, il faut les numéroter à la main.
 :::
 
 ## Section niveau 2 {#sec-ca-continue}
@@ -106,16 +102,3 @@ Amet est placerat in egestas erat imperdiet sed. Non enim praesent elementum fac
 ## Section niveau 2 {#sec-encoreetencore}
 
 Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Auctor elit sed vulputate mi sit amet.
-
-::: {#fig-test}
-```{r}
-library(tidyverse)
-ggplot(cars)+geom_point(aes(x=speed, y=dist, col=dist))
-```
-
-Note de lecture : Ce format est une alternative
-
-Source : une source
-
-lien entre speed et vitesse
-:::
