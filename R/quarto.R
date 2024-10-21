@@ -346,7 +346,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   readLines(target) |>
     stringr::str_replace(
       pattern = "bibliography: references.bib",
-      replace = stringr::str_c("bibliography: ", nom, "_references.bib")) |>
+      replace = stringr::str_c("bibliography: blog_references.bib")) |>
     writeLines(con = target)
   file.copy(bib, to = refs)
   rstudioapi::navigateToFile(

@@ -13,12 +13,13 @@ description: "Chapeau du texte qui apparait dans la vignette du billet sur le me
 format:
   blog-html: default
   blog-pdf: default
-categories: ["keyword1", "keyword2"] # Le choix des keywords doit être fait en lien avec la responsable du blog (liste de termes à suivre) 
+categories: ["keyword1", "keyword2"] # A choisir parmi une liste prédéterminée (ofce::keywords_list() pour y avoir accès)
 image: image.jpg
 
 
-# A activer pour permettre les commentaires via hypothesis (https://web.hypothes.is/)
-# comments:
+## A activer pour permettre les commentaires via hypothesis (activer son profil via https://hypothes.is/groups/9A3bza7D/blog et s'inscrire au groupe blog)
+
+  # comments:
 #   hypothesis: true
 
 bibliography: blog_references.bib
