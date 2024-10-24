@@ -40,45 +40,45 @@ ofce_caption <- function(source = NULL,
   caption <- ""
 
   if(length(lecture)>0) {
-    caption <- str_c(lec, lecture)  |>
-      str_c(".") |>
-      str_wrap(width = wrap) |>
-      str_replace_all("\\n", "<br>")
+    caption <- stringr::str_c(lec, lecture)  |>
+      stringr::str_c(".") |>
+      stringr::str_wrap(width = wrap) |>
+      stringr::str_replace_all("\\n", "<br>")
   }
 
   if(length(note)>0) {
     if(length(caption>0))
-      caption <- caption |> str_c("<br>")
+      caption <- caption |> stringr::str_c("<br>")
     addcaption <- str_c(not, note) |>
-      str_c(".") |>
-      str_wrap(width = wrap) |>
-      str_replace_all("\\n", "<br>")
+      stringr::str_c(".") |>
+      stringr::str_wrap(width = wrap) |>
+      stringr::str_replace_all("\\n", "<br>")
     caption <- caption |>
-      str_c(addcaption)
+      stringr::str_c(addcaption)
   }
   if(ofce) {
     if(length(source)==0)
       source <- Ofc else
-        source <- str_c(source , ofc)
+        source <- stringr::str_c(source , ofc)
   }
 
   if(length(source)>0) {
     if(length(caption>0))
       caption <- caption |> str_c("<br>")
-    if(str_detect(source, ",|;"))
-      src <- src |> str_replace("ce", "ces")
-    addcaption <- str_c(src, source) |>
-      str_c(".") |>
-      str_wrap(width = wrap) |>
-      str_replace_all("\\n", "<br>")
+    if(stringr::str_detect(source, ",|;"))
+      src <- src |> stringr::str_replace("ce", "ces")
+    addcaption <- stringr::str_c(src, source) |>
+      stringr::str_c(".") |>
+      stringr::str_wrap(width = wrap) |>
+      stringr::str_replace_all("\\n", "<br>")
     caption <- caption |>
-      str_c(addcaption)
+      stringr::str_c(addcaption)
   }
 
   if(length(dpt)>0) {
     if(length(caption>0))
-        caption <- caption |> str_c("<br>", Der, dernier_point(dpt, dptf, lang)) else
-          caption <- caption |> str_c(Der, dernier_point(dpt, dptf, lang))
+        caption <- caption |> stringr::str_c("<br>", Der, dernier_point(dpt, dptf, lang)) else
+          caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
   }
 
   labs(caption = caption)
@@ -101,16 +101,16 @@ dernier_point <- function(date, freq = "month", lang = "fr") {
   }
 
   if(freq == "day")
-    return(str_c(lubridate::day(date),
+    return(stringr::str_c(lubridate::day(date),
                  lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
                  lubridate::year(date), sep = " "))
 
   if(freq == "month")
-    return(str_c(lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
+    return(stringr::str_c(lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
                  lubridate::year(date), sep = " "))
 
   if(freq == "quarter")
-    return(str_c("T", lubridate::quarter(date), " ",
+    return(stringr::str_c("T", lubridate::quarter(date), " ",
                  lubridate::year(date)))
 
   return(lubridate::year(date))

@@ -1,0 +1,270 @@
+# source_data ------------------------------
+
+# source_data est un outil qui permet d'exécuter un code, d'en cacher le résultat dans un dossier spécial (_data) en gardant des métadonnées
+# sauf modifications ou écart de temps (à configuer), les appels suivant au code ne sont pas exécutés mais le ficheir de data est relu
+# quelques fonctions permettent de diagnostiquer le cache et de suivre les mises à jour.
+
+
+#' source_data : exécute le code et cache les données
+#'
+#' Cette fonction s'utilise presque comme source et permet d'en accélérer l'exécution par le cache des données.
+#'
+#' Le code est exécuté (dans un environnement local) et le résultat est mis en cache. Il est important que le code se termine par un return(les_données).
+#' Si return() n'est pas présent dans le code, il n'est pas exécuté et un message d'erreur est envoyé ("NULL" est retourné).
+#' le code est exécuté avec un contrôle d'erreur, donc si il bloque, "NULL" est renvoyé, mais sans erreur ni arrêt.
+#' les appels suivants seront plus rapides et sans erreur.
+#'
+#' Une modification du code est détectée et déclenche l'éxécution
+#'
+#' Suivant le paramètre lapse on peut déclencher une exécution péridique. Par exemple, pour ne pas rater une MAJ, on peut mettre lapse = "1 day" ou "day" et une fois par jour le code sera exécuté.
+#' Cela permet d'éviter une exécution à chaque rendu.
+#'
+#' On peut bloquer l'exécution en renseignant la variable d'environnement "PREVENT_EXEC" pas Sys.setenv(PREVENT_EXEC = "TRUE") ou dans .Renviron.
+#' Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence de cache).
+#'
+#' Des métadonnées peuvent être renvoyées (paramètre metadata) avec la date d'exécution ($date), le temps d'exécution ($timing),
+#' la taille des données ($size), le chemin de la source ($where), le hash du source ($hash) et bine sûr les données ($data)
+#'
+#' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
+#' @param relative (character) Si "projet" le chemin est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
+#' @param data_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
+#' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
+#' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
+#' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
+#' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
+#' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
+#'
+#' @return data (list ou ce que le code retourne)
+#' @export
+#'
+source_data <- function(name,
+                        relative = "project",
+                        data_rep = "_data",
+                        hash = TRUE,
+                        lapse = "never",
+                        force_exec = Sys.getenv("FORCE_EXEC"),
+                        prevent_exec = Sys.getenv("PREVENT_EXEC"),
+                        metadata = FALSE) {
+
+  # on trouve le fichier
+  # si c'est project on utilise here, sinon, on utilise le wd courant
+  name <- remove_ext(name)
+  safe_find_root <- purrr::safely(rprojroot::find_root)
+  root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+  if(is.null(root$error))
+    root <- root$result
+  else {
+    cli::cli_alert_warning("{root$error}")
+    return(NULL)
+  }
+  data_rep <- stringr::str_c(root, "/", data_rep) # absolu maintenant
+  if(relative=="project") {
+    src <- here::here(stringr::str_c(name, ".R"))
+    if(!file.exists(src)) {
+      src <- here::here(stringr::str_c(name, ".r"))
+      if(!file.exists(src)) {
+        src <- try_find_src(root, name)
+        if(length(src)==0) {
+          cli::cli_alert_warning("Le fichier n'existe pas en .r ou .R, vérifier le chemin")
+          return(NULL)
+        }
+        cli::cli_alert_info("On utilise {src}")
+      }
+    }
+  } else {
+    src <- str_c(stringr::file, ".r")
+    if(!file.exists(src)) {
+      src <- here::here(stringr::str_c(file, ".R"))
+      if(!file.exists(src)) {
+        return(NULL)
+      }
+    }
+  }
+
+
+  if(length(check_return(src))==0) {
+    cli::cli_alert_danger("Pas de return() dans le fichier {src}")
+    return(NULL)
+  }
+
+  if(length(check_return(src))>1) {
+    cli::cli_alert_info("Plusieurs return() dans le fichier {src}, attention !")
+  }
+
+  basename <- basename(name)
+  reldirname <- stringr::str_remove(dirname(src), root)
+  relname <- stringr::str_remove(src, root)
+  cache_rep <- stringr::str_c(data_rep, reldirname, "/") # absolu donc
+
+  if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
+  if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
+
+  if(force&!prevent) {
+    our_data <- exec_source(src, lapse, relname)
+    if(our_data$ok) {
+      cache_data(our_data, cache_rep = cache_rep, name = basename)
+      if(metadata) {
+        return(our_data)
+      } else {
+        return(our_data$data)
+      }
+    } else {
+      cli::cli_alert_warning("le fichier {src} retourne une erreur, on cherche dans le cache")
+    }
+  }
+
+  src_hash <- tools::md5sum(src)
+
+  good_datas <- get_datas(basename, cache_rep)
+
+  if(hash&!prevent)
+    good_datas <- purrr::keep(good_datas, ~.x[["hash"]]==src_hash)
+
+  if(lapse != "never"&!prevent) {
+    lapse <- what_lapse(check_lapse)
+    good_datas <- purrr::keep(good_datas, ~lubridate::now() - .x[["date"]] <= lapse)
+  }
+
+  if(length(good_datas)==0) {
+    if(prevent) {
+      cli::cli_alert_warning("Pas de données en cache, pas d'exécution")
+      return(NULL)
+    }
+    our_data <- exec_source(src, lapse, relname)
+    if(our_data$ok) {
+      cache_data(our_data, cache_rep = cache_rep, name = basename)
+      if(metadata) {
+        return(our_data)
+      } else {
+        return(our_data$data)
+      }
+    } else {
+      cli::cli_alert_warning("le fichier {src} retourne une erreur et rien dans le cache")
+    }
+  }
+
+  dates <- purrr::map(good_datas, "date")
+  good_good_data <- good_datas[[which.max(dates)]]
+
+  if(metadata) {
+    return(good_good_data)
+  } else {
+    return(good_good_data$data)
+  }
+
+}
+
+check_return <- function(src) {
+  src.txt <- readLines(src, warn=FALSE)
+  ret <- stringr::str_extract(src.txt, "^return\\((.+)\\)", group=1)
+  purrr::keep(ret, ~!is.na(.x))
+}
+
+get_datas <- function(name, data_rep, ext = "qs") {
+  dir <- stringr::str_c(data_rep)
+  pat <- stringr::str_c("[", name, "_][:digit:]+[.", ext, "]")
+  files <- list.files(path = dir, pattern = pat, full.names = TRUE)
+  purrr::map(files, ~ qs::qread(.x))
+}
+
+exec_source <- function(src, lapse, relname) {
+  safe_source <- purrr::safely(source)
+
+  start <- Sys.time()
+  res <- safe_source(src, local=TRUE)
+  timing <- as.numeric(Sys.time() - start)
+
+  if(!is.null(res$error))
+    return(list(ok=FALSE))
+
+  list(
+    data = res$result$value,
+    timing = timing,
+    date = lubridate::now(),
+    size = lobstr::obj_size(res$result$value),
+    hash = tools::md5sum(src),
+    url = "",
+    src = relname,
+    lapse = lapse,
+    ok = TRUE
+  )
+}
+
+cache_data <- function(data, cache_rep, name, ext = "qs") {
+  cc <- 1
+  while(file.exists(stringr::str_c(cache_rep, name, "_", cc, ".", ext)))
+    cc <- cc+1
+  dir.create(cache_rep, recursive=TRUE)
+  data$ok <- NULL
+  qs::qsave(data, file = stringr::str_c(cache_rep, name, "_", cc, ".", ext))
+}
+
+what_lapse <- function(check) {
+  ext <- function(e) {
+    num <- stringr::str_extract(e, "^([0-9]+)")
+    if(is.na(num))
+      num <- 1
+
+    num <- as.numeric(num)
+  }
+  if(stringr::str_detect(check, "month"))
+    return(lubridate::months(ext(check)))
+  if(stringr::str_detect(check, "week"))
+    return(lubridate::weeks(ext(check)))
+  if(stringr::str_detect(check, "quarter"))
+    return(lubridate::quarters(ext(check)))
+  if(stringr::str_detect(check, "day"))
+    return(lubridate::days(ext(check)))
+  if(stringr::str_detect(check, "hour"))
+    return(lubridate::hours(ext(check)))
+  if(stringr::str_detect(check, "year"))
+    return(lubridate::years(ext(check)))
+}
+
+remove_ext <- function(name) {
+  stringr::str_remove(name, "\\.[r|R]$")
+}
+
+try_find_src <- function(root, name) {
+  ff <- list.files(path = root, pattern="*.[R|r]", recursive=TRUE, full.names = TRUE)
+  pat <- glue::glue("{name}\\.[r|R]$")
+  ff |> purrr::keep(~ stringr::str_detect(.x, pat)) |> purrr::keep(~ !stringr::str_detect(.x, "/_"))
+}
+
+#' Etat du cache de source_data
+#'
+#' Donne des informations sur le cache de source_data sous la forme d'un tibble
+#'
+#' @param data_rep le chemin vers le cache (défaut "_cache")
+#'
+#' @return tibble
+#' @export
+#'
+
+source_data_status <- function(data_rep = "_data") {
+  safe_find_root <- purrr::safely(rprojroot::find_root)
+  root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+  if(is.null(root$error))
+    root <- root$result
+  else {
+    cli::cli_alert_warning("{root$error}")
+    return(NULL)
+  }
+  data_rep <- stringr::str_c(root, "/", data_rep) # absolu maintenant
+
+  caches <- list.files(path = data_rep, pattern = "*.qs", recursive = TRUE, full.names = TRUE)
+
+  purrr::map_dfr(caches, ~{
+    dd <- qs::qread(.x)
+
+    tibble::tibble(
+      date = dd$date,
+      timing = dd$timing,
+      size = dd$size,
+      hash = dd$hash,
+      src = dd$src,
+      where = .x
+    )
+  }
+  )
+}

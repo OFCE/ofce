@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9.9000/font.css" rel="stylesheet">
-<link href="../deps/Fira_Code-0.4.9.9000/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="tableaux_files/libs/quarto-html/popper.min.js"></script><script src="tableaux_files/libs/quarto-html/tippy.umd.min.js"></script><link href="tableaux_files/libs/quarto-html/tippy.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,61 +93,90 @@
 
 
 
-    <section class="level3"><h3 id="comment-faire-un-tableau">Comment faire un tableau<a class="anchor" aria-label="anchor" href="#comment-faire-un-tableau"></a>
+    <section class="level2"><h2 id="les-tableaux-dans-quarto">Les tableaux dans quarto<a class="anchor" aria-label="anchor" href="#les-tableaux-dans-quarto"></a>
+</h2>
+<section class="level3"><h3 id="différentes-façons-de-faire-apparaître-un-tableau-dans-un-quarto">Différentes façons de faire apparaître un tableau dans un quarto<a class="anchor" aria-label="anchor" href="#diff%C3%A9rentes-fa%C3%A7ons-de-faire-appara%C3%AEtre-un-tableau-dans-un-quarto"></a>
+</h3>
+<p>Pour faire figurer un tableau dans un markdown, il y a plusieurs méthodes</p>
+<ol type="1">
+<li>La capture d’écran</li>
+</ol>
+<p>Ça peut se faire, mais ça ne se fait pas, donc on ne fera pas.</p>
+<ol start="2" type="1">
+<li>L’intégration brute du data.frame dans le qmd</li>
+</ol>
+<p>Dans l’absolu, un data.frame peut être directement intégré dans un qmd sans manipulation supplémentaire.</p>
+<p>Quelques remarques :</p>
+<ul>
+<li>En cas de base de données larges, cela prend trop de place sur le documents</li>
+<li>le formatage reste sommaire et difficile à améliorer</li>
+<li>des packages markdown peuvent être appelés pour</li>
+</ul>
+<ol start="3" type="1">
+<li>La syntaxe markdown</li>
+</ol>
+<p>Ce format peut convenir pour les tableaux à texte. Il est cependant difficile à formater et éditer.</p>
+<ol start="4" type="1">
+<li>L’utilisation de packages R pour les tableaux formatés</li>
+</ol>
+<p>Cette méthode est à priviligier pour tout tableau contenant des données principalement numériques ou extraites de base de données.</p>
+<p>Plusieurs packages existent: <code>huxtable</code>, <code>flextable</code>, <code>formattable</code>, <code>gt</code> etc..</p>
+<p>Le package privilégié pour l’ofce est <code>gt</code>.</p>
+<p>On notera cependant que d’autres package peuvent présenter quelques fonctionnalités supplémentaires qui peuvent être intéressantes pour certaines applications. Par exemple, le package <code>flextable</code> est très utiles si le document de sortie est un <code>.docx</code> et est plus flexible sur la gestion des cellules mergées.</p>
+</section><section class="level3"><h3 id="comment-faire-un-tableau">Comment faire un tableau<a class="anchor" aria-label="anchor" href="#comment-faire-un-tableau"></a>
 </h3>
 <p>Pour faire un tableau, nous conseillons <em>vivement</em> d’utiliser <a href="https://gt.rstudio.com" class="external-link">gt</a>. Le principe est assez simple, un peu comme dans <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> on ajoute des couches qui petit à petit construisent le tableau. Ca peut paraître fastidieux, mais ça ne l’est pas tant que ça : c’est ce qu’on fait dans excel ou word pour mettre en forme un tableau. L’intérêt de <a href="https://gt.rstudio.com" class="external-link">gt</a> c’est de dissocier la phase données de la phase mise en page.</p>
 <p>Le manuel de <a href="https://gt.rstudio.com" class="external-link">gt</a> est d’une lecture simple, avec plein d’exemples : <a href="https://gt.rstudio.com/" class="external-link">Easily Create Presentation-Ready Display Tables • gt (rstudio.com)</a></p>
 <p>Le code d’un <a href="https://gt.rstudio.com" class="external-link">gt</a> est du genre :</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># le fichier excel est préformaté, un onglet contient les données </span></span>
-<span><span class="co"># prêtes à l'utilisation</span></span>
-<span><span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span></span>
-<span>  <span class="st">"analyses/Tables/patrimoine menages.v2.xlsx"</span>, </span>
-<span>  sheet <span class="op">=</span> <span class="st">"masspat"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># on filtre les lignes les colonnes dont on a besoin</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">tranche</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-90%"</span>, <span class="st">"90-99%"</span>, <span class="st">"99-100%"</span>, <span class="st">"Total"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">revraw</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># on les met dans l'ordre souhaité, </span></span>
-<span>  <span class="co"># plus le tibble est comme le tableau final le mieux c'est</span></span>
-<span>  <span class="fu">relocate</span><span class="op">(</span><span class="va">tranche</span>, <span class="va">revdisp</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># pour avoir les chiffres par tête on fait un dernier mutate</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">revdisp</span>, <span class="va">tot</span>, <span class="va">fi</span>, <span class="va">pro</span>, <span class="va">imm</span>, <span class="va">autre</span><span class="op">)</span>, <span class="op">~</span><span class="va">.x</span><span class="op">/</span><span class="fl">30.5</span><span class="op">*</span><span class="fl">1000</span><span class="op">/</span><span class="va">men</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">men</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>tranche <span class="op">=</span> <span class="fu">str_replace</span><span class="op">(</span><span class="va">tranche</span>, <span class="st">"Total"</span>, <span class="st">"Moyenne"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># gt sert à fabriquer le tableau mis en forme</span></span>
-<span>  <span class="co"># a partir de là, plus de manip possible</span></span>
-<span>   <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># le spanner regroupe des colonnes sous un même label</span></span>
-<span>   <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html" class="external-link">tab_spanner</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">tranche</span>, <span class="va">revdisp</span><span class="op">)</span>, label  <span class="op">=</span> <span class="st">"Patrimoine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># on a gardé les noms simples dans les données, on les traduit en clair ici</span></span>
-<span>  <span class="co"># on privilégie cette approche : qui permet de corriger dans le qmd le texte</span></span>
-<span>  <span class="co"># qui permet de traduire</span></span>
-<span>  <span class="co"># qui permet d'uniformiser les labels si on a plusieurs tableaux</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html" class="external-link">cols_label</a></span><span class="op">(</span>tranche <span class="op">=</span> <span class="st">""</span>, revdisp <span class="op">=</span> <span class="st">"Revenu disponible"</span>, </span>
-<span>             tot <span class="op">=</span> <span class="st">"Total"</span>, fi <span class="op">=</span> <span class="st">"Financier"</span>, </span>
-<span>             pro  <span class="op">=</span> <span class="st">"Professionnel"</span>, imm <span class="op">=</span> <span class="st">"Immobilier"</span>, </span>
-<span>             autre <span class="op">=</span> <span class="st">"Autres"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># idem, on passe des nombres, on les formatte ici</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="op">-</span><span class="va">tranche</span>, scale <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>             n_sigfig <span class="op">=</span> <span class="fl">3</span>,  decimals <span class="op">=</span> <span class="fl">0</span>, sep_mark <span class="op">=</span> <span class="st">" "</span> <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># on met en gras en en darkred une ligne -- notez la syntaxe élégante de gt</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html" class="external-link">tab_style</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html" class="external-link">cell_text</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="st">"bold"</span>, color <span class="op">=</span> <span class="st">"darkred"</span><span class="op">)</span>, </span>
-<span>            locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html" class="external-link">cells_body</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="va">tranche</span> <span class="op">==</span> <span class="st">"Moyenne"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># indispensable, les sources. md() permet d'avoir un texte enrichi qui comprend markdown</span></span>
-<span>  <span class="co"># &lt;br&gt; retourne à la ligne dans la note</span></span>
-<span>  <span class="co"># on met les notes ici, ca permet corrections, uniformisation et traduction</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html" class="external-link">tab_source_note</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Revenu disponible brut et actifs bruts (hors passif) par ménage, en euros, année 2022</span></span>
-<span><span class="st">      &lt;br&gt;Calculs réalisés à partir de l'enquête patrimoine des ménages 2017-2018 de l'Insee croisés avec les comptes nationaux du patrimoine de l'Insee de 2022</span></span>
-<span><span class="st">      &lt;br&gt;*Sources* : Insee, calculs OFCE"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># le fichier excel est préformaté, un onglet contient les données </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># prêtes à l'utilisation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"analyses/Tables/patrimoine menages.v2.xlsx"</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sheet =</span> <span class="st">"masspat"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># on filtre les lignes les colonnes dont on a besoin</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tranche <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"0-90%"</span>, <span class="st">"90-99%"</span>, <span class="st">"99-100%"</span>, <span class="st">"Total"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>revraw) <span class="sc">|&gt;</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># on les met dans l'ordre souhaité, </span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plus le tibble est comme le tableau final le mieux c'est</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(tranche, revdisp) <span class="sc">|&gt;</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># pour avoir les chiffres par tête on fait un dernier mutate</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(revdisp, tot, fi, pro, imm, autre), <span class="sc">~</span>.x<span class="sc">/</span><span class="fl">30.5</span><span class="sc">*</span><span class="dv">1000</span><span class="sc">/</span>men)) <span class="sc">|&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>men) <span class="sc">|&gt;</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tranche =</span> <span class="fu">str_replace</span>(tranche, <span class="st">"Total"</span>, <span class="st">"Moyenne"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># gt sert à fabriquer le tableau mis en forme</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a partir de là, plus de manip possible</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># le spanner regroupe des colonnes sous un même label</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>   <span class="fu">tab_spanner</span>(<span class="at">columns =</span> <span class="sc">-</span><span class="fu">c</span>(tranche, revdisp), <span class="at">label  =</span> <span class="st">"Patrimoine"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># on a gardé les noms simples dans les données, on les traduit en clair ici</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># on privilégie cette approche : qui permet de corriger dans le qmd le texte</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># qui permet de traduire</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># qui permet d'uniformiser les labels si on a plusieurs tableaux</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">tranche =</span> <span class="st">""</span>, <span class="at">revdisp =</span> <span class="st">"Revenu disponible"</span>, </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>             <span class="at">tot =</span> <span class="st">"Total"</span>, <span class="at">fi =</span> <span class="st">"Financier"</span>, </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>             <span class="at">pro  =</span> <span class="st">"Professionnel"</span>, <span class="at">imm =</span> <span class="st">"Immobilier"</span>, </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>             <span class="at">autre =</span> <span class="st">"Autres"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># idem, on passe des nombres, on les formatte ici</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="sc">-</span>tranche, <span class="at">scale =</span> <span class="dv">1</span>,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>             <span class="at">n_sigfig =</span> <span class="dv">3</span>,  <span class="at">decimals =</span> <span class="dv">0</span>, <span class="at">sep_mark =</span> <span class="st">" "</span> ) <span class="sc">|&gt;</span> </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># on met en gras en en darkred une ligne -- notez la syntaxe élégante de gt</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(<span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>), </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> tranche <span class="sc">==</span> <span class="st">"Moyenne"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># indispensable, les sources. md() permet d'avoir un texte enrichi qui comprend markdown</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># &lt;br&gt; retourne à la ligne dans la note</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># on met les notes ici, ca permet corrections, uniformisation et traduction</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">md</span>(</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>   <span class="dv">22222</span>   <span class="st">"Revenu disponible brut et actifs bruts (hors passif) par ménage, en euros, année 2022</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;br&gt;Calculs réalisés à partir de l'enquête patrimoine des ménages 2017-2018 de l'Insee croisés avec les comptes nationaux du patrimoine de l'Insee de 2022</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="st">      &lt;br&gt;*Sources* : Insee, calculs OFCE"</span>))</span></code></pre></div>
 <section class="level4"><h4 id="dautres-solutions-pour-les-tableaux">D’autres solutions pour les tableaux<a class="anchor" aria-label="anchor" href="#dautres-solutions-pour-les-tableaux"></a>
 </h4>
 <p>Le pire du pire est de mettre le tableau comme une copie d’écran d’excel ou d’un pdf. C’est à banir.</p>
 <p>Moins pire est d’utiliser la syntaxe <code>markdown</code>. Ca peut paraître plus simple mais c’est rapidement dépassé et permet très peu de présentation avancée.</p>
-</section></section><script id="quarto-html-after-body" type="application/javascript">
+</section></section></section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

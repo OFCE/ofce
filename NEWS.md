@@ -1,3 +1,11 @@
+# OFCE 1.3.0
+
+* ajout de source_data(), et de source_data_status()
+
+# OFCE 1.2.1
+
+* corrections de bugs 
+
 # OFCE 1.2.0
   
 * ajout de ofce_caption() ; ajout de scale_ofce_date()
@@ -11,6 +19,7 @@
 # OFCE 1.0.0
 
 * première version avec notamment les fonctions
+
 ** theme_ofce()
 ** setup_quarto()
 ** setup_wp()

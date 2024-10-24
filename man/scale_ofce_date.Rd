@@ -6,6 +6,7 @@
 \usage{
 scale_ofce_date(
   date_breaks = "5 years",
+  labels = NULL,
   date_minor_breaks = "1 year",
   date_labels = "\%Y",
   guide = "minor_breaks",

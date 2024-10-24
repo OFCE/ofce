@@ -10,7 +10,7 @@ ofce_caption(
   lecture = NULL,
   dpt = NULL,
   dptf = "month",
-  wrap = 120,
+  wrap = 110,
   lang = "fr",
   ofce = TRUE
 )
