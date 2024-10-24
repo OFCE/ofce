@@ -45,7 +45,6 @@ source_data <- function(name,
                         force_exec = Sys.getenv("FORCE_EXEC"),
                         prevent_exec = Sys.getenv("PREVENT_EXEC"),
                         metadata = FALSE) {
-
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
   name <- remove_ext(name)
@@ -93,7 +92,7 @@ source_data <- function(name,
 
   basename <- basename(name)
   reldirname <- stringr::str_remove(dirname(src), root)
-  relname <- stringr::str_remove(src, root)
+  relname <- stringr::str_remove(src, stringr::str_c(root, "/"))
   cache_rep <- stringr::str_c(data_rep, reldirname, "/") # absolu donc
 
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
@@ -140,6 +139,7 @@ source_data <- function(name,
       }
     } else {
       cli::cli_alert_warning("le fichier {src} retourne une erreur et rien dans le cache")
+      return(NULL)
     }
   }
 
@@ -191,11 +191,24 @@ exec_source <- function(src, lapse, relname) {
 }
 
 cache_data <- function(data, cache_rep, name, ext = "qs") {
+  pat <- stringr::str_c("[", name, "_]([:digit:]+)[\\.", ext, "]")
+  files <- list.files(path = cache_rep, pattern = pat)
   cc <- 1
-  while(file.exists(stringr::str_c(cache_rep, name, "_", cc, ".", ext)))
-    cc <- cc+1
+  data_hash <- digest::digest(data$data)
+  if(length(files)>0) {
+    cc <- stringr::str_extract(files, pat, group = 1) |> as.numeric() |> max()
+    cache <- TRUE
+    last_data <- qs::qread(stringr::str_c(cache_rep, name,"_", cc, ".qs"))
+    last_data_hash <- last_data$data_hash
+    if(!is.null(last_data_hash)) {
+      if(data_hash == last_data_hash)
+        cc <- cc
+    } else
+      cc <- cc +1
+  }
   dir.create(cache_rep, recursive=TRUE)
   data$ok <- NULL
+  data$data_hash <- data_hash
   qs::qsave(data, file = stringr::str_c(cache_rep, name, "_", cc, ".", ext))
 }
 
@@ -258,13 +271,16 @@ source_data_status <- function(data_rep = "_data") {
     dd <- qs::qread(.x)
 
     tibble::tibble(
+      src = dd$src,
       date = dd$date,
       timing = dd$timing,
       size = dd$size,
+      lapse = dd$lapse,
+      where = .x,
       hash = dd$hash,
-      src = dd$src,
-      where = .x
-    )
+      data_hash = dd$data_hash,
+    ) |>
+      arrange(src, desc(date))
   }
   )
 }
