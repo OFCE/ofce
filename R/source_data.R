@@ -149,7 +149,7 @@ source_data <- function(name,
     good_datas <- purrr::keep(good_datas, ~.x[["src_hash"]]==src_hash)
 
   if(lapse != "never"&!prevent) {
-    lapse <- what_lapse(check_lapse)
+    lapse <- what_lapse(lapse)
     good_datas <- purrr::keep(good_datas, ~lubridate::now() - .x[["date"]] <= lapse)
   }
 
