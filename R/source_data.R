@@ -113,7 +113,7 @@ source_data <- function(name,
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
   full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
-  exec_wd <- root
+  exec_wd <- getwd()
   if(wd=="project")
     exec_wd <- root
   if(wd=="file")
@@ -323,7 +323,7 @@ source_data_status <- function(data_rep = getOption("ofce.source_data.cache_rep"
       size = dd$size,
       lapse = dd$lapse,
       where = .x,
-      hash = dd$hash,
+      src_hash = dd$hash,
       data_hash = dd$data_hash,
     ) |>
       arrange(src, desc(date))
