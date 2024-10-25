@@ -288,7 +288,7 @@ try_find_src <- function(root, name) {
 #' @export
 #'
 
-source_data_status <- function(data_rep = "_data") {
+source_data_status <- function(data_rep = getOption("ofce.source_data.cache_rep")) {
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   if(is.null(root$error))
