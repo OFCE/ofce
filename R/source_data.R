@@ -47,7 +47,8 @@ source_data <- function(name,
                         lapse = getOption("ofce.source_data.lapse"),
                         force_exec = getOption("ofce.source_data.force_exec"),
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
-                        metadata = getOption("ofce.source_data.metadata")) {
+                        metadata = getOption("ofce.source_data.metadata"),
+                        quiet = TRUE) {
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
 
@@ -58,7 +59,8 @@ source_data <- function(name,
   if(is.null(root$error))
     root <- root$result
   else {
-    cli::cli_alert_warning("{root$error}")
+    if(!quiet)
+      cli::cli_alert_warning("{root$error}")
     return(NULL)
   }
   root <- fs::path_norm(root)
@@ -69,11 +71,13 @@ source_data <- function(name,
     if(is.null(src)) {
       src <- try_find_src(root, name)
       if(length(src)==0) {
-        cli::cli_alert_warning("Le fichier n'existe pas en .r ou .R, vérifier le chemin")
+        if(!quiet)
+          cli::cli_alert_warning("Le fichier n'existe pas en .r ou .R, vérifier le chemin")
         return(NULL)
       }
       if(length(src)>1) {
-        cli::cli_alert_warning("Plusieurs fichiers sont possibles")
+        if(!quiet)
+          cli::cli_alert_warning("Plusieurs fichiers sont possibles")
         l_src <- purrr::map(src, length)
         src <- src[[which.max(l_src)]]
       }
@@ -90,16 +94,18 @@ source_data <- function(name,
       }
     }
   }
-
-  cli::cli_alert_info("{src} comme source")
+  if(!quiet)
+    cli::cli_alert_info("{src} comme source")
 
   if(length(check_return(src))==0) {
-    cli::cli_alert_danger("Pas de return() dans le fichier {src}")
+    if(!quiet)
+      cli::cli_alert_danger("Pas de return() dans le fichier {src}")
     return(NULL)
   }
 
   if(length(check_return(src))>1) {
-    cli::cli_alert_info("Plusieurs return() dans le fichier {src}, attention !")
+    if(!quiet)
+      cli::cli_alert_info("Plusieurs return() dans le fichier {src}, attention !")
   }
 
   basename <- fs::path_file(name)
@@ -120,7 +126,8 @@ source_data <- function(name,
         return(our_data$data)
       }
     } else {
-      cli::cli_alert_warning("le fichier {src} retourne une erreur, on cherche dans le cache")
+      if(!quiet)
+        cli::cli_alert_warning("le fichier {src} retourne une erreur, on cherche dans le cache")
     }
   }
 
@@ -138,7 +145,8 @@ source_data <- function(name,
 
   if(length(good_datas)==0) {
     if(prevent) {
-      cli::cli_alert_warning("Pas de données en cache, pas d'exécution")
+      if(!quiet)
+        cli::cli_alert_warning("Pas de données en cache, pas d'exécution")
       return(NULL)
     }
     our_data <- exec_source(src, lapse, relname)
@@ -150,7 +158,8 @@ source_data <- function(name,
         return(our_data$data)
       }
     } else {
-      cli::cli_alert_warning("le fichier {src} retourne une erreur et rien dans le cache")
+      if(!quiet)
+        cli::cli_alert_warning("le fichier {src} retourne une erreur et rien dans le cache")
       return(NULL)
     }
   }
@@ -174,7 +183,9 @@ check_return <- function(src) {
 
 get_datas <- function(name, data_rep, ext = "qs") {
   pat <- glue::glue("{name}_[0-9]+\\.{ext}$")
-  files <- fs::dir_ls(path = data_rep, regexp = pat)
+  files <- list()
+  if(fs::dir_exists(data_rep))
+    files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
   purrr::map(files, ~ qs::qread(.x))
 }
 
@@ -203,7 +214,9 @@ exec_source <- function(src, lapse, relname) {
 
 cache_data <- function(data, cache_rep, name, ext = "qs") {
   pat <- glue::glue("{name}_([0-9]+)\\.{ext}")
-  files <- fs::dir_ls(path = cache_rep, regexp = pat)
+  files <- list()
+  if(fs::dir_exists(cache_rep))
+    files <- fs::dir_ls(path = cache_rep, regexp = pat)
   cc <- 1
   data_hash <- digest::digest(data$data)
   if(length(files)>0) {
