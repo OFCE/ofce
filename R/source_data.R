@@ -177,7 +177,7 @@ source_data <- function(name,
 
 check_return <- function(src) {
   src.txt <- readLines(src, warn=FALSE)
-  ret <- stringr::str_extract(src.txt, "^return\\((.+)\\)", group=1)
+  ret <- stringr::str_extract(src.txt, "^return\\((.*)", group=1)
   purrr::keep(ret, ~!is.na(.x))
 }
 
