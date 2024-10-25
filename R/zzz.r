@@ -3,8 +3,15 @@
   op.ofce <- list(
     ofce.background_color = "transparent",
     ofce.base_family = "Open Sans",
-    ofce.base_size = 12
-  )
+    ofce.base_size = 12,
+    ofce.source_data.force_exec = FALSE,
+    ofce.source_data.prevent_exec = FALSE,
+    ofce.source_data.cache_rep = ".data",
+    ofce.source_data.hash = TRUE,
+    ofce.source_data.metadata = FALSE,
+    ofce.source_data.lapse = "never",
+    ofce.source_data.relative= "project")
+
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])
 
@@ -17,18 +24,18 @@
     bolditalic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-BoldItalic.ttf")
   )
 
-  sysfonts::font_add(
-    "Nunito",
-    regular  = stringr::str_c(fonts_dir, "/Nunito/Nunito-Regular.ttf"),
-    italic = stringr::str_c(fonts_dir, "/Nunito/Nunito-Italic.ttf"),
-    bold = stringr::str_c(fonts_dir, "/Nunito/Nunito-Bold.ttf"),
-    bolditalic = stringr::str_c(fonts_dir, "/Nunito/Nunito-BoldItalic.ttf"))
-
-  sysfonts::font_add(
-    "Roboto",
-    regular  = stringr::str_c(fonts_dir, "/Roboto/Roboto-Regular.ttf"),
-    italic = stringr::str_c(fonts_dir, "/Roboto/Roboto-Italic.ttf"),
-    bold = stringr::str_c(fonts_dir, "/Roboto/Roboto-Bold.ttf"),
-    bolditalic = stringr::str_c(fonts_dir, "/Roboto/Roboto-BoldItalic.ttf"))
+  # sysfonts::font_add(
+  #   "Nunito",
+  #   regular  = stringr::str_c(fonts_dir, "/Nunito/Nunito-Regular.ttf"),
+  #   italic = stringr::str_c(fonts_dir, "/Nunito/Nunito-Italic.ttf"),
+  #   bold = stringr::str_c(fonts_dir, "/Nunito/Nunito-Bold.ttf"),
+  #   bolditalic = stringr::str_c(fonts_dir, "/Nunito/Nunito-BoldItalic.ttf"))
+  #
+  # sysfonts::font_add(
+  #   "Roboto",
+  #   regular  = stringr::str_c(fonts_dir, "/Roboto/Roboto-Regular.ttf"),
+  #   italic = stringr::str_c(fonts_dir, "/Roboto/Roboto-Italic.ttf"),
+  #   bold = stringr::str_c(fonts_dir, "/Roboto/Roboto-Bold.ttf"),
+  #   bolditalic = stringr::str_c(fonts_dir, "/Roboto/Roboto-BoldItalic.ttf"))
 
 }

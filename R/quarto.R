@@ -374,6 +374,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 
 init_qmd <- function(init = "rinit.r") {
   init <- c(glue::glue("./{init}"),
+            glue::glue("./_utils/{init}"),
            glue::glue("../{init}"),
            glue::glue("../../{init}"),
            glue::glue("../../../{init}"))

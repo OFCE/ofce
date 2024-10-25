@@ -1,3 +1,7 @@
+# OFCE 1.3.1
+
+* source_data() utilise maintenant fs pour les fichiers - ce qui doit être plus robuste.
+
 # OFCE 1.3.0
 
 * ajout de source_data(), et de source_data_status()

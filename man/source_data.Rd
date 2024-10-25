@@ -6,13 +6,13 @@
 \usage{
 source_data(
   name,
-  relative = "project",
-  data_rep = "_data",
-  hash = TRUE,
-  lapse = "never",
-  force_exec = Sys.getenv("FORCE_EXEC"),
-  prevent_exec = Sys.getenv("PREVENT_EXEC"),
-  metadata = FALSE
+  relative = getOption("ofce.source_data.relative"),
+  cache_rep = getOption("ofce.source_data.cache_rep"),
+  hash = getOption("ofce.source_data.hash"),
+  lapse = getOption("ofce.source_data.lapse"),
+  force_exec = getOption("ofce.source_data.force_exec"),
+  prevent_exec = getOption("ofce.source_data.prevent_exec"),
+  metadata = getOption("ofce.source_data.metadata")
 )
 }
 \arguments{
@@ -20,7 +20,7 @@ source_data(
 
 \item{relative}{(character) Si "projet" le chemin est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)}
 
-\item{data_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
+\item{cache_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
 
 \item{hash}{(boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution}
 
@@ -54,4 +54,7 @@ Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence 
 
 Des métadonnées peuvent être renvoyées (paramètre metadata) avec la date d'exécution ($date), le temps d'exécution ($timing),
 la taille des données ($size), le chemin de la source ($where), le hash du source ($hash) et bine sûr les données ($data)
+
+Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
+Typiquement cela peut être mis dans rinit.r (et donc être exécuté par ofce::init_qmd())
 }

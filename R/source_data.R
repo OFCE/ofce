@@ -25,9 +25,12 @@
 #' Des métadonnées peuvent être renvoyées (paramètre metadata) avec la date d'exécution ($date), le temps d'exécution ($timing),
 #' la taille des données ($size), le chemin de la source ($where), le hash du source ($hash) et bine sûr les données ($data)
 #'
+#' Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
+#' Typiquement cela peut être mis dans rinit.r (et donc être exécuté par ofce::init_qmd())
+#'
 #' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
 #' @param relative (character) Si "projet" le chemin est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
-#' @param data_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
+#' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
 #' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
@@ -38,48 +41,57 @@
 #' @export
 #'
 source_data <- function(name,
-                        relative = "project",
-                        data_rep = "_data",
-                        hash = TRUE,
-                        lapse = "never",
-                        force_exec = Sys.getenv("FORCE_EXEC"),
-                        prevent_exec = Sys.getenv("PREVENT_EXEC"),
-                        metadata = FALSE) {
+                        relative = getOption("ofce.source_data.relative"),
+                        cache_rep = getOption("ofce.source_data.cache_rep"),
+                        hash = getOption("ofce.source_data.hash"),
+                        lapse = getOption("ofce.source_data.lapse"),
+                        force_exec = getOption("ofce.source_data.force_exec"),
+                        prevent_exec = getOption("ofce.source_data.prevent_exec"),
+                        metadata = getOption("ofce.source_data.metadata")) {
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
+
   name <- remove_ext(name)
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+
   if(is.null(root$error))
     root <- root$result
   else {
     cli::cli_alert_warning("{root$error}")
     return(NULL)
   }
-  data_rep <- stringr::str_c(root, "/", data_rep) # absolu maintenant
+  root <- fs::path_norm(root)
+  cache_rep <- fs::path_join(c(root, cache_rep)) |> fs::path_norm()
+
   if(relative=="project") {
-    src <- here::here(stringr::str_c(name, ".R"))
-    if(!file.exists(src)) {
-      src <- here::here(stringr::str_c(name, ".r"))
-      if(!file.exists(src)) {
-        src <- try_find_src(root, name)
-        if(length(src)==0) {
-          cli::cli_alert_warning("Le fichier n'existe pas en .r ou .R, vérifier le chemin")
-          return(NULL)
-        }
-        cli::cli_alert_info("On utilise {src}")
+    src <- find_src(root, name)
+    if(is.null(src)) {
+      src <- try_find_src(root, name)
+      if(length(src)==0) {
+        cli::cli_alert_warning("Le fichier n'existe pas en .r ou .R, vérifier le chemin")
+        return(NULL)
+      }
+      if(length(src)>1) {
+        cli::cli_alert_warning("Plusieurs fichiers sont possibles")
+        l_src <- purrr::map(src, length)
+        src <- src[[which.max(l_src)]]
       }
     }
-  } else {
-    src <- str_c(stringr::file, ".r")
-    if(!file.exists(src)) {
-      src <- here::here(stringr::str_c(file, ".R"))
-      if(!file.exists(src)) {
+  }
+
+  if(relative!="project") {
+    wd <- getwd()
+    src <- fs::path_join(ws, src) |> fs::path_ext_set(".R")
+    if(!fs::file_exists(src)) {
+      src <- fs::path_join(ws, src) |> fs::path_ext_set(".r")
+      if(!fs::file_exists(src)) {
         return(NULL)
       }
     }
   }
 
+  cli::cli_alert_info("{src} comme source")
 
   if(length(check_return(src))==0) {
     cli::cli_alert_danger("Pas de return() dans le fichier {src}")
@@ -90,10 +102,10 @@ source_data <- function(name,
     cli::cli_alert_info("Plusieurs return() dans le fichier {src}, attention !")
   }
 
-  basename <- basename(name)
-  reldirname <- stringr::str_remove(dirname(src), root)
-  relname <- stringr::str_remove(src, stringr::str_c(root, "/"))
-  cache_rep <- stringr::str_c(data_rep, reldirname, "/") # absolu donc
+  basename <- fs::path_file(name)
+  relname <- fs::path_rel(src, root)
+  reldirname <- fs::path_dir(relname)
+  full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
 
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
@@ -101,7 +113,7 @@ source_data <- function(name,
   if(force&!prevent) {
     our_data <- exec_source(src, lapse, relname)
     if(our_data$ok) {
-      cache_data(our_data, cache_rep = cache_rep, name = basename)
+      cache_data(our_data, cache_rep = full_cache_rep, name = basename)
       if(metadata) {
         return(our_data)
       } else {
@@ -114,7 +126,7 @@ source_data <- function(name,
 
   src_hash <- tools::md5sum(src)
 
-  good_datas <- get_datas(basename, cache_rep)
+  good_datas <- get_datas(basename, full_cache_rep)
 
   if(hash&!prevent)
     good_datas <- purrr::keep(good_datas, ~.x[["hash"]]==src_hash)
@@ -131,7 +143,7 @@ source_data <- function(name,
     }
     our_data <- exec_source(src, lapse, relname)
     if(our_data$ok) {
-      cache_data(our_data, cache_rep = cache_rep, name = basename)
+      cache_data(our_data, cache_rep = full_cache_rep, name = basename)
       if(metadata) {
         return(our_data)
       } else {
@@ -161,9 +173,8 @@ check_return <- function(src) {
 }
 
 get_datas <- function(name, data_rep, ext = "qs") {
-  dir <- stringr::str_c(data_rep)
-  pat <- stringr::str_c("[", name, "_][:digit:]+[.", ext, "]")
-  files <- list.files(path = dir, pattern = pat, full.names = TRUE)
+  pat <- glue::glue("{name}_[0-9]+\\.{ext}$")
+  files <- fs::dir_ls(path = data_rep, regexp = pat)
   purrr::map(files, ~ qs::qread(.x))
 }
 
@@ -191,14 +202,14 @@ exec_source <- function(src, lapse, relname) {
 }
 
 cache_data <- function(data, cache_rep, name, ext = "qs") {
-  pat <- stringr::str_c("[", name, "_]([:digit:]+)[\\.", ext, "]")
-  files <- list.files(path = cache_rep, pattern = pat)
+  pat <- glue::glue("{name}_([0-9]+)\\.{ext}")
+  files <- fs::dir_ls(path = cache_rep, regexp = pat)
   cc <- 1
   data_hash <- digest::digest(data$data)
   if(length(files)>0) {
     cc <- stringr::str_extract(files, pat, group = 1) |> as.numeric() |> max()
-    cache <- TRUE
-    last_data <- qs::qread(stringr::str_c(cache_rep, name,"_", cc, ".qs"))
+    fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", cc))) |> fs::path_ext_set(ext)
+    last_data <- qs::qread(fn)
     last_data_hash <- last_data$data_hash
     if(!is.null(last_data_hash)) {
       if(data_hash == last_data_hash)
@@ -206,10 +217,11 @@ cache_data <- function(data, cache_rep, name, ext = "qs") {
     } else
       cc <- cc +1
   }
-  dir.create(cache_rep, recursive=TRUE)
+  fs::dir_create(cache_rep, recurse=TRUE)
   data$ok <- NULL
   data$data_hash <- data_hash
-  qs::qsave(data, file = stringr::str_c(cache_rep, name, "_", cc, ".", ext))
+  fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", cc))) |> fs::path_ext_set(ext)
+  qs::qsave(data, file = fn)
 }
 
 what_lapse <- function(check) {
@@ -238,10 +250,19 @@ remove_ext <- function(name) {
   stringr::str_remove(name, "\\.[r|R]$")
 }
 
+find_src <- function(root, name) {
+  path <- fs::path_join(c(root, name)) |> fs::path_norm()
+  fn <- stringr::str_c(path, ".r")
+  if(fs::file_exists(fn)) return(fn)
+  fn <- stringr::str_c(path, ".R")
+  if(fs::file_exists(fn)) return(fn)
+  return(NULL)
+}
+
 try_find_src <- function(root, name) {
-  ff <- list.files(path = root, pattern="*.[R|r]", recursive=TRUE, full.names = TRUE)
-  pat <- glue::glue("{name}\\.[r|R]$")
-  ff |> purrr::keep(~ stringr::str_detect(.x, pat)) |> purrr::keep(~ !stringr::str_detect(.x, "/_"))
+  pat <- glue::glue("{name}\\.[R|r]$")
+  ff <- fs::dir_ls(path = root, regexp=pat, recurse=TRUE)
+  ff |> purrr::discard(~ stringr::str_detect(.x, "/_"))
 }
 
 #' Etat du cache de source_data
