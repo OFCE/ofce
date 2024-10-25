@@ -98,9 +98,7 @@ source_data <- function(name,
     cli::cli_alert_info("{.file {src}} comme source")
 
   if(length(check_return(src))==0) {
-    if(!quiet)
-      cli::cli_alert_danger("Pas de return() dans le fichier {src}")
-    return(NULL)
+      cli::cli_alert_danger("Pas de return() détécté dans le fichier {.file {src}}")
   }
 
   if(length(check_return(src))>1) {
