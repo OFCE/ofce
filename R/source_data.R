@@ -95,7 +95,7 @@ source_data <- function(name,
     }
   }
   if(!quiet)
-    cli::cli_alert_info("{src} comme source")
+    cli::cli_alert_info("{.file {src}} comme source")
 
   if(length(check_return(src))==0) {
     if(!quiet)
