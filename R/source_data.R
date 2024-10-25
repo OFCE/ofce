@@ -36,6 +36,7 @@
 #' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
 #' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
+#' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' c'est le fichier qui est le wd
 #'
 #' @return data (list ou ce que le code retourne)
 #' @export
@@ -48,7 +49,9 @@ source_data <- function(name,
                         force_exec = getOption("ofce.source_data.force_exec"),
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
+                        wd = getOption("ofce.source_data.wd"),
                         quiet = TRUE) {
+
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
 
@@ -86,9 +89,9 @@ source_data <- function(name,
 
   if(relative!="project") {
     wd <- getwd()
-    src <- fs::path_join(ws, src) |> fs::path_ext_set(".R")
+    src <- fs::path_join(wd, src) |> fs::path_ext_set(".R")
     if(!fs::file_exists(src)) {
-      src <- fs::path_join(ws, src) |> fs::path_ext_set(".r")
+      src <- fs::path_join(wd, src) |> fs::path_ext_set(".r")
       if(!fs::file_exists(src)) {
         return(NULL)
       }
@@ -110,13 +113,24 @@ source_data <- function(name,
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
   full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
+  exec_wd <- root
+  if(wd=="project")
+    exec_wd <- root
+  if(wd=="file")
+    exec_wd <- fs::path_dir(src)
 
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
 
+  src_hash <- tools::md5sum(src)
+
   if(force&!prevent) {
-    our_data <- exec_source(src, lapse, relname)
+    our_data <- exec_source(src, exec_wd)
     if(our_data$ok) {
+      our_data$lapse <- lapse
+      our_data$src <- relname
+      our_data$ok <- NULL
+      our_data$src_hash <- src_hash
       cache_data(our_data, cache_rep = full_cache_rep, name = basename)
       if(metadata) {
         return(our_data)
@@ -129,12 +143,10 @@ source_data <- function(name,
     }
   }
 
-  src_hash <- tools::md5sum(src)
-
   good_datas <- get_datas(basename, full_cache_rep)
 
   if(hash&!prevent)
-    good_datas <- purrr::keep(good_datas, ~.x[["hash"]]==src_hash)
+    good_datas <- purrr::keep(good_datas, ~.x[["src_hash"]]==src_hash)
 
   if(lapse != "never"&!prevent) {
     lapse <- what_lapse(check_lapse)
@@ -147,8 +159,12 @@ source_data <- function(name,
         cli::cli_alert_warning("Pas de données en cache, pas d'exécution")
       return(NULL)
     }
-    our_data <- exec_source(src, lapse, relname)
+    our_data <- exec_source(src, exec_wd)
     if(our_data$ok) {
+      our_data$lapse <- lapse
+      our_data$src <- relname
+      our_data$ok <- NULL
+      our_data$src_hash <- src_hash
       cache_data(our_data, cache_rep = full_cache_rep, name = basename)
       if(metadata) {
         return(our_data)
@@ -187,25 +203,24 @@ get_datas <- function(name, data_rep, ext = "qs") {
   purrr::map(files, ~ qs::qread(.x))
 }
 
-exec_source <- function(src, lapse, relname) {
-  safe_source <- purrr::safely(source)
-
+exec_source <- function(src, wd) {
+  safe_source <- purrr::safely(base::source)
+  current_wd <- getwd()
+  setwd(wd)
   start <- Sys.time()
   res <- safe_source(src, local=TRUE)
   timing <- as.numeric(Sys.time() - start)
-
-  if(!is.null(res$error))
+  setwd(current_wd)
+  if(!is.null(res$error)) {
+    cli::cli_alert_warning(res$error)
     return(list(ok=FALSE))
-
+    }
   list(
     data = res$result$value,
     timing = timing,
     date = lubridate::now(),
     size = lobstr::obj_size(res$result$value),
-    hash = tools::md5sum(src),
-    url = "",
-    src = relname,
-    lapse = lapse,
+    # url = "",
     ok = TRUE
   )
 }
@@ -229,7 +244,6 @@ cache_data <- function(data, cache_rep, name, ext = "qs") {
       cc <- cc +1
   }
   fs::dir_create(cache_rep, recurse=TRUE)
-  data$ok <- NULL
   data$data_hash <- data_hash
   fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", cc))) |> fs::path_ext_set(ext)
   qs::qsave(data, file = fn)
