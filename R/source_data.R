@@ -149,8 +149,8 @@ source_data <- function(name,
     good_datas <- purrr::keep(good_datas, ~.x[["src_hash"]]==src_hash)
 
   if(lapse != "never"&!prevent) {
-    lapse <- what_lapse(lapse)
-    good_datas <- purrr::keep(good_datas, ~lubridate::now() - .x[["date"]] <= lapse)
+    alapse <- what_lapse(lapse)
+    good_datas <- purrr::keep(good_datas, ~lubridate::now() - .x[["date"]] <= alapse)
   }
 
   if(length(good_datas)==0) {
@@ -250,13 +250,14 @@ cache_data <- function(data, cache_rep, name, ext = "qs") {
 }
 
 what_lapse <- function(check) {
+
   ext <- function(e) {
     num <- stringr::str_extract(e, "^([0-9]+)")
     if(is.na(num))
       num <- 1
-
     num <- as.numeric(num)
   }
+
   if(stringr::str_detect(check, "month"))
     return(lubridate::months(ext(check)))
   if(stringr::str_detect(check, "week"))
