@@ -73,7 +73,7 @@ setup_wp <- function(dir = NULL, nom = NULL) {
         (manuscript, lua, corrections de bugs, ...)
       {.url https://github.com/quarto-dev/quarto-cli/releases}")
 
-   if(is.null(dir)) {
+  if(is.null(dir)) {
     if(is.null(nom)) {
       dir <- "."
       nom <- "wp"
@@ -101,13 +101,13 @@ setup_wp <- function(dir = NULL, nom = NULL) {
 
   template <- system.file(
     "extdata/templates/workingpaper",
-                          "template.qmd",
-                          package="ofce")
+    "template.qmd",
+    package="ofce")
 
   bib <- system.file(
     "extdata/templates/workingpaper",
-                     "references.bib",
-                     package="ofce")
+    "references.bib",
+    package="ofce")
   file.copy(template, to = target)
   readLines(target) |>
     stringr::str_replace(
@@ -379,20 +379,21 @@ init_qmd <- function(init = "rinit.r") {
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   if(is.null(root$error)) {
     root <- root$result
-  init <- c(glue::glue("./{init}"),
-            glue::glue("./_utils/{init}"))
-  init <- fs::path_join(root, init)
-  init <- c(init, stringr::str_replace(init, "R$", "r"))
-  for(i in init)
-    if(fs::file_exists(i)) {
-      source(i, echo = FALSE, verbose = FALSE, local = .GlobalEnv)
-      return(invisible(i))
-    }
+    ofce.root <<- root
+    init <- c(glue::glue("./{init}"),
+              glue::glue("./_utils/{init}"))
+    init <- fs::path_join(c(root, init))
+    init <- c(init, stringr::str_replace(init, "R$", "r"))
+    for(i in init)
+      if(fs::file_exists(i)) {
+        source(i, echo = FALSE, verbose = FALSE, local = .GlobalEnv)
+        return(invisible(i))
+      }
   }
   if(file.exists(fs::path_package("ofce", "rinit.r"))) {
     source(fs::path_package("ofce", "rinit.r"),
            echo = FALSE, verbose = FALSE, local = .GlobalEnv)
     return(invisible("package"))
-    }
+  }
   return(invisible("pas trouvé"))
 }
