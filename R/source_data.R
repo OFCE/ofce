@@ -210,6 +210,8 @@ source_data <- function(name,
 
 }
 
+# fonctions de travail --------------------
+
 check_return <- function(src) {
   src.txt <- readLines(src, warn=FALSE)
   ret <- stringr::str_extract(src.txt, "^return\\((.*)", group=1)
@@ -279,7 +281,8 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
   data$uid <- uid
   data$cc <- cc
   fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set(ext)
-  qs::qsave(data, file = fn)
+  if(!nocache)
+    qs::qsave(data, file = fn)
 }
 
 what_lapse <- function(check) {
@@ -323,6 +326,15 @@ try_find_src <- function(root, name) {
   ff <- fs::dir_ls(path = root, regexp=pat, recurse=TRUE)
   ff |> purrr::discard(~ stringr::str_detect(.x, "/_"))
 }
+
+find_cache_rep <- function() {
+  if(exists("session.source_data.cache_rep"))
+    session.source_data.cache_rep
+  else
+    getOption("ofce.source_data.cache_rep")
+}
+
+# source data status ---------------------------
 
 #' Etat du cache de source_data
 #'
@@ -371,6 +383,8 @@ source_data_status <- function(data_rep = find_cache_rep()) {
   )
 }
 
+# vide cache -----------------
+
 #' Vide le cache
 #'
 #' @param what (--) un tibble issu de source_data, éventuellement filtré
@@ -409,6 +423,8 @@ clear_source_cache <- function(
   })
 }
 
+# refresh -----------------------
+
 #' Exécute les sources sélectionnés
 #'
 #' @param what un tibble issu de source_data (tout par défaut)
@@ -438,6 +454,8 @@ source_data_refresh <- function(
   source_data_status(cache_rep)
 }
 
+# set cache rep ----------------------
+
 #' répertoire de cache persistant
 #'
 #' @param cache_rep (character) le répertoire
@@ -449,11 +467,4 @@ source_data_refresh <- function(
 #'
 set_cache_rep <- function(cache_rep = find_cache_rep()) {
   session.source_data.cache_rep <<- cache_rep
-}
-
-find_cache_rep <- function() {
-  if(exists("session.source_data.cache_rep"))
-    session.source_data.cache_rep
-  else
-    getOption("ofce.source_data.cache_rep")
 }
