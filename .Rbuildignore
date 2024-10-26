@@ -14,3 +14,5 @@ svg
 ^vignettes/*_files$
 vignettes/*.html⁠
 ^vignettes/*
+.vscode
+.DS_Store
