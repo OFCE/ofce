@@ -362,7 +362,8 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   return(invisible(TRUE))
 }
 
-#' exécute le fichier rinit.R à la racine du file, ou au dessus
+#' exécute le fichier rinit.R à la racine du projet, ou dans _utils,
+#' ou en dessous.
 #' s'il ne le trouve pas il utilise une version par défaut,
 #' stockée dans le package
 #'
@@ -373,22 +374,25 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #'
 
 init_qmd <- function(init = "rinit.r") {
+
+  safe_find_root <- purrr::safely(rprojroot::find_root)
+  root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+  if(is.null(root$error)) {
+    root <- root$result
   init <- c(glue::glue("./{init}"),
-            glue::glue("./_utils/{init}"),
-           glue::glue("../{init}"),
-           glue::glue("../../{init}"),
-           glue::glue("../../../{init}"))
+            glue::glue("./_utils/{init}"))
+  init <- fs::path_join(root, init)
   init <- c(init, stringr::str_replace(init, "R$", "r"))
   for(i in init)
-    if(file.exists(i)) {
+    if(fs::file_exists(i)) {
       source(i, echo = FALSE, verbose = FALSE, local = .GlobalEnv)
       return(invisible(i))
     }
+  }
   if(file.exists(fs::path_package("ofce", "rinit.r"))) {
     source(fs::path_package("ofce", "rinit.r"),
            echo = FALSE, verbose = FALSE, local = .GlobalEnv)
     return(invisible("package"))
     }
-
   return(invisible("pas trouvé"))
 }
