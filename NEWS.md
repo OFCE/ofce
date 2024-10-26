@@ -1,3 +1,8 @@
+# OFCE 1.3.2
+
+* source_data() utilise un id uniuqe pour chque utilisateur, pour ne pas déclencher de conflits dans github
+* source_data() accepte des arguments passés au source exécuté.
+
 # OFCE 1.3.1
 
 * source_data() utilise maintenant fs pour les fichiers - ce qui doit être plus robuste.
