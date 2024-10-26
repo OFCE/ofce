@@ -1,7 +1,7 @@
 library(tidyverse)
 library(curl)
 library(readxl)
-print(getwd())
+
 curl::curl_download(
     url = "https://www.cgedd.fr/nombre-vente-maison-appartement-ancien.xls",
     destfile = "/tmp/nombre-vente-maison-appartement-ancien.xls")

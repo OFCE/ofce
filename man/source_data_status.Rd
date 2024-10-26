@@ -4,7 +4,7 @@
 \alias{source_data_status}
 \title{Etat du cache de source_data}
 \usage{
-source_data_status(data_rep = "_data")
+source_data_status(data_rep = find_cache_rep())
 }
 \arguments{
 \item{data_rep}{le chemin vers le cache (défaut "_cache")}
@@ -15,3 +15,11 @@ tibble
 \description{
 Donne des informations sur le cache de source_data sous la forme d'un tibble
 }
+\seealso{
+Other source_data: 
+\code{\link{clear_source_cache}()},
+\code{\link{set_cache_rep}()},
+\code{\link{source_data}()},
+\code{\link{source_data_refresh}()}
+}
+\concept{source_data}

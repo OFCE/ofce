@@ -28,8 +28,16 @@
 #' Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
 #' Typiquement cela peut être mis dans rinit.r (et donc être exécuté par ofce::init_qmd())
 #'
+#' Le paramètre wd perment de spécifier le répertoire d'exécution du source.
+#' Si il est mis à "file", les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
+#' L'intérêt est que le code peut avoir des éléments persistants, locaux
+#' L'alternative est d'utiliser wd="project" auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
+#' Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
+#' Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.
+#'
 #' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
-#' @param relative (character) Si "projet" le chemin est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
+#' @param args (list) une liste d'arguments que l'on peut utliser dans source (args$xxx)
+#' @param relative (character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
 #' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
@@ -38,23 +46,23 @@
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
 #' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' c'est le fichier qui est le wd
 #'
+#' @family source_data
 #' @return data (list ou ce que le code retourne)
 #' @export
 #'
 source_data <- function(name,
+                        args = list(),
                         relative = getOption("ofce.source_data.relative"),
-                        cache_rep = getOption("ofce.source_data.cache_rep"),
                         hash = getOption("ofce.source_data.hash"),
                         lapse = getOption("ofce.source_data.lapse"),
                         force_exec = getOption("ofce.source_data.force_exec"),
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
-                        quiet = TRUE) {
+                        quiet = TRUE, nocache = FALSE) {
 
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
-
   name <- remove_ext(name)
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
@@ -67,7 +75,15 @@ source_data <- function(name,
     return(NULL)
   }
   root <- fs::path_norm(root)
+  if(!quiet)
+    cli::cli_alert_info("root: {root}")
+  uid <- digest::digest(root, algo = "crc32")
+  if(!quiet)
+    cli::cli_alert_info("uid: {uid}")
+  cache_rep = find_cache_rep()
   cache_rep <- fs::path_join(c(root, cache_rep)) |> fs::path_norm()
+  if(!quiet)
+    cli::cli_alert_info("cache: {cache_rep}")
 
   if(relative=="project") {
     src <- find_src(root, name)
@@ -88,10 +104,10 @@ source_data <- function(name,
   }
 
   if(relative!="project") {
-    wd <- getwd()
-    src <- fs::path_join(wd, src) |> fs::path_ext_set(".R")
+    cwd <- getwd()
+    src <- fs::path_join(cwd, src) |> fs::path_ext_set(".R")
     if(!fs::file_exists(src)) {
-      src <- fs::path_join(wd, src) |> fs::path_ext_set(".r")
+      src <- fs::path_join(cwd, src) |> fs::path_ext_set(".r")
       if(!fs::file_exists(src)) {
         return(NULL)
       }
@@ -101,7 +117,7 @@ source_data <- function(name,
     cli::cli_alert_info("{.file {src}} comme source")
 
   if(length(check_return(src))==0) {
-      cli::cli_alert_danger("Pas de return() détécté dans le fichier {.file {src}}")
+    cli::cli_alert_danger("Pas de return() détécté dans le fichier {.file {src}}")
   }
 
   if(length(check_return(src))>1) {
@@ -125,13 +141,15 @@ source_data <- function(name,
   src_hash <- tools::md5sum(src)
 
   if(force&!prevent) {
-    our_data <- exec_source(src, exec_wd)
+    our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
       our_data$lapse <- lapse
       our_data$src <- relname
       our_data$src_hash <- src_hash
-      our_data$wp <- wp
-      cache_data(our_data, cache_rep = full_cache_rep, name = basename)
+      our_data$wd <- wd
+      if(length(args)>0)
+        our_data$args <- args
+      cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(metadata) {
         return(our_data)
       } else {
@@ -159,13 +177,15 @@ source_data <- function(name,
         cli::cli_alert_warning("Pas de données en cache, pas d'exécution")
       return(NULL)
     }
-    our_data <- exec_source(src, exec_wd)
+    our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
       our_data$lapse <- lapse
       our_data$src <- relname
       our_data$src_hash <- src_hash
-      our_data$wp <- wp
-      cache_data(our_data, cache_rep = full_cache_rep, name = basename)
+      our_data$wd <- wd
+      if(length(args)>0)
+        our_data$args <- args
+      cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(metadata) {
         return(our_data)
       } else {
@@ -180,7 +200,8 @@ source_data <- function(name,
 
   dates <- purrr::map(good_datas, "date")
   good_good_data <- good_datas[[which.max(dates)]]
-
+  if(!quiet)
+    cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
   if(metadata) {
     return(good_good_data)
   } else {
@@ -196,25 +217,30 @@ check_return <- function(src) {
 }
 
 get_datas <- function(name, data_rep, ext = "qs") {
-  pat <- glue::glue("{name}_[0-9]+\\.{ext}$")
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)\\.", ext)
   files <- list()
   if(fs::dir_exists(data_rep))
     files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
-  purrr::map(files, ~ qs::qread(.x))
+  res <- purrr::map(files, ~ qs::qread(.x))
+  names(res) <- files
+  res
 }
 
-exec_source <- function(src, wd) {
-  safe_source <- purrr::safely(base::source)
+exec_source <- function(src, wd, args = list()) {
+  safe_source <- purrr::safely(\(src, args) {
+    args <- args
+    base::source(src, local=TRUE)
+  })
   current_wd <- getwd()
   setwd(wd)
   start <- Sys.time()
-  res <- safe_source(src, local=TRUE)
+  res <- safe_source(src, args = args)
   timing <- as.numeric(Sys.time() - start)
   setwd(current_wd)
   if(!is.null(res$error)) {
     cli::cli_alert_warning(res$error)
     return(list(ok=FALSE))
-    }
+  }
   list(
     data = res$result$value,
     timing = timing,
@@ -225,27 +251,34 @@ exec_source <- function(src, wd) {
   )
 }
 
-cache_data <- function(data, cache_rep, name, ext = "qs") {
-  pat <- glue::glue("{name}_([0-9]+)\\.{ext}")
+cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, ext = "qs") {
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)\\.", ext)
   files <- list()
-  if(fs::dir_exists(cache_rep))
-    files <- fs::dir_ls(path = cache_rep, regexp = pat)
+  if(fs::dir_exists(cache_rep)) {
+    files <- fs::dir_info(path = cache_rep, regexp = pat) |>
+      mutate(uid = stringr::str_extract(path, pat, group=1),
+             cc = stringr::str_extract(path, pat, group=2))
+  }
   cc <- 1
   data_hash <- digest::digest(data$data)
-  if(length(files)>0) {
-    cc <- stringr::str_extract(files, pat, group = 1) |> as.numeric() |> max()
-    fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", cc))) |> fs::path_ext_set(ext)
-    last_data <- qs::qread(fn)
+  if(nrow(files)>0) {
+    uids <- stringr::str_extract(files, pat, group = 1)
+    ccs <- stringr::str_extract(files, pat, group = 2) |> as.numeric()
+    last_fn <- files |> arrange(desc(modification_time)) |> slice(1) |> pull(path)
+    last_data <- qs::qread(last_fn)
     last_data_hash <- last_data$data_hash
     if(!is.null(last_data_hash)) {
       if(data_hash == last_data_hash)
-        cc <- cc
+        cc <- max(files$cc)
     } else
       cc <- cc +1
   }
   fs::dir_create(cache_rep, recurse=TRUE)
   data$data_hash <- data_hash
-  fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", cc))) |> fs::path_ext_set(ext)
+  data$id <- stringr::str_c(uid, "-", cc)
+  data$uid <- uid
+  data$cc <- cc
+  fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set(ext)
   qs::qsave(data, file = fn)
 }
 
@@ -297,11 +330,13 @@ try_find_src <- function(root, name) {
 #'
 #' @param data_rep le chemin vers le cache (défaut "_cache")
 #'
+#' @family source_data
+#'
 #' @return tibble
 #' @export
 #'
 
-source_data_status <- function(data_rep = getOption("ofce.source_data.cache_rep")) {
+source_data_status <- function(data_rep = find_cache_rep()) {
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   if(is.null(root$error))
@@ -319,16 +354,106 @@ source_data_status <- function(data_rep = getOption("ofce.source_data.cache_rep"
 
     tibble::tibble(
       src = dd$src,
+      id = dd$id,
+      uid = dd$uid,
+      index = dd$cc,
       date = dd$date,
       timing = dd$timing,
       size = dd$size,
       lapse = as.character(dd$lapse),
-      wp = dd$wp,
+      wd = dd$wd,
+      args = list(dd$args),
       where = .x,
       src_hash = dd$hash,
-      data_hash = dd$data_hash,
-    ) |>
+      data_hash = dd$data_hash) |>
       arrange(src, desc(date))
   }
   )
+}
+
+#' Vide le cache
+#'
+#' @param what (--) un tibble issu de source_data, éventuellement filtré
+#' @param data_rep le répertoire de cache
+#'
+#' @family source_data
+#'
+#' @return la liste des fichiers supprimés
+#' @export
+#'
+#'
+clear_source_cache <- function(
+    what = source_data_status(find_cache_rep()),
+    cache_rep = find_cache_rep(),
+    ext = "qs") {
+
+  safe_find_root <- purrr::safely(rprojroot::find_root)
+  root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+
+  if(is.null(root$error))
+    root <- root$result
+  else {
+    if(!quiet)
+      cli::cli_alert_warning("{root$error}")
+    return(NULL)
+  }
+  root <- fs::path_norm(root)
+  abs_cache_rep <- fs::path_join(c(root, cache_rep)) |> fs::path_norm()
+
+  purrr::pmap_chr(what, function(src, id, ...) {
+    fn <- fs::path_join(c(abs_cache_rep, src)) |>
+      fs::path_ext_remove() |>
+      stringr::str_c("_", id, ".", ext)
+    fs::file_delete(fn)
+    fn
+  })
+}
+
+#' Exécute les sources sélectionnés
+#'
+#' @param what un tibble issu de source_data (tout par défaut)
+#' @param cache_rep le répertoire de cache
+#' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
+#' @param relative
+#'
+#' @family source_data
+#'
+#' @return un tibble de status
+#' @export
+#'
+source_data_refresh <- function(
+    what = source_data_status(find_cache_rep()),
+    cache_rep = find_cache_rep(),
+    relative = getOption("ofce.source_data.relative"),
+    force_exec = getOption("ofce.source_data.force_exec"),
+    hash = getOption("ofce.source_data.hash")) {
+
+  purrr::pwalk(what, function(src, wd, lapse, ...) {
+    source_data(name = src, relative = relative,
+                cache_rep = cache_rep, force_exec = force_exec,
+                hash = hash,
+                wd = wd, lapse = lapse)
+  })
+
+  source_data_status(cache_rep)
+}
+
+#' répertoire de cache persistant
+#'
+#' @param cache_rep (character) le répertoire
+#'
+#' @family source_data
+#'
+#' @return rien
+#' @export
+#'
+set_cache_rep <- function(cache_rep = find_cache_rep()) {
+  session.source_data.cache_rep <<- cache_rep
+}
+
+find_cache_rep <- function() {
+  if(exists("session.source_data.cache_rep"))
+    session.source_data.cache_rep
+  else
+    getOption("ofce.source_data.cache_rep")
 }

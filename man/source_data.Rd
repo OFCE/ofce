@@ -6,21 +6,24 @@
 \usage{
 source_data(
   name,
+  args = list(),
   relative = getOption("ofce.source_data.relative"),
-  cache_rep = getOption("ofce.source_data.cache_rep"),
   hash = getOption("ofce.source_data.hash"),
   lapse = getOption("ofce.source_data.lapse"),
   force_exec = getOption("ofce.source_data.force_exec"),
   prevent_exec = getOption("ofce.source_data.prevent_exec"),
-  metadata = getOption("ofce.source_data.metadata")
+  metadata = getOption("ofce.source_data.metadata"),
+  wd = getOption("ofce.source_data.wd"),
+  quiet = TRUE,
+  nocache = FALSE
 )
 }
 \arguments{
 \item{name}{(character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée}
 
-\item{relative}{(character) Si "projet" le chemin est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)}
+\item{args}{(list) une liste d'arguments que l'on peut utliser dans source (args$xxx)}
 
-\item{cache_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
+\item{relative}{(character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)}
 
 \item{hash}{(boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution}
 
@@ -31,6 +34,10 @@ source_data(
 \item{prevent_exec}{(boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache}
 
 \item{metadata}{(boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même}
+
+\item{wd}{(character) si 'project' assure que le wd est le root du project, si 'file' c'est le fichier qui est le wd}
+
+\item{cache_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
 }
 \value{
 data (list ou ce que le code retourne)
@@ -57,4 +64,19 @@ la taille des données ($size), le chemin de la source ($where), le hash du sour
 
 Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
 Typiquement cela peut être mis dans rinit.r (et donc être exécuté par ofce::init_qmd())
+
+Le paramètre wd perment de spécifier le répertoire d'exécution du source.
+Si il est mis à "file", les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
+L'intérêt est que le code peut avoir des éléments persistants, locaux
+L'alternative est d'utiliser wd="project" auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
+Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
+Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.
 }
+\seealso{
+Other source_data: 
+\code{\link{clear_source_cache}()},
+\code{\link{set_cache_rep}()},
+\code{\link{source_data_refresh}()},
+\code{\link{source_data_status}()}
+}
+\concept{source_data}
