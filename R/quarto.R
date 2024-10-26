@@ -374,17 +374,16 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #'
 
 init_qmd <- function(init = "rinit.r") {
-
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   if(is.null(root$error)) {
     root <- root$result
     ofce.root <<- root
-    init <- c(glue::glue("./{init}"),
+    inits <- c(glue::glue("./{init}"),
               glue::glue("./_utils/{init}"))
-    init <- fs::path_join(c(root, init))
-    init <- c(init, stringr::str_replace(init, "R$", "r"))
-    for(i in init)
+    inits <- map(inits, ~fs::path_join(c(root, .x)) |> fs::path_norm() |> as.character())
+    inits <- c(inits, stringr::str_replace(inits, "r$", "R"))
+    for(i in inits)
       if(fs::file_exists(i)) {
         source(i, echo = FALSE, verbose = FALSE, local = .GlobalEnv)
         return(invisible(i))
@@ -395,5 +394,5 @@ init_qmd <- function(init = "rinit.r") {
            echo = FALSE, verbose = FALSE, local = .GlobalEnv)
     return(invisible("package"))
   }
-  return(invisible("pas trouvé"))
+  return(invisible(glue::glue("{init} pas trouvé")))
 }
