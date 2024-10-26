@@ -253,7 +253,7 @@ exec_source <- function(src, wd, args = list()) {
 
 cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, ext = "qs") {
   pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)\\.", ext)
-  files <- list()
+  files <- tibble::tibble()
   if(fs::dir_exists(cache_rep)) {
     files <- fs::dir_info(path = cache_rep, regexp = pat) |>
       mutate(uid = stringr::str_extract(path, pat, group=1),
