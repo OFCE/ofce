@@ -428,10 +428,10 @@ source_data_refresh <- function(
     force_exec = getOption("ofce.source_data.force_exec"),
     hash = getOption("ofce.source_data.hash")) {
 
-  purrr::pwalk(what, function(src, wd, lapse, ...) {
+  purrr::pwalk(what, function(src, wd, lapse, args, ...) {
     source_data(name = src, relative = relative,
-                cache_rep = cache_rep, force_exec = force_exec,
-                hash = hash,
+                force_exec = force_exec,
+                hash = hash, args = args,
                 wd = wd, lapse = lapse)
   })
 
