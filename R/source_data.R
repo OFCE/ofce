@@ -50,6 +50,10 @@
 #' @return data (list ou ce que le code retourne)
 #' @export
 #'
+
+# note il reste un petit problème : si lapse change il faut nl'neregistrer
+# si wd change, on ne reset pas le cache
+# si les arguments changent, il faut aussi reseter le cache (les mettre dans le hash)
 source_data <- function(name,
                         args = list(),
                         relative = getOption("ofce.source_data.relative"),
@@ -259,7 +263,7 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
   if(fs::dir_exists(cache_rep)) {
     files <- fs::dir_info(path = cache_rep, regexp = pat) |>
       mutate(uid = stringr::str_extract(path, pat, group=1),
-             cc = stringr::str_extract(path, pat, group=2))
+             cc = stringr::str_extract(path, pat, group=2) |> as.numeric())
   }
   cc <- 1
   data_hash <- digest::digest(data$data)
@@ -366,7 +370,7 @@ source_data_status <- function(data_rep = find_cache_rep()) {
 
     tibble::tibble(
       src = dd$src,
-      id = dd$id,
+      id = dd$id |> as.numeric(),
       uid = dd$uid,
       index = dd$cc,
       date = dd$date,
