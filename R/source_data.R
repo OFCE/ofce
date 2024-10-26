@@ -54,6 +54,8 @@
 # note il reste un petit problème : si lapse change il faut nl'neregistrer
 # si wd change, on ne reset pas le cache
 # si les arguments changent, il faut aussi reseter le cache (les mettre dans le hash)
+# il faut ajouter un always
+# et la possibilité de tracker un fichier
 source_data <- function(name,
                         args = list(),
                         relative = getOption("ofce.source_data.relative"),

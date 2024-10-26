@@ -112,7 +112,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.75),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0)),
-      axis.title.x = element_text(hjust=1),
+      axis.title.x = element_text(
+        hjust=1),
       axis.title.y = element_text(hjust=1),
       axis.text = ggplot2::element_text(
         family = base_family,
@@ -120,13 +121,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       axis.text.y = ggplot2::element_text(
         color = "gray25",
         hjust = 1,
-        vjust=0.5),
+        vjust=0),
       axis.text.x = ggplot2::element_text(
         color = "gray25",
-        margin=margin(t=3, b=0),
+        margin=margin(t=6, b=0),
         hjust = 0.5),
       axis.ticks = element_line(
-        color="gray50",
+        color="gray25",
         size = unit(0.2, "pt")),
       axis.ticks.length.x = unit(-3,"pt"),
       axis.ticks.length.y = unit(-3,"pt"),
