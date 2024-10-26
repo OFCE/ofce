@@ -129,8 +129,8 @@ source_data <- function(name,
     if(our_data$ok) {
       our_data$lapse <- lapse
       our_data$src <- relname
-      our_data$ok <- NULL
       our_data$src_hash <- src_hash
+      our_data$wp <- wp
       cache_data(our_data, cache_rep = full_cache_rep, name = basename)
       if(metadata) {
         return(our_data)
@@ -163,8 +163,8 @@ source_data <- function(name,
     if(our_data$ok) {
       our_data$lapse <- lapse
       our_data$src <- relname
-      our_data$ok <- NULL
       our_data$src_hash <- src_hash
+      our_data$wp <- wp
       cache_data(our_data, cache_rep = full_cache_rep, name = basename)
       if(metadata) {
         return(our_data)
@@ -323,6 +323,7 @@ source_data_status <- function(data_rep = getOption("ofce.source_data.cache_rep"
       timing = dd$timing,
       size = dd$size,
       lapse = as.character(dd$lapse),
+      wp = dd$wp,
       where = .x,
       src_hash = dd$hash,
       data_hash = dd$data_hash,
