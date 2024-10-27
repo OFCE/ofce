@@ -102,7 +102,7 @@ source_data <- function(name,
       }
       if(length(src)>1) {
         if(!quiet)
-          cli::cli_alert_warning("Plusieurs fichiers sont possibles")
+          cli::cli_alert_warning("Plusieurs fichiers src sont possibles")
         l_src <- purrr::map(src, length)
         src <- src[[which.max(l_src)]]
       }
@@ -216,7 +216,7 @@ source_data <- function(name,
 
 }
 
-# fonctions de travail --------------------
+# fonctions --------------------
 
 check_return <- function(src) {
   src.txt <- readLines(src, warn=FALSE)
@@ -413,8 +413,7 @@ clear_source_cache <- function(
   if(is.null(root$error))
     root <- root$result
   else {
-    if(!quiet)
-      cli::cli_alert_warning("{root$error}")
+    cli::cli_alert_warning("{root$error}")
     return(NULL)
   }
   root <- fs::path_norm(root)
