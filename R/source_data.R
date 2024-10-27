@@ -372,13 +372,13 @@ source_data_status <- function(data_rep = find_cache_rep()) {
 
     tibble::tibble(
       src = dd$src,
-      id = dd$id |> as.numeric(),
+      id = dd$id,
       uid = dd$uid,
-      index = dd$cc,
+      index = dd$cc |> as.numeric(),
       date = dd$date,
       timing = dd$timing,
       size = dd$size,
-      lapse = as.character(dd$lapse),
+      lapse = dd$lapse |> as.character(),
       wd = dd$wd,
       args = list(dd$args),
       where = .x,
