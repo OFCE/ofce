@@ -44,7 +44,7 @@
 #' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
 #' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
-#' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' c'est le fichier qui est le wd
+#' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier qui est le wd
 #'
 #' @family source_data
 #' @return data (list ou ce que le code retourne)

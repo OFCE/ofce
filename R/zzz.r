@@ -11,7 +11,7 @@
     ofce.source_data.metadata = FALSE,
     ofce.source_data.lapse = "never",
     ofce.source_data.relative = "project",
-    ofce.source_data.wd = "project")
+    ofce.source_data.wd = "file")
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])
