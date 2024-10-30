@@ -17,7 +17,6 @@ Imports:
     data.table,
     dplyr,
     farver,
-    flextable,
     fs,
     gt,
     ggplot2,
