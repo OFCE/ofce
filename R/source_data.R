@@ -204,9 +204,6 @@ source_data <- function(name,
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
-      if(unfreeze)
-        unfreeze(qmd_file, root, quiet)
-
       if(metadata) {
         return(our_data)
       } else {
@@ -250,9 +247,6 @@ source_data <- function(name,
       our_data$track_hash <- list(track_hash)
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
-
-      if(unfreeze)
-        unfreeze(qmd_file, root, quiet)
 
       if(metadata) {
         return(our_data)
