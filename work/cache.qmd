@@ -8,11 +8,8 @@ format:
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #| label: tbl-table1
 library(tidyverse)
-library(gt)
-table <- tribble(~a, ~b, ~c,
-                "text", 1, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh",
-                "others", 2, "Long text aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaargh") 
-gt(table)
+library(ofce)
+dd <- source_data("work/cache/testsource.R", wd = "qmd")
 ```
 
 texte avant

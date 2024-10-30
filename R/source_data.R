@@ -140,8 +140,16 @@ source_data <- function(name,
     exec_wd <- root
   if(wd=="file")
     exec_wd <- fs::path_dir(src)
-  if(wd=="qmd")
-    exec_wd <- fs::path_dir(src)
+  if(wd=="qmd") {
+    if(Sys.getenv("QUARTO_PROJECT_ROOT") != "") {
+      exec_wd <- fs::path_join(c(Sys.getenv("QUARTO_PROJECT_ROOT"), Sys.getenv("QUARTO_DOCUMENT_PATH"))) |>
+        fs::path_norm()
+
+    } else {
+      cli::cli_alert_warning("Pas de document identifié, probablement, non excétué de quarto")
+      exec_wd <- fs::path_dir(src)
+    }
+  }
 
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE

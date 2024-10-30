@@ -15,7 +15,6 @@ format:
 {{< meta french >}}
 
 ```{r setup, include=FALSE}
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #| label: tbl-table1
 library(tidyverse)
 library(gt)
