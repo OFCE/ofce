@@ -274,7 +274,7 @@ source_data <- function(name,
 
   ggd_lapse <- good_good_data$lapse %||% "never"
   ggd_wd <- good_good_data$wd %||% "file"
-  if(ggd_lapse != lapse | ggd_unfreeze != unfreeze | ggd_wd != wd) {
+  if(ggd_lapse != lapse | ggd_wd != wd) {
     good_good_data $lapse <- lapse
     good_good_data $wd <- wd
     cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
