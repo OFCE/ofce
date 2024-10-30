@@ -146,7 +146,7 @@ source_data <- function(name,
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
   full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
-  if(Sys.getenv("QUARTO_PROJECT_ROOT") != "") {
+  if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
     qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
     qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |> fs::path_ext_set("qmd")
@@ -215,7 +215,7 @@ source_data <- function(name,
     }
   }
 
- meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+  meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
 
   if(hash&!prevent)
     good_datas <- good_datas |>
@@ -268,11 +268,13 @@ source_data <- function(name,
 
   ggd_lapse <- good_good_data$lapse %||% "never"
   ggd_wd <- good_good_data$wd %||% "file"
-  if(ggd_lapse != lapse | ggd_wd != wd) {
-    good_good_data $lapse <- lapse
-    good_good_data $wd <- wd
-    cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
-  }
+  ggd_qmds <- setequal(good_good_data$qmd_file, qmds)
+    if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds) {
+      good_good_data$lapse <- lapse
+      good_good_data$wd <- wd
+      good_good_data$qmd_file <- qmds
+      cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+    }
 
   if(metadata) {
     return(good_good_data)
