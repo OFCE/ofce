@@ -57,24 +57,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="cache_files/libs/clipboard/clipboard.min.js"></script>
-<script src="cache_files/libs/quarto-html/quarto.js"></script>
-<script src="cache_files/libs/quarto-html/popper.min.js"></script>
-<script src="cache_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="cache_files/libs/quarto-html/anchor.min.js"></script>
-<link href="cache_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="cache_files/libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="cache_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="cache_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="cache_files/libs/bootstrap/bootstrap-677b520d69fcc55ab41b4b425631e74d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4fde8c6f9af29001b0cd9186783c371a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
 
 </head>
 
 <body class="fullcontent">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -103,8 +140,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Table&nbsp;1
 </figcaption>
 <div aria-describedby="tbl-table1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div>
-
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 3
+   date           t tooltip                                                     
+   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;                                                       
+ 1 1996-10-01  689  &lt;b&gt;1996 T4&lt;/b&gt;&lt;br&gt;689k transactions&lt;br&gt;Ecart au max :-43%&lt;b…
+ 2 1997-10-01  589  &lt;b&gt;1997 T4&lt;/b&gt;&lt;br&gt;589k transactions&lt;br&gt;Ecart au max :-51%&lt;b…
+ 3 1998-10-01  658  &lt;b&gt;1998 T4&lt;/b&gt;&lt;br&gt;658k transactions&lt;br&gt;Ecart au max :-45%&lt;b…
+ 4 1999-10-01  742  &lt;b&gt;1999 T4&lt;/b&gt;&lt;br&gt;742k transactions&lt;br&gt;Ecart au max :-38%&lt;b…
+ 5 2000-10-01  793  &lt;b&gt;2000 T4&lt;/b&gt;&lt;br&gt;793k transactions&lt;br&gt;Ecart au max :-34%&lt;b…
+ 6 2001-01-01  792. &lt;b&gt;2001 T1&lt;/b&gt;&lt;br&gt;792k transactions&lt;br&gt;Ecart au max :-34%&lt;b…
+ 7 2001-04-01  790. &lt;b&gt;2001 T2&lt;/b&gt;&lt;br&gt;790k transactions&lt;br&gt;Ecart au max :-34%&lt;b…
+ 8 2001-07-01  787  &lt;b&gt;2001 T3&lt;/b&gt;&lt;br&gt;787k transactions&lt;br&gt;Ecart au max :-34%&lt;b…
+ 9 2001-10-01  786  &lt;b&gt;2001 T4&lt;/b&gt;&lt;br&gt;786k transactions&lt;br&gt;Ecart au max :-35%&lt;b…
+10 2002-01-01  789. &lt;b&gt;2002 T1&lt;/b&gt;&lt;br&gt;789k transactions&lt;br&gt;Ecart au max :-34%&lt;b…
+# ℹ 90 more rows</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 14
+  src          id     uid   index date                timing size  lapse exec_wd
+  &lt;fs::path&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dttm&gt;               &lt;dbl&gt; &lt;lbs&gt; &lt;chr&gt; &lt;chr&gt;  
+1 testsource.r f93d1… f93d…     1 2024-10-30 21:57:13  0.311 21.2… never /Users…
+# ℹ 5 more variables: args &lt;list&gt;, where &lt;chr&gt;, qmd_file &lt;fs::path&gt;,
+#   track_hash &lt;list&gt;, data_hash &lt;chr&gt;</code></pre>
 </div>
 </div>
 </figure>
@@ -123,16 +181,8 @@ titre de l’encadré
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars)<span class="sc">+</span><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>speed, <span class="at">y=</span>dist))<span class="sc">+</span>ofce<span class="sc">::</span><span class="fu">theme_ofce</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): famille de
-police introuvable dans la base de données des polices Windows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-famille de police introuvable dans la base de données des polices Windows</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars)<span class="sc">+</span><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>speed, <span class="at">y=</span>dist))<span class="sc">+</span>ofce<span class="sc">::</span><span class="fu">theme_ofce</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -144,23 +194,23 @@ famille de police introuvable dans la base de données des polices Windows</code
 <p>blablbl</p>
 <div id="tbl-table2" class="cell anchored">
 <div class="cell-output-display">
-<div id="wxjwadhzvl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wxjwadhzvl table {
+<div id="lmusyqwucd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lmusyqwucd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wxjwadhzvl thead, #wxjwadhzvl tbody, #wxjwadhzvl tfoot, #wxjwadhzvl tr, #wxjwadhzvl td, #wxjwadhzvl th {
+#lmusyqwucd thead, #lmusyqwucd tbody, #lmusyqwucd tfoot, #lmusyqwucd tr, #lmusyqwucd td, #lmusyqwucd th {
   border-style: none;
 }
 
-#wxjwadhzvl p {
+#lmusyqwucd p {
   margin: 0;
   padding: 0;
 }
 
-#wxjwadhzvl .gt_table {
+#lmusyqwucd .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -186,12 +236,12 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-left-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_caption {
+#lmusyqwucd .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wxjwadhzvl .gt_title {
+#lmusyqwucd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -203,7 +253,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-bottom-width: 0;
 }
 
-#wxjwadhzvl .gt_subtitle {
+#lmusyqwucd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -215,7 +265,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-top-width: 0;
 }
 
-#wxjwadhzvl .gt_heading {
+#lmusyqwucd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -227,13 +277,13 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-right-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_bottom_border {
+#lmusyqwucd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_col_headings {
+#lmusyqwucd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -248,7 +298,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-right-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_col_heading {
+#lmusyqwucd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -268,7 +318,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   overflow-x: hidden;
 }
 
-#wxjwadhzvl .gt_column_spanner_outer {
+#lmusyqwucd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -280,15 +330,15 @@ famille de police introuvable dans la base de données des polices Windows</code
   padding-right: 4px;
 }
 
-#wxjwadhzvl .gt_column_spanner_outer:first-child {
+#lmusyqwucd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wxjwadhzvl .gt_column_spanner_outer:last-child {
+#lmusyqwucd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wxjwadhzvl .gt_column_spanner {
+#lmusyqwucd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -300,11 +350,11 @@ famille de police introuvable dans la base de données des polices Windows</code
   width: 100%;
 }
 
-#wxjwadhzvl .gt_spanner_row {
+#lmusyqwucd .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wxjwadhzvl .gt_group_heading {
+#lmusyqwucd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -330,7 +380,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   text-align: left;
 }
 
-#wxjwadhzvl .gt_empty_group_heading {
+#lmusyqwucd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -345,15 +395,15 @@ famille de police introuvable dans la base de données des polices Windows</code
   vertical-align: middle;
 }
 
-#wxjwadhzvl .gt_from_md > :first-child {
+#lmusyqwucd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wxjwadhzvl .gt_from_md > :last-child {
+#lmusyqwucd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wxjwadhzvl .gt_row {
+#lmusyqwucd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -372,7 +422,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   overflow-x: hidden;
 }
 
-#wxjwadhzvl .gt_stub {
+#lmusyqwucd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -385,7 +435,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   padding-right: 5px;
 }
 
-#wxjwadhzvl .gt_stub_row_group {
+#lmusyqwucd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -399,15 +449,15 @@ famille de police introuvable dans la base de données des polices Windows</code
   vertical-align: top;
 }
 
-#wxjwadhzvl .gt_row_group_first td {
+#lmusyqwucd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wxjwadhzvl .gt_row_group_first th {
+#lmusyqwucd .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wxjwadhzvl .gt_summary_row {
+#lmusyqwucd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -417,16 +467,16 @@ famille de police introuvable dans la base de données des polices Windows</code
   padding-right: 5px;
 }
 
-#wxjwadhzvl .gt_first_summary_row {
+#lmusyqwucd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_first_summary_row.thick {
+#lmusyqwucd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wxjwadhzvl .gt_last_summary_row {
+#lmusyqwucd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -436,7 +486,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-bottom-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_grand_summary_row {
+#lmusyqwucd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -446,7 +496,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   padding-right: 5px;
 }
 
-#wxjwadhzvl .gt_first_grand_summary_row {
+#lmusyqwucd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -456,7 +506,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-top-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_last_grand_summary_row_top {
+#lmusyqwucd .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -466,11 +516,11 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-bottom-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_striped {
+#lmusyqwucd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wxjwadhzvl .gt_table_body {
+#lmusyqwucd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -479,7 +529,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-bottom-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_footnotes {
+#lmusyqwucd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -493,7 +543,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-right-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_footnote {
+#lmusyqwucd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -502,7 +552,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   padding-right: 5px;
 }
 
-#wxjwadhzvl .gt_sourcenotes {
+#lmusyqwucd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -516,7 +566,7 @@ famille de police introuvable dans la base de données des polices Windows</code
   border-right-color: #D3D3D3;
 }
 
-#wxjwadhzvl .gt_sourcenote {
+#lmusyqwucd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -524,72 +574,72 @@ famille de police introuvable dans la base de données des polices Windows</code
   padding-right: 5px;
 }
 
-#wxjwadhzvl .gt_left {
+#lmusyqwucd .gt_left {
   text-align: left;
 }
 
-#wxjwadhzvl .gt_center {
+#lmusyqwucd .gt_center {
   text-align: center;
 }
 
-#wxjwadhzvl .gt_right {
+#lmusyqwucd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wxjwadhzvl .gt_font_normal {
+#lmusyqwucd .gt_font_normal {
   font-weight: normal;
 }
 
-#wxjwadhzvl .gt_font_bold {
+#lmusyqwucd .gt_font_bold {
   font-weight: bold;
 }
 
-#wxjwadhzvl .gt_font_italic {
+#lmusyqwucd .gt_font_italic {
   font-style: italic;
 }
 
-#wxjwadhzvl .gt_super {
+#lmusyqwucd .gt_super {
   font-size: 65%;
 }
 
-#wxjwadhzvl .gt_footnote_marks {
+#lmusyqwucd .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wxjwadhzvl .gt_asterisk {
+#lmusyqwucd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wxjwadhzvl .gt_indent_1 {
+#lmusyqwucd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wxjwadhzvl .gt_indent_2 {
+#lmusyqwucd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wxjwadhzvl .gt_indent_3 {
+#lmusyqwucd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wxjwadhzvl .gt_indent_4 {
+#lmusyqwucd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wxjwadhzvl .gt_indent_5 {
+#lmusyqwucd .gt_indent_5 {
   text-indent: 25px;
 }
 
-#wxjwadhzvl .katex-display {
+#lmusyqwucd .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#wxjwadhzvl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lmusyqwucd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -624,8 +674,9 @@ famille de police introuvable dans la base de données des polices Windows</code
 </div>
 <p>continuing</p>
 
-</main>
-<!-- /main column -->
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

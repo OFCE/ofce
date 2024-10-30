@@ -10,7 +10,10 @@ freeze: auto
 #| label: tbl-table1
 library(tidyverse)
 library(ofce)
-dd <- source_data("work/cache/testsource.R")
+options(ofce.source_data.cache_rep = "work/cache/.data")
+dd <- source_data("testsource.R", track=list("data.csv"), unfreeze = TRUE, quiet = FALSE)
+dd
+source_data_status()
 ```
 
 texte avant

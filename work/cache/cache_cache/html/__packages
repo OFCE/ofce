@@ -15,4 +15,6 @@ dplyr
 stringr
 forcats
 lubridate
-gt
+ofce
+curl
+readxl
