@@ -193,7 +193,7 @@ source_data <- function(name,
       our_data$src <- relname
       our_data$src_hash <- src_hash
       our_data$arg_hash <- arg_hash
-      our_data$track_hash <- track_hash
+      our_data$track_hash <- list(track_hash)
       our_data$wd <- wd
       our_data$qmd_file <- qmd_file
       our_data$unfreeze <- unfreeze
@@ -238,7 +238,7 @@ source_data <- function(name,
       our_data$qmd_file <- qmd_file
       our_data$unfreeze <- unfreeze
       our_data$arg_hash <- arg_hash
-      our_data$track_hash <- track_hash
+      our_data$track_hash <- list(track_hash)
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(metadata) {
         return(our_data)
