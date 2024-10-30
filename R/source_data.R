@@ -149,7 +149,7 @@ source_data <- function(name,
   if(Sys.getenv("QUARTO_PROJECT_ROOT") != "") {
     qmd_path <- fs::path_join(c(Sys.getenv("QUARTO_PROJECT_ROOT"), Sys.getenv("QUARTO_DOCUMENT_PATH"))) |>
       fs::path_norm()
-    qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |> fs::path_ext_set("qmd")
+    qmd_file <- knitr::current_input() |> fs::path_ext_set("qmd")
   } else {
     qmd_path <- NULL
     qmd_file <- NULL
