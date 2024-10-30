@@ -11,7 +11,7 @@ freeze: auto
 library(tidyverse)
 library(ofce)
 options(ofce.source_data.cache_rep = "work/cache/.data")
-dd <- source_data("testsource.R", track=list("data.csv"), unfreeze = TRUE, quiet = FALSE)
+dd <- source_data("testsource.R", track=list("data.csv"), quiet = FALSE)
 dd
 source_data_status()
 ```

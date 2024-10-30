@@ -273,11 +273,9 @@ source_data <- function(name,
     cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
 
   ggd_lapse <- good_good_data$lapse %||% "never"
-  ggd_unfreeze <- good_good_data$unfreeze %||% FALSE
   ggd_wd <- good_good_data$wd %||% "file"
   if(ggd_lapse != lapse | ggd_unfreeze != unfreeze | ggd_wd != wd) {
     good_good_data $lapse <- lapse
-    good_good_data $unfreeze <- unfreeze
     good_good_data $wd <- wd
     cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
   }
