@@ -134,6 +134,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">"QUARTO_PROJECT_ROOT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/xt/GitHub/ofce/work/cache"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">"QUARTO_DOCUMENT_PATH"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/xt/GitHub/ofce/work/cache"</code></pre>
+</div>
+</div>
 <div id="tbl-table1" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-table1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -160,7 +170,7 @@ Table&nbsp;1
 <pre><code># A tibble: 1 × 14
   src          id     uid   index date                timing size  lapse exec_wd
   &lt;fs::path&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dttm&gt;               &lt;dbl&gt; &lt;lbs&gt; &lt;chr&gt; &lt;chr&gt;  
-1 testsource.r f93d1… f93d…     1 2024-10-30 22:30:43  0.419 21.2… never /Users…
+1 testsource.r f93d1… f93d…     1 2024-10-30 22:33:51  0.307 21288 never /Users…
 # ℹ 5 more variables: args &lt;list&gt;, where &lt;chr&gt;, qmd_file &lt;chr&gt;,
 #   track_hash &lt;list&gt;, data_hash &lt;chr&gt;</code></pre>
 </div>
@@ -181,12 +191,12 @@ titre de l’encadré
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars)<span class="sc">+</span><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>speed, <span class="at">y=</span>dist))<span class="sc">+</span>ofce<span class="sc">::</span><span class="fu">theme_ofce</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars)<span class="sc">+</span><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>speed, <span class="at">y=</span>dist))<span class="sc">+</span>ofce<span class="sc">::</span><span class="fu">theme_ofce</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="cache_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="cache_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -194,23 +204,23 @@ titre de l’encadré
 <p>blablbl</p>
 <div id="tbl-table2" class="cell anchored">
 <div class="cell-output-display">
-<div id="pbctfdaois" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pbctfdaois table {
+<div id="utfnudfsgh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#utfnudfsgh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pbctfdaois thead, #pbctfdaois tbody, #pbctfdaois tfoot, #pbctfdaois tr, #pbctfdaois td, #pbctfdaois th {
+#utfnudfsgh thead, #utfnudfsgh tbody, #utfnudfsgh tfoot, #utfnudfsgh tr, #utfnudfsgh td, #utfnudfsgh th {
   border-style: none;
 }
 
-#pbctfdaois p {
+#utfnudfsgh p {
   margin: 0;
   padding: 0;
 }
 
-#pbctfdaois .gt_table {
+#utfnudfsgh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -236,12 +246,12 @@ titre de l’encadré
   border-left-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_caption {
+#utfnudfsgh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pbctfdaois .gt_title {
+#utfnudfsgh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -253,7 +263,7 @@ titre de l’encadré
   border-bottom-width: 0;
 }
 
-#pbctfdaois .gt_subtitle {
+#utfnudfsgh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -265,7 +275,7 @@ titre de l’encadré
   border-top-width: 0;
 }
 
-#pbctfdaois .gt_heading {
+#utfnudfsgh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -277,13 +287,13 @@ titre de l’encadré
   border-right-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_bottom_border {
+#utfnudfsgh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_col_headings {
+#utfnudfsgh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -298,7 +308,7 @@ titre de l’encadré
   border-right-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_col_heading {
+#utfnudfsgh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -318,7 +328,7 @@ titre de l’encadré
   overflow-x: hidden;
 }
 
-#pbctfdaois .gt_column_spanner_outer {
+#utfnudfsgh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -330,15 +340,15 @@ titre de l’encadré
   padding-right: 4px;
 }
 
-#pbctfdaois .gt_column_spanner_outer:first-child {
+#utfnudfsgh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pbctfdaois .gt_column_spanner_outer:last-child {
+#utfnudfsgh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pbctfdaois .gt_column_spanner {
+#utfnudfsgh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -350,11 +360,11 @@ titre de l’encadré
   width: 100%;
 }
 
-#pbctfdaois .gt_spanner_row {
+#utfnudfsgh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pbctfdaois .gt_group_heading {
+#utfnudfsgh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -380,7 +390,7 @@ titre de l’encadré
   text-align: left;
 }
 
-#pbctfdaois .gt_empty_group_heading {
+#utfnudfsgh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -395,15 +405,15 @@ titre de l’encadré
   vertical-align: middle;
 }
 
-#pbctfdaois .gt_from_md > :first-child {
+#utfnudfsgh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pbctfdaois .gt_from_md > :last-child {
+#utfnudfsgh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pbctfdaois .gt_row {
+#utfnudfsgh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -422,7 +432,7 @@ titre de l’encadré
   overflow-x: hidden;
 }
 
-#pbctfdaois .gt_stub {
+#utfnudfsgh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -435,7 +445,7 @@ titre de l’encadré
   padding-right: 5px;
 }
 
-#pbctfdaois .gt_stub_row_group {
+#utfnudfsgh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -449,15 +459,15 @@ titre de l’encadré
   vertical-align: top;
 }
 
-#pbctfdaois .gt_row_group_first td {
+#utfnudfsgh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pbctfdaois .gt_row_group_first th {
+#utfnudfsgh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pbctfdaois .gt_summary_row {
+#utfnudfsgh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -467,16 +477,16 @@ titre de l’encadré
   padding-right: 5px;
 }
 
-#pbctfdaois .gt_first_summary_row {
+#utfnudfsgh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_first_summary_row.thick {
+#utfnudfsgh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pbctfdaois .gt_last_summary_row {
+#utfnudfsgh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -486,7 +496,7 @@ titre de l’encadré
   border-bottom-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_grand_summary_row {
+#utfnudfsgh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -496,7 +506,7 @@ titre de l’encadré
   padding-right: 5px;
 }
 
-#pbctfdaois .gt_first_grand_summary_row {
+#utfnudfsgh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -506,7 +516,7 @@ titre de l’encadré
   border-top-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_last_grand_summary_row_top {
+#utfnudfsgh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -516,11 +526,11 @@ titre de l’encadré
   border-bottom-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_striped {
+#utfnudfsgh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pbctfdaois .gt_table_body {
+#utfnudfsgh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -529,7 +539,7 @@ titre de l’encadré
   border-bottom-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_footnotes {
+#utfnudfsgh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -543,7 +553,7 @@ titre de l’encadré
   border-right-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_footnote {
+#utfnudfsgh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -552,7 +562,7 @@ titre de l’encadré
   padding-right: 5px;
 }
 
-#pbctfdaois .gt_sourcenotes {
+#utfnudfsgh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -566,7 +576,7 @@ titre de l’encadré
   border-right-color: #D3D3D3;
 }
 
-#pbctfdaois .gt_sourcenote {
+#utfnudfsgh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -574,72 +584,72 @@ titre de l’encadré
   padding-right: 5px;
 }
 
-#pbctfdaois .gt_left {
+#utfnudfsgh .gt_left {
   text-align: left;
 }
 
-#pbctfdaois .gt_center {
+#utfnudfsgh .gt_center {
   text-align: center;
 }
 
-#pbctfdaois .gt_right {
+#utfnudfsgh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pbctfdaois .gt_font_normal {
+#utfnudfsgh .gt_font_normal {
   font-weight: normal;
 }
 
-#pbctfdaois .gt_font_bold {
+#utfnudfsgh .gt_font_bold {
   font-weight: bold;
 }
 
-#pbctfdaois .gt_font_italic {
+#utfnudfsgh .gt_font_italic {
   font-style: italic;
 }
 
-#pbctfdaois .gt_super {
+#utfnudfsgh .gt_super {
   font-size: 65%;
 }
 
-#pbctfdaois .gt_footnote_marks {
+#utfnudfsgh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pbctfdaois .gt_asterisk {
+#utfnudfsgh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pbctfdaois .gt_indent_1 {
+#utfnudfsgh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pbctfdaois .gt_indent_2 {
+#utfnudfsgh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pbctfdaois .gt_indent_3 {
+#utfnudfsgh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pbctfdaois .gt_indent_4 {
+#utfnudfsgh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pbctfdaois .gt_indent_5 {
+#utfnudfsgh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pbctfdaois .katex-display {
+#utfnudfsgh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pbctfdaois div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#utfnudfsgh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

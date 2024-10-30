@@ -5,6 +5,12 @@ format:
   html: default
 freeze: auto
 ---
+```{r}
+Sys.getenv("QUARTO_PROJECT_ROOT")
+Sys.getenv("QUARTO_DOCUMENT_PATH")
+
+```
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #| label: tbl-table1

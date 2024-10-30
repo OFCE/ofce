@@ -147,7 +147,7 @@ source_data <- function(name,
   reldirname <- fs::path_dir(relname)
   full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
   if(Sys.getenv("QUARTO_PROJECT_ROOT") != "") {
-    qmd_path <- fs::path_join(c(Sys.getenv("QUARTO_PROJECT_ROOT"), Sys.getenv("QUARTO_DOCUMENT_PATH"))) |>
+    qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
     qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |> fs::path_ext_set("qmd")
   } else {
