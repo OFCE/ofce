@@ -8,17 +8,17 @@ freeze: auto
 ```{r}
 Sys.getenv("QUARTO_PROJECT_ROOT")
 Sys.getenv("QUARTO_DOCUMENT_PATH")
-
+knitr::current_input()
 ```
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=TRUE, warning=TRUE}
 #| label: tbl-table1
 library(tidyverse)
 library(ofce)
 dd <- source_data("testsource.R", track=list("data.csv"), quiet = FALSE)
 
-source_data_status()
+source_data_status()$qmd_file
 ```
 
 texte avant

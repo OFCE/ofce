@@ -187,7 +187,7 @@ source_data <- function(name,
   }
   good_datas <- get_datas(basename, full_cache_rep)
   qmds <- map_chr(good_datas, "qmd_file") |> unique()
-
+  new_qmds <- unique(qmds, qmd_file)
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
@@ -197,10 +197,7 @@ source_data <- function(name,
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
       our_data$wd <- wd
-      if(is.null(qmd_file))
-        our_data$qmd_file <- qmds
-      else
-        our_data$qmd_file <- unique(c(qmds, qmd_file))
+      our_data$qmd_file <- new_qmds
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -239,10 +236,7 @@ source_data <- function(name,
       our_data$lapse <- lapse
       our_data$src <- relname
       our_data$src_hash <- src_hash
-      if(is.null(qmd_file))
-        our_data$qmd_file <- qmds
-      else
-        our_data$qmd_file <- unique(c(qmds, qmd_file))
+      our_data$qmd_file <- new_qmds
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
 
@@ -268,11 +262,11 @@ source_data <- function(name,
 
   ggd_lapse <- good_good_data$lapse %||% "never"
   ggd_wd <- good_good_data$wd %||% "file"
-  ggd_qmds <- setequal(good_good_data$qmd_file, qmds)
+  ggd_qmds <- setequal(good_good_data$qmd_file, new_qmds)
     if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds) {
       good_good_data$lapse <- lapse
       good_good_data$wd <- wd
-      good_good_data$qmd_file <- qmds
+      good_good_data$qmd_file <- new_qmds
       cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
     }
 
