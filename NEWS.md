@@ -1,3 +1,7 @@
+## OFCE 1.3.3
+
+* source_data() tracke des fichiers et peut *unfreezer* un qmd
+
 ## OFCE 1.3.2
 
 * source_data() utilise un id unique pour chaque utilisateur, pour ne pas déclencher de conflits dans github
@@ -27,7 +31,7 @@
 
 ## OFCE 1.0.0
 
-* première version avec notamment les fonctions
+* première version avec notamment les fonctionspkg
 
 ** theme_ofce()
 ** setup_quarto()

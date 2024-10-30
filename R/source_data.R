@@ -16,24 +16,29 @@
 #'
 #' Une modification du code est détectée et déclenche l'éxécution
 #'
-#' Suivant le paramètre lapse on peut déclencher une exécution péridique. Par exemple, pour ne pas rater une MAJ, on peut mettre lapse = "1 day" ou "day" et une fois par jour le code sera exécuté.
+#' Suivant le paramètre lapse on peut déclencher une exécution périodique.
+#' Par exemple, pour ne pas rater une MAJ, on peut mettre `lapse = "1 day"` ou `"day"` et une fois par jour le code sera exécuté.
 #' Cela permet d'éviter une exécution à chaque rendu.
 #'
-#' On peut bloquer l'exécution en renseignant la variable d'environnement "PREVENT_EXEC" pas Sys.setenv(PREVENT_EXEC = "TRUE") ou dans .Renviron.
+#' On peut bloquer l'exécution en renseignant la variable d'environnement `PREVENT_EXEC` pas `Sys.setenv(PREVENT_EXEC = "TRUE")` ou dans `.Renviron`.
 #' Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence de cache).
 #'
 #' Des métadonnées peuvent être renvoyées (paramètre metadata) avec la date d'exécution ($date), le temps d'exécution ($timing),
-#' la taille des données ($size), le chemin de la source ($where), le hash du source ($hash) et bine sûr les données ($data)
+#' la taille des données (`$size`), le chemin de la source (`$where`), le hash du source (`$hash_src`) et bien sûr les données ($data)
 #'
 #' Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
-#' Typiquement cela peut être mis dans rinit.r (et donc être exécuté par ofce::init_qmd())
+#' Typiquement cela peut être mis dans rinit.r (et donc être exécuté par `ofce::init_qmd()`)
 #'
-#' Le paramètre wd perment de spécifier le répertoire d'exécution du source.
-#' Si il est mis à "file", les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
+#' Le paramètre `wd` perment de spécifier le répertoire d'exécution du source.
+#' Si il est mis à `"file"`, les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
 #' L'intérêt est que le code peut avoir des éléments persistants, locaux
-#' L'alternative est d'utiliser wd="project" auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
+#' L'alternative est d'utiliser `wd="project"` auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
 #' Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
 #' Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.
+#'
+#' En donnant des fichers à suivre par `track`, on peut déclencher l'exécution du source.
+#'
+#' `unfreeze` permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)
 #'
 #' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
 #' @param args (list) une liste d'arguments que l'on peut utliser dans source (args$xxx)
@@ -251,11 +256,14 @@ source_data <- function(name,
   if(!quiet)
     cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
 
-  if(good_good_data$lapse != lapse | good_good_data$unfreeze != unfreeze | good_good_data$wd != wd) {
-    our_data$lapse <- lapse
-    our_data$unfreeze <- unfreeze
-    our_data$wd <- wd
-    cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+  ggd_lapse <- good_good_data$lapse %||% "never"
+  ggd_unfreeze <- good_good_data$unfreeze %||% FALSE
+  ggd_wd <- good_good_data$wd %||% "file"
+  if(ggd_lapse != lapse | ggd_unfreeze != unfreeze | ggd_wd != wd) {
+    good_good_data $lapse <- lapse
+    good_good_data $unfreeze <- unfreeze
+    good_good_data $wd <- wd
+    cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
   }
 
   if(metadata) {
@@ -448,7 +456,10 @@ source_data_status <- function(data_rep = find_cache_rep()) {
       exec_wd = dd$exec_wd,
       args = list(dd$args),
       where = .x,
+      qmd_file = dd$qmd_file,
       src_hash = dd$hash,
+      track_hash = dd$track_hash,
+      args_hash = dd$args_hash,
       data_hash = dd$data_hash) |>
       arrange(src, desc(date))
   }
