@@ -186,7 +186,8 @@ source_data <- function(name,
     }
   }
   good_datas <- get_datas(basename, full_cache_rep)
-  qmds <- map_chr(good_datas, "qmd_file") |> unique()
+  qmds <- purrr::map(good_datas, "qmd_file") |> purrr::discard(is.null) |> unique()
+
   new_qmds <- unique(qmds, qmd_file)
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
