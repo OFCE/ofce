@@ -215,11 +215,12 @@ source_data <- function(name,
 
   good_datas <- get_datas(basename, full_cache_rep)
 
+  meme_null <- funtion(x, n, def = 0) if(is.null(x[[n]])) def else x[[n]]
   if(hash&!prevent)
     good_datas <- good_datas |>
-    purrr::keep(~.x[["src_hash"]]==src_hash) |>
-    purrr::keep(~.x[["arg_hash"]]==arg_hash) |>
-    purrr::keep(~all(.x[["track_hash"]]==track_hash))
+    purrr::keep(~meme_null(.x,"src_hash")==src_hash) |>
+    purrr::keep(~meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash) |>
+    purrr::keep(~meme_null(.x,"track_hash")==track_hash))
 
   if(lapse != "never"&!prevent) {
     alapse <- what_lapse(lapse)
