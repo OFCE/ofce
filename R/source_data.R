@@ -40,11 +40,13 @@
 #' @param relative (character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
 #' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
+#' @param track (list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.
 #' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
 #' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
 #' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
 #' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle
+#' @param unfreeze (boléen) essaye d'unfreezer le qmd si src est exécuté.
 #'
 #' @family source_data
 #' @return data (list ou ce que le code retourne)
@@ -60,11 +62,13 @@ source_data <- function(name,
                         args = list(),
                         relative = getOption("ofce.source_data.relative"),
                         hash = getOption("ofce.source_data.hash"),
+                        track = list(),
                         lapse = getOption("ofce.source_data.lapse"),
                         force_exec = getOption("ofce.source_data.force_exec"),
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
+                        unfreeze = FALSE,
                         quiet = TRUE, nocache = FALSE) {
 
   # on trouve le fichier
@@ -93,6 +97,7 @@ source_data <- function(name,
 
   if(relative=="project") {
     src <- find_src(root, name)
+    cwd <- root
     if(is.null(src)) {
       src <- try_find_src(root, name)
       if(length(src)==0) {
@@ -119,6 +124,7 @@ source_data <- function(name,
       }
     }
   }
+
   if(!quiet)
     cli::cli_alert_info("{.file {src}} comme source")
 
@@ -135,16 +141,23 @@ source_data <- function(name,
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
   full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
+  if(Sys.getenv("QUARTO_PROJECT_ROOT") != "") {
+    qmd_path <- fs::path_join(c(Sys.getenv("QUARTO_PROJECT_ROOT"), Sys.getenv("QUARTO_DOCUMENT_PATH"))) |>
+      fs::path_norm()
+    qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |> fs::path_ext_set("qmd")
+  } else {
+    qmd_path <- NULL
+    qmd_file <- NULL
+  }
+
   exec_wd <- getwd()
   if(wd=="project")
     exec_wd <- root
   if(wd=="file")
     exec_wd <- fs::path_dir(src)
   if(wd=="qmd") {
-    if(Sys.getenv("QUARTO_PROJECT_ROOT") != "") {
-      exec_wd <- fs::path_join(c(Sys.getenv("QUARTO_PROJECT_ROOT"), Sys.getenv("QUARTO_DOCUMENT_PATH"))) |>
-        fs::path_norm()
-
+    if(!is.null(qmd_path)) {
+      exec_wd <- qmd_path
     } else {
       cli::cli_alert_warning("Pas de document identifié, probablement, non excétué de quarto")
       exec_wd <- fs::path_dir(src)
@@ -155,6 +168,16 @@ source_data <- function(name,
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
 
   src_hash <- tools::md5sum(src)
+  arg_hash <- digest::digest(args, "crc32")
+  track_hash <- 0
+  if(length(track) >0) {
+    track_files <- fs::path_join(cwd, track)
+    if(all(map_lgl(track_files, fs::file_exists)))
+      track_hash <- tools::md5sum(track_files)
+    else {
+      cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
+    }
+  }
 
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
@@ -162,7 +185,14 @@ source_data <- function(name,
       our_data$lapse <- lapse
       our_data$src <- relname
       our_data$src_hash <- src_hash
+      our_data$arg_hash <- arg_hash
+      our_data$track_hash <- track_hash
+      our_data$wd <- wd
+      our_data$qmd_file <- qmd_file
+      our_data$unfreeze <- unfreeze
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+      if(unfreeze)
+        unfreeze(qmd_file)
       if(metadata) {
         return(our_data)
       } else {
@@ -177,7 +207,10 @@ source_data <- function(name,
   good_datas <- get_datas(basename, full_cache_rep)
 
   if(hash&!prevent)
-    good_datas <- purrr::keep(good_datas, ~.x[["src_hash"]]==src_hash)
+    good_datas <- good_datas |>
+    purrr::keep(~.x[["src_hash"]]==src_hash) |>
+    purrr::keep(~.x[["arg_hash"]]==arg_hash) |>
+    purrr::keep(~.x[["track_hash"]]==track_hash)
 
   if(lapse != "never"&!prevent) {
     alapse <- what_lapse(lapse)
@@ -187,7 +220,7 @@ source_data <- function(name,
   if(length(good_datas)==0) {
     if(prevent) {
       if(!quiet)
-        cli::cli_alert_warning("Pas de données en cache, pas d'exécution")
+        cli::cli_alert_warning("Pas de données en cache et pas d'exécution")
       return(NULL)
     }
     our_data <- exec_source(src, exec_wd, args)
@@ -195,6 +228,10 @@ source_data <- function(name,
       our_data$lapse <- lapse
       our_data$src <- relname
       our_data$src_hash <- src_hash
+      our_data$qmd_file <- qmd_file
+      our_data$unfreeze <- unfreeze
+      our_data$arg_hash <- arg_hash
+      our_data$track_hash <- track_hash
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(metadata) {
         return(our_data)
@@ -210,8 +247,17 @@ source_data <- function(name,
 
   dates <- purrr::map(good_datas, "date")
   good_good_data <- good_datas[[which.max(dates)]]
+
   if(!quiet)
     cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
+
+  if(good_good_data$lapse != lapse | good_good_data$unfreeze != unfreeze | good_good_data$wd != wd) {
+    our_data$lapse <- lapse
+    our_data$unfreeze <- unfreeze
+    our_data$wd <- wd
+    cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+  }
+
   if(metadata) {
     return(good_good_data)
   } else {
@@ -258,7 +304,7 @@ exec_source <- function(src, wd, args = list()) {
     timing = timing,
     date = lubridate::now(),
     size = lobstr::obj_size(res$result$value),
-    wd = wd,
+    exec_wd = wd,
     args = args,
     ok = TRUE
   )
@@ -345,6 +391,20 @@ find_cache_rep <- function() {
     getOption("ofce.source_data.cache_rep")
 }
 
+unfreeze <- function(qmd_file, root, quiet=TRUE) {
+  if(is.null(qmd_file)|is.null(root))
+    return(NULL)
+  qmd_folder <- qmd_file |> fs::path_ext_remove()
+  rel_path <- fs::path_rel(qmd_folder, root)
+  freeze_path <- fs::path_join(c(root, "_freeze", rel_path))
+  if(fs::dir_exists(freeze_path)) {
+    if(!quiet)
+      cli::cli_alert_info("Unfreezing {.file {freeze_path}}")
+    fs::dir_delete(freeze_path)
+  }
+  return(NULL)
+}
+
 # source data status ---------------------------
 
 #' Etat du cache de source_data
@@ -385,6 +445,7 @@ source_data_status <- function(data_rep = find_cache_rep()) {
       size = dd$size,
       lapse = dd$lapse |> as.character(),
       wd = dd$wd,
+      exec_wd = dd$exec_wd,
       args = list(dd$args),
       where = .x,
       src_hash = dd$hash,

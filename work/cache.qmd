@@ -3,13 +3,14 @@ title: "Cache"
 subtitle: "hello cache"
 format:
   html: default
+freeze: auto
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #| label: tbl-table1
 library(tidyverse)
 library(ofce)
-dd <- source_data("work/cache/testsource.R", wd = "qmd")
+dd <- source_data("work/cache/testsource.R")
 ```
 
 texte avant

@@ -380,7 +380,8 @@ init_qmd <- function(init = "rinit.r") {
     root <- root$result
     ofce.root <<- root
     inits <- c(glue::glue("./{init}"),
-              glue::glue("./_utils/{init}"))
+              glue::glue("./_utils/{init}"),
+              glue::glue("./.utils/{init}"))
     inits <- purrr::map(inits, ~fs::path_join(c(root, .x)) |> fs::path_norm() |> as.character())
     inits <- c(inits, stringr::str_replace(inits, "r$", "R"))
     for(i in inits)
