@@ -121,9 +121,9 @@ source_data <- function(name,
 
   if(relative!="project") {
     cwd <- getwd()
-    src <- fs::path_join(cwd, src) |> fs::path_ext_set(".R")
+    src <- fs::path_join(c(cwd, src)) |> fs::path_ext_set(".R")
     if(!fs::file_exists(src)) {
-      src <- fs::path_join(cwd, src) |> fs::path_ext_set(".r")
+      src <- fs::path_join(c(cwd, src)) |> fs::path_ext_set(".r")
       if(!fs::file_exists(src)) {
         return(NULL)
       }
@@ -175,10 +175,12 @@ source_data <- function(name,
   src_hash <- tools::md5sum(src)
   arg_hash <- digest::digest(args, "crc32")
   track_hash <- 0
+
   if(length(track) >0) {
-    track_files <- fs::path_join(cwd, track)
-    if(all(map_lgl(track_files, fs::file_exists)))
-      track_hash <- tools::md5sum(track_files)
+    track_files <- map(track, ~fs::path_join(c(cwd, .x)))
+    ok_files <- map_lgl(track_files, fs::file_exists)
+    if(any(ok_files))
+      track_hash <- tools::md5sum(as.character(track_files[ok_files]))
     else {
       cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
     }
@@ -215,7 +217,7 @@ source_data <- function(name,
     good_datas <- good_datas |>
     purrr::keep(~.x[["src_hash"]]==src_hash) |>
     purrr::keep(~.x[["arg_hash"]]==arg_hash) |>
-    purrr::keep(~.x[["track_hash"]]==track_hash)
+    purrr::keep(~all(.x[["track_hash"]]==track_hash))
 
   if(lapse != "never"&!prevent) {
     alapse <- what_lapse(lapse)
@@ -458,7 +460,7 @@ source_data_status <- function(data_rep = find_cache_rep()) {
       where = .x,
       qmd_file = dd$qmd_file,
       src_hash = dd$hash,
-      track_hash = dd$track_hash,
+      track_hash = list(dd$track_hash),
       args_hash = dd$args_hash,
       data_hash = dd$data_hash) |>
       arrange(src, desc(date))
