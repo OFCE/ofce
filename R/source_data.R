@@ -44,7 +44,7 @@
 #' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
 #' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
-#' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier qui est le wd
+#' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle
 #'
 #' @family source_data
 #' @return data (list ou ce que le code retourne)
@@ -140,6 +140,8 @@ source_data <- function(name,
     exec_wd <- root
   if(wd=="file")
     exec_wd <- fs::path_dir(src)
+  if(wd=="qmd")
+    exec_wd <- fs::path_dir(src)
 
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
@@ -152,9 +154,6 @@ source_data <- function(name,
       our_data$lapse <- lapse
       our_data$src <- relname
       our_data$src_hash <- src_hash
-      our_data$wd <- wd
-      if(length(args)>0)
-        our_data$args <- args
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(metadata) {
         return(our_data)
@@ -188,9 +187,6 @@ source_data <- function(name,
       our_data$lapse <- lapse
       our_data$src <- relname
       our_data$src_hash <- src_hash
-      our_data$wd <- wd
-      if(length(args)>0)
-        our_data$args <- args
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(metadata) {
         return(our_data)
@@ -246,15 +242,16 @@ exec_source <- function(src, wd, args = list()) {
   timing <- as.numeric(Sys.time() - start)
   setwd(current_wd)
   if(!is.null(res$error)) {
-    cli::cli_alert_warning(res$error)
-    return(list(ok=FALSE))
+    cli::cli_alert_warning(as.character(res$error))
+    return(list(ok=FALSE, error = res$error))
   }
   list(
     data = res$result$value,
     timing = timing,
     date = lubridate::now(),
     size = lobstr::obj_size(res$result$value),
-    # url = "",
+    wd = wd,
+    args = args,
     ok = TRUE
   )
 }
