@@ -202,6 +202,7 @@ source_data <- function(name,
       our_data$track_hash <- list(track_hash)
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
+      our_data$root <- root
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -243,6 +244,7 @@ source_data <- function(name,
       our_data$qmd_file <- new_qmds
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
+      our_data$root <- root
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -267,12 +269,12 @@ source_data <- function(name,
   ggd_lapse <- good_good_data$lapse %||% "never"
   ggd_wd <- good_good_data$wd %||% "file"
   ggd_qmds <- setequal(good_good_data$qmd_file, new_qmds)
-    if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds) {
-      good_good_data$lapse <- lapse
-      good_good_data$wd <- wd
-      good_good_data$qmd_file <- new_qmds
-      cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
-    }
+  if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds) {
+    good_good_data$lapse <- lapse
+    good_good_data$wd <- wd
+    good_good_data$qmd_file <- new_qmds
+    cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+  }
 
   if(metadata) {
     return(good_good_data)
@@ -464,6 +466,7 @@ source_data_status <- function(data_rep = find_cache_rep()) {
       exec_wd = dd$exec_wd,
       args = list(dd$args),
       where = .x,
+      root = dd$root,
       qmd_file = dd$qmd_file,
       src_hash = dd$hash,
       track_hash = list(dd$track_hash),
@@ -532,13 +535,16 @@ source_data_refresh <- function(
     cache_rep = find_cache_rep(),
     relative = getOption("ofce.source_data.relative"),
     force_exec = getOption("ofce.source_data.force_exec"),
-    hash = getOption("ofce.source_data.hash")) {
+    hash = getOption("ofce.source_data.hash"),
+    unfreeze = FALSE) {
 
   purrr::pwalk(what, function(src, wd, lapse, args, ...) {
-    source_data(name = src, relative = relative,
-                force_exec = force_exec,
-                hash = hash, args = args,
-                wd = wd, lapse = lapse)
+    src_data <- source_data(name = src, relative = relative,
+                            force_exec = force_exec,
+                            hash = hash, args = args,
+                            wd = wd, lapse = lapse, metadata = TRUE)
+    if(unfreeze)
+      purrr::walk(src_data$qmd_file, ~unfreeze(.x, src_data$root))
   })
 
   source_data_status(cache_rep)
