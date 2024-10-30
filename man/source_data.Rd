@@ -9,11 +9,13 @@ source_data(
   args = list(),
   relative = getOption("ofce.source_data.relative"),
   hash = getOption("ofce.source_data.hash"),
+  track = list(),
   lapse = getOption("ofce.source_data.lapse"),
   force_exec = getOption("ofce.source_data.force_exec"),
   prevent_exec = getOption("ofce.source_data.prevent_exec"),
   metadata = getOption("ofce.source_data.metadata"),
   wd = getOption("ofce.source_data.wd"),
+  unfreeze = getOption("ofce.source_data.unfreeze"),
   quiet = TRUE,
   nocache = FALSE
 )
@@ -27,6 +29,8 @@ source_data(
 
 \item{hash}{(boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution}
 
+\item{track}{(list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.}
+
 \item{lapse}{(character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"}
 
 \item{force_exec}{(boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)}
@@ -35,7 +39,13 @@ source_data(
 
 \item{metadata}{(boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même}
 
-\item{wd}{(character) si 'project' assure que le wd est le root du project, si 'file' c'est le fichier qui est le wd}
+\item{wd}{(character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle}
+
+\item{unfreeze}{(boléen) essaye d'unfreezer le qmd si src est exécuté.}
+
+\item{quiet}{(boléen) pas de messages}
+
+\item{nocache}{(boléen) n'enregistre pas le cache même si nécessaire}
 
 \item{cache_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
 }
@@ -53,24 +63,29 @@ les appels suivants seront plus rapides et sans erreur.
 
 Une modification du code est détectée et déclenche l'éxécution
 
-Suivant le paramètre lapse on peut déclencher une exécution péridique. Par exemple, pour ne pas rater une MAJ, on peut mettre lapse = "1 day" ou "day" et une fois par jour le code sera exécuté.
+Suivant le paramètre lapse on peut déclencher une exécution périodique.
+Par exemple, pour ne pas rater une MAJ, on peut mettre \code{lapse = "1 day"} ou \code{"day"} et une fois par jour le code sera exécuté.
 Cela permet d'éviter une exécution à chaque rendu.
 
-On peut bloquer l'exécution en renseignant la variable d'environnement "PREVENT_EXEC" pas Sys.setenv(PREVENT_EXEC = "TRUE") ou dans .Renviron.
+On peut bloquer l'exécution en renseignant la variable d'environnement \code{PREVENT_EXEC} pas \code{Sys.setenv(PREVENT_EXEC = "TRUE")} ou dans \code{.Renviron}.
 Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence de cache).
 
 Des métadonnées peuvent être renvoyées (paramètre metadata) avec la date d'exécution ($date), le temps d'exécution ($timing),
-la taille des données ($size), le chemin de la source ($where), le hash du source ($hash) et bine sûr les données ($data)
+la taille des données (\verb{$size}), le chemin de la source (\verb{$where}), le hash du source (\verb{$hash_src}) et bien sûr les données ($data)
 
 Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
-Typiquement cela peut être mis dans rinit.r (et donc être exécuté par ofce::init_qmd())
+Typiquement cela peut être mis dans rinit.r (et donc être exécuté par \code{ofce::init_qmd()})
 
-Le paramètre wd perment de spécifier le répertoire d'exécution du source.
-Si il est mis à "file", les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
+Le paramètre \code{wd} perment de spécifier le répertoire d'exécution du source.
+Si il est mis à \code{"file"}, les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
 L'intérêt est que le code peut avoir des éléments persistants, locaux
-L'alternative est d'utiliser wd="project" auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
+L'alternative est d'utiliser \code{wd="project"} auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
 Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
 Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.
+
+En donnant des fichers à suivre par \code{track}, on peut déclencher l'exécution du source.
+
+\code{unfreeze} permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)
 }
 \seealso{
 Other source_data: 

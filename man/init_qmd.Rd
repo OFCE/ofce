@@ -2,7 +2,8 @@
 % Please edit documentation in R/quarto.R
 \name{init_qmd}
 \alias{init_qmd}
-\title{exécute le fichier rinit.R à la racine du file, ou au dessus
+\title{exécute le fichier rinit.R à la racine du projet, ou dans _utils,
+ou en dessous.
 s'il ne le trouve pas il utilise une version par défaut,
 stockée dans le package}
 \usage{
@@ -12,7 +13,8 @@ init_qmd(init = "rinit.r")
 \item{init}{Nom du projet, "pres" par défaut,}
 }
 \description{
-exécute le fichier rinit.R à la racine du file, ou au dessus
+exécute le fichier rinit.R à la racine du projet, ou dans _utils,
+ou en dessous.
 s'il ne le trouve pas il utilise une version par défaut,
 stockée dans le package
 }

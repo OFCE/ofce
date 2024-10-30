@@ -52,6 +52,8 @@
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
 #' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle
 #' @param unfreeze (boléen) essaye d'unfreezer le qmd si src est exécuté.
+#' @param quiet (boléen) pas de messages
+#' @param nocache (boléen) n'enregistre pas le cache même si nécessaire
 #'
 #' @family source_data
 #' @return data (list ou ce que le code retourne)
@@ -73,7 +75,7 @@ source_data <- function(name,
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
-                        unfreeze = FALSE,
+                        unfreeze = getOption("ofce.source_data.unfreeze"),
                         quiet = TRUE, nocache = FALSE) {
 
   # on trouve le fichier
