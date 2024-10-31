@@ -38,15 +38,12 @@
 #'
 #' En donnant des fichers à suivre par `track`, on peut déclencher l'exécution du source.
 #'
-#' Il n'est pas recommandé d'utiliser un cache différent de celui proposé.
-#' L'option est là pour les usages plus avancés.
-#'
 #' `unfreeze` permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)
 #'
 #' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
 #' @param args (list) une liste d'arguments que l'on peut utliser dans source (args$xxx)
 #' @param relative (character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
-#' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut NULL)
+#' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param track (list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.
 #' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
@@ -77,24 +74,16 @@ source_data <- function(name,
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
-                        cache_rep = NULL,
+                        cache_rep = find_cache_rep(),
                         root = NULL,
                         quiet = TRUE, nocache = FALSE) {
 
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
   name <- remove_ext(name)
+
   if(is.null(root)) {
-    safe_find_root <- purrr::safely(rprojroot::find_root)
-    root <- safe_find_root(
-      rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
-    if(is.null(root$error))
-      root <- root$result
-    else {
-      if(!quiet)
-        cli::cli_alert_warning("{root$error}")
-      return(NULL)
-    }
+    root <- try_find_root()
   }
   root <- fs::path_norm(root)
   if(!quiet)
@@ -107,7 +96,7 @@ source_data <- function(name,
   else
     full_cache_rep <- fs::path_expand(cache_rep)
   if(!quiet)
-    cli::cli_alert_info("cache: {cache_rep}")
+    cli::cli_alert_info("cache: {full_cache_rep}")
 
   if(relative=="project") {
     src <- find_src(root, name)
@@ -154,7 +143,7 @@ source_data <- function(name,
   basename <- fs::path_file(name)
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
-  full_cache_rep <- fs::path_join(c(full_cache_rep, reldirname))
+  full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
   if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
     qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
@@ -254,7 +243,6 @@ source_data <- function(name,
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
       our_data$root <- root
-
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
       if(metadata) {
@@ -432,6 +420,22 @@ unfreeze <- function(qmd_file, root, quiet=TRUE) {
   return(NULL)
 }
 
+try_find_root <- function() {
+  if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
+    safe_find_root <- purrr::safely(rprojroot::find_root)
+    root <- safe_find_root(
+      rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+    if(is.null(root$error))
+      return(root$result |> fs::path_norm())
+    else {
+      if(!quiet)
+        cli::cli_alert_warning("{root$error}")
+      return(NULL)
+    }
+  }
+  return(Sys.getenv("QUARTO_PROJECT_DIR") |> fs::path_norm())
+}
+
 # source data status ---------------------------
 
 #' Etat du cache de source_data
@@ -548,9 +552,8 @@ source_data_refresh <- function(
     unfreeze = TRUE,
     quiet = FALSE) {
 
-  purrr::pwalk(what, function(src, wd, lapse, args, root, ...) {
-        cache <- fs::path_join(c(root, ".data"))
-        src_data <- source_data(name = src,
+  purrr::pwalk(what, function(src, wd, lapse, args, root, cache, ...) {
+    src_data <- source_data(name = src,
                             relative = relative,
                             force_exec = force_exec,
                             hash = hash,
