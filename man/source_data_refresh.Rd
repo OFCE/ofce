@@ -5,21 +5,22 @@
 \title{Exécute les sources sélectionnés}
 \usage{
 source_data_refresh(
-  what = source_data_status(find_cache_rep()),
-  cache_rep = find_cache_rep(),
-  relative = getOption("ofce.source_data.relative"),
+  cache_rep = NULL,
+  what = source_data_status(cache_rep),
   force_exec = getOption("ofce.source_data.force_exec"),
-  hash = getOption("ofce.source_data.hash")
+  hash = getOption("ofce.source_data.hash"),
+  unfreeze = TRUE,
+  quiet = FALSE
 )
 }
 \arguments{
-\item{what}{un tibble issu de source_data (tout par défaut)}
-
 \item{cache_rep}{le répertoire de cache}
 
-\item{relative}{}
+\item{what}{un tibble issu de source_data (tout par défaut)}
 
 \item{force_exec}{(boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)}
+
+\item{relative}{}
 }
 \value{
 un tibble de status

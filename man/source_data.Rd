@@ -15,7 +15,8 @@ source_data(
   prevent_exec = getOption("ofce.source_data.prevent_exec"),
   metadata = getOption("ofce.source_data.metadata"),
   wd = getOption("ofce.source_data.wd"),
-  unfreeze = getOption("ofce.source_data.unfreeze"),
+  cache_rep = find_cache_rep(),
+  root = NULL,
   quiet = TRUE,
   nocache = FALSE
 )
@@ -41,13 +42,11 @@ source_data(
 
 \item{wd}{(character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle}
 
-\item{unfreeze}{(boléen) essaye d'unfreezer le qmd si src est exécuté.}
+\item{cache_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
 
 \item{quiet}{(boléen) pas de messages}
 
 \item{nocache}{(boléen) n'enregistre pas le cache même si nécessaire}
-
-\item{cache_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
 }
 \value{
 data (list ou ce que le code retourne)

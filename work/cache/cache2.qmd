@@ -1,9 +1,8 @@
 ---
 title: "Cache"
 subtitle: "hello cache"
-format:
-  html: default
-freeze: auto
+---
+title: cache2
 ---
 ```{r}
 Sys.getenv("QUARTO_PROJECT_ROOT")

@@ -243,6 +243,8 @@ source_data <- function(name,
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
       our_data$root <- root
+      our_data$wd <- wd
+
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
       if(metadata) {
@@ -449,18 +451,14 @@ try_find_root <- function() {
 #' @export
 #'
 
-source_data_status <- function(data_rep = find_cache_rep()) {
-  safe_find_root <- purrr::safely(rprojroot::find_root)
-  root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
-  if(is.null(root$error))
-    root <- root$result
-  else {
-    cli::cli_alert_warning("{root$error}")
-    return(NULL)
-  }
-  data_rep <- stringr::str_c(root, "/", data_rep) # absolu maintenant
+source_data_status <- function(cache_rep = NULL) {
 
-  caches <- list.files(path = data_rep, pattern = "*.qs", recursive = TRUE, full.names = TRUE)
+  if(is.null(cache_rep)) {
+    root <- try_find_root()
+    cach_rep <- fs::path_join(c(root, ".data"))
+  }
+
+  caches <- list.files(path = cache_rep, pattern = "*.qs", recursive = TRUE, full.names = TRUE)
 
   purrr::map_dfr(caches, ~{
     dd <- qs::qread(.x)
@@ -545,7 +543,6 @@ clear_source_cache <- function(
 source_data_refresh <- function(
     cache_rep = NULL,
     what = source_data_status(cache_rep),
-    relative = getOption("ofce.source_data.relative"),
     force_exec = getOption("ofce.source_data.force_exec"),
     hash = getOption("ofce.source_data.hash"),
     unfreeze = TRUE,
@@ -553,7 +550,7 @@ source_data_refresh <- function(
 
   purrr::pwalk(what, function(src, wd, lapse, args, root, ...) {
     src_data <- source_data(name = src,
-                            relative = relative,
+                            relative = "project",
                             force_exec = force_exec,
                             hash = hash,
                             args = args,
@@ -561,7 +558,6 @@ source_data_refresh <- function(
                             lapse = lapse,
                             metadata = TRUE,
                             quiet = quiet,
-                            cache_rep = cache,
                             root = root)
     if(unfreeze)
       purrr::walk(src_data$qmd_file, ~unfreeze(.x, src_data$root), quiet = quiet)
