@@ -93,14 +93,13 @@ source_data <- function(name,
       return(NULL)
     }
   }
-
   root <- fs::path_norm(root)
   if(!quiet)
     cli::cli_alert_info("root: {root}")
   uid <- digest::digest(root, algo = "crc32")
   if(!quiet)
     cli::cli_alert_info("uid: {uid}")
-  cache_rep <- fs::path_join(c(root, cache_rep)) |> fs::path_norm()
+  full_cache_rep <- fs::path_join(c(root, cache_rep)) |> fs::path_norm()
   if(!quiet)
     cli::cli_alert_info("cache: {cache_rep}")
 
@@ -149,7 +148,7 @@ source_data <- function(name,
   basename <- fs::path_file(name)
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
-  full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
+  full_cache_rep <- fs::path_join(c(full_cache_rep, reldirname))
   if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
     qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
@@ -545,7 +544,8 @@ source_data_refresh <- function(
     unfreeze = TRUE,
     quiet = FALSE) {
 
-  purrr::pwalk(what, function(src, wd, lapse, args, root,cache, ...) {
+  purrr::pwalk(what, function(src, wd, lapse, args, root, cache, ...) {
+    browser()
     src_data <- source_data(name = src,
                             relative = relative,
                             force_exec = force_exec,
