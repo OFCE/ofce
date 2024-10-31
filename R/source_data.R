@@ -194,7 +194,6 @@ source_data <- function(name,
     purrr::discard(is.null) |>
     unique() |>
     as.character()
-  browser()
   new_qmds <- unique(c(qmds, qmd_file))
 
   if(force&!prevent) {
