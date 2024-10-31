@@ -92,11 +92,11 @@ source_data <- function(name,
   if(!quiet)
     cli::cli_alert_info("uid: {uid}")
   if(is.null(cache_rep))
-    full_cache_rep <- fs::path_join(c(root, ".data")) |> fs::path_norm()
+    root_cache_rep <- fs::path_join(c(root, ".data")) |> fs::path_norm()
   else
-    full_cache_rep <- fs::path_expand(cache_rep)
+    root_cache_rep <- fs::path_expand(cache_rep)
   if(!quiet)
-    cli::cli_alert_info("cache: {full_cache_rep}")
+    cli::cli_alert_info("cache: {root_cache_rep}")
 
   if(relative=="project") {
     src <- find_src(root, name)
@@ -117,7 +117,7 @@ source_data <- function(name,
     }
   }
 
-  if(relative!="project") {
+  if(relative=="wd") {
     cwd <- getwd()
     src <- fs::path_join(c(cwd, src)) |> fs::path_ext_set(".R")
     if(!fs::file_exists(src)) {
@@ -143,7 +143,7 @@ source_data <- function(name,
   basename <- fs::path_file(name)
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
-  full_cache_rep <- fs::path_join(c(cache_rep, reldirname))
+  full_cache_rep <- fs::path_join(c(root_cache_rep, reldirname))
   if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
     qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
@@ -278,7 +278,6 @@ source_data <- function(name,
   } else {
     return(good_good_data$data)
   }
-
 }
 
 # fonctions --------------------
@@ -544,7 +543,7 @@ clear_source_cache <- function(
 #' @export
 #'
 source_data_refresh <- function(
-    cache_rep = find_cache_rep(),
+    cache_rep = NULL,
     what = source_data_status(cache_rep),
     relative = getOption("ofce.source_data.relative"),
     force_exec = getOption("ofce.source_data.force_exec"),
@@ -552,7 +551,7 @@ source_data_refresh <- function(
     unfreeze = TRUE,
     quiet = FALSE) {
 
-  purrr::pwalk(what, function(src, wd, lapse, args, root, cache, ...) {
+  purrr::pwalk(what, function(src, wd, lapse, args, root, ...) {
     src_data <- source_data(name = src,
                             relative = relative,
                             force_exec = force_exec,
