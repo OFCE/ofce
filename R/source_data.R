@@ -74,28 +74,32 @@ source_data <- function(name,
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
+                        cache_rep = find_cache_rep(),
+                        root = NULL,
                         quiet = TRUE, nocache = FALSE) {
 
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
   name <- remove_ext(name)
-  safe_find_root <- purrr::safely(rprojroot::find_root)
-  root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
-
-  if(is.null(root$error))
-    root <- root$result
-  else {
-    if(!quiet)
-      cli::cli_alert_warning("{root$error}")
-    return(NULL)
+  if(is.null(root)) {
+    safe_find_root <- purrr::safely(rprojroot::find_root)
+    root <- safe_find_root(
+      rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+    if(is.null(root$error))
+      root <- root$result
+    else {
+      if(!quiet)
+        cli::cli_alert_warning("{root$error}")
+      return(NULL)
+    }
   }
+
   root <- fs::path_norm(root)
   if(!quiet)
     cli::cli_alert_info("root: {root}")
   uid <- digest::digest(root, algo = "crc32")
   if(!quiet)
     cli::cli_alert_info("uid: {uid}")
-  cache_rep = find_cache_rep()
   cache_rep <- fs::path_join(c(root, cache_rep)) |> fs::path_norm()
   if(!quiet)
     cli::cli_alert_info("cache: {cache_rep}")
@@ -190,7 +194,7 @@ source_data <- function(name,
     purrr::discard(is.null) |>
     unique() |>
     as.character()
-
+  browser()
   new_qmds <- unique(c(qmds, qmd_file))
 
   if(force&!prevent) {
@@ -204,6 +208,7 @@ source_data <- function(name,
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
       our_data$root <- root
+      our_data$cache <- cache_rep
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -246,6 +251,7 @@ source_data <- function(name,
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
       our_data$root <- root
+      our_data$cache <- cache_rep
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -532,20 +538,28 @@ clear_source_cache <- function(
 #' @export
 #'
 source_data_refresh <- function(
-    what = source_data_status(cache_rep),
     cache_rep = find_cache_rep(),
+    what = source_data_status(cache_rep),
     relative = getOption("ofce.source_data.relative"),
     force_exec = getOption("ofce.source_data.force_exec"),
     hash = getOption("ofce.source_data.hash"),
-    unfreeze = FALSE) {
+    unfreeze = TRUE,
+    quiet = FALSE) {
 
-  purrr::pwalk(what, function(src, wd, lapse, args, ...) {
-    src_data <- source_data(name = src, relative = relative,
+  purrr::pwalk(what, function(src, wd, lapse, args, root,cache, ...) {
+    src_data <- source_data(name = src,
+                            relative = relative,
                             force_exec = force_exec,
-                            hash = hash, args = args,
-                            wd = wd, lapse = lapse, metadata = TRUE)
+                            hash = hash,
+                            args = args,
+                            wd = wd,
+                            lapse = lapse,
+                            metadata = TRUE,
+                            quiet = quiet,
+                            cache_rep = cache,
+                            root = root)
     if(unfreeze)
-      purrr::walk(src_data$qmd_file, ~unfreeze(.x, src_data$root))
+      purrr::walk(src_data$qmd_file, ~unfreeze(.x, src_data$root), quiet = quiet)
   })
 
   source_data_status(cache_rep)
