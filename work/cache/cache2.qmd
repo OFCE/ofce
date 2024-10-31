@@ -17,7 +17,6 @@ library(tidyverse)
 library(ofce)
 dd <- source_data("testsource.R", track=list("data.csv"), quiet = FALSE)
 
-source_data_status()$qmd_file
 ```
 
 texte avant

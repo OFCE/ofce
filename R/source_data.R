@@ -74,7 +74,7 @@ source_data <- function(name,
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
-                        cache_rep = find_cache_rep(),
+                        cache_rep = NULL,
                         root = NULL,
                         quiet = TRUE, nocache = FALSE) {
 
@@ -143,7 +143,8 @@ source_data <- function(name,
   basename <- fs::path_file(name)
   relname <- fs::path_rel(src, root)
   reldirname <- fs::path_dir(relname)
-  full_cache_rep <- fs::path_join(c(root_cache_rep, reldirname))
+  full_cache_rep <- fs::path_join(c(root_cache_rep, reldirname)) |>
+    fs::path_norm()
   if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
     qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
@@ -198,6 +199,7 @@ source_data <- function(name,
       our_data$src_hash <- src_hash
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
+      our_data$track <- track
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
       our_data$root <- root
@@ -221,7 +223,7 @@ source_data <- function(name,
     good_datas <- good_datas |>
     purrr::keep(~meme_null(.x,"src_hash")==src_hash) |>
     purrr::keep(~meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash) |>
-    purrr::keep(~meme_null(.x,"track_hash")==track_hash)
+      purrr::keep(~setequal(.x$track_hash, track_hash))
 
   if(lapse != "never"&!prevent) {
     alapse <- what_lapse(lapse)
@@ -242,6 +244,7 @@ source_data <- function(name,
       our_data$qmd_file <- new_qmds
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
+      our_data$track <- track
       our_data$root <- root
       our_data$wd <- wd
 
@@ -455,7 +458,7 @@ source_data_status <- function(cache_rep = NULL) {
 
   if(is.null(cache_rep)) {
     root <- try_find_root()
-    cach_rep <- fs::path_join(c(root, ".data"))
+    cache_rep <- fs::path_join(c(root, ".data"))
   }
 
   caches <- list.files(path = cache_rep, pattern = "*.qs", recursive = TRUE, full.names = TRUE)
@@ -548,11 +551,12 @@ source_data_refresh <- function(
     unfreeze = TRUE,
     quiet = FALSE) {
 
-  purrr::pwalk(what, function(src, wd, lapse, args, root, ...) {
+  purrr::pwalk(what, function(src, wd, lapse, args, root, track,...) {
     src_data <- source_data(name = src,
                             relative = "project",
                             force_exec = force_exec,
                             hash = hash,
+                            track = track,
                             args = args,
                             wd = wd,
                             lapse = lapse,
