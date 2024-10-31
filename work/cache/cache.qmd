@@ -14,7 +14,7 @@ Sys.getenv("QUARTO_DOCUMENT_PATH")
 #| label: tbl-table1
 library(tidyverse)
 library(ofce)
-dd <- source_data("testsource.R", track=list("data.csv"), quiet = FALSE)
+dd <- source_data("testsource.R", track=list("data.csv", "data2.csv"), quiet = FALSE)
 
 source_data_status()$qmd_file
 ```

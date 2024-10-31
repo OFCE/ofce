@@ -483,6 +483,7 @@ source_data_status <- function(cache_rep = NULL) {
       qmd_file = list(dd$qmd_file),
       src_hash = dd$hash,
       track_hash = list(dd$track_hash),
+      track = list(dd$track),
       args_hash = dd$args_hash,
       data_hash = dd$data_hash) |>
       arrange(src, desc(date))
