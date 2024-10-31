@@ -94,7 +94,7 @@ source_data <- function(name,
   if(is.null(cache_rep))
     root_cache_rep <- fs::path_join(c(root, ".data")) |> fs::path_norm()
   else
-    root_cache_rep <- fs::path_expand(cache_rep)
+    root_cache_rep <- fs::path_abs(cache_rep)
   if(!quiet)
     cli::cli_alert_info("cache: {root_cache_rep}")
 
