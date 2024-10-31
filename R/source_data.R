@@ -192,6 +192,7 @@ source_data <- function(name,
     as.character()
 
   new_qmds <- unique(c(qmds, qmd_file))
+
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
@@ -467,7 +468,7 @@ source_data_status <- function(data_rep = find_cache_rep()) {
       args = list(dd$args),
       where = .x,
       root = dd$root,
-      qmd_file = dd$qmd_file,
+      qmd_file = list(dd$qmd_file),
       src_hash = dd$hash,
       track_hash = list(dd$track_hash),
       args_hash = dd$args_hash,
@@ -531,7 +532,7 @@ clear_source_cache <- function(
 #' @export
 #'
 source_data_refresh <- function(
-    what = source_data_status(find_cache_rep()),
+    what = source_data_status(cache_rep),
     cache_rep = find_cache_rep(),
     relative = getOption("ofce.source_data.relative"),
     force_exec = getOption("ofce.source_data.force_exec"),
