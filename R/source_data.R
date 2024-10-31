@@ -38,12 +38,15 @@
 #'
 #' En donnant des fichers à suivre par `track`, on peut déclencher l'exécution du source.
 #'
+#' Il n'est pas recommandé d'utiliser un cache différent de celui proposé.
+#' L'option est là pour les usages plus avancés.
+#'
 #' `unfreeze` permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)
 #'
 #' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
 #' @param args (list) une liste d'arguments que l'on peut utliser dans source (args$xxx)
 #' @param relative (character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
-#' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
+#' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut NULL)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param track (list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.
 #' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
@@ -74,7 +77,7 @@ source_data <- function(name,
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
-                        cache_rep = find_cache_rep(),
+                        cache_rep = NULL,
                         root = NULL,
                         quiet = TRUE, nocache = FALSE) {
 
@@ -99,7 +102,10 @@ source_data <- function(name,
   uid <- digest::digest(root, algo = "crc32")
   if(!quiet)
     cli::cli_alert_info("uid: {uid}")
-  full_cache_rep <- fs::path_join(c(root, cache_rep)) |> fs::path_norm()
+  if(is.null(cache_rep))
+    full_cache_rep <- fs::path_join(c(root, ".data")) |> fs::path_norm()
+  else
+    full_cache_rep <- fs::path_expand(cache_rep)
   if(!quiet)
     cli::cli_alert_info("cache: {cache_rep}")
 
@@ -206,7 +212,6 @@ source_data <- function(name,
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
       our_data$root <- root
-      our_data$cache <- cache_rep
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -249,7 +254,6 @@ source_data <- function(name,
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- list(track_hash)
       our_data$root <- root
-      our_data$cache <- cache_rep
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -544,9 +548,9 @@ source_data_refresh <- function(
     unfreeze = TRUE,
     quiet = FALSE) {
 
-  purrr::pwalk(what, function(src, wd, lapse, args, root, cache, ...) {
-    browser()
-    src_data <- source_data(name = src,
+  purrr::pwalk(what, function(src, wd, lapse, args, root, ...) {
+        cache <- fs::path_join(c(root, ".data"))
+        src_data <- source_data(name = src,
                             relative = relative,
                             force_exec = force_exec,
                             hash = hash,
