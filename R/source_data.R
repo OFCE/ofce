@@ -479,12 +479,15 @@ try_find_root <- function() {
 #' @export
 #'
 
-source_data_status <- function(cache_rep = NULL) {
+source_data_status <- function(cache_rep = NULL, quiet = TRUE) {
 
   if(is.null(cache_rep)) {
     root <- try_find_root()
     cache_rep <- fs::path_join(c(root, ".data"))
   }
+  if(!quiet)
+    cli::cli_alert_info("répertoire cache {.file {cache_rep}}")
+
   if(fs::dir_exists(cache_rep)) {
     caches <- fs::dir_ls(path = cache_rep, glob = "*.qs", recurse = TRUE)
 
