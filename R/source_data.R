@@ -517,8 +517,10 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE) {
         arrange(src, desc(date))
     }
     )
+  } else {
+    cli::cli_alert_danger("Pas de cache trouvé")
+    tibble::tibble()
   }
-  tibble::tibble()
 }
 
 # vide cache -----------------
