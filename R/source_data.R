@@ -582,7 +582,8 @@ source_data_refresh <- function(
     force_exec = FALSE,
     hash = TRUE,
     unfreeze = TRUE,
-    quiet = TRUE) {
+    quiet = TRUE,
+    init_qmd = TRUE) {
   if(is.null(what))
     what <- source_data_status(cache_rep = cache_rep)
 
@@ -594,6 +595,8 @@ source_data_refresh <- function(
       exec_wd <- fs::path_join(c(root, fs::path_dir(src)))
     if(wd=="qmd")
       exec_wd <- fs::path_dir(qmd_file[[1]])
+    if(init_qmd)
+      ofce::init_qmd()
     src_data <- source_data(name = src,
                             force_exec = force_exec,
                             hash = hash,
