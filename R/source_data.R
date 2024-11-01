@@ -577,14 +577,16 @@ clear_source_cache <- function(
 #' @export
 #'
 source_data_refresh <- function(
+    what = NULL,
     cache_rep = NULL,
-    what = source_data_status(cache_rep),
     force_exec = FALSE,
     hash = TRUE,
     unfreeze = TRUE,
     quiet = TRUE) {
+  if(is.null(what))
+    what <- source_data_status(cache_rep = cache_rep)
 
-  purrr::pwalk(what, function(src, wd, lapse, args, root, track, qmd_file,...) {
+  res <- purrr::pmap(what, function(src, wd, lapse, args, root, track, qmd_file,...) {
     exec_wd <- getwd()
     if(wd=="project")
       exec_wd <- root
@@ -609,10 +611,11 @@ source_data_refresh <- function(
           uncache(.x, src_data$root, quiet = quiet)
         }
       })
-
-    source_data_status(cache_rep)
+    list(src = src_data$src, ok = src_data$ok)
   }
   )
+  res <- purrr::transpose(res)
+  res$src[res$ok == "exec"]
 }
 
 # set cache rep ----------------------
