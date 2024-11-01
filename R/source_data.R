@@ -212,13 +212,12 @@ source_data <- function(name,
   }
 
   meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
-  hash_equal <- function(x, y) ifelse(length(x)==length(y), all(map2_lgl(x, y, ~ x == y)), FALSE)
 
   if(hash&!prevent)
     good_datas <- good_datas |>
     purrr::keep(~meme_null(.x,"src_hash")==src_hash) |>
     purrr::keep(~meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash) |>
-    purrr::keep(~hash_equal(.x$track_hash, track_hash))
+    purrr::keep(~setequal(.x$track_hash, track_hash))
 
   if(lapse != "never"&!prevent) {
     alapse <- what_lapse(lapse)
