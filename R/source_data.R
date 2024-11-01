@@ -180,8 +180,9 @@ source_data <- function(name,
   }
   good_datas <- get_datas(basename, full_cache_rep)
   qmds <- purrr::map(good_datas, "qmd_file") |>
-    purrr::discard(is.null) |>
     purrr::list_flatten() |>
+    purrr::discard(is.null) |>
+    unlist() |>
     unique()
   new_qmds <- unique(c(qmds, qmd_file))
 
