@@ -485,35 +485,37 @@ source_data_status <- function(cache_rep = NULL) {
     root <- try_find_root()
     cache_rep <- fs::path_join(c(root, ".data"))
   }
+  if(fs::dir_exists(cache_rep)) {
+    caches <- fs::dir_ls(path = cache_rep, glob = "*.qs", recurse = TRUE)
 
-  caches <- list.files(path = cache_rep, pattern = "*.qs", recursive = TRUE, full.names = TRUE)
+    purrr::map_dfr(caches, ~{
+      dd <- qs::qread(.x)
 
-  purrr::map_dfr(caches, ~{
-    dd <- qs::qread(.x)
-
-    tibble::tibble(
-      src = dd$src,
-      id = dd$id,
-      uid = dd$uid,
-      index = dd$cc |> as.numeric(),
-      date = dd$date,
-      timing = dd$timing,
-      size = dd$size,
-      lapse = dd$lapse |> as.character(),
-      wd = dd$wd,
-      exec_wd = dd$exec_wd,
-      args = list(dd$args),
-      where = .x,
-      root = dd$root,
-      qmd_file = list(dd$qmd_file),
-      src_hash = dd$hash,
-      track_hash = list(dd$track_hash),
-      track = list(dd$track),
-      args_hash = dd$args_hash,
-      data_hash = dd$data_hash) |>
-      arrange(src, desc(date))
+      tibble::tibble(
+        src = dd$src,
+        id = dd$id,
+        uid = dd$uid,
+        index = dd$cc |> as.numeric(),
+        date = dd$date,
+        timing = dd$timing,
+        size = dd$size,
+        lapse = dd$lapse |> as.character(),
+        wd = dd$wd,
+        exec_wd = dd$exec_wd,
+        args = list(dd$args),
+        where = .x,
+        root = dd$root,
+        qmd_file = list(dd$qmd_file),
+        src_hash = dd$hash,
+        track_hash = list(dd$track_hash),
+        track = list(dd$track),
+        args_hash = dd$args_hash,
+        data_hash = dd$data_hash) |>
+        arrange(src, desc(date))
+    }
+    )
   }
-  )
+  tibble::tibble()
 }
 
 # vide cache -----------------
