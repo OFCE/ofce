@@ -4,5 +4,5 @@ project:
 format:
   html: default
 
-cache: true
+cache: false
 freeze: auto
