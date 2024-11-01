@@ -570,7 +570,7 @@ source_data_refresh <- function(
     force_exec = FALSE,
     hash = TRUE,
     unfreeze = TRUE,
-    quiet = FALSE) {
+    quiet = TRUE) {
 
   purrr::pwalk(what, function(src, wd, lapse, args, root, track, qmd_file,...) {
     exec_wd <- getwd()
