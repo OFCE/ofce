@@ -32,8 +32,9 @@
 #' Le paramètre `wd` perment de spécifier le répertoire d'exécution du source.
 #' Si il est mis à `"file"`, les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
 #' L'intérêt est que le code peut avoir des éléments persistants, locaux
-#' L'alternative est d'utiliser `wd="project"` auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
+#' L'alternative est d'utiliser `wd="project"` auquel cas, le répertoire d'exécution sera independant de l'endroit où est appelé le code source.
 #' Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
+#' En le mettant à `qmd`l'exécution part du fichier qmd, ce qui est le comportement standard de `quarto`.
 #' Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.
 #'
 #' En donnant des fichers à suivre par `track`, on peut déclencher l'exécution du source.
@@ -42,8 +43,6 @@
 #'
 #' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
 #' @param args (list) une liste d'arguments que l'on peut utliser dans source (args$xxx)
-#' @param relative (character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)
-#' @param cache_rep (character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param track (list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.
 #' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
@@ -51,8 +50,11 @@
 #' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
 #' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle
+#' @param exec_wd (character) NULL par défaut sauf usage particulier
 #' @param quiet (boléen) pas de messages
 #' @param nocache (boléen) n'enregistre pas le cache même si nécessaire
+#' @param cache_rep (character) défaut .data sauf usage particulier
+
 #'
 #' @family source_data
 #' @return data (list ou ce que le code retourne)
@@ -66,7 +68,6 @@
 # et la possibilité de tracker un fichier
 source_data <- function(name,
                         args = list(),
-                        relative = getOption("ofce.source_data.relative"),
                         hash = getOption("ofce.source_data.hash"),
                         track = list(),
                         lapse = getOption("ofce.source_data.lapse"),
@@ -74,6 +75,7 @@ source_data <- function(name,
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
+                        exec_wd = NULL,
                         cache_rep = NULL,
                         root = NULL,
                         quiet = TRUE, nocache = FALSE) {
@@ -98,33 +100,21 @@ source_data <- function(name,
   if(!quiet)
     cli::cli_alert_info("cache: {root_cache_rep}")
 
-  if(relative=="project") {
-    src <- find_src(root, name)
-    cwd <- root
-    if(is.null(src)) {
-      src <- try_find_src(root, name)
-      if(length(src)==0) {
-        if(!quiet)
-          cli::cli_alert_warning("Le fichier n'existe pas en .r ou .R, vérifier le chemin")
-        return(NULL)
-      }
-      if(length(src)>1) {
-        if(!quiet)
-          cli::cli_alert_warning("Plusieurs fichiers src sont possibles")
-        l_src <- purrr::map(src, length)
-        src <- src[[which.max(l_src)]]
-      }
-    }
-  }
 
-  if(relative=="wd") {
-    cwd <- getwd()
-    src <- fs::path_join(c(cwd, src)) |> fs::path_ext_set(".R")
-    if(!fs::file_exists(src)) {
-      src <- fs::path_join(c(cwd, src)) |> fs::path_ext_set(".r")
-      if(!fs::file_exists(src)) {
-        return(NULL)
-      }
+  src <- find_src(root, name)
+  cwd <- root
+  if(is.null(src)) {
+    src <- try_find_src(root, name)
+    if(length(src)==0) {
+      if(!quiet)
+        cli::cli_alert_warning("Le fichier n'existe pas en .r ou .R, vérifier le chemin")
+      return(NULL)
+    }
+    if(length(src)>1) {
+      if(!quiet)
+        cli::cli_alert_warning("Plusieurs fichiers src sont possibles")
+      l_src <- purrr::map(src, length)
+      src <- src[[which.max(l_src)]]
     }
   }
 
@@ -154,17 +144,19 @@ source_data <- function(name,
     qmd_file <- NULL
   }
 
-  exec_wd <- getwd()
-  if(wd=="project")
-    exec_wd <- root
-  if(wd=="file")
-    exec_wd <- fs::path_dir(src)
-  if(wd=="qmd") {
-    if(!is.null(qmd_path)) {
-      exec_wd <- qmd_path
-    } else {
-      cli::cli_alert_warning("Pas de document identifié, probablement, non excétué de quarto")
+  if(is.null(exec_wd)) {
+    exec_wd <- getwd()
+    if(wd=="project")
+      exec_wd <- root
+    if(wd=="file")
       exec_wd <- fs::path_dir(src)
+    if(wd=="qmd") {
+      if(!is.null(qmd_path)) {
+        exec_wd <- qmd_path
+      } else {
+        cli::cli_alert_warning("Pas de document identifié, probablement, non excétué de quarto")
+        exec_wd <- fs::path_dir(src)
+      }
     }
   }
 
@@ -203,7 +195,7 @@ source_data <- function(name,
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
       our_data$root <- root
-
+      our_data$ok <- "exec"
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
       if(metadata) {
@@ -223,7 +215,7 @@ source_data <- function(name,
     good_datas <- good_datas |>
     purrr::keep(~meme_null(.x,"src_hash")==src_hash) |>
     purrr::keep(~meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash) |>
-      purrr::keep(~setequal(.x$track_hash, track_hash))
+    purrr::keep(~setequal(.x$track_hash, track_hash))
 
   if(lapse != "never"&!prevent) {
     alapse <- what_lapse(lapse)
@@ -247,6 +239,7 @@ source_data <- function(name,
       our_data$track <- track
       our_data$root <- root
       our_data$wd <- wd
+      our_data$ok <- "exec"
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
 
@@ -277,7 +270,7 @@ source_data <- function(name,
     good_good_data$qmd_file <- new_qmds
     cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
   }
-
+  good_good_data$ok <- "cache"
   if(metadata) {
     return(good_good_data)
   } else {
@@ -552,9 +545,15 @@ source_data_refresh <- function(
     unfreeze = TRUE,
     quiet = FALSE) {
 
-  purrr::pwalk(what, function(src, wd, lapse, args, root, track,...) {
+  purrr::pwalk(what, function(src, wd, lapse, args, root, track, qmd_file,...) {
+    exec_wd <- getwd()
+    if(wd=="project")
+      exec_wd <- root
+    if(wd=="file")
+      exec_wd <- fs::path_dir(src)
+    if(wd=="qmd")
+      exec_wd <- fs::path_dir(qmd_file[[1]])
     src_data <- source_data(name = src,
-                            relative = "project",
                             force_exec = force_exec,
                             hash = hash,
                             track = track,
@@ -565,10 +564,14 @@ source_data_refresh <- function(
                             quiet = quiet,
                             root = root)
     if(unfreeze)
-      purrr::walk(src_data$qmd_file, ~unfreeze(.x, src_data$root), quiet = quiet)
-  })
+      purrr::walk(src_data$qmd_file, ~{
+        if(.x$ok == "exec")
+          unfreeze(.x, src_data$root, quiet = quiet)
+      })
 
-  source_data_status(cache_rep)
+    source_data_status(cache_rep)
+  }
+  )
 }
 
 # set cache rep ----------------------
