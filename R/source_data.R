@@ -190,13 +190,15 @@ source_data <- function(name,
       our_data$src <- relname
       our_data$src_hash <- src_hash
       our_data$arg_hash <- arg_hash
-      our_data$track_hash <- list(track_hash)
+      our_data$track_hash <- track_hash
       our_data$track <- track
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
       our_data$root <- root
       our_data$ok <- "exec"
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+      if(!quiet)
+        cli::cli_alert_warning("Exécution du source")
 
       if(metadata) {
         return(our_data)
@@ -210,12 +212,13 @@ source_data <- function(name,
   }
 
   meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+  hash_equal <- function(x, y) ifelse(length(x)==length(y), all(map2_lgl(x, y, ~ x == y)), FALSE)
 
   if(hash&!prevent)
     good_datas <- good_datas |>
     purrr::keep(~meme_null(.x,"src_hash")==src_hash) |>
     purrr::keep(~meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash) |>
-    purrr::keep(~setequal(.x$track_hash, track_hash))
+    purrr::keep(~hash_equal(.x$track_hash, track_hash))
 
   if(lapse != "never"&!prevent) {
     alapse <- what_lapse(lapse)
@@ -235,13 +238,15 @@ source_data <- function(name,
       our_data$src_hash <- src_hash
       our_data$qmd_file <- new_qmds
       our_data$arg_hash <- arg_hash
-      our_data$track_hash <- list(track_hash)
+      our_data$track_hash <- track_hash
       our_data$track <- track
       our_data$root <- root
       our_data$wd <- wd
       our_data$ok <- "exec"
 
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+      if(!quiet)
+        cli::cli_alert_warning("Exécution du source")
 
       if(metadata) {
         return(our_data)
@@ -270,6 +275,9 @@ source_data <- function(name,
     good_good_data$qmd_file <- new_qmds
     cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
   }
+  if(!quiet)
+    cli::cli_alert_warning("Données en cache")
+
   good_good_data$ok <- "cache"
   if(metadata) {
     return(good_good_data)
@@ -417,6 +425,26 @@ unfreeze <- function(qmd_file, root, quiet=TRUE) {
   return(NULL)
 }
 
+uncache <- function(qmd_file, root, quiet=TRUE) {
+  if(is.null(qmd_file))
+    return(NULL)
+  qmd_bn <- qmd_file |> fs::path_file() |> fs::path_ext_remove()
+  rel_path <- fs::path_dir(qmd_file) |> fs::path_rel(root)
+  cache_path <- fs::path_join(c(root, rel_path, stringr::str_c(qmd_bn, "_cache")))
+  files_path <- fs::path_join(c(root, rel_path, stringr::str_c(qmd_bn, "_files")))
+  if(fs::dir_exists(cache_path)) {
+    if(!quiet)
+      cli::cli_alert_info("Uncaching {.file {cache_path}}")
+    fs::dir_delete(cache_path)
+  }
+  if(fs::dir_exists(files_path)) {
+    if(!quiet)
+      cli::cli_alert_info("Unfiles {.file {files_path}}")
+    fs::dir_delete(files_path)
+  }
+  return(NULL)
+}
+
 try_find_root <- function() {
   if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
     safe_find_root <- purrr::safely(rprojroot::find_root)
@@ -540,8 +568,8 @@ clear_source_cache <- function(
 source_data_refresh <- function(
     cache_rep = NULL,
     what = source_data_status(cache_rep),
-    force_exec = getOption("ofce.source_data.force_exec"),
-    hash = getOption("ofce.source_data.hash"),
+    force_exec = FALSE,
+    hash = TRUE,
     unfreeze = TRUE,
     quiet = FALSE) {
 
@@ -565,8 +593,10 @@ source_data_refresh <- function(
                             root = root)
     if(unfreeze)
       purrr::walk(src_data$qmd_file, ~{
-        if(.x$ok == "exec")
+        if(src_data$ok == "exec") {
           unfreeze(.x, src_data$root, quiet = quiet)
+          uncache(.x, src_data$root, quiet = quiet)
+        }
       })
 
     source_data_status(cache_rep)
