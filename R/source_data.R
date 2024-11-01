@@ -271,10 +271,12 @@ source_data <- function(name,
   ggd_lapse <- good_good_data$lapse %||% "never"
   ggd_wd <- good_good_data$wd %||% "file"
   ggd_qmds <- setequal(good_good_data$qmd_file, new_qmds)
-  if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds) {
+  ggd_track <- setequal(good_good_data$track, track)
+  if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds | !ggd_track) {
     good_good_data$lapse <- lapse
     good_good_data$wd <- wd
     good_good_data$qmd_file <- new_qmds
+    good_good_data$tack <- track
     cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
   }
   if(!quiet)
