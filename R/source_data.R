@@ -138,7 +138,9 @@ source_data <- function(name,
   if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
     qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
-    qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |> fs::path_ext_set("qmd")
+    qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |>
+      fs::path_ext_set("qmd") |>
+      fs::path_norm()
   } else {
     qmd_path <- NULL
     qmd_file <- NULL
@@ -179,8 +181,8 @@ source_data <- function(name,
   good_datas <- get_datas(basename, full_cache_rep)
   qmds <- purrr::map(good_datas, "qmd_file") |>
     purrr::discard(is.null) |>
-    unique() |>
-    as.character()
+    purrr::list_flatten() |>
+    unique()
   new_qmds <- unique(c(qmds, qmd_file))
 
   if(force&!prevent) {
