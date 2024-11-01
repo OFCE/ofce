@@ -589,7 +589,7 @@ source_data_refresh <- function(
     if(wd=="project")
       exec_wd <- root
     if(wd=="file")
-      exec_wd <- fs::path_dir(src)
+      exec_wd <- fs::path_join(c(root, fs::path_dir(src)))
     if(wd=="qmd")
       exec_wd <- fs::path_dir(qmd_file[[1]])
     src_data <- source_data(name = src,
