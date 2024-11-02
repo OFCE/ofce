@@ -596,6 +596,9 @@ source_data_refresh <- function(
   if(is.null(root))
     root <- try_find_root()
 
+  if(init_qmd)
+    ofce::init_qmd()
+
   res <- purrr::pmap(what, function(src, wd, lapse, args, saved_root, track, qmd_file,...) {
 
     exec_wd <- getwd()
@@ -605,8 +608,6 @@ source_data_refresh <- function(
       exec_wd <- fs::path_join(c(root, fs::path_dir(src)))
     if(wd=="qmd")
       exec_wd <- fs::path_dir(qmd_file[[1]])
-    if(init_qmd)
-      ofce::init_qmd()
 
     src_data <- source_data(name = src,
                             force_exec = force_exec,
