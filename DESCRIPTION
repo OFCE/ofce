@@ -1,7 +1,7 @@
 Package: ofce
 Type: Package
 Title: Documents scientifiques aux normes OFCE
-Version: 1.3.3
+Version: 1.3.4
 Authors@R: c(
     person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut", "cre")),
     person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),

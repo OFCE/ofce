@@ -1,3 +1,7 @@
+## OFCE 1.3.4
+
+* source_data() : correction de plusieurs bugs
+
 ## OFCE 1.3.3
 
 * source_data() tracke des fichiers et peut *unfreezer* un qmd
