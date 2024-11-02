@@ -4,7 +4,7 @@
 \alias{source_data_status}
 \title{Etat du cache de source_data}
 \usage{
-source_data_status(cache_rep = NULL)
+source_data_status(cache_rep = NULL, quiet = TRUE)
 }
 \arguments{
 \item{data_rep}{le chemin vers le cache (défaut "_cache")}

@@ -567,13 +567,17 @@ clear_source_cache <- function(
 #' Exécute les sources sélectionnés
 #'
 #' @param what un tibble issu de source_data (tout par défaut)
-#' @param cache_rep le répertoire de cache
-#' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
-#' @param relative
+#' @param cache_rep le répertoire de cache si il n'est pas évident
+#' @param force_exec (boléen) Si `TRUE` alors le code est exécuté ($FORCE_EXEC par défaut)
+#' @param hash (boléen) (`TRUE` par défaut) vérifie les hashs
+#' @param unfreeze (boléen) (`TRUE` par défaut) essaye de unfreezé et uncaché les qmd dont les données ont été rafraichies
+#' @param quiet reste silencieux
+#' @param init_qmd (`TRUE` par défaut) exécute `ofce::init_qmd()`
+#' @param root (`NULL` par défaut) essaye de trouver le root à partir du point d'exécution ou utilise celui fournit
 #'
 #' @family source_data
 #'
-#' @return un tibble de status
+#' @return la liste des sources exécutés
 #' @export
 #'
 source_data_refresh <- function(
@@ -583,11 +587,17 @@ source_data_refresh <- function(
     hash = TRUE,
     unfreeze = TRUE,
     quiet = TRUE,
-    init_qmd = TRUE) {
+    init_qmd = TRUE,
+    root = NULL) {
+
   if(is.null(what))
     what <- source_data_status(cache_rep = cache_rep)
 
-  res <- purrr::pmap(what, function(src, wd, lapse, args, root, track, qmd_file,...) {
+  if(is.null(root))
+    root <- try_find_root()
+
+  res <- purrr::pmap(what, function(src, wd, lapse, args, saved_root, track, qmd_file,...) {
+
     exec_wd <- getwd()
     if(wd=="project")
       exec_wd <- root
@@ -597,6 +607,7 @@ source_data_refresh <- function(
       exec_wd <- fs::path_dir(qmd_file[[1]])
     if(init_qmd)
       ofce::init_qmd()
+
     src_data <- source_data(name = src,
                             force_exec = force_exec,
                             hash = hash,
@@ -607,6 +618,7 @@ source_data_refresh <- function(
                             metadata = TRUE,
                             quiet = quiet,
                             root = root)
+
     if(unfreeze)
       purrr::walk(src_data$qmd_file, ~{
         if(src_data$ok == "exec") {
