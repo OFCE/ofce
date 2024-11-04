@@ -178,8 +178,8 @@ source_data <- function(name,
       cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
     }
   }
-  good_datas <- get_datas(basename, full_cache_rep)
-  qmds <- purrr::map(good_datas, "qmd_file") |>
+  meta_datas <- get_mdatas(basename, full_cache_rep)
+  qmds <- purrr::map(meta_datas, "qmd_file") |>
     purrr::list_flatten() |>
     purrr::discard(is.null) |>
     unlist() |>
@@ -215,18 +215,11 @@ source_data <- function(name,
     }
   }
 
-  meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+  meta_datas <- valid_metas(meta_datas, src_hash = src_hash, arg_hash = arg_hash,
+                            track_hash = track_hash, lapse = lapse)
 
-  if(hash&!prevent)
-    good_datas <- good_datas |>
-    purrr::keep(~meme_null(.x,"src_hash")==src_hash) |>
-    purrr::keep(~meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash) |>
-    purrr::keep(~setequal(.x$track_hash, track_hash))
 
-  if(lapse != "never"&!prevent) {
-    alapse <- what_lapse(lapse)
-    good_datas <- purrr::keep(good_datas, ~lubridate::now() - .x[["date"]] <= alapse)
-  }
+  good_datas <- meta_datas |> purrr::keep(~.x$valid)
 
   if(length(good_datas)==0) {
     if(prevent) {
@@ -265,7 +258,8 @@ source_data <- function(name,
 
   dates <- purrr::map(good_datas, "date")
   good_good_data <- good_datas[[which.max(dates)]]
-
+  fnm <- good_good_data$file
+  fnd <- fnm |> stringr::str_replace("_m.qs$", "_d.qs")
   if(!quiet)
     cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
 
@@ -274,16 +268,19 @@ source_data <- function(name,
   ggd_qmds <- setequal(good_good_data$qmd_file, new_qmds)
   ggd_track <- setequal(good_good_data$track, track)
   if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds | !ggd_track) {
-    good_good_data$lapse <- lapse
-    good_good_data$wd <- wd
-    good_good_data$qmd_file <- new_qmds
-    good_good_data$tack <- track
-    cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+    newmdata <- good_good_data
+    newmdata$file <- NULL
+    newmdata$lapse <- lapse
+    newmdata$wd <- wd
+    newmdata$qmd_file <- new_qmds
+    newmdata$track <- track
+    qs::qsave(newmdata, file = good_good_data$file)
   }
   if(!quiet)
     cli::cli_alert_warning("Données en cache")
 
   good_good_data$ok <- "cache"
+  good_good_data$data <- qs::qread(fnd)
   if(metadata) {
     return(good_good_data)
   } else {
@@ -299,8 +296,76 @@ check_return <- function(src) {
   purrr::keep(ret, ~!is.na(.x))
 }
 
+valid_meta4meta <- function(meta, root = NULL) {
+  if(is.null(root))
+    root <- meta$root
+  src_hash <- tools::md5sum(fs::path_join(c(root, meta$src)))
+  track_hash <- 0
+
+  if(length(meta$track) >0) {
+    track_files <- map(meta$track, ~fs::path_join(c(root, .x)))
+    ok_files <- map_lgl(track_files, fs::file_exists)
+    if(any(ok_files))
+      track_hash <- tools::md5sum(as.character(track_files[ok_files]))
+    else {
+      cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
+    }
+  }
+
+  meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+
+  meta$valid_src <- meme_null(meta,"src_hash")==src_hash
+  meta$valid_track <- setequal(meta$track_hash, track_hash)
+  if(meta$lapse != "never") {
+    alapse <- what_lapse(lapse)
+    meta$valid_lapse <- lubridate::now() - meta[["date"]] <= alapse
+  } else
+    meta$valid_lapse <- TRUE
+  meta$valid <- meta$valid_src & meta$valid_track & meta$valid_lapse
+  return(meta)
+}
+
+valid_metas <- function(metas, src_hash, arg_hash, track_hash, lapse) {
+
+  meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+
+  metas <- map(metas, ~{
+    .x$valid_src <- meme_null(.x,"src_hash")==src_hash
+    .x$valid_arg <- meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash
+    .x$valid_track <- setequal(.x$track_hash, track_hash)
+    if(lapse != "never") {
+      alapse <- what_lapse(lapse)
+      .x$valid_lapse <- lubridate::now() - .x[["date"]] <= alapse
+    } else
+      .x$valid_lapse <- TRUE
+    .x$valid <- .x$valid_src & .x$valid_arg & .x$valid_track & .x$valid_lapse
+    .x
+  })
+}
+
 get_datas <- function(name, data_rep, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)\\.", ext)
+  m <- get_mdatas(name, data_rep, ext = "qs")
+  dn <- names(m) |> stringr::str_replace(glue::glue("_m.{ext}"), glue::glue("_d.{ext}")) |> set_names(names(m))
+  d <- purrr::map(dn, ~qs::qread(.x))
+  purrr::map(rlang::set_names(names(m)), ~{
+    l <- m[[.x]]
+    l$data <- d[[.x]]
+    l})
+}
+
+get_mdatas <- function(name, data_rep, ext = "qs") {
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)_m\\.", ext)
+  files <- list()
+  if(fs::dir_exists(data_rep))
+    files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
+  purrr::map(files, ~ {
+    l <- qs::qread(.x)
+    l$file <- .x
+    l})
+}
+
+get_ddatas <- function(name, data_rep, ext = "qs") {
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)_d\\.", ext)
   files <- list()
   if(fs::dir_exists(data_rep))
     files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
@@ -308,6 +373,7 @@ get_datas <- function(name, data_rep, ext = "qs") {
   names(res) <- files
   res
 }
+
 
 exec_source <- function(src, wd, args = list()) {
   safe_source <- purrr::safely(\(src, args) {
@@ -336,7 +402,7 @@ exec_source <- function(src, wd, args = list()) {
 }
 
 cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]{8})-([0-9]+)\\.", ext)
+  pat <- stringr::str_c(name, "_([a-f0-9]{8})-([0-9]+)_m\\.", ext)
   files <- tibble::tibble()
   if(fs::dir_exists(cache_rep)) {
     files <- fs::dir_info(path = cache_rep, regexp = pat) |>
@@ -345,6 +411,7 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
   }
 
   cc <- 1
+  exists <- FALSE
   data_hash <- digest::digest(data$data)
   if(nrow(files)>0) {
     uids <- files$uid
@@ -353,21 +420,31 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
     last_data <- qs::qread(last_fn$path)
     last_data_hash <- last_data$data_hash
     if(!is.null(last_data_hash)) {
-      if(data_hash == last_data_hash)
+      if(data_hash == last_data_hash) {
         cc <- last_fn$cc
+        exists <- TRUE
+      }
       else
         cc <- max(files$cc, na.rm = TRUE) +1
     } else
-      cc <- max(files$cc, na.rm = TRUE) +1
+      cc <- max(files$cc, na.rm = TRUE) + 1
   }
   fs::dir_create(cache_rep, recurse=TRUE)
   data$data_hash <- data_hash
   data$id <- stringr::str_c(uid, "-", cc)
   data$uid <- uid
   data$cc <- cc
-  fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set(ext)
-  if(!nocache)
-    qs::qsave(data, file = fn)
+  fnm <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id, "_m"))) |> fs::path_ext_set(ext)
+  fnd <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id, "_d"))) |> fs::path_ext_set(ext)
+  if(!nocache) {
+    if(!exists) {
+      les_datas <- data$data
+      qs::qsave(les_datas, file = fnd)
+    }
+    les_metas <- data
+    les_metas$data <- NULL
+    qs::qsave(les_metas, file = fnm)
+  }
   return(data)
 }
 
@@ -484,22 +561,25 @@ try_find_root <- function() {
 #' @export
 #'
 
-source_data_status <- function(cache_rep = NULL, quiet = TRUE) {
+source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
 
-  if(is.null(cache_rep)) {
+  if(is.null(root))
     root <- try_find_root()
-    cache_rep <- fs::path_join(c(root, ".data"))
-  }
+
+  if(is.null(cache_rep))
+      cache_rep <- fs::path_join(c(root, ".data"))
+
   if(!quiet)
     cli::cli_alert_info("répertoire cache {.file {cache_rep}}")
 
   if(fs::dir_exists(cache_rep)) {
-    caches <- fs::dir_ls(path = cache_rep, glob = "*.qs", recurse = TRUE)
+    caches <- fs::dir_ls(path = cache_rep, glob = "*_m.qs", recurse = TRUE)
 
     purrr::map_dfr(caches, ~{
       dd <- qs::qread(.x)
-
+      valid <- valid_meta4meta(dd, root = root)
       tibble::tibble(
+        valid = valid$valid,
         src = dd$src,
         id = dd$id,
         uid = dd$uid,
@@ -598,8 +678,16 @@ source_data_refresh <- function(
   if(is.null(what))
     what <- source_data_status(cache_rep = cache_rep)
 
+  what <- what |>
+    dplyr::group_by(src) |>
+    dplyr::filter(!any(valid)) |>
+    dplyr::ungroup()
+
   if(is.null(root))
     root <- try_find_root()
+
+  if(nrow(what)==0)
+    return(list())
 
   if(init_qmd)
     ofce::init_qmd()
