@@ -424,7 +424,7 @@ unfreeze <- function(qmd_file, root, quiet=TRUE) {
   if(fs::dir_exists(freeze_path)) {
     if(!quiet)
       cli::cli_alert_info("Unfreezing {.file {freeze_path}}")
-    unlink(freeze_path, recursive=TRUE, force=TRUE
+    unlink(freeze_path, recursive=TRUE, force=TRUE)
   }
   return(NULL)
 }
@@ -444,7 +444,7 @@ uncache <- function(qmd_file, root, quiet=TRUE) {
   if(fs::dir_exists(files_path)) {
     if(!quiet)
       cli::cli_alert_info("Unfiles {.file {files_path}}")
-    unlink(files_path, recursive=TRUE, force=TRUE
+    unlink(files_path, recursive=TRUE, force=TRUE)
   }
   return(NULL)
 }
