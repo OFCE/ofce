@@ -7,7 +7,6 @@
 source_data(
   name,
   args = list(),
-  relative = getOption("ofce.source_data.relative"),
   hash = getOption("ofce.source_data.hash"),
   track = list(),
   lapse = getOption("ofce.source_data.lapse"),
@@ -15,7 +14,9 @@ source_data(
   prevent_exec = getOption("ofce.source_data.prevent_exec"),
   metadata = getOption("ofce.source_data.metadata"),
   wd = getOption("ofce.source_data.wd"),
-  unfreeze = getOption("ofce.source_data.unfreeze"),
+  exec_wd = NULL,
+  cache_rep = NULL,
+  root = NULL,
   quiet = TRUE,
   nocache = FALSE
 )
@@ -24,8 +25,6 @@ source_data(
 \item{name}{(character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée}
 
 \item{args}{(list) une liste d'arguments que l'on peut utliser dans source (args$xxx)}
-
-\item{relative}{(character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)}
 
 \item{hash}{(boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution}
 
@@ -41,13 +40,13 @@ source_data(
 
 \item{wd}{(character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle}
 
-\item{unfreeze}{(boléen) essaye d'unfreezer le qmd si src est exécuté.}
+\item{exec_wd}{(character) NULL par défaut sauf usage particulier}
+
+\item{cache_rep}{(character) défaut .data sauf usage particulier}
 
 \item{quiet}{(boléen) pas de messages}
 
 \item{nocache}{(boléen) n'enregistre pas le cache même si nécessaire}
-
-\item{cache_rep}{(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)}
 }
 \value{
 data (list ou ce que le code retourne)
@@ -79,8 +78,9 @@ Typiquement cela peut être mis dans rinit.r (et donc être exécuté par \code{
 Le paramètre \code{wd} perment de spécifier le répertoire d'exécution du source.
 Si il est mis à \code{"file"}, les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
 L'intérêt est que le code peut avoir des éléments persistants, locaux
-L'alternative est d'utiliser \code{wd="project"} auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
+L'alternative est d'utiliser \code{wd="project"} auquel cas, le répertoire d'exécution sera independant de l'endroit où est appelé le code source.
 Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
+En le mettant à \code{qmd}l'exécution part du fichier qmd, ce qui est le comportement standard de \code{quarto}.
 Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.
 
 En donnant des fichers à suivre par \code{track}, on peut déclencher l'exécution du source.

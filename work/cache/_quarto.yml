@@ -3,3 +3,6 @@ project:
 
 format:
   html: default
+
+cache: false
+freeze: auto

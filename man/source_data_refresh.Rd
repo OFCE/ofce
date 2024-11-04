@@ -5,21 +5,32 @@
 \title{Exécute les sources sélectionnés}
 \usage{
 source_data_refresh(
-  what = source_data_status(find_cache_rep()),
-  cache_rep = find_cache_rep(),
-  relative = getOption("ofce.source_data.relative"),
-  force_exec = getOption("ofce.source_data.force_exec"),
-  hash = getOption("ofce.source_data.hash")
+  what = NULL,
+  cache_rep = NULL,
+  force_exec = FALSE,
+  hash = TRUE,
+  unfreeze = TRUE,
+  quiet = TRUE,
+  init_qmd = TRUE,
+  root = NULL
 )
 }
 \arguments{
 \item{what}{un tibble issu de source_data (tout par défaut)}
 
-\item{cache_rep}{le répertoire de cache}
+\item{cache_rep}{le répertoire de cache si il n'est pas évident}
 
-\item{relative}{}
+\item{force_exec}{(boléen) Si \code{TRUE} alors le code est exécuté ($FORCE_EXEC par défaut)}
 
-\item{force_exec}{(boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)}
+\item{hash}{(boléen) (\code{TRUE} par défaut) vérifie les hashs}
+
+\item{unfreeze}{(boléen) (\code{TRUE} par défaut) essaye de unfreezé et uncaché les qmd dont les données ont été rafraichies}
+
+\item{quiet}{reste silencieux}
+
+\item{init_qmd}{(\code{TRUE} par défaut) exécute \code{ofce::init_qmd()}}
+
+\item{root}{(\code{NULL} par défaut) essaye de trouver le root à partir du point d'exécution ou utilise celui fournit}
 }
 \value{
 un tibble de status

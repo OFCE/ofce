@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">source_data</span><span class="op">(</span></span>
 <span>  <span class="va">name</span>,</span>
 <span>  args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  relative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.relative"</span><span class="op">)</span>,</span>
 <span>  hash <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.hash"</span><span class="op">)</span>,</span>
 <span>  track <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lapse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.lapse"</span><span class="op">)</span>,</span>
@@ -68,7 +67,9 @@
 <span>  prevent_exec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.prevent_exec"</span><span class="op">)</span>,</span>
 <span>  metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.metadata"</span><span class="op">)</span>,</span>
 <span>  wd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.wd"</span><span class="op">)</span>,</span>
-<span>  unfreeze <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.unfreeze"</span><span class="op">)</span>,</span>
+<span>  exec_wd <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cache_rep <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  root <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  nocache <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -84,10 +85,6 @@
 
 <dt id="arg-args">args<a class="anchor" aria-label="anchor" href="#arg-args"></a></dt>
 <dd><p>(list) une liste d'arguments que l'on peut utliser dans source (args$xxx)</p></dd>
-
-
-<dt id="arg-relative">relative<a class="anchor" aria-label="anchor" href="#arg-relative"></a></dt>
-<dd><p>(character) Si "projet" le chemin du source est supposé relatif au projet, sinon le chemin sera dans le répertoire de travail (attention il peut changer)</p></dd>
 
 
 <dt id="arg-hash">hash<a class="anchor" aria-label="anchor" href="#arg-hash"></a></dt>
@@ -118,8 +115,12 @@
 <dd><p>(character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle</p></dd>
 
 
-<dt id="arg-unfreeze">unfreeze<a class="anchor" aria-label="anchor" href="#arg-unfreeze"></a></dt>
-<dd><p>(boléen) essaye d'unfreezer le qmd si src est exécuté.</p></dd>
+<dt id="arg-exec-wd">exec_wd<a class="anchor" aria-label="anchor" href="#arg-exec-wd"></a></dt>
+<dd><p>(character) NULL par défaut sauf usage particulier</p></dd>
+
+
+<dt id="arg-cache-rep">cache_rep<a class="anchor" aria-label="anchor" href="#arg-cache-rep"></a></dt>
+<dd><p>(character) défaut .data sauf usage particulier</p></dd>
 
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
@@ -128,10 +129,6 @@
 
 <dt id="arg-nocache">nocache<a class="anchor" aria-label="anchor" href="#arg-nocache"></a></dt>
 <dd><p>(boléen) n'enregistre pas le cache même si nécessaire</p></dd>
-
-
-<dt id="arg-cache-rep">cache_rep<a class="anchor" aria-label="anchor" href="#arg-cache-rep"></a></dt>
-<dd><p>(character) Le chemin du dossier dans lequel sont enregistré les caches (défaut _data)</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -157,8 +154,9 @@ Typiquement cela peut être mis dans rinit.r (et donc être exécuté par <code>
 <p>Le paramètre <code>wd</code> perment de spécifier le répertoire d'exécution du source.
 Si il est mis à <code>"file"</code>, les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
 L'intérêt est que le code peut avoir des éléments persistants, locaux
-L'alternative est d'utiliser <code>wd="project"</code> auquel cas, le rpéertoire d'exécution sera independant de l'endroit où est appelé le code source.
+L'alternative est d'utiliser <code>wd="project"</code> auquel cas, le répertoire d'exécution sera independant de l'endroit où est appelé le code source.
 Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
+En le mettant à <code>qmd</code>l'exécution part du fichier qmd, ce qui est le comportement standard de <code>quarto</code>.
 Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.</p>
 <p>En donnant des fichers à suivre par <code>track</code>, on peut déclencher l'exécution du source.</p>
 <p><code>unfreeze</code> permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)</p>

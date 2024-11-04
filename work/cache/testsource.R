@@ -21,6 +21,8 @@ transactions <- read_xls("/tmp/nombre-vente-maison-appartement-ancien.xls", shee
                     "Ecart au dernier :", round(-100*last(t)/t+100), "%")) |>
   filter(date>="1996-01-01")
 
-return(transactions)
+csv <- vroom::vroom("data.csv")
+
+return(list(transactions, csv))
 
 #cc
