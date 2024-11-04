@@ -87,7 +87,7 @@ source_data <- function(name,
   if(is.null(root)) {
     root <- try_find_root()
   }
-  root <- fs::path_norm(root)
+  root <- fs::path_norm(root) |> fs::path_abs()
   if(!quiet)
     cli::cli_alert_info("root: {root}")
   uid <- digest::digest(root, algo = "crc32")
@@ -102,7 +102,6 @@ source_data <- function(name,
 
 
   src <- find_src(root, name)
-  cwd <- root
   if(is.null(src)) {
     src <- try_find_src(root, name)
     if(length(src)==0) {
@@ -135,6 +134,7 @@ source_data <- function(name,
   reldirname <- fs::path_dir(relname)
   full_cache_rep <- fs::path_join(c(root_cache_rep, reldirname)) |>
     fs::path_norm()
+
   if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
     qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
       fs::path_norm()
@@ -170,7 +170,7 @@ source_data <- function(name,
   track_hash <- 0
 
   if(length(track) >0) {
-    track_files <- map(track, ~fs::path_join(c(cwd, .x)))
+    track_files <- map(track, ~fs::path_join(c(root, .x)))
     ok_files <- map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
       track_hash <- tools::md5sum(as.character(track_files[ok_files]))
@@ -199,6 +199,7 @@ source_data <- function(name,
       our_data$qmd_file <- new_qmds
       our_data$root <- root
       our_data$ok <- "exec"
+
       cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(!quiet)
         cli::cli_alert_warning("Exécution du source")
@@ -335,26 +336,29 @@ exec_source <- function(src, wd, args = list()) {
 }
 
 cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)\\.", ext)
+  pat <- stringr::str_c(name, "_([a-f0-9]{8})-([0-9]+)\\.", ext)
   files <- tibble::tibble()
   if(fs::dir_exists(cache_rep)) {
     files <- fs::dir_info(path = cache_rep, regexp = pat) |>
       mutate(uid = stringr::str_extract(path, pat, group=1),
              cc = stringr::str_extract(path, pat, group=2) |> as.numeric())
   }
+
   cc <- 1
   data_hash <- digest::digest(data$data)
   if(nrow(files)>0) {
-    uids <- stringr::str_extract(files, pat, group = 1)
-    ccs <- stringr::str_extract(files, pat, group = 2) |> as.numeric()
+    uids <- files$uid
+    ccs <- files$cc
     last_fn <- files |> arrange(desc(modification_time)) |> slice(1) |> pull(path)
     last_data <- qs::qread(last_fn)
     last_data_hash <- last_data$data_hash
     if(!is.null(last_data_hash)) {
       if(data_hash == last_data_hash)
         cc <- max(files$cc)
+      else
+        cc <- max(files$cc) +1
     } else
-      cc <- cc +1
+      cc <- max(files$cc) +1
   }
   fs::dir_create(cache_rep, recurse=TRUE)
   data$data_hash <- data_hash
