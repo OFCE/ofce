@@ -5,9 +5,10 @@
 #'
 keywords_list <- function(){
 
-  load("data/keywords.rda")
+load("data/keywords.rda")
 
-  cli::cli_alert("Liste des mots-clés (3 maximum)\ndernière mise-à-jour: 20/10/2024\n")
+
+cat("Liste des mots-cles (3 maximum)\nderniere mise-a-jour: 20/10/2024\n")
+
   return(keywords)
 }
-

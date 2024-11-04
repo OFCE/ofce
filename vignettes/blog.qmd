@@ -107,6 +107,21 @@ Comme la souffrance va plus loin en psychologie que la psychologie [@ryan1991van
 
 L'auteur pourra se référer à l'[aide en ligne Quarto](https://quarto.org/docs/authoring/footnotes-and-citations.html) pour des explications complémentaires sur ces deux points.
 
+### Gestion des mots-clés 
+Les mots-clés vont servir par la suite à filtrer les billets en sous-catégories. Un nombre maximal de trois est permis, à choisir parmi ceux indiqués ci-dessous[^1].
+
+```{r}
+# library(ofce)
+# 
+# keywords_list()
+# 
+# # load("data/keywords.rda")
+#  gt::gt(ofce::keywords_list())
+
+```
+
+[^1]: Cette liste à été mise à jour le 20 Octobre 2024, et est susceptible évoluer par la suite. 
+
 ## Transmission au responsable du blog et circuit de relecture
 ### Procédure principale via Github 
 
