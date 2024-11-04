@@ -200,7 +200,7 @@ source_data <- function(name,
       our_data$root <- root
       our_data$ok <- "exec"
 
-      cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+      our_data <- cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(!quiet)
         cli::cli_alert_warning("Exécution du source")
 
@@ -247,7 +247,7 @@ source_data <- function(name,
       our_data$wd <- wd
       our_data$ok <- "exec"
 
-      cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+      our_data <- cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
       if(!quiet)
         cli::cli_alert_warning("Exécution du source")
 
@@ -349,16 +349,16 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
   if(nrow(files)>0) {
     uids <- files$uid
     ccs <- files$cc
-    last_fn <- files |> arrange(desc(modification_time)) |> slice(1) |> pull(path)
-    last_data <- qs::qread(last_fn)
+    last_fn <- files |> arrange(desc(modification_time)) |> slice(1)
+    last_data <- qs::qread(last_fn$path)
     last_data_hash <- last_data$data_hash
     if(!is.null(last_data_hash)) {
       if(data_hash == last_data_hash)
-        cc <- max(files$cc)
+        cc <- last_fn$cc
       else
-        cc <- max(files$cc) +1
+        cc <- max(files$cc, na.rm = TRUE) +1
     } else
-      cc <- max(files$cc) +1
+      cc <- max(files$cc, na.rm = TRUE) +1
   }
   fs::dir_create(cache_rep, recurse=TRUE)
   data$data_hash <- data_hash
@@ -368,6 +368,7 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
   fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set(ext)
   if(!nocache)
     qs::qsave(data, file = fn)
+  return(data)
 }
 
 what_lapse <- function(check) {
