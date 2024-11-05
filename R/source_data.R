@@ -145,6 +145,7 @@ source_data <- function(name,
   } else {
     qmd_path <- NULL
     qmd_file <- NULL
+    qmd_rel <- NULL
   }
 
   if(is.null(exec_wd)) {
