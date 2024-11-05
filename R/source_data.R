@@ -589,7 +589,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
       dd <- jsonlite::read_json(.x) |>
         purrr::map( ~if(length(.x)>1) purrr::list_flatten(.x) else unlist(.x))
       valid <- valid_meta4meta(dd, root = root)
-      browser()
+
       tibble::tibble(
         valid = valid$valid,
         src = dd$src,
