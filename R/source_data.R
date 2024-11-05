@@ -80,6 +80,12 @@ source_data <- function(name,
                         root = NULL,
                         quiet = TRUE, nocache = FALSE) {
 
+  if(is.null(args))
+    args <- list()
+
+  if(is.null(track))
+    track <- list()
+
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
   name <- remove_ext(name)
