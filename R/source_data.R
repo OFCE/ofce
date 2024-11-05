@@ -334,7 +334,7 @@ valid_metas <- function(metas, src_hash, arg_hash, track_hash, lapse) {
     .x$valid_track <- setequal(.x$track_hash, track_hash)
     if(lapse != "never") {
       alapse <- what_lapse(lapse)
-      .x$valid_lapse <- lubridate::now() - .x[["date"]] <= alapse
+      .x$valid_lapse <- lubridate::now() - lubridate::as_datetime(.x[["date"]]) <= alapse
     } else
       .x$valid_lapse <- TRUE
     .x$valid <- .x$valid_src & .x$valid_arg & .x$valid_track & .x$valid_lapse
