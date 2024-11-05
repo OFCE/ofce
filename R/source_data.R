@@ -173,7 +173,7 @@ source_data <- function(name,
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
 
-  src_hash <- hash_txt(src)
+  src_hash <- hash_file(src)
   arg_hash <- digest::digest(args, "crc32")
   track_hash <- 0
 
@@ -181,7 +181,7 @@ source_data <- function(name,
     track_files <- purrr::map(track, ~fs::path_join(c(root, .x)))
     ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
-      track_hash <- hash_txt(as.character(track_files[ok_files]))
+      track_hash <- hash_file(as.character(track_files[ok_files]))
     else {
       cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
     }
@@ -307,14 +307,14 @@ check_return <- function(src) {
 valid_meta4meta <- function(meta, root = NULL) {
   if(is.null(root))
     root <- meta$root
-  src_hash <- hash_txt(fs::path_join(c(root, meta$src)))
+  src_hash <- hash_file(fs::path_join(c(root, meta$src)))
   track_hash <- 0
 
   if(length(meta$track) >0) {
     track_files <- purrr::map(meta$track, ~fs::path_join(c(root, .x)))
     ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
-      track_hash <- hash_txt(as.character(track_files[ok_files]))
+      track_hash <- hash_file(as.character(track_files[ok_files]))
     else {
       cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
     }
@@ -350,12 +350,16 @@ valid_metas <- function(metas, src_hash, arg_hash, track_hash, lapse) {
   })
 }
 
-hash_txt <- function(path) {
+hash_file <- function(path) {
   purrr::map_chr(path, ~ {
-    if(fs::file_exists(.x))
-      digest::digest(readLines(.x, warn = FALSE), algo = "sha1")
+    if(fs::file_exists(.x)) {
+      if(fs::path_ext(.x) %in% c("R", "r", "txt", "csv"))
+        digest::digest(readLines(.x, warn = FALSE), algo = "sha1")
+      else
+        digest::digest(.x, algo = "sha1", file = TRUE)
+    }
     else
-      glue::glue("no_such_file_{round(100000000*runif(1))}")
+      glue::glue("no_{.x}_{round(100000000*runif(1))}")
   })
 }
 
@@ -595,7 +599,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
       dd <- jsonlite::read_json(.x) |>
         purrr::map( ~if(length(.x)>1) purrr::list_flatten(.x) else unlist(.x))
       valid <- valid_meta4meta(dd, root = root)
-
+browser()
       tibble::tibble(
         valid = valid$valid,
         src = dd$src,
