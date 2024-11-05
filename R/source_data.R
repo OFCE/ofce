@@ -317,7 +317,7 @@ valid_meta4meta <- function(meta, root = NULL) {
   meta$valid_track <- setequal(meta$track_hash, track_hash)
   if(meta$lapse != "never") {
     alapse <- what_lapse(meta$lapse)
-    meta$valid_lapse <- lubridate::now() - meta[["date"]] <= alapse
+    meta$valid_lapse <- lubridate::now() - lubridate::as_datetime(meta[["date"]]) <= alapse
   } else
     meta$valid_lapse <- TRUE
   meta$valid <- meta$valid_src & meta$valid_track & meta$valid_lapse
