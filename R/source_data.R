@@ -170,8 +170,8 @@ source_data <- function(name,
   track_hash <- 0
 
   if(length(track) >0) {
-    track_files <- map(track, ~fs::path_join(c(root, .x)))
-    ok_files <- map_lgl(track_files, fs::file_exists)
+    track_files <- purrr::map(track, ~fs::path_join(c(root, .x)))
+    ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
       track_hash <- tools::md5sum(as.character(track_files[ok_files]))
     else {
@@ -185,7 +185,6 @@ source_data <- function(name,
     unlist() |>
     unique()
   new_qmds <- unique(c(qmds, qmd_file))
-
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
@@ -220,7 +219,6 @@ source_data <- function(name,
 
 
   good_datas <- meta_datas |> purrr::keep(~.x$valid)
-
   if(length(good_datas)==0) {
     if(prevent) {
       if(!quiet)
@@ -250,18 +248,20 @@ source_data <- function(name,
         return(our_data$data)
       }
     } else {
-      if(!quiet)
-        cli::cli_alert_warning("le fichier {src} retourne une erreur et rien dans le cache")
+      cli::cli_div(class = "err", theme = list(.err = list(color = "red")))
+      cli::cli_alert_warning("le fichier {src} retourne une erreur\n\n{.err {our_data$error}}\n et rien dans le cache")
       return(NULL)
     }
   }
 
-  dates <- purrr::map(good_datas, "date")
+  dates <- purrr::map(good_datas, "date") |>
+    unlist() |>
+    lubridate::as_datetime()
   good_good_data <- good_datas[[which.max(dates)]]
   fnm <- good_good_data$file
   fnd <- fnm |> stringr::str_replace(".json$", ".qs")
   if(!quiet)
-    cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
+    cli::cli_alert_warning("Métadonnées lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
 
   ggd_lapse <- good_good_data$lapse %||% "never"
   ggd_wd <- good_good_data$wd %||% "file"
@@ -359,7 +359,8 @@ get_mdatas <- function(name, data_rep) {
   if(fs::dir_exists(data_rep))
     files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
   purrr::map(files, ~ {
-    l <- jsonlite::read_json(.x)
+    l <- jsonlite::read_json(.x) |>
+      map( ~if(length(.x)>1) list_flatten(.x) else unlist(.x))
     l$file <- .x
     l})
 }
@@ -416,7 +417,7 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE) {
     uids <- files$uid
     ccs <- files$cc
     last_fn <- files |> arrange(desc(modification_time)) |> slice(1)
-    last_data <- qs::qread(last_fn$path)
+    last_data <- qs::qread(last_fn$path |> fs::path_ext_set("qs"))
     last_data_hash <- last_data$data_hash
     if(!is.null(last_data_hash)) {
       if(data_hash == last_data_hash) {
@@ -566,7 +567,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
     root <- try_find_root()
 
   if(is.null(cache_rep))
-      cache_rep <- fs::path_join(c(root, ".data"))
+    cache_rep <- fs::path_join(c(root, ".data"))
 
   if(!quiet)
     cli::cli_alert_info("répertoire cache {.file {cache_rep}}")
@@ -575,7 +576,8 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
     caches <- fs::dir_ls(path = cache_rep, glob = "*.json", recurse = TRUE)
 
     purrr::map_dfr(caches, ~{
-      dd <- jsonlite::read_json(.x)
+      dd <- jsonlite::read_json(.x) |>
+        map( ~if(length(.x)>1) list_flatten(.x) else unlist(.x))
       valid <- valid_meta4meta(dd, root = root)
       tibble::tibble(
         valid = valid$valid,
