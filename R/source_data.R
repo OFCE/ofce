@@ -141,6 +141,7 @@ source_data <- function(name,
     qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |>
       fs::path_ext_set("qmd") |>
       fs::path_norm()
+    qmd_rel <- fs::path_rel(qmd_file, root)
   } else {
     qmd_path <- NULL
     qmd_file <- NULL
@@ -169,7 +170,7 @@ source_data <- function(name,
   arg_hash <- digest::digest(args, "crc32")
   track_hash <- 0
 
-  if(length(track) >0) {
+  if(length(track) > 0) {
     track_files <- purrr::map(track, ~fs::path_join(c(root, .x)))
     ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
@@ -184,7 +185,7 @@ source_data <- function(name,
     purrr::discard(is.null) |>
     unlist() |>
     unique()
-  new_qmds <- unique(c(qmds, qmd_file))
+  new_qmds <- unique(c(qmds, qmd_rel))
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
@@ -576,7 +577,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
 
     purrr::map_dfr(caches, ~{
       dd <- jsonlite::read_json(.x) |>
-        map( ~if(length(.x)>1) list_flatten(.x) else unlist(.x))
+        purrr::map( ~if(length(.x)>1) purrr::list_flatten(.x) else unlist(.x))
       valid <- valid_meta4meta(dd, root = root)
       tibble::tibble(
         valid = valid$valid,
@@ -599,7 +600,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
         track = list(dd$track),
         args_hash = dd$args_hash,
         data_hash = dd$data_hash) |>
-        arrange(src, desc(date))
+        dplyr::arrange(src, dplyr::desc(date))
     }
     )
   } else {
@@ -690,7 +691,7 @@ source_data_refresh <- function(
   # on en garde qu'un
   what <- what |>
     dplyr::group_by(src) |>
-    dplyr::arrange(desc(date)) |>
+    dplyr::arrange(dplyr::desc(date)) |>
     dplyr::slice(1) |>
     dplyr::ungroup()
 
@@ -704,7 +705,7 @@ source_data_refresh <- function(
     ofce::init_qmd()
 
   res <- purrr::pmap(what, function(src, wd, lapse, args, saved_root, track, qmd_file,...) {
-
+  browser()
     exec_wd <- getwd()
     if(wd=="project")
       exec_wd <- root
