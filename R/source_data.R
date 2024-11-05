@@ -302,9 +302,7 @@ check_return <- function(src) {
   purrr::keep(ret, ~!is.na(.x))
 }
 
-valid_meta4meta <- function(meta, root = NULL) {
-  if(is.null(root))
-    root <- meta$root
+valid_meta4meta <- function(meta, root) {
   src_hash <- hash_file(fs::path_join(c(root, meta$src)))
   track_hash <- 0
 
