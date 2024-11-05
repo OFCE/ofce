@@ -303,8 +303,8 @@ valid_meta4meta <- function(meta, root = NULL) {
   track_hash <- 0
 
   if(length(meta$track) >0) {
-    track_files <- map(meta$track, ~fs::path_join(c(root, .x)))
-    ok_files <- map_lgl(track_files, fs::file_exists)
+    track_files <- purrr::map(meta$track, ~fs::path_join(c(root, .x)))
+    ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
       track_hash <- tools::md5sum(as.character(track_files[ok_files]))
     else {
@@ -313,7 +313,6 @@ valid_meta4meta <- function(meta, root = NULL) {
   }
 
   meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
-
   meta$valid_src <- meme_null(meta,"src_hash")==src_hash
   meta$valid_track <- setequal(meta$track_hash, track_hash)
   if(meta$lapse != "never") {
@@ -417,8 +416,7 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE) {
     uids <- files$uid
     ccs <- files$cc
     last_fn <- files |> arrange(desc(modification_time)) |> slice(1)
-    last_data <- qs::qread(last_fn$path |> fs::path_ext_set("qs"))
-    last_data_hash <- last_data$data_hash
+    last_data_hash <- jsonlite::read_json(last_fn$path)$data_hash |> unlist()
     if(!is.null(last_data_hash)) {
       if(data_hash == last_data_hash) {
         cc <- last_fn$cc
@@ -429,7 +427,8 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE) {
     } else
       cc <- max(files$cc, na.rm = TRUE) + 1
   }
-  fs::dir_create(cache_rep, recurse=TRUE)
+  if(!fs::dir_exists(cache_rep))
+    fs::dir_create(cache_rep, recurse=TRUE)
   data$data_hash <- data_hash
   data$id <- stringr::str_c(uid, "-", cc)
   data$uid <- uid
@@ -585,7 +584,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
         id = dd$id,
         uid = dd$uid,
         index = dd$cc |> as.numeric(),
-        date = dd$date,
+        date = lubridate::as_datetime(dd$date),
         timing = dd$timing,
         size = dd$size,
         lapse = dd$lapse |> as.character(),
@@ -654,7 +653,7 @@ clear_source_cache <- function(
 #'
 #' @param what un tibble issu de source_data (tout par défaut)
 #' @param cache_rep le répertoire de cache si il n'est pas évident
-#' @param force_exec (boléen) Si `TRUE` alors le code est exécuté ($FORCE_EXEC par défaut)
+#' @param force_exec (boléen) Si `TRUE` alors le code est exécuté (FALSE par défaut)
 #' @param hash (boléen) (`TRUE` par défaut) vérifie les hashs
 #' @param unfreeze (boléen) (`TRUE` par défaut) essaye de unfreezé et uncaché les qmd dont les données ont été rafraichies
 #' @param quiet reste silencieux
@@ -677,18 +676,29 @@ source_data_refresh <- function(
     root = NULL) {
 
   if(is.null(what))
-    what <- source_data_status(cache_rep = cache_rep)
+    what <- source_data_status(cache_rep = cache_rep, root = root, quiet = quiet)
 
-  what <- what |>
-    dplyr::group_by(src) |>
-    dplyr::filter(!any(valid)) |>
-    dplyr::ungroup()
-
-  if(is.null(root))
-    root <- try_find_root()
+  if(!force_exec)
+    what <- what |>
+      dplyr::group_by(src) |>
+      dplyr::filter(!any(valid)) |>
+      dplyr::ungroup()
 
   if(nrow(what)==0)
     return(list())
+
+  # on en garde qu'un
+  what <- what |>
+    dplyr::group_by(src) |>
+    dplyr::arrange(desc(date)) |>
+    dplyr::slice(1) |>
+    dplyr::ungroup()
+
+  if(nrow(what)==0)
+    return(list())
+
+  if(is.null(root))
+    root <- try_find_root()
 
   if(init_qmd)
     ofce::init_qmd()

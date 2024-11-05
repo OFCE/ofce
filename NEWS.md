@@ -1,3 +1,7 @@
+## OFCE 1.3.5
+
+* source_data() : les métadonnées sont dasn un fichier séparé et en json (facilite git)
+
 ## OFCE 1.3.4
 
 * source_data() : correction de plusieurs bugs
