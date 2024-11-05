@@ -1,7 +1,7 @@
 # source_data ------------------------------
 
 # source_data est un outil qui permet d'exécuter un code, d'en cacher le résultat dans un dossier spécial (_data) en gardant des métadonnées
-# sauf modifications ou écart de temps (à configuer), les appels suivant au code ne sont pas exécutés mais le ficheir de data est relu
+# sauf modifications ou écart de temps (à configurer), les appels suivant au code ne sont pas exécutés mais le ficheir de data est relu
 # quelques fonctions permettent de diagnostiquer le cache et de suivre les mises à jour.
 
 
@@ -79,10 +79,6 @@ source_data <- function(name,
                         cache_rep = NULL,
                         root = NULL,
                         quiet = TRUE, nocache = FALSE) {
-  if(is.null(args))
-    args <- list()
-  if(is.null(track))
-    track <- list()
 
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
@@ -171,7 +167,7 @@ source_data <- function(name,
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
 
-  src_hash <- tools::md5sum(src)
+  src_hash <- hash_txt(src)
   arg_hash <- digest::digest(args, "crc32")
   track_hash <- 0
 
@@ -179,7 +175,7 @@ source_data <- function(name,
     track_files <- purrr::map(track, ~fs::path_join(c(root, .x)))
     ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
-      track_hash <- tools::md5sum(as.character(track_files[ok_files]))
+      track_hash <- hash_txt(as.character(track_files[ok_files]))
     else {
       cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
     }
@@ -305,14 +301,14 @@ check_return <- function(src) {
 valid_meta4meta <- function(meta, root = NULL) {
   if(is.null(root))
     root <- meta$root
-  src_hash <- tools::md5sum(fs::path_join(c(root, meta$src)))
+  src_hash <- hash_txt(fs::path_join(c(root, meta$src)))
   track_hash <- 0
 
   if(length(meta$track) >0) {
     track_files <- purrr::map(meta$track, ~fs::path_join(c(root, .x)))
     ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
-      track_hash <- tools::md5sum(as.character(track_files[ok_files]))
+      track_hash <- hash_txt(as.character(track_files[ok_files]))
     else {
       cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
     }
@@ -345,6 +341,15 @@ valid_metas <- function(metas, src_hash, arg_hash, track_hash, lapse) {
       .x$valid_lapse <- TRUE
     .x$valid <- .x$valid_src & .x$valid_arg & .x$valid_track & .x$valid_lapse
     .x
+  })
+}
+
+hash_txt <- function(path) {
+  purrr::map_chr(path, ~ {
+    if(fs::file_exists(.x))
+      digest::digest(readLines(.x, warn = FALSE), algo = "sha1")
+    else
+      glue::glue("no_such_file_{round(100000000*runif(1))}")
   })
 }
 
@@ -584,6 +589,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
       dd <- jsonlite::read_json(.x) |>
         purrr::map( ~if(length(.x)>1) purrr::list_flatten(.x) else unlist(.x))
       valid <- valid_meta4meta(dd, root = root)
+
       tibble::tibble(
         valid = valid$valid,
         src = dd$src,
