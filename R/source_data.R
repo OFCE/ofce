@@ -259,7 +259,7 @@ source_data <- function(name,
   dates <- purrr::map(good_datas, "date")
   good_good_data <- good_datas[[which.max(dates)]]
   fnm <- good_good_data$file
-  fnd <- fnm |> stringr::str_replace("_m.qs$", "_d.qs")
+  fnd <- fnm |> stringr::str_replace(".json$", ".qs")
   if(!quiet)
     cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
 
@@ -274,7 +274,7 @@ source_data <- function(name,
     newmdata$wd <- wd
     newmdata$qmd_file <- new_qmds
     newmdata$track <- track
-    qs::qsave(newmdata, file = good_good_data$file)
+    jsonlite::write_json(newmdata, path = good_good_data$file)
   }
   if(!quiet)
     cli::cli_alert_warning("Données en cache")
@@ -343,9 +343,9 @@ valid_metas <- function(metas, src_hash, arg_hash, track_hash, lapse) {
   })
 }
 
-get_datas <- function(name, data_rep, ext = "qs") {
-  m <- get_mdatas(name, data_rep, ext = "qs")
-  dn <- names(m) |> stringr::str_replace(glue::glue("_m.{ext}"), glue::glue("_d.{ext}")) |> set_names(names(m))
+get_datas <- function(name, data_rep) {
+  m <- get_mdatas(name, data_rep)
+  dn <- names(m) |> stringr::str_replace(glue::glue(".json"), glue::glue(".qs")) |> set_names(names(m))
   d <- purrr::map(dn, ~qs::qread(.x))
   purrr::map(rlang::set_names(names(m)), ~{
     l <- m[[.x]]
@@ -353,19 +353,19 @@ get_datas <- function(name, data_rep, ext = "qs") {
     l})
 }
 
-get_mdatas <- function(name, data_rep, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)_m\\.", ext)
+get_mdatas <- function(name, data_rep) {
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+).json")
   files <- list()
   if(fs::dir_exists(data_rep))
     files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
   purrr::map(files, ~ {
-    l <- qs::qread(.x)
+    l <- jsonlite::read_json(.x)
     l$file <- .x
     l})
 }
 
-get_ddatas <- function(name, data_rep, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)_d\\.", ext)
+get_ddatas <- function(name, data_rep) {
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+).qs")
   files <- list()
   if(fs::dir_exists(data_rep))
     files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
@@ -373,7 +373,6 @@ get_ddatas <- function(name, data_rep, ext = "qs") {
   names(res) <- files
   res
 }
-
 
 exec_source <- function(src, wd, args = list()) {
   safe_source <- purrr::safely(\(src, args) {
@@ -401,8 +400,8 @@ exec_source <- function(src, wd, args = list()) {
   )
 }
 
-cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]{8})-([0-9]+)_m\\.", ext)
+cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE) {
+  pat <- stringr::str_c(name, "_([a-f0-9]{8})-([0-9]+)\\.json")
   files <- tibble::tibble()
   if(fs::dir_exists(cache_rep)) {
     files <- fs::dir_info(path = cache_rep, regexp = pat) |>
@@ -425,7 +424,7 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
         exists <- TRUE
       }
       else
-        cc <- max(files$cc, na.rm = TRUE) +1
+        cc <- max(files$cc, na.rm = TRUE) + 1
     } else
       cc <- max(files$cc, na.rm = TRUE) + 1
   }
@@ -434,8 +433,8 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
   data$id <- stringr::str_c(uid, "-", cc)
   data$uid <- uid
   data$cc <- cc
-  fnm <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id, "_m"))) |> fs::path_ext_set(ext)
-  fnd <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id, "_d"))) |> fs::path_ext_set(ext)
+  fnm <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set("json")
+  fnd <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set("qs")
   if(!nocache) {
     if(!exists) {
       les_datas <- data$data
@@ -443,7 +442,7 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
     }
     les_metas <- data
     les_metas$data <- NULL
-    qs::qsave(les_metas, file = fnm)
+    jsonlite::write_json(les_metas, path = fnm)
   }
   return(data)
 }
@@ -573,10 +572,10 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
     cli::cli_alert_info("répertoire cache {.file {cache_rep}}")
 
   if(fs::dir_exists(cache_rep)) {
-    caches <- fs::dir_ls(path = cache_rep, glob = "*_m.qs", recurse = TRUE)
+    caches <- fs::dir_ls(path = cache_rep, glob = "*.json", recurse = TRUE)
 
     purrr::map_dfr(caches, ~{
-      dd <- qs::qread(.x)
+      dd <- jsonlite::read_json(.x)
       valid <- valid_meta4meta(dd, root = root)
       tibble::tibble(
         valid = valid$valid,
@@ -623,8 +622,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
 #'
 clear_source_cache <- function(
     what = source_data_status(find_cache_rep()),
-    cache_rep = find_cache_rep(),
-    ext = "qs") {
+    cache_rep = find_cache_rep()) {
 
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
@@ -641,8 +639,9 @@ clear_source_cache <- function(
   purrr::pmap_chr(what, function(src, id, ...) {
     fn <- fs::path_join(c(abs_cache_rep, src)) |>
       fs::path_ext_remove() |>
-      stringr::str_c("_", id, ".", ext)
-    fs::file_delete(fn)
+      stringr::str_c("_", id)
+    fs::file_delete(fn |> fs::path_ext_set("json"))
+    fs::file_delete(fn |> fs::path_ext_set("qs"))
     fn
   })
 }
