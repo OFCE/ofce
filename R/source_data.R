@@ -401,7 +401,9 @@ get_ddatas <- function(name, data_rep) {
 exec_source <- function(src, wd, args = list()) {
   safe_source <- purrr::safely(\(src, args) {
     args <- args
-    base::source(src, local=TRUE)
+    res <- suppressMessages(
+      suppressWarnings( base::source(src, local=TRUE) ) )
+    res
   })
   current_wd <- getwd()
   setwd(wd)
@@ -742,7 +744,7 @@ source_data_refresh <- function(
     if(wd=="file")
       exec_wd <- fs::path_join(c(root, fs::path_dir(src)))
     if(wd=="qmd")
-      exec_wd <- fs::path_dir(qmd_file[[1]])
+      exec_wd <- fs::path_join(c(root, fs::path_dir(qmd_file[[1]])))
 
     src_data <- source_data(name = src,
                             force_exec = force_exec,
@@ -758,8 +760,8 @@ source_data_refresh <- function(
     if(unfreeze)
       purrr::walk(src_data$qmd_file, ~{
         if(src_data$ok == "exec") {
-          unfreeze(.x, src_data$root, quiet = quiet)
-          uncache(.x, src_data$root, quiet = quiet)
+          unfreeze(.x, root, quiet = quiet)
+          uncache(.x, root, quiet = quiet)
         }
       })
     list(src = src_data$src, ok = src_data$ok)
@@ -769,7 +771,7 @@ source_data_refresh <- function(
   cli::cli_alert_success("Refresh en {round(as.numeric(Sys.time()-start))} s.")
 
   res <- purrr::transpose(res)
-  res$src[res$ok == "exec"]
+  res$src[res$ok == "exec"] |> purrr::list_c()
 }
 
 # set cache rep ----------------------
