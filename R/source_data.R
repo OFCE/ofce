@@ -298,7 +298,6 @@ check_return <- function(src) {
 }
 
 valid_meta4meta <- function(meta, root = NULL) {
-  browser()
   if(is.null(root))
     root <- meta$root
   src_hash <- hash_txt(fs::path_join(c(root, meta$src)))
@@ -716,7 +715,7 @@ source_data_refresh <- function(
     ofce::init_qmd()
 
   res <- purrr::pmap(what, function(src, wd, lapse, args, saved_root, track, qmd_file,...) {
-  browser()
+
     exec_wd <- getwd()
     if(wd=="project")
       exec_wd <- root
