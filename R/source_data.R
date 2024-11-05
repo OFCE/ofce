@@ -680,7 +680,7 @@ source_data_refresh <- function(
     quiet = TRUE,
     init_qmd = TRUE,
     root = NULL) {
-
+  start <- Sys.time()
   if(is.null(what))
     what <- source_data_status(cache_rep = cache_rep, root = root, quiet = quiet)
 
@@ -740,6 +740,7 @@ source_data_refresh <- function(
     list(src = src_data$src, ok = src_data$ok)
   }
   )
+  cli::cli_alert_success("Refresh en {round(as.numeric(Sys.time()-start))} s.")
   res <- purrr::transpose(res)
   res$src[res$ok == "exec"]
 }
