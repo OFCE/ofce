@@ -1,29 +1,35 @@
 ---
 title: "Titre du billet"
-subtitle: "Sous-titre éventuel"
+# subtitle: "Sous-titre éventuel"
 date: today
 author:
   - name: Albertine Retrouvée
     url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php # À changer avec le lien vers la page de l'auteur
     affiliation: OFCE 
     affiliation-url: https://www.ofce.sciences-po.fr/
-    
-institution: "Observatoire Français des Conjonctures Économiques"
+ 
+# A choisir parmi une liste prédéterminée (ofce::keywords dans la console pour y avoir accès) 
+categories: ["keyword1", "keyword2"] 
+image: image.jpg
+
+## Texte qui apparaît dans le menu du blog (500 caractères max)
 description: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
 format:
   blog-html: default
   blog-pdf: default
-categories: ["keyword1", "keyword2"] # A choisir parmi une liste prédéterminée (ofce::keywords_list() pour y avoir accès)
-image: image.jpg
 
 
-## A activer pour permettre les commentaires via hypothesis (activer son profil via https://hypothes.is/groups/9A3bza7D/blog et s'inscrire au groupe blog)
+# A activer si références bibliographiques dans le texte
+# bibliography: blog_references.bib 
 
-  # comments:
-#   hypothesis: true
-
-bibliography: blog_references.bib
 ---
+
+```{r, include=FALSE, cache=FALSE}
+
+# Routine d'initialisation des options de base / Chargement des librairies usuelles
+ofce::init_qmd()
+
+```
 
 # Introduction {#sec-introduction .unnumbered}
 
@@ -39,12 +45,17 @@ pour le dépôt voir {{< fa brands github >}}
 #| echo : false
 #| message : false
 
-library(tidyverse)
-library(ofce)
+# Charge les données depuis fichier source R 
+data_plot <- ofce::source_data("data_source")
 
-ggplot(cars)+
-    geom_point(aes(x=speed, y=dist))+
-    theme_ofce()
+ggplot(data_plot) +
+  geom_point(aes(x=speed, y=dist))+
+  # Options esthétiques
+  theme_ofce() + 
+  ofce::ofce_caption(source = "Rstudio",
+                     note = "ici pour rajouter une note",
+                     ofce = TRUE) # Pour rajouter "Calculs OFCE
+
 ```
 
 
@@ -58,19 +69,19 @@ library(gt)
 
 
 data_set <- tibble::tibble( name = c(stringr::str_c("name_",1:10)),
-                    `2022` = round(c(rnorm(10,.9,.1)),2),
-                    `2023` = round(c(rnorm(10,.9,.1)),2),
-                    `2024` = round(c(rnorm(10,.9,.1)),2) ,
-
-                    `2022_1` = round(c(rnorm(10,.9,.1)),2),
-                    `2023_2` = round(c(rnorm(10,.9,.1)),2),
-                    `2024_3` = round(c(rnorm(10,.9,.1)),2)
+                            `2022` = round(c(rnorm(10,.9,.1)),2),
+                            `2023` = round(c(rnorm(10,.9,.1)),2),
+                            `2024` = round(c(rnorm(10,.9,.1)),2) ,
+                            
+                            `2022_1` = round(c(rnorm(10,.9,.1)),2),
+                            `2023_2` = round(c(rnorm(10,.9,.1)),2),
+                            `2024_3` = round(c(rnorm(10,.9,.1)),2)
 ) |>
   gt::gt(rowname_col = "name") |>
   gt::rm_stubhead() |>
   gt::cols_label(starts_with("2022") ~ "2022",
-             starts_with("2023") ~ "2023",
-             starts_with("2024") ~ "2024") |>
+                 starts_with("2023") ~ "2023",
+                 starts_with("2024") ~ "2024") |>
   gt::tab_spanner(
     label = md('**Variation annuelle (en %)**'),
     columns = 2:4
