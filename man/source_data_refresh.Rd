@@ -33,7 +33,7 @@ source_data_refresh(
 \item{root}{(\code{NULL} par défaut) essaye de trouver le root à partir du point d'exécution ou utilise celui fournit}
 }
 \value{
-un tibble de status
+la liste des sources exécutés
 }
 \description{
 Exécute les sources sélectionnés

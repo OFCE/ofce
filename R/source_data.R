@@ -1,7 +1,7 @@
 # source_data ------------------------------
 
 # source_data est un outil qui permet d'exécuter un code, d'en cacher le résultat dans un dossier spécial (_data) en gardant des métadonnées
-# sauf modifications ou écart de temps (à configuer), les appels suivant au code ne sont pas exécutés mais le ficheir de data est relu
+# sauf modifications ou écart de temps (à configurer), les appels suivant au code ne sont pas exécutés mais le ficheir de data est relu
 # quelques fonctions permettent de diagnostiquer le cache et de suivre les mises à jour.
 
 
@@ -80,6 +80,12 @@ source_data <- function(name,
                         root = NULL,
                         quiet = TRUE, nocache = FALSE) {
 
+  if(is.null(args))
+    args <- list()
+
+  if(is.null(track))
+    track <- list()
+
   # on trouve le fichier
   # si c'est project on utilise here, sinon, on utilise le wd courant
   name <- remove_ext(name)
@@ -141,9 +147,11 @@ source_data <- function(name,
     qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |>
       fs::path_ext_set("qmd") |>
       fs::path_norm()
+    qmd_rel <- fs::path_rel(qmd_file, root)
   } else {
     qmd_path <- NULL
     qmd_file <- NULL
+    qmd_rel <- NULL
   }
 
   if(is.null(exec_wd)) {
@@ -165,27 +173,26 @@ source_data <- function(name,
   if(is.null(force_exec)) force <- FALSE else if(force_exec=="TRUE") force <- TRUE else force <- FALSE
   if(is.null(prevent_exec)) prevent <- FALSE else if(prevent_exec=="TRUE") prevent <- TRUE else prevent <- FALSE
 
-  src_hash <- tools::md5sum(src)
+  src_hash <- hash_file(src)
   arg_hash <- digest::digest(args, "crc32")
   track_hash <- 0
 
-  if(length(track) >0) {
-    track_files <- map(track, ~fs::path_join(c(root, .x)))
-    ok_files <- map_lgl(track_files, fs::file_exists)
+  if(length(track) > 0) {
+    track_files <- purrr::map(track, ~fs::path_join(c(root, .x)))
+    ok_files <- purrr::map_lgl(track_files, fs::file_exists)
     if(any(ok_files))
-      track_hash <- tools::md5sum(as.character(track_files[ok_files]))
+      track_hash <- hash_file(as.character(track_files[ok_files]))
     else {
       cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
     }
   }
-  good_datas <- get_datas(basename, full_cache_rep)
-  qmds <- purrr::map(good_datas, "qmd_file") |>
+  meta_datas <- get_mdatas(basename, full_cache_rep)
+  qmds <- purrr::map(meta_datas, "qmd_file") |>
     purrr::list_flatten() |>
     purrr::discard(is.null) |>
     unlist() |>
     unique()
-  new_qmds <- unique(c(qmds, qmd_file))
-
+  new_qmds <- unique(c(qmds, qmd_rel))
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
@@ -197,10 +204,9 @@ source_data <- function(name,
       our_data$track <- track
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
-      our_data$root <- root
       our_data$ok <- "exec"
 
-      our_data <- cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+      our_data <- cache_data(our_data, cache_rep = full_cache_rep, root = root, name = basename, uid = uid)
       if(!quiet)
         cli::cli_alert_warning("Exécution du source")
 
@@ -215,19 +221,11 @@ source_data <- function(name,
     }
   }
 
-  meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+  meta_datas <- valid_metas(meta_datas, src_hash = src_hash, arg_hash = arg_hash,
+                            track_hash = track_hash, lapse = lapse, root = root)
 
-  if(hash&!prevent)
-    good_datas <- good_datas |>
-    purrr::keep(~meme_null(.x,"src_hash")==src_hash) |>
-    purrr::keep(~meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash) |>
-    purrr::keep(~setequal(.x$track_hash, track_hash))
 
-  if(lapse != "never"&!prevent) {
-    alapse <- what_lapse(lapse)
-    good_datas <- purrr::keep(good_datas, ~lubridate::now() - .x[["date"]] <= alapse)
-  }
-
+  good_datas <- meta_datas |> purrr::keep(~.x$valid)
   if(length(good_datas)==0) {
     if(prevent) {
       if(!quiet)
@@ -243,11 +241,10 @@ source_data <- function(name,
       our_data$arg_hash <- arg_hash
       our_data$track_hash <- track_hash
       our_data$track <- track
-      our_data$root <- root
       our_data$wd <- wd
       our_data$ok <- "exec"
 
-      our_data <- cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+      our_data <- cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid, root = root)
       if(!quiet)
         cli::cli_alert_warning("Exécution du source")
 
@@ -257,33 +254,39 @@ source_data <- function(name,
         return(our_data$data)
       }
     } else {
-      if(!quiet)
-        cli::cli_alert_warning("le fichier {src} retourne une erreur et rien dans le cache")
       return(NULL)
     }
   }
 
-  dates <- purrr::map(good_datas, "date")
-  good_good_data <- good_datas[[which.max(dates)]]
+  dates <- purrr::map(good_datas, "date") |>
+    unlist() |>
+    lubridate::as_datetime()
+  mdd <- which.max(dates)
+  good_good_data <- good_datas[[mdd]]
+  fnm <- names(good_datas)[[mdd]]
+  fnd <- fs::path_join(c(root, good_good_data$data_file))
 
   if(!quiet)
-    cli::cli_alert_warning("Données lues dans {.file {names(good_datas)[[which.max(dates)]]}}")
+    cli::cli_alert_warning("Métadonnées lues dans {.file {fnd}}")
 
   ggd_lapse <- good_good_data$lapse %||% "never"
   ggd_wd <- good_good_data$wd %||% "file"
   ggd_qmds <- setequal(good_good_data$qmd_file, new_qmds)
   ggd_track <- setequal(good_good_data$track, track)
   if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds | !ggd_track) {
-    good_good_data$lapse <- lapse
-    good_good_data$wd <- wd
-    good_good_data$qmd_file <- new_qmds
-    good_good_data$tack <- track
-    cache_data(good_good_data, cache_rep = full_cache_rep, name = basename, uid = uid)
+    newmdata <- good_good_data
+    newmdata$file <- NULL
+    newmdata$lapse <- lapse
+    newmdata$wd <- wd
+    newmdata$qmd_file <- new_qmds
+    newmdata$track <- track
+    jsonlite::write_json(newmdata, path = fnm)
   }
   if(!quiet)
     cli::cli_alert_warning("Données en cache")
 
   good_good_data$ok <- "cache"
+  good_good_data$data <- qs::qread(fnd)
   if(metadata) {
     return(good_good_data)
   } else {
@@ -299,8 +302,92 @@ check_return <- function(src) {
   purrr::keep(ret, ~!is.na(.x))
 }
 
-get_datas <- function(name, data_rep, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+)\\.", ext)
+valid_meta4meta <- function(meta, root) {
+  src_hash <- hash_file(fs::path_join(c(root, meta$src)))
+  track_hash <- 0
+
+  if(length(meta$track) >0) {
+    track_files <- purrr::map(meta$track, ~fs::path_join(c(root, .x)))
+    ok_files <- purrr::map_lgl(track_files, fs::file_exists)
+    if(any(ok_files))
+      track_hash <- hash_file(as.character(track_files[ok_files]))
+    else {
+      cli::cli_alert_warning("Les fichiers de track sont invalides, vérifiez les chemins")
+    }
+  }
+
+  meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+  meta$valid_src <- meme_null(meta,"src_hash")==src_hash
+  meta$valid_track <- setequal(meta$track_hash, track_hash)
+  meta$data_exists <- fs::file_exists(fs::path_join(c(root, meta$data_file)))
+  if(meta$lapse != "never") {
+    alapse <- what_lapse(meta$lapse)
+    meta$valid_lapse <- lubridate::now() - lubridate::as_datetime(meta[["date"]]) <= alapse
+  } else
+    meta$valid_lapse <- TRUE
+  meta$valid <- meta$valid_src & meta$valid_track & meta$valid_lapse & meta$data_exists
+  return(meta)
+}
+
+valid_metas <- function(metas, src_hash, arg_hash, track_hash, lapse, root) {
+
+  meme_null <- function(x, n, def = 0) ifelse(is.null(x[[n]]), def, x[[n]])
+
+  metas <- map(metas, ~{
+    .x$valid_src <- meme_null(.x,"src_hash")==src_hash
+    .x$valid_arg <- meme_null(.x,"arg_hash", digest::digest(list()))==arg_hash
+    .x$valid_track <- setequal(.x$track_hash, track_hash)
+    .x$data_exists <- fs::file_exists(fs::path_join(c(root, .x$data_file)))
+    if(lapse != "never") {
+      alapse <- what_lapse(lapse)
+      .x$valid_lapse <- lubridate::now() - lubridate::as_datetime(.x[["date"]]) <= alapse
+    } else
+      .x$valid_lapse <- TRUE
+    .x$valid <- .x$valid_src & .x$valid_arg & .x$valid_track & .x$valid_lapse & .x$data_exists
+    .x
+  })
+}
+
+hash_file <- function(path) {
+  purrr::map_chr(path, ~ {
+    if(fs::file_exists(.x)) {
+      if(fs::path_ext(.x) %in% c("R", "r", "txt", "csv"))
+        digest::digest(readLines(.x, warn = FALSE), algo = "sha1")
+      else
+        digest::digest(.x, algo = "sha1", file = TRUE)
+    }
+    else
+      glue::glue("no_{.x}_{round(100000000*runif(1))}")
+  })
+}
+
+get_datas <- function(name, data_rep) {
+  m <- get_mdatas(name, data_rep)
+  dn <- names(m) |> stringr::str_replace(glue::glue(".json"), glue::glue(".qs")) |> set_names(names(m))
+  d <- purrr::map(dn, ~qs::qread(.x))
+  purrr::map(rlang::set_names(names(m)), ~{
+    l <- m[[.x]]
+    l$data <- d[[.x]]
+    l})
+}
+
+get_mdatas <- function(name, data_rep) {
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+).json")
+  files <- list()
+  if(fs::dir_exists(data_rep))
+    files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
+  purrr::map(files, read_mdata)
+}
+
+read_mdata <- function(path) {
+  l <- jsonlite::read_json(path) |>
+    map( ~if(length(.x)>1) list_flatten(.x) else unlist(.x))
+  l$file <- path
+  l
+}
+
+get_ddatas <- function(name, data_rep) {
+  pat <- stringr::str_c(name, "_([a-f0-9]){8}-([0-9]+).qs")
   files <- list()
   if(fs::dir_exists(data_rep))
     files <- fs::dir_ls(path = data_rep, regexp = pat, fail=FALSE)
@@ -312,7 +399,9 @@ get_datas <- function(name, data_rep, ext = "qs") {
 exec_source <- function(src, wd, args = list()) {
   safe_source <- purrr::safely(\(src, args) {
     args <- args
-    base::source(src, local=TRUE)
+    res <- suppressMessages(
+      suppressWarnings( base::source(src, local=TRUE) ) )
+    res
   })
   current_wd <- getwd()
   setwd(wd)
@@ -321,22 +410,23 @@ exec_source <- function(src, wd, args = list()) {
   timing <- as.numeric(Sys.time() - start)
   setwd(current_wd)
   if(!is.null(res$error)) {
-    cli::cli_alert_warning(as.character(res$error))
+    cli::cli_div(class = "err", theme = list(.err = list(color = "red")))
+    cli::cli_alert_warning("Erreur dans {src}\n\n
+                           {.err {res$error}}")
     return(list(ok=FALSE, error = res$error))
   }
   list(
     data = res$result$value,
     timing = timing,
     date = lubridate::now(),
-    size = lobstr::obj_size(res$result$value),
-    exec_wd = wd,
+    size = lobstr::obj_size(res$result$value) |> as.numeric(),
     args = args,
     ok = TRUE
   )
 }
 
-cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, ext = "qs") {
-  pat <- stringr::str_c(name, "_([a-f0-9]{8})-([0-9]+)\\.", ext)
+cache_data <- function(data, cache_rep, name, root, uid="00000000", nocache = FALSE) {
+  pat <- stringr::str_c(name, "_([a-f0-9]{8})-([0-9]+)\\.json")
   files <- tibble::tibble()
   if(fs::dir_exists(cache_rep)) {
     files <- fs::dir_info(path = cache_rep, regexp = pat) |>
@@ -345,29 +435,44 @@ cache_data <- function(data, cache_rep, name, uid="00000000", nocache = FALSE, e
   }
 
   cc <- 1
+  exists <- FALSE
   data_hash <- digest::digest(data$data)
   if(nrow(files)>0) {
     uids <- files$uid
     ccs <- files$cc
     last_fn <- files |> arrange(desc(modification_time)) |> slice(1)
-    last_data <- qs::qread(last_fn$path)
-    last_data_hash <- last_data$data_hash
+    last_m_data <- read_mdata(last_fn$path)
+    last_data_hash <- last_m_data$data_hash
     if(!is.null(last_data_hash)) {
-      if(data_hash == last_data_hash)
+      if(data_hash == last_data_hash) {
         cc <- last_fn$cc
+        exists <- TRUE
+      }
       else
-        cc <- max(files$cc, na.rm = TRUE) +1
+        cc <- max(files$cc, na.rm = TRUE) + 1
     } else
-      cc <- max(files$cc, na.rm = TRUE) +1
+      cc <- max(files$cc, na.rm = TRUE) + 1
   }
-  fs::dir_create(cache_rep, recurse=TRUE)
+  if(!fs::dir_exists(cache_rep))
+    fs::dir_create(cache_rep, recurse=TRUE)
   data$data_hash <- data_hash
   data$id <- stringr::str_c(uid, "-", cc)
   data$uid <- uid
   data$cc <- cc
-  fn <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set(ext)
-  if(!nocache)
-    qs::qsave(data, file = fn)
+  fnm <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set("json")
+  if(!nocache) {
+    if(!exists) {
+      fnd <- fs::path_join(c(cache_rep, stringr::str_c(name, "_", data$id))) |> fs::path_ext_set("qs")
+      les_datas <- data$data
+      qs::qsave(les_datas, file = fnd)
+    } else
+      fnd <- last_m_data$data_file
+    les_metas <- data
+    les_metas$data <- NULL
+    les_metas$data_file <- fs::path_rel(fnd, root)
+    les_metas$file <- NULL
+    jsonlite::write_json(les_metas, path = fnm)
+  }
   return(data)
 }
 
@@ -484,42 +589,46 @@ try_find_root <- function() {
 #' @export
 #'
 
-source_data_status <- function(cache_rep = NULL, quiet = TRUE) {
+source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
 
-  if(is.null(cache_rep)) {
+  if(is.null(root))
     root <- try_find_root()
+
+  if(is.null(cache_rep))
     cache_rep <- fs::path_join(c(root, ".data"))
-  }
+
   if(!quiet)
     cli::cli_alert_info("répertoire cache {.file {cache_rep}}")
 
   if(fs::dir_exists(cache_rep)) {
-    caches <- fs::dir_ls(path = cache_rep, glob = "*.qs", recurse = TRUE)
+    caches <- fs::dir_ls(path = cache_rep, glob = "*.json", recurse = TRUE)
 
     purrr::map_dfr(caches, ~{
-      dd <- qs::qread(.x)
+      dd <- jsonlite::read_json(.x) |>
+        purrr::map( ~if(length(.x)>1) purrr::list_flatten(.x) else unlist(.x))
+      valid <- valid_meta4meta(dd, root = root)
 
       tibble::tibble(
+        valid = valid$valid,
         src = dd$src,
         id = dd$id,
         uid = dd$uid,
         index = dd$cc |> as.numeric(),
-        date = dd$date,
+        date = lubridate::as_datetime(dd$date),
         timing = dd$timing,
         size = dd$size,
         lapse = dd$lapse |> as.character(),
         wd = dd$wd,
-        exec_wd = dd$exec_wd,
         args = list(dd$args),
         where = .x,
-        root = dd$root,
         qmd_file = list(dd$qmd_file),
+        data_file = dd$data_file,
         src_hash = dd$hash,
         track_hash = list(dd$track_hash),
         track = list(dd$track),
         args_hash = dd$args_hash,
         data_hash = dd$data_hash) |>
-        arrange(src, desc(date))
+        dplyr::arrange(src, dplyr::desc(date))
     }
     )
   } else {
@@ -543,8 +652,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE) {
 #'
 clear_source_cache <- function(
     what = source_data_status(find_cache_rep()),
-    cache_rep = find_cache_rep(),
-    ext = "qs") {
+    cache_rep = find_cache_rep()) {
 
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
@@ -561,8 +669,9 @@ clear_source_cache <- function(
   purrr::pmap_chr(what, function(src, id, ...) {
     fn <- fs::path_join(c(abs_cache_rep, src)) |>
       fs::path_ext_remove() |>
-      stringr::str_c("_", id, ".", ext)
-    fs::file_delete(fn)
+      stringr::str_c("_", id)
+    fs::file_delete(fn |> fs::path_ext_set("json"))
+    fs::file_delete(fn |> fs::path_ext_set("qs"))
     fn
   })
 }
@@ -573,7 +682,7 @@ clear_source_cache <- function(
 #'
 #' @param what un tibble issu de source_data (tout par défaut)
 #' @param cache_rep le répertoire de cache si il n'est pas évident
-#' @param force_exec (boléen) Si `TRUE` alors le code est exécuté ($FORCE_EXEC par défaut)
+#' @param force_exec (boléen) Si `TRUE` alors le code est exécuté (FALSE par défaut)
 #' @param hash (boléen) (`TRUE` par défaut) vérifie les hashs
 #' @param unfreeze (boléen) (`TRUE` par défaut) essaye de unfreezé et uncaché les qmd dont les données ont été rafraichies
 #' @param quiet reste silencieux
@@ -595,8 +704,29 @@ source_data_refresh <- function(
     init_qmd = TRUE,
     root = NULL) {
 
+  start <- Sys.time()
+
   if(is.null(what))
-    what <- source_data_status(cache_rep = cache_rep)
+    what <- source_data_status(cache_rep = cache_rep, root = root, quiet = quiet)
+
+  if(!force_exec)
+    what <- what |>
+      dplyr::group_by(src) |>
+      dplyr::filter(!any(valid)) |>
+      dplyr::ungroup()
+
+  if(nrow(what)==0)
+    return(list())
+
+  # on en garde qu'un
+  what <- what |>
+    dplyr::group_by(src) |>
+    dplyr::arrange(dplyr::desc(date)) |>
+    dplyr::slice(1) |>
+    dplyr::ungroup()
+
+  if(nrow(what)==0)
+    return(list())
 
   if(is.null(root))
     root <- try_find_root()
@@ -612,7 +742,7 @@ source_data_refresh <- function(
     if(wd=="file")
       exec_wd <- fs::path_join(c(root, fs::path_dir(src)))
     if(wd=="qmd")
-      exec_wd <- fs::path_dir(qmd_file[[1]])
+      exec_wd <- fs::path_join(c(root, fs::path_dir(qmd_file[[1]])))
 
     src_data <- source_data(name = src,
                             force_exec = force_exec,
@@ -628,15 +758,18 @@ source_data_refresh <- function(
     if(unfreeze)
       purrr::walk(src_data$qmd_file, ~{
         if(src_data$ok == "exec") {
-          unfreeze(.x, src_data$root, quiet = quiet)
-          uncache(.x, src_data$root, quiet = quiet)
+          unfreeze(.x, root, quiet = quiet)
+          uncache(.x, root, quiet = quiet)
         }
       })
     list(src = src_data$src, ok = src_data$ok)
   }
   )
+
+  cli::cli_alert_success("Refresh en {round(as.numeric(Sys.time()-start))} s.")
+
   res <- purrr::transpose(res)
-  res$src[res$ok == "exec"]
+  res$src[res$ok == "exec"] |> purrr::list_c()
 }
 
 # set cache rep ----------------------

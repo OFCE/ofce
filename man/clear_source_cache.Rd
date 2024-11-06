@@ -6,8 +6,7 @@
 \usage{
 clear_source_cache(
   what = source_data_status(find_cache_rep()),
-  cache_rep = find_cache_rep(),
-  ext = "qs"
+  cache_rep = find_cache_rep()
 )
 }
 \arguments{
