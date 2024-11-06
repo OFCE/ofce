@@ -15,4 +15,5 @@ wp2_files
 inst/doc
 inst/.DS_Store
 .vscode
-.DS_Store
+*.DS_Store
+
