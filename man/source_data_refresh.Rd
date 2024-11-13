@@ -20,7 +20,7 @@ source_data_refresh(
 
 \item{cache_rep}{le répertoire de cache si il n'est pas évident}
 
-\item{force_exec}{(boléen) Si \code{TRUE} alors le code est exécuté ($FORCE_EXEC par défaut)}
+\item{force_exec}{(boléen) Si \code{TRUE} alors le code est exécuté (FALSE par défaut)}
 
 \item{hash}{(boléen) (\code{TRUE} par défaut) vérifie les hashs}
 

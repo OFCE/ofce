@@ -5,8 +5,9 @@
 \title{Vide le cache}
 \usage{
 clear_source_cache(
-  what = source_data_status(find_cache_rep()),
-  cache_rep = find_cache_rep()
+  what = source_data_status(root = root),
+  cache_rep = NULL,
+  root = NULL
 )
 }
 \arguments{

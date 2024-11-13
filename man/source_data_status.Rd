@@ -7,7 +7,11 @@
 source_data_status(cache_rep = NULL, quiet = TRUE, root = NULL)
 }
 \arguments{
+\item{root}{force le root -- à ne pas utiliser sauf expert}
+
 \item{data_rep}{le chemin vers le cache (défaut "_cache")}
+
+\item{src_in}{est ce que les données sont avec les qmd ?}
 }
 \value{
 tibble
