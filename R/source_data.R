@@ -41,7 +41,7 @@
 #'
 #' `unfreeze` permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)
 #'
-#' @param name (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
+#' @param path (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
 #' @param args (list) une liste d'arguments que l'on peut utliser dans source (args$xxx)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param track (list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.
@@ -66,7 +66,7 @@
 # si les arguments changent, il faut aussi reseter le cache (les mettre dans le hash)
 # il faut ajouter un always
 # et la possibilité de tracker un fichier
-source_data <- function(name,
+source_data <- function(path,
                         args = list(),
                         hash = getOption("ofce.source_data.hash"),
                         track = list(),
@@ -75,6 +75,7 @@ source_data <- function(name,
                         prevent_exec = getOption("ofce.source_data.prevent_exec"),
                         metadata = getOption("ofce.source_data.metadata"),
                         wd = getOption("ofce.source_data.wd"),
+                        src_in = getOption("ofce.source_data.src_in"),
                         exec_wd = NULL,
                         cache_rep = NULL,
                         root = NULL,
@@ -87,13 +88,10 @@ source_data <- function(name,
     track <- list()
 
   # on trouve le fichier
-  # si c'est project on utilise here, sinon, on utilise le wd courant
-  name <- remove_ext(name)
+  name <- remove_ext(path)
 
-  if(is.null(root)) {
-    root <- try_find_root()
-  }
-  root <- fs::path_norm(root) |> fs::path_abs()
+  root <- try_find_root(root, src_in)
+
   if(!quiet)
     cli::cli_alert_info("root: {root}")
   uid <- digest::digest(root, algo = "crc32")
@@ -559,20 +557,27 @@ uncache <- function(qmd_file, root, quiet=TRUE) {
   return(NULL)
 }
 
-try_find_root <- function() {
+try_find_root <- function(root=NULL, src_in = getOption("ofce.source_data.src_in")) {
+  if(!is.null(root))
+    return(root)
+  if(src_in == "wd")
+    return( getwd() |> fs::path_abs() |> fs::path_norm() )
+  if(src_in == "project") {
   if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
     safe_find_root <- purrr::safely(rprojroot::find_root)
     root <- safe_find_root(
       rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
     if(is.null(root$error))
-      return(root$result |> fs::path_norm())
+      return(root$result |> fs::path_abs() |> fs::path_norm())
     else {
       if(!quiet)
         cli::cli_alert_warning("{root$error}")
       return(NULL)
     }
   }
-  return(Sys.getenv("QUARTO_PROJECT_DIR") |> fs::path_norm())
+  return(Sys.getenv("QUARTO_PROJECT_DIR") |> fs::path_abs() |> fs::path_norm())
+  }
+  root <- NULL
 }
 
 # source data status ---------------------------
@@ -591,8 +596,7 @@ try_find_root <- function() {
 
 source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
 
-  if(is.null(root))
-    root <- try_find_root()
+  root <- try_find_root(root, src_in)
 
   if(is.null(cache_rep))
     cache_rep <- fs::path_join(c(root, ".data"))
@@ -651,8 +655,9 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
 #'
 #'
 clear_source_cache <- function(
-    what = source_data_status(find_cache_rep()),
-    cache_rep = find_cache_rep()) {
+    what = source_data_status(root=root),
+    cache_rep = NULL,
+    root = NULL) {
 
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
@@ -728,8 +733,7 @@ source_data_refresh <- function(
   if(nrow(what)==0)
     return(list())
 
-  if(is.null(root))
-    root <- try_find_root()
+  root <- try_find_root(root, src_in)
 
   if(init_qmd)
     ofce::init_qmd()

@@ -10,7 +10,7 @@
     ofce.source_data.hash = TRUE,
     ofce.source_data.metadata = FALSE,
     ofce.source_data.lapse = "never",
-    ofce.source_data.relative = "project",
+    ofce.source_data.src_in = "project",
     ofce.source_data.wd = "file",
     ofce.source_data.unfreeze = FALSE)
 
