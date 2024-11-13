@@ -85,8 +85,6 @@ En ajoutant l'attribute `collpase=true`, cet encadré sera replié en HTML.
 En ajoutant l'attribute `icon=false`, Il n'y a pas d'icone dans le titre
 
 Il faut utiliser callout-tip, les autres callouts donnent les résultats standards.
-
-Dans le futur, ce sera plus simple. Pour le moment, il faut les numéroter à la main.
 :::
 
 ## Section niveau 2 {#sec-ca-continue}

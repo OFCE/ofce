@@ -9,25 +9,31 @@
 #'
 #' Cette fonction s'utilise presque comme source et permet d'en accélérer l'exécution par le cache des données.
 #'
-#' Le code est exécuté (dans un environnement local) et le résultat est mis en cache. Il est important que le code se termine par un return(les_données).
+#' Le fichier source est donné en entrée. Le chemin est relatif au projet, mais si il n'est pas trouvé dans le projet, il est cherché en partant de la racine.
+#' Si le paramètre `src_in` est mis à `"file"`, alors le source est cherché à partir du qmd (ou du wd si il n'y pas encore de qmd) et les données sont stockées à ce niveau.
+#' Ce cas correspond donc à des dossiers qui ne partagent pas de code (le blog de l'OFCE), alors que l'autre cas correspond à des codes pouvant être partagés (la prévision)
+#'
+#' Le code est exécuté (dans un environnement local) et le résultat est mis en cache. Il est important que le code se termine par un return(les_donnees).
 #' Si return() n'est pas présent dans le code, il n'est pas exécuté et un message d'erreur est envoyé ("NULL" est retourné).
 #' le code est exécuté avec un contrôle d'erreur, donc si il bloque, "NULL" est renvoyé, mais sans erreur ni arrêt.
-#' les appels suivants seront plus rapides et sans erreur.
+#' les appels suivants seront plus rapides et sans erreur (sauf si l'erreur n'est pas corrigée).
 #'
-#' Une modification du code est détectée et déclenche l'éxécution
+#' Une modification du code est détectée et déclenche l'éxécution automatiquement.
 #'
 #' Suivant le paramètre lapse on peut déclencher une exécution périodique.
 #' Par exemple, pour ne pas rater une MAJ, on peut mettre `lapse = "1 day"` ou `"day"` et une fois par jour le code sera exécuté.
-#' Cela permet d'éviter une exécution à chaque rendu.
+#' Cela permet d'éviter une exécution à chaque rendu, mais permet de vérifier fréquemment la MAJ.
+#' On peut spécifier l'intervalle en heures (`hours`), en jours (`days`), en semaines (`weeks`), en mois (`months`) ou en trimestres (`quarters`).
 #'
-#' On peut bloquer l'exécution en renseignant la variable d'environnement `PREVENT_EXEC` pas `Sys.setenv(PREVENT_EXEC = "TRUE")` ou dans `.Renviron`.
-#' Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence de cache).
+#' On peut bloquer l'exécution en renseignant la variable d'environnement `PREVENT_EXEC` par `Sys.setenv(PREVENT_EXEC = "TRUE")` ou dans `.Renviron`.
+#' Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence de cache ou l'exécution est essayée).
 #'
-#' Des métadonnées peuvent être renvoyées (paramètre metadata) avec la date d'exécution ($date), le temps d'exécution ($timing),
-#' la taille des données (`$size`), le chemin de la source (`$where`), le hash du source (`$hash_src`) et bien sûr les données ($data)
+#' Des métadonnées peuvent être renvoyées (paramètre `metadata`) avec la date de la dernière exécution (`$date`), le temps d'exécution (`$timing`),
+#' la taille des données (`$size`), le chemin de la source (`$where`), le hash du source (`$hash_src`) et bien sûr les données (`$data`).
+#' Cela peut servir pour renseigner un graphique.
 #'
-#' Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
-#' Typiquement cela peut être mis dans rinit.r (et donc être exécuté par `ofce::init_qmd()`)
+#' Les valeurs par défaut peuvent être modifiées simplement par `options(ofce.source_data.hash = FALSE)` par exemple et persistent pour une session.
+#' Typiquement cela peut être mis dans rinit.r (et donc être exécuté par `ofce::init_qmd()`) et cela sera l'option par défaut du projet.
 #'
 #' Le paramètre `wd` perment de spécifier le répertoire d'exécution du source.
 #' Si il est mis à `"file"`, les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
@@ -37,11 +43,11 @@
 #' En le mettant à `qmd`l'exécution part du fichier qmd, ce qui est le comportement standard de `quarto`.
 #' Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.
 #'
-#' En donnant des fichers à suivre par `track`, on peut déclencher l'exécution du source.
+#' En donnant des fichers à suivre par `track`, on peut déclencher l'exécution du source lorsque ces fichiers sont modifiés, c'est utile pour des fichiers sources sous excel (ou csv).
 #'
-#' `unfreeze` permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)
+#' `unfreeze` permet d'invalider le cache de quarto et de déclencher l'exécution du qmd pour mettre à jour la publication (et pas seulement les données en cache).
 #'
-#' @param path (character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée
+#' @param path (character) le chemin vers le code à exécuter (sans extension .r ou .R ou avec au choix), ce chemin doit être relatif au projet (voir détails)
 #' @param args (list) une liste d'arguments que l'on peut utliser dans source (args$xxx)
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param track (list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.
@@ -50,6 +56,7 @@
 #' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
 #' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle
+#' @param scr_in (character) si "project" cherche le source dans le projet puis les sous dossiers, si "file" cherche dans le dossier du qmd (ou le wd). Dans ce cas, les données sont stockées dans le dossier en question.
 #' @param exec_wd (character) NULL par défaut sauf usage particulier
 #' @param quiet (boléen) pas de messages
 #' @param nocache (boléen) n'enregistre pas le cache même si nécessaire
@@ -202,6 +209,7 @@ source_data <- function(path,
       our_data$track <- track
       our_data$wd <- wd
       our_data$qmd_file <- new_qmds
+      our_data$src_in <- src_in
       our_data$ok <- "exec"
 
       our_data <- cache_data(our_data, cache_rep = full_cache_rep, root = root, name = basename, uid = uid)
@@ -240,6 +248,7 @@ source_data <- function(path,
       our_data$track_hash <- track_hash
       our_data$track <- track
       our_data$wd <- wd
+      our_data$src_in <- src_in
       our_data$ok <- "exec"
 
       our_data <- cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid, root = root)
@@ -271,13 +280,15 @@ source_data <- function(path,
   ggd_wd <- good_good_data$wd %||% "file"
   ggd_qmds <- setequal(good_good_data$qmd_file, new_qmds)
   ggd_track <- setequal(good_good_data$track, track)
-  if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds | !ggd_track) {
+  ggd_src_in <- src_in == good_good_data$src_in
+  if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds | !ggd_track | !ggd_src_in) {
     newmdata <- good_good_data
     newmdata$file <- NULL
     newmdata$lapse <- lapse
     newmdata$wd <- wd
     newmdata$qmd_file <- new_qmds
     newmdata$track <- track
+    newmdata$src_in <- src_in
     jsonlite::write_json(newmdata, path = fnm)
   }
   if(!quiet)
@@ -379,7 +390,7 @@ get_mdatas <- function(name, data_rep) {
 
 read_mdata <- function(path) {
   l <- jsonlite::read_json(path) |>
-    map( ~if(length(.x)>1) list_flatten(.x) else unlist(.x))
+    map( ~if(length(.x)>1) list_flatten(.x) else unlist(.x) )
   l$file <- path
   l
 }
@@ -562,20 +573,26 @@ try_find_root <- function(root=NULL, src_in = getOption("ofce.source_data.src_in
     return(root)
   if(src_in == "wd")
     return( getwd() |> fs::path_abs() |> fs::path_norm() )
-  if(src_in == "project") {
-  if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
-    safe_find_root <- purrr::safely(rprojroot::find_root)
-    root <- safe_find_root(
-      rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
-    if(is.null(root$error))
-      return(root$result |> fs::path_abs() |> fs::path_norm())
-    else {
-      if(!quiet)
-        cli::cli_alert_warning("{root$error}")
-      return(NULL)
-    }
+  if(src_in == "file") {
+    if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "")
+      return(Sys.getenv("QUARTO_DOCUMENT_PATH") |> fs::path_abs() |> fs::path_norm() )
+    return( getwd() |> fs::path_abs() |> fs::path_norm() )
   }
-  return(Sys.getenv("QUARTO_PROJECT_DIR") |> fs::path_abs() |> fs::path_norm())
+
+  if(src_in == "project") {
+    if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
+      safe_find_root <- purrr::safely(rprojroot::find_root)
+      root <- safe_find_root(
+        rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+      if(is.null(root$error))
+        return(root$result |> fs::path_abs() |> fs::path_norm())
+      else {
+        if(!quiet)
+          cli::cli_alert_warning("{root$error}")
+        return(NULL)
+      }
+    }
+    return(Sys.getenv("QUARTO_PROJECT_DIR") |> fs::path_abs() |> fs::path_norm())
   }
   root <- NULL
 }
@@ -587,7 +604,8 @@ try_find_root <- function(root=NULL, src_in = getOption("ofce.source_data.src_in
 #' Donne des informations sur le cache de source_data sous la forme d'un tibble
 #'
 #' @param data_rep le chemin vers le cache (défaut "_cache")
-#'
+#' @param src_in est ce que les données sont avec les qmd ?
+#' @param root force le root -- à ne pas utiliser sauf expert
 #' @family source_data
 #'
 #' @return tibble
@@ -596,48 +614,76 @@ try_find_root <- function(root=NULL, src_in = getOption("ofce.source_data.src_in
 
 source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
 
-  root <- try_find_root(root, src_in)
+  root <- try_find_root(root)
 
-  if(is.null(cache_rep))
-    cache_rep <- fs::path_join(c(root, ".data"))
+  if(src_in == "project") {
+    if(is.null(cache_rep))
+      cache_rep <- fs::path_join(c(root, ".data"))
 
-  if(!quiet)
-    cli::cli_alert_info("répertoire cache {.file {cache_rep}}")
+    if(!quiet)
+      cli::cli_alert_info("répertoire cache {.file {cache_rep}}")
 
-  if(fs::dir_exists(cache_rep)) {
-    caches <- fs::dir_ls(path = cache_rep, glob = "*.json", recurse = TRUE)
+    if(fs::dir_exists(cache_rep))
+      caches <- fs::dir_ls(path = cache_rep, glob = "*.json", recurse = TRUE)
 
-    purrr::map_dfr(caches, ~{
-      dd <- jsonlite::read_json(.x) |>
-        purrr::map( ~if(length(.x)>1) purrr::list_flatten(.x) else unlist(.x))
-      valid <- valid_meta4meta(dd, root = root)
+    if(length(caches)>0)
+      names(caches) <- root
+  }
 
-      tibble::tibble(
-        valid = valid$valid,
-        src = dd$src,
-        id = dd$id,
-        uid = dd$uid,
-        index = dd$cc |> as.numeric(),
-        date = lubridate::as_datetime(dd$date),
-        timing = dd$timing,
-        size = dd$size,
-        lapse = dd$lapse |> as.character(),
-        wd = dd$wd,
-        args = list(dd$args),
-        where = .x,
-        qmd_file = list(dd$qmd_file),
-        data_file = dd$data_file,
-        src_hash = dd$hash,
-        track_hash = list(dd$track_hash),
-        track = list(dd$track),
-        args_hash = dd$args_hash,
-        data_hash = dd$data_hash) |>
-        dplyr::arrange(src, dplyr::desc(date))
-    }
-    )
+  if(src_in %in% c("wd","file")) {
+    qmds <- fs::dir_ls(root, glob = "*.qmd", recurse = TRUE)
+    qmds_folders <- unique(qmds |> fs::path_dir())
+    caches <- list()
+
+    folders <- qmd_folders |>
+      purrr::discard(~stringr::str_detect(.x, "^_|/_")) |>
+      purrr::keep(~fs::dir_exists(fs::path_join(c(.x, ".data"))))
+    folders <- rlang::set_names(folders)
+
+    if(length(folders)>0)
+      caches <- purrr::imap(
+        folders,
+        ~fs::dir_ls(path = fs::path_join(c(.x, ".data")), glob = "*.json", recurse = TRUE))
+  }
+
+
+  if(length(caches)>0) {
+    cached <- purrr::map_dfr(names(caches), \(root) {
+      purrr::map_dfr(caches[[root]], ~{
+
+        dd <- jsonlite::read_json(.x) |>
+          purrr::map( ~if(length(.x)>1) purrr::list_flatten(.x) else unlist(.x))
+        valid <- valid_meta4meta(dd, root = root)
+
+        tibble::tibble(
+          valid = valid$valid,
+          src = dd$src,
+          id = dd$id,
+          uid = dd$uid,
+          index = dd$cc |> as.numeric(),
+          date = lubridate::as_datetime(dd$date),
+          timing = dd$timing,
+          size = dd$size,
+          lapse = dd$lapse |> as.character(),
+          wd = dd$wd,
+          args = list(dd$args),
+          where = .x,
+          root = root,
+          qmd_file = list(dd$qmd_file),
+          data_file = dd$data_file,
+          src_hash = dd$hash,
+          track_hash = list(dd$track_hash),
+          track = list(dd$track),
+          args_hash = dd$args_hash,
+          data_hash = dd$data_hash)
+      })
+    }) |>
+      dplyr::arrange(src, dplyr::desc(date))
+    return(cached)
   } else {
-    cli::cli_alert_danger("Pas de cache trouvé")
-    tibble::tibble()
+    if(!quiet)
+      cli::cli_alert_danger("Pas de cache trouvé")
+    return(tibble::tibble())
   }
 }
 
