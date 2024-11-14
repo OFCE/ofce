@@ -635,7 +635,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_
     qmds_folders <- unique(qmds |> fs::path_dir())
     caches <- list()
 
-    folders <- qmd_folders |>
+    folders <- qmds_folders |>
       purrr::discard(~stringr::str_detect(.x, "^_|/_")) |>
       purrr::keep(~fs::dir_exists(fs::path_join(c(.x, ".data"))))
     folders <- rlang::set_names(folders)
