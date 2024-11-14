@@ -612,9 +612,9 @@ try_find_root <- function(root=NULL, src_in = getOption("ofce.source_data.src_in
 #' @export
 #'
 
-source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL) {
+source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_in = getOption("ofce.source_data.src_in") ) {
 
-  root <- try_find_root(root)
+  root <- try_find_root(root, src_in)
 
   if(src_in == "project") {
     if(is.null(cache_rep))
