@@ -4,14 +4,19 @@
 \alias{source_data_status}
 \title{Etat du cache de source_data}
 \usage{
-source_data_status(cache_rep = NULL, quiet = TRUE, root = NULL)
+source_data_status(
+  cache_rep = NULL,
+  quiet = TRUE,
+  root = NULL,
+  src_in = getOption("ofce.source_data.src_in")
+)
 }
 \arguments{
 \item{root}{force le root -- à ne pas utiliser sauf expert}
 
-\item{data_rep}{le chemin vers le cache (défaut "_cache")}
-
 \item{src_in}{est ce que les données sont avec les qmd ?}
+
+\item{data_rep}{le chemin vers le cache (défaut "_cache")}
 }
 \value{
 tibble

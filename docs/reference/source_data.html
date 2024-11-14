@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">source_data</span><span class="op">(</span></span>
-<span>  <span class="va">name</span>,</span>
+<span>  <span class="va">path</span>,</span>
 <span>  args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  hash <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.hash"</span><span class="op">)</span>,</span>
 <span>  track <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -67,6 +67,7 @@
 <span>  prevent_exec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.prevent_exec"</span><span class="op">)</span>,</span>
 <span>  metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.metadata"</span><span class="op">)</span>,</span>
 <span>  wd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.wd"</span><span class="op">)</span>,</span>
+<span>  src_in <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.src_in"</span><span class="op">)</span>,</span>
 <span>  exec_wd <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  cache_rep <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  root <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -79,8 +80,8 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
-<dd><p>(character) le chemin vers le code à exécuter (sans extension .r ou .R), ce chemin doit être relatif au projet (voir relative), bien que une recherche sera effectuée</p></dd>
+<dl><dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
+<dd><p>(character) le chemin vers le code à exécuter (sans extension .r ou .R ou avec au choix), ce chemin doit être relatif au projet (voir détails)</p></dd>
 
 
 <dt id="arg-args">args<a class="anchor" aria-label="anchor" href="#arg-args"></a></dt>
@@ -130,6 +131,10 @@
 <dt id="arg-nocache">nocache<a class="anchor" aria-label="anchor" href="#arg-nocache"></a></dt>
 <dd><p>(boléen) n'enregistre pas le cache même si nécessaire</p></dd>
 
+
+<dt id="arg-scr-in">scr_in<a class="anchor" aria-label="anchor" href="#arg-scr-in"></a></dt>
+<dd><p>(character) si "project" cherche le source dans le projet puis les sous dossiers, si "file" cherche dans le dossier du qmd (ou le wd). Dans ce cas, les données sont stockées dans le dossier en question.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -137,20 +142,25 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Le code est exécuté (dans un environnement local) et le résultat est mis en cache. Il est important que le code se termine par un return(les_données).
+    <p>Le fichier source est donné en entrée. Le chemin est relatif au projet, mais si il n'est pas trouvé dans le projet, il est cherché en partant de la racine.
+Si le paramètre <code>src_in</code> est mis à <code>"file"</code>, alors le source est cherché à partir du qmd (ou du wd si il n'y pas encore de qmd) et les données sont stockées à ce niveau.
+Ce cas correspond donc à des dossiers qui ne partagent pas de code (le blog de l'OFCE), alors que l'autre cas correspond à des codes pouvant être partagés (la prévision)</p>
+<p>Le code est exécuté (dans un environnement local) et le résultat est mis en cache. Il est important que le code se termine par un return(les_donnees).
 Si return() n'est pas présent dans le code, il n'est pas exécuté et un message d'erreur est envoyé ("NULL" est retourné).
 le code est exécuté avec un contrôle d'erreur, donc si il bloque, "NULL" est renvoyé, mais sans erreur ni arrêt.
-les appels suivants seront plus rapides et sans erreur.</p>
-<p>Une modification du code est détectée et déclenche l'éxécution</p>
+les appels suivants seront plus rapides et sans erreur (sauf si l'erreur n'est pas corrigée).</p>
+<p>Une modification du code est détectée et déclenche l'éxécution automatiquement.</p>
 <p>Suivant le paramètre lapse on peut déclencher une exécution périodique.
 Par exemple, pour ne pas rater une MAJ, on peut mettre <code>lapse = "1 day"</code> ou <code>"day"</code> et une fois par jour le code sera exécuté.
-Cela permet d'éviter une exécution à chaque rendu.</p>
-<p>On peut bloquer l'exécution en renseignant la variable d'environnement <code>PREVENT_EXEC</code> pas <code>Sys.setenv(PREVENT_EXEC = "TRUE")</code> ou dans <code>.Renviron</code>.
-Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence de cache).</p>
-<p>Des métadonnées peuvent être renvoyées (paramètre metadata) avec la date d'exécution ($date), le temps d'exécution ($timing),
-la taille des données (<code>$size</code>), le chemin de la source (<code>$where</code>), le hash du source (<code>$hash_src</code>) et bien sûr les données ($data)</p>
-<p>Les valeurs par défaut peuvent être modifiées simplement par options(ofce.source_data.hash = FALSE) par exemple et persiste pendant une session.
-Typiquement cela peut être mis dans rinit.r (et donc être exécuté par <code><a href="init_qmd.html">ofce::init_qmd()</a></code>)</p>
+Cela permet d'éviter une exécution à chaque rendu, mais permet de vérifier fréquemment la MAJ.
+On peut spécifier l'intervalle en heures (<code>hours</code>), en jours (<code>days</code>), en semaines (<code>weeks</code>), en mois (<code>months</code>) ou en trimestres (<code>quarters</code>).</p>
+<p>On peut bloquer l'exécution en renseignant la variable d'environnement <code>PREVENT_EXEC</code> par <code>Sys.setenv(PREVENT_EXEC = "TRUE")</code> ou dans <code>.Renviron</code>.
+Ce blocage est prioritaire sur tous les autres critères (sauf en cas d'absence de cache ou l'exécution est essayée).</p>
+<p>Des métadonnées peuvent être renvoyées (paramètre <code>metadata</code>) avec la date de la dernière exécution (<code>$date</code>), le temps d'exécution (<code>$timing</code>),
+la taille des données (<code>$size</code>), le chemin de la source (<code>$where</code>), le hash du source (<code>$hash_src</code>) et bien sûr les données (<code>$data</code>).
+Cela peut servir pour renseigner un graphique.</p>
+<p>Les valeurs par défaut peuvent être modifiées simplement par <code>options(ofce.source_data.hash = FALSE)</code> par exemple et persistent pour une session.
+Typiquement cela peut être mis dans rinit.r (et donc être exécuté par <code><a href="init_qmd.html">ofce::init_qmd()</a></code>) et cela sera l'option par défaut du projet.</p>
 <p>Le paramètre <code>wd</code> perment de spécifier le répertoire d'exécution du source.
 Si il est mis à <code>"file"</code>, les appels à l'intérieur du code source, comme par exemple un save ou un load seront compris dans le répertoire où se trouve le fichier source.
 L'intérêt est que le code peut avoir des éléments persistants, locaux
@@ -158,8 +168,8 @@ L'alternative est d'utiliser <code>wd="project"</code> auquel cas, le répertoir
 Les éléments persistants peuvent alors être dasn un endroit commun et le code peut appeler des éléments persistants d'autres codes sources.
 En le mettant à <code>qmd</code>l'exécution part du fichier qmd, ce qui est le comportement standard de <code>quarto</code>.
 Toute autre valeur pour wd laisse le working directory inchnagé et donc dépendant du contexte d'exécution. Pour ceux qui aiment l'incertitude.</p>
-<p>En donnant des fichers à suivre par <code>track</code>, on peut déclencher l'exécution du source.</p>
-<p><code>unfreeze</code> permet d'invalider le cache de quarto et de déclencher l'exécution (expérimental)</p>
+<p>En donnant des fichers à suivre par <code>track</code>, on peut déclencher l'exécution du source lorsque ces fichiers sont modifiés, c'est utile pour des fichiers sources sous excel (ou csv).</p>
+<p><code>unfreeze</code> permet d'invalider le cache de quarto et de déclencher l'exécution du qmd pour mettre à jour la publication (et pas seulement les données en cache).</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

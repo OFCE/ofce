@@ -1,27 +1,33 @@
+## OFCE 1.3.6
+
+* `source_data()` : fonctionne avec une nouvelle option src_in, qui relativise tout au répertoire qui contient le fichier source et le qmd, 
+les données sont cachés dans ce répertoire. Destiné au blog et permet de déplacer les données avec le post.
+
 ## OFCE 1.3.5
 
-* source_data() : les métadonnées sont dasn un fichier séparé et en json (facilite git)
+* `source_data()` : les métadonnées sont dasn un fichier séparé et en json (facilite git)
 
 ## OFCE 1.3.4
 
-* source_data() : correction de plusieurs bugs
+* `source_data()` : correction de plusieurs bugs
 
 ## OFCE 1.3.3
 
-* source_data() tracke des fichiers et peut *unfreezer* un qmd
+* `source_data()` tracke des fichiers et peut *unfreezer* un qmd
+* ajout de `source_data_refresh()`
 
 ## OFCE 1.3.2
 
-* source_data() utilise un id unique pour chaque utilisateur, pour ne pas déclencher de conflits dans github
-* source_data() accepte des arguments passés au source exécuté.
+* `source_data()` utilise un id unique pour chaque utilisateur, pour ne pas déclencher de conflits dans github
+* `source_data()` accepte des arguments passés au source exécuté.
 
 ## OFCE 1.3.1
 
-* source_data() utilise maintenant fs pour les fichiers - ce qui doit être plus robuste.
+* `source_data()` utilise maintenant fs pour les fichiers - ce qui doit être plus robuste.
 
 ## OFCE 1.3.0
 
-* ajout de source_data(), et de source_data_status()
+* ajout de `source_data()`, et de `source_data_status()`
 
 ## OFCE 1.2.1
 
@@ -29,7 +35,7 @@
 
 ## OFCE 1.2.0
   
-* ajout de ofce_caption() ; ajout de scale_ofce_date()
+* ajout de `ofce_caption()` ; ajout de `scale_ofce_date()`
 
 * corrections de bugs mineurs
 
@@ -41,7 +47,7 @@
 
 * première version avec notamment les fonctionspkg
 
-** theme_ofce()
-** setup_quarto()
-** setup_wp()
+** `theme_ofce()`
+** `setup_quarto()`
+** `setup_wp()`
 

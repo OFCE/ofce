@@ -96,7 +96,7 @@ source_data <- function(path,
 
   # on trouve le fichier
   name <- remove_ext(path)
-
+  paths <- find_project_root()
   root <- try_find_root(root, src_in)
 
   if(!quiet)
@@ -145,18 +145,13 @@ source_data <- function(path,
   reldirname <- fs::path_dir(relname)
   full_cache_rep <- fs::path_join(c(root_cache_rep, reldirname)) |>
     fs::path_norm()
-
+  qmd_path <- paths$doc_path
   if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "") {
-    qmd_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |>
-      fs::path_norm()
     qmd_file <- fs::path_join(c(qmd_path, knitr::current_input())) |>
       fs::path_ext_set("qmd") |>
       fs::path_norm()
-    qmd_rel <- fs::path_rel(qmd_file, root)
   } else {
-    qmd_path <- NULL
     qmd_file <- NULL
-    qmd_rel <- NULL
   }
 
   if(is.null(exec_wd)) {
@@ -197,7 +192,7 @@ source_data <- function(path,
     purrr::discard(is.null) |>
     unlist() |>
     unique()
-  new_qmds <- unique(c(qmds, qmd_rel))
+  new_qmds <- unique(c(qmds, qmd_file))
   if(force&!prevent) {
     our_data <- exec_source(src, exec_wd, args)
     if(our_data$ok) {
@@ -211,6 +206,7 @@ source_data <- function(path,
       our_data$qmd_file <- new_qmds
       our_data$src_in <- src_in
       our_data$ok <- "exec"
+      our_data$root <- fs::path_rel(root, paths$project_path)
 
       our_data <- cache_data(our_data, cache_rep = full_cache_rep, root = root, name = basename, uid = uid)
       if(!quiet)
@@ -250,6 +246,7 @@ source_data <- function(path,
       our_data$wd <- wd
       our_data$src_in <- src_in
       our_data$ok <- "exec"
+      our_data$root <- fs::path_rel(root, paths$project_path)
 
       our_data <- cache_data(our_data, cache_rep = full_cache_rep, name = basename, uid = uid, root = root)
       if(!quiet)
@@ -597,6 +594,31 @@ try_find_root <- function(root=NULL, src_in = getOption("ofce.source_data.src_in
   root <- NULL
 }
 
+
+find_project_root <- function(project_path = NULL, doc_path = NULL) {
+  if(is.null(doc_path)) {
+    if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "")
+      doc_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |> fs::path_abs() |> fs::path_norm()
+    else
+      doc_path <- getwd() |> fs::path_abs() |> fs::path_norm()
+  }
+  if(is.null(project_path)) {
+    project_path <- Sys.getenv("QUARTO_PROJECT_DIR")
+    if(project_path == "") {
+      safe_find_root <- purrr::safely(rprojroot::find_root)
+      project_path <- safe_find_root(rprojroot::is_quarto_project)
+      if(!is.null(project_path$error))
+        project_path <- safe_find_root(rprojroot::is_rstudio_project)
+      if(!is.null(project_path$error))
+        project_path$result <- getwd()
+      project_path <- project_path$result
+    }
+  }
+  project_path <- project_path |> fs::path_norm() |> fs::path_abs()
+  doc_path <- doc_path |> fs::path_norm() |> fs::path_abs() |> fs::path_rel(project_path)
+  return(list(project_path = project_path, doc_path = doc_path))
+}
+
 # source data status ---------------------------
 
 #' Etat du cache de source_data
@@ -668,9 +690,10 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_
           wd = dd$wd,
           args = list(dd$args),
           where = .x,
-          root = root,
           qmd_file = list(dd$qmd_file),
+          src_in = dd$src_in,
           data_file = dd$data_file,
+          root =  dd$root %||% ".",
           src_hash = dd$hash,
           track_hash = list(dd$track_hash),
           track = list(dd$track),
@@ -756,9 +779,9 @@ source_data_refresh <- function(
     root = NULL) {
 
   start <- Sys.time()
-
+  sroot <- root
   if(is.null(what))
-    what <- source_data_status(cache_rep = cache_rep, root = root, quiet = quiet)
+    what <- source_data_status(cache_rep = cache_rep, root = sroot, quiet = quiet)
 
   if(!force_exec)
     what <- what |>
@@ -778,23 +801,26 @@ source_data_refresh <- function(
 
   if(nrow(what)==0)
     return(list())
-
-  root <- try_find_root(root, src_in)
+  sroot <- find_project_root(project_path = sroot)$project_path
 
   if(init_qmd)
     ofce::init_qmd()
 
-  res <- purrr::pmap(what, function(src, wd, lapse, args, saved_root, track, qmd_file,...) {
+  res <- purrr::pmap(what, function(src, wd, lapse, args, root, track, qmd_file, src_in, ...) {
 
     exec_wd <- getwd()
     if(wd=="project")
-      exec_wd <- root
+      exec_wd <- sroot |> fs::path_norm()
     if(wd=="file")
-      exec_wd <- fs::path_join(c(root, fs::path_dir(src)))
+      exec_wd <- fs::path_join(c(sroot, root, fs::path_dir(src))) |> fs::path_norm()
     if(wd=="qmd")
-      exec_wd <- fs::path_join(c(root, fs::path_dir(qmd_file[[1]])))
+      exec_wd <- fs::path_join(c(sroot, fs::path_dir(qmd_file[[1]]))) |> fs::path_norm()
 
-    src_data <- source_data(name = src,
+    if(src_in %in% c("file", "qmd"))
+      root <- fs::path_join(c(sroot, root)) |> fs::path_norm()
+    if(src_in %in% c("project"))
+      root <- sroot
+    src_data <- source_data(path = src,
                             force_exec = force_exec,
                             hash = hash,
                             track = track,
@@ -803,6 +829,7 @@ source_data_refresh <- function(
                             lapse = lapse,
                             metadata = TRUE,
                             quiet = quiet,
+                            src_in = src_in,
                             root = root)
 
     if(unfreeze)
