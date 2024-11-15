@@ -439,7 +439,6 @@ cache_data <- function(data, cache_rep, name, root, uid="00000000", nocache = FA
       mutate(uid = stringr::str_extract(path, pat, group=1),
              cc = stringr::str_extract(path, pat, group=2) |> as.numeric())
   }
-
   cc <- 1
   exists <- FALSE
   data_hash <- digest::digest(data$data)
@@ -634,10 +633,9 @@ find_project_root <- function(project_path = NULL, doc_path = NULL) {
 #' @export
 #'
 
-source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_in = getOption("ofce.source_data.src_in") ) {
-
+source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_in = getOption("ofce.source_data.src_in") %||% "project" ) {
   root <- try_find_root(root, src_in)
-
+  caches <- list()
   if(src_in == "project") {
     if(is.null(cache_rep))
       cache_rep <- fs::path_join(c(root, ".data"))
@@ -649,7 +647,7 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_
       caches <- fs::dir_ls(path = cache_rep, glob = "*.json", recurse = TRUE)
 
     if(length(caches)>0)
-      names(caches) <- root
+      caches <- rlang::set_names(list(caches), root)
   }
 
   if(src_in %in% c("wd","file")) {
@@ -667,7 +665,6 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_
         folders,
         ~fs::dir_ls(path = fs::path_join(c(.x, ".data")), glob = "*.json", recurse = TRUE))
   }
-
 
   if(length(caches)>0) {
     cached <- purrr::map_dfr(names(caches), \(root) {
@@ -785,9 +782,9 @@ source_data_refresh <- function(
 
   if(!force_exec)
     what <- what |>
-      dplyr::group_by(src) |>
-      dplyr::filter(!any(valid)) |>
-      dplyr::ungroup()
+    dplyr::group_by(src) |>
+    dplyr::filter(!any(valid)) |>
+    dplyr::ungroup()
 
   if(nrow(what)==0)
     return(list())
