@@ -277,7 +277,8 @@ source_data <- function(path,
   ggd_wd <- good_good_data$wd %||% "file"
   ggd_qmds <- setequal(good_good_data$qmd_file, new_qmds)
   ggd_track <- setequal(good_good_data$track, track)
-  ggd_src_in <- src_in == good_good_data$src_in
+  ggd_src_in <- src_in == good_good_data$src_in %||% "project"
+
   if(ggd_lapse != lapse | ggd_wd != wd | !ggd_qmds | !ggd_track | !ggd_src_in) {
     newmdata <- good_good_data
     newmdata$file <- NULL
