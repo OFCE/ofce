@@ -1,0 +1,6 @@
+project:
+  type: website
+
+format:
+  blog-html: default
+  blog-typst: default
