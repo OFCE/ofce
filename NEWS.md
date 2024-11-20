@@ -1,3 +1,7 @@
+## OFCE 1.3.7
+
+* `ofce_caption()` : Ajout d'une option auteurs pour calcul des auteurs plutôt que calcul OFCE (notamment pour les publications externes pour lesquels la responsabilité de l'OFCE n'est pas engagée)
+
 ## OFCE 1.3.6
 
 * `source_data()` : fonctionne avec une nouvelle option src_in, qui relativise tout au répertoire qui contient le fichier source et le qmd, 
