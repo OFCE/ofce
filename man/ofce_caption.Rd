@@ -13,7 +13,7 @@ ofce_caption(
   wrap = 110,
   lang = "fr",
   ofce = TRUE,
-  author = NULL
+  author = FALSE
 )
 }
 \arguments{

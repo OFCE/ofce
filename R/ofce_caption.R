@@ -22,6 +22,9 @@ ofce_caption <- function(source = NULL,
                          dpt = NULL,
                          dptf = "month",
                          wrap = 110, lang = "fr", ofce=TRUE, author = NULL) {
+
+  if(is.null(author)){author = FALSE}
+
   if(lang=="fr") {
     lec <- "*Lecture* : "
     src <- "*Source* : "
@@ -69,14 +72,14 @@ ofce_caption <- function(source = NULL,
     if(length(source)==0)
       source <- Auth else
         source <- stringr::str_c(source , auth)
-  }
+  } else{
 
   if(ofce) {
     if(length(source)==0)
       source <- Ofc else
         source <- stringr::str_c(source , ofc)
   }
-
+}
 
   if(length(source)>0) {
     if(length(caption>0))
