@@ -10,7 +10,9 @@
 #' @param dptf fréquence du dernier point connu (day, month, quarter, year)
 #' @param wrap largeur du texte en charactères (120 charactères par défaut)
 #' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
+#' @param author (bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut
 #' @param lang langue des textes (fr par défaut)
+#'
 #' @return ggplot2 caption (ggplot() + ofce_caption("INSEE"))
 #' @export
 
@@ -36,6 +38,8 @@ ofce_caption <- function(source = NULL,
     not <- "*Note* : "
     Ofc <- "OFCE' computation"
     ofc <- ", OFCE' computation"
+    author <- ", authors'computation"
+    Author <- "Authors'computation"
     der <- ", last known point: "
     Der <- "*Last known point*: "
   }
