@@ -19,21 +19,23 @@ ofce_caption <- function(source = NULL,
                          lecture = NULL,
                          dpt = NULL,
                          dptf = "month",
-                         wrap = 110, lang = "fr", ofce=TRUE) {
+                         wrap = 110, lang = "fr", ofce=TRUE, author = FALSE) {
   if(lang=="fr") {
     lec <- "*Lecture* : "
     src <- "*Source* : "
     not <- "*Note* : "
     Ofc <- "Calculs OFCE"
     ofc <- ", calculs OFCE"
+    author <- ", calculs des auteurs"
+    Author <- "Calculs des auteurs"
     der <- ", dernier point connu : "
     Der <- "*Dernier point connu* : "}
   else {
-    lec <- "*Reading*: "
-    src <- "*Source*: "
-    not <- "*Note*: "
-    ofc <- "OFCE' computation"
-    Ofc <- ofc
+    lec <- "*Reading* : "
+    src <- "*Source* : "
+    not <- "*Note* : "
+    Ofc <- "OFCE' computation"
+    ofc <- ", OFCE' computation"
     der <- ", last known point: "
     Der <- "*Last known point*: "
   }
@@ -60,6 +62,14 @@ ofce_caption <- function(source = NULL,
     if(length(source)==0)
       source <- Ofc else
         source <- stringr::str_c(source , ofc)
+  }
+
+  if(author) {
+    ofce = FALSE
+
+    if(length(source)==0)
+      source <- Author else
+        source <- stringr::str_c(source , author)
   }
 
   if(length(source)>0) {
