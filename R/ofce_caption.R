@@ -41,8 +41,8 @@ ofce_caption <- function(source = NULL,
     not <- "*Note* : "
     Ofc <- "OFCE' computation"
     ofc <- ", OFCE' computation"
-    auth <- ", authors'computation"
-    Auth <- "Authors'computation"
+    auth <- ", authors' computation"
+    Auth <- "Authors' computation"
     der <- ", last known point: "
     Der <- "*Last known point*: "
   }
