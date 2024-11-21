@@ -52,12 +52,11 @@ contributes:
         - comments
       shortcodes:
         - fontawesome
-      csl: /_extensions/ofce/blog/csl/revue-francaise-de-gestion.csl
       collapse-callout:
         tip: true
       logo: ofce_m.png
     html:
-      theme: 
+      theme:
         - cosmo
         - blog.scss
       mainfont: Open Sans
@@ -72,10 +71,10 @@ contributes:
       hide-description: true
       template-partials:
         - html_template/title-metadata.html
-    typst: 
+    typst:
       mainfont: "Arial"
       keep-typ: true
-      toc: false 
+      toc: false
       papersize: a4
       template-partials:
         - typsttemplate/typst-template.typ

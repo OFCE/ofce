@@ -113,7 +113,7 @@ dernier_point <- function(date, freq = "month", lang = "fr") {
   if(lang== "fr") {
     locale <- if(.Platform$OS.type=="windows") "fr_FR.utf8" else "fr_FR"
   } else {
-    locale <-  "en_UK"
+    locale <- if(.Platform$OS.type=="windows") "en_US.utf8" else "en_US"
   }
 
   if(freq == "day")
