@@ -1,3 +1,8 @@
+## OFCE 1.3.8
+
+* `rinit.r` : Modification du mode chargement des packages pour vérifier l'installation des packages du rinit, installer les packages manquants au besoin, et les charger.
+
+
 ## OFCE 1.3.7
 
 * `ofce_caption()` : Ajout d'une option auteurs pour calcul des auteurs plutôt que calcul OFCE (notamment pour les publications externes pour lesquels la responsabilité de l'OFCE n'est pas engagée)

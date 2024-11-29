@@ -10,45 +10,27 @@ opts_chunk$set(
   warning = FALSE,
   echo = FALSE)
 
+library(tidyverse)
+library(ofce)
+library(showtext)
+library(plotly)
+library(gt)
+library(readxl)
+library(ggiraph)
+library(curl)
+library(ggrepel)
+library(gt)
+library(scales)
+library(glue)
+library(patchwork)
+library(downloadthis)
+library(lubridate)
+library(insee)
+library(ggh4x)
+library(PrettyCols)
+library(cli)
+library(quarto)
 
-## Checking rinit packages installation
-rinit_packages <- c("pak",
-                    "tidyverse",
-                    # "ofce",
-                    "showtext",
-                    "plotly",
-                    "gt",
-                    "readxl",
-                    "ggiraph",
-                    "curl",
-                    "ggrepel",
-                    "scales",
-                    "glue",
-                    "patchwork",
-                    "downloadthis",
-                    "lubridate",
-                    "insee",
-                    "ggh4x",
-                    "PrettyCols",
-                    "lobstr",
-                    "cli",
-                    "quarto",
-                    "gdtools",
-                    "gfonts"
-                    )
-
-
-## Installation of missing packages
-
-not_installed_CRAN <- rinit_packages[!(rinit_packages %in% installed.packages()[ , "Package"])]
-if(length(not_installed_CRAN)>0){pak::pak(not_installed_CRAN)}
-
-
-## loading all packages
-load <- purrr::map(c(rinit_packages, "ofce"),~library(.x,character.only = TRUE,quietly = TRUE))
-rm(load,not_installed_CRAN,rinit_packages)
-
-####
 options(
   ofce.base_size = 12,
   ofce.background_color = "transparent")
