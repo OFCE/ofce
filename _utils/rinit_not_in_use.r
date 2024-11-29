@@ -1,6 +1,6 @@
 library(knitr)
 opts_chunk$set(
-  fig.pos="htb", 
+  fig.pos="htb",
   out.extra="",
   dev="ragg_png",
   dev.args = list(bg = "transparent"),
@@ -10,25 +10,42 @@ opts_chunk$set(
   warning = FALSE,
   echo = FALSE)
 
-library(ofce)
-library(showtext)
-library(gt)
-library(readxl)
-library(ggiraph)
-library(curl)
-library(ggrepel)
-library(gt)
-library(scales)
-library(glue)
-library(patchwork)
-library(downloadthis)
-library(lubridate)
-library(insee)
-library(ggh4x)
-library(PrettyCols)
-library(cli)
-library(quarto)
-library(tidyverse)
+## Checking rinit packages installation
+rinit_packages <- c("tidyverse",
+                    # "ofce",
+                    "showtext",
+                    "plotly",
+                    "gt",
+                    "readxl",
+                    "ggiraph",
+                    "curl",
+                    "ggrepel",
+                    "scales",
+                    "glue",
+                    "patchwork",
+                    "downloadthis",
+                    "lubridate",
+                    "insee",
+                    "ggh4x",
+                    "PrettyCols",
+                    "lobstr",
+                    "cli",
+                    "quarto",
+                    "pak"
+                    )
+
+
+## Installation of missing packages
+not_installed_CRAN <- rinit_packages[!(rinit_packages %in% installed.packages()[ , "Package"])]
+if("pak" %in% installed.packages()[ , "Package"] == FALSE){install.packages("pak")}
+if(length(not_installed_CRAN)>0){pak::pak(not_installed_CRAN)}
+
+## loading all packages
+load <- purrr::quietly(purrr::map)(c(rinit_packages, "ofce"),~require(.x,character.only = TRUE,quietly = TRUE))
+
+rm(load,not_installed_CRAN,rinit_packages)
+################
+
 
 options(
   ofce.base_size = 12,
@@ -36,12 +53,12 @@ options(
 showtext_opts(dpi = 92)
 showtext_auto()
 
-tooltip_css  <-  
+tooltip_css  <-
   "font-family:Open Sans;
   background-color:snow;
   border-radius:5px;
   border-color:gray;
-  border-style:solid; 
+  border-style:solid;
   border-width:0.5px;
   font-size:9pt;
   padding:4px;
@@ -53,16 +70,16 @@ gdtools::register_gfont("Open Sans")
 girafe_opts <- function(x, ...) girafe_options(
   x,
   opts_hover(css = "stroke-width:1px;", nearest_distance = 60),
-  opts_tooltip(css = tooltip_css)) |> 
+  opts_tooltip(css = tooltip_css)) |>
   girafe_options(...)
 
 girafy <- function(plot, r=2.5, o = 0.5,  ...) {
   if(knitr::is_html_output()| interactive()) {
-    girafe(ggobj = plot) |> 
+    girafe(ggobj = plot) |>
       girafe_options(
         opts_hover_inv(css = glue("opacity:{o};")),
         opts_hover(css = glue("r:{r}px;")),
-        opts_tooltip(css = tooltip_css)) |> 
+        opts_tooltip(css = tooltip_css)) |>
       girafe_options(...)
   } else {
     plot
@@ -72,11 +89,11 @@ girafy <- function(plot, r=2.5, o = 0.5,  ...) {
 milliards <- function(x, n_signif = 3L) {
   stringr::str_c(
     format(
-      x, 
-      digits = n_signif, 
+      x,
+      digits = n_signif,
       big.mark = " ",
       decimal.mark = ","),
-    " milliards d'euros") 
+    " milliards d'euros")
 }
 
 if(.Platform$OS.type=="windows")
@@ -189,22 +206,22 @@ graph2prev <- function(graph, label, chunk = knitr::opts_current$get()) {
     return()
   if(is.null(label))
     label <- name <- rlang::as_name(rlang::enquo(graph))
-  
+
   ratio <- chunk$fig.width/chunk$fig.height
-  
+
   rep <- str_c(here::here("graphes"), "/", partie)
   dir.create(rep, recursive = TRUE)
   fn <- stringr::str_c(rep, "/g", compteur, "-", label)
-  
+
   ofce::graph2svg(graph, file = str_c(fn, ".1610"), rep = "", ratio = 16/10)
   ofce::graph2png(graph, file = str_c(fn, ".1610"), rep = "", ratio = 16/10, dpi = 1200)
   saveRDS(object = graph, file = str_c(fn, ".ggplot"))
-  
+
   if(length(ratio)>0) {
     ofce::graph2svg(graph, file = str_c(fn, ".original"), rep = "", ratio = ratio)
     ofce::graph2png(graph, file = str_c(fn, ".original"), rep = "", ratio = ratio, dpi = 1200)
   }
-  
+
   compteur <<- compteur + 1
 }
 
