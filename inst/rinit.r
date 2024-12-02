@@ -39,8 +39,10 @@ rinit_packages <- c("pak",
 
 
 ## Installation of missing packages
+
 not_installed_CRAN <- rinit_packages[!(rinit_packages %in% installed.packages()[ , "Package"])]
 if(length(not_installed_CRAN)>0){pak::pak(not_installed_CRAN)}
+
 
 ## loading all packages
 load <- purrr::map(c(rinit_packages, "ofce"),~library(.x,character.only = TRUE,quietly = TRUE))
