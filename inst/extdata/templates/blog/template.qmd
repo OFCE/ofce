@@ -46,7 +46,7 @@ pour le dépôt voir {{< fa brands github >}}
 #| message : false
 
 # Charge les données depuis fichier source R 
-data_plot <- ofce::source_data("data_source")
+data_plot <- ofce::source_data("data_source.R")
 
 ggplot(data_plot) +
   geom_point(aes(x=speed, y=dist))+
