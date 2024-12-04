@@ -12,7 +12,8 @@ ofce_caption(
   dptf = "month",
   wrap = 110,
   lang = "fr",
-  ofce = TRUE
+  ofce = TRUE,
+  author = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ ofce_caption(
 \item{lang}{langue des textes (fr par défaut)}
 
 \item{ofce}{(bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut}
+
+\item{author}{(bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut}
 }
 \value{
 ggplot2 caption (ggplot() + ofce_caption("INSEE"))

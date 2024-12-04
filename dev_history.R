@@ -25,6 +25,8 @@ usethis::use_package("ragg")
 usethis::use_package("svglite")
 usethis::use_package("ggpp")
 usethis::use_package("showtext")
+usethis::use_package("plotly")
+usethis::use_package("ggiraph")
 
 
 ## Creer la doc du package

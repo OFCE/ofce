@@ -1,0 +1,174 @@
+---
+title: "Electricité, gaz: quel impact de la hausse de la fiscalité sur les ménages?"
+date: "2024-10-22"
+author:
+  - name: Pierre Madec
+    url: https://www.ofce.sciences-po.fr/pages-chercheurs/page.php?id=110
+    affiliation: OFCE, Sciences Po.
+    affiliation-url: https://www.ofce.fr/
+institution: "Observatoire Français des Conjonctures Économiques"
+categories: ["Politique budgétaire", "Pouvoir d'achat"]
+description: "La fin du bouclier tarifaire (2,2 milliards d'euros), l'arrêt de la TVA à taux réduit sur les abonnements d'électricité et de gaz (0,9 Md d'euros) ou encore la hausse des accises sur l'énergie (1,1 Md d'euros) figurent parmi les hausses de prélèvements sur les ménages inscrites au projet de loi de finance pour 2025"
+image: image.jpg
+---
+
+
+La fin du bouclier tarifaire (2,2 milliards d'euros), l'arrêt de la TVA à taux réduit sur les abonnements d'électricité et de gaz (0,9 Md d'euros) ou encore la hausse des accises sur l'énergie (1,1 Md d'euros) figurent parmi les hausses de prélèvements sur les ménages inscrites au [projet de loi de finance pour 2025](https://www.tresor.economie.gouv.fr/Articles/8f94bb55-ebfb-42b7-8ec3-eb1ff0f1ba0c/files/67689426-48b3-4600-9e7e-04071a1a137b)[^1]. Si les factures d'électricité devraient baisser — de l'ordre de 9% en moyenne selon les prévisions du gouvernement — sous l'effet de la baisse prévue des prix de l'énergie, les prélèvements devraient croître, du fait de ces mesures discrétionnaires, de plus de 4 milliards d'euros.
+
+[^1]: Les estimations budgétaires mobilisées ici sont issues du [Projet de Loi de Finance pour 2025](https://www.tresor.economie.gouv.fr/Articles/8f94bb55-ebfb-42b7-8ec3-eb1ff0f1ba0c/files/67689426-48b3-4600-9e7e-04071a1a137b).
+
+Les effets redistributifs de ces hausses de prélèvements sont simulées à l’aide du modèle de [micro-simulation Ines](https://www.insee.fr/fr/information/2021951), développé conjointement par l’Insee, la Drees et la Cnaf et dont la dernière version reproduit la législation socio fiscale de 2022, et à partir des données de l'enquête *Budget de famille* de 2017, ainsi que des données issues de la comptabilité nationale pour 2023.
+
+En 2023, selon [l'Insee](https://www.insee.fr/fr/statistiques/series/127929900?PRIX_REF=2331835&CNA_PRODUIT=2331268+2331269), les dépenses d'électricité des ménages s'élevaient à 36 milliards d'euros et celles de gaz à 15 milliards d'euros, soit respectivement 2% et 0,8% du revenu disponible brut des ménages. Les dépenses énergétiques sont globalement croissantes avec le niveau de vie des ménages (@fig-comp1). Selon nos estimations[^2], les 5% des ménages les plus modestes consacraient en moyenne 480 euros à leurs dépenses d'électricité et de gaz en 2023 contre près de 1 800 euros pour les 5% des ménages les plus aisés. Les ménages proches du niveau de vie médian consommaient quant à eux entre 800 et 1 000 euros par an.
+
+[^2]: En calant nos estimations sur les chiffres de la comptabilité nationale pour 2023, nous prenons en compte les évolutions de comportements de consommation de façon homogène pour l'ensemble des ménages. Dans les faits, il est possible que les ménages les plus modestes aient plus fortement ajusté leurs comportements de consommation (notamment énergétiques) durant l'épisode inflationniste.
+
+```{r, include=FALSE}
+
+ofce::init_qmd()
+euros_menage <- readxl::read_xlsx("sorties_elec.xlsx", sheet="euros_menage") |> 
+  select(-rdb) |> 
+  pivot_longer(cols = !vingtieme, names_to = "name", values_to = "value")
+
+pct_menage <- readxl::read_xlsx("sorties_elec.xlsx", sheet="pct_menage") |> 
+  select(-rdb) |> 
+  pivot_longer(cols = !vingtieme, names_to = "name", values_to = "value")
+
+data1 <- euros_menage |> left_join(pct_menage, by=c("vingtieme","name")) |> 
+  mutate(energie=case_when(name=="conso_elec" ~ "Electricité",
+                           name=="conso_gaz" ~ "Gaz"),
+         euros=round(value.x/100, digits = 1)*100,
+         pct=value.y*100) |> 
+  select(-starts_with("value"),-starts_with("name"))
+
+impact <- readxl::read_xlsx("sorties_elec.xlsx", sheet="impact_mesures") |> 
+  filter(vingtieme %in% c("1","2","3","4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14","15", "16", "17", "18", "19", "20")) |> 
+  mutate(euros=impact_nrj_euros,
+         pct=impact_nrj_pct*100) |> 
+  select(-impact_nrj_euros, -impact_nrj_pct) |> 
+  pivot_longer(cols = !vingtieme, names_to = "name", values_to = "value") 
+
+```
+
+:::: {#fig-comp1}
+::: panel-tabset
+### En euros par ménage
+
+```{r}
+#| fig-asp: 0.8
+g1 <- ggplot(euros_menage, 
+             aes(x = vingtieme, y = value, fill=factor(name, levels = c("conso_gaz", "conso_elec")))) +
+  geom_col_interactive(aes(tooltip = paste("Vingtième: ", vingtieme, "<br>",
+                                           "Type d'énergie: ", name, "<br>",
+                                           "Montant: ", round(value/100, digits = 1)*100, "€")),
+                       position = "stack") +  
+  scale_y_continuous(breaks = seq(0, 2000, by = 200)) + 
+  scale_x_continuous(breaks = seq(0, 20, by = 1)) + 
+  scale_fill_manual(values = PrettyCols::prettycols("Joyful", 2),
+                    labels = c("conso_elec" = "Electricité", 
+                               "conso_gaz" = "Gaz")) +
+  labs(subtitle = NULL,
+       x = "Vingtième de revenu",
+       y = NULL,
+       fill = NULL) +
+  theme_ofce() +
+  ofce::ofce_caption(source = "Insee-DGFiP-Cnaf-Cnav-CCMSA, enquêtes Revenus fiscaux et sociaux 2020 (actualisée 2022), Champs: Ménage ordinaire dont la personne de référence n'est pas étudiante et dont le revenu disponible est positif", lecture = "Les 5% de ménages les plus modestes consomment en moyenne chaque année 120€ de gaz et 360€ d'électricité.")
+
+girafy(g1)
+```
+
+### En % du revenu disponible
+
+```{r}
+#| fig-asp: 0.8
+g2 <- ggplot(pct_menage, 
+             aes(x = vingtieme, y = value*100, fill = factor(name, levels = c("conso_gaz", "conso_elec")))) +
+  geom_col_interactive(aes(tooltip = paste("Vingtième: ", vingtieme, "<br>",
+                                           "Type d'énergie: ", name, "<br>",
+                                           "Montant: ", round(value*100, digits = 1), "%")),
+                       position = "stack") +  
+  scale_y_continuous(breaks = seq(0, 10, by = 1)) + 
+  scale_x_continuous(breaks = seq(0, 20, by = 1)) + 
+  scale_fill_manual(values = PrettyCols::prettycols("Joyful", 2),
+                    labels = c("conso_elec" = "Electricité", 
+                               "conso_gaz" = "Gaz")) +
+  labs(subtitle = NULL,
+       x = "Vingtième de revenu",
+       y = NULL,
+       fill = NULL) +
+  theme_ofce() +
+  ofce::ofce_caption(source = "Insee-DGFiP-Cnaf-Cnav-CCMSA, enquêtes Revenus fiscaux et sociaux 2020 (actualisée 2022), Champs: Ménage ordinaire dont la personne de référence n'est pas étudiante et dont le revenu disponible est positif", lecture = "Les 5% de ménages les plus modestes consomment en moyenne chaque année 1,4% de leur revenu disponible en gaz et 4,1% en électricité.")
+girafy(g2)
+
+```
+:::
+
+Dépense en électricité et en gaz des ménages par vingtième de niveau de vie
+::::
+
+::: column-margin
+```{r}
+margin_download(data1, "dépenses_énergie")
+```
+:::
+
+*A contrario*, rapportées au revenu disponible des ménages, les dépenses en électricité et en gaz diminuent quand le revenu augmente : plus les ménages sont modestes, plus leurs dépenses énergétiques occupent une place importante dans leur revenu. Alors que les 5% des ménages les plus modestes consacrent en moyenne 5,5% de leur revenu disponible aux dépenses d'électricité et de gaz, les 5% des ménages les plus aisés n'en consacrent que 1,9 %. Dès lors, si l'augmentation de la fiscalité énergétique devrait davantage impacter en euros les ménages les plus aisés, celle-ci pénaliserait plus durement les ménages les plus modestes en pourcentage de leur revenu disponible (@fig-comp2).
+
+:::: {#fig-comp2}
+::: panel-tabset
+### En euros par ménage
+
+```{r}
+#| fig-asp: 0.8
+g3 <- ggplot(impact |> filter(name=="euros"), 
+             aes(x = as.numeric(vingtieme), y = -value, fill=factor(name, levels = c("euros")))) +
+  geom_col_interactive(aes(tooltip = paste("Vingtième: ", vingtieme, "<br>",
+                                           "Montant: ", round(-value/100, digits = 1)*100, "€")),
+                       position = "stack") +  
+  scale_y_continuous(breaks = seq(-200, 0, by = 20)) + 
+  scale_x_continuous(breaks = seq(0, 20, by = 1)) + 
+  scale_fill_manual(values = PrettyCols::prettycols("Joyful", 1)) +
+  labs(subtitle = NULL,
+       x = "Vingtième de revenu",
+       y = NULL,
+       fill = NULL) +
+  theme_ofce() +
+    ofce::ofce_caption(source = "Insee-DGFiP-Cnaf-Cnav-CCMSA, enquêtes Revenus fiscaux et sociaux 2020 (actualisée 2022), Champs: France métropolitaine, Ménage ordinaire dont la personne de référence n'est pas étudiante et dont le revenu disponible est positif", lecture = "Les 5% des ménages les plus modestes devraient voir leur revenu disponible amputé de 40 euros  en moyenne en 2025 du fait de la hausse des prélèvements sur l'énergie.") + 
+  theme(legend.position = "none") 
+
+girafy(g3)
+```
+
+### En % du revenu disponible
+
+```{r}
+#| fig-asp: 0.8
+g4 <- ggplot(impact |> filter(name=="pct"), 
+             aes(x = as.numeric(vingtieme), y = -value, fill=factor(name, levels = c("pct")))) +
+  geom_col_interactive(aes(tooltip = paste("Vingtième: ", vingtieme, "<br>",
+                                           "Montant: ", -round(value, digits = 2), "%")),
+                       position = "stack") +  
+  scale_y_continuous(breaks = seq(-0.15, 0, by = 0.02)) + 
+  scale_x_continuous(breaks = seq(0, 20, by = 1)) + 
+  scale_fill_manual(values = PrettyCols::prettycols("Joyful", 1)) +
+   labs(subtitle = NULL,
+       x = "Vingtième de revenu",
+       y = NULL,
+       fill = NULL) +
+  theme_ofce() +
+    ofce::ofce_caption(source = "Insee-DGFiP-Cnaf-Cnav-CCMSA, enquêtes Revenus fiscaux et sociaux 2020 (actualisée 2022), Champs: France métropolitaine, Ménage ordinaire dont la personne de référence n'est pas étudiante et dont le revenu disponible est positif", lecture = "Les 5% des ménages les plus modestes devraient voir leur revenu disponible amputé de 0,12% en moyenne en 2025 du fait de la hausse des prélèvements sur l'énergie.") + 
+  theme(legend.position = "none") 
+
+girafy(g4)
+
+```
+:::
+
+Impact de l'augmentation de la fiscalité par vingtième de niveau de vie
+::::
+
+::: column-margin
+```{r}
+margin_download( impact, "impact_fisca" )
+```
+:::

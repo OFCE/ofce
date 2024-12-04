@@ -320,7 +320,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   if(is.null(nom))
     nom <- last_dir(dir)
   target <- stringr::str_c(dir, "/", nom, ".qmd")
-  refs <- stringr::str_c(dir, "/", nom, "_references.bib")
+  refs <- stringr::str_c(dir, "/blog_references.bib")
   if(file.exists(target)) {
     cli::cli_alert_danger(
       "Il y déjà un '{nom}.qmd' dans le répertoire {.path {dir}}")
@@ -338,7 +338,9 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   template <- system.file("extdata/templates/blog",
                           "template.qmd",
                           package="ofce")
-
+  dat <- system.file("extdata/templates/blog",
+                     "data_source.R",
+                     package="ofce")
   bib <- system.file("extdata/templates/blog",
                      "references.bib",
                      package="ofce")
@@ -349,6 +351,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
       replace = stringr::str_c("bibliography: blog_references.bib")) |>
     writeLines(con = target)
   file.copy(bib, to = refs)
+  file.copy(dat, to = dir)
   rstudioapi::navigateToFile(
     file = target,
     line = -1L,

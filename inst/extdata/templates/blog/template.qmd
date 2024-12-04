@@ -1,7 +1,7 @@
 ---
 title: "Titre du billet"
 # subtitle: "Sous-titre éventuel"
-date: today
+date: today # date au format "YYYY-MM-DD"
 author:
   - name: Albertine Retrouvée
     url: https://www.ofce.sciences-po.fr/ofce/chercheurs1.php # À changer avec le lien vers la page de l'auteur
@@ -14,9 +14,9 @@ image: image.jpg
 
 ## Texte qui apparaît dans le menu du blog (500 caractères max)
 description: "Chapeau du texte qui apparait dans la vignette du billet sur le menu"
+
 format:
-  blog-html: default
-  blog-pdf: default
+  blog-html: default 
 
 
 # A activer si références bibliographiques dans le texte
@@ -46,7 +46,7 @@ pour le dépôt voir {{< fa brands github >}}
 #| message : false
 
 # Charge les données depuis fichier source R 
-data_plot <- ofce::source_data("data_source")
+data_plot <- ofce::source_data("data_source.R")
 
 ggplot(data_plot) +
   geom_point(aes(x=speed, y=dist))+

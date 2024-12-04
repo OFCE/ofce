@@ -1,0 +1,8 @@
+project:
+  type: website
+
+csl: csl/revue-francaise-de-gestion.csl
+
+format:
+  blog-html: default
+  blog-typst: default

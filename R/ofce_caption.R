@@ -10,7 +10,9 @@
 #' @param dptf fréquence du dernier point connu (day, month, quarter, year)
 #' @param wrap largeur du texte en charactères (120 charactères par défaut)
 #' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
+#' @param author (bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut
 #' @param lang langue des textes (fr par défaut)
+#'
 #' @return ggplot2 caption (ggplot() + ofce_caption("INSEE"))
 #' @export
 
@@ -19,21 +21,28 @@ ofce_caption <- function(source = NULL,
                          lecture = NULL,
                          dpt = NULL,
                          dptf = "month",
-                         wrap = 110, lang = "fr", ofce=TRUE) {
+                         wrap = 110, lang = "fr", ofce=TRUE, author = NULL) {
+
+  if(is.null(author)){author = FALSE}
+
   if(lang=="fr") {
     lec <- "*Lecture* : "
     src <- "*Source* : "
     not <- "*Note* : "
     Ofc <- "Calculs OFCE"
     ofc <- ", calculs OFCE"
+    auth <- ", calculs des auteurs"
+    Auth <- "Calculs des auteurs"
     der <- ", dernier point connu : "
     Der <- "*Dernier point connu* : "}
   else {
-    lec <- "*Reading*: "
-    src <- "*Source*: "
-    not <- "*Note*: "
-    ofc <- "OFCE' computation"
-    Ofc <- ofc
+    lec <- "*Reading* : "
+    src <- "*Source* : "
+    not <- "*Note* : "
+    Ofc <- "OFCE' computation"
+    ofc <- ", OFCE' computation"
+    auth <- ", authors' computation"
+    Auth <- "Authors' computation"
     der <- ", last known point: "
     Der <- "*Last known point*: "
   }
@@ -56,11 +65,21 @@ ofce_caption <- function(source = NULL,
     caption <- caption |>
       stringr::str_c(addcaption)
   }
+
+  if(author==TRUE) {
+    ofce <-  FALSE
+
+    if(length(source)==0)
+      source <- Auth else
+        source <- stringr::str_c(source , auth)
+  } else{
+
   if(ofce) {
     if(length(source)==0)
       source <- Ofc else
         source <- stringr::str_c(source , ofc)
   }
+}
 
   if(length(source)>0) {
     if(length(caption>0))
@@ -97,7 +116,7 @@ dernier_point <- function(date, freq = "month", lang = "fr") {
   if(lang== "fr") {
     locale <- if(.Platform$OS.type=="windows") "fr_FR.utf8" else "fr_FR"
   } else {
-    locale <-  "en_UK"
+    locale <- if(.Platform$OS.type=="windows") "en_US.utf8" else "en_US"
   }
 
   if(freq == "day")
