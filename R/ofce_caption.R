@@ -66,7 +66,7 @@ ofce_caption <- function(source = NULL,
   if(length(note)>0) {
     if(length(caption>0))
       caption <- caption |> stringr::str_c("<br>")
-    addcaption <- str_c(not, note) |>
+    addcaption <- stringr::str_c(not, note) |>
       stringr::str_c(".") |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
@@ -90,7 +90,7 @@ ofce_caption <- function(source = NULL,
 
   if(length(source)>0) {
     if(length(caption>0))
-      caption <- caption |> str_c("<br>")
+      caption <- caption |> stringr::str_c("<br>")
     if(stringr::str_detect(source, ",|;"))
       src <- src |> stringr::str_replace("ce", "ces")
     addcaption <- stringr::str_c(src, source) |>
