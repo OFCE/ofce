@@ -74,20 +74,19 @@ ofce_caption <- function(source = NULL,
       stringr::str_c(addcaption)
   }
 
-  if(author==TRUE) {
-    ofce <-  FALSE
+  if(author) {
+    ofce <- FALSE
 
     if(length(source)==0)
       source <- Auth else
         source <- stringr::str_c(source , auth)
-  } else{
+  }
 
   if(ofce) {
     if(length(source)==0)
       source <- Ofc else
         source <- stringr::str_c(source , ofc)
   }
-}
 
   if(length(source)>0) {
     if(length(caption>0))
