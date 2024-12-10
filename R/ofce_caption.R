@@ -25,6 +25,14 @@ ofce_caption <- function(source = NULL,
 
   if(is.null(author)){author = FALSE}
 
+  env <- parent.frame()
+  if(!is.null(source))
+    source <- glue::glue(source, .envir = env)
+  if(!is.null(note))
+    source <- glue::glue(note, .envir = env)
+  if(!is.null(lecture))
+    source <- glue::glue(lecture, .envir = env)
+
   if(lang=="fr") {
     lec <- "*Lecture* : "
     src <- "*Source* : "
@@ -49,7 +57,7 @@ ofce_caption <- function(source = NULL,
   caption <- ""
 
   if(length(lecture)>0) {
-    caption <- stringr::str_c(lec, glue::glue(lecture))  |>
+    caption <- stringr::str_c(lec, lecture)  |>
       stringr::str_c(".") |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
@@ -58,7 +66,7 @@ ofce_caption <- function(source = NULL,
   if(length(note)>0) {
     if(length(caption>0))
       caption <- caption |> stringr::str_c("<br>")
-    addcaption <- str_c(not, glue::glue(note)) |>
+    addcaption <- str_c(not, note) |>
       stringr::str_c(".") |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
@@ -86,7 +94,7 @@ ofce_caption <- function(source = NULL,
       caption <- caption |> str_c("<br>")
     if(stringr::str_detect(source, ",|;"))
       src <- src |> stringr::str_replace("ce", "ces")
-    addcaption <- stringr::str_c(src, glue::glue(source)) |>
+    addcaption <- stringr::str_c(src, source) |>
       stringr::str_c(".") |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
