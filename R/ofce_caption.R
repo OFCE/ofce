@@ -21,7 +21,7 @@ ofce_caption <- function(source = NULL,
                          lecture = NULL,
                          dpt = NULL,
                          dptf = "month",
-                         wrap = 110, lang = "fr", ofce=TRUE, author = NULL) {
+                         wrap = 100, lang = "fr", ofce=TRUE, author = NULL) {
 
   if(is.null(author)){author = FALSE}
 
