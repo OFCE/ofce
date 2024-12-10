@@ -107,7 +107,7 @@ ofce_caption <- function(source = NULL,
           caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
   }
 
-  labs(caption = caption)
+  ggplot2::labs(caption = caption)
 }
 
 #' fabricateur de dernier point pour les sources de graphiques
