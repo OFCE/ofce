@@ -29,9 +29,9 @@ ofce_caption <- function(source = NULL,
   if(!is.null(source))
     source <- glue::glue(source, .envir = env)
   if(!is.null(note))
-    source <- glue::glue(note, .envir = env)
+    note <- glue::glue(note, .envir = env)
   if(!is.null(lecture))
-    source <- glue::glue(lecture, .envir = env)
+    lecture <- glue::glue(lecture, .envir = env)
 
   if(lang=="fr") {
     lec <- "*Lecture* : "
