@@ -19,6 +19,7 @@
 ofce_caption <- function(source = NULL,
                          note = NULL,
                          lecture = NULL,
+                         champ = NULL,
                          dpt = NULL,
                          dptf = "month",
                          wrap = 100, lang = "fr", ofce=TRUE, author = NULL) {
@@ -28,6 +29,8 @@ ofce_caption <- function(source = NULL,
   env <- parent.frame()
   if(!is.null(source))
     source <- glue::glue(source, .envir = env)
+  if(!is.null(champ))
+    champ <- glue::glue(champ, .envir = env)
   if(!is.null(note))
     note <- glue::glue(note, .envir = env)
   if(!is.null(lecture))
@@ -36,6 +39,7 @@ ofce_caption <- function(source = NULL,
   if(lang=="fr") {
     lec <- "*Lecture* : "
     src <- "*Source* : "
+    chp <- "*Champ* : "
     not <- "*Note* : "
     Ofc <- "Calculs OFCE"
     ofc <- ", calculs OFCE"
@@ -44,9 +48,10 @@ ofce_caption <- function(source = NULL,
     der <- ", dernier point connu : "
     Der <- "*Dernier point connu* : "}
   else {
-    lec <- "*Reading* : "
-    src <- "*Source* : "
-    not <- "*Note* : "
+    lec <- "*Reading*: "
+    src <- "*Source*: "
+    chp <- "*Scope*: "
+    not <- "*Note*: "
     Ofc <- "OFCE' computation"
     ofc <- ", OFCE' computation"
     auth <- ", authors' computation"
@@ -56,11 +61,22 @@ ofce_caption <- function(source = NULL,
   }
   caption <- ""
 
-  if(length(lecture)>0) {
-    caption <- stringr::str_c(lec, lecture)  |>
+  if(length(champ)>0) {
+    caption <- stringr::str_c(chp, champ)  |>
       stringr::str_c(".") |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
+  }
+
+  if(length(lecture)>0) {
+    if(length(caption>0))
+      caption <- caption |> stringr::str_c("<br>")
+    addcaption <- stringr::str_c(lec, lecture)  |>
+      stringr::str_c(".") |>
+      stringr::str_wrap(width = wrap) |>
+      stringr::str_replace_all("\\n", "<br>")
+    caption <- caption |>
+      stringr::str_c(addcaption)
   }
 
   if(length(note)>0) {
