@@ -12,7 +12,11 @@
     ofce.source_data.lapse = "never",
     ofce.source_data.src_in = "project",
     ofce.source_data.wd = "file",
-    ofce.source_data.unfreeze = FALSE)
+    ofce.source_data.unfreeze = FALSE,
+    ofce.caption.ofce = TRUE,
+    ofce.caption.wrap = 100,
+    ofce.caption.author = FALSE,
+    ofce.caption.lang = "fr")
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])

@@ -6,7 +6,8 @@
 #' @param source texte de la source (sans le mot source qui est rajouté)
 #' @param note texte de la note (sans le mot note qui est rajouté)
 #' @param lecture texte de la note de lecture (sans le mot lecture qui est rajouté)
-#' @param dpt dernier point connu
+#' @param champ texte de le champ (sans le mot champ qui est rajouté)
+#' #' @param dpt dernier point connu
 #' @param dptf fréquence du dernier point connu (day, month, quarter, year)
 #' @param wrap largeur du texte en charactères (120 charactères par défaut)
 #' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
@@ -22,7 +23,10 @@ ofce_caption <- function(source = NULL,
                          champ = NULL,
                          dpt = NULL,
                          dptf = "month",
-                         wrap = 100, lang = "fr", ofce=TRUE, author = NULL) {
+                         wrap = getOption("ofce.caption.wrap"),
+                         lang = getOption("ofce.caption.lang"),
+                         ofce = getOption("ofce.caption.ofce"),
+                         author = getOption("ofce.caption.author")) {
 
   if(is.null(author)){author = FALSE}
 
@@ -52,18 +56,18 @@ ofce_caption <- function(source = NULL,
     src <- "*Source*: "
     chp <- "*Scope*: "
     not <- "*Note*: "
-    Ofc <- "OFCE' computation"
-    ofc <- ", OFCE' computation"
+    Ofc <- "Computations by OFCE"
+    ofc <- ", computations by OFCE"
     auth <- ", authors' computation"
     Auth <- "Authors' computation"
-    der <- ", last known point: "
-    Der <- "*Last known point*: "
+    der <- ", last known data point: "
+    Der <- "*Last known data point*: "
   }
   caption <- ""
 
   if(length(champ)>0) {
     caption <- stringr::str_c(chp, champ)  |>
-      stringr::str_c(".") |>
+      check_point() |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
   }
@@ -72,7 +76,7 @@ ofce_caption <- function(source = NULL,
     if(length(caption>0))
       caption <- caption |> stringr::str_c("<br>")
     addcaption <- stringr::str_c(lec, lecture)  |>
-      stringr::str_c(".") |>
+      check_point() |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
     caption <- caption |>
@@ -83,7 +87,7 @@ ofce_caption <- function(source = NULL,
     if(length(caption>0))
       caption <- caption |> stringr::str_c("<br>")
     addcaption <- stringr::str_c(not, note) |>
-      stringr::str_c(".") |>
+      check_point() |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
     caption <- caption |>
@@ -110,7 +114,7 @@ ofce_caption <- function(source = NULL,
     if(stringr::str_detect(source, ",|;"))
       src <- src |> stringr::str_replace("ce", "ces")
     addcaption <- stringr::str_c(src, source) |>
-      stringr::str_c(".") |>
+      check_point() |>
       stringr::str_wrap(width = wrap) |>
       stringr::str_replace_all("\\n", "<br>")
     caption <- caption |>
@@ -156,4 +160,11 @@ dernier_point <- function(date, freq = "month", lang = "fr") {
                  lubridate::year(date)))
 
   return(lubridate::year(date))
+}
+
+
+check_point <- function(s) {
+  if(stringr::str_detect(s, "\\.$"))
+    return(s)
+  s |> stringr::str_c(".")
 }

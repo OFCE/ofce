@@ -1,3 +1,7 @@
+## OFCE 1.3.9
+
+* `ofce_caption` : Ajout de *Champ* et options par défaut.
+
 ## OFCE 1.3.8
 
 * `rinit.r` : Modification du mode chargement des packages pour vérifier l'installation des packages du rinit, installer les packages manquants au besoin, et les charger.

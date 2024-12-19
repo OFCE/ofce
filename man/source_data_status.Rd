@@ -8,7 +8,7 @@ source_data_status(
   cache_rep = NULL,
   quiet = TRUE,
   root = NULL,
-  src_in = getOption("ofce.source_data.src_in")
+  src_in = getOption("ofce.source_data.src_in") \%||\% "project"
 )
 }
 \arguments{
