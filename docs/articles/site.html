@@ -16,8 +16,8 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="site_files/libs/quarto-html/popper.min.js"></script><script src="site_files/libs/quarto-html/tippy.umd.min.js"></script><link href="site_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Des sites dédiés">
@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
 </nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1></h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Des sites dédiés</h1>
 
 
 
@@ -93,7 +93,7 @@
 
 
 
-    <header id="title-block-header" class="quarto-title-block"><h1 class="title">Des sites dédiés</h1></header><p>Les sites dédiés sont un ensemble de documents autour d’un sujet. Le site s’intègre (et s’intègrera de mieux en mieux) sur le site principal de l’OFCE, l’objectif étant une fluidité invisible aux yeux des navigateurs.</p>
+    <p>Les sites dédiés sont un ensemble de documents autour d’un sujet. Le site s’intègre (et s’intègrera de mieux en mieux) sur le site principal de l’OFCE, l’objectif étant une fluidité invisible aux yeux des navigateurs.</p>
 <p>Un site dédié se compose donc :</p>
 <ol type="1">
 <li><p>d’un nom de domaine le reliant au site de l’OFCE et lui donnant son propre espace et son identification.</p></li>
@@ -103,13 +103,13 @@
 <li><p>Les choix éditoriaux reviennent aux administrateurs, en suivant les recommandations générales. En particulier, bien que ce ne soit pas encore mis sous forme de procédure, les sites dédiés seront d’abord publiés de façon privée (<em>stage</em>) pour être validés puis publiés.</p></li>
 </ol>
 <p>Le blog de l’OFCE sera (le 5/7/2024 le futur est encore de mise) un site dédié, ouvert à tous les contributeurs avec quelques administrateurs permanents. Les règles de cette vignette s’y appliquent donc et la <code><a href="../articles/blog.html">vignette("blog")</a></code> détaille les spécificités.</p>
-<section class="section level3"><h3 id="comment-contribuer-pull-request">Comment contribuer : <em>pull request</em>
+<section class="level2"><h2 id="comment-contribuer-pull-request">Comment contribuer : <em>pull request</em>
 <a class="anchor" aria-label="anchor" href="#comment-contribuer-pull-request"></a>
-</h3>
+</h2>
 <p>Pour contribuer nous vous demandons de suivre une procédure stricte. Elle peut paraître compliquée, mais elle est fluide et permet d’éviter des bêtises. En effet, la branche <code>master</code> et la branche du site (<code>gh-pages</code>) sont protégées : il faut des droits administrateur pour les modifier. Cela évite les mauvaises manipulations et sécurise le site.</p>
 <p>Il est possible d’utiliser plusieurs outils pour travailler. Le premier combo est <code>RStudio</code>, combiné à <code>github desktop</code> et github.com. Une alternative est <code>VSCode</code> qui regroupe l’éditeur quarto et l’interface github dans un même logiciel. La <code><a href="../articles/outils.html">vignette("outils")</a></code> détaille les configurations et les instructions d’installation.</p>
-<section class="level3"><h4 id="comment-faire">Comment faire ?<a class="anchor" aria-label="anchor" href="#comment-faire"></a>
-</h4>
+<section class="level3"><h3 id="comment-faire">Comment faire ?<a class="anchor" aria-label="anchor" href="#comment-faire"></a>
+</h3>
 <ol type="1">
 <li><p>créer une branche à partir de <code>master</code>. C’est simple avec <code>github desktop</code> (<code>menu branch/new branch</code>). Cette branche est modifiable par celui qui l’a créée (mais aussi par d’autres, s’il le souhaite, ce qui peut permettre la mise au point). Elle contient une copie de <code>master</code> donc vous pouvez tout modifier dedans. Cependant, afin d’éviter le chaos, il est préférable de modifier le contenu pour lequel on est contributeur et s’en tenir à ça. Si vous voulez corriger le contenu d’autres auteurs ou intervenir sur la structure générale c’est bien sûr possible.<br>
 Si vous continuez sur votre branche, elle est sans doute en retard. Vous pouvez la mettre à jour à partir de <code>master</code> (menu <code>branch/Update from master</code> dans <code>github desktop</code>) afin d’éviter de vous trouver trop en retard et Vous pouvez aussi faire un <em>merge</em> de <code>master</code> dans votre branche. Ne pas le faire va multiplier les conflits et rendre l’inclusion de vos modifications pénibles.</p></li>
@@ -118,8 +118,8 @@ Si vous continuez sur votre branche, elle est sans doute en retard. Vous pouvez 
 <li><p>Quand vous êtes satisfait, vous faites une <em>pull request</em> (facile dans <code>github desktop</code>, il le propose une fois <em>pushé</em> votre dernier <em>commit</em>). La <em>pull request</em> n’est possible que lorsque tous vos changements sont <em>commités</em> et que votre branche est <em>pushée</em>. La possibilité de le faire apparaît dans la fenêtre principale de <code>github desktop</code> lorsque les conditions sont réunies.</p></li>
 <li><p>Si vous êtes consciencieux, vous pouvez vérifier que votre branche est compatible avec <code>master</code> et faire le <em>merge.</em> Passez par le menu <code>branch/update from master</code> avant de faire la <code>pull request</code>. Cela permet de vérifier (et de résoudre) les éventuels conflits qui existeraient entre votre branche la branche <code>master</code>.</p></li>
 <li><p>Une fois la <em>pull request</em> envoyée, elle va être validée par les administrateurs (et les conflits résolus si vous ne l’avez pas fait). Au moment de la <em>pull request</em> vous pouvez assigner un <em>reviewer.</em> Une fois validée, votre branche est intégrée (<em>mergée)</em> à la branche <code>master</code> ce qui permettra de mettre à jour le site en ligne et de détruire votre branche. (Pourquoi la détruire ? 1. votre travail est intégré dans <code>master</code> donc il est en sécurité, 2. si vous refaites des modifications, <strong>il faut partir de la dernière version disponible</strong>, i.e. <code>master</code> et non pas votre branche qui va devenir très en retard).</p></li>
-</ol></section></section><section class="section level3"><h3 id="quelques-conseils-aux-administrateurs-de-projets">Quelques conseils aux administrateurs de projets<a class="anchor" aria-label="anchor" href="#quelques-conseils-aux-administrateurs-de-projets"></a>
-</h3>
+</ol></section></section><section class="level2"><h2 id="quelques-conseils-aux-administrateurs-de-projets">Quelques conseils aux administrateurs de projets<a class="anchor" aria-label="anchor" href="#quelques-conseils-aux-administrateurs-de-projets"></a>
+</h2>
 <ol type="1">
 <li><p>Définissez à l’avance la structure du projet et communiquez là aux auteurs. Parfois, on a envie de changer en cours de route, c’est toujours possible, mais source de confusion et potentiellement d’erreurs.</p></li>
 <li><p>Protégez la branche <code>master</code> et définissez ceux qui ont droit de la modifier. Cela évitera aussi de nombreuses erreurs. Protégez aussi <code>gh-pages</code>. Ces opérations se réalisent très simplement depuis <a href="htpps://github.com/ofce">github.com</a>.</p></li>
@@ -239,7 +239,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

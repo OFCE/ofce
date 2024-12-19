@@ -16,8 +16,8 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="outils_files/libs/quarto-html/popper.min.js"></script><script src="outils_files/libs/quarto-html/tippy.umd.min.js"></script><link href="outils_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="outils_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <script src="outils_files/libs/quarto-contrib/kbd/kbd.js"></script><link href="outils_files/libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
@@ -33,7 +33,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
 </nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1></h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Outils</h1>
 
 
 
@@ -95,7 +95,7 @@
 
 
 
-    <header id="title-block-header" class="quarto-title-block"><h1 class="title">Outils</h1></header><p>Quels outils pour travailler ? Il n’y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans <strong>RStudio</strong> et <strong>R</strong>, <strong>github</strong>, <strong>github desktop</strong>.</p>
+    <p>Quels outils pour travailler ? Il n’y en a pas 3 000 mais quelques uns incontournables. En bref : un projet dans <strong>RStudio</strong> et <strong>R</strong>, <strong>github</strong>, <strong>github desktop</strong>.</p>
 <p>Les illustrations sont de <a href="https://allisonhorst.com/" class="external-link">Alison Horst</a>.</p>
 <blockquote>
 <p><strong>Règle 1</strong> : le travail est divisé en projets. Un projet est un dossier dans lequel on regroupe les codes, documents, bout de code, données de petite taille.</p>
@@ -110,8 +110,8 @@
 <figure><p><img src="images/paste-6.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
-<section class="section level3"><h3 id="r-julia-python-ou-stata-ou-eviews">R, Julia, Python ou Stata ou Eviews<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata-ou-eviews"></a>
-</h3>
+<section class="level2"><h2 id="r-julia-python-ou-stata-ou-eviews">R, Julia, Python ou Stata ou Eviews<a class="anchor" aria-label="anchor" href="#r-julia-python-ou-stata-ou-eviews"></a>
+</h2>
 <p>Pour faire les calculs, traiter les données, produire les graphiques, il faut un logiciel. Le choix est parmi quelques languages qui permettent :</p>
 <ol type="1">
 <li>
@@ -121,18 +121,18 @@
 </li>
 </ol>
 <p>Donc, R, Julia, Python sont clairement dans cette catégorie. Stata n’est pas libre, mais largement répandu et donc acceptable. Excel et Eviews ne sont pas utilisables parce qu’ils ne sont pas séquentiels. L’épisode Reihnart-Rogoff découle de ça. Mais il y a des trillions d’erreurs qui continuent de se propager à cause des pratiques induites par Excel.</p>
-<section class="level3"><h4 id="r">R<a class="anchor" aria-label="anchor" href="#r"></a>
-</h4>
+<section class="level3"><h3 id="r">R<a class="anchor" aria-label="anchor" href="#r"></a>
+</h3>
 <p>R est un logiciel de traitement statistique libre. Il y a un grand nombre de packages qui étendent les fonctionnalités de R, certaines modifiant profondément son fonctionnement comme <a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a>, ajoutant un écosystème de production de graphiques comme <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> + <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> + <a href="https://wilkelab.org/ggtext/" class="external-link">ggtext</a> + …, de production de tableaux comme <a href="https://gt.rstudio.com" class="external-link">gt</a> ou encore de procédures statistiques comme <a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a> ou d’interface avec des librairies de calcul comme <a href="https://github.com/dmlc/xgboost" class="external-link">xgboost</a>. Bien que R ne soit pas un langage très rapide, son interface avec le C/C++ ou la possibilité de faire du calcul parallèle ou d’utiliser des systèmes avancés comme <a href="https://torch.mlverse.org/docs" class="external-link">torch</a> permet d’atteindre des performances de calculs maximales (i.e. utilisant au mieux le hardware dont on dispose). R est multi-plateforme on peut l’utiliser sur de nombreux systèmes y compris distants ce qui ouvre la porte au calcul haute performance.</p>
 <p>Pour installer R (la dernière version est 4.4.1) :</p>
 <ul>
 <li><p>sur MacOS : <a href="https://cran.r-project.org/bin/macosx/" class="external-link">R for macOS (r-project.org)</a></p></li>
 <li><p>sur Windows : <a href="https://cran.r-project.org/bin/windows/base/" class="external-link">Download R-4.4.1 for Windows. The R-project for statistical computing.</a> et <a href="https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html" class="external-link">Rtools44 for Windows (r-project.org)</a></p></li>
-</ul></section><section class="level3"><h4 id="quelques-détails">Quelques détails<a class="anchor" aria-label="anchor" href="#quelques-d%C3%A9tails"></a>
-</h4>
-<p>Il est <em>recommandé</em> d’installer les versions <strong>fixes (non variables)</strong> d’Open Sans <a href="https://fonts.google.com/specimen/Open+Sans" class="external-link">Open Sans - Google Fonts</a> et de Fira Code <a href="https://fonts.google.com/specimen/Fira+Code" class="external-link">Fira Code - Google Fonts</a>.</p>
-</section></section><section class="section level3"><h3 id="quarto">Quarto<a class="anchor" aria-label="anchor" href="#quarto"></a>
+</ul></section><section class="level3"><h3 id="quelques-détails">Quelques détails<a class="anchor" aria-label="anchor" href="#quelques-d%C3%A9tails"></a>
 </h3>
+<p>Il est <em>recommandé</em> d’installer les versions <strong>fixes (non variables)</strong> d’Open Sans <a href="https://fonts.google.com/specimen/Open+Sans" class="external-link">Open Sans - Google Fonts</a> et de Fira Code <a href="https://fonts.google.com/specimen/Fira+Code" class="external-link">Fira Code - Google Fonts</a>.</p>
+</section></section><section class="level2"><h2 id="quarto">Quarto<a class="anchor" aria-label="anchor" href="#quarto"></a>
+</h2>
 <p>Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de R. Il est développé par RStudio et sert à transformer les <code>.qmd</code> en documents publiables (<code>.docx</code>, <code>.html</code>, <code>.pdf</code>). Quarto est distinct de RStudio – ce qui explique que la version de Quarto n’est pas liée à celle de RStudio.</p>
 <blockquote>
 <p><strong>Règle 4</strong> : Il faut utiliser au moins Quarto 1.5 (<a href="https://quarto.org/docs/download/" class="external-link">la version actuelle est 1.5.57</a>). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionnalités importantes.</p>
@@ -142,19 +142,19 @@
 <figure><p><img src="images/paste-1.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
-</section><section class="section level3"><h3 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
-</h3>
+</section><section class="level2"><h2 id="rstudio">RStudio<a class="anchor" aria-label="anchor" href="#rstudio"></a>
+</h2>
 <p>RStudio est l’outil central (pour le moment). C’est un IDE qui permet à la fois d’éditer les textes (.r, .qmd), d’organiser son travail en projets et d’exécuter le code R ou Pyhton. Il comporte de nombreux outils pour simplifier la vie (en compliquant un peu l’interface) en automatisant la publication, la construction des sites, le débugage de code, l’interface entre R et Python, le fonctionnement multi-plateforme, etc…. Pour certaines opérations, il faut utiliser le terminal (onglet <code>terminal</code>, à côté de l’onglet <code>console</code>) comme pour la commande <code>quarto publish gh-pages</code>.</p>
 <blockquote>
 <p><strong>Règle 5</strong> : Il faut utiliser une version récente (<a href="https://posit.co/download/rstudio-desktop/" class="external-link">2024.04 au moins, disponible ici</a>). Les mises à jour sont moins fréquentes que pour Quarto. Mettre à jour RStudio apporte Quarto, mais généralement pas la dernière version de Quarto.</p>
 </blockquote>
 <p>L’interface de RStudio est assez touffue et peut effrayer au premier abord. C’est pourtant une interface qui a été soigneusement élaborée au fil du temps. On finit par en comprendre la logique et elle est assez efficace. Il y a de nombreux tutoriaux, cheat sheets, manuels. Lisez les, ça aide.</p>
 <p>RStudio permet d’éditer les documents <code>.qmd</code> en mode “<em>visual</em>”. Ce mode s’active facilement (menu, raccourci clavier <kbd aria-hidden="true">Command-Shift-F4</kbd><span class="visually-hidden">Command-Shift-F4</span>) et permet de disposer d’une interface moderne pour éditer un texte en <em>markdown</em> avancé. On dispose de nombreux outils comme la gestion de la bibliographie, des références croisées, le dictionnaire, le copier coller de graphiques externes et bien sûr l’interface avec le code R, Python, Julia, SQL, etc…</p>
-<section class="level3"><h4 id="mode-visuelmode-source">mode visuel/mode source<a class="anchor" aria-label="anchor" href="#mode-visuelmode-source"></a>
-</h4>
-<p>Lorsqu’on édite un <code>.qmd</code> avec RStudio on dispose de deux modes. Le premier, <em>Source</em>, est l’édition d’un fichier en mode texte. On y utilise la syntaxe <em>markdown</em>. L’avantage est que quand il y a des petits bugs dans le texte on peut les repérer très vite. L’alternative est le mode <em>Visual</em> qui affiche le texte formaté et ajoute une barre de menu pratique pour le formatage ou l’insertion d’éléments.</p>
-</section></section><section class="section level3"><h3 id="git-github-github-com-github-desktop">git, github, github.com, github desktop<a class="anchor" aria-label="anchor" href="#git-github-github-com-github-desktop"></a>
+<section class="level3"><h3 id="mode-visuelmode-source">mode visuel/mode source<a class="anchor" aria-label="anchor" href="#mode-visuelmode-source"></a>
 </h3>
+<p>Lorsqu’on édite un <code>.qmd</code> avec RStudio on dispose de deux modes. Le premier, <em>Source</em>, est l’édition d’un fichier en mode texte. On y utilise la syntaxe <em>markdown</em>. L’avantage est que quand il y a des petits bugs dans le texte on peut les repérer très vite. L’alternative est le mode <em>Visual</em> qui affiche le texte formaté et ajoute une barre de menu pratique pour le formatage ou l’insertion d’éléments.</p>
+</section></section><section class="level2"><h2 id="git-github-github-com-github-desktop">git, github, github.com, github desktop<a class="anchor" aria-label="anchor" href="#git-github-github-com-github-desktop"></a>
+</h2>
 <p>git est l’outil charnière qui permet le travail collaboratif, le versionnage du code, son archivage mais aussi toute une chaîne d’outils qui permettent par exemple la mise en ligne de sites.</p>
 <p>Le fonctionnement de git est déroutant (son concepteur Linus Torwald l’a voulu impénétrable et réservé aux geeks hard core). Mais c’est un outil puissant qui est incontournable et maintenant enveloppé d’un ensemble d’outils qui en facilitent l’usage, github, github desktop, github.com.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -163,8 +163,8 @@
 </div>
 <p><strong>Github</strong> est une version particulière de <em>git</em> (rachetée par Microsoft). <strong>github.com</strong> est un service de cloud associé à <strong>github</strong>. Il donne des espaces sécurisés sur lesquels on peut mettre ses dépôts et définir qui peut y accéder. <strong>github.com</strong> fournit aussi de nombreux outils de consultation du code, du versionnage du code, d’outils pour <em>merger,</em> gérer les <em>pull resquest,</em> ouvrir des <em>issues, cloner</em> ou <em>forker</em> des dépôts, diffuser des nouvelles à propos d’un dépôt, rechercher des solutions, publier un site, définir de nombreux paramètres de votre dépôt, le fermer, le rendre privé ou public, l’archiver, le détruire. C’est en fait l’outil central de gestion des dépôt, qui facilite la tâche par rapport au plan initial de Linus Torwald (si vous êtes plus <em>hard core</em>, allez voir <strong>gitlab</strong> ou l’alternative open source française <strong>adulac</strong>, mais nous on utilise <strong>github</strong>).</p>
 <p><strong>github desktop</strong> est une application bureau (que l’on installe sur son ordinateur donc) qui sert d’interface pour certaines opérations avec <strong>github.com</strong>. On y fait simplement les <em>commit</em>, les <em>pull</em>, les <em>push</em>, les <em>merge</em> et les <em>pull request</em>. On peut aussi examiner les <em>commit</em>, les fichiers modifiés, les modifications des fichiers et annuler un <em>commit</em>. Dans 99% des cas, on a besoin que de <strong>github desktop</strong>.</p>
-<section class="level3"><h4 id="commit-push-pull-conflit">commit, push, pull, conflit<a class="anchor" aria-label="anchor" href="#commit-push-pull-conflit"></a>
-</h4>
+<section class="level3"><h3 id="commit-push-pull-conflit">commit, push, pull, conflit<a class="anchor" aria-label="anchor" href="#commit-push-pull-conflit"></a>
+</h3>
 <p>Le vocabulaire de <em>git</em> est particulier : un <em>commit</em> est une balise dans votre travail. <em>git</em> vous permet de revenir à un <em>commit</em> passé.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img src="images/paste-2.png" class="quarto-figure quarto-figure-center" width="700"></p>
@@ -193,8 +193,8 @@
 <figure><p><img src="images/paste-5.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
-</section></section><section class="section level3"><h3 id="branches">Branches<a class="anchor" aria-label="anchor" href="#branches"></a>
-</h3>
+</section></section><section class="level2"><h2 id="branches">Branches<a class="anchor" aria-label="anchor" href="#branches"></a>
+</h2>
 <p>Comme il est expliqué dans la <code><a href="../articles/blog.html">vignette("blog")</a></code> ou dans la <code><a href="../articles/site.html">vignette("site")</a></code>, le travail collaboratif peut demander quelques sécurités supplémentaires. La branche <code>master</code> (ou <code>main</code> pour ceux qui pensent que l’utilisation du mot <em>master</em> fait de vous sans le dire un esclavagiste) est alors protégée. Seul l’administrateur du site peut la modifier ou autoriser les modifications. Chaque intervention sur le contenu doit se faire sur une branche <em>ad hoc</em> créée pour l’occasion. Le process est représenté sur le diagramme. On copie tout le contenu dans une branche, on le modifie, le teste. Puis on demande à l’intégrer dans <code>master</code> à l’administrateur du dépôt par une pull request. L’administrateur peut alors vérifier que les modifications sont OK et les <em>merger</em> dans <code>master</code>. Pourquoi faire comme ça et pas limiter les droits de modifications à seulement quelques fichiers. 1. Parce que c’est plus simple et flexible que de figer des accès fichier par fichier 2. ca permet à chacun de tester et de débugger ses modifs 3. ça permet de vérifier que les modifications ne sont pas allé trop loin. 4. on peut <em>blamer</em> c’est-à-dire savoir qui a fait quoi.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -214,8 +214,8 @@ A[contenu dans branch master]
 </div>
 </div>
 </div>
-<section class="level3"><h4 id="gitignore">.gitignore<a class="anchor" aria-label="anchor" href="#gitignore"></a>
-</h4>
+<section class="level3"><h3 id="gitignore">.gitignore<a class="anchor" aria-label="anchor" href="#gitignore"></a>
+</h3>
 <p>Ce fichier, à la racine du projet, permet d’exclure de <em>github</em> des fichiers ou des dossiers. C’est très utile, par exemple pour les données ou les informations confidentielles (mot de passe, <em>token</em>) ou encore les nombreux fichiers générés par les programmes ou les générations de site ou le <em>render</em>.</p>
 <p>On peut avoir un <code>.gitgnore</code> dans un sous dossier pour qu’il ne s’applique qu’à partir de là.</p>
 <div>
@@ -224,8 +224,8 @@ A[contenu dans branch master]
 <p>Attention en modifiant <code>.gitignore</code> aux effets de bord que cela peut provoquer.</p>
 </blockquote>
 </div>
-</section><section class="level3"><h4 id="données">Données<a class="anchor" aria-label="anchor" href="#donn%C3%A9es"></a>
-</h4>
+</section><section class="level3"><h3 id="données">Données<a class="anchor" aria-label="anchor" href="#donn%C3%A9es"></a>
+</h3>
 <p>Les données ne sont pas les bienvenues sur <em>github</em> : les fichiers (sauf <code>.csv</code>) ne sont pas différentiables, cela génère beaucoup de conflits, ce qui rend pénible les <em>pull</em> et <em>push</em> et le risque d’écraser des données modifiées par quelqu’un d’autre. <em>github</em> n’accepte pas les fichiers supérieurs à 100Mo. On peut dépasser cette limite en utilisant <em>git LFS</em>.</p>
 <p>Malgré tout, il est parfois pratique d’avoir des données dans son <em>github</em>. Il est parfois très pratique de les avoir dans Excel. On perd alors toute possibilité de reproductibilité et de transparence, sauf si on s’astreint à ne stocker que des fichiers téléchargés sur un site. Mais il est mieux de remplacer le stockage par une instruction qui fait le téléchargement (dans un dossier spécifique, <code>data</code> par exemple, qui peut être mis dans <code>.gitgnore</code> et qui éventuellement ne le télécharge que si le fichier n’est pas présent).</p>
 <p>On peut parfois quand même préférer la solution de données dans le dépôt, sur le serveur quand on ne sait pas faire autrement (calculs exclusifs à Excel ☠️, données entrées manuellement).</p>
@@ -234,8 +234,8 @@ A[contenu dans branch master]
 <blockquote>
 <p><strong>Règle 6</strong> : la façon dont les données sont stockées peut entrainer de nombreux problèmes. Une architecture spécifique doit être réfléchie et communiquée à tous les contributeurs du projet. <a href="https://pins.rstudio.com/" class="external-link">pins</a> est une solution simple, sûre et rapide à déployer.</p>
 </blockquote>
-</section></section><section class="section level3"><h3 id="vscode-et-positron">VSCode et Positron<a class="anchor" aria-label="anchor" href="#vscode-et-positron"></a>
-</h3>
+</section></section><section class="level2"><h2 id="vscode-et-positron">VSCode et Positron<a class="anchor" aria-label="anchor" href="#vscode-et-positron"></a>
+</h2>
 <p><strong>VSCode</strong> est une alternative à <strong>RStudio</strong>. Développé par Microsoft (et oui, Microsoft est partout et ne fait pas que Word, Excel et Powerpoint), il est en train de s’imposer comme standard dans le domaine des usages avancés. VSCode est organisé autour d’un éditeur de texte (de code en fait) repose sur une structure très (un peu trop) ouverte. Il peut être étendu facilement et articulé avec de nombreux outils : <em>formateurs</em>, <em>linteurs</em>, <em>highlighters</em>, <em>debogguers</em>, <em>compilateurs</em>, accès distants, <em>dockers</em>, <em>correcteurs</em>, IA. La liste est presque infinie et en tout cas grossit chaque jour. C’est aussi un outil assez léger, rapide, sûr et très fonctionnel.</p>
 <p>Il dispose d’un module d’extension <em>github</em> très bien fait et très facile à utiliser. Avec <em>gitlens</em> on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des <em>commit</em>. C’est très utile pour s’y retrouver et bénéficier de la puissance de <em>git</em> instantanément. <em>pusher</em> ou <em>commiter</em> se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).</p>
 <p>Il est possible d’éditer les documents <code>.qmd</code> en mode visuel dans <strong>VSCode</strong> et avec son module github, le travail y est plus facile que dans RStudio. Pour ceux qui ne font que la <em>review</em> et l’<em>editing</em>, c’est une excellente alternative, avec une interface moins riche (moins confuse surtout) que celle de RStudio.</p>
@@ -351,7 +351,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

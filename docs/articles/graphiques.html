@@ -16,8 +16,8 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Fira_Code-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="graphiques_files/libs/quarto-html/popper.min.js"></script><script src="graphiques_files/libs/quarto-html/tippy.umd.min.js"></script><link href="graphiques_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="graphiques_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Faire un graphique">
@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
 </nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1></h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Faire un graphique</h1>
 
 
 
@@ -93,9 +93,9 @@
 
 
 
-    <header id="title-block-header" class="quarto-title-block"><h1 class="title">Faire un graphique</h1></header><p>Il y a au moins trois méthodes pour mettre un graphique dans dans un document quarto : <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>, copier-coller, fichier image.</p>
-<section class="section level3"><h3 id="ggplot2">ggplot2<a class="anchor" aria-label="anchor" href="#ggplot2"></a>
-</h3>
+    <p>Il y a au moins trois méthodes pour mettre un graphique dans dans un document quarto : <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>, copier-coller, fichier image.</p>
+<section class="level2"><h2 id="ggplot2">ggplot2<a class="anchor" aria-label="anchor" href="#ggplot2"></a>
+</h2>
 <p>La façon préférée de faire un graphique est <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>. Elle est la plus flexible, permet d’avoir une source unique, peut être facilement modifiée (uniformisation, traduction, correction, raffinements) et s’intègre parfaitement en html et en pdf.</p>
 <p>Avec un faible coût on peut rendre le graphique interactif (avec <a href="https://plotly-r.com" class="external-link">plotly</a> ou <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a>).</p>
 <p>Un graphique <code>ggplot</code> doit contenir une couche (layer) <code><a href="../reference/theme_ofce.html">theme_ofce()</a></code> et limiter au maximum les définitions de taille (par exemple de police de caractère). Ces définitions doivent être faites de façon globale pour assurer l’homogénéité. <strong>Il est important de ne pas définir la taille de la figure, ça risque de produire des images avec des caractères trop petits</strong>.</p>
@@ -154,11 +154,11 @@
 <dd>
 <span data-code-cell="annotated-cell-1" data-code-lines="31" data-code-annotation="5">Les sources – notez qu’on ne met pas de titre au graphique (voir la section références croisées)</span>
 </dd>
-</dl></section><section class="section level3"><h3 id="copier-coller">Copier-coller<a class="anchor" aria-label="anchor" href="#copier-coller"></a>
-</h3>
+</dl></section><section class="level2"><h2 id="copier-coller">Copier-coller<a class="anchor" aria-label="anchor" href="#copier-coller"></a>
+</h2>
 <p>On peut copier coller un graphique (de word, d’excel, d’ailleurs) dans le mode visuel de RStudio. Ça marche mais c’est pas le mieux. Quand on copie colle, on fait quelque chose qui ressemble à l’option qui suit.</p>
-</section><section class="section level3"><h3 id="image-au-format-pngjpegjpgsvg">Image au format png/jpeg/jpg/svg<a class="anchor" aria-label="anchor" href="#image-au-format-pngjpegjpgsvg"></a>
-</h3>
+</section><section class="level2"><h2 id="image-au-format-pngjpegjpgsvg">Image au format png/jpeg/jpg/svg<a class="anchor" aria-label="anchor" href="#image-au-format-pngjpegjpgsvg"></a>
+</h2>
 <p>On peut enregistrer une image (au format que l’on veut, <code>quarto</code> accepte pas mal d’options, dont les plus courantes) et l’insérer dans le texte. Il y a deux façon de faire soit en <code>markdown</code> (dans le qmd, comme un lien ou autre chose), soit en utilisant <code>include_graphics</code>. L’intérêt par rapport au copier-coller est que si on change le fichier qui contient l’image, à chaque <em>render</em> du document, la bonne (la dernière version) image sera utilisée. Si on utilise des images venant de <code>eviews</code> 💀 ou <code>stata</code> 😵, c’est la meilleure méthode.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Titre de la figure</span><span class="co">](rep/fig.png)</span></span></code></pre></div>
 <p>Le <strong>répertoire est toujours relatif</strong>.</p>
@@ -170,8 +170,8 @@
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html" class="external-link">include_graphics</a></span><span class="op">(</span><span class="st">"pib2008_2024.png"</span><span class="op">)</span></span></code></pre></div>
 <p>Notez la cohérence des id, nom et titre.</p>
-</section><section class="section level3"><h3 id="les-autres-packages">Les autres packages<a class="anchor" aria-label="anchor" href="#les-autres-packages"></a>
-</h3>
+</section><section class="level2"><h2 id="les-autres-packages">Les autres packages<a class="anchor" aria-label="anchor" href="#les-autres-packages"></a>
+</h2>
 <p>On peut faire des graphiques avec d’autres packages dans R, voire même utiliser base R. Nous ne recommandons pas cette voie, parce qu’elle rend très difficile l’harmonisation des graphiques et les fonctionnalités avancées. Parfois, cependant, il n’y a pas d’autres solutions.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -436,7 +436,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
