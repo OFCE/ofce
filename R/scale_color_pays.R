@@ -26,7 +26,7 @@ scale_color_pays <- function(format = "iso3",
 
   dat <- ofce::palette_pays |>
     mutate(
-      code = countrycode::countrycode(iso3, "iso3c", format)
+      code = countrycode::countrycode(ISO3, "iso3c", format)
     )
 
   if(lang == "fr"){
