@@ -33,13 +33,13 @@ scale_color_pays <- function(format = "iso3",
     dat <- dat |> dplyr::mutate(label = .data[["label_fr"]])} else {
       if(lang == "en"){
         dat <- dat |> dplyr::mutate(label = .data[["label_en"]])} else {
-          dat <- dat |> dplyr::mutate(label = .data[["ISO3"]])
+          dat <- dat |> dplyr::mutate(label = .data[["code"]])
           cat("Il n'existe pas de traduction pour la langue demandée. Seuls le français (\"fr\") et l'anglais (\"en\") sont pour l'instant proposés.")
           }
     }
 
   scale_colour_manual(values = dat$HEX,
-                      breaks = dat$ISO3,
+                      breaks = dat$code,
                       labels = dat$label,
                       name = name,
                       aesthetics = aesthetics,
