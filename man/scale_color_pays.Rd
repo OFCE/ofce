@@ -5,7 +5,7 @@
 \title{Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE}
 \usage{
 scale_color_pays(
-  list_iso3 = c("FRA", "ITA", "ESP", "DEU"),
+  format = "iso3",
   lang = "fr",
   name = NULL,
   aesthetics = c("color", "fill"),
@@ -13,7 +13,7 @@ scale_color_pays(
 )
 }
 \arguments{
-\item{list_iso3}{chr, une liste de nom de pays}
+\item{format}{chr, le format des données ("iso3", "eurostat", "fr" pour les noms en clair, et tous les codes qu'accepte countrycode::countrycode)}
 
 \item{lang}{chr, le choix de la langue c("fr","en")}
 
