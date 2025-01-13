@@ -48,7 +48,8 @@ Depends:
     R (>= 2.10)
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    eurostat
 VignetteBuilder:
     quarto
 Config/testthat/edition: 3
