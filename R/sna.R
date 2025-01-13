@@ -50,7 +50,7 @@ sna_get <- function(dataset, ..., pivot="auto", prefix="", name="",
     updated <- eurostat::search_eurostat("") |>
       dplyr::filter(.data[["code"]]==dataset) |>
       dplyr::distinct() |>
-      dplyr::mutate(update = lubridate::dmy(.data[["last update of data"]])) |>
+      dplyr::mutate(update = lubridate::dmy(.data[["last.update.of.data"]])) |>
       dplyr::pull()
     data.raw <- eurostat::get_eurostat(
       id=dataset,
