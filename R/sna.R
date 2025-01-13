@@ -226,7 +226,7 @@ sna_check_cache <- function(cache="./data/eurostat") {
 
   datasets <- eurostat::search_eurostat("") |>
     dplyr::distinct() |>
-    dplyr::mutate(update = lubridate::dmy(.data[["last update of data"]]))
+    dplyr::mutate(update = lubridate::dmy(.data[["last.update.of.data"]]))
   if(!fs::dir_exists(cache))
   {
     message("cache vide")
