@@ -7,9 +7,9 @@
 #' @param note texte de la note (sans le mot note qui est rajouté)
 #' @param lecture texte de la note de lecture (sans le mot lecture qui est rajouté)
 #' @param champ texte de le champ (sans le mot champ qui est rajouté)
-#' #' @param dpt dernier point connu
+#' @param dpt dernier point connu
 #' @param dptf fréquence du dernier point connu (day, month, quarter, year)
-#' @param wrap largeur du texte en charactères (120 charactères par défaut)
+#' @param wrap largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)
 #' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
 #' @param author (bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut
 #' @param lang langue des textes (fr par défaut)
@@ -65,31 +65,41 @@ ofce_caption <- function(source = NULL,
   }
   caption <- ""
 
+  if(!is.null(wrap)&!wrap==0) {
+    wrapper <- function(x) stringr::str_wrap(x, width = wrap)
+    linebr <- "<br>"
+    liner <- stringr::str_replace_all("\\n", liner)
+  } else {
+    wrapper <- function(x) x
+    linebr <- "\n\n"
+    liner <- function(x) x
+  }
+
   if(length(champ)>0) {
     caption <- stringr::str_c(chp, champ)  |>
       check_point() |>
-      stringr::str_wrap(width = wrap) |>
-      stringr::str_replace_all("\\n", "<br>")
+      wrapper() |>
+      liner()
   }
 
   if(length(lecture)>0) {
     if(length(caption>0))
-      caption <- caption |> stringr::str_c("<br>")
+      caption <- caption |> stringr::str_c(linebr)
     addcaption <- stringr::str_c(lec, lecture)  |>
       check_point() |>
-      stringr::str_wrap(width = wrap) |>
-      stringr::str_replace_all("\\n", "<br>")
+      wrapper() |>
+      liner()
     caption <- caption |>
       stringr::str_c(addcaption)
   }
 
   if(length(note)>0) {
     if(length(caption>0))
-      caption <- caption |> stringr::str_c("<br>")
+      caption <- caption |> stringr::str_c(linebr)
     addcaption <- stringr::str_c(not, note) |>
       check_point() |>
-      stringr::str_wrap(width = wrap) |>
-      stringr::str_replace_all("\\n", "<br>")
+      wrapper() |>
+      liner()
     caption <- caption |>
       stringr::str_c(addcaption)
   }
@@ -110,21 +120,21 @@ ofce_caption <- function(source = NULL,
 
   if(length(source)>0) {
     if(length(caption>0))
-      caption <- caption |> stringr::str_c("<br>")
+      caption <- caption |> stringr::str_c(linebr)
     if(stringr::str_detect(source, ",|;"))
       src <- src |> stringr::str_replace("ce", "ces")
     addcaption <- stringr::str_c(src, source) |>
       check_point() |>
-      stringr::str_wrap(width = wrap) |>
-      stringr::str_replace_all("\\n", "<br>")
+      wrapper() |>
+      liner()
     caption <- caption |>
       stringr::str_c(addcaption)
   }
 
   if(length(dpt)>0) {
     if(length(caption>0))
-        caption <- caption |> stringr::str_c("<br>", Der, dernier_point(dpt, dptf, lang)) else
-          caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
+      caption <- caption |> stringr::str_c("liner", Der, dernier_point(dpt, dptf, lang)) else
+        caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
   }
 
   ggplot2::labs(caption = caption)
@@ -148,16 +158,16 @@ dernier_point <- function(date, freq = "month", lang = "fr") {
 
   if(freq == "day")
     return(stringr::str_c(lubridate::day(date),
-                 lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
-                 lubridate::year(date), sep = " "))
+                          lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
+                          lubridate::year(date), sep = " "))
 
   if(freq == "month")
     return(stringr::str_c(lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
-                 lubridate::year(date), sep = " "))
+                          lubridate::year(date), sep = " "))
 
   if(freq == "quarter")
     return(stringr::str_c("T", lubridate::quarter(date), " ",
-                 lubridate::year(date)))
+                          lubridate::year(date)))
 
   return(lubridate::year(date))
 }

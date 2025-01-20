@@ -1,5 +1,9 @@
 ## OFCE 1.3.9
 
+* `marquee` passe en version 1.0, modification de `ofce_caption` pour en tenir compte (wrap = 0)
+
+## OFCE 1.3.9
+
 * `ofce_caption` : Ajout de *Champ* et options par défaut.
 
 ## OFCE 1.3.8
