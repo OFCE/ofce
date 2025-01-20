@@ -19,8 +19,8 @@ format:
   blog-html: default 
 
 
-# A activer si références bibliographiques dans le texte
-# bibliography: blog_references.bib 
+# références bibliographiques
+bibliography: blogreferences.bib 
 
 ---
 
