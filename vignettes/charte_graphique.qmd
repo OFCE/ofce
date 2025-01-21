@@ -87,7 +87,7 @@ data <- data.frame("value" = c(1:30),
 data |> 
   ggplot()  +
   geom_line(aes(x= date, y = value, color = iso )) +
-  ofce::scale_color_pays(vec_iso,
+  ofce::scale_color_pays(format = "iso3c",
                    lang = "en") +
   ofce::theme_ofce()
 ```
