@@ -28,7 +28,6 @@ library(tidyverse)
 Un graphique ggplot2 par défaut aura le rendu suivant:
 
 ```{r}
-
 p <- ggplot(iris) + 
   aes(x = Sepal.Width, y = Sepal.Length, group = Species, color = Species) +
   geom_point(size = 2)
@@ -39,14 +38,12 @@ p
 L'ajout de la commande `theme_XXX` permet d'appliquer un thème spécifique au graphe produit (ici `theme_classic`). Plusieurs sont déjà pré-enregistrés dans ggplot2.
 
 ```{r}
-
 p + theme_classic()
 ```
 
 Un thème spécifique à l'OFCE existe dans le package ofce et permet d'appliquer des modifications de forme qui reprenne les élements de la charte graphique définie par ailleurs.
 
 ```{r}
-
 p + ofce::theme_ofce()
 ```
 
@@ -57,21 +54,17 @@ Il est également possible de spécifier manuellement les couleurs dans un graph
 [^1]: selon le type de `geom` XXX sera soit un `color` (pour `geom_point` et `geom_line`) soit `fill` (pour les graphiques avec des zones à remplir comme `geom_area`).
 
 ```{r}
-
 p + 
 ofce::theme_ofce() + 
   scale_color_manual(values = c("darkred", "darkblue", "darkgreen"))
-
 ```
 
 Ou en reprenant la palette intégrée au package ofce qui intègre les couleurs définies dans la charte graphique.
 
 ```{r}
-
 p + 
 ofce::theme_ofce() + 
   scale_color_manual(values = ofce::ofce_palette(n=3))
-
 ```
 
 Pour le choix des couleurs de pays, il est également possible de passer par une fonction de type `scale_manual` dans le package `ofce` `scale_color_pays` qui intègre directement l'application des codes couleurs de la charte graphique en plus d'offrir des options supplémentaires en termes de labelling.
