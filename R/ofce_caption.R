@@ -68,7 +68,7 @@ ofce_caption <- function(source = NULL,
   if(!is.null(wrap)&!wrap==0) {
     wrapper <- function(x) stringr::str_wrap(x, width = wrap)
     linebr <- "<br>"
-    liner <- stringr::str_replace_all("\\n", linebrr)
+    liner <- stringr::str_replace_all("\\n", linebr)
   } else {
     wrapper <- function(x) x
     linebr <- "\n\n"
