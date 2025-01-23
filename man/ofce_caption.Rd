@@ -11,7 +11,7 @@ ofce_caption(
   champ = NULL,
   dpt = NULL,
   dptf = "month",
-  wrap = getOption("ofce.caption.wrap"),
+  wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
   lang = getOption("ofce.caption.lang"),
   ofce = getOption("ofce.caption.ofce"),
   author = getOption("ofce.caption.author")
@@ -24,12 +24,13 @@ ofce_caption(
 
 \item{lecture}{texte de la note de lecture (sans le mot lecture qui est rajouté)}
 
-\item{champ}{texte de le champ (sans le mot champ qui est rajouté)
-#' @param dpt dernier point connu}
+\item{champ}{texte de le champ (sans le mot champ qui est rajouté)}
+
+\item{dpt}{dernier point connu}
 
 \item{dptf}{fréquence du dernier point connu (day, month, quarter, year)}
 
-\item{wrap}{largeur du texte en charactères (120 charactères par défaut)}
+\item{wrap}{largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)}
 
 \item{lang}{langue des textes (fr par défaut)}
 

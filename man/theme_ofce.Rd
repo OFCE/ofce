@@ -7,7 +7,7 @@
 theme_ofce(
   base_size = getOption("ofce.base_size"),
   base_family = getOption("ofce.base_family"),
-  marquee = FALSE,
+  marquee = getOption("ofce.marquee"),
   ...
 )
 }

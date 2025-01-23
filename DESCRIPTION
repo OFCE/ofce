@@ -45,7 +45,7 @@ Imports:
     ggiraph
 License: CC BY 4.0
 Depends:
-    R (>= 2.10)
+    R (>= 4.2)
 Suggests:
     knitr,
     rmarkdown,
