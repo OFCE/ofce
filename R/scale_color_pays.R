@@ -15,7 +15,7 @@
 #' @export
 #'
 #'
-scale_color_pays <- function(format = "iso3",
+scale_color_pays <- function(format = NULL,
                              lang = "fr", name = NULL, aesthetics= c("color", "fill"), ...) {
 
   format <- case_match( format,
