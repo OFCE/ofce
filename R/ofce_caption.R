@@ -21,6 +21,7 @@ ofce_caption <- function(source = NULL,
                          note = NULL,
                          lecture = NULL,
                          champ = NULL,
+                         code = NULL,
                          dpt = NULL,
                          dptf = "month",
                          wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
@@ -50,7 +51,8 @@ ofce_caption <- function(source = NULL,
     auth <- ", calculs des auteurs"
     Auth <- "Calculs des auteurs"
     der <- ", dernier point connu : "
-    Der <- "*Dernier point connu* : "}
+    Der <- "*Dernier point connu* : "
+    cod <- "*Code* : "}
   else {
     lec <- "*Reading*: "
     src <- "*Source*: "
@@ -62,6 +64,7 @@ ofce_caption <- function(source = NULL,
     Auth <- "Authors' computation"
     der <- ", last known data point: "
     Der <- "*Last known data point*: "
+    cod <- "*Code*: "
   }
   caption <- ""
 
@@ -118,6 +121,16 @@ ofce_caption <- function(source = NULL,
         source <- stringr::str_c(source , ofc)
   }
 
+  if(length(code)>0) {
+    if(length(caption>0))
+      caption <- caption |> stringr::str_c(linebr)
+    addcaption <- stringr::str_c(cod, code) |>
+      wrapper() |>
+      liner()
+    caption <- caption |>
+      stringr::str_c(addcaption)
+  }
+
   if(length(source)>0) {
     if(length(caption>0))
       caption <- caption |> stringr::str_c(linebr)
@@ -136,6 +149,7 @@ ofce_caption <- function(source = NULL,
       caption <- caption |> stringr::str_c("liner", Der, dernier_point(dpt, dptf, lang)) else
         caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
   }
+
 
   ggplot2::labs(caption = caption)
 }
