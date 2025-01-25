@@ -28,13 +28,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
         hjust = 0,
         vjust = 0.5,
-        margin = ggplot2::margin(b=-6, t=0),
+        margin = ggplot2::margin(b= 0, t=0),
         lineheight = 1),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.75),
         hjust = 0,
-        margin = ggplot2::margin(b=0, t=-6),
+        margin = ggplot2::margin(b=0, t=0),
         lineheight = 1),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
