@@ -32,21 +32,21 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         lineheight = 1),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
           ofce_style, tag = "p",
-          margin = marquee::trbl(2, 0, 2, 0)),
-        size = ggplot2::rel(0.75),
+          margin = marquee::trbl(2, 0, 0, 0)),
+        size = ggplot2::rel(0.85),
         hjust = 0,
-        margin = ggplot2::margin(l = 0, t = 6),
+        margin = ggplot2::margin(l = 0, t = 6, b = 6),
         width = 0.99),
       strip.text = marquee::element_marquee(
         style = ofce_style,
-        size = ggplot2::rel(0.8),
+        size = ggplot2::rel(0.9),
         hjust = 0.5,
         vjust = 0.5,
         margin = margin(t=6, b=6)))
@@ -59,17 +59,17 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
       plot.subtitle = ggtext::element_markdown(
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
       plot.caption = ggtext::element_markdown(
-        size = ggplot2::rel(0.75),
+        size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
         lineheight = 1.25),
       strip.text = ggplot2::element_text(
-        size = ggplot2::rel(0.8),
+        size = ggplot2::rel(0.9),
         hjust = 0.5,
         vjust = 0.5,
         margin = ggplot2::margin(t=6, b=6)))
