@@ -28,14 +28,14 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
         hjust = 0,
         vjust = 0.5,
-        margin = ggplot2::margin(b= 0, t=0),
+        margin = ggplot2::margin(),
         lineheight = 1),
       axis.title = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.85),
         hjust = 1,
         vjust = 0.5,
-        margin = marquee::trbl(12, 0, 0, 12),
+        margin = ggplot2::margin(t=12, l=12),
         lineheight = 1),
       axis.text = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
@@ -46,13 +46,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         hjust = 1,
         vjust=0),
       axis.text.x = marquee::element_marquee(
-        margin=marquee::trbl(6, 0, 0, 0),
+        margin = ggplot2::margin(t=3),
         hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.85),
         hjust = 0,
-        margin = marquee::trbl(0, 0, 0, 0),
+        margin = ggplot2::margin(),
         lineheight = 1),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
@@ -60,14 +60,23 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
           margin = marquee::trbl(2, 0, 0, 0)),
         size = ggplot2::rel(0.85),
         hjust = 0,
-        margin = marquee::trbl(6, 0, 6, 0),
+        margin = ggplot2::margin(t=6,b=6),
         width = 0.99),
       strip.text = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.9),
         hjust = 0.5,
         vjust = 0.5,
-        margin = marquee::trbl(6, 0, 6, 0)))
+        margin = ggplot2::margin(t=6,b=6)),
+      legend.title = marquee::element_marquee(
+        size = ggplot2::rel(0.85),
+        color = "gray25",
+        margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
+      legend.text = ggplot2::element_text(
+        size = ggplot2::rel(0.5),
+        hjust=0.5,
+        color = "gray25")
+      )
   else
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
@@ -106,41 +115,44 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.9),
         hjust = 0.5,
         vjust = 0.5,
-        margin = ggplot2::margin(t=6, b=6)))
+        margin = ggplot2::margin(t=6, b=6)),
+      legend.text = ggplot2::element_text(
+        size = ggplot2::rel(0.75),
+        color = "gray25"),
+      legend.title = ggplot2::element_text(
+        size = ggplot2::rel(0.80),
+        color = "gray25")
+      )
 
   theme_foundation() +
     ggplot2::theme(
-      # general
+      text = ggplot2::element_text(
+        family = base_family,
+        size = base_size
+      ),
       plot.background = ggplot2::element_rect(fill="white"),
       rect = ggplot2::element_rect(
         fill = NA,
         colour = NA,
         linetype = 0),
-      # Text format:
-      text = ggplot2::element_text(
-        family = base_family,
-        size = base_size
-      ),
+
       plot.title.position = "panel",
       plot.margin = ggplot2::margin(b=6, t=6, l=2, r=2),
       plot.caption.position = "panel",
       # Legend format
       legend.justification= "center",
       legend.text.align = 0,
-      legend.title = ggplot2::element_text(
-        size = ggplot2::rel(0.80),
-        color = "gray25"),
       legend.background = element_blank(),
-      legend.text = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
-        color = "gray25"),
       legend.location = "plot",
       legend.position = "bottom",
       legend.direction = "horizontal",
       legend.key.height = unit(9, "pt"),
       legend.key.width = unit(9, "pt"),
       legend.key.size = unit(9, "pt"),
+      legend.spacing = unit(24, "pt"),
+      legend.key.spacing = unit(1, "pt"),
       legend.margin = ggplot2::margin(t=6, r=0, b=6, l=0),
+      legend.box.spacing = unit(6, "pt"),
       # #Axis format
       axis.ticks = element_line(
         color="gray25",
