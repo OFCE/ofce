@@ -31,28 +31,28 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b= 0, t=0),
         lineheight = 1),
       axis.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base"),
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.85),
         hjust = 1,
         vjust = 0.5,
-        margin = ggplot2::margin(b = 0, t=12, l = 12),
+        margin = marquee::trbl(12, 0, 0, 12),
         lineheight = 1),
       axis.text = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base"),
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.85),
-        color = "gray25",
+        colour = "gray25",
         lineheight = 1),
       axis.text.y = marquee::element_marquee(
         hjust = 1,
         vjust=0),
       axis.text.x = marquee::element_marquee(
-        margin=margin(t=6, b=0),
+        margin=marquee::trbl(6, 0, 0, 0),
         hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.85),
         hjust = 0,
-        margin = ggplot2::margin(b=0, t=0),
+        margin = marquee::trbl(0, 0, 0, 0),
         lineheight = 1),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
@@ -60,14 +60,14 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
           margin = marquee::trbl(2, 0, 0, 0)),
         size = ggplot2::rel(0.85),
         hjust = 0,
-        margin = ggplot2::margin(l = 0, t = 6, b = 6),
+        margin = marquee::trbl(6, 0, 6, 0),
         width = 0.99),
       strip.text = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.9),
         hjust = 0.5,
         vjust = 0.5,
-        margin = margin(t=6, b=6)))
+        margin = marquee::trbl(6, 0, 6, 0)))
   else
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
