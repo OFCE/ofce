@@ -31,12 +31,23 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b= 0, t=0),
         lineheight = 1),
       axis.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
-        size = ggplot2::rel(0.75),
+        style = marquee::modify_style(ofce_style, tag = "base"),
+        size = ggplot2::rel(0.85),
         hjust = 1,
         vjust = 0.5,
         margin = ggplot2::margin(b = 0, t=12, l = 12),
         lineheight = 1),
+      axis.text = marquee::element_marquee(
+        style = marquee::modify_style(ofce_style, tag = "base"),
+        size = ggplot2::rel(0.85),
+        color = "gray25",
+        lineheight = 1),
+      axis.text.y = marquee::element_marquee(
+        hjust = 1,
+        vjust=0),
+      axis.text.x = marquee::element_marquee(
+        margin=margin(t=6, b=0),
+        hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.85),
@@ -70,6 +81,17 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0),
         hjust = 1),
+      axis.text = ggplot2::element_text(
+        family = base_family,
+        size = ggplot2::rel(0.75)),
+      axis.text.y = ggplot2::element_text(
+        color = "gray25",
+        hjust = 1,
+        vjust=0),
+      axis.text.x = ggplot2::element_text(
+        color = "gray25",
+        margin=margin(t=6, b=0),
+        hjust = 0.5),
       plot.subtitle = ggtext::element_markdown(
         size = ggplot2::rel(0.85),
         hjust = 0,
@@ -120,17 +142,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.key.size = unit(9, "pt"),
       legend.margin = ggplot2::margin(t=6, r=0, b=6, l=0),
       # #Axis format
-      axis.text = ggplot2::element_text(
-        family = base_family,
-        size = ggplot2::rel(0.75)),
-      axis.text.y = ggplot2::element_text(
-        color = "gray25",
-        hjust = 1,
-        vjust=0),
-      axis.text.x = ggplot2::element_text(
-        color = "gray25",
-        margin=margin(t=6, b=0),
-        hjust = 0.5),
       axis.ticks = element_line(
         color="gray25",
         size = unit(0.2, "pt")),
