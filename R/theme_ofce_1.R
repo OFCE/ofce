@@ -74,7 +74,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
       legend.text = ggplot2::element_text(
         size = ggplot2::rel(0.5),
-        hjust=0.5,
+        hjust=0,
         color = "gray25")
       )
   else
