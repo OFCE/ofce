@@ -30,6 +30,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(b= 0, t=0),
         lineheight = 1),
+      axis.title = marquee::element_marquee(
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
+        size = ggplot2::rel(0.75),
+        hjust = 1,
+        vjust = 0.5,
+        margin = ggplot2::margin(b = 0, t=12, l = 12),
+        lineheight = 1),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.85),
@@ -58,6 +65,11 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
+      axis.title  = ggplot2::element_text(
+        size = ggplot2::rel(0.75),
+        color = "#222222",
+        margin = margin(t = 0, b=0, l= 0, r=0),
+        hjust = 1),
       plot.subtitle = ggtext::element_markdown(
         size = ggplot2::rel(0.85),
         hjust = 0,
@@ -108,13 +120,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.key.size = unit(9, "pt"),
       legend.margin = ggplot2::margin(t=6, r=0, b=6, l=0),
       # #Axis format
-      axis.title  = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
-        color = "#222222",
-        margin = margin(t = 0, b=0, l= 0, r=0)),
-      axis.title.x = element_text(
-        hjust=1),
-      axis.title.y = element_text(hjust=1),
       axis.text = ggplot2::element_text(
         family = base_family,
         size = ggplot2::rel(0.75)),
