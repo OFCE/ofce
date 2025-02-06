@@ -281,8 +281,6 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
       text = ggplot2::element_text(
         family=base_family,
         size = base_size),
-      axis.title = ggplot2::element_blank(),
-      axis.text = ggplot2::element_blank(),
       rect = ggplot2::element_rect(
         fill = NA,
         size = base_size,
@@ -299,6 +297,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
       legend.margin = ggplot2::margin(t=0, r=0, b=0, l=0),
       # #Axis format
       axis.title  = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
       axis.ticks = ggplot2::element_blank(),
       axis.line = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_blank(),
