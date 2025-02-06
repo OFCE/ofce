@@ -30,7 +30,7 @@ ofce_caption <- function(source = NULL,
                          lang = getOption("ofce.caption.lang"),
                          ofce = getOption("ofce.caption.ofce"),
                          author = getOption("ofce.caption.author"),
-                         marquee_translate = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.marquee_translate")),
+                         marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
                          glue = getOption("ofce.caption.glue")) {
 
   if(is.null(author)){author = FALSE}
