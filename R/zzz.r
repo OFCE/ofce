@@ -17,6 +17,8 @@
     ofce.caption.ofce = TRUE,
     ofce.caption.wrap = 100,
     ofce.caption.author = FALSE,
+    ofce.caption.marquee_translate = FALSE,
+    ofce.caption.glue = TRUE,
     ofce.caption.lang = "fr")
 
   toset <- !(names(op.ofce) %in% names(op))

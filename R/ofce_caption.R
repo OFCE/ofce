@@ -13,6 +13,8 @@
 #' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
 #' @param author (bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut
 #' @param lang langue des textes (fr par défaut)
+#' @param marquee_translate transforme ^x^ en {.sup x} et ~x~ en {.sub x}
+#' @param glue applique glue avant toute chose
 #'
 #' @return ggplot2 caption (ggplot() + ofce_caption("INSEE"))
 #' @export
@@ -27,19 +29,33 @@ ofce_caption <- function(source = NULL,
                          wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
                          lang = getOption("ofce.caption.lang"),
                          ofce = getOption("ofce.caption.ofce"),
-                         author = getOption("ofce.caption.author")) {
+                         author = getOption("ofce.caption.author"),
+                         marquee_translate = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.marquee_translate")),
+                         glue = getOption("ofce.caption.glue")) {
 
   if(is.null(author)){author = FALSE}
-
   env <- parent.frame()
+
+  transforme <- function(x) {
+    if(glue)
+      x <- glue::glue(x, .envir = env)
+    if(marquee_translate)
+      x <- x |>
+        stringr::str_replace_all("^(.)^","{.sup \\1}" ) |>
+        stringr::str_replace_all("~(.)~","{.sub \\1}" )
+    return(x)
+  }
+
   if(!is.null(source))
-    source <- glue::glue(source, .envir = env)
+    source <- transforme(source)
   if(!is.null(champ))
-    champ <- glue::glue(champ, .envir = env)
+    champ <- transforme(champ)
   if(!is.null(note))
-    note <- glue::glue(note, .envir = env)
+    note <- transforme(note)
   if(!is.null(lecture))
-    lecture <- glue::glue(lecture, .envir = env)
+    lecture <- transforme(lecture)
+  if(!is.null(code))
+    code <- transforme(code)
 
   if(lang=="fr") {
     lec <- "*Lecture* : "
