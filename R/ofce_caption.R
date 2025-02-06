@@ -41,7 +41,7 @@ ofce_caption <- function(source = NULL,
       x <- glue::glue(x, .envir = env)
     if(marquee_translate)
       x <- x |>
-        stringr::str_replace_all("^(.)^","{.sup \\1}" ) |>
+        stringr::str_replace_all("\\^(.)\\^","{.sup \\1}" ) |>
         stringr::str_replace_all("~(.)~","{.sub \\1}" )
     return(x)
   }
