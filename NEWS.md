@@ -1,3 +1,11 @@
+## OFCE 1.3.11
+
+* modification de ofce_caption (traduit marquee)
+
+## OFCE 1.3.10
+
+* ajustement de theme_ofce et theme_ofce_void
+
 ## OFCE 1.3.9
 
 * `marquee` passe en version 1.0, modification de `ofce_caption` pour en tenir compte (wrap = 0)

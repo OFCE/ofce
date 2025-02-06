@@ -9,7 +9,7 @@ on commence par la source, une note, et une lecture"><meta property="og:image" c
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ on commence par la source, une note, et une lecture"><meta property="og:image" c
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>fabricateur de source pour les graphiques</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ofce/ofce/blob/HEAD/R/ofce_caption.R" class="external-link"><code>R/ofce_caption.R</code></a></small>
+
       <div class="d-none name"><code>ofce_caption.Rd</code></div>
     </div>
 
@@ -65,12 +65,16 @@ on commence par la source, une note, et une lecture</p>
 <span>  note <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lecture <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  champ <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  code <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dpt <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dptf <span class="op">=</span> <span class="st">"month"</span>,</span>
 <span>  wrap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.marquee"</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.wrap"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  lang <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.lang"</span><span class="op">)</span>,</span>
 <span>  ofce <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.ofce"</span><span class="op">)</span>,</span>
-<span>  author <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.author"</span><span class="op">)</span></span>
+<span>  author <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.author"</span><span class="op">)</span>,</span>
+<span>  marquee_translate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.marquee"</span><span class="op">)</span>, <span class="cn">TRUE</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.marquee_translate"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  glue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.glue"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -116,6 +120,14 @@ on commence par la source, une note, et une lecture</p>
 
 <dt id="arg-author">author<a class="anchor" aria-label="anchor" href="#arg-author"></a></dt>
 <dd><p>(bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut</p></dd>
+
+
+<dt id="arg-marquee-translate">marquee_translate<a class="anchor" aria-label="anchor" href="#arg-marquee-translate"></a></dt>
+<dd><p>transforme ^x^ en .sup x et ~x~ en .sub x</p></dd>
+
+
+<dt id="arg-glue">glue<a class="anchor" aria-label="anchor" href="#arg-glue"></a></dt>
+<dd><p>applique glue avant toute chose</p></dd>
 
 </dl></div>
     <div class="section level2">

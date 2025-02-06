@@ -9,12 +9,16 @@ ofce_caption(
   note = NULL,
   lecture = NULL,
   champ = NULL,
+  code = NULL,
   dpt = NULL,
   dptf = "month",
   wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
   lang = getOption("ofce.caption.lang"),
   ofce = getOption("ofce.caption.ofce"),
-  author = getOption("ofce.caption.author")
+  author = getOption("ofce.caption.author"),
+  marquee_translate = ifelse(getOption("ofce.marquee"), TRUE,
+    getOption("ofce.caption.marquee_translate")),
+  glue = getOption("ofce.caption.glue")
 )
 }
 \arguments{
@@ -37,6 +41,10 @@ ofce_caption(
 \item{ofce}{(bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut}
 
 \item{author}{(bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut}
+
+\item{marquee_translate}{transforme ^x^ en {.sup x} et ~x~ en {.sub x}}
+
+\item{glue}{applique glue avant toute chose}
 }
 \value{
 ggplot2 caption (ggplot() + ofce_caption("INSEE"))
