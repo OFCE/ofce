@@ -214,24 +214,6 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(),
         lineheight = 1),
-      axis.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
-        size = ggplot2::rel(0.85),
-        hjust = 1,
-        vjust = 0.5,
-        margin = ggplot2::margin(t=12, l=12),
-        lineheight = 1),
-      axis.text = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
-        size = ggplot2::rel(0.85),
-        colour = "gray25",
-        lineheight = 1),
-      axis.text.y = marquee::element_marquee(
-        hjust = 1,
-        vjust=0),
-      axis.text.x = marquee::element_marquee(
-        margin = ggplot2::margin(t=3),
-        hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.85),
@@ -269,22 +251,6 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
-      axis.title  = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
-        color = "#222222",
-        margin = margin(t = 0, b=0, l= 0, r=0),
-        hjust = 1),
-      axis.text = ggplot2::element_text(
-        family = base_family,
-        size = ggplot2::rel(0.75)),
-      axis.text.y = ggplot2::element_text(
-        color = "gray25",
-        hjust = 1,
-        vjust=0),
-      axis.text.x = ggplot2::element_text(
-        color = "gray25",
-        margin=margin(t=6, b=0),
-        hjust = 0.5),
       plot.subtitle = ggtext::element_markdown(
         size = ggplot2::rel(0.85),
         hjust = 0,
@@ -315,6 +281,8 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
       text = ggplot2::element_text(
         family=base_family,
         size = base_size),
+      axis.title = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
       rect = ggplot2::element_rect(
         fill = NA,
         size = base_size,
