@@ -6,7 +6,10 @@
 #' @param source texte de la source (sans le mot source qui est rajouté)
 #' @param note texte de la note (sans le mot note qui est rajouté)
 #' @param lecture texte de la note de lecture (sans le mot lecture qui est rajouté)
-#' @param champ texte de le champ (sans le mot champ qui est rajouté)
+#' @param champ texte du champ (sans le mot champ qui est rajouté)
+#' @param code texte du code (sans le mot code qui est rajouté)
+#' @param xlab inclu le label de l'axe des x (pour le traduire avec marquee)
+#' @param ylab inclu le label de l'axe des y (pour le traduire avec marquee)
 #' @param dpt dernier point connu
 #' @param dptf fréquence du dernier point connu (day, month, quarter, year)
 #' @param wrap largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)
@@ -25,6 +28,8 @@ ofce_caption <- function(source = NULL,
                          champ = NULL,
                          code = NULL,
                          dpt = NULL,
+                         xlab = NULL,
+                         ylab = NULL,
                          dptf = "month",
                          wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
                          lang = getOption("ofce.caption.lang"),
@@ -36,9 +41,18 @@ ofce_caption <- function(source = NULL,
   if(is.null(author)){author = FALSE}
   env <- parent.frame()
 
+  protect_marquee <- function(x) {
+    x |>
+      stringr::str_replace_all("\\{\\.sup (.)\\}","{{.sup \\1}}") |>
+      stringr::str_replace_all("\\{\\.sub (.)\\}","{{.sub \\1}}")
+  }
+
   transforme <- function(x) {
     if(glue)
-      x <- glue::glue(x, .envir = env)
+      x <- x |>
+        protect_marquee() |>
+        glue::glue(x, .envir = env)
+
     if(marquee_translate)
       x <- x |>
         stringr::str_replace_all("\\^(.)\\^","{.sup \\1}" ) |>
@@ -56,6 +70,12 @@ ofce_caption <- function(source = NULL,
     lecture <- transforme(lecture)
   if(!is.null(code))
     code <- transforme(code)
+
+  if(!is.null(xlab))
+    xlab <- transforme(xlab)
+
+  if(!is.null(ylab))
+    ylab <- transforme(ylab)
 
   if(lang=="fr") {
     lec <- "*Lecture* : "
@@ -167,7 +187,13 @@ ofce_caption <- function(source = NULL,
   }
 
 
-  ggplot2::labs(caption = caption)
+  gplot <- list(ggplot2::labs(caption = caption))
+
+  if(!is.null(xlab))
+    gplot <- append(gplot, ggplot2::xlab(label = xlab) )
+  if(!is.null(ylab))
+    gplot <- append(gplot, ggplot2::ylab(label = ylab) )
+  return(gplot)
 }
 
 #' fabricateur de dernier point pour les sources de graphiques
