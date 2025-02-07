@@ -11,6 +11,8 @@ ofce_caption(
   champ = NULL,
   code = NULL,
   dpt = NULL,
+  xlab = NULL,
+  ylab = NULL,
   dptf = "month",
   wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
   lang = getOption("ofce.caption.lang"),
@@ -28,9 +30,15 @@ ofce_caption(
 
 \item{lecture}{texte de la note de lecture (sans le mot lecture qui est rajouté)}
 
-\item{champ}{texte de le champ (sans le mot champ qui est rajouté)}
+\item{champ}{texte du champ (sans le mot champ qui est rajouté)}
+
+\item{code}{texte du code (sans le mot code qui est rajouté)}
 
 \item{dpt}{dernier point connu}
+
+\item{xlab}{inclu le label de l'axe des x (pour le traduire avec marquee)}
+
+\item{ylab}{inclu le label de l'axe des y (pour le traduire avec marquee)}
 
 \item{dptf}{fréquence du dernier point connu (day, month, quarter, year)}
 

@@ -43,20 +43,20 @@ ofce_caption <- function(source = NULL,
 
   protect_marquee <- function(x) {
     x |>
-      stringr::str_replace_all("\\{\\.sup (.)\\}","{{.sup \\1}}") |>
-      stringr::str_replace_all("\\{\\.sub (.)\\}","{{.sub \\1}}")
+      stringr::str_replace_all("\\{\\.sup (.+)\\}","{{.sup \\1}}") |>
+      stringr::str_replace_all("\\{\\.sub (.+)\\}","{{.sub \\1}}")
   }
 
   transforme <- function(x) {
     if(glue)
       x <- x |>
         protect_marquee() |>
-        glue::glue(x, .envir = env)
+        glue::glue(.envir = env)
 
     if(marquee_translate)
       x <- x |>
-        stringr::str_replace_all("\\^(.)\\^","{.sup \\1}" ) |>
-        stringr::str_replace_all("~(.)~","{.sub \\1}" )
+        stringr::str_replace_all("\\^(.+)\\^","{.sup \\1}" ) |>
+        stringr::str_replace_all("~(.+)~","{.sub \\1}" )
     return(x)
   }
 
@@ -182,7 +182,7 @@ ofce_caption <- function(source = NULL,
 
   if(length(dpt)>0) {
     if(length(caption>0))
-      caption <- caption |> stringr::str_c("liner", Der, dernier_point(dpt, dptf, lang)) else
+      caption <- caption |> stringr::str_c(linebr, Der, dernier_point(dpt, dptf, lang)) else
         caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
   }
 
@@ -190,9 +190,9 @@ ofce_caption <- function(source = NULL,
   gplot <- list(ggplot2::labs(caption = caption))
 
   if(!is.null(xlab))
-    gplot <- append(gplot, ggplot2::xlab(label = xlab) )
+    gplot <- purrr::list_modify(gplot, ggplot2::xlab(label = xlab) )
   if(!is.null(ylab))
-    gplot <- append(gplot, ggplot2::ylab(label = ylab) )
+    gplot <- purrr::list_modify(gplot, ggplot2::ylab(label = ylab) )
   return(gplot)
 }
 

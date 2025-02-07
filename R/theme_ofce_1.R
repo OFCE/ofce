@@ -35,7 +35,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.85),
         hjust = 1,
         vjust = 0.5,
-        margin = ggplot2::margin(t=12, l=12),
+        margin = ggplot2::margin(t=6, r=6),
         lineheight = 1),
       axis.text = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
@@ -46,7 +46,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         hjust = 1,
         vjust=0),
       axis.text.x = marquee::element_marquee(
-        margin = ggplot2::margin(t=3),
+        margin = ggplot2::margin(t=3, b=0),
         hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
