@@ -105,7 +105,7 @@ ofce_caption <- function(source = NULL,
     cod <- "*Code*: "
   }
   if(!is.null(srcplus)) {
-    Srcp <- stringr::str_to_sentence(scrplus)
+    Srcp <- stringr::str_to_sentence(srcplus)
     srcp <- stringr::str_c(", ", srcplus)
   }
   caption <- ""
