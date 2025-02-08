@@ -115,7 +115,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         hjust = 1,
         vjust=0),
       axis.text.x = ggplot2::element_text(
-        margin = ggplot2::margin(t=3, b=0),
+        margin = ggplot2::margin(t=0, b=0),
         hjust = -0.25),
       plot.background = ggplot2::element_rect(fill="white"),
       rect = ggplot2::element_rect(
@@ -144,7 +144,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       axis.ticks = element_line(
         color="gray25",
         size = unit(0.2, "pt")),
-      axis.ticks.length.x = unit(-4,"pt"),
+      axis.ticks.length.x = unit(4,"pt"),
       axis.ticks.length.y = unit(-4,"pt"),
       axis.minor.ticks.length = rel(0.25),
       axis.line = element_line(
