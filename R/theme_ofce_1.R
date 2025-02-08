@@ -37,15 +37,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(t=6, r=6),
         lineheight = 1),
-      axis.text = ggplot2::element_text(
-        size = ggplot2::rel(0.85),
-        colour = "gray25"),
-      axis.text.y = ggplot2::element_text(
-        hjust = 1,
-        vjust=0),
-      axis.text.x = ggplot2::element_text(
-        margin = ggplot2::margin(t=3, b=0),
-        hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = ofce_style,
         size = ggplot2::rel(0.85),
@@ -88,17 +79,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0),
         hjust = 1),
-      axis.text = ggplot2::element_text(
-        family = base_family,
-        size = ggplot2::rel(0.75)),
-      axis.text.y = ggplot2::element_text(
-        color = "gray25",
-        hjust = 1,
-        vjust=0),
-      axis.text.x = ggplot2::element_text(
-        color = "gray25",
-        margin=margin(t=6, b=0),
-        hjust = 0.5),
       plot.subtitle = ggtext::element_markdown(
         size = ggplot2::rel(0.85),
         hjust = 0,
@@ -128,6 +108,15 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         family = base_family,
         size = base_size
       ),
+      axis.text = ggplot2::element_text(
+        size = ggplot2::rel(0.85),
+        colour = "gray25"),
+      axis.text.y = ggplot2::element_text(
+        hjust = 1,
+        vjust=0),
+      axis.text.x = ggplot2::element_text(
+        margin = ggplot2::margin(t=3, b=0),
+        hjust = -0.25),
       plot.background = ggplot2::element_rect(fill="white"),
       rect = ggplot2::element_rect(
         fill = NA,
@@ -155,9 +144,9 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       axis.ticks = element_line(
         color="gray25",
         size = unit(0.2, "pt")),
-      axis.ticks.length.x = unit(-3,"pt"),
-      axis.ticks.length.y = unit(-3,"pt"),
-      axis.minor.ticks.length = rel(0.5),
+      axis.ticks.length.x = unit(-4,"pt"),
+      axis.ticks.length.y = unit(-4,"pt"),
+      axis.minor.ticks.length = rel(0.25),
       axis.line = element_line(
         colour = "gray40",
         size = unit(0.2, "pt"),
