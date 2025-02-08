@@ -15,6 +15,7 @@
 #' @param wrap largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)
 #' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
 #' @param author (bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut
+#' @param srcplus (string) chaine (comme calculs OFCE) à ajouter à source (à la fin)
 #' @param lang langue des textes (fr par défaut)
 #' @param marquee_translate transforme ^x^ en {.sup x} et ~x~ en {.sub x}
 #' @param glue applique glue avant toute chose
@@ -35,6 +36,7 @@ ofce_caption <- function(source = NULL,
                          lang = getOption("ofce.caption.lang"),
                          ofce = getOption("ofce.caption.ofce"),
                          author = getOption("ofce.caption.author"),
+                         srcplus = NULL,
                          marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
                          glue = getOption("ofce.caption.glue")) {
 
@@ -82,10 +84,10 @@ ofce_caption <- function(source = NULL,
     src <- "*Source* : "
     chp <- "*Champ* : "
     not <- "*Note* : "
-    Ofc <- "Calculs OFCE"
-    ofc <- ", calculs OFCE"
-    auth <- ", calculs des auteurs"
-    Auth <- "Calculs des auteurs"
+    if(is.null(srcplus)) {
+      if(ofce) srcplus <- "calculs OFCE"
+      if(author) srcplus <- "calculs des auteurs"
+    }
     der <- ", dernier point connu : "
     Der <- "*Dernier point connu* : "
     cod <- "*Code* : "}
@@ -94,13 +96,17 @@ ofce_caption <- function(source = NULL,
     src <- "*Source*: "
     chp <- "*Scope*: "
     not <- "*Note*: "
-    Ofc <- "Computations by OFCE"
-    ofc <- ", computations by OFCE"
-    auth <- ", authors' computation"
-    Auth <- "Authors' computation"
+    if(is.null(srcplus)) {
+      if(ofce) srcplus <- "OFCE's computations"
+      if(author) srcplus <- "authors' computation"
+    }
     der <- ", last known data point: "
     Der <- "*Last known data point*: "
     cod <- "*Code*: "
+  }
+  if(!is.null(srcplus)) {
+    Srcp <- stringr::str_to_sentence(scrplus)
+    srcp <- stringr::str_c(", ", srcplus)
   }
   caption <- ""
 
@@ -143,18 +149,10 @@ ofce_caption <- function(source = NULL,
       stringr::str_c(addcaption)
   }
 
-  if(author) {
-    ofce <- FALSE
-
+  if(!is.null(srcplus)) {
     if(length(source)==0)
-      source <- Auth else
-        source <- stringr::str_c(source , auth)
-  }
-
-  if(ofce) {
-    if(length(source)==0)
-      source <- Ofc else
-        source <- stringr::str_c(source , ofc)
+      source <- Srcp else
+        source <- stringr::str_c(source , srcp)
   }
 
   if(length(code)>0) {

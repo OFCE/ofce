@@ -18,6 +18,7 @@ ofce_caption(
   lang = getOption("ofce.caption.lang"),
   ofce = getOption("ofce.caption.ofce"),
   author = getOption("ofce.caption.author"),
+  srcplus = NULL,
   marquee_translate = ifelse(getOption("ofce.marquee"), TRUE,
     getOption("ofce.caption.marquee_translate")),
   glue = getOption("ofce.caption.glue")
@@ -49,6 +50,8 @@ ofce_caption(
 \item{ofce}{(bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut}
 
 \item{author}{(bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut}
+
+\item{srcplus}{(string) chaine (comme calculs OFCE) à ajouter à source (à la fin)}
 
 \item{marquee_translate}{transforme ^x^ en {.sup x} et ~x~ en {.sub x}}
 
