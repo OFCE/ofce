@@ -182,8 +182,11 @@ ofce_caption <- function(source = NULL,
 
   if(length(dpt)>0) {
     if(length(caption>0))
-      caption <- caption |> stringr::str_c(linebr, Der, dernier_point(dpt, dptf, lang)) else
-        caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
+      caption <- caption |>
+        stringr::str_c(linebr) |>
+        stringr::str_c(Der, dernier_point(dpt, dptf, lang))
+    else
+      caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
   }
 
 
