@@ -15,6 +15,7 @@
     ofce.source_data.wd = "file",
     ofce.source_data.unfreeze = FALSE,
     ofce.caption.ofce = TRUE,
+    ofce.caption.srcplus = NULL,
     ofce.caption.wrap = 100,
     ofce.caption.author = FALSE,
     ofce.caption.marquee_translate = FALSE,
