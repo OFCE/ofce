@@ -36,7 +36,7 @@ ofce_caption <- function(source = NULL,
                          lang = getOption("ofce.caption.lang"),
                          ofce = getOption("ofce.caption.ofce"),
                          author = getOption("ofce.caption.author"),
-                         srcplus = getOption("ofce.caption.srcplus"),,
+                         srcplus = getOption("ofce.caption.srcplus"),
                          marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
                          glue = getOption("ofce.caption.glue")) {
 
