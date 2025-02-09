@@ -68,7 +68,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.5),
         hjust=0,
         color = "gray25")
-      )
+    )
   else
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
@@ -103,7 +103,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.title = ggplot2::element_text(
         size = ggplot2::rel(0.80),
         color = "gray25")
-      )
+    )
 
   theme_foundation() +
     ggplot2::theme(
@@ -197,45 +197,46 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
     header_font = base_family,
     code_font = "Fira Code")
 
-  ggplot2::theme(
-    plot.title = marquee::element_marquee(
-      style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
-      hjust = 0,
-      vjust = 0.5,
-      margin = ggplot2::margin(),
-      lineheight = 1),
-    plot.subtitle = marquee::element_marquee(
-      style = ofce_style,
-      size = ggplot2::rel(0.85),
-      hjust = 0,
-      margin = ggplot2::margin(),
-      lineheight = 1),
-    plot.caption = marquee::element_marquee(
-      style = marquee::modify_style(
-        ofce_style, tag = "p",
-        padding = marquee::trbl(0, 0, 0, 0),
-        hanging = marquee::em(0.5),
-        margin = marquee::trbl(0, 0, 0, 0),
-        lineheight = 0.9),
-      size = ggplot2::rel(0.85),
-      hjust = 0,
-      margin = ggplot2::margin(t=6,b=6),
-      width = 0.99),
-    strip.text = marquee::element_marquee(
-      style = ofce_style,
-      size = ggplot2::rel(0.9),
-      hjust = 0.5,
-      vjust = 0.5,
-      margin = ggplot2::margin(t=6,b=6)),
-    legend.title = marquee::element_marquee(
-      size = ggplot2::rel(0.85),
-      color = "gray25",
-      margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
-    legend.text = ggplot2::element_text(
-      size = ggplot2::rel(0.5),
-      hjust=0,
-      color = "gray25")
-  )
+  theme_text <- if(marquee)
+    ggplot2::theme(
+      plot.title = marquee::element_marquee(
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
+        hjust = 0,
+        vjust = 0.5,
+        margin = ggplot2::margin(),
+        lineheight = 1),
+      plot.subtitle = marquee::element_marquee(
+        style = ofce_style,
+        size = ggplot2::rel(0.85),
+        hjust = 0,
+        margin = ggplot2::margin(),
+        lineheight = 1),
+      plot.caption = marquee::element_marquee(
+        style = marquee::modify_style(
+          ofce_style, tag = "p",
+          padding = marquee::trbl(0, 0, 0, 0),
+          hanging = marquee::em(0.5),
+          margin = marquee::trbl(0, 0, 0, 0),
+          lineheight = 0.9),
+        size = ggplot2::rel(0.85),
+        hjust = 0,
+        margin = ggplot2::margin(t=6,b=6),
+        width = 0.99),
+      strip.text = marquee::element_marquee(
+        style = ofce_style,
+        size = ggplot2::rel(0.9),
+        hjust = 0.5,
+        vjust = 0.5,
+        margin = ggplot2::margin(t=6,b=6)),
+      legend.title = marquee::element_marquee(
+        size = ggplot2::rel(0.85),
+        color = "gray25",
+        margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
+      legend.text = ggplot2::element_text(
+        size = ggplot2::rel(0.5),
+        hjust=0,
+        color = "gray25")
+    )
   else
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
