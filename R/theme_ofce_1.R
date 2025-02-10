@@ -113,7 +113,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = base_size
       ),
       axis.text = ggplot2::element_text(
-        size = ggplot2::rel(0.85),
+        size = ggplot2::rel(0.8),
         colour = "gray25"),
       axis.text.y = ggplot2::element_text(
         hjust = 1,
