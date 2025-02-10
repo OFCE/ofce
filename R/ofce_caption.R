@@ -191,9 +191,10 @@ ofce_caption <- function(source = NULL,
   gplot <- list(ggplot2::labs(caption = caption))
 
   if(!is.null(xlab))
-    gplot <- purrr::list_modify(gplot, ggplot2::xlab(label = xlab) )
+    gplot <- rlist::list.append(gplot, ggplot2::xlab(label = xlab) )
   if(!is.null(ylab))
-    gplot <- purrr::list_modify(gplot, ggplot2::ylab(label = ylab) )
+    gplot <- rlist::list.append(gplot, ggplot2::ylab(label = ylab) )
+
   return(gplot)
 }
 

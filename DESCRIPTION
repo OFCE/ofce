@@ -31,6 +31,7 @@ Imports:
     purrr,
     quarto,
     rlang,
+    rlist,
     rstudioapi,
     scales,
     showtext,
