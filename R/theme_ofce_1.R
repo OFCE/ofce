@@ -119,7 +119,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         hjust = 1,
         vjust=0),
       axis.text.x = ggplot2::element_text(
-        margin = ggplot2::margin(t=0, b=0),
+        margin = ggplot2::margin(t=2, b=0),
         hjust = 0.5),
       plot.background = ggplot2::element_rect(fill="white"),
       rect = ggplot2::element_rect(
@@ -128,7 +128,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         linetype = 0),
 
       plot.title.position = "panel",
-      plot.margin = ggplot2::margin(b=6, t=6, l=2, r=2),
+      plot.margin = ggplot2::margin(b=6, t=6, l=6, r=6),
       plot.caption.position = "panel",
       # Legend format
       legend.text.align = 0,
@@ -280,7 +280,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         colour = NA,
         linetype = 0),
       plot.title.position = "panel",
-      plot.margin = ggplot2::margin(b=2, t=2, l=2, r=2),
+      plot.margin = ggplot2::margin(b=0, t=0, l=0, r=0),
       plot.caption.position = "plot",
       #Legend format
       legend.text.align = 0,
