@@ -64,7 +64,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.85),
         color = "gray25",
         margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
-      legend.text = ggplot2::element_text(
+      legend.text = marquee::element_marquee(
         size = ggplot2::rel(0.5),
         hjust=0,
         color = "gray25")
@@ -139,9 +139,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.key.height = unit(9, "pt"),
       legend.key.width = unit(9, "pt"),
       legend.key.size = unit(9, "pt"),
-      legend.spacing = unit(24, "pt"),
-      legend.key.spacing = unit(1, "pt"),
-      legend.margin = ggplot2::margin(t=6, r=0, b=6, l=0),
+      legend.key.spacing = unit(3, "pt"),
+      legend.margin = ggplot2::margin(t=0, r=0, b=0, l=0),
       legend.box.spacing = unit(6, "pt"),
       # #Axis format
       axis.ticks = element_line(
