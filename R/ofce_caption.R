@@ -187,7 +187,6 @@ ofce_caption <- function(source = NULL,
       caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
   }
 
-
   gplot <- list(ggplot2::labs(caption = caption))
 
   if(!is.null(xlab))
