@@ -74,8 +74,8 @@ Il y a d'autres exemples dans le cahier de graphiques et les codes sont copiable
 
 gt <- function(x, na.rm = FALSE) (100*(x/lag(x,1)-1))
 ga <- function(x, na.rm = FALSE) (100*(x/lag(x,4)-1))
-
-data_gpib <- read_excel("data_pays.xlsx", sheet = "pib", col_names = TRUE) |>
+data_pays <- fs::path_package("ofce", "extdata/data_pays.xlsx")
+data_gpib <- read_excel(data_pays, sheet = "pib", col_names = TRUE) |>
   mutate(date = as.Date(date)+ days(45)) %>%
   mutate(across(c(usa, euz, deu, fra , ita, esp, gbr, jpn), ~gt(.x))) |>
   pivot_longer(cols=-date, names_to= "pays", values_to = "value")  |>
@@ -84,7 +84,7 @@ data_gpib <- read_excel("data_pays.xlsx", sheet = "pib", col_names = TRUE) |>
     long = pays_long[toupper(pays)],
     tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>croissance trimestrielle du PIB : {round(value,1)}%"))
 
-data_tcho <- read_excel("data_pays.xlsx", sheet = "tcho", col_names = TRUE) |>
+data_tcho <- read_excel(data_pays, sheet = "tcho", col_names = TRUE) |>
   mutate(date = as.Date(date)+ days(45)) |>
   pivot_longer(cols=-date, names_to="pays", values_to = "value") |>
   mutate(
@@ -92,7 +92,7 @@ data_tcho <- read_excel("data_pays.xlsx", sheet = "tcho", col_names = TRUE) |>
     long = pays_long[toupper(pays)],
     tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Taux de chômage : {round(value,1)}% de la population active"))
 
-data_prix <- read_excel("data_pays.xlsx", sheet = "prix", col_names = TRUE) |>
+data_prix <- read_excel(data_pays, sheet = "prix", col_names = TRUE) |>
   mutate(date = as.Date(date) + days(45)) %>%
   mutate_at(c("usa", "euz","deu","fra","ita","esp","gbr","jpn"), list(~ga(.))) |>
   pivot_longer(cols=-date, names_to="pays", values_to = "value") |>
@@ -101,7 +101,7 @@ data_prix <- read_excel("data_pays.xlsx", sheet = "prix", col_names = TRUE) |>
     long = pays_long[toupper(pays)],
     tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Glissement annuel des prix : {round(value,1)}%"))
 
-data_solde <- read_excel("data_pays.xlsx", sheet = "solde", col_names = TRUE) |>
+data_solde <- read_excel(data_pays, sheet = "solde", col_names = TRUE) |>
   mutate(date = as.Date(date) -days(15))|>
   pivot_longer(cols=-c("date"), names_to="pays", values_to = "value") %>%
   mutate(value=as.numeric(value)) |>
