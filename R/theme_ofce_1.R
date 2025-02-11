@@ -31,14 +31,14 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(),
         lineheight = 1),
       axis.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "light"),
         size = ggplot2::rel(0.85),
         hjust = 1,
         vjust = 0.5,
         margin = ggplot2::margin(t=6, r=6),
         lineheight = 1),
       plot.subtitle = marquee::element_marquee(
-        style = ofce_style,
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "light"),
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(),
@@ -57,17 +57,18 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(t=3,b=6),
         width = 0.99),
       strip.text = marquee::element_marquee(
-        style = ofce_style,
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.9),
         hjust = 0.5,
         vjust = 0.5,
         margin = ggplot2::margin(t=6,b=6)),
       legend.title = marquee::element_marquee(
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.85),
         color = "gray25",
         margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
       legend.text = ggplot2::element_text(
-        size = ggplot2::rel(0.5),
+        size = ggplot2::rel(0.6),
         hjust=0,
         color = "gray25")
     )
