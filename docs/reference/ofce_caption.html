@@ -31,10 +31,11 @@ on commence par la source, une note, et une lecture"><meta property="og:image" c
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-tutoriaux" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Tutoriaux</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-tutoriaux"><li><a class="dropdown-item" href="../articles/charte_graphique.html">Charte Graphique</a></li>
     <li><a class="dropdown-item" href="../articles/temporelles.html">Séries temporelles</a></li>
-    <li><a class="dropdown-item" href="../ar%20%20%20%20ticles/xy.html">Graphiques XY</a></li>
+    <li><a class="dropdown-item" href="../articles/xy.html">Graphiques XY</a></li>
     <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
     <li><a class="dropdown-item" href="../articles/distributions.html">Distributions</a></li>
     <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
+    <li><a class="dropdown-item" href="../articles/prevision.html">Un graphique de prévision</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -67,11 +68,14 @@ on commence par la source, une note, et une lecture</p>
 <span>  champ <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  code <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dpt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dptf <span class="op">=</span> <span class="st">"month"</span>,</span>
 <span>  wrap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.marquee"</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.wrap"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  lang <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.lang"</span><span class="op">)</span>,</span>
 <span>  ofce <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.ofce"</span><span class="op">)</span>,</span>
 <span>  author <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.author"</span><span class="op">)</span>,</span>
+<span>  srcplus <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  marquee_translate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.marquee"</span><span class="op">)</span>, <span class="cn">TRUE</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.marquee_translate"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  glue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.caption.glue"</span><span class="op">)</span></span>
@@ -95,11 +99,23 @@ on commence par la source, une note, et une lecture</p>
 
 
 <dt id="arg-champ">champ<a class="anchor" aria-label="anchor" href="#arg-champ"></a></dt>
-<dd><p>texte de le champ (sans le mot champ qui est rajouté)</p></dd>
+<dd><p>texte du champ (sans le mot champ qui est rajouté)</p></dd>
+
+
+<dt id="arg-code">code<a class="anchor" aria-label="anchor" href="#arg-code"></a></dt>
+<dd><p>texte du code (sans le mot code qui est rajouté)</p></dd>
 
 
 <dt id="arg-dpt">dpt<a class="anchor" aria-label="anchor" href="#arg-dpt"></a></dt>
 <dd><p>dernier point connu</p></dd>
+
+
+<dt id="arg-xlab">xlab<a class="anchor" aria-label="anchor" href="#arg-xlab"></a></dt>
+<dd><p>inclu le label de l'axe des x (pour le traduire avec marquee)</p></dd>
+
+
+<dt id="arg-ylab">ylab<a class="anchor" aria-label="anchor" href="#arg-ylab"></a></dt>
+<dd><p>inclu le label de l'axe des y (pour le traduire avec marquee)</p></dd>
 
 
 <dt id="arg-dptf">dptf<a class="anchor" aria-label="anchor" href="#arg-dptf"></a></dt>
@@ -120,6 +136,10 @@ on commence par la source, une note, et une lecture</p>
 
 <dt id="arg-author">author<a class="anchor" aria-label="anchor" href="#arg-author"></a></dt>
 <dd><p>(bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut</p></dd>
+
+
+<dt id="arg-srcplus">srcplus<a class="anchor" aria-label="anchor" href="#arg-srcplus"></a></dt>
+<dd><p>(string) chaine (comme calculs OFCE) à ajouter à source (à la fin)</p></dd>
 
 
 <dt id="arg-marquee-translate">marquee_translate<a class="anchor" aria-label="anchor" href="#arg-marquee-translate"></a></dt>

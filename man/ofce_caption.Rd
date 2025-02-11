@@ -18,7 +18,7 @@ ofce_caption(
   lang = getOption("ofce.caption.lang"),
   ofce = getOption("ofce.caption.ofce"),
   author = getOption("ofce.caption.author"),
-  srcplus = NULL,
+  srcplus = getOption("ofce.caption.srcplus"),
   marquee_translate = ifelse(getOption("ofce.marquee"), TRUE,
     getOption("ofce.caption.marquee_translate")),
   glue = getOption("ofce.caption.glue")

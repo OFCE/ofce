@@ -9,13 +9,14 @@ articles:
   distributions: distributions.html
   graphiques: graphiques.html
   outils: outils.html
+  prevision: prevision.html
   quarto: quarto.html
   semio: semio.html
   site: site.html
   tableaux: tableaux.html
   temporelles: temporelles.html
   xy: xy.html
-last_built: 2025-02-06T17:16Z
+last_built: 2025-02-11T14:56Z
 urls:
   reference: https://ofce.github.io/ofce/reference
   article: https://ofce.github.io/ofce/articles

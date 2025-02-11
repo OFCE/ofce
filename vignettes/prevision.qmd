@@ -1,0 +1,120 @@
+---
+title: "Séries temporelles II : le cas des graphiques de prévision"
+vignette: >
+  %\VignetteIndexEntry{Séries temporelles}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+
+format:
+  html:
+    code-fold: true
+    code-summary: "code"
+
+echo: true
+message: false
+warning: false
+---
+
+```{r}
+#| include: false
+ofce::init_qmd()
+```
+
+## Les graphiques de prévision
+
+Le but est d'homogénéiser le plus possible les graphiques présents dans les textes de prévisions. Les consignes s'appliquent surtout aux graphiques en série temporelle, avec une fréquence de données trimestrielle. Les consignes sont quasi obligatoires (i.e. obligatoires sauf très bonne raison).
+
+1.  On suit d'abord les consignes qui valent pour les graphiques de [séries temporelles](articles/temporelles.html)
+
+    1.  `theme_ofce()`,
+
+    2.  format `<date>`, et on appelle sa colonne d'index temporel `time` ; les dates sont au format quotidien (`"2024-01-31"`) par exemple. Par convention, on note les données trimestrielles `"yyyy-[01; 04; 07; 10]-01"` et les années au premier janvier (mais voir plus bas pour une nuance importante).
+
+    3.  `scale_ofce_date()`,
+
+    4.  On utilise les options pour le `geom_point_interactive(linewidth=0.5, shape=21, stroke=0.25, col="white"`)
+
+    5.  Chaque .`qmd` doit commencer par un chunk `r` qui est formaté comme suit -- cette instruction charge les packages nécessaires, définit des options par défaut et ajoute quelques fonctions utiles :
+
+```{{r}}
+#| include: false
+ofce::init_qmd()
+```
+
+2.  On évite les graphiques spaghetti, double échelle. On privilégie les `facets` et si possible on répète en gris clair les données des autres `facets` pour permettre la comparaison.
+
+3.  On place la légende, dans la mesure du possible, dans le graphique. Dans la mesure du possible, on met la légende sous forme de labels.
+
+4.  On indique, lorsque c'est pertinent, la période de prévision par un grisé et en utilisant la fonction `annotate_prevision(posy = y)`, où `y` est la coordonnée à laquelle on veut que le texte "prévisions" s'affiche (si `size=0` il n'y aura pas de texte). On n'utilise pas d'autres moyens pour indiquer les prévisions (par exemple des pointillés).
+
+5.  On rend le graphique interactif, en utilisant `girafy` et :
+
+    1.  avec un `geom_point_interactive(aes(tooltip=tooltip, data_id = time))` – et donc pas d'autres éléments interactifs sauf si nécessaire (notamment les barres),
+
+    2.  en construisant un `tooltip` le plus signifiant possible,
+
+    3.  en mettant à disposition les données avec un `margin_download()`,
+
+6.  On utilise `ofce::ofce_caption()` afin de normaliser l'aspect et la présentation des notes de graphique. `ofce_caption()` permet de spécifier la source, les notes, les indications de lecture, le champ, le lien vers le code, un texte comme "prévisions OFCE 2025" systématique, etc... (reportez vous à l'aide de cette fonction qui est dans le package `{ofce}`).
+
+7.  On met le code du graphique (le `ggplot`, etc...) dans le `.qmd` qui contient le texte. Cela permet d'éditer les textes, d'un côté, et de normaliser les présentations, de l'autre. La construction du tooltip est aussi plutôt à ce niveau. En revanche, le code de construction est mis dans un fichier `.r` joint dont le nom est simple, signifiant, en minuscule et qui est enregistré au même niveau que le `.qmd` ou en dessous. On utilise `source_data` pour éviter de bloquer le fonctionnement de la compilation des qmd – **c'est donc important**.
+
+Chacun de ces éléments est détaillés et avec des exemples de codes ci-dessous.
+
+## Un exemple de graphique
+
+L'exemple de graphique est celui qui apparaît sur toutes les fiches et la partie France en début de texte. Les données sont stockées dans un fichier excel, ce qui est une pratique qui devra disparaître, mais bon... Le code original se trouve dans le répertoire d'une prévision (`fiches/data_pays.R`). Il est ici un peu simplifié, parce que `data_pays.R` produit une fonction qui prend comme paramètre le pays qu'on veut afficher. C'est donc le même code pour tous les pays.
+
+Il y a d'autres exemples dans le cahier de graphiques et les codes sont copiables directement.
+
+### Chargement des données et *tooltip*
+
+```{r}
+#| echo: fenced
+
+gt <- function(x, na.rm = FALSE) (100*(x/lag(x,1)-1))
+ga <- function(x, na.rm = FALSE) (100*(x/lag(x,4)-1))
+
+data_gpib <- read_excel("data_pays.xlsx", sheet = "pib", col_names = TRUE) |>
+  mutate(date = as.Date(date)+ days(45)) %>%
+  mutate(across(c(usa, euz, deu, fra , ita, esp, gbr, jpn), ~gt(.x))) |>
+  pivot_longer(cols=-date, names_to= "pays", values_to = "value")  |>
+  mutate(
+    variable = "Croissance du PIB",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>croissance trimestrielle du PIB : {round(value,1)}%"))
+
+data_tcho <- read_excel("data_pays.xlsx", sheet = "tcho", col_names = TRUE) |>
+  mutate(date = as.Date(date)+ days(45)) |>
+  pivot_longer(cols=-date, names_to="pays", values_to = "value") |>
+  mutate(
+    variable = "Chômage",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Taux de chômage : {round(value,1)}% de la population active"))
+
+data_prix <- read_excel("data_pays.xlsx", sheet = "prix", col_names = TRUE) |>
+  mutate(date = as.Date(date) + days(45)) %>%
+  mutate_at(c("usa", "euz","deu","fra","ita","esp","gbr","jpn"), list(~ga(.))) |>
+  pivot_longer(cols=-date, names_to="pays", values_to = "value") |>
+  mutate(
+    variable = "Inflation (prix à la consommation)",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Glissement annuel des prix : {round(value,1)}%"))
+
+data_solde <- read_excel("data_pays.xlsx", sheet = "solde", col_names = TRUE) |>
+  mutate(date = as.Date(date) -days(15))|>
+  pivot_longer(cols=-c("date"), names_to="pays", values_to = "value") %>%
+  mutate(value=as.numeric(value)) |>
+  mutate(
+    date = date,
+    variable = "Solde public (APU)",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{year(date)} (fin d'année)<br>Solde des administrations publiques : {round(value,1)}%"))
+
+data <- bind_rows(data_gpib, data_tcho, data_prix, data_solde) |>
+  filter(date > "2020-12-31") |>
+  mutate(variable = factor(
+    variable,
+    c("Croissance du PIB", "Chômage", "Inflation (prix à la consommation)", "Solde public (APU)" )))
+
+```

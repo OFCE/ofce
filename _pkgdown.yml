@@ -53,10 +53,13 @@ navbar:
         - text: Séries temporelles
           href: articles/temporelles.html
         - text: Graphiques XY
-          href: ar    ticles/xy.html
+          href: articles/xy.html
         - text: Barres empilées, wafle, treemap, lollypop
           href: articles/categories.html
         - text: Distributions
           href: articles/distributions.html
         - text: Cartes
           href: articles/cartes.html
+        - text: Un graphique de prévision
+          href: articles/prevision.html
+
