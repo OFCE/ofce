@@ -376,7 +376,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #' @export
 #'
 
-init_qmd <- function(init = "rinit.r") {
+init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE) {
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   if(is.null(root$error)) {
@@ -393,6 +393,10 @@ init_qmd <- function(init = "rinit.r") {
         return(invisible(i))
       }
   }
+
+  _message <- message
+  _warning <- warning
+  _echo <- echo
   if(file.exists(fs::path_package("ofce", "rinit.r"))) {
     source(fs::path_package("ofce", "rinit.r"),
            echo = FALSE, verbose = FALSE, local = .GlobalEnv)

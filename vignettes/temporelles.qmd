@@ -10,7 +10,7 @@ format:
     code-fold: true
     code-summary: "code"
 
-echo: fenced
+echo: true
 message: false
 warning: false
 ---

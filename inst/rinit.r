@@ -6,9 +6,9 @@ opts_chunk$set(
   dev.args = list(bg = "transparent"),
   out.width="100%",
   fig.showtext=TRUE,
-  message = FALSE,
-  warning = FALSE,
-  echo = FALSE)
+  message = _message,
+  warning = _warning,
+  echo = _echo)
 
 
 ## Checking rinit packages installation
@@ -51,8 +51,13 @@ rm(load,not_installed_CRAN,rinit_packages)
 ####
 options(
   ofce.base_size = 12,
-  ofce.background_color = "transparent")
-showtext_opts(dpi = 92)
+  ofce.background_color = "transparent",
+  ofce.source_data.src_in = "project",
+  ofce.caption.ofce = FALSE,
+  ofce.marquee = TRUE,
+  ofce.caption.srcplus = NULL,
+  ofce.caption.wrap = 0)
+showtext_opts(dpi = 120)
 showtext_auto()
 
 tooltip_css  <-
@@ -68,6 +73,34 @@ tooltip_css  <-
   r:20px;"
 
 gdtools::register_gfont("Open Sans")
+
+margin_download <- function(data, output_name = "donnees", label = "données") {
+  if(knitr::is_html_output()) {
+    if(lobstr::obj_size(data)> 1e+5)
+      cli::cli_alert("la taille de l'objet est supérieure à 100kB")
+    fn <- tolower(output_name)
+    downloadthis::download_this(
+      data,
+      icon = "fa fa-download",
+      class = "dbtn",
+      button_label  = label,
+      output_name = fn)
+  } else
+    return(invisible(NULL))
+}
+
+margin_link <- function(data, output_name = "donnees", label = "données") {
+  if(knitr::is_html_output()) {
+    link <- stringr::str_c("dnwld/", output_name, ".csv")
+    vroom::vroom_write(data, link, delim = ";")
+    downloadthis::download_link(
+      link,
+      icon = "fa fa-download",
+      class = "dbtn",
+      button_label  = label)
+  } else
+    return(invisible(NULL))
+}
 
 girafe_opts <- function(x, ...) girafe_options(
   x,
@@ -106,21 +139,6 @@ if(.Platform$OS.type=="windows")
   Sys.setlocale(locale = "fr_FR.utf8") else
     Sys.setlocale(locale = "fr_FR")
 
-margin_download <- function(data, output_name = "donnees", label = "données") {
-  if(knitr::is_html_output()) {
-    if(lobstr::obj_size(data)> 1e+5)
-      cli::cli_alert("la taille de l'objet est supérieure à 100kB")
-    fn <- str_c("ofce-prev2409-", tolower(output_name))
-    downloadthis::download_this(
-      data,
-      icon = "fa fa-download",
-      class = "dbtn",
-      button_label  = label,
-      output_name = fn)
-  } else
-    return(invisible(NULL))
-}
-
 ccsummer <- function(n=4) PrettyCols::prettycols("Summer", n=n)
 ccjoy <- function(n=4) PrettyCols::prettycols("Joyful", n=n)
 
@@ -147,3 +165,13 @@ date_mois <- function(date) {
 date_jour <- function(date) {
   str_c(lubridate::day(date), " ", lubridate::month(date,label = TRUE, abbr = FALSE), " ", lubridate::year(date))
 }
+
+conflicted::conflicts_prefer(dplyr::filter, .quiet = TRUE)
+conflicted::conflicts_prefer(dplyr::select, .quiet = TRUE)
+conflicted::conflicts_prefer(dplyr::lag, .quiet = TRUE)
+conflicted::conflicts_prefer(lubridate::year, .quiet = TRUE)
+conflicted::conflicts_prefer(lubridate::month, .quiet = TRUE)
+conflicted::conflicts_prefer(dplyr::first, .quiet = TRUE)
+conflicted::conflicts_prefer(dplyr::last, .quiet = TRUE)
+conflicted::conflicts_prefer(dplyr::between, .quiet = TRUE)
+conflicted::conflicts_prefer(lubridate::quarter, .quiet = TRUE)
