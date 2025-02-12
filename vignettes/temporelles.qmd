@@ -16,7 +16,7 @@ warning: false
 ---
 
 ```{r rinit, include=FALSE}
-ofce::init_qmd()
+ofce::init_qmd(echo=TRUE)
 ```
 
 ## 5 Règles d'or
