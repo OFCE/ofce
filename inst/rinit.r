@@ -6,9 +6,9 @@ opts_chunk$set(
   dev.args = list(bg = "transparent"),
   out.width="100%",
   fig.showtext=TRUE,
-  message = _message,
-  warning = _warning,
-  echo = _echo)
+  message = f_message,
+  warning = f_warning,
+  echo = f_echo)
 
 
 ## Checking rinit packages installation

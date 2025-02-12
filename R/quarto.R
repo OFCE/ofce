@@ -394,9 +394,9 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
       }
   }
 
-  _message <- message
-  _warning <- warning
-  _echo <- echo
+  f_message <- message
+  f_warning <- warning
+  f_echo <- echo
   if(file.exists(fs::path_package("ofce", "rinit.r"))) {
     source(fs::path_package("ofce", "rinit.r"),
            echo = FALSE, verbose = FALSE, local = .GlobalEnv)
