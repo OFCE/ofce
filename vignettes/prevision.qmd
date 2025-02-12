@@ -17,7 +17,7 @@ warning: false
 
 ```{r}
 #| include: false
-ofce::init_qmd()
+ofce::init_qmd(echo=TRUE)
 ```
 
 ## Les graphiques de prévision

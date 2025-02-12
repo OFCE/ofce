@@ -6,9 +6,9 @@ opts_chunk$set(
   dev.args = list(bg = "transparent"),
   out.width="100%",
   fig.showtext=TRUE,
-  message = f_message,
-  warning = f_warning,
-  echo = f_echo)
+  message = qmd_message,
+  warning = qmd_warning,
+  echo = qmd_echo)
 
 
 ## Checking rinit packages installation
