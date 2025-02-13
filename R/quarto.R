@@ -383,20 +383,19 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
     root <- root$result
     ofce.root <<- root
     inits <- c(glue::glue("./{init}"),
-              glue::glue("./_utils/{init}"),
-              glue::glue("./.utils/{init}"))
+               glue::glue("./_utils/{init}"),
+               glue::glue("./.utils/{init}"))
     inits <- purrr::map(inits, ~fs::path_join(c(root, .x)) |> fs::path_norm() |> as.character())
     inits <- c(inits, stringr::str_replace(inits, "r$", "R"))
+    qmd_message <<- message
+    qmd_warning <<- warning
+    qmd_echo <<- echo
     for(i in inits)
       if(fs::file_exists(i)) {
         source(i, echo = FALSE, verbose = FALSE, local = .GlobalEnv)
         return(invisible(i))
       }
   }
-
-  qmd_message <<- message
-  qmd_warning <<- warning
-  qmd_echo <<- echo
   if(file.exists(fs::path_package("ofce", "rinit.r"))) {
     source(fs::path_package("ofce", "rinit.r"),
            echo = FALSE, verbose = FALSE, local = .GlobalEnv)
