@@ -376,17 +376,20 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #' @export
 #'
 
-init_qmd <- function(init = "rinit.r") {
+init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE) {
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   if(is.null(root$error)) {
     root <- root$result
     ofce.root <<- root
     inits <- c(glue::glue("./{init}"),
-              glue::glue("./_utils/{init}"),
-              glue::glue("./.utils/{init}"))
+               glue::glue("./_utils/{init}"),
+               glue::glue("./.utils/{init}"))
     inits <- purrr::map(inits, ~fs::path_join(c(root, .x)) |> fs::path_norm() |> as.character())
     inits <- c(inits, stringr::str_replace(inits, "r$", "R"))
+    qmd_message <<- message
+    qmd_warning <<- warning
+    qmd_echo <<- echo
     for(i in inits)
       if(fs::file_exists(i)) {
         source(i, echo = FALSE, verbose = FALSE, local = .GlobalEnv)

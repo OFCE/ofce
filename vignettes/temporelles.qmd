@@ -10,13 +10,13 @@ format:
     code-fold: true
     code-summary: "code"
 
-echo: fenced
+echo: true
 message: false
 warning: false
 ---
 
 ```{r rinit, include=FALSE}
-ofce::init_qmd()
+ofce::init_qmd(echo=TRUE)
 ```
 
 ## 5 Règles d'or
