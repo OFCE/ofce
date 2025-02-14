@@ -17,7 +17,7 @@ warning: false
 
 ```{r}
 #| include: false
-ofce::init_qmd()
+ofce::init_qmd(echo=TRUE)
 ```
 
 ## Les graphiques de prévision
@@ -57,7 +57,9 @@ ofce::init_qmd()
 
 6.  On utilise `ofce::ofce_caption()` afin de normaliser l'aspect et la présentation des notes de graphique. `ofce_caption()` permet de spécifier la source, les notes, les indications de lecture, le champ, le lien vers le code, un texte comme "prévisions OFCE 2025" systématique, etc... (reportez vous à l'aide de cette fonction qui est dans le package `{ofce}`).
 
-7.  On met le code du graphique (le `ggplot`, etc...) dans le `.qmd` qui contient le texte. Cela permet d'éditer les textes, d'un côté, et de normaliser les présentations, de l'autre. La construction du tooltip est aussi plutôt à ce niveau. En revanche, le code de construction est mis dans un fichier `.r` joint dont le nom est simple, signifiant, en minuscule et qui est enregistré au même niveau que le `.qmd` ou en dessous. On utilise `source_data` pour éviter de bloquer le fonctionnement de la compilation des qmd – **c'est donc important**.
+7.  On met le code du graphique (le `ggplot`, etc...) dans le `.qmd` qui contient le texte. Cela permet d'éditer les textes, d'un côté, et de normaliser les présentations, de l'autre. La construction du tooltip est aussi à ce niveau pour pouvoir l'éditer. Il est **nécessaire que le `girafy()` soit dans le `qmd`**, sinon, l'objet interactif n'aura pas le bon format suivant les support (site, présentation, etc...).
+
+8.  On utilise `ofce::source_data()` pour la construction des données, ce n'est pas obligatoire, mais très efficace et très recommandé pour le travail collaboratif (comme celui de la prévision). On met donc le code de construction dans un fichier `.r`, joint dont le nom est simple, signifiant, en minuscule et qui est enregistré au même niveau que le `.qmd` ou en dessous. On utilise `source_data` pour éviter de bloquer le fonctionnement de la compilation des `qmd` et faciliter la portabilité des codes de données – **c'est important**.
 
 Chacun de ces éléments est détaillés et avec des exemples de codes ci-dessous.
 
