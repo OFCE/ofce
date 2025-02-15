@@ -708,9 +708,9 @@ source_data_status <- function(
       dplyr::arrange(src, dplyr::desc(date))
     if(prune)
       cached <- cached |>
-        group_by(id) |>
-        filter(valid|index == max(index)) |>
-        ungroup()
+        dplyr::group_by(id) |>
+        dplyr::filter(valid|index == max(index)) |>
+        dplyr::ungroup()
     return(cached)
   } else {
     if(!quiet)
