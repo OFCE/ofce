@@ -7,7 +7,7 @@ ou en dessous.
 s'il ne le trouve pas il utilise une version par défaut,
 stockée dans le package}
 \usage{
-init_qmd(init = "rinit.r")
+init_qmd(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE)
 }
 \arguments{
 \item{init}{Nom du projet, "pres" par défaut,}

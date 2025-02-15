@@ -33,9 +33,9 @@ source_data(
 
 \item{lapse}{(character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"}
 
-\item{force_exec}{(boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)}
+\item{force_exec}{(boléen) Si TRUE alors le code est exécuté.}
 
-\item{prevent_exec}{(boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache}
+\item{prevent_exec}{(boléen) Si TRUE alors le code n'est pas exécuté, ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache}
 
 \item{metadata}{(boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même}
 

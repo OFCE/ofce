@@ -8,13 +8,16 @@ source_data_status(
   cache_rep = NULL,
   quiet = TRUE,
   root = NULL,
-  src_in = getOption("ofce.source_data.src_in") \%||\% "project"
+  src_in = getOption("ofce.source_data.src_in") \%||\% "project",
+  prune = TRUE
 )
 }
 \arguments{
 \item{root}{force le root -- à ne pas utiliser sauf expert}
 
 \item{src_in}{est ce que les données sont avec les qmd ?}
+
+\item{prune}{(boléen) limite la liste au dernier cache (TRUE par défaut)}
 
 \item{data_rep}{le chemin vers le cache (défaut "_cache")}
 }
