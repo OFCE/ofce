@@ -52,8 +52,8 @@
 #' @param hash (boléen) Si TRUE (défaut) un changement dans le code déclenche son exécution
 #' @param track (list) une liste de fichiers (suivant la même règle que src pour les trouver) qui déclenchent l'exécution.
 #' @param lapse (character) peut être "never" (défaut) "x hours", "x days", "x weeks", "x months", "x quarters", "x years"
-#' @param force_exec (boléen) Si TRUE alors le code est exécuté ($FORCE_EXEC par défaut)
-#' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté ($PREVENT_EXEC par défaut), ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
+#' @param force_exec (boléen) Si TRUE alors le code est exécuté.
+#' @param prevent_exec (boléen) Si TRUE alors le code n'est pas exécuté, ce flag est prioritaire sur les autres, sauf si il n'y a pas de données en cache
 #' @param metadata (boléen) Si TRUE (FALSE par défaut) la fonction retourne une liste avec des métadonnées et le champ data qui contient les données elles même
 #' @param wd (character) si 'project' assure que le wd est le root du project, si 'file' (défaut) c'est le fichier sourcé qui est le wd, si "qmd", c'est le qmd qui appelle
 #' @param scr_in (character) si "project" cherche le source dans le projet puis les sous dossiers, si "file" cherche dans le dossier du qmd (ou le wd). Dans ce cas, les données sont stockées dans le dossier en question.
@@ -68,7 +68,7 @@
 #' @export
 #'
 
-# note il reste un petit problème : si lapse change il faut nl'neregistrer
+# note il reste un petit problème : si lapse change il faut l'enregistrer
 # si wd change, on ne reset pas le cache
 # si les arguments changent, il faut aussi reseter le cache (les mettre dans le hash)
 # il faut ajouter un always
@@ -628,13 +628,19 @@ find_project_root <- function(project_path = NULL, doc_path = NULL) {
 #' @param data_rep le chemin vers le cache (défaut "_cache")
 #' @param src_in est ce que les données sont avec les qmd ?
 #' @param root force le root -- à ne pas utiliser sauf expert
+#' @param prune (boléen) limite la liste au dernier cache (TRUE par défaut)
 #' @family source_data
 #'
 #' @return tibble
 #' @export
 #'
 
-source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_in = getOption("ofce.source_data.src_in") %||% "project" ) {
+source_data_status <- function(
+    cache_rep = NULL,
+    quiet = TRUE,
+    root = NULL,
+    src_in = getOption("ofce.source_data.src_in") %||% "project",
+    prune = TRUE) {
   root <- try_find_root(root, src_in)
   caches <- list()
   if(src_in == "project") {
@@ -676,12 +682,12 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_
         valid <- valid_meta4meta(dd, root = root)
 
         tibble::tibble(
-          valid = valid$valid,
           src = dd$src,
+          date = lubridate::as_datetime(dd$date),
+          valid = valid$valid,
           id = dd$id,
           uid = dd$uid,
           index = dd$cc |> as.numeric(),
-          date = lubridate::as_datetime(dd$date),
           timing = dd$timing,
           size = dd$size,
           lapse = dd$lapse |> as.character(),
@@ -700,6 +706,11 @@ source_data_status <- function(cache_rep = NULL, quiet = TRUE, root = NULL, src_
       })
     }) |>
       dplyr::arrange(src, dplyr::desc(date))
+    if(prune)
+      cached <- cached |>
+        group_by(id) |>
+        filter(valid|index == max(index)) |>
+        ungroup()
     return(cached)
   } else {
     if(!quiet)
