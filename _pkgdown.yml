@@ -62,4 +62,6 @@ navbar:
           href: articles/cartes.html
         - text: Charte graphique de la prévision
           href: articles/prevision.html
+        - text: Mettre en cache et rendre le process robuste
+          href: articles/source_data.html
 

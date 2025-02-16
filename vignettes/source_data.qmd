@@ -1,5 +1,5 @@
 ---
-title: "source_data() mette en cache"
+title: "source_data() : plus rapide, plus sûr"
 vignette: >
   %\VignetteIndexEntry{source_data}
   %\VignetteEngine{quarto::html}

@@ -1,5 +1,5 @@
 ---
-title: "Séries temporelles II : le cas des graphiques de prévision"
+title: "Séries temporelles II : les graphiques de prévision"
 vignette: >
   %\VignetteIndexEntry{Charte pour la prévision}
   %\VignetteEngine{quarto::html}
@@ -37,9 +37,9 @@ annotate_prevision <- function(posy = 1, xstart = "2025-01-01", xend = "2026-12-
 
 ## Les graphiques de prévision
 
-Le but est d'homogénéiser le plus possible les graphiques présents dans les textes de prévisions. Les consignes s'appliquent surtout aux graphiques en série temporelle, avec une fréquence de données trimestrielle. Les consignes sont quasi obligatoires (i.e. obligatoires sauf très bonne raison).
+Le but est d'homogénéiser le plus possible les graphiques de prévisions. Les consignes s'appliquent surtout aux graphiques en séries temporelles, avec une fréquence de données trimestrielle. Les consignes sont quasi obligatoires (i.e. obligatoires sauf très bonne raison de ne pas les suivre).
 
-1.  On suit d'abord les consignes qui valent pour les graphiques de [séries temporelles](articles/temporelles.html)
+1.  On suit d'abord les consignes qui valent pour les graphiques de [séries temporelles](temporelles.html)
 
     1.  `theme_ofce()`,
 
@@ -74,7 +74,7 @@ ofce::init_qmd()
 
 7.  On met le code du graphique (le `ggplot`, etc...) dans le `.qmd` qui contient le texte. Cela permet d'éditer les textes, d'un côté, et de normaliser les présentations, de l'autre. La construction du tooltip est aussi à ce niveau pour pouvoir l'éditer. Il est **nécessaire que le `girafy()` soit dans le `qmd`**, sinon, l'objet interactif n'aura pas le bon format suivant les support (site, présentation, etc...).
 
-8.  On utilise `ofce::source_data()` pour la construction des données, ce n'est pas obligatoire, mais très efficace et très recommandé pour le travail collaboratif (comme celui de la prévision). On met donc le code de construction dans un fichier `.r`, joint dont le nom est simple, signifiant, en minuscule et qui est enregistré au même niveau que le `.qmd` ou en dessous. On utilise `source_data` pour éviter de bloquer le fonctionnement de la compilation des `qmd` et faciliter la portabilité des codes de données – **c'est important**.
+8.  On utilise `ofce::source_data()` pour la construction des données, ce n'est pas obligatoire, mais très efficace et très recommandé pour le travail collaboratif (comme celui de la prévision). Voir [la vignette correspondante](source_data.html). On met le code de construction dans un fichier `.r`, joint dont le nom est simple, signifiant, en minuscule et qui est enregistré au même niveau que le `.qmd` ou en dessous. On utilise `source_data` pour éviter de bloquer le fonctionnement de la compilation des `qmd` et faciliter la portabilité des codes de données – **c'est important**.
 
 Chacun de ces éléments est détaillés et avec des exemples de codes ci-dessous.
 
@@ -147,46 +147,62 @@ Le graphique est construit ensuite par un `ggplot` et la mise en oeuvre des reco
 ```{r graphique}
 pays <- "FRA"
 pays2 <- "EUZ"
+# on définit les données, le pays en évidence, `pays2` moins mis en évidence et `autres` pas mis en évidence du tout
 autres <- data |> distinct(pays) |> pull() |> setdiff(c(pays, pays2)) # <1>
 
 gg <- ggplot(data) +                                             # <1>
-  aes(x=date, y=value, group = pays, color = variable, fill = variable) + # <2>
+  # l'`aes` commun à plusieurs geom, une bonne pratique qui rend le code plus simple
+  aes(x=date, y=value, group = pays, color = variable, fill = variable) + # <2> 
+  # la bande grise qui indique les prévisions (spécifique à chque exercice de prévision)
   annotate_prevision(size=0) +                             # <3>
+  # le `facet`, avec une échelle libre sur les y -- jamais de spaghettis
   facet_wrap(vars(variable), scales = "free_y") +          # <4>
+  # dans ce geom_line on filtre les pays en fond de graphique, qui sont en gris clair et en trait fin ce qui peut se faire aussi avec le pkg `{highlitght}`
   geom_line(                                               # <5>
     data =  ~.x |> filter(pays %in% autres),
     size = 2, color = "gray85", linewidth = 0.25) +
   geom_line(data = ~.x |> filter(pays==pays2),
             size = 2, color = "gray35", linewidth = 0.25) +
+  # le premier geom_point_interactive, pour les pays du fond, en gris clair
   geom_point_interactive(                                  # <6>
     data =  ~.x |> filter(pays %in% autres),
     aes(tooltip = tooltip, data_id = date),
     size = 0.75, stroke = 0.25, shape = 21,
     col = "white", fill = "gray85",
     hover_nearest = TRUE) +
+  # le second geom_point_interactive() pour le pays moins en évidence en gris foncé
   geom_point_interactive(                                  # <7>
     data = ~.x |> filter(pays==pays2),
     aes(tooltip = tooltip, data_id = date),
     size = 0.75, stroke = 0.25, shape = 21,
     col = "white", fill = "gray35",
     hover_nearest = TRUE) +
+  # les lignes colorées (en fonction des variables, voir l'`aes`) pour le pays principal (notez `!!pays` qui signifie utiliser la variable globale, pas celle du data.frame)
   geom_line(                                               # <8>
     data = ~ .x |> filter(pays==!!pays)) +
+  # les points pour le pays principal, de `shape 21` et colorés par `fill` avec un cercle blanc
   geom_point_interactive(                                  # <9>
     data = ~ .x |> filter(pays==!!pays),
     aes(tooltip = tooltip, data_id = date),
     stroke = 0.5, shape = 21, col = "white", hover_nearest = TRUE) +
+  # l'échelle des dates qui utilise la fonction du package `{ofce}`, avec des ticks mineurs pour les trimestres
   scale_ofce_date(                                         # <10>
     date_breaks = "1 year",
     date_minor_breaks = "3 months",
     expand = expansion(mult=c(0.05, 0.0))) +
+  # les labels des axes, on garde ça simple et on indique principalement l'unité
   labs(y="En %", x=NULL) +                                 # <11>
+  # le theme ofce (l'ordre des éléments n'est pas critique) !!!
   theme_ofce() +                                           # <12>
+  # les couleurs : procéder ainsi permet la normalisation des couleurs a posteriori
   PrettyCols::scale_color_pretty_d("Summer") +             # <13>
   PrettyCols::scale_fill_pretty_d("Summer") +              # <13>
+  # l'aspect des labels, avec le bon nombre de chiffres après la virgule et l'utilisation de `scales::pretty_breaks()` pour des labels choisis astucieusement
   scale_y_continuous(labels = label_number(decimal.mark = ",", accuracy = 1, suffix = "%"), # <14>
                      breaks = scales::breaks_pretty()) +
+  # on ne met pas les légendes de couleur ou de remplissage, ce n'est pas utile dans ce graphique, on essaye de ne pas les mettre en dessous de façon générale si elles sont nécessaire
   guides(color = "none", fill = "none") +                  # <15>
+  # les notes et sources, standardisées, avec en particulier les derniers points connus.
   ofce_caption(                                            # <16>  
     source = "INSEE, Eurostat, instituts nationaux",
     note = "La zone euro est en gris foncé",
@@ -194,37 +210,18 @@ gg <- ggplot(data) +                                             # <1>
 
 ```
 
-1.  on définit les données, le pays en évidence, `pays2` moins mis en évidence et `autres` pas mis en évidence du tout
+## Des couleurs par pays
 
-2.  l'`aes` commun à plusieurs geom
+La fonction `ofce::scale_color_pays()` applique une échelle de couleur (et de remplissage) qui suit le choix de la charte graphique de l'ofce. Pour que cela fonctionne, il faut que dans l'aes qui définit la couleur (`aes(color=pays)`) ou le remplissage (`aes(fill=pays)`) soit un code iso à 3 lettres. Si le code est un code eurostat il suffit de le préciser (`format="eurostat"` en paramètre à scale_color_pays()).
 
-3.  la bande grise qui indique les prévisions
+Cela donne comme code :
 
-4.  le `facet`, avec une échelle libre sur les y
-
-5.  dans ce geom_line on filtre les pays en fond de graphique, qui sont en gris clair et en trait fin
-
-6.  le premier geom_point_interactive, pour les pays du fond, en gris clair
-
-7.  le second geom_point_interactive() pour le pays moins en évidence en gris foncé
-
-8.  les lignes colorées (en fonction des variables, voir l'`aes`) pour le pays principal (notez `!!pays` qui signifie utiliser la variable globale, pas celle du data.frame)
-
-9.  les points pour le pays principal, de `shape 21` et colorés par `fill` avec un cercle blanc
-
-10. l'échelle des dates qui utilise la fonction du package `{ofce}`, avec des ticks mineurs pour les trimestres
-
-11. les labels des axes, on garde ça simple et on indique l'unité
-
-12. le theme !!!
-
-13. les couleurs
-
-14. l'aspect des labels, avec le bon nombre de chiffres après la virgule et l'utilisation de `scales::pretty_breaks()` pour des labels choisis astucieusement
-
-15. on ne met pas les légendes de couleur ou de remplissage, ce n'est pas utile dans ce graphique, on essaye de ne pas les mettre en dessous de façon générale
-
-16. les notes et sources, standardisées, avec en particulier les derniers points connus.
+```{{r}}
+ggplot(mes_donnees) +
+  aes(x=time, y= pib, color = pays, fill = pays) +
+  ...+
+  scale_color_pays()
+```
 
 ## Interactivité
 
@@ -235,3 +232,42 @@ girafy(gg)
 ```
 
 Et voilà !
+
+## Des mises en forme avancées
+
+### Composition de graphiques : `patchwork`
+
+Pour empiler des graphiques on peut utiliser `{patchwork}` -- en fait c'est mieux que les autres solutions comme `cowplot`. La syntaxe est très simple, pour empiler l'un sur l'autre le graphique `g1` et `g2` il suffit d'écrire `g <- g1/g2` et l'un à côté de l'autre `g <- g1 + g2`. L'objet `g` ressemble beaucoup à un graphique ggplot, mais pas complètement. Il peut cependant être utilisé dans `{giraph}` comme un ggplot. L'interactivité est alors synchrone pour tous les graphiques. 
+
+Parfois on peut préférer `{patchwork}` à un `facet`, parce que `{patchwork}` autorise le mélange de graphique très différents (des line sur un panel, des bar sur un autre). 
+
+`{patchwork}` réunit les légendes communes, et les notes communes, aligne les axes et permet de faire des décorations communes. La syntaxe pour ces opérations avancées est sur l'aide de `{patchwork}` avec quelques exemples dans le cahier de graphiques.
+
+### Aligner des graphiques dans des chunks différents
+
+On peut aligner les axes de graphiques dans des chunks différents avec `{patchwork}`. C'est assez simple et il y a un exemple sur les graphiques "immobiliers" du cahier de graphiques. On définit un graphique de référence et on en prend les "mesures" avec `dim <- get_dim(g0)`. Les graphiques que l'on veut aligner seront produits par `set_dim(g1, dim)`. Le graphique de référence doit être celui dont les labels de l'axe des y sont les plus larges, ce qui peut demander un peu d'organisation dans l'écriture des chunks -- rien de bien compliqué. Ceci permet de produire des pages plus soignées.
+
+### La taille d'un graphique
+
+Pour définir la taille d'un graphique, on ne spécifie **jamais** la largeur ou la hauteur du graphique[^11] . Celle-ci est définie en fonction du support d'affichage et donc n'est pas connue à l'avance. En la fixant dans le .qmd on empêche la mise à l'échelle conditionnelle au support de sortie et cela produit des résultats embettant. 
+
+[^11]: Donc jamais de `fig-width: 5` par exemple.
+
+On utilise donc le ratio hauteur/largeur qui s'appelle `asp` (pour *aspect ratio*). Il est fixé à 0.61 (l'inverse du nombre d'or) par défaut. Lorsqu'on a une note de graphique très longue, on peut l'augmenter (malheureusement l'asp inclu le graphique et le texte des notes), à 0.7 ou 0.8.
+
+Si on empile deux graphiques (un `facet` par exemple), un `asp` de 1 est possible. C'est également un bon ratio pour les cartes (1 donne un format carré).
+
+Pour un graphique pleine page A4, l'`asp` est celui d'une page A4 soit 1.41. Au delà de cet `asp`, cela n'a pas beaucoup de sens et en tout cas celà posera des problèmes à l'impression sur papier. 
+
+Pour un graphique destiné à une présentation, le ratio doit être celui de l'écran de projection soit 9/16=0,56, ce qui n'est pas très loin de la valeur par défaut (coincidence ? je ne crois pas)
+
+Le code le plus simple pour définir l'`asp` est celui-là (pour une étrange raison, il faut mettre le 0 et bine sûr utiliser le point pour les décimales, pas d'opérations possibles comme 9/16) :
+
+```{{r}}
+#| label: fig-fig1
+#| fig-cap: Le titre de la figure
+#| fig-asp: 0.7
+...
+# le code du graphique
+...
+```
