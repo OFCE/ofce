@@ -28,7 +28,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
         hjust = 0,
         vjust = 0.5,
-        margin = ggplot2::margin(),
+        margin = ggplot2::margin(b = 6),
         lineheight = 1),
       axis.title = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "light"),
@@ -40,8 +40,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       plot.subtitle = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "light"),
         size = ggplot2::rel(0.85),
-        hjust = 0,
-        margin = ggplot2::margin(),
+        margin = ggplot2::margin(l = 12, b = 6),
         lineheight = 1),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
@@ -108,7 +107,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         color = "gray25")
     )
 
-  theme_foundation() +
+    theme_text +
     ggplot2::theme(
       text = ggplot2::element_text(
         family = base_family,
@@ -128,14 +127,12 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         fill = NA,
         colour = NA,
         linetype = 0),
-
       plot.title.position = "panel",
       plot.margin = ggplot2::margin(b=6, t=6, l=6, r=6),
       plot.caption.position = "panel",
       # Legend format
-      legend.text.align = 0,
+      # legend.text.align = 0,
       legend.background = element_blank(),
-      legend.location = "plot",
       legend.position = c(0.05, 0.95),
       legend.justification = c(0, 1),
       legend.direction = "vertical",
@@ -145,7 +142,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.key.spacing = unit(3, "pt"),
       legend.margin = ggplot2::margin(t=0, r=0, b=0, l=0),
       legend.box.spacing = unit(6, "pt"),
-      # #Axis format
+      #Axis format
       axis.ticks = element_line(
         color="gray25",
         size = unit(0.2, "pt")),
@@ -171,7 +168,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       panel.spacing = unit(3, "pt"),
 
       strip.background = element_rect(fill="white"))+
-    theme_text +
     ggplot2::theme(...) # pour passer les arguments en plus
 }
 
@@ -272,7 +268,6 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         color = "gray25")
     )
 
-  theme_foundation() +
     ggplot2::theme(
       # general
       plot.background = ggplot2::element_rect(fill="white"),

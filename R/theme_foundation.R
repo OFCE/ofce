@@ -35,6 +35,5 @@ theme_foundation <- function(une_base_size = 12, base_family="") {
   thm + ggplot2::theme(panel.border = ggplot2::element_rect(fill = NA),
               legend.background = ggplot2::element_rect(colour = NA),
               line = ggplot2::element_line(colour = "black"),
-              rect = ggplot2::element_rect(fill = "white", colour = "black"),
-              text = ggplot2::element_text(colour = "black"))
+              rect = ggplot2::element_rect(fill = "white", colour = "black"))
 }
