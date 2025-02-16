@@ -31,6 +31,7 @@ ofce_caption <- function(source = NULL,
                          dpt = NULL,
                          xlab = NULL,
                          ylab = NULL,
+                         sub = NULL,
                          dptf = "month",
                          wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
                          lang = getOption("ofce.caption.lang"),
@@ -78,6 +79,9 @@ ofce_caption <- function(source = NULL,
 
   if(!is.null(ylab))
     ylab <- transforme(ylab)
+
+  if(!is.null(sub))
+    sub <- transforme(sub)
 
   if(lang=="fr") {
     lec <- "*Lecture* : "
@@ -182,9 +186,12 @@ ofce_caption <- function(source = NULL,
     if(length(caption>0))
       caption <- caption |>
         stringr::str_c(linebr) |>
-        stringr::str_c(Der, dernier_point(dpt, dptf, lang))
+        stringr::str_c(Der, dernier_point(dpt, dptf, lang)) |>
+        check_point()
     else
-      caption <- caption |> stringr::str_c(Der, dernier_point(dpt, dptf, lang))
+      caption <- caption |>
+        stringr::str_c(Der, dernier_point(dpt, dptf, lang))  |>
+        check_point()
   }
 
   gplot <- list(ggplot2::labs(caption = caption))
@@ -193,6 +200,8 @@ ofce_caption <- function(source = NULL,
     gplot <- rlist::list.append(gplot, ggplot2::xlab(label = xlab) )
   if(!is.null(ylab))
     gplot <- rlist::list.append(gplot, ggplot2::ylab(label = ylab) )
+  if(!is.null(sub))
+    gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = sub) )
 
   return(gplot)
 }
