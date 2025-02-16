@@ -12,5 +12,5 @@ ggplot(mtcars) +
   # labs(title = "title", subtitle = "kd") +
   xlab(NULL) +
   guides(color = guide_marquee("subtitle {.4 4 cylinders}, {.6 6 cylinders}, {.8 8 cylinders}",
-                               position = "bottom"))+
+                               position = "top"))+
  theme_ofce(marquee = TRUE)
