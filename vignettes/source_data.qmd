@@ -77,11 +77,38 @@ On peut également forcer le déclenchement du script. Cela se fait par une opti
 
 Il est possible de bloquer l'exécution du code par une option (`prevent_exec`) qui peut être définie comme une option globale (par `options(ofce.source_data.prevent_exec=TRUE)`). Dans ce cas, aucun script ne sera exécuté, ce qui peut servir lorsqu'on veut faire un rendu du site sans prendre le risque d'une erreur d'API ou d'un blocage.
 
-## Usage avancé : des paramètres
+## Usage avancé : passer des paramètres
 
 Il est possible de passer des paramètres avec `source_data()`, bien que ce soit plus pratique d'écrire une fonction. Les paramètres sont passés sous forme d'une liste (`list(param1="1")` par exemple) et sont disponibles dans le script (dans la variable `args`, donc pour avoir le paramètre `param1` il faut écrire `args$param1` dans le script. Changer les paramètres invalide le cache.
 
 Notez que le script est toujours exécuté en "local" ce qui veut dire que toute variable créée ou tout package ouvert à l'intérieur du script n'est pas renvoyé (comme dans une fonction, en fait).
+
+## Usage avancé : récupérer les métadonnées
+
+En utlisant l'option `metadata=TRUE` dans `source_data()` on peut récupérer des informations sur, par exmple, la date de téléchargement. C'est illustré sur quelques graphiques du cachier de graphique.
+
+En code cela donne le chunk ci dessous. Les données sont accessibles par `$data` et la date de téléchargement par `$date`. Cela permet de construire la note (noter que `glue::glue()` est appliqué aux textes passés à `ofce_caption()`).
+
+```{{r}}
+transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
+
+trsc <- ggplot(transactions$data) + 
+  aes(x=date, y=t*1000) +
+  geom_line(alpha = 0.5, col = bluish) +
+  geom_point_interactive(aes(tooltip = tooltip, data_id = date),
+                         shape = 21, size = 1, stroke = 0.2, col = "white", 
+                         fill = bluish,
+                         hover_nearest = TRUE, show.legend = FALSE)+
+  theme_ofce() +
+  scale_y_log10(labels = scales::number_format(scale = 1/1000, suffix="k")) +
+  scalex +
+  ofce_caption(
+    source = "IGEDD d'après DGFiP (MEDOC) et bases notariale", 
+    dpt = transactions$data$date,
+    note = "Transactions cumulées sur 12 mois, dans l'ancien, maisons et appartements, échelle log, données téléchargées le {date_jour(transactions$date)}",
+    sub= "Nombre de transactions")
+
+```
 
 ## Quelques opérations sur le cache
 

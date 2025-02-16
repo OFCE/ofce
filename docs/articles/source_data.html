@@ -136,10 +136,34 @@ return(taux_souverains_historiques)
 <p>Il est aussi possible de déclencher l’invalidation du cache si un fichier a été modifié. Il suffit de fournir une liste de fichiers (dont les chemins sont relatifs au script) qui seront suivis. Ces fichiers peuvent être des <code>.csv</code> ou des fichiers <code>.xlsx</code> (ou encore tout autre type de fichier) et donc sont utiles pour déclencher l’exécution du script quand on a fait une modification manuelle ou par un autre programme de ces fichiers. On peut en mettre autant qu’on veut.</p>
 <p>On peut également forcer le déclenchement du script. Cela se fait par une option <code>force_exec=TRUE</code>. Cependant, il vaut mieux ne pas spécifier cette option, il existe d’autres moyens pour opérer un rafraîchissement du cache.</p>
 <p>Il est possible de bloquer l’exécution du code par une option (<code>prevent_exec</code>) qui peut être définie comme une option globale (par <code>options(ofce.source_data.prevent_exec=TRUE)</code>). Dans ce cas, aucun script ne sera exécuté, ce qui peut servir lorsqu’on veut faire un rendu du site sans prendre le risque d’une erreur d’API ou d’un blocage.</p>
-</section><section class="level2"><h2 id="usage-avancé-des-paramètres">Usage avancé : des paramètres<a class="anchor" aria-label="anchor" href="#usage-avanc%C3%A9-des-param%C3%A8tres"></a>
+</section><section class="level2"><h2 id="usage-avancé-passer-des-paramètres">Usage avancé : passer des paramètres<a class="anchor" aria-label="anchor" href="#usage-avanc%C3%A9-passer-des-param%C3%A8tres"></a>
 </h2>
 <p>Il est possible de passer des paramètres avec <code><a href="../reference/source_data.html">source_data()</a></code>, bien que ce soit plus pratique d’écrire une fonction. Les paramètres sont passés sous forme d’une liste (<code>list(param1="1")</code> par exemple) et sont disponibles dans le script (dans la variable <code>args</code>, donc pour avoir le paramètre <code>param1</code> il faut écrire <code>args$param1</code> dans le script. Changer les paramètres invalide le cache.</p>
 <p>Notez que le script est toujours exécuté en “local” ce qui veut dire que toute variable créée ou tout package ouvert à l’intérieur du script n’est pas renvoyé (comme dans une fonction, en fait).</p>
+</section><section class="level2"><h2 id="usage-avancé-récupérer-les-métadonnées">Usage avancé : récupérer les métadonnées<a class="anchor" aria-label="anchor" href="#usage-avanc%C3%A9-r%C3%A9cup%C3%A9rer-les-m%C3%A9tadonn%C3%A9es"></a>
+</h2>
+<p>En utlisant l’option <code>metadata=TRUE</code> dans <code><a href="../reference/source_data.html">source_data()</a></code> on peut récupérer des informations sur, par exmple, la date de téléchargement. C’est illustré sur quelques graphiques du cachier de graphique.</p>
+<p>En code cela donne le chunk ci dessous. Les données sont accessibles par <code>$data</code> et la date de téléchargement par <code>$date</code>. Cela permet de construire la note (noter que <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> est appliqué aux textes passés à <code><a href="../reference/ofce_caption.html">ofce_caption()</a></code>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">transactions &lt;- source_data("immo/data_transaction.r", metadata=TRUE)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">trsc &lt;- ggplot(transactions$data) + </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">  aes(x=date, y=t*1000) +</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_line(alpha = 0.5, col = bluish) +</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point_interactive(aes(tooltip = tooltip, data_id = date),</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">                         shape = 21, size = 1, stroke = 0.2, col = "white", </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">                         fill = bluish,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">                         hover_nearest = TRUE, show.legend = FALSE)+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">  theme_ofce() +</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="in">  scale_y_log10(labels = scales::number_format(scale = 1/1000, suffix="k")) +</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="in">  scalex +</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="in">  ofce_caption(</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="in">    source = "IGEDD d'après DGFiP (MEDOC) et bases notariale", </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="in">    dpt = transactions$data$date,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="in">    note = "Transactions cumulées sur 12 mois, dans l'ancien, maisons et appartements, échelle log, données téléchargées le {date_jour(transactions$date)}",</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="in">    sub= "Nombre de transactions")</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </section><section class="level2"><h2 id="quelques-opérations-sur-le-cache">Quelques opérations sur le cache<a class="anchor" aria-label="anchor" href="#quelques-op%C3%A9rations-sur-le-cache"></a>
 </h2>
 <p>Le package <a href="https://ofce.github.io/ofce">ofce</a> fournit des outils pour s’occuper des caches. Le premier est <code><a href="../reference/source_data_status.html">source_data_status()</a></code>. il scanne le répertoire et fournit la liste de tous les caches enregistrés et suivis. Il indique si les caches sont valides ou non et les principaux paramètres utilisés pour chaque script.</p>
