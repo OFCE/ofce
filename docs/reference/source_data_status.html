@@ -62,7 +62,8 @@
 <span>  cache_rep <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  root <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  src_in <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.src_in"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Control.html" class="external-link">%||%</a></span> <span class="st">"project"</span></span>
+<span>  src_in <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.source_data.src_in"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Control.html" class="external-link">%||%</a></span> <span class="st">"project"</span>,</span>
+<span>  prune <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -76,6 +77,10 @@
 
 <dt id="arg-src-in">src_in<a class="anchor" aria-label="anchor" href="#arg-src-in"></a></dt>
 <dd><p>est ce que les données sont avec les qmd ?</p></dd>
+
+
+<dt id="arg-prune">prune<a class="anchor" aria-label="anchor" href="#arg-prune"></a></dt>
+<dd><p>(boléen) limite la liste au dernier cache (TRUE par défaut)</p></dd>
 
 
 <dt id="arg-data-rep">data_rep<a class="anchor" aria-label="anchor" href="#arg-data-rep"></a></dt>

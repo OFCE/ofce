@@ -58,12 +58,14 @@ ratings_taux <- source_data("souverains/ratings", lapse = "day")
 
 Le script doit se terminer par un `return` qui renvoie les données calculées ou téléchargées. Ce sont ces données qui sont mises en cache.
 
+````         
 ``` {{r}}
 ...
 télécharge et modifie, calcule, etc
 ...
 return(taux_souverains_historiques)
 ```
+````
 
 `source_data()` dispose d'un cache (caché dans un dossier `.data`). Il repère le fichier source et détecte les changements faits au code source et invalide le cache. Si le cache est valide, les données sont renvoyées, sinon, le script est exécuté et les nouvelles données mises en cache.
 
@@ -75,6 +77,18 @@ On peut également forcer le déclenchement du script. Cela se fait par une opti
 
 Il est possible de bloquer l'exécution du code par une option (`prevent_exec`) qui peut être définie comme une option globale (par `options(ofce.source_data.prevent_exec=TRUE)`). Dans ce cas, aucun script ne sera exécuté, ce qui peut servir lorsqu'on veut faire un rendu du site sans prendre le risque d'une erreur d'API ou d'un blocage.
 
+## Usage avancé : des paramètres
+
+Il est possible de passer des paramètres avec `source_data()`, bien que ce soit plus pratique d'écrire une fonction. Les paramètres sont passés sous forme d'une liste (`list(param1="1")` par exemple) et sont disponibles dans le script (dans la variable `args`, donc pour avoir le paramètre `param1` il faut écrire `args$param1` dans le script. Changer les paramètres invalide le cache.
+
+Notez que le script est toujours exécuté en "local" ce qui veut dire que toute variable créée ou tout package ouvert à l'intérieur du script n'est pas renvoyé (comme dans une fonction, en fait).
+
 ## Quelques opérations sur le cache
 
-Le package `{ofce}` fournit des outils pour s'occuper des caches. Le premier
+Le package `{ofce}` fournit des outils pour s'occuper des caches. Le premier est `source_data_status()`. il scanne le répertoire et fournit la liste de tous les caches enregistrés et suivis. Il indique si les caches sont valides ou non et les principaux paramètres utilisés pour chaque script.
+
+`source_data_refresh()` rafraîchit (en le forçant) tous les caches. On peut passer à `source_data-refresh()` un `tibble` comme celui renvoyé par `souce_data_status()` mais filtré pour ne rafraîchir que la liste voulue (attention passer toutes les colonnes). Cela sert lorsqu'on a un processus plus complexe d'invalidation du cache (en fonction d'un calendrier, en interrogeant une API, etc...) et qu'on déclenche en fonction de cette logique l'exécution des caches.
+
+On peut également à partir de `source_data_status()` accéder aux données en cache. Elles sont enregistrées en `.qs` et donc se chargent avec un `qs::qread()`.
+
+On peut également nettoyer complètement le cache (ce qui provoquera sa ré exécution) avec `clear_source_cache()`. `prune_source_cache()` fait la même chose mais garde les dernières versions du cache (il nettoie l'historique donc).
