@@ -1,19 +1,40 @@
 library(ggplot2)
 library(marquee)
-
+library(patchwork)
 ggplot(mtcars) +
   aes(x = mpg, y = drat, color = factor(cyl)) +
   geom_point() +
   labs(subtitle = "A subtitle", title = "A title") +
   theme_ofce(marquee = TRUE)
 
-ggplot(mtcars) +
+g1 <- ggplot(mtcars) +
+  aes(x = mpg, y = hp, color = factor(cyl)) +
+  geom_point()
+g1bis <- ggplot(mtcars) +
+  aes(x = mpg, y = hp, color = factor(cyl)) +
+  geom_point() +
+  guides(color = guide_marquee("*Légende* : {.4 **4 cylinders**}, {.6 **6 cylinders**}, {.8 **8 cylinders**}",
+                               position = "top"))
+
+g2 <- ggplot(mtcars) +
   aes(x = mpg, y = drat, color = factor(cyl)) +
   geom_point() +
-  # labs(title = "title", subtitle = "kd") +
-  xlab(NULL) +
-  guides(color = guide_marquee("*Légende* : subtitle {.4 **4 cylinders**}, {.6 **6 cylinders**}, {.8 **8 cylinders**}",
-                               position = "top"))+
- theme_ofce(marquee = TRUE) +
- ofce_caption(source = "blabla", note= "blala", ofce=FALSE, wrap = 0)
+  scale_y_log10() +
+  guides(color = guide_marquee("*Légende* : {.4 **4 cylinders**}, {.6 **6 cylinders**}, {.8 **8 cylinders**}",
+                               position = "top"))
+
+ g2 /g1bis
+
+set_dim(g2, get_dim(g1))
+set_dim(g2, get_dim(g1bis))
+
+
+g <- ggplot(mtcars) +
+  aes(x = mpg, y = hp, color = cyl) +
+  geom_point()
+
+g +  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        legend.text = element_marquee(),
+        legend.key.width = unit(72, 'pt'))
 
