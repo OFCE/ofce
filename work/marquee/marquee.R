@@ -38,3 +38,10 @@ g +  theme(legend.position = "bottom",
         legend.text = element_marquee(),
         legend.key.width = unit(72, 'pt'))
 
+library(legendry)
+ggplot(mtcars) +
+  aes(x = mpg, y = hp, color = cyl, size=hp) +
+  geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21) +
+  geom_smooth(aes(x = mpg, y = hp)) +
+  scale_size(breaks = c(100, 250)) +
+  guides(size = guide_circles(override.aes = list(fill = "transparent", color = "black")))

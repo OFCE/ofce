@@ -1,5 +1,5 @@
 ---
-title: "source_data() : plus rapide, plus sûr"
+title: "`source_data()` : plus rapide, plus sûr"
 vignette: >
   %\VignetteIndexEntry{source_data}
   %\VignetteEngine{quarto::html}
@@ -28,8 +28,9 @@ Les bénéfices sont nombreux :
 
 1.  un gain de temps lorsque l'exécution du code est longue (accès à une API, téléchargement de grosses données, traitements importants). La lecture d'un fichier excel peut aussi être assez longue. Le temps d'accès aux données en cache dépend de leur taille, mais même pour des données volumineuses (et il n'y a pas de raisons qu'elles le soient tant que ça), l'ordre de grandeur est la milliseconde, grâce aux optimisations.
 2.  le cache est transférable par github. Il se trouve dans un dossier (caché), mais enregistré dans le dossier de projet et *commité* par github. Le cache produit sur un poste est donc accessible par `pull` sur les autres postes.
-3.  si le code source déclenche une erreur : package non installé, données absentes (par exemple un chemin absolu dans le code {{< fa skull >}}), ou une API qui bloque (comme celle de l'OCDE {{< fa skull >}}) alors `source_data()` essaye de prendre la dernière bonne exécution. Bien que cela puisse être problématique, c'est-à-dire une erreur non signalée, cela a l'énorme avantage de ne pas bloquer le process et de permettre de traiter l'erreur en parallèle.
+3.  si le code source déclenche une erreur, on peut passer outre : En cas de package non installé, données absentes (par exemple un chemin absolu dans le code), ou une API qui bloque (comme celle de l'OCDE) alors `source_data()` essaye de prendre la dernière exécution résussie. Bien que cela puisse être problématique, c'est-à-dire une erreur non signalée, cela a l'énorme avantage de ne pas bloquer le processus et de permettre de traiter l'erreur en parallèle.
 4.  `source_data()` cherche de façon astucieuse le fichier source dans le projet et exécute le code dans un environnement local, en changeant le répertoire de travail pour être celui où se trouve le code source. Cela permet d'appeler dans le code source (le script `r` `mon_script.r` passé en paramètre à `source_data("mon_script.r")`, des scripts `r`, des fichiers de données `.csv` ou `.xlsx` qui sont enregistré dans le même répertoire que le fichier `mon_script.r`. On peut donc réutiliser le code sans se soucier de modifier les chemins qui sont relatifs au dossier où se trouve `mon_script.r`.
+5.  cela fournit un embryon de reproductibilité en désignant le script qui fabrique les données.
 
 ## Comment l'utiliser ?
 
