@@ -7,7 +7,7 @@
 source_data_refresh(
   what = NULL,
   cache_rep = NULL,
-  force_exec = FALSE,
+  force_exec = TRUE,
   hash = TRUE,
   unfreeze = TRUE,
   quiet = TRUE,

@@ -1,6 +1,7 @@
 library(ggplot2)
 library(marquee)
 library(patchwork)
+library(ofce)
 ggplot(mtcars) +
   aes(x = mpg, y = drat, color = factor(cyl)) +
   geom_point() +
@@ -39,9 +40,10 @@ g +  theme(legend.position = "bottom",
         legend.key.width = unit(72, 'pt'))
 
 library(legendry)
+library(ggplot2)
 ggplot(mtcars) +
   aes(x = mpg, y = hp, color = cyl, size=hp) +
   geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21) +
   geom_smooth(aes(x = mpg, y = hp)) +
   scale_size(breaks = c(100, 250)) +
-  guides(size = guide_circles(override.aes = list(fill = "transparent", color = "black")))
+  guides(size = guide_circles(override.aes=list(shape=1, fill = NA, color = "black")))

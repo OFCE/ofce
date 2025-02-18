@@ -13,6 +13,7 @@ ofce_caption(
   dpt = NULL,
   xlab = NULL,
   ylab = NULL,
+  sub = NULL,
   dptf = "month",
   wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
   lang = getOption("ofce.caption.lang"),
