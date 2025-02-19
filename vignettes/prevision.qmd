@@ -233,7 +233,7 @@ girafy(gg)
 
 Et voilà !
 
-## Des mises en forme avancées
+## Des usages plus avancés
 
 ### Composition de graphiques : `patchwork`
 
@@ -247,7 +247,7 @@ Parfois on peut préférer `{patchwork}` à un `facet`, parce que `{patchwork}` 
 
 On peut aligner les axes de graphiques dans des chunks différents avec `{patchwork}`. C'est assez simple et il y a un exemple sur les graphiques "immobiliers" du cahier de graphiques. On définit un graphique de référence et on en prend les "mesures" avec `dim <- get_dim(g0)`. Les graphiques que l'on veut aligner seront produits par `set_dim(g1, dim)`. Le graphique de référence doit être celui dont les labels de l'axe des y sont les plus larges, ce qui peut demander un peu d'organisation dans l'écriture des chunks -- rien de bien compliqué. Ceci permet de produire des pages plus soignées.
 
-## Récupérer les métadonnées de `source_data()`
+### Récupérer les métadonnées de `source_data()`
 
 En utlisant l'option `metadata=TRUE` dans `source_data()` on peut récupérer des informations sur, par exmple, la date de téléchargement. C'est illustré sur quelques graphiques du cachier de graphique.
 
