@@ -206,14 +206,19 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
         hjust = 0,
         vjust = 0.5,
-        margin = ggplot2::margin(),
+        margin = ggplot2::margin(b = 6),
         lineheight = 1),
       plot.subtitle = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "light"),
+        style = marquee::modify_style(
+          ofce_style, tag = "p",
+          weight = "light",
+          padding = marquee::trbl(0, 0, 0, 0),
+          margin = marquee::trbl(0, 0, 0, 0),
+          lineheight = 0.9),
         size = ggplot2::rel(0.85),
+        vjust = 0,
         hjust = 0,
-        margin = ggplot2::margin(),
-        lineheight = 1),
+        margin = ggplot2::margin(t = 6, b = 0)),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
           ofce_style, tag = "p",
@@ -238,8 +243,8 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.85),
         color = "gray25",
         margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
-      legend.text = ggplot2::element_text(
-        size = ggplot2::rel(0.5),
+      legend.text = marquee::element_marquee(
+        size = ggplot2::rel(0.8),
         hjust=0,
         color = "gray25")
     )
@@ -273,6 +278,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.80),
         color = "gray25")
     )
+
 
     ggplot2::theme(
       # general
