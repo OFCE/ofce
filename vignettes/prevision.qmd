@@ -247,6 +247,33 @@ Parfois on peut préférer `{patchwork}` à un `facet`, parce que `{patchwork}` 
 
 On peut aligner les axes de graphiques dans des chunks différents avec `{patchwork}`. C'est assez simple et il y a un exemple sur les graphiques "immobiliers" du cahier de graphiques. On définit un graphique de référence et on en prend les "mesures" avec `dim <- get_dim(g0)`. Les graphiques que l'on veut aligner seront produits par `set_dim(g1, dim)`. Le graphique de référence doit être celui dont les labels de l'axe des y sont les plus larges, ce qui peut demander un peu d'organisation dans l'écriture des chunks -- rien de bien compliqué. Ceci permet de produire des pages plus soignées.
 
+## Récupérer les métadonnées de `source_data()`
+
+En utlisant l'option `metadata=TRUE` dans `source_data()` on peut récupérer des informations sur, par exmple, la date de téléchargement. C'est illustré sur quelques graphiques du cachier de graphique.
+
+En code cela donne le chunk ci dessous. Les données sont accessibles par `$data` et la date de téléchargement par `$date`. Cela permet de construire la note (noter que `glue::glue()` est appliqué aux textes passés à `ofce_caption()`). 
+
+```{{r}}
+transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
+
+trsc <- ggplot(transactions$data) + 
+  aes(x=date, y=t*1000) +
+  geom_line(alpha = 0.5, col = bluish) +
+  geom_point_interactive(aes(tooltip = tooltip, data_id = date),
+                         shape = 21, size = 1, stroke = 0.2, col = "white", 
+                         fill = bluish,
+                         hover_nearest = TRUE, show.legend = FALSE)+
+  theme_ofce() +
+  scale_y_log10(labels = scales::number_format(scale = 1/1000, suffix="k")) +
+  scalex +
+  ofce_caption(
+    source = "IGEDD d'après DGFiP (MEDOC) et bases notariale", 
+    dpt = transactions$data$date,
+    note = "Transactions cumulées sur 12 mois, dans l'ancien, maisons et appartements, échelle log, données téléchargées le {date_jour(transactions$date)}",
+    sub= "Nombre de transactions")
+
+```
+
 ### La taille d'un graphique
 
 Pour définir la taille d'un graphique, on ne spécifie **jamais** la largeur ou la hauteur du graphique[^11] . Celle-ci est définie en fonction du support d'affichage et donc n'est pas connue à l'avance. En la fixant dans le .qmd on empêche la mise à l'échelle conditionnelle au support de sortie et cela produit des résultats embettant. 
