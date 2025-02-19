@@ -39,13 +39,17 @@ g +  theme(legend.position = "bottom",
         legend.text = element_marquee(),
         legend.key.width = unit(72, 'pt'))
 
-library(legendry)
-library(ggplot2)
-ggplot(mtcars) +
-  aes(x = mpg, y = hp, color = cyl, size=hp) +
-  geom_smooth(aes(x = mpg, y = hp)) +
-  geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21) +
-  scale_size(breaks = c(100, 250)) +
-  guides(size = guide_circles())
 
+
+library(legendry)
+
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21, colour = "transparent") +
+  scale_size(breaks = c(100, 250)) +
+  guides(size = guide_circles(override.aes = list(colour = "blue", stroke = 0.25)))
+
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21, color = "red", stroke = 0.2) +
+  scale_size(breaks = c(100, 250)) +
+  guides(size = guide_circles(override.aes = list(colour = "blue", stroke = 0.25)))
 
