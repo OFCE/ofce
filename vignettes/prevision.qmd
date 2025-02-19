@@ -152,7 +152,7 @@ autres <- data |> distinct(pays) |> pull() |> setdiff(c(pays, pays2)) # <1>
 
 gg <- ggplot(data) +                                             # <1>
   # l'`aes` commun à plusieurs geom, une bonne pratique qui rend le code plus simple
-  aes(x=date, y=value, group = pays, color = variable, fill = variable) + # <2> 
+  aes(x=date, y=value, group = pays, color = variable, fill = variable) + # <2>
   # la bande grise qui indique les prévisions (spécifique à chque exercice de prévision)
   annotate_prevision(size=0) +                             # <3>
   # le `facet`, avec une échelle libre sur les y -- jamais de spaghettis
@@ -203,7 +203,7 @@ gg <- ggplot(data) +                                             # <1>
   # on ne met pas les légendes de couleur ou de remplissage, ce n'est pas utile dans ce graphique, on essaye de ne pas les mettre en dessous de façon générale si elles sont nécessaire
   guides(color = "none", fill = "none") +                  # <15>
   # les notes et sources, standardisées, avec en particulier les derniers points connus.
-  ofce_caption(                                            # <16>  
+  ofce_caption(                                            # <16>
     source = "INSEE, Eurostat, instituts nationaux",
     note = "La zone euro est en gris foncé",
     dpt = "2024-04-01", dptf = "quarter")
@@ -237,9 +237,9 @@ Et voilà !
 
 ### Composition de graphiques : `patchwork`
 
-Pour empiler des graphiques on peut utiliser `{patchwork}` -- en fait c'est mieux que les autres solutions comme `cowplot`. La syntaxe est très simple, pour empiler l'un sur l'autre le graphique `g1` et `g2` il suffit d'écrire `g <- g1/g2` et l'un à côté de l'autre `g <- g1 + g2`. L'objet `g` ressemble beaucoup à un graphique ggplot, mais pas complètement. Il peut cependant être utilisé dans `{giraph}` comme un ggplot. L'interactivité est alors synchrone pour tous les graphiques. 
+Pour empiler des graphiques on peut utiliser `{patchwork}` -- c'est mieux que les autres solutions comme `{cowplot}`. La syntaxe est très simple, pour empiler l'un sur l'autre le graphique `g1` et `g2` il suffit d'écrire `g <- g1/g2` et l'un à côté de l'autre `g <- g1 + g2`. L'objet `g` ressemble beaucoup à un graphique ggplot, mais pas complètement. Il peut cependant être utilisé dans `{giraph}` comme un ggplot. L'interactivité est alors synchrone pour tous les graphiques du `patchwork`.
 
-Parfois on peut préférer `{patchwork}` à un `facet`, parce que `{patchwork}` autorise le mélange de graphique très différents (des line sur un panel, des bar sur un autre). 
+Parfois on peut préférer `{patchwork}` à un `facet`, parce que `{patchwork}` autorise le mélange de graphique très différents (des line sur un panel, des bar sur un autre).
 
 `{patchwork}` réunit les légendes communes, et les notes communes, aligne les axes et permet de faire des décorations communes. La syntaxe pour ces opérations avancées est sur l'aide de `{patchwork}` avec quelques exemples dans le cahier de graphiques.
 
@@ -249,25 +249,25 @@ On peut aligner les axes de graphiques dans des chunks différents avec `{patchw
 
 ### Récupérer les métadonnées de `source_data()`
 
-En utlisant l'option `metadata=TRUE` dans `source_data()` on peut récupérer des informations sur, par exmple, la date de téléchargement. C'est illustré sur quelques graphiques du cachier de graphique.
+En utilisant l'option `metadata=TRUE` dans `source_data()` on peut récupérer des informations sur, par exemple, la date de téléchargement. C'est illustré sur quelques graphiques du cahier de graphique.
 
-En code cela donne le chunk ci dessous. Les données sont accessibles par `$data` et la date de téléchargement par `$date`. Cela permet de construire la note (noter que `glue::glue()` est appliqué aux textes passés à `ofce_caption()`). 
+En code cela donne le chunk ci dessous. Les données sont accessibles par `$data` et la date de téléchargement par `$date`. Cela permet de construire la note (noter que `glue::glue()` est appliqué aux textes passés à `ofce_caption()`).
 
 ```{{r}}
 transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
 
-trsc <- ggplot(transactions$data) + 
+trsc <- ggplot(transactions$data) +
   aes(x=date, y=t*1000) +
   geom_line(alpha = 0.5, col = bluish) +
   geom_point_interactive(aes(tooltip = tooltip, data_id = date),
-                         shape = 21, size = 1, stroke = 0.2, col = "white", 
+                         shape = 21, size = 1, stroke = 0.2, col = "white",
                          fill = bluish,
                          hover_nearest = TRUE, show.legend = FALSE)+
   theme_ofce() +
   scale_y_log10(labels = scales::number_format(scale = 1/1000, suffix="k")) +
   scalex +
   ofce_caption(
-    source = "IGEDD d'après DGFiP (MEDOC) et bases notariale", 
+    source = "IGEDD d'après DGFiP (MEDOC) et bases notariale",
     dpt = transactions$data$date,
     note = "Transactions cumulées sur 12 mois, dans l'ancien, maisons et appartements, échelle log, données téléchargées le {date_jour(transactions$date)}",
     sub= "Nombre de transactions")
@@ -276,15 +276,15 @@ trsc <- ggplot(transactions$data) +
 
 ### La taille d'un graphique
 
-Pour définir la taille d'un graphique, on ne spécifie **jamais** la largeur ou la hauteur du graphique[^11] . Celle-ci est définie en fonction du support d'affichage et donc n'est pas connue à l'avance. En la fixant dans le .qmd on empêche la mise à l'échelle conditionnelle au support de sortie et cela produit des résultats embettant. 
+Pour définir la taille d'un graphique, on ne spécifie **jamais** la largeur ou la hauteur du graphique[^2] . Celle-ci est définie en fonction du support d'affichage et donc n'est pas connue à l'avance. En la fixant dans le .qmd on empêche la mise à l'échelle conditionnelle au support de sortie et cela produit des résultats embettant.
 
-[^11]: Donc jamais de `fig-width: 5` par exemple.
+[^2]: Donc jamais de `fig-width: 5` par exemple.
 
-On utilise donc le ratio hauteur/largeur qui s'appelle `asp` (pour *aspect ratio*). Il est fixé à 0.61 (l'inverse du nombre d'or) par défaut. Lorsqu'on a une note de graphique très longue, on peut l'augmenter (malheureusement l'asp inclu le graphique et le texte des notes), à 0.7 ou 0.8.
+On utilise donc le ratio hauteur/largeur qui s'appelle `asp` (pour *aspect ratio*). Il est fixé à 0.61 (l'inverse du nombre d'or) par défaut. Lorsqu'on a une note de graphique très longue, on peut l'augmenter (malheureusement l'asp inclue le graphique et le texte des notes), à 0.7 ou 0.8.
 
 Si on empile deux graphiques (un `facet` par exemple), un `asp` de 1 est possible. C'est également un bon ratio pour les cartes (1 donne un format carré).
 
-Pour un graphique pleine page A4, l'`asp` est celui d'une page A4 soit 1.41. Au delà de cet `asp`, cela n'a pas beaucoup de sens et en tout cas celà posera des problèmes à l'impression sur papier. 
+Pour un graphique pleine page A4, l'`asp` est celui d'une page A4 soit 1.41. Au delà de cet `asp`, cela n'a pas beaucoup de sens et en tout cas cela posera des problèmes à l'impression sur papier.
 
 Pour un graphique destiné à une présentation, le ratio doit être celui de l'écran de projection soit 9/16=0,56, ce qui n'est pas très loin de la valeur par défaut (coincidence ? je ne crois pas)
 
