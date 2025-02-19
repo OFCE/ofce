@@ -31,7 +31,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b = 6),
         lineheight = 1),
       axis.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "light"),
+        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.85),
         hjust = 1,
         vjust = 0.5,
@@ -40,7 +40,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       plot.subtitle = marquee::element_marquee(
         style = marquee::modify_style(
           ofce_style, tag = "p",
-          weight = "light",
+          weight = "normal",
           padding = marquee::trbl(0, 0, 0, 0),
           margin = marquee::trbl(0, 0, 0, 0),
           lineheight = 0.9),
@@ -51,7 +51,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       plot.caption = marquee::element_marquee(
         style = marquee::modify_style(
           ofce_style, tag = "p",
-          weight = "light",
+          weight = "normal",
           align = "left-aligned",
           padding = marquee::trbl(0, 0, 0, 0),
           hanging = marquee::em(0.5),
