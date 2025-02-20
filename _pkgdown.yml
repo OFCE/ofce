@@ -50,6 +50,9 @@ navbar:
       menu:
         - text: Charte Graphique
           href: articles/charte_graphique.html
+        - text: Charte Graphique pour la Prévision
+          href: articles/prevision.html
+        - text: "---"
         - text: Séries temporelles
           href: articles/temporelles.html
         - text: Graphiques XY
@@ -60,8 +63,7 @@ navbar:
           href: articles/distributions.html
         - text: Cartes
           href: articles/cartes.html
-        - text: Charte graphique de la prévision
-          href: articles/prevision.html
-        - text: Mettre en cache et rendre le process robuste
+        - text: "---"
+        - text: Caché et robuste
           href: articles/source_data.html
 
