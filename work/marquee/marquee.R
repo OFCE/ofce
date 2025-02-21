@@ -44,12 +44,12 @@ g +  theme(legend.position = "bottom",
 library(legendry)
 
 ggplot(mtcars) +
-  geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21, colour = "transparent") +
-  scale_size(breaks = c(100, 250)) +
-  guides(size = guide_circles(override.aes = list(colour = "blue", stroke = 0.25)))
+  geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21, color = "transparent") +
+  scale_size(breaks = c(75, 250)) +
+  guides(size = guide_circles(override.aes = list(color = "blue", stroke = 0.25)))
 
 ggplot(mtcars) +
   geom_point(aes(x = mpg, y = hp, fill = cyl, size=hp), shape=21, color = "red", stroke = 0.2) +
   scale_size(breaks = c(100, 250)) +
-  guides(size = guide_circles(override.aes = list(colour = "blue", stroke = 0.25)))
+  guides(size = guide_circles(override.aes = list(color = "blue", stroke = 0.25)))
 
