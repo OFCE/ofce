@@ -1,5 +1,5 @@
 ---
-title: "`source_data()` : plus rapide, plus sûr"
+title: "source_data() : plus rapide, plus sûr"
 vignette: >
   %\VignetteIndexEntry{source_data}
   %\VignetteEngine{quarto::html}
@@ -20,7 +20,7 @@ warning: false
 ofce::init_qmd(echo=TRUE)
 ```
 
-## Mettre en cache le résultat des calculs
+## Mettre en cache le résultat des calculs avec `source_data()`
 
 `source_data()` est une fonction du package `{ofce}` qui permet de mettre en cache les résultats d'un script `r` et de ne pas avoir à ré-exécuter le code à chaque fois.
 
