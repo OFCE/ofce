@@ -1,3 +1,7 @@
+## OFCE 1.3.12
+
+* ajout de `bd_read()` et `bd_write()` pour l'accès à Azure
+
 ## OFCE 1.3.11
 
 * modification de ofce_caption (traduit marquee)

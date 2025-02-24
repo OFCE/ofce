@@ -2,6 +2,9 @@
 
 export(add_label_unit)
 export(add_logo)
+export(bd_read)
+export(bd_write)
+export(board)
 export(clear_source_cache)
 export(dernier_point)
 export(f2si2)
