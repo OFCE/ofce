@@ -446,7 +446,9 @@ cache_data <- function(data, cache_rep, name, root, uid="00000000", nocache = FA
   if(nrow(files)>0) {
     uids <- files$uid
     ccs <- files$cc
-    last_fn <- files |> arrange(desc(modification_time)) |> slice(1)
+    last_fn <- files |>
+      dplyr::arrange( dplyr::desc(modification_time)) |>
+      dplyr::slice(1)
     last_m_data <- read_mdata(last_fn$path)
     last_data_hash <- last_m_data$data_hash
     if(!is.null(last_data_hash)) {
@@ -689,7 +691,7 @@ source_data_status <- function(
           uid = dd$uid,
           index = dd$cc |> as.numeric(),
           timing = dd$timing,
-          size = dd$size,
+          size = scales::label_bytes()(dd$size),
           lapse = dd$lapse |> as.character(),
           wd = dd$wd,
           args = list(dd$args),
@@ -872,3 +874,4 @@ source_data_refresh <- function(
 set_cache_rep <- function(cache_rep = find_cache_rep()) {
   session.source_data.cache_rep <<- cache_rep
 }
+

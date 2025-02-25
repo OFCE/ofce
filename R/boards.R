@@ -12,6 +12,10 @@
 #' @export
 #'
 board <- function() {
+  url <- Sys.getenv("azure_url")
+  if(length(url)==0)
+    cli::cli_abort("Le container Azure n'est pas renseigné dans le .Renviron")
+  jeton <- Sys.getenv("azure_jeton")
   pins::board_azure(
     AzureStor::storage_container(
       Sys.getenv("azure_url"),
