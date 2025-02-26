@@ -6,7 +6,8 @@
 #'
 #' @param base_size double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).
 #' @param base_family character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Open Sans"))
-#' @param ... paramètres passés à \code{\link[ggplot2]{theme}()}
+#' @param marquee (boléen) utilise marquee pour la plupart des textes dans un plot
+#' @inheritDotParams ggplot2::theme
 #' @return un thème qui peut être utilisé dans ggplot
 #' @family themes
 #' @export

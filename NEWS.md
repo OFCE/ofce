@@ -1,5 +1,9 @@
 ## OFCE 1.3.12
 
+* `source_data()` a son propre package `{sourcoise}`, qui est importé dans `{ofce}`.
+
+## OFCE 1.3.12
+
 * ajout de `bd_read()` et `bd_write()` pour l'accès à Azure
 
 ## OFCE 1.3.11
@@ -21,7 +25,6 @@
 ## OFCE 1.3.8
 
 * `rinit.r` : Modification du mode chargement des packages pour vérifier l'installation des packages du rinit, installer les packages manquants au besoin, et les charger.
-
 
 ## OFCE 1.3.7
 
@@ -74,7 +77,7 @@ les données sont cachés dans ce répertoire. Destiné au blog et permet de dé
 
 ## OFCE 1.0.0
 
-* première version avec notamment les fonctionspkg
+* première version avec notamment les fonctions :
 
 ** `theme_ofce()`
 ** `setup_quarto()`
