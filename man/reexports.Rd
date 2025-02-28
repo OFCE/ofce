@@ -3,9 +3,10 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{source_data}
-\alias{source_data_refresh}
-\alias{source_data_status}
+\alias{sourcoise}
+\alias{sourcoise_refresh}
+\alias{sourcoise_status}
+\alias{sourcoise_clear}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -13,6 +14,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{sourcoise}{\code{\link[sourcoise:sourcoise]{source_data}}, \code{\link[sourcoise:sourcoise_refresh]{source_data_refresh}}, \code{\link[sourcoise:sourcoise_status]{source_data_status}}}
+  \item{sourcoise}{\code{\link[sourcoise]{sourcoise}}, \code{\link[sourcoise]{sourcoise_clear}}, \code{\link[sourcoise]{sourcoise_refresh}}, \code{\link[sourcoise]{sourcoise_status}}}
 }}
 

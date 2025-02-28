@@ -1,8 +1,0 @@
-project:
-  type: website
-
-format:
-  html: default
-
-cache: false
-freeze: auto
