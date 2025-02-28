@@ -84,7 +84,7 @@ Le **répertoire est toujours relatif**.
 
 Plus c'est simple et clair, mieux c'est (i.e. gardez les noms courts, explicites, pas de majuscules, bien rangés, conservateurs dans l'utilisation des caractères (**pas d'accents, pas de blancs, pas de symboles spéciaux**). Donc `donnees/img.png` ou `donnees/graphique 1a5.png` ne sont pas des bons noms. Mais `figures/revenu.png` ou `figures/pib_par_tete.png` sont mieux.
 
-``` r
+```r
 #| label fig-pib2008_2024
 #| fig-cap: PIB entre 2008 et 2024
 

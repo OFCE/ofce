@@ -51,7 +51,7 @@ Le but est d'homogénéiser le plus possible les graphiques de prévisions. Les 
 
     5.  Chaque .`qmd` doit commencer par un chunk `r` qui est formaté comme suit -- cette instruction charge les packages nécessaires, définit des options par défaut et ajoute quelques fonctions utiles :
 
-```{{r}}
+```r
 #| include: false
 ofce::init_qmd()
 ```
@@ -208,6 +208,8 @@ gg <- ggplot(data) +                                             # <1>
     note = "La zone euro est en gris foncé",
     dpt = "2024-04-01", dptf = "quarter")
 
+gg
+
 ```
 
 ## Des couleurs par pays
@@ -216,7 +218,7 @@ La fonction `ofce::scale_color_pays()` applique une échelle de couleur (et de r
 
 Cela donne comme code :
 
-```{{r}}
+```r
 ggplot(mes_donnees) +
   aes(x=time, y= pib, color = pays, fill = pays) +
   ...+
@@ -253,7 +255,7 @@ En utilisant l'option `metadata=TRUE` dans `source_data()` on peut récupérer d
 
 En code cela donne le chunk ci dessous. Les données sont accessibles par `$data` et la date de téléchargement par `$date`. Cela permet de construire la note (noter que `glue::glue()` est appliqué aux textes passés à `ofce_caption()`).
 
-```{{r}}
+```r
 transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
 
 trsc <- ggplot(transactions$data) +
@@ -290,7 +292,7 @@ Pour un graphique destiné à une présentation, le ratio doit être celui de l'
 
 Le code le plus simple pour définir l'`asp` est celui-là (pour une étrange raison, il faut mettre le 0 et bine sûr utiliser le point pour les décimales, pas d'opérations possibles comme 9/16) :
 
-```{{r}}
+```r
 #| label: fig-fig1
 #| fig-cap: Le titre de la figure
 #| fig-asp: 0.7
