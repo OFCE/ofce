@@ -14,7 +14,7 @@
 board <- function() {
   url <- Sys.getenv("azure_url")
   if(url=="")
-    return(FALSE)
+    return(NULL)
   jeton <- Sys.getenv("azure_jeton")
   pins::board_azure(
     AzureStor::storage_container(
@@ -35,8 +35,10 @@ bd_hash <- function(obj) pins::pin_meta(board, obj)$pin_hash
 #'
 bd_read <- function(obj) {
   board <- ofce::board()
-  if(board)
+  if(!is.null(board))
     pins::pin_read(board, obj)
+  else
+    return(NULL)
 }
 
 #' Ecrit sur le board
@@ -58,7 +60,7 @@ bd_read <- function(obj) {
 #'
 bd_write <- function(obj, name=NULL, title=NULL, description=NULL, metadata = NULL, tags=NULL, versioned=NULL) {
   board <- ofce::board()
-  if(!board)
+  if(is.null(board))
     return(NULL)
   if(is.null(name))
     name <- rlang::as_name(rlang::enquo(obj))
