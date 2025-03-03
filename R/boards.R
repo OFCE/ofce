@@ -13,8 +13,8 @@
 #'
 board <- function() {
   url <- Sys.getenv("azure_url")
-  if(length(url)==0)
-    cli::cli_abort("Le container Azure n'est pas renseigné dans le .Renviron")
+  if(url=="")
+    return(FALSE)
   jeton <- Sys.getenv("azure_jeton")
   pins::board_azure(
     AzureStor::storage_container(
@@ -34,7 +34,9 @@ bd_hash <- function(obj) pins::pin_meta(board, obj)$pin_hash
 #' @export
 #'
 bd_read <- function(obj) {
-  pins::pin_read(ofce::board(), obj)
+  board <- ofce::board()
+  if(board)
+    pins::pin_read(board, obj)
 }
 
 #' Ecrit sur le board
@@ -55,15 +57,19 @@ bd_read <- function(obj) {
 #'
 #'
 bd_write <- function(obj, name=NULL, title=NULL, description=NULL, metadata = NULL, tags=NULL, versioned=NULL) {
+  board <- ofce::board()
+  if(!board)
+    return(NULL)
   if(is.null(name))
     name <- rlang::as_name(rlang::enquo(obj))
-  pins::pin_write(board = ofce::board(),
-                  x = obj,
-                  name = name,
-                  title = title,
-                  description = description,
-                  metadata = metadata,
-                  tags = tags,
-                  versioned = versioned,
-                  type = "qs")
+  pins::pin_write(
+    board = board,
+    x = obj,
+    name = name,
+    title = title,
+    description = description,
+    metadata = metadata,
+    tags = tags,
+    versioned = versioned,
+    type = "rds")
 }
