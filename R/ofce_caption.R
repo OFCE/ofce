@@ -10,6 +10,7 @@
 #' @param code texte du code (sans le mot code qui est rajouté)
 #' @param xlab inclu le label de l'axe des x (pour le traduire avec marquee)
 #' @param ylab inclu le label de l'axe des y (pour le traduire avec marquee)
+#' @param subtitle inclu le label du sous titre (pour le traduire avec marquee)
 #' @param dpt dernier point connu
 #' @param dptf fréquence du dernier point connu (day, month, quarter, year)
 #' @param wrap largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)
@@ -23,23 +24,24 @@
 #' @return ggplot2 caption (ggplot() + ofce_caption("INSEE"))
 #' @export
 
-ofce_caption <- function(source = NULL,
-                         note = NULL,
-                         lecture = NULL,
-                         champ = NULL,
-                         code = NULL,
-                         dpt = NULL,
-                         xlab = NULL,
-                         ylab = NULL,
-                         sub = NULL,
-                         dptf = "month",
-                         wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
-                         lang = getOption("ofce.caption.lang"),
-                         ofce = getOption("ofce.caption.ofce"),
-                         author = getOption("ofce.caption.author"),
-                         srcplus = getOption("ofce.caption.srcplus"),
-                         marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
-                         glue = getOption("ofce.caption.glue")) {
+ofce_caption <- function(
+    source = NULL,
+    note = NULL,
+    lecture = NULL,
+    champ = NULL,
+    code = NULL,
+    dpt = NULL,
+    xlab = NULL,
+    ylab = NULL,
+    subtitle = NULL,
+    dptf = "month",
+    wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
+    lang = getOption("ofce.caption.lang"),
+    ofce = getOption("ofce.caption.ofce"),
+    author = getOption("ofce.caption.author"),
+    srcplus = getOption("ofce.caption.srcplus"),
+    marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
+    glue = getOption("ofce.caption.glue")) {
 
   if(is.null(author)){author = FALSE}
   env <- parent.frame()

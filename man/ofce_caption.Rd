@@ -13,7 +13,7 @@ ofce_caption(
   dpt = NULL,
   xlab = NULL,
   ylab = NULL,
-  sub = NULL,
+  subtitle = NULL,
   dptf = "month",
   wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
   lang = getOption("ofce.caption.lang"),
@@ -41,6 +41,8 @@ ofce_caption(
 \item{xlab}{inclu le label de l'axe des x (pour le traduire avec marquee)}
 
 \item{ylab}{inclu le label de l'axe des y (pour le traduire avec marquee)}
+
+\item{subtitle}{inclu le label du sous titre (pour le traduire avec marquee)}
 
 \item{dptf}{fréquence du dernier point connu (day, month, quarter, year)}
 
