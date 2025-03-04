@@ -82,8 +82,8 @@ ofce_caption <- function(
   if(!is.null(ylab))
     ylab <- transforme(ylab)
 
-  if(!is.null(sub))
-    sub <- transforme(sub)
+  if(!is.null(subtitle))
+    subtitle <- transforme(subtitle)
 
   if(lang=="fr") {
     lec <- "*Lecture* : "
@@ -202,8 +202,8 @@ ofce_caption <- function(
     gplot <- rlist::list.append(gplot, ggplot2::xlab(label = xlab) )
   if(!is.null(ylab))
     gplot <- rlist::list.append(gplot, ggplot2::ylab(label = ylab) )
-  if(!is.null(sub))
-    gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = sub) )
+  if(!is.null(subtitle))
+    gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = subtitle) )
 
   return(gplot)
 }
