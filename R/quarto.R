@@ -377,6 +377,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #'
 
 init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE) {
+
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   qmd_message <<- message
@@ -388,15 +389,23 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
 
     pat <- stringr::str_c(init |> fs::path_ext_remove(), "\\.[rR]$")
     inits <- fs::dir_ls(root, all = TRUE, regexp = pat, recurse=TRUE)
-    le_init <- inits[which.min(purrr::map_dbl(inits, stringr::str_length))]
-    source(le_init, echo = FALSE, verbose = FALSE, local = .GlobalEnv)
-    return(invisible(le_init))
+    if(length(inits)>0) {
+      le_init <- inits[which.min(purrr::map_dbl(inits, stringr::str_length))]
+      capture.output(
+        source(le_init, echo = FALSE, verbose = FALSE, local = .GlobalEnv),
+        file = nullfile(), type = c("output", "message"))
+      return(invisible(le_init))
+    }
   }
-
-  if(file.exists(fs::path_package("ofce", "rinit.r"))) {
-    source(fs::path_package("ofce", "rinit.r"),
-           echo = FALSE, verbose = FALSE, local = .GlobalEnv)
+  spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
+  spp <- spp_fn()
+  if(is.null(spp$error)) {
+    capture.output(
+      source(spp$result,
+           echo = FALSE, verbose = FALSE, local = .GlobalEnv),
+      file = nullfile(), type = c("output", "message") )
     return(invisible("package"))
   }
+  cli::cli_alert_danger("{init} pas trouvé")
   return(invisible(glue::glue("{init} pas trouvé")))
 }
