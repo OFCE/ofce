@@ -368,9 +368,12 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #' exécute le fichier rinit.R à la racine du projet, ou dans _utils,
 #' ou en dessous.
 #' s'il ne le trouve pas il utilise une version par défaut,
-#' stockée dans le package
+#' stockée dans le package et qui est copiée dans le répertoire du projet
 #'
-#' @param init Nom du projet, "pres" par défaut,
+#' @param init nom du fichier à utiliser (`"rinit.r"` par défaut)
+#' @param echo (défaut FALSE) passé aux chunks
+#' @param message (défaut FALSE) passé aux chunks
+#' @param warning (défaut FALSE) passé aux chunks
 #'
 #' @return NULL
 #' @export
@@ -400,8 +403,9 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
   spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
   spp <- spp_fn()
   if(is.null(spp$error)) {
+    fs::file_copy(spp$result, root)
     capture.output(
-      source(spp$result,
+      source(fs::path_join(c(root,"rinit.r")),
            echo = FALSE, verbose = FALSE, local = .GlobalEnv),
       file = nullfile(), type = c("output", "message") )
     return(invisible("package"))

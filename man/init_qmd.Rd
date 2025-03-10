@@ -5,16 +5,22 @@
 \title{exécute le fichier rinit.R à la racine du projet, ou dans _utils,
 ou en dessous.
 s'il ne le trouve pas il utilise une version par défaut,
-stockée dans le package}
+stockée dans le package et qui est copiée dans le répertoire du projet}
 \usage{
 init_qmd(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE)
 }
 \arguments{
-\item{init}{Nom du projet, "pres" par défaut,}
+\item{init}{nom du fichier à utiliser (\code{"rinit.r"} par défaut)}
+
+\item{echo}{(défaut FALSE) passé aux chunks}
+
+\item{message}{(défaut FALSE) passé aux chunks}
+
+\item{warning}{(défaut FALSE) passé aux chunks}
 }
 \description{
 exécute le fichier rinit.R à la racine du projet, ou dans _utils,
 ou en dessous.
 s'il ne le trouve pas il utilise une version par défaut,
-stockée dans le package
+stockée dans le package et qui est copiée dans le répertoire du projet
 }

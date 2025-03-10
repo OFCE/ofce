@@ -1,4 +1,8 @@
-## OFCE 1.3.12
+## OFCE 1.3.14
+
+* corrections de bug dont `init_qmd()` et `board()`
+
+## OFCE 1.3.13
 
 * `source_data()` a son propre package `{sourcoise}`, qui est importé dans `{ofce}`.
 
