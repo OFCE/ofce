@@ -1,6 +1,8 @@
 
 #' Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE
 #'
+#' Le code "oth" correspond à "Autres" et propose un gris clair.
+#'
 #' @param lang chr, le choix de la langue c("fr","en")
 #' @param format chr, le format des données ("iso3", "eurostat", "fr" pour les noms en clair, et tous les codes qu'accepte countrycode::countrycode)
 #' @param name titre de la légende
@@ -13,7 +15,6 @@
 #'
 #' @return un scale configuré
 #' @export
-#'
 #'
 scale_color_pays <- function(format = NULL,
                              lang = "fr", name = NULL, aesthetics= c("color", "fill"), ...) {

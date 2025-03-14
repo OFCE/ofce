@@ -16,7 +16,6 @@
 ofce_palette_pays <- function(list_iso3 = NULL,
                               HEX = NULL,
                               RVB = NULL) {
-  load("data/palette_pays.rda")
 
   if (is.null(list_iso3)){list_iso3 = c("FRA", "ITA")}
 
@@ -24,9 +23,7 @@ ofce_palette_pays <- function(list_iso3 = NULL,
   if (is.null(RVB)){RGB = FALSE}
   if (isTRUE(RVB)){HEX = FALSE}
 
-
-
-  dat <- palette_pays |>
+  dat <- ofce::palette_pays |>
     dplyr::filter(ISO3 %in% list_iso3) |>
     dplyr::arrange(match(ISO3, list_iso3))
 
