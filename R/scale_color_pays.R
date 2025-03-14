@@ -16,18 +16,19 @@
 #' @return un scale configuré
 #' @export
 #'
-scale_color_pays <- function(format = NULL,
+scale_color_pays <- function(format = "iso3",
                              lang = "fr", name = NULL, aesthetics= c("color", "fill"), ...) {
 
-  format <- case_match( format,
+  format <- dplyr::case_match( tolower(format),
                         "iso3" ~ "iso3c",
                         "iso2" ~ "iso2c",
                         "fr" ~ "country.name.fr",
                         .default = format)
 
   dat <- ofce::palette_pays |>
-    mutate(
-      code = countrycode::countrycode(ISO3, "iso3c", format)
+    dplyr::mutate(
+      code = countrycode::countrycode(ISO3, "iso3c", format, warn = FALSE),
+      code = ifelse(ISO3%in% c("EUZ","EA", "EA12", "EA19", "EA20", "EU27_2020", "oth"), ISO3, code)
     )
 
   if(lang == "fr"){
