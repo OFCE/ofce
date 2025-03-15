@@ -46,7 +46,7 @@ Imports:
     ggiraph,
     sourcoise
 Remotes:
-    sourcoise = github::xtimbeau/sourcoise@dev
+    sourcoise=github::xtimbeau/sourcoise@dev
 License: CC BY 4.0
 Depends:
     R (>= 4.2)

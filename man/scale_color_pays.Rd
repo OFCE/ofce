@@ -5,7 +5,7 @@
 \title{Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE}
 \usage{
 scale_color_pays(
-  format = NULL,
+  format = "iso3",
   lang = "fr",
   name = NULL,
   aesthetics = c("color", "fill"),
