@@ -27,5 +27,5 @@ scale_color_pays(
 un scale configuré
 }
 \description{
-Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE
+Le code "oth" correspond à "Autres" et propose un gris clair.
 }
