@@ -66,4 +66,6 @@ navbar:
         - text: "---"
         - text: Caché et robuste
           href: articles/source_data.html
-
+        - text: "---"
+        - text: Quand ça ne marche pas
+          href: articles/qa.html

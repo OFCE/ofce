@@ -380,36 +380,48 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #'
 
 init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE) {
-
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   qmd_message <<- message
   qmd_warning <<- warning
   qmd_echo <<- echo
+  spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
+  spp <- spp_fn()
+  le_init <- NULL
   if(is.null(root$error)) {
     root <- root$result
     ofce.root <<- root
 
     pat <- stringr::str_c(init |> fs::path_ext_remove(), "\\.[rR]$")
     inits <- fs::dir_ls(root, all = TRUE, regexp = pat, recurse=TRUE)
+
     if(length(inits)>0) {
       le_init <- inits[which.min(purrr::map_dbl(inits, stringr::str_length))]
-      capture.output(
-        source(le_init, echo = FALSE, verbose = FALSE, local = .GlobalEnv),
-        file = nullfile(), type = c("output", "message"))
-      return(invisible(le_init))
+      msg <- le_init
+    }
+    if(is.null(le_init)) {
+      if(is.null(spp$error)) {
+        if(fs::file_access(root, "write")) {
+          le_init <- fs::file_copy(spp$result, root)
+          msg <- "rinit copied from package"
+        }
+      }
     }
   }
-  spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
-  spp <- spp_fn()
-  if(is.null(spp$error)) {
-    fs::file_copy(spp$result, root)
-    capture.output(
-      source(fs::path_join(c(root,"rinit.r")),
-           echo = FALSE, verbose = FALSE, local = .GlobalEnv),
-      file = nullfile(), type = c("output", "message") )
-    return(invisible("package"))
+
+  if(is.null(le_init) & is.null(spp$error)) {
+    le_init <- spp$result
+    msg <- "rinit from package"
   }
-  cli::cli_alert_danger("{init} pas trouvé")
-  return(invisible(glue::glue("{init} pas trouvé")))
+
+  if(!is.null(le_init)) {
+    capture.output(
+      source(le_init,
+             echo = FALSE, verbose = FALSE, local = .GlobalEnv),
+      file = nullfile(), type = c("output", "message") )
+    return(invisible(msg))
+  }
+
+  cli::cli_alert_danger("{init} not found (nor in project, nor in package)")
+  return(invisible(glue::glue("{init} not found (nor in project, nor in package)")))
 }

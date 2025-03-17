@@ -1,3 +1,7 @@
+## OFCE 1.3.15
+
+* corrections de bugs dans `init_qmd()` (réécriture)
+
 ## OFCE 1.3.14
 
 * corrections de bug dont `init_qmd()` et `board()`

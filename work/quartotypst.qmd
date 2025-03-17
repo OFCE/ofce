@@ -2,7 +2,7 @@
 title: "Template typs test"
 author: "Meriem"
 format:
-  typst:
+  pres-revealjs:
       template-partials:
         - template.typ
 ---
