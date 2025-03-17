@@ -13,11 +13,12 @@ format:
 echo: true
 message: false
 warning: false
+eval: false
 ---
 
-```{r}
-#| include: false
-ofce::init_qmd(echo=TRUE)
+```{r, eval=TRUE}
+#| include: true
+zz <- ofce::init_qmd(echo=TRUE)
 
 annotate_prevision <- function(posy = 1, xstart = "2025-01-01", xend = "2026-12-31", ymin = -Inf, ymax = Inf, size = 3) {
   midx <- (as.Date(xend) - as.Date(xstart))/2 + as.Date(xstart)
@@ -33,6 +34,7 @@ annotate_prevision <- function(posy = 1, xstart = "2025-01-01", xend = "2026-12-
       color="grey20", hjust = 0.5))
 }
 
+zz
 ```
 
 ## Les graphiques de prévision

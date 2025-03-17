@@ -13,6 +13,7 @@ format:
 echo: true
 message: false
 warning: false
+eval: false
 ---
 
 ```{r rinit, include=FALSE}
@@ -31,7 +32,7 @@ ofce::init_qmd(echo=TRUE)
 
 > **Règle 5** : On choisit un `line_width` entre 0.5 et 1 pour le `geom_line()`, on ajoute un `geom_point(shape=21, stroke=0.25, col="white")` pour marquer les points auxquels on a des données. Si on peut mettre la légende sous forme de *labels*, c'est mieux car cela allège le graphique.
 
-## Les Données
+## Les données
 
 Pour les séries temporelles, il y a deux recommandations pour les données :
 
@@ -585,6 +586,6 @@ b2 <- download_this(
 )
 ```
 
-`r b1` `r b2`
+`r #b1` `r #b2`
 
 On peut aussi les mettre dans la marge en entourant le chunk R de `::: column-margin ⏎ un_code_r ⏎ :::` (visuellement c'est mieux quand il y a le graphique juste avant le div).

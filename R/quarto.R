@@ -385,6 +385,8 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
   qmd_message <<- message
   qmd_warning <<- warning
   qmd_echo <<- echo
+  spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
+  spp <- spp_fn()
 
   if(is.null(root$error)) {
     root <- root$result
@@ -398,26 +400,26 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
       msg <- le_init
     }
     if(is.null(le_init)) {
-      spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
-      spp <- spp_fn()
       if(is.null(spp$error)) {
         if(fs::file_access(root, "write")) {
           le_init <- fs::file_copy(spp$result, root)
           msg <- "rinit copied from package"
         }
-        else {
-          le_init <- spp$result
-          msg <- "rinit from package"
-        }
       }
     }
-    if(!is.null(le_init)) {
-      capture.output(
-        source(le_init,
-               echo = FALSE, verbose = FALSE, local = .GlobalEnv),
-        file = nullfile(), type = c("output", "message") )
-      return(invisible(msg))
-    }
+  }
+
+  if(is.null(le_init) & !is.null(spp$error)) {
+    le_init <- spp$result
+    msg <- "rinit from package"
+  }
+
+  if(!is.null(le_init)) {
+    capture.output(
+      source(le_init,
+             echo = FALSE, verbose = FALSE, local = .GlobalEnv),
+      file = nullfile(), type = c("output", "message") )
+    return(invisible(msg))
   }
 
   cli::cli_alert_danger("{init} not found (nor in project, nor in package)")

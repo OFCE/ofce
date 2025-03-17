@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.14</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.15</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,8 @@
     <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="../articles/source_data.html">Caché et robuste</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/qa.html">Quand ça ne marche pas</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -179,6 +181,15 @@
 </section><section class="level3"><h3 id="gestion-des-mots-clés">Gestion des mots-clés<a class="anchor" aria-label="anchor" href="#gestion-des-mots-cl%C3%A9s"></a>
 </h3>
 <p>Les mots-clés vont servir par la suite à filtrer les billets en sous-catégories. Un nombre maximal de trois est permis, à choisir parmi ceux indiqués ci-dessous<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Cette liste à été mise à jour le 20 Octobre 2024, et est susceptible d’évoluer par la suite.&lt;/p&gt;"><sup>1</sup></a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># library(ofce)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># keywords_list()</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # load("data/keywords.rda")</span></span>
+<span><span class="co">#  gt::gt(ofce::keywords_list())</span></span></code></pre></div>
+</div>
 </section></section><section class="level2"><h2 id="transmission-au-responsable-du-blog-et-circuit-de-relecture">Transmission au responsable du blog et circuit de relecture<a class="anchor" aria-label="anchor" href="#transmission-au-responsable-du-blog-et-circuit-de-relecture"></a>
 </h2>
 <section class="level3"><h3 id="procédure-principale-via-github">Procédure principale via Github<a class="anchor" aria-label="anchor" href="#proc%C3%A9dure-principale-via-github"></a>
@@ -188,14 +199,14 @@
 </h3>
 <p>La transmission du billet au responsable du blog s’effectue par un envoi du <strong>dossier</strong> du billet comprenant l’ensemble des élements nécessaires à sa compilation (le document <code>.qmd</code>, le fichier de références <code>.bib</code>, les images et les données):</p>
 <p><em>Dossier du billet en format</em> <code>.qmd</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> billet.qmd              // Document texte du billet</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> figures/                // Dossier des images utilisées dans le document</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── IMG_01.png          // fichier image 1</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ...                 // fichier image ...</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/                   // Dossier des dataset associés aux graphiques</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── dataset_01.csv      // fichier csv 1</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ...                 // fichier csv ...</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> references.bib          // fichier des citations en format .bibtex</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> billet.qmd              // Document texte du billet</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> figures/                // Dossier des images utilisées dans le document</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── IMG_01.png          // fichier image 1</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ...                 // fichier image ...</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/                   // Dossier des dataset associés aux graphiques</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── dataset_01.csv      // fichier csv 1</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ...                 // fichier csv ...</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> references.bib          // fichier des citations en format .bibtex</span></code></pre></div>
 <p>L’organisation de la relecture et du versionnage du document se fait sur une branche Github dédiée. L’auteur se verra notifier par mail des évolutions du statut du document, et le cas échéant de l’intégration des remarques et commentaires. Une fois le processus de relecture aboutit, le responsable pourra accepter le pull_request, et introduire la version finalisée du billet sur la branche principale à partir de laquelle le site est généré.</p>
 <p>PS: Dans le cas où des modifications ultérieures devraient être apportées, l’auteur devra réitérer la même procédure de pull_request que pour la soumission initiale, et ce sera au responsable de s’assurer de leur intégration à la branche principale.</p>
 </section></section><script id="quarto-html-after-body" type="application/javascript">

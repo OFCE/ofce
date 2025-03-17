@@ -164,7 +164,7 @@ date_jour <- function(date) {
   str_c(lubridate::day(date), " ", lubridate::month(date,label = TRUE, abbr = FALSE), " ", lubridate::year(date))
 }
 
-conflicted::conflict_prefer_all("dplyr", .quiet = TRUE)
+conflicted::conflict_prefer_all("dplyr", quiet = TRUE)
 conflicted::conflicts_prefer(lubridate::year, .quiet = TRUE)
 conflicted::conflicts_prefer(lubridate::month, .quiet = TRUE)
 conflicted::conflicts_prefer(lubridate::quarter, .quiet = TRUE)
