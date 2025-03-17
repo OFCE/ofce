@@ -13,7 +13,6 @@ format:
 echo: true
 message: false
 warning: false
-eval: false
 ---
 
 ```{r rinit, include=FALSE}
