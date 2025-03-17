@@ -387,14 +387,14 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
   qmd_echo <<- echo
   spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
   spp <- spp_fn()
-
+  le_init <- NULL
   if(is.null(root$error)) {
     root <- root$result
     ofce.root <<- root
 
     pat <- stringr::str_c(init |> fs::path_ext_remove(), "\\.[rR]$")
     inits <- fs::dir_ls(root, all = TRUE, regexp = pat, recurse=TRUE)
-    le_init <- NULL
+
     if(length(inits)>0) {
       le_init <- inits[which.min(purrr::map_dbl(inits, stringr::str_length))]
       msg <- le_init
