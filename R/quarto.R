@@ -411,7 +411,7 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
       msg <- "rinit copié"
     }
     capture.output(
-      source(init),
+      source(init,
            echo = FALSE, verbose = FALSE, local = .GlobalEnv),
       file = nullfile(), type = c("output", "message") )
     return(invisible(msg))
