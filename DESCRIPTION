@@ -3,9 +3,9 @@ Type: Package
 Title: Documents scientifiques aux normes OFCE
 Version: 1.3.14
 Authors@R: c(
-    person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut", "cre")),
+    person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut")),pak::pak
     person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),
-    person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut")))
+    person("Xavier", "Timbeau", , "xavier.timbeau@sciencespo.fr", role = c("aut", "cre")))
 Description: Procure des fonctions pour modifier les graphiques ggplot et les mettre aux normes OFCE/Revue ; des templates pour quarto ; documente les normes et pratiques attendues.
 URL: https://ofce.github.io/ofce
 LazyData: true
@@ -46,7 +46,7 @@ Imports:
     ggiraph,
     sourcoise
 Remotes:
-    sourcoise=github::xtimbeau/sourcoise@dev
+    sourcoise=github::xtimbeau/sourcoise
 License: CC BY 4.0
 Depends:
     R (>= 4.2)
