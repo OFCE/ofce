@@ -402,13 +402,19 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
   }
   spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
   spp <- spp_fn()
+
   if(is.null(spp$error)) {
-    fs::file_copy(spp$result, root)
+    init <- spp$result
+    msg <- "rinit from package"
+    if(fs::file_access(root, "write")) {
+      init <- fs::file_copy(spp$result, root)
+      msg <- "rinit copié"
+    }
     capture.output(
-      source(fs::path_join(c(root,"rinit.r")),
+      source(init),
            echo = FALSE, verbose = FALSE, local = .GlobalEnv),
       file = nullfile(), type = c("output", "message") )
-    return(invisible("package"))
+    return(invisible(msg))
   }
   cli::cli_alert_danger("{init} pas trouvé")
   return(invisible(glue::glue("{init} pas trouvé")))

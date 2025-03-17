@@ -10,6 +10,7 @@ articles:
   graphiques: graphiques.html
   outils: outils.html
   prevision: prevision.html
+  qa: qa.html
   quarto: quarto.html
   semio: semio.html
   site: site.html
@@ -17,7 +18,7 @@ articles:
   tableaux: tableaux.html
   temporelles: temporelles.html
   xy: xy.html
-last_built: 2025-03-10T13:09Z
+last_built: 2025-03-17T07:59Z
 urls:
   reference: https://ofce.github.io/ofce/reference
   article: https://ofce.github.io/ofce/articles

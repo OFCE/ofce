@@ -1,0 +1,30 @@
+---
+title: "Quand tout va mal : questions et réponses"
+vignette: >
+  %\VignetteIndexEntry{QA}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Quand tout va mal
+
+On répertorie ici les erreurs rencontrées dans l'utilisation du packge `{ofce}` et les astuces qui permettent de faire avec.
+
+## `pak::pak` ne fonctionne pas
+
+Cela arrive parfois. Essayez `devtools::install_github("ofce/ofce")`
+
+## Pas d'extensions
+
+Quand le message d'erreur anonce qu'il n'a pas trouvé l'extension, 
+
+```dash
+ERROR: Unable to read the extension 'pres'.
+Please ensure that you provided the correct id and that the extension is installed.
+```
+il suffit d'installer l'extension :
+
+-    soit dans le dossier où se trouve le qmd, s'il n'y a pas de `_quarto.yml` général ou dasn un dossier au dessus
+-    soit là où est le `_quarto_yml`
+
+Pour installer les extensions dans un dossier `ofce::setupe_quarto("le_dossier")` fait l'affaire (`le_dossier` est bien sûr à remplacer par votre dossier... ou rien pour le mettre à la racine du projet -- le *working directory* en fait)
