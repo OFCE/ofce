@@ -400,13 +400,15 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
     if(is.null(le_init)) {
       spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
       spp <- spp_fn()
-      if(fs::file_access(root, "write")) {
-        le_init <- fs::file_copy(spp$result, root)
-        msg <- "rinit copied from package"
-      }
-      else if(is.null(spp$error)) {
-        le_init <- spp$result
-        msg <- "rinit from package"
+      if(is.null(spp$error)) {
+        if(fs::file_access(root, "write")) {
+          le_init <- fs::file_copy(spp$result, root)
+          msg <- "rinit copied from package"
+        }
+        else {
+          le_init <- spp$result
+          msg <- "rinit from package"
+        }
       }
     }
     if(!is.null(le_init)) {
