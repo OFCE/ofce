@@ -409,7 +409,7 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
     }
   }
 
-  if(is.null(le_init) & !is.null(spp$error)) {
+  if(is.null(le_init) & is.null(spp$error)) {
     le_init <- spp$result
     msg <- "rinit from package"
   }
