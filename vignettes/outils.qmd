@@ -4,8 +4,8 @@ vignette: >
   %\VignetteIndexEntry{Outils}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
-  
-format: 
+
+format:
   html:
     mermaid:
       theme: forest
@@ -38,11 +38,11 @@ Donc, R, Julia, Python sont clairement dans cette catégorie. Stata n'est pas li
 
 R est un logiciel de traitement statistique libre. Il y a un grand nombre de packages qui étendent les fonctionnalités de R, certaines modifiant profondément son fonctionnement comme `{tidyverse}`, ajoutant un écosystème de production de graphiques comme `{ggplot2}` + `{ggiraph}` + `{ggtext}` + ..., de production de tableaux comme `{gt}` ou encore de procédures statistiques comme `{fixest}` ou d'interface avec des librairies de calcul comme `{xgboost}`. Bien que R ne soit pas un langage très rapide, son interface avec le C/C++ ou la possibilité de faire du calcul parallèle ou d'utiliser des systèmes avancés comme `{torch}` permet d'atteindre des performances de calculs maximales (i.e. utilisant au mieux le hardware dont on dispose). R est multi-plateforme on peut l'utiliser sur de nombreux systèmes y compris distants ce qui ouvre la porte au calcul haute performance.
 
-Pour installer R (la dernière version est 4.4.1) :
+Pour installer R (la dernière version est 4.4.3) :
 
 -   sur MacOS : [R for macOS (r-project.org)](https://cran.r-project.org/bin/macosx/)
 
--   sur Windows : [Download R-4.4.1 for Windows. The R-project for statistical computing.](https://cran.r-project.org/bin/windows/base/) et [Rtools44 for Windows (r-project.org)](https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html)
+-   sur Windows : [Download R-4.4.3 for Windows. The R-project for statistical computing.](https://cran.r-project.org/bin/windows/base/) et [Rtools44 for Windows (r-project.org)](https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html)
 
 ### Quelques détails
 
@@ -52,9 +52,9 @@ Il est *recommandé* d'installer les versions **fixes (non variables)** d'Open S
 
 Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de R. Il est développé par RStudio et sert à transformer les `.qmd` en documents publiables (`.docx`, `.html`, `.pdf`). Quarto est distinct de RStudio -- ce qui explique que la version de Quarto n'est pas liée à celle de RStudio.
 
-> **Règle 4** : Il faut utiliser au moins Quarto 1.5 ([la version actuelle est 1.5.57](https://quarto.org/docs/download/)). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionnalités importantes.
+> **Règle 4** : Il faut utiliser au moins Quarto 1.6 ([la version actuelle est 1.6.42](https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.42/quarto-1.6.42-win.msi)). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionnalités importantes.
 
-Quarto a besoin d'être installé, mais il n'y a pas d'interface quarto à manipuler. Vous pouvez installer dans R le package `{quarto}` qui est un lien entre R et Quarto (et permet d'excuter Quarto par des commandes R, comme par exemple `quarto::quarto_version()` qui vous indique quelle est la version de quarto installée). Installer le package R `{quarto}` n'installe pas la dernière version de Quarto.
+Quarto a besoin d'être installé, mais il n'y a pas d'interface quarto à manipuler. Vous pouvez installer dans R le package `{quarto}` qui est un lien entre R et Quarto (et permet d'exécuter Quarto par des commandes R, comme par exemple `quarto::quarto_version()` qui vous indique quelle est la version de quarto installée). Installer le package R `{quarto}` n'installe pas la dernière version de Quarto.
 
 ![](images/paste-1.png){fig-align="center" width="700"}
 
@@ -154,4 +154,4 @@ Il dispose d'un module d'extension *github* très bien fait et très facile à u
 
 Il est possible d'éditer les documents `.qmd` en mode visuel dans **VSCode** et avec son module github, le travail y est plus facile que dans RStudio. Pour ceux qui ne font que la *review* et l'*editing*, c'est une excellente alternative, avec une interface moins riche (moins confuse surtout) que celle de RStudio.
 
-**Positron** est la fusion entre **RStudio** et **VSCode**. C'est encore une version en développement (la [*pre release* date de juin 2024](https://github.com/posit-dev/positron)), mais elle fonctionne à peu près. Il n'est pas recommandé de l'utiliser pour le moment pour des projets, sauf si vous avez le goût de l'aventure et un peu de patience.
+**Positron** est la fusion entre **RStudio** et **VSCode**. C'est encore une version en développement (la [*pre release* date de juin 2024](https://github.com/posit-dev/positron)), mais elle fonctionne à peu près (et de mieux en mieux chaque jour). Il n'est pas recommandé de l'utiliser pour le moment pour des projets, sauf si vous avez le goût de l'aventure et un peu de patience.
