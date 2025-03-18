@@ -130,10 +130,10 @@
 <section class="level3"><h3 id="r">R<a class="anchor" aria-label="anchor" href="#r"></a>
 </h3>
 <p>R est un logiciel de traitement statistique libre. Il y a un grand nombre de packages qui étendent les fonctionnalités de R, certaines modifiant profondément son fonctionnement comme <a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a>, ajoutant un écosystème de production de graphiques comme <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> + <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> + <a href="https://wilkelab.org/ggtext/" class="external-link">ggtext</a> + …, de production de tableaux comme <a href="https://gt.rstudio.com" class="external-link">gt</a> ou encore de procédures statistiques comme <a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a> ou d’interface avec des librairies de calcul comme <a href="https://github.com/dmlc/xgboost" class="external-link">xgboost</a>. Bien que R ne soit pas un langage très rapide, son interface avec le C/C++ ou la possibilité de faire du calcul parallèle ou d’utiliser des systèmes avancés comme <a href="https://torch.mlverse.org/docs" class="external-link">torch</a> permet d’atteindre des performances de calculs maximales (i.e. utilisant au mieux le hardware dont on dispose). R est multi-plateforme on peut l’utiliser sur de nombreux systèmes y compris distants ce qui ouvre la porte au calcul haute performance.</p>
-<p>Pour installer R (la dernière version est 4.4.1) :</p>
+<p>Pour installer R (la dernière version est 4.4.3) :</p>
 <ul>
 <li><p>sur MacOS : <a href="https://cran.r-project.org/bin/macosx/" class="external-link">R for macOS (r-project.org)</a></p></li>
-<li><p>sur Windows : <a href="https://cran.r-project.org/bin/windows/base/" class="external-link">Download R-4.4.1 for Windows. The R-project for statistical computing.</a> et <a href="https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html" class="external-link">Rtools44 for Windows (r-project.org)</a></p></li>
+<li><p>sur Windows : <a href="https://cran.r-project.org/bin/windows/base/" class="external-link">Download R-4.4.3 for Windows. The R-project for statistical computing.</a> et <a href="https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html" class="external-link">Rtools44 for Windows (r-project.org)</a></p></li>
 </ul></section><section class="level3"><h3 id="quelques-détails">Quelques détails<a class="anchor" aria-label="anchor" href="#quelques-d%C3%A9tails"></a>
 </h3>
 <p>Il est <em>recommandé</em> d’installer les versions <strong>fixes (non variables)</strong> d’Open Sans <a href="https://fonts.google.com/specimen/Open+Sans" class="external-link">Open Sans - Google Fonts</a> et de Fira Code <a href="https://fonts.google.com/specimen/Fira+Code" class="external-link">Fira Code - Google Fonts</a>.</p>
@@ -141,9 +141,9 @@
 </h2>
 <p>Quarto est un ensemble de commandes, accessibles par le terminal ou à partir de R. Il est développé par RStudio et sert à transformer les <code>.qmd</code> en documents publiables (<code>.docx</code>, <code>.html</code>, <code>.pdf</code>). Quarto est distinct de RStudio – ce qui explique que la version de Quarto n’est pas liée à celle de RStudio.</p>
 <blockquote>
-<p><strong>Règle 4</strong> : Il faut utiliser au moins Quarto 1.5 (<a href="https://quarto.org/docs/download/" class="external-link">la version actuelle est 1.5.57</a>). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionnalités importantes.</p>
+<p><strong>Règle 4</strong> : Il faut utiliser au moins Quarto 1.6 (<a href="https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.42/quarto-1.6.42-win.msi" class="external-link">la version actuelle est 1.6.42</a>). Il y a des mises à jour fréquentes, qui sont nécessaires et qui apportent de nombreuses corrections ou des fonctionnalités importantes.</p>
 </blockquote>
-<p>Quarto a besoin d’être installé, mais il n’y a pas d’interface quarto à manipuler. Vous pouvez installer dans R le package <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> qui est un lien entre R et Quarto (et permet d’excuter Quarto par des commandes R, comme par exemple <code><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_version.html" class="external-link">quarto::quarto_version()</a></code> qui vous indique quelle est la version de quarto installée). Installer le package R <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> n’installe pas la dernière version de Quarto.</p>
+<p>Quarto a besoin d’être installé, mais il n’y a pas d’interface quarto à manipuler. Vous pouvez installer dans R le package <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> qui est un lien entre R et Quarto (et permet d’exécuter Quarto par des commandes R, comme par exemple <code><a href="https://quarto-dev.github.io/quarto-r/reference/quarto_version.html" class="external-link">quarto::quarto_version()</a></code> qui vous indique quelle est la version de quarto installée). Installer le package R <a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a> n’installe pas la dernière version de Quarto.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img src="images/paste-1.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
@@ -245,109 +245,91 @@ A[contenu dans branch master]
 <p><strong>VSCode</strong> est une alternative à <strong>RStudio</strong>. Développé par Microsoft (et oui, Microsoft est partout et ne fait pas que Word, Excel et Powerpoint), il est en train de s’imposer comme standard dans le domaine des usages avancés. VSCode est organisé autour d’un éditeur de texte (de code en fait) repose sur une structure très (un peu trop) ouverte. Il peut être étendu facilement et articulé avec de nombreux outils : <em>formateurs</em>, <em>linteurs</em>, <em>highlighters</em>, <em>debogguers</em>, <em>compilateurs</em>, accès distants, <em>dockers</em>, <em>correcteurs</em>, IA. La liste est presque infinie et en tout cas grossit chaque jour. C’est aussi un outil assez léger, rapide, sûr et très fonctionnel.</p>
 <p>Il dispose d’un module d’extension <em>github</em> très bien fait et très facile à utiliser. Avec <em>gitlens</em> on peut par ailleurs très simplement examiner son code et connaître toutes les modifications apportées au cours des <em>commit</em>. C’est très utile pour s’y retrouver et bénéficier de la puissance de <em>git</em> instantanément. <em>pusher</em> ou <em>commiter</em> se fait avec une grande sécurité et un minimum de manipulation (généralement 1 click).</p>
 <p>Il est possible d’éditer les documents <code>.qmd</code> en mode visuel dans <strong>VSCode</strong> et avec son module github, le travail y est plus facile que dans RStudio. Pour ceux qui ne font que la <em>review</em> et l’<em>editing</em>, c’est une excellente alternative, avec une interface moins riche (moins confuse surtout) que celle de RStudio.</p>
-<p><strong>Positron</strong> est la fusion entre <strong>RStudio</strong> et <strong>VSCode</strong>. C’est encore une version en développement (la <a href="https://github.com/posit-dev/positron" class="external-link"><em>pre release</em> date de juin 2024</a>), mais elle fonctionne à peu près. Il n’est pas recommandé de l’utiliser pour le moment pour des projets, sauf si vous avez le goût de l’aventure et un peu de patience.</p>
+<p><strong>Positron</strong> est la fusion entre <strong>RStudio</strong> et <strong>VSCode</strong>. C’est encore une version en développement (la <a href="https://github.com/posit-dev/positron" class="external-link"><em>pre release</em> date de juin 2024</a>), mais elle fonctionne à peu près (et de mieux en mieux chaque jour). Il n’est pas recommandé de l’utiliser pour le moment pour des projets, sauf si vous avez le goût de l’aventure et un peu de patience.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'light-border',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config);
-  }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
       }
-    } else {
-      return undefined;
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
     }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
         });
-        return popup.innerHTML;
-      });
+      }
     }
-  }
-});
-</script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
