@@ -155,7 +155,7 @@ ofce_caption <- function(
       stringr::str_c(addcaption)
   }
 
-  if(!is.null(srcplus)) {
+  if(!is.null(srcplus)&ofce) {
     if(length(source)==0)
       source <- Srcp else
         source <- stringr::str_c(source , srcp)

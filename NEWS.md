@@ -1,3 +1,7 @@
+## OFCE 1.3.16
+
+* ofce dans ocfe_caption fonctionne comme attendu
+
 ## OFCE 1.3.15
 
 * corrections de bugs dans `init_qmd()` (réécriture)

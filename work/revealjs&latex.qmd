@@ -1,0 +1,9 @@
+---
+title: "latex gt and revealjs"
+format: revealjs
+---
+
+```{r}
+library(gt)
+gt(mtcars[1,]) |> cols_label(mpg=md("$\\sigma$")) 
+```
