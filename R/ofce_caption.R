@@ -203,7 +203,7 @@ ofce_caption <- function(
   if(!is.null(ylab))
     gplot <- rlist::list.append(gplot, ggplot2::ylab(label = ylab) )
   if(!is.null(subtitle))
-    gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = subtitle) )
+    gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = subtitle ))
 
   return(gplot)
 }
