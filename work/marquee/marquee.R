@@ -30,16 +30,28 @@ set_dim(g2, get_dim(g1))
 set_dim(g2, get_dim(g1bis))
 
 
+library(ggplot2)
+library(marquee)
+
 g <- ggplot(mtcars) +
   aes(x = mpg, y = hp, color = cyl) +
   geom_point()
 
+# good
+g +  theme(legend.position = "bottom",
+           legend.direction = "horizontal",
+           legend.text = element_marquee(),
+           legend.title = element_marquee(),
+           axis.title.y = element_text(margin= margin(t= 10, unit = "pt")),
+           legend.key.width = unit(32, 'pt'))
+
+# not so good
 g +  theme(legend.position = "bottom",
         legend.direction = "horizontal",
         legend.text = element_marquee(),
-        legend.key.width = unit(72, 'pt'))
-
-
+        legend.title = element_marquee(),
+        axis.title.y = element_marquee(margin= margin(t= 10, unit = "pt")),
+        legend.key.width = unit(32, 'pt'))
 
 library(legendry)
 

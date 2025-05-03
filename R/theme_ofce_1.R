@@ -73,7 +73,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.85),
         color = "gray25",
         margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
-      legend.text = marquee::element_marquee(
+      legend.text = ggplot2::element_text(
         size = ggplot2::rel(0.8),
         hjust=0,
         color = "gray25")
@@ -244,7 +244,7 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.85),
         color = "gray25",
         margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
-      legend.text = marquee::element_marquee(
+      legend.text = ggplot2::element_text(
         size = ggplot2::rel(0.8),
         hjust=0,
         color = "gray25")
