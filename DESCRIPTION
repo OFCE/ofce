@@ -19,6 +19,7 @@ Imports:
     farver,
     fs,
     gt,
+    tidyverse,
     ggplot2 (>= 3.5.0),
     ggpp,
     ggtext,
