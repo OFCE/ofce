@@ -20,7 +20,8 @@
     ofce.caption.author = FALSE,
     ofce.caption.marquee_translate = FALSE,
     ofce.caption.glue = TRUE,
-    ofce.caption.lang = "fr")
+    ofce.caption.lang = "fr",
+    ofce.init_qmd.local = FALSE)
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])
