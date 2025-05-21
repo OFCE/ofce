@@ -1,5 +1,9 @@
 ## OFCE 1.3.16
 
+* init_qmd peut prendre sustématiquement le rinit.r dans le dossier du qmd (option local=TRUE)
+
+## OFCE 1.3.16
+
 * ofce dans ocfe_caption fonctionne comme attendu
 
 ## OFCE 1.3.15

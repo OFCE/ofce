@@ -374,6 +374,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #' @param echo (défaut FALSE) passé aux chunks
 #' @param message (défaut FALSE) passé aux chunks
 #' @param warning (défaut FALSE) passé aux chunks
+#' @param local (defauit FALSE) cherche le rinit.r dans le dossier d'exécution du qmd, peut être spécifié par `options(ofce.init_qmd.local=TRUE)`
 #'
 #' @return NULL
 #' @export
