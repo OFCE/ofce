@@ -1,4 +1,8 @@
-## OFCE 1.3.16
+## OFCE 1.3.18
+
+* ajout de `tabsetize` et `tabsetize2`
+
+## OFCE 1.3.17
 
 * init_qmd peut prendre sustématiquement le rinit.r dans le dossier du qmd (option local=TRUE)
 
