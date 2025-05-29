@@ -1,7 +1,7 @@
 Package: ofce
 Type: Package
 Title: Documents scientifiques aux normes OFCE
-Version: 1.3.16
+Version: 1.3.18
 Authors@R: c(
     person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut")),
     person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),
@@ -65,3 +65,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 SystemRequirements: Quarto command line tools
     (https://github.com/quarto-dev/quarto-cli).
+
