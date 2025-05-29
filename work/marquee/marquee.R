@@ -53,6 +53,31 @@ g +  theme(legend.position = "bottom",
         axis.title.y = element_marquee(margin= margin(t= 10, unit = "pt")),
         legend.key.width = unit(32, 'pt'))
 
+
+library(ggplot2)
+library(marquee)
+
+# Only on line (as expected, wide enough)
+ggplot(mtcars) +
+  aes(x = mpg, y = hp, color = cyl) +
+  geom_point()+
+  scale_color_continuous(name = "a scale on 1 line (units)") +
+  theme(legend.position = "bottom",
+        legend.direction = "horizontal",
+        legend.title = element_marquee(),
+        legend.key.width = unit(32, 'pt'))
+
+# breaks on 3 lines
+ggplot(mtcars) +
+  aes(x = mpg, y = hp, color = cyl) +
+  geom_point()+
+  scale_color_continuous(name = "a scale on 2 lines  \n(units)") +
+  theme(legend.position = "bottom",
+           legend.direction = "horizontal",
+           legend.title = element_marquee(),
+           legend.key.width = unit(32, 'pt'))
+
+
 library(legendry)
 
 ggplot(mtcars) +
