@@ -1,3 +1,7 @@
+## OFCE 1.3.19
+
+* ajout de `pathify`
+
 ## OFCE 1.3.18
 
 * ajout de `tabsetize` et `tabsetize2`
