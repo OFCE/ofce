@@ -11,8 +11,7 @@
 #' @return NULL
 #' @export
 #'
-
-init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE) {
+init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = FALSE, local = getOption("ofce.init_qmd.local")) {
   safe_find_root <- purrr::safely(rprojroot::find_root)
   root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
   qmd_message <<- message
@@ -29,7 +28,19 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
     inits <- fs::dir_ls(root, all = TRUE, regexp = pat, recurse=TRUE)
 
     if(length(inits)>0) {
-      le_init <- inits[which.min(purrr::map_dbl(inits, stringr::str_length))]
+      if(local) {
+        if(Sys.getenv("QUARTO_DOCUMENT_PATH") != "")
+          doc_path <- Sys.getenv("QUARTO_DOCUMENT_PATH") |> fs::path_abs() |> fs::path_norm()
+        else
+          doc_path <- getwd()
+        if(fs::file_exists(fs::path_join(c(doc_path, init))))
+          le_init <- fs::path_join(c(doc_path, init))
+        else
+          local <- FALSE
+      }
+      if(!local) {
+        le_init <- inits[which.min(purrr::map_dbl(inits, stringr::str_length))]
+      }
       msg <- le_init
     }
     if(is.null(le_init)) {

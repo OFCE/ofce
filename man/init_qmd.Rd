@@ -23,8 +23,6 @@ init_qmd(
 \item{message}{(défaut FALSE) passé aux chunks}
 
 \item{warning}{(défaut FALSE) passé aux chunks}
-
-\item{local}{(defauit FALSE) cherche le rinit.r dans le dossier d'exécution du qmd, peut être spécifié par \code{options(ofce.init_qmd.local=TRUE)}}
 }
 \description{
 exécute le fichier rinit.R à la racine du projet, ou dans _utils,
