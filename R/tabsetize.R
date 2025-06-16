@@ -80,7 +80,9 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           text = str_c("```{r ", lbl, asp_txt," }\nplot \n```"),
           quiet=TRUE)
       }
+      cat("\n")
       cat(rendu, sep="\n")
+      cat("\n")
     })
   }
 }
