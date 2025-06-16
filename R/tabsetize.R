@@ -17,9 +17,9 @@
 #' @export
 #'
 tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5) {
+  chunk <- knitr::opts_current$get()
+  label <- knitr::opts_current$get()$label
   if(knitr::is_html_output()&!interactive()) {
-    chunk <- knitr::opts_current$get()
-    label <- knitr::opts_current$get()$label
     if(cap) {
       if(is.null(label))
         return(list)
