@@ -63,9 +63,8 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       cat("::::\n\n")
     }
   } else {
-
     ids <- 1:length(list) |> set_names(names(list))
-    label <- knitr::opts_current$get()$label
+    label <- knitr::opts_current$get()$label %||% "lab"
 
     purrr::iwalk(list, ~{
       id <- ids[[.y]]
@@ -76,9 +75,14 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       lbl <- glue("'{label}-{id}'")
       if(is(.x, "ggplot")) {
         plot <- .x
-        if(cap)
-          figcap <- stringr::str_c(", fig.cap='", chunk$fig.cap, " ", .y, "'")
-        else
+        if(cap) {
+          figcap <- stringr::str_c(", fig.cap='")
+          if(!is.null(chunk$fig.cap))
+            figcap <- stringr::str_c(", fig.cap='", chunk$fig.cap, " ")
+          else
+            figcap <- stringr::str_c(", fig.cap='")
+          figcap <- stringr::str_c(figcap, .y, "'")
+        }  else
           figcap <- ""
         rendu <- knitr::knit(
           text = str_c("```{r ", lbl, asp_txt, figcap, " }\nplot \n```"),
