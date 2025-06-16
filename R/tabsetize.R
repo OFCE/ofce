@@ -77,11 +77,11 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       if(is(.x, "ggplot")) {
         plot <- .x
         if(cap)
-          figcap <- stringr::str_c("#| fig-cap: ", chunk$fig.cap, " ", .y)
+          figcap <- stringr::str_c(" fig-cap='", chunk$fig.cap, " ", .y, "'")
         else
           figcap <- ""
         rendu <- knitr::knit(
-          text = str_c("```{r ", lbl, asp_txt," }\n{figcap}\nplot \n```"),
+          text = str_c("```{r ", lbl, asp_txt, figcap" }\nplot \n```"),
           quiet=TRUE)
       }
       cat("\n")
