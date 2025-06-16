@@ -81,7 +81,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
         else
           figcap <- ""
         rendu <- knitr::knit(
-          text = str_c("```{r ", lbl, asp_txt, figcap" }\nplot \n```"),
+          text = str_c("```{r ", lbl, asp_txt, figcap, " }\nplot \n```"),
           quiet=TRUE)
       }
       cat("\n")
