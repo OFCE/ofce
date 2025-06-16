@@ -76,8 +76,12 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       lbl <- glue("'{label}-{id}'")
       if(is(.x, "ggplot")) {
         plot <- .x
+        if(cap)
+          figcap <- stringr::str_c("#| fig-cap: ", chunk$fig.cap, " ", .y)
+        else
+          figcap <- ""
         rendu <- knitr::knit(
-          text = str_c("```{r ", lbl, asp_txt," }\nplot \n```"),
+          text = str_c("```{r ", lbl, asp_txt," }\n{figcap}\nplot \n```"),
           quiet=TRUE)
       }
       cat("\n")
