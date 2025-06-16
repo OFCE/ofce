@@ -73,7 +73,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
         asp_txt <- glue(", fig.asp={asp}")
       else
         asp_txt <- ""
-      lbl <- glue("'{label} {id}'")
+      lbl <- glue("'{label}-{id}'")
       if(is(.x, "ggplot")) {
         plot <- .x
         rendu <- knitr::knit(
