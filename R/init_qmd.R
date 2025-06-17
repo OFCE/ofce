@@ -87,7 +87,10 @@ pathify <- function(path, root = NULL) {
   if(is.null(root)) {
     if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
       safe_find_root <- purrr::safely(rprojroot::find_root)
-      root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+      root <- safe_find_root(
+        rprojroot::is_quarto_project |
+          rprojroot::is_r_package |
+          rprojroot::is_rstudio_project)
       if(is.null(root$error))
         root <- root$result
     } else {
