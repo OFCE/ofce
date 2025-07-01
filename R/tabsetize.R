@@ -28,7 +28,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
     ids <- 1:length(list) |> set_names(names(list))
     cat("::: {.panel-tabset} \n\n")
     purrr::iwalk(list, ~{
-      cat(paste0("### ", .y," {.tabset} \n\n"))
+      cat(paste0("### ", .y,"\n\n"))
 
       if(is(.x, "ggplot")) {
         id <- str_c(digest::digest(.x, algo = "crc32"), "-", ids[[.y]])
