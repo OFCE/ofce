@@ -12,6 +12,7 @@
 #' @family themes
 #' @export
 #' @importFrom ggplot2 theme_grey element_text element_line element_rect element_blank margin unit
+#' @import marquee
 
 theme_ofce <- function(base_size = getOption("ofce.base_size"),
                        base_family = getOption("ofce.base_family"),
@@ -178,7 +179,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     ggplot2::theme(...) # pour passer les arguments en plus
 }
 
-#' Thème OFCE void
 #'
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 #' Convient pour des cartes par exemple
@@ -189,6 +189,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
 #' @importFrom ggplot2 theme_grey element_text element_line element_rect element_blank margin unit
 #' @return un thème qui peut être utilisé dans ggplot
 #' @family themes
+#' @import marquee
 #' @export
 
 
