@@ -22,7 +22,6 @@ Imports:
     tidyverse,
     ggplot2 (>= 3.5.0),
     ggpp,
-    ggtext,
     glue,
     quarto,
     lubridate,

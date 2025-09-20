@@ -80,7 +80,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     )
   else
     ggplot2::theme(
-      plot.title = ggtext::element_markdown(
+      plot.title = ggplot2::element_text(
         face = "bold",
         hjust = 0,
         vjust = 0.5,
@@ -91,12 +91,12 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0),
         hjust = 1),
-      plot.subtitle = ggtext::element_markdown(
+      plot.subtitle = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
-      plot.caption = ggtext::element_markdown(
+      plot.caption = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
@@ -251,18 +251,18 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
     )
   else
     ggplot2::theme(
-      plot.title = ggtext::element_markdown(
+      plot.title = ggplot2::element_text(
         face = "bold",
         hjust = 0,
         vjust = 0.5,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
-      plot.subtitle = ggtext::element_markdown(
+      plot.subtitle = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
-      plot.caption = ggtext::element_markdown(
+      plot.caption = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
@@ -279,7 +279,6 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.80),
         color = "gray25")
     )
-
 
     ggplot2::theme(
       # general
