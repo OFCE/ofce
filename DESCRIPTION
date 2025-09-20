@@ -25,7 +25,7 @@ Imports:
     glue,
     quarto,
     lubridate,
-    marquee (>= 1.0.0),
+    marquee (>= 1.2.0),
     officer,
     plyr,
     purrr,
