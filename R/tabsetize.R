@@ -17,7 +17,8 @@
 #' @returns string inserted in markdown
 #' @export
 #'
-tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5, pdf = "all") {
+tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5,
+                      pdf = getOption("ofce.tabsetize.pdf")) {
   chunk <- knitr::opts_current$get()
   label <- knitr::opts_current$get()$label
   if(knitr::is_html_output()&!interactive()) {

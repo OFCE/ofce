@@ -1,3 +1,7 @@
+## OFCE 1.3.20
+
+* modification marginale de `tabsetize` (ajout d'une option, comportement différent en pdf et html)
+
 ## OFCE 1.3.19
 
 * ajout de `pathify`
