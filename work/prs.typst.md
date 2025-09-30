@@ -63,7 +63,7 @@ plot
 ```
 
 ::: {.cell-output-display}
-![hello a](prs_files/figure-typst/fig-test-1-1.svg){#fig-test-1}
+![](prs_files/figure-typst/fig-test-1-1.svg){#fig-test-1}
 :::
 :::
 
@@ -71,4 +71,22 @@ plot
 hello
 
 ::::
+
+
+::: {.cell}
+
+```{.r .cell-code}
+knitr::opts_current$get()$fig.asp
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 1
+```
+
+
+:::
+:::
+
 

@@ -20,7 +20,11 @@
 tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5,
                       pdf = getOption("ofce.tabsetize.pdf")) {
   chunk <- knitr::opts_current$get()
-  label <- knitr::opts_current$get()$label
+  label <- chunk$label
+  asp_chunk <- chunk$fig.asp
+  if(is.null(asp))
+    if(!is.null(asp_chunk))
+      asp <- asp_chunk
   if(knitr::is_html_output()&!interactive()) {
     if(cap) {
       if(is.null(label))
@@ -82,8 +86,6 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       else
         asp_txt <- ""
       lbl <- glue::glue("'{label}-{id}'")
-      # if(nolbl)
-      #   lbl <- ""
       if(is(.x, "ggplot")) {
         plot <- .x
         if(cap) {
@@ -93,6 +95,8 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           else
             figcap <- stringr::str_c(", fig.cap='")
           figcap <- stringr::str_c(figcap, .y, "'")
+          # if(nolbl)
+          #    figcap <- ""
         }  else
           figcap <- ""
         rendu <- knitr::knit(

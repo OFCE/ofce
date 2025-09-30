@@ -46,10 +46,18 @@ When you click the **Render** button a presentation will be generated that inclu
 ```{r, results = "asis"}
 #| label: fig-test
 #| fig-cap: "hello"
+#| fig-asp: 1
 library(ggplot2)
 library(ofce)
 graph <- list(a = ggplot(cars)+geom_point(aes(dist, speed)), b = ggplot(cars)+geom_point(aes(dist, speed)))
 
 tabsetize(graph, girafy = FALSE, pdf = "one", cap = TRUE)
+```
+
+```{r}
+#| label: fig-test2
+#| fig-cap: "hello"
+#| fig-asp: 1
+knitr::opts_current$get()$fig.asp
 ```
 
