@@ -1,7 +1,7 @@
 ---
 title: "Un titre"
 subtitle: "tout en finesse"
-format: typst
+format: html
 categories: Pôle spatial
 draft: true
 date: 6/23/2023
@@ -43,13 +43,52 @@ When you click the **Render** button a presentation will be generated that inclu
 @fig-test
 
 
-```{r, results = "asis"}
-#| label: fig-test
-#| fig-cap: "hello"
+```{.r .cell-code}
 library(ggplot2)
 library(ofce)
 graph <- list(a = ggplot(cars)+geom_point(aes(dist, speed)), b = ggplot(cars)+geom_point(aes(dist, speed)))
 
-tabsetize(graph, girafy = FALSE, pdf = "one", cap = TRUE)
+tabsetize(graph, girafy = FALSE, pdf = "one")
 ```
 
+:::: {#fig-test} 
+
+::: {.panel-tabset} 
+
+### a
+
+
+::: {.cell}
+
+```{.r .cell-code}
+plot 
+```
+
+::: {.cell-output-display}
+![](prs_files/figure-html/4c113f9d-1-1.png){width=672}
+:::
+:::
+
+
+
+### b
+
+
+::: {.cell}
+
+```{.r .cell-code}
+plot 
+```
+
+::: {.cell-output-display}
+![](prs_files/figure-html/4c113f9d-2-1.png){width=672}
+:::
+:::
+
+
+
+:::
+
+
+
+::::

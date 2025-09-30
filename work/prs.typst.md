@@ -43,13 +43,32 @@ When you click the **Render** button a presentation will be generated that inclu
 @fig-test
 
 
-```{r, results = "asis"}
-#| label: fig-test
-#| fig-cap: "hello"
+
+```{.r .cell-code}
 library(ggplot2)
 library(ofce)
 graph <- list(a = ggplot(cars)+geom_point(aes(dist, speed)), b = ggplot(cars)+geom_point(aes(dist, speed)))
 
 tabsetize(graph, girafy = FALSE, pdf = "one", cap = TRUE)
 ```
+
+:::: {#fig-test} 
+
+
+
+::: {.cell}
+
+```{.r .cell-code}
+plot 
+```
+
+::: {.cell-output-display}
+![hello a](prs_files/figure-typst/fig-test-1-1.svg){#fig-test-1}
+:::
+:::
+
+
+hello
+
+::::
 
