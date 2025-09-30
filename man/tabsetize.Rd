@@ -4,7 +4,15 @@
 \alias{tabsetize}
 \title{Tabsetize : fait un tabset à partir d'une liste}
 \usage{
-tabsetize(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5)
+tabsetize(
+  list,
+  facety = TRUE,
+  cap = TRUE,
+  girafy = TRUE,
+  asp = NULL,
+  r = 1.5,
+  pdf = "all"
+)
 }
 \arguments{
 \item{list}{liste des graphiques}
@@ -18,6 +26,8 @@ tabsetize(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5)
 \item{asp}{aspect de ratio, mais privilégiez l'aspect ratio général (\verb{#| fig-asp: 1.1})}
 
 \item{r}{rayon du cercle de hover pour girafy (paramètre \code{r} de girafy)}
+
+\item{pdf}{si l'output est pdf, doit-on aficher tous les graphiques ("all", défaut) ou un seul ("one")}
 }
 \value{
 string inserted in markdown

@@ -2,7 +2,8 @@
 % Please edit documentation in R/theme_ofce_1.R
 \name{theme_ofce_void}
 \alias{theme_ofce_void}
-\title{Thème OFCE void}
+\title{Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
+Convient pour des cartes par exemple}
 \usage{
 theme_ofce_void(
   base_size = getOption("ofce.base_size"),
