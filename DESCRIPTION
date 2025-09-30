@@ -22,11 +22,10 @@ Imports:
     tidyverse,
     ggplot2 (>= 3.5.0),
     ggpp,
-    ggtext,
     glue,
     quarto,
     lubridate,
-    marquee (>= 1.0.0),
+    marquee (>= 1.2.0),
     officer,
     plyr,
     purrr,
@@ -62,7 +61,6 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 SystemRequirements: Quarto command line tools
     (https://github.com/quarto-dev/quarto-cli).
-

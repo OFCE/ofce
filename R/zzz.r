@@ -25,7 +25,7 @@
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])
-
+  library(marquee)
   fonts_dir <- system.file("fonts", package= "ofce")
   sysfonts::font_add(
     "Open Sans",

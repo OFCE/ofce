@@ -12,12 +12,13 @@
 #' @family themes
 #' @export
 #' @importFrom ggplot2 theme_grey element_text element_line element_rect element_blank margin unit
+#' @import marquee
 
 theme_ofce <- function(base_size = getOption("ofce.base_size"),
                        base_family = getOption("ofce.base_family"),
                        marquee = getOption("ofce.marquee"), ...) {
 
-  ofce_style <- marquee::classic_style(
+ ofce_style <- marquee::classic_style(
     base_size = base_size,
     body_font = base_family,
     header_font = base_family,
@@ -80,7 +81,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     )
   else
     ggplot2::theme(
-      plot.title = ggtext::element_markdown(
+      plot.title = ggplot2::element_text(
         face = "bold",
         hjust = 0,
         vjust = 0.5,
@@ -91,12 +92,12 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0),
         hjust = 1),
-      plot.subtitle = ggtext::element_markdown(
+      plot.subtitle = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
-      plot.caption = ggtext::element_markdown(
+      plot.caption = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
@@ -152,21 +153,21 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       #Axis format
       axis.ticks = element_line(
         color="gray25",
-        size = unit(0.2, "pt")),
+        linewidth = unit(0.2, "pt")),
       axis.ticks.length.x = unit(4,"pt"),
       axis.ticks.length.y = unit(-4,"pt"),
       axis.minor.ticks.length = rel(0.25),
       axis.line = element_line(
         colour = "gray40",
-        size = unit(0.2, "pt"),
+        linewidth = unit(0.2, "pt"),
         lineend="round"),
       # Grid lines
       panel.grid.minor = element_blank(),
       panel.grid.major.y = element_line(
-        size = unit(0.1, "pt"),
+        linewidth = unit(0.1, "pt"),
         color = "gray80"),
       panel.grid.major.x = element_line(
-        size = unit(0.1, "pt"),
+        linewidth = unit(0.1, "pt"),
         color = "gray80"),
       # Blank background
       panel.background = element_rect(
@@ -178,7 +179,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     ggplot2::theme(...) # pour passer les arguments en plus
 }
 
-#' Thème OFCE void
 #'
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 #' Convient pour des cartes par exemple
@@ -189,12 +189,14 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
 #' @importFrom ggplot2 theme_grey element_text element_line element_rect element_blank margin unit
 #' @return un thème qui peut être utilisé dans ggplot
 #' @family themes
+#' @import marquee
 #' @export
 
 
 theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
                             base_family = getOption("ofce.base_family"),
                             marquee = getOption("ofce.marquee"), ...) {
+
   ofce_style <- marquee::classic_style(
     base_size = base_size,
     body_font = base_family,
@@ -251,18 +253,18 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
     )
   else
     ggplot2::theme(
-      plot.title = ggtext::element_markdown(
+      plot.title = ggplot2::element_text(
         face = "bold",
         hjust = 0,
         vjust = 0.5,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
-      plot.subtitle = ggtext::element_markdown(
+      plot.subtitle = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(b=0, t=0),
         lineheight = 1.25),
-      plot.caption = ggtext::element_markdown(
+      plot.caption = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
         margin = ggplot2::margin(l = 0, t = 6),
@@ -279,7 +281,6 @@ theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.80),
         color = "gray25")
     )
-
 
     ggplot2::theme(
       # general
