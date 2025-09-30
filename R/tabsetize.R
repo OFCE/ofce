@@ -68,7 +68,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
     ids <- 1:length(list) |> set_names(names(list))
     label <- knitr::opts_current$get()$label %||% "lab"
     if(pdf!= "all") {
-      list <- list[[1]]
+      list <- list[1]
     }
     purrr::iwalk(list, ~{
       id <- ids[[.y]]
