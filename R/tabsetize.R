@@ -12,11 +12,12 @@
 #' @param girafy TRUE par défaut, wrappe avec girafy (qui doit être défini donc dans le rinit.r)
 #' @param asp aspect de ratio, mais privilégiez l'aspect ratio général (`#| fig-asp: 1.1`)
 #' @param r rayon du cercle de hover pour girafy (paramètre `r` de girafy)
+#' @param pdf si l'output est pdf, doit-on aficher tous les graphiques ("all", défaut) ou un seul ("one")
 #'
 #' @returns string inserted in markdown
 #' @export
 #'
-tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5) {
+tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5, pdf = "all") {
   chunk <- knitr::opts_current$get()
   label <- knitr::opts_current$get()$label
   if(knitr::is_html_output()&!interactive()) {
@@ -65,14 +66,19 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
   } else {
     ids <- 1:length(list) |> set_names(names(list))
     label <- knitr::opts_current$get()$label %||% "lab"
-
+    if(pdf!= "all") {
+      list <- list[[1]]
+    }
     purrr::iwalk(list, ~{
       id <- ids[[.y]]
       if(!is.null(asp))
         asp_txt <- glue(", fig.asp={asp}")
       else
         asp_txt <- ""
-      lbl <- glue("'{label}-{id}'")
+      if(length(list)==1)
+        lbl <- glue("'{label}'")
+      else
+        lbl <- glue("'{label}-{id}'")
       if(is(.x, "ggplot")) {
         plot <- .x
         if(cap) {
