@@ -154,13 +154,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       #Axis format
       axis.ticks = element_line(
         color="gray25",
-        linewidth = unit(0.2, "pt")),
+        linewidth = unit(0.1, "pt")),
       axis.ticks.length.x = unit(2,"pt"),
       axis.ticks.length.y = unit(-2,"pt"),
       axis.minor.ticks.length = rel(0.5),
       axis.line = element_line(
         colour = "gray25",
-        linewidth = unit(0.2, "pt"),
+        linewidth = unit(0.1, "pt"),
         lineend="round"),
       # Grid lines
       panel.grid.minor = element_blank(),
