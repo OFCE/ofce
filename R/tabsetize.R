@@ -17,27 +17,32 @@
 #' @returns string inserted in markdown
 #' @export
 #'
-tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5, pdf = "all") {
+tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5,
+                      pdf = getOption("ofce.tabsetize.pdf")) {
   chunk <- knitr::opts_current$get()
-  label <- knitr::opts_current$get()$label
+  label <- chunk$label
+  asp_chunk <- chunk$fig.asp
+  if(is.null(asp))
+    if(!is.null(asp_chunk))
+      asp <- asp_chunk
   if(knitr::is_html_output()&!interactive()) {
     if(cap) {
       if(is.null(label))
         return(list)
-      cat(str_c(":::: {#", label, "} \n\n" ))
+      cat(stringr::str_c(":::: {#", label, "} \n\n" ))
     }
-    ids <- 1:length(list) |> set_names(names(list))
+    ids <- 1:length(list) |> rlang::set_names(names(list))
     cat("::: {.panel-tabset} \n\n")
     purrr::iwalk(list, ~{
       cat(paste0("### ", .y,"\n\n"))
 
       if(is(.x, "ggplot")) {
-        id <- str_c(digest::digest(.x, algo = "crc32"), "-", ids[[.y]])
+        id <- stringr::str_c(digest::digest(.x, algo = "crc32"), "-", ids[[.y]])
         if(!is.null(asp))
-          asp_txt <- glue(", fig.asp={asp}")
+          asp_txt <- glue::glue(", fig.asp={asp}")
         else
           asp_txt <- ""
-        lbl <- glue("'{id}'")
+        lbl <- glue::glue("'{id}'")
         if(girafy) {
           plot <- girafy(.x, r=r)
           lib <- "library(ggiraph)\n"
@@ -46,7 +51,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           plot <- .x
           lib <- ""}
         rendu <- knitr::knit(
-          text = str_c("```{r ", lbl, asp_txt," }\n", lib, "plot \n```"),
+          text = stringr::str_c("```{r ", lbl, asp_txt," }\n", lib, "plot \n```"),
           quiet=TRUE)
         cat(rendu, sep="\n")
       }
@@ -64,21 +69,23 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       cat("::::\n\n")
     }
   } else {
-    ids <- 1:length(list) |> set_names(names(list))
-    label <- knitr::opts_current$get()$label %||% "lab"
+    ids <- 1:length(list) |> rlang::set_names(names(list))
+    if(cap) {
+      if(is.null(label))
+        return(list)
+      cat(stringr::str_c(":::: {#", label, "} \n\n" ))
+    }
     if(pdf!= "all") {
-      list <- list[[1]]
+      list <- list[1]
+      nolbl <- TRUE
     }
     purrr::iwalk(list, ~{
       id <- ids[[.y]]
       if(!is.null(asp))
-        asp_txt <- glue(", fig.asp={asp}")
+        asp_txt <- glue::glue(", fig.asp={asp}")
       else
         asp_txt <- ""
-      if(length(list)==1)
-        lbl <- glue("'{label}'")
-      else
-        lbl <- glue("'{label}-{id}'")
+      lbl <- glue::glue("'{label}-{id}'")
       if(is(.x, "ggplot")) {
         plot <- .x
         if(cap) {
@@ -88,16 +95,23 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           else
             figcap <- stringr::str_c(", fig.cap='")
           figcap <- stringr::str_c(figcap, .y, "'")
+          # if(nolbl)
+          #    figcap <- ""
         }  else
           figcap <- ""
         rendu <- knitr::knit(
-          text = str_c("```{r ", lbl, asp_txt, figcap, " }\nplot \n```"),
+          text = stringr::str_c("```{r ", lbl, asp_txt, figcap, " }\nplot \n```"),
           quiet=TRUE)
       }
       cat("\n")
       cat(rendu, sep="\n")
       cat("\n")
     })
+    if(cap) {
+      cat(chunk$fig.cap)
+      cat("\n\n")
+      cat("::::\n\n")
+    }
   }
 }
 
@@ -151,3 +165,4 @@ tabsetize2 <- function(list, facety = TRUE, cap = TRUE, girafy = FALSE, asp=NULL
     })
   }
 }
+

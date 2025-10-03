@@ -43,10 +43,8 @@ When you click the **Render** button a presentation will be generated that inclu
 @fig-test
 
 
-```{r, results = "asis"}
-#| label: fig-test
-#| fig-cap: "hello"
-#| fig-asp: 1
+
+```{.r .cell-code}
 library(ggplot2)
 library(ofce)
 graph <- list(a = ggplot(cars)+geom_point(aes(dist, speed)), b = ggplot(cars)+geom_point(aes(dist, speed)))
@@ -54,10 +52,41 @@ graph <- list(a = ggplot(cars)+geom_point(aes(dist, speed)), b = ggplot(cars)+ge
 tabsetize(graph, girafy = FALSE, pdf = "one", cap = TRUE)
 ```
 
-```{r}
-#| label: fig-test2
-#| fig-cap: "hello"
-#| fig-asp: 1
+:::: {#fig-test} 
+
+
+
+::: {.cell}
+
+```{.r .cell-code}
+plot 
+```
+
+::: {.cell-output-display}
+![](prs_files/figure-typst/fig-test-1-1.svg){#fig-test-1}
+:::
+:::
+
+
+hello
+
+::::
+
+
+::: {.cell}
+
+```{.r .cell-code}
 knitr::opts_current$get()$fig.asp
 ```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[1] 1
+```
+
+
+:::
+:::
+
 

@@ -21,7 +21,8 @@
     ofce.caption.marquee_translate = FALSE,
     ofce.caption.glue = TRUE,
     ofce.caption.lang = "fr",
-    ofce.init_qmd.local = FALSE)
+    ofce.init_qmd.local = FALSE,
+    ofce.tabsetize.pdf = "all")
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])

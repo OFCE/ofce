@@ -1,7 +1,7 @@
 ---
 title: "Un titre"
 subtitle: "tout en finesse"
-format: typst
+format: pdf
 categories: Pôle spatial
 draft: true
 date: 6/23/2023
@@ -43,10 +43,8 @@ When you click the **Render** button a presentation will be generated that inclu
 @fig-test
 
 
-```{r, results = "asis"}
-#| label: fig-test
-#| fig-cap: "hello"
-#| fig-asp: 1
+
+```{.r .cell-code}
 library(ggplot2)
 library(ofce)
 graph <- list(a = ggplot(cars)+geom_point(aes(dist, speed)), b = ggplot(cars)+geom_point(aes(dist, speed)))
@@ -54,10 +52,23 @@ graph <- list(a = ggplot(cars)+geom_point(aes(dist, speed)), b = ggplot(cars)+ge
 tabsetize(graph, girafy = FALSE, pdf = "one", cap = TRUE)
 ```
 
-```{r}
-#| label: fig-test2
-#| fig-cap: "hello"
-#| fig-asp: 1
-knitr::opts_current$get()$fig.asp
+:::: {#fig-test} 
+
+
+
+::: {.cell}
+
+```{.r .cell-code}
+plot 
 ```
+
+::: {.cell-output-display}
+![a](prs_files/figure-pdf/fig-test-1-1.pdf){#fig-test-1 fig-pos='H'}
+:::
+:::
+
+
+
+
+::::
 

@@ -11,7 +11,7 @@ tabsetize(
   girafy = TRUE,
   asp = NULL,
   r = 1.5,
-  pdf = "all"
+  pdf = getOption("ofce.tabsetize.pdf")
 )
 }
 \arguments{
