@@ -67,6 +67,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
         rendu <- knitr::knit(
           text = stringr::str_c("```{r ", lbl" }\n", lib, "tbl \n```"),
           quiet=TRUE)
+        cat(rendu, sep="\n")
       }
 
       cat("\n\n")
