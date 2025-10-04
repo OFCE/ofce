@@ -39,12 +39,10 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
         id <- stringr::str_c(digest::digest(.x, algo = "crc32"), "-", ids[[.y]])
         lbl <- glue::glue("'{id}'")
         plot <- .x
-        lib <- ""
+        lib <- asp_txt <- ""
         if(is(.x, "ggplot")) {
           if(!is.null(asp))
             asp_txt <- glue::glue(", fig.asp={asp}")
-          else
-            asp_txt <- ""
           if(girafy) {
             plot <- girafy(.x, r=r)
             lib <- "library(ggiraph)\n"
