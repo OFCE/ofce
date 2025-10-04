@@ -61,7 +61,12 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       }
 
       if(is(.x, "gt_tbl")) {
-        .x
+        id <- stringr::str_c(digest::digest(.x, algo = "crc32"), "-", ids[[.y]])
+        lbl <- glue::glue("'{id}'")
+        tbl <- .x
+        rendu <- knitr::knit(
+          text = stringr::str_c("```{r ", lbl" }\n", lib, "tbl \n```"),
+          quiet=TRUE)
       }
 
       cat("\n\n")
