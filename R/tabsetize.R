@@ -60,6 +60,10 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
         cat("![](", .x, "){fig-align='center'}")
       }
 
+      if(is(.x, "gt_tbl")) {
+        .x
+      }
+
       cat("\n\n")
     })
     cat(":::\n\n")
