@@ -78,6 +78,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.7),
         hjust=0,
+        lineheight = 0.9,
         color = "gray25")
     )
   else
