@@ -53,11 +53,11 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           quiet=TRUE)
         cat(rendu, sep="\n")
 
-      if(is(.x, "character")) {
-        cat("![](", .x, "){fig-align='center'}")
+        if(is(.x, "character")) {
+          cat("![](", .x, "){fig-align='center'}")
+        }
       }
-    }
-    cat("\n\n")
+      cat("\n\n")
     })
     cat(":::\n\n")
     if(cap) {
@@ -65,51 +65,49 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       cat("\n\n")
       cat("::::\n\n")
     }
-} else {
-  ids <- 1:length(list) |> rlang::set_names(names(list))
-  if(cap) {
-    if(is.null(label))
-      return(list)
-    cat(stringr::str_c(":::: {#", label, "} \n\n" ))
-  }
-  if(pdf!= "all") {
-    list <- list[1]
-    nolbl <- TRUE
-  }
-  purrr::iwalk(list, ~{
-    id <- ids[[.y]]
-    if(!is.null(asp))
-      asp_txt <- glue::glue(", fig.asp={asp}")
-    else
-      asp_txt <- ""
-    lbl <- glue::glue("'{label}-{id}'")
-    if(is(.x, "ggplot")|is(.x, "gt_tbl")) {
-      plot <- .x
-      if(cap) {
-        figcap <- stringr::str_c(", fig.cap='")
-        if(!is.null(chunk$fig.cap))
-          figcap <- stringr::str_c(", fig.cap='", chunk$fig.cap, " ")
-        else
-          figcap <- stringr::str_c(", fig.cap='")
-        figcap <- stringr::str_c(figcap, .y, "'")
-        # if(nolbl)
-        #    figcap <- ""
-      }  else
-        figcap <- ""
-      rendu <- knitr::knit(
-        text = stringr::str_c("```{r ", lbl, asp_txt, figcap, " }\nplot \n```"),
-        quiet=TRUE)
+  } else {
+    ids <- 1:length(list) |> rlang::set_names(names(list))
+    if(cap) {
+      if(is.null(label))
+        return(list)
+      cat(stringr::str_c(":::: {#", label, "} \n\n" ))
     }
-    cat("\n")
-    cat(rendu, sep="\n")
-    cat("\n")
-  })
-  if(cap) {
-    cat(chunk$fig.cap)
-    cat("\n\n")
-    cat("::::\n\n")
+    if(pdf!= "all") {
+      list <- list[1]
+      nolbl <- TRUE
+    }
+    purrr::iwalk(list, ~{
+      id <- ids[[.y]]
+      lbl <- glue::glue("'{label}-{id}'")
+      if(is(.x, "ggplot")|is(.x, "gt_tbl")) {
+        plot <- .x
+        figcap <- ""
+        asp_txt <- ""
+        if(!is.null(asp))
+          asp_txt <- glue::glue(", fig.asp={asp}")
+        if(cap) {
+          figcap <- stringr::str_c(", fig.cap='")
+          if(!is.null(chunk$fig.cap))
+            figcap <- stringr::str_c(", fig.cap='", chunk$fig.cap, " ")
+          else
+            figcap <- stringr::str_c(", fig.cap='")
+          figcap <- stringr::str_c(figcap, .y, "'")
+        }
+        rendu <- knitr::knit(
+          text = stringr::str_c("```{r ", lbl, asp_txt, figcap, " }\nplot \n```"),
+          quiet=TRUE)
+      }
+      cat("\n")
+      cat(rendu, sep="\n")
+      cat("\n")
+    })
+
+    if(cap) {
+      cat(chunk$fig.cap)
+      cat("\n\n")
+      cat("::::\n\n")
+    }
   }
-}
 }
 
 #' Tabsetize2 : tabset à deux étages
