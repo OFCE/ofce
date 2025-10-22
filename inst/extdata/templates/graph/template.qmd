@@ -1,0 +1,104 @@
+---
+title: "Template du graphique de la semaine" #titre du graphique ici
+author:
+  - name: Prénom Nom
+  
+description: "Description en moins de 295 caractères"
+
+date: 2025-09-30
+categories: ["keyword1", "keyword2"] 
+
+format: blog-html
+---
+
+# Informations supplémentaires
+
+## Liens utiles 
+
+*(non comptés dans les 300 caractères)*
+
+Textes contenant les références et liens utiles (apparaîtra sur BS et Li) vers le rapport /PB / autres + travaux annexes
+
+## Personnes à tagger sur LinkedIn
+
+*(non comptés dans les 300 caractères)*
+
+Liste des personnes pertinentes à tagger sur linkedin
+
+
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 12
+
+library(tidyverse)
+library(ofce)
+
+# Routine d'initialisation des options de base / Chargement des librairies usuelles
+
+ofce::init_qmd()
+
+opts_chunk$set(
+  fig.pos="htb",
+  out.extra="",
+  dev="ragg_png",
+  dev.args = list(bg = "transparent"),
+  out.width="100%",
+  fig.showtext=TRUE,
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE)
+
+```
+
+
+```{r}
+#| label: Chargement des données et autres outils
+
+data <- iris
+
+palette_iris = c("#CD8C95", "#CD96CD", "#8968CD")
+
+```
+
+
+
+```{r}
+#| label: fig-graphique
+#| fig-cap: "Titre du graphique"
+#| fig-width: 13
+
+## Ne pas oublier d'utiliser les themes ofce, les ofce_captions pour la note de lecture 
+
+
+g <- data |> ggplot(aes(x = Sepal.Length,y = Petal.Length)) +
+  
+  geom_point(aes(color = Species , size = Petal.Width ), shape = 8)+
+  
+  labs(title = "Titre du graphique" , 
+       subtitle = "Réalisé par XXXX XXXX" ) +
+  
+  scale_color_manual(values = palette_iris) +
+  
+  theme_ofce(marquee = TRUE)+
+  
+  ofce_caption(
+    lecture = "Note sur comment lire le graphique",
+    note = "Autres notes" ,
+    source = "Les sources des donnéees" ) 
+  
+  
+
+g |> ofce::add_logo()
+
+
+
+```
+
+
+
+
+**Texte à ajouter au moment de la publication du site : lien vers le rapport /PB / autres + travaux annexes**

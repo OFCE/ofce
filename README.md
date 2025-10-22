@@ -1,9 +1,8 @@
-# Publication de documents scientifiques <a href="https://ofce.github.io/ofce/"><img src="man/figures/logo.png" align="right" height="136" alt="ofce website" /></a>
-
+# Publication de documents scientifiques <a href="https://ofce.github.io/ofce/"><img src="man/figures/logo.png" alt="ofce website" align="right" height="136"/></a>
 
 Ce package met à disposition des outils utilisés régulièrement à l'OFCE, que ce soit pour la production de documents quarto ou de mise en page de graphiques `ggplot2`.
 
-La charte graphique, les instructions de flux de travail, des exemples de documents et de code, des tutos sont sur [https://ofce.github.io/ofce/](https://ofce.github.io/ofce/).
+La charte graphique, les instructions de flux de travail, des exemples de documents et de code, des tutos sont sur <https://ofce.github.io/ofce/>.
 
 N'hésitez pas à poster des *issues* sur ce dépôt pour toute remarque ou requête.
 

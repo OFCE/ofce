@@ -2,7 +2,7 @@
 % Please edit documentation in R/quarto.R
 \name{setup_blog}
 \alias{setup_blog}
-\title{installe un squelette de présentation}
+\title{installe un squelette pour le blog}
 \usage{
 setup_blog(dir = NULL, nom = NULL)
 }

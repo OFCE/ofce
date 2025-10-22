@@ -1,3 +1,7 @@
+## OFCE 1.3.21
+
+* ajout de `setup_graph` et du template pour le graphique ofce
+
 ## OFCE 1.3.20
 
 * modification marginale de `tabsetize` (ajout d'une option, comportement différent en pdf et html)
