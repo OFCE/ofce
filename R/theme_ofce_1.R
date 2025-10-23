@@ -128,7 +128,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         colour = "gray25"),
       axis.text.y = ggplot2::element_text(
         hjust = 1,
-        vjust=0),
+        vjust=0,
+        margin = ggplot2::margin(r=2)),
       axis.text.x = ggplot2::element_text(
         margin = ggplot2::margin(t=2, b=0),
         hjust = 0.5),
