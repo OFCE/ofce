@@ -7,7 +7,7 @@
 setup_graph(dir = NULL, nom = NULL)
 }
 \arguments{
-\item{dir}{Répertoire à créer "graph_ofce" par défaut}
+\item{dir}{Répertoire à créer. Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.}
 
 \item{nom}{Nom du projet, "graph_ofce" par défaut,}
 }

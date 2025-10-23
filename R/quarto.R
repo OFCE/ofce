@@ -60,7 +60,7 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
 #' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
 #'
 #' @param nom Nom du projet, "wp" par défaut,
-#' @param dir Répertoire à créer "wp" par défaut
+#' @param dir Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
 #'
 #' @return NULL
 #' @export
@@ -222,8 +222,8 @@ set_justify <- function(path=".", justify=TRUE, ext="ofce") {
 #'
 #' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
 #'
-#' @param nom Nom du projet, "blog" par défaut,
-#' @param dir Répertoire à créer "blog" par défaut
+#' @param nom Nom du projet, "pres" par défaut,
+#' @param dir Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
 #'
 #' @return NULL
 #' @export
@@ -295,8 +295,8 @@ setup_pres <- function(dir = NULL, nom = NULL) {
 #'
 #' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
 #'
-#' @param nom Nom du projet, "pres" par défaut,
-#' @param dir Répertoire à créer "pres" par défaut
+#' @param nom Nom du projet, "blog" par défaut,
+#' @param dir Répertoire à créer. Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
 #'
 #' @return NULL
 #' @export
@@ -371,7 +371,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
 #'
 #' @param nom Nom du projet, "graph_ofce" par défaut,
-#' @param dir Répertoire à créer "graph_ofce" par défaut
+#' @param dir Répertoire à créer. Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
 #'
 #' @return NULL
 #' @export
