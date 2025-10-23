@@ -73,7 +73,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.7),
         color = "gray25",
-        margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
+        margin = ggplot2::margin(r=3, b=0, t=0, l=3)),
       legend.text = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
         size = ggplot2::rel(0.7),

@@ -2,7 +2,11 @@ library(tidyverse)
 library(showtext)
 ggplot(cars)+aes(x=speed, y=dist, col=speed>15)+
   geom_point()+
-  theme_ofce(base_size = 12, legend.position = "top", marquee=TRUE) +
+  theme_ofce(base_size = 12,
+             legend.position = "bottom",
+             legend.justification = c(0.5, 0.5),
+             legend.direction = "horizontal",
+             marquee=TRUE) +
   labs(title = NULL,
        x = NULL,
        subtitle = NULL)+
