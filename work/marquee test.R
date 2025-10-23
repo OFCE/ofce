@@ -12,7 +12,7 @@ ggplot(cars)+aes(x=speed, y=dist, col=speed>15)+
        subtitle = NULL)+
   ofce_caption(
     wrap=0,
-    champ = "dans ton ...",
+    champ = "dans ton ... dans ton ... dans ton ... dans ton ... dans ton ... dans ton ... dans ton ...",
     source =  "une source longue, longue, longue, longue, longue, longue,longue, longue,
     longue, longue, longue, longue, longue, longue, longue, longue, longue, longue,
     longue, longue, longue, longue, longue, longue, longue, longue, longue, longue,
