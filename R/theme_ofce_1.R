@@ -153,7 +153,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       legend.key.spacing.x = unit(3, "pt"),
       legend.key.spacing.y = unit(1, "pt"),
       legend.margin = ggplot2::margin(t=0, r=0, b=0, l=0),
-      legend.box.spacing = unit(6, "pt"),
+      legend.box.spacing = unit(3, "pt"),
       #Axis format
       axis.ticks = element_line(
         color="gray25",
