@@ -1,6 +1,7 @@
 ## OFCE 1.3.21
 
 * ajout de `setup_graph` et du template pour le graphique ofce
+* réglages de theme_ofce
 
 ## OFCE 1.3.20
 
