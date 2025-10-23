@@ -7,9 +7,9 @@
 setup_pres(dir = NULL, nom = NULL)
 }
 \arguments{
-\item{dir}{Répertoire à créer "pres" par défaut}
+\item{dir}{Répertoire à créer "blog" par défaut}
 
-\item{nom}{Nom du projet, "pres" par défaut,}
+\item{nom}{Nom du projet, "blog" par défaut,}
 }
 \description{
 prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
