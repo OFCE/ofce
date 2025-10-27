@@ -3,7 +3,6 @@
 #' Ajoute le logo de l'OFCE sur le graphique
 #'
 #' @param size (1 par défaut) la taille relative du logo (1 c'est bien)
-#' @param background ("transparent" par défaut) une couleur pour le fond
 #'
 #' @return un élément ggplot ( + )
 #' @export
@@ -15,7 +14,7 @@
 #'         theme_ofce() +
 #'         logo_ofce()
 #'}
-logo_ofce <- function(size = 1, background = "transparent") {
+logo_ofce <- function(size = 1) {
   rlang::check_installed("magick", reason = "to add a logo inside")
   logo <- ofce_logo |>
     magick::image_read() |>

@@ -133,7 +133,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       axis.text.x = ggplot2::element_text(
         margin = ggplot2::margin(t=0, b=0),
         hjust = 0.5),
-      plot.background = ggplot2::element_rect(fill="white"),
+      plot.background = ggplot2::element_rect(fill="transparent"),
+      panel.background = ggplot2::element_rect(fill="transparent"),
       rect = ggplot2::element_rect(
         fill = NA,
         colour = NA,
