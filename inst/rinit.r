@@ -113,7 +113,7 @@ girafe_opts <- function(x, ...) girafe_options(
 
 girafy <- function(plot, r=2.5, o = 0.5,  ...) {
   if(knitr::is_html_output()| interactive()) {
-    girafe(ggobj = plot) |>
+    girafe(ggobj = plot, bg = "transparent") |>
       girafe_options(
         opts_hover_inv(css = glue("opacity:{o};")),
         opts_hover(css = glue("r:{r}px;")),
