@@ -4,12 +4,10 @@
 \alias{logo_ofce}
 \title{Logo de l'OFCE}
 \usage{
-logo_ofce(size = 1, background = "transparent")
+logo_ofce(size = 1)
 }
 \arguments{
 \item{size}{(1 par défaut) la taille relative du logo (1 c'est bien)}
-
-\item{background}{("transparent" par défaut) une couleur pour le fond}
 }
 \value{
 un élément ggplot ( + )

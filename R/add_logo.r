@@ -16,6 +16,7 @@
 #'}
 logo_ofce <- function(size = 1) {
   rlang::check_installed("magick", reason = "to add a logo inside")
+  if(!exists("background")){background <- "transparent"}
   logo <- ofce_logo |>
     magick::image_read() |>
     grid::rasterGrob(
