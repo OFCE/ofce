@@ -26,7 +26,7 @@ logo_ofce <- function(size = 1) {
       just = c(1,0)) |>
     grid::pattern(
       extend = "none",
-      gp = grid::gpar(fill = background))
+      gp = grid::gpar(fill = background)) ## what is background ?
   theme(plot.background = element_rect(fill = logo))
 }
 
