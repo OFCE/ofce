@@ -122,10 +122,9 @@ ofce_caption <- function(
     liner <- function(x) stringr::str_replace_all(x, "\\n", linebr)
   } else {
     wrapper <- function(x) x
-    linebr <- "\n\n"
+    linebr <- "  \n"
     liner <- function(x) x
   }
-
   if(length(champ)>0) {
     caption <- stringr::str_c(chp, champ)  |>
       check_point() |>

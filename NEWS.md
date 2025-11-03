@@ -1,3 +1,12 @@
+## OFCE 1.3.22
+
+* nouvelle fonction ggplot logo_ofce() qui ajoute un logo de l'OFCE au graphique
+
+## OFCE 1.3.21
+
+* ajout de `setup_graph` et du template pour le graphique ofce
+* réglages de theme_ofce
+
 ## OFCE 1.3.20
 
 * modification marginale de `tabsetize` (ajout d'une option, comportement différent en pdf et html)

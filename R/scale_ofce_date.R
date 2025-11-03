@@ -28,5 +28,6 @@ scale_ofce_date <- function(date_breaks = "5 years",
         name = name,
         expand = expand,
         ...),
+      theme(axis.text.x = element_text(hjust=0)),
       guides(x = guide_axis(minor.ticks = TRUE)))
 }

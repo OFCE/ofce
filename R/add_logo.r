@@ -1,3 +1,35 @@
+#' Logo de l'OFCE
+#'
+#' Ajoute le logo de l'OFCE sur le graphique
+#'
+#' @param size (1 par défaut) la taille relative du logo (1 c'est bien)
+#'
+#' @return un élément ggplot ( + )
+#' @export
+#' @examples
+#' \dontrun{
+#' library(ggplot2)
+#' plot <- ggplot(mtcars) +
+#'         geom_point(aes(x=mpg, y=hp, size=cyl, col=gear)) +
+#'         theme_ofce() +
+#'         logo_ofce()
+#'}
+logo_ofce <- function(size = 1) {
+  rlang::check_installed("magick", reason = "to add a logo inside")
+  if(!exists("background")){background <- "transparent"}
+  logo <- ofce_logo |>
+    magick::image_read() |>
+    grid::rasterGrob(
+      x = 0.99, y = 0.025,
+      width = unit(0.075*size, "snpc"),
+      height = unit(0.075*size/142*65, "snpc"),
+      just = c(1,0)) |>
+    grid::pattern(
+      extend = "none",
+      gp = grid::gpar(fill = background)) ## what is background ?
+  theme(plot.background = element_rect(fill = logo))
+}
+
 #' Add logo
 #'
 #' Ajoute le logo de l'OFCE sur le graphique (inside donc)
@@ -25,7 +57,7 @@ add_logo <- function(plot, logo =  NULL, size = 0.25) {
   plot+ ggpp::annotate(geom = "grob_npc",
                        label=grob,
                        npcx=0.995, npcy=0, hjust=0.5, vjust=0.5)
-  }
+}
 
 #' Add label unit
 #'
@@ -83,3 +115,4 @@ add_label_unit <- function(plot, ylabel="") {
 
   plot + annotation
 }
+

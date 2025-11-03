@@ -60,7 +60,7 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
 #' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
 #'
 #' @param nom Nom du projet, "wp" par défaut,
-#' @param dir Répertoire à créer "wp" par défaut
+#' @param dir Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
 #'
 #' @return NULL
 #' @export
@@ -223,7 +223,7 @@ set_justify <- function(path=".", justify=TRUE, ext="ofce") {
 #' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
 #'
 #' @param nom Nom du projet, "pres" par défaut,
-#' @param dir Répertoire à créer "pres" par défaut
+#' @param dir Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
 #'
 #' @return NULL
 #' @export
@@ -291,12 +291,12 @@ setup_pres <- function(dir = NULL, nom = NULL) {
   return(invisible(TRUE))
 }
 
-#' installe un squelette de présentation
+#' installe un squelette pour le blog
 #'
 #' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
 #'
-#' @param nom Nom du projet, "pres" par défaut,
-#' @param dir Répertoire à créer "pres" par défaut
+#' @param nom Nom du projet, "blog" par défaut,
+#' @param dir Répertoire à créer. Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
 #'
 #' @return NULL
 #' @export
@@ -364,3 +364,64 @@ setup_blog <- function(dir = NULL, nom = NULL) {
   quarto::quarto_preview(target, render="blog-html")
   return(invisible(TRUE))
 }
+
+
+#' installe un squelette pour le graphique ofce
+#'
+#' prépare un dossier, avec un exemple et les extensions nécessaires pour le formattage OFCE
+#'
+#' @param nom Nom du projet, "graph_ofce" par défaut,
+#' @param dir Répertoire à créer. Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.
+#'
+#' @return NULL
+#' @export
+#'
+#'
+setup_graph <- function(dir = NULL, nom = NULL) {
+  if(quarto::quarto_version()<"1.5.57")
+    cli::cli_alert_info(
+      "Quarto 1.4 est recommandé pour les fonctions avancées
+        (manuscript, lua, lightbox, corrections de bugs, ...)
+      {.url https://github.com/quarto-dev/quarto-cli/releases}")
+
+  if(is.null(dir)) {
+    if(is.null(nom)) {
+      dir <- "."
+      nom <- "GoW"
+    }
+    else
+      dir <- nom
+  }
+  if(is.null(nom))
+    nom <- last_dir(dir)
+  target <- stringr::str_c(dir, "/", nom, ".qmd")
+  # refs <- stringr::str_c(dir, "/blogreferences.bib")
+  if(file.exists(target)) {
+    cli::cli_alert_danger(
+      "Il y déjà un '{nom}.qmd' dans le répertoire {.path {dir}}")
+    return(invisible(FALSE))
+  }
+
+
+  setup_quarto(dir, quiet = TRUE)
+  cli::cli_alert_info("extensions installées")
+
+  template <- system.file("extdata/templates/graph",
+                          "template.qmd",
+                          package="ofce")
+
+  file.copy(template, to = target)
+
+  rstudioapi::navigateToFile(
+    file = target,
+    line = -1L,
+    column = -1L,
+    moveCursor = TRUE
+  )
+  # rstudioapi::executeCommand("foldAll")
+  usethis::git_vaccinate()
+  cli::cli_alert_info("qmd initialisé, .gitignore modifié")
+  quarto::quarto_preview(target, render="blog-html")
+  return(invisible(TRUE))
+}
+

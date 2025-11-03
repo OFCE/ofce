@@ -14,7 +14,7 @@ opts_chunk$set(
 ## Checking rinit packages installation
 rinit_packages <- c("pak",
                     "tidyverse",
-                    # "ofce",
+                    "yaml",
                     "showtext",
                     "plotly",
                     "gt",
@@ -34,7 +34,8 @@ rinit_packages <- c("pak",
                     "cli",
                     "quarto",
                     "gdtools",
-                    "gfonts"
+                    "gfonts",
+                    "marquee"
                     )
 
 ## Installation of missing packages
@@ -54,7 +55,9 @@ options(
   ofce.caption.ofce = FALSE,
   ofce.marquee = TRUE,
   ofce.caption.srcplus = NULL,
-  ofce.caption.wrap = 0)
+  ofce.caption.wrap = 0,
+  sourcoise.init_fn = ofce::init_qmd,
+  sourcoise.grow_cache = Inf)
 showtext_opts(dpi = 120)
 showtext_auto()
 
@@ -71,6 +74,8 @@ tooltip_css  <-
   r:20px;"
 
 gdtools::register_gfont("Open Sans")
+
+set_theme(theme_ofce())
 
 margin_download <- function(data, output_name = "donnees", label = "données") {
   if(knitr::is_html_output()) {
@@ -108,7 +113,7 @@ girafe_opts <- function(x, ...) girafe_options(
 
 girafy <- function(plot, r=2.5, o = 0.5,  ...) {
   if(knitr::is_html_output()| interactive()) {
-    girafe(ggobj = plot) |>
+    girafe(ggobj = plot, bg = "transparent") |>
       girafe_options(
         opts_hover_inv(css = glue("opacity:{o};")),
         opts_hover(css = glue("r:{r}px;")),

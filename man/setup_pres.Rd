@@ -7,7 +7,7 @@
 setup_pres(dir = NULL, nom = NULL)
 }
 \arguments{
-\item{dir}{Répertoire à créer "pres" par défaut}
+\item{dir}{Répertoire à créer. Par défaut, le qmd est placé dans le dossier de travail.}
 
 \item{nom}{Nom du projet, "pres" par défaut,}
 }
