@@ -19,6 +19,9 @@ un graphique ggplot
 \description{
 Ajoute le logo de l'OFCE sur le graphique (inside donc)
 }
+\details{
+Fin de vie. Ne plus utiliser
+}
 \examples{
 \dontrun{
 library(ggplot2)

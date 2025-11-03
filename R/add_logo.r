@@ -16,7 +16,6 @@
 #'}
 logo_ofce <- function(size = 1) {
   rlang::check_installed("magick", reason = "to add a logo inside")
-  if(!exists("background")){background <- "transparent"}
   logo <- ofce_logo |>
     magick::image_read() |>
     grid::rasterGrob(
@@ -26,13 +25,15 @@ logo_ofce <- function(size = 1) {
       just = c(1,0)) |>
     grid::pattern(
       extend = "none",
-      gp = grid::gpar(fill = background)) ## what is background ?
+      gp = grid::gpar(fill = "transparent"))
   theme(plot.background = element_rect(fill = logo))
 }
 
 #' Add logo
 #'
 #' Ajoute le logo de l'OFCE sur le graphique (inside donc)
+#'
+#' Fin de vie. Ne plus utiliser
 #'
 #' @param plot un graphique ggplot
 #' @param logo un logo au format png, avec une transparence (si NULL utilise le logo OFCE)
