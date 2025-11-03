@@ -13,14 +13,11 @@ scale_ofce_date <- function(date_breaks = "5 years",
                             date_labels = "%Y",
                             guide = "minor_breaks",
                             name = NULL,
-                            right_red = TRUE,
+                            expand = expansion(mult=c(0.04,0)),
                             ...) {
   if(!is.null(labels))
     date_labels <- waiver() else
       labels <- waiver()
-    if(right_red)
-      expand <- expansion(mult=c(0.04,0)) else
-        expand <- waiver()
     list(
       scale_x_date(
         date_breaks = date_breaks,
