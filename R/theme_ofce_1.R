@@ -79,7 +79,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.7),
         hjust=0,
         lineheight = 0.9,
-        color = "gray25")
+        color = "gray25",
+        margin = ggplot2::margin(r=3, b=0, t=0, l=1))
     )
   else
     ggplot2::theme(
