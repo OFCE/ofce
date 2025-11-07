@@ -59,10 +59,11 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
   }
 
   if(!is.null(le_init)) {
-    capture.output(
-      source(le_init,
-             echo = FALSE, verbose = FALSE, local = .GlobalEnv),
-      file = nullfile(), type = c("output", "message") )
+    suppressPackageStartupMessages(
+      suppressMessages(
+        suppressWarnings(
+          source(le_init,echo = FALSE, verbose = FALSE, local = .GlobalEnv)
+          ) ) )
     return(invisible(msg))
   }
 
