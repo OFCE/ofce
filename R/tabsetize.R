@@ -8,6 +8,7 @@
 #'
 #' @param list liste des graphiques
 #' @param facety (ne pas utiliser)
+#' @param active (defaut 1) numéro du panel qui est actif
 #' @param cap TRUE par défaut, insère une caption à la figure, spécifiée comme la caption du chunk (`#| fig-cap: un titre`).
 #' @param girafy TRUE par défaut, wrappe avec girafy (qui doit être défini donc dans le rinit.r)
 #' @param asp aspect de ratio, mais privilégiez l'aspect ratio général (`#| fig-asp: 1.1`)
@@ -18,7 +19,8 @@
 #' @export
 #'
 tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5,
-                      pdf = getOption("ofce.tabsetize.pdf")) {
+                      pdf = getOption("ofce.tabsetize.pdf"),
+                      active = 1) {
   chunk <- knitr::opts_current$get()
   label <- chunk$label
   asp_chunk <- chunk$fig.asp
@@ -34,7 +36,10 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
     ids <- 1:length(list) |> rlang::set_names(names(list))
     cat("::: {.panel-tabset} \n\n")
     purrr::iwalk(list, ~{
-      cat(paste0("### ", .y,"\n\n"))
+      if(ids[[.y]] == active)
+        cat(paste0("### ", .y," {.active}\n\n"))
+      else
+        cat(paste0("### ", .y,"\n\n"))
       if(is(.x, "ggplot")|is(.x, "gt_tbl")) {
         id <- stringr::str_c(digest::digest(.x, algo = "crc32"), "-", ids[[.y]])
         lbl <- glue::glue("'{id}'")
