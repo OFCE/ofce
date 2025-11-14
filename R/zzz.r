@@ -22,7 +22,9 @@
     ofce.caption.glue = TRUE,
     ofce.caption.lang = "fr",
     ofce.init_qmd.local = FALSE,
-    ofce.tabsetize.pdf = "all")
+    ofce.tabsetize.pdf = "all",
+    ofce.savegraph = NULL,
+    ofce.download_format = "csv")
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])

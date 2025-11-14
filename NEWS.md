@@ -1,3 +1,7 @@
+## OFCE 1.3.23
+
+* tabsetize(), margin_download() et girafy() sont à bord
+
 ## OFCE 1.3.22
 
 * nouvelle fonction ggplot logo_ofce() qui ajoute un logo de l'OFCE au graphique

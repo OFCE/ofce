@@ -44,7 +44,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           if(!is.null(asp))
             asp_txt <- glue::glue(", fig.asp={asp}")
           if(girafy) {
-            plot <- girafy(.x, r=r)
+            plot <- ofce::girafy(.x, r=r, id=ids[[.y]])
             lib <- "library(ggiraph)\n"
           }
         }

@@ -170,10 +170,10 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       panel.grid.minor = element_blank(),
       panel.grid.major.y = element_line(
         linewidth = unit(0.1, "pt"),
-        color = "gray80"),
+        color = "gray85"),
       panel.grid.major.x = element_line(
         linewidth = unit(0.1, "pt"),
-        color = "gray80"),
+        color = "gray85"),
       # Blank background
       panel.background = element_rect(
         fill = getOption("ofce.background_color"),
