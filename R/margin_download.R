@@ -8,14 +8,14 @@
 #' @param output_name ("données" par défaut) le nom du fichier de sortie
 #' @param label ("données") le nom du bouton qui apparaît dans le rendu du quarto
 #' @param margin (TRUE) si FALSE le bouton est inline (non implémenté pour le moment)
-#' @param format format du ficher à télécharger, mis en option du package ( `ofce.download_format` par défaut), peut être "csv", "xlsx"
+#' @param format format du ficher à télécharger, mis en option du package ( `ofce.output_extension` par défaut), peut être "csv", "xlsx"
 #' @param prefix préfixe pour les fichiers téléchargés (`ofce.output_prefix` par défaut)
 #'
 #' @returns NULL (side effect : du markdown)
 #' @export
 
 margin_download <- function(data, output_name = "donnees", label = "donn\u00e9es",
-                            margin = TRUE, output_extension = getOption("ofce.download_format"),
+                            margin = TRUE, output_extension = getOption("ofce.output_extension"),
                             prefix = getOption("ofce.output_prefix")) {
 
   if(knitr::is_html_output()) {
