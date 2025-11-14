@@ -13,7 +13,8 @@
 save_graph <- function(graph, label=NULL,
                       chunk = knitr::opts_current$get(),
                       document=knitr::current_input(),
-                      id = NULL, dest = getOption("ofce.savegraph")) {
+                      id = NULL,
+                      dest = getOption("ofce.savegraph")) {
 
   if(is.null(dest))
     return(graph)
@@ -35,7 +36,14 @@ save_graph <- function(graph, label=NULL,
     return(graph)
 
   path <- Sys.getenv("QUARTO_DOCUMENT_PATH")
-  dir <- Sys.getenv("QUARTO_PROJECT_DIR")
+  if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
+    safe_find_root <- purrr::safely(rprojroot::find_root)
+    root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+    if(is.null(root$error))
+      root <- root$result
+  } else {
+    root <- Sys.getenv("QUARTO_PROJECT_DIR")
+  }
 
   if(is.null(id))
     id <- ""
@@ -43,16 +51,19 @@ save_graph <- function(graph, label=NULL,
     id <- str_c("-",id)
 
   partie <- path |>
-    fs::path_rel(dir) |>
+    fs::path_rel(root) |>
     as.character() |>
     stringr::str_replace("/", "-")
 
-  partie <- partie |>
+  if(partie == ".")
+    partie <- document else
+      partie <- partie |>
     stringr::str_c("-", document)
 
-  rep <- fs::path_join(c(dir, dest))
+  rep <- fs::path_join(c(root, dest))
 
   dir.create(rep, recursive = TRUE)
+
   fn <- stringr::str_c(rep, "/", partie, "-", tolower(label), id)
 
   qs2::qs_save(object = graph, file = str_c(fn, ".ggplot"))
@@ -75,7 +86,16 @@ load_graphe <- function(graphe) {
   dir <- optionGet("ofce.savegraph")
   if(is.null(dir))
     return(NULL)
-  qs2::qs_read(
-    fs::path_join(c(ofce.project.root, optionGet(ofce.savegraph), graphe)) |>
+
+  if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
+    safe_find_root <- purrr::safely(rprojroot::find_root)
+    root <- safe_find_root(rprojroot::is_quarto_project | rprojroot::is_r_package | rprojroot::is_rstudio_project)
+    if(is.null(root$error))
+      root <- root$result
+  } else {
+    root <- Sys.getenv("QUARTO_PROJECT_DIR")
+  }
+   qs2::qs_read(
+    fs::path_join(c(root, optionGet(ofce.savegraph), graphe)) |>
       fs::path_ext_set("ggplot"))
 }

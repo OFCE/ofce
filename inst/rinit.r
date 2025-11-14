@@ -35,10 +35,10 @@ options(
   sourcoise.grow_cache = Inf,
   ofce.savegraph = dir,
   ofce.output_extension = "xlsx",
-  ofce.output_prefix = "vaxt",)
+  ofce.output_prefix = "ofce-")
 
-showtext_opts(dpi = 120)
-showtext_auto()
+showtext::showtext_opts(dpi = 120)
+showtext::showtext_auto()
 
 tooltip_css  <-
   "font-family:Open Sans;
