@@ -22,7 +22,7 @@ margin_download <- function(data, output_name = "donnees", label = "donn\u00e9es
     if(lobstr::obj_size(data)> 1e+5)
       cli::cli_alert("la taille de l'objet est sup\u00e9rieure à 100kB")
 
-    assertthat::assert_that(format %in% c("csv", "xlsx"),
+    assertthat::assert_that(output_extension %in% c("csv", "xlsx"),
                             msg = "Extension non prise en charge" )
 
     fn <- str_c(prefix, tolower(output_name))
