@@ -9,7 +9,7 @@ margin_download(
   output_name = "donnees",
   label = "données",
   margin = TRUE,
-  output_extension = getOption("ofce.download_format"),
+  output_extension = getOption("ofce.output_extension"),
   prefix = getOption("ofce.output_prefix")
 )
 }
@@ -24,7 +24,7 @@ margin_download(
 
 \item{prefix}{préfixe pour les fichiers téléchargés (\code{ofce.output_prefix} par défaut)}
 
-\item{format}{format du ficher à télécharger, mis en option du package ( \code{ofce.download_format} par défaut), peut être "csv", "xlsx"}
+\item{format}{format du ficher à télécharger, mis en option du package ( \code{ofce.output_extension} par défaut), peut être ".csv", ".xlsx"}
 }
 \value{
 NULL (side effect : du markdown)

@@ -8,7 +8,7 @@
 #' @param output_name ("données" par défaut) le nom du fichier de sortie
 #' @param label ("données") le nom du bouton qui apparaît dans le rendu du quarto
 #' @param margin (TRUE) si FALSE le bouton est inline (non implémenté pour le moment)
-#' @param format format du ficher à télécharger, mis en option du package ( `ofce.output_extension` par défaut), peut être "csv", "xlsx"
+#' @param format format du ficher à télécharger, mis en option du package ( `ofce.output_extension` par défaut), peut être ".csv", ".xlsx"
 #' @param prefix préfixe pour les fichiers téléchargés (`ofce.output_prefix` par défaut)
 #'
 #' @returns NULL (side effect : du markdown)
@@ -22,7 +22,7 @@ margin_download <- function(data, output_name = "donnees", label = "donn\u00e9es
     if(lobstr::obj_size(data)> 1e+5)
       cli::cli_alert("la taille de l'objet est sup\u00e9rieure à 100kB")
 
-    assertthat::assert_that(output_extension %in% c("csv", "xlsx"),
+    assertthat::assert_that(output_extension %in% c(".csv", ".xlsx"),
                             msg = "Extension non prise en charge" )
 
     fn <- str_c(prefix, tolower(output_name))
