@@ -15,6 +15,7 @@ Imports:
     cowplot,
     curl,
     data.table,
+    downloadthis,
     dplyr,
     farver,
     fs,

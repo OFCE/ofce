@@ -24,7 +24,8 @@
     ofce.init_qmd.local = FALSE,
     ofce.tabsetize.pdf = "all",
     ofce.savegraph = NULL,
-    ofce.download_format = "csv")
+    ofce.output_extension = "csv",
+    ofce.output_prefix = "ofce-")
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])

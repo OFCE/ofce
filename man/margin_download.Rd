@@ -9,7 +9,7 @@ margin_download(
   output_name = "donnees",
   label = "données",
   margin = TRUE,
-  format = getOption("ofce.download_format")
+  output_extension = getOption("ofce.download_format")
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ margin_download(
 
 \item{margin}{(TRUE) si FALSE le bouton est inline (non implémenté pour le moment)}
 
-\item{format}{format du ficher à télécharger, mis en option du package ( \code{ofce.download_format})}
+\item{format}{format du ficher à télécharger, mis en option du package ( \code{ofce.download_format} par défaut), peut être "csv", "xlsx"}
 }
 \value{
 NULL (side effect : du markdown)

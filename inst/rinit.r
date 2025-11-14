@@ -2,7 +2,7 @@ library(knitr)
 opts_chunk$set(
   fig.pos="htb",
   out.extra="",
-  dev="ragg_png",
+  dev="svg",
   dev.args = list(bg = "transparent"),
   out.width="100%",
   fig.showtext=TRUE,
@@ -10,44 +10,15 @@ opts_chunk$set(
   warning = qmd_warning,
   echo = qmd_echo)
 
+library(tidyverse)
+library(ggiraph)
+library(ofce)
+library(yaml)
+library(gt)
+library(marquee)
 
-## Checking rinit packages installation
-rinit_packages <- c("pak",
-                    "tidyverse",
-                    "yaml",
-                    "showtext",
-                    "plotly",
-                    "gt",
-                    "readxl",
-                    "ggiraph",
-                    "curl",
-                    "ggrepel",
-                    "scales",
-                    "glue",
-                    "patchwork",
-                    "downloadthis",
-                    "lubridate",
-                    "insee",
-                    "ggh4x",
-                    "PrettyCols",
-                    "lobstr",
-                    "cli",
-                    "quarto",
-                    "gdtools",
-                    "gfonts",
-                    "marquee"
-                    )
+systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
 
-## Installation of missing packages
-
-not_installed_CRAN <- rinit_packages[!(rinit_packages %in% installed.packages()[ , "Package"])]
-if(length(not_installed_CRAN)>0){pak::pak(not_installed_CRAN)}
-
-## loading all packages
-load <- purrr::map(c(rinit_packages, "ofce"),~library(.x,character.only = TRUE,quietly = TRUE))
-rm(load,not_installed_CRAN,rinit_packages)
-
-####
 options(
   ofce.base_size = 12,
   ofce.background_color = "transparent",
@@ -58,6 +29,7 @@ options(
   ofce.caption.wrap = 0,
   sourcoise.init_fn = ofce::init_qmd,
   sourcoise.grow_cache = Inf)
+
 showtext_opts(dpi = 120)
 showtext_auto()
 
@@ -73,70 +45,7 @@ tooltip_css  <-
   box-shadow: 2px 2px 2px gray;
   r:20px;"
 
-gdtools::register_gfont("Open Sans")
-
 set_theme(theme_ofce())
-
-margin_download <- function(data, output_name = "donnees", label = "données") {
-  if(knitr::is_html_output()) {
-    if(lobstr::obj_size(data)> 1e+5)
-      cli::cli_alert("la taille de l'objet est supérieure à 100kB")
-    fn <- tolower(output_name)
-    downloadthis::download_this(
-      data,
-      icon = "fa fa-download",
-      class = "dbtn",
-      button_label  = label,
-      output_name = fn)
-  } else
-    return(invisible(NULL))
-}
-
-margin_link <- function(data, output_name = "donnees", label = "données") {
-  if(knitr::is_html_output()) {
-    link <- stringr::str_c("dnwld/", output_name, ".csv")
-    vroom::vroom_write(data, link, delim = ";")
-    downloadthis::download_link(
-      link,
-      icon = "fa fa-download",
-      class = "dbtn",
-      button_label  = label)
-  } else
-    return(invisible(NULL))
-}
-
-girafe_opts <- function(x, ...) girafe_options(
-  x,
-  opts_hover(css = "stroke-width:1px;", nearest_distance = 60),
-  opts_tooltip(css = tooltip_css)) |>
-  girafe_options(...)
-
-girafy <- function(plot, r=2.5, o = 0.5,  ...) {
-  if(knitr::is_html_output()| interactive()) {
-    girafe(ggobj = plot, bg = "transparent") |>
-      girafe_options(
-        opts_hover_inv(css = glue("opacity:{o};")),
-        opts_hover(css = glue("r:{r}px;")),
-        opts_tooltip(css = tooltip_css)) |>
-      girafe_options(...)
-  } else {
-    plot
-  }
-}
-
-milliards <- function(x, n_signif = 3L) {
-  stringr::str_c(
-    format(
-      x,
-      digits = n_signif,
-      big.mark = " ",
-      decimal.mark = ","),
-    " milliards d'euros")
-}
-
-f_taux <- function(x) {
-  str_replace(str_c(signif(x,3),"%"), "\\.", ",")
-}
 
 if(.Platform$OS.type=="windows")
   Sys.setlocale(locale = "fr_FR.utf8") else

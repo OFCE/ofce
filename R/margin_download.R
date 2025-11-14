@@ -8,20 +8,28 @@
 #' @param output_name ("données" par défaut) le nom du fichier de sortie
 #' @param label ("données") le nom du bouton qui apparaît dans le rendu du quarto
 #' @param margin (TRUE) si FALSE le bouton est inline (non implémenté pour le moment)
-#' @param format format du ficher à télécharger, mis en option du package ( `ofce.download_format`)
+#' @param format format du ficher à télécharger, mis en option du package ( `ofce.download_format` par défaut), peut être "csv", "xlsx"
+#' @param prefix préfixe pour les fichiers téléchargés (`ofce.output_prefix` par défaut)
 #'
 #' @returns NULL (side effect : du markdown)
 #' @export
 
-margin_download <- function(data, output_name = "donnees", label = "donn\u00e9es", margin = TRUE, format = getOption("ofce.download_format")) {
+margin_download <- function(data, output_name = "donnees", label = "donn\u00e9es",
+                            margin = TRUE, output_extension = getOption("ofce.download_format"),
+                            prefix = getOption("ofce.output_prefix")) {
 
   if(knitr::is_html_output()) {
     if(lobstr::obj_size(data)> 1e+5)
       cli::cli_alert("la taille de l'objet est sup\u00e9rieure à 100kB")
-    fn <- str_c("ofce-prev2503-", tolower(output_name))
+
+    assertthat::assert_that(format %in% c("csv", "xlsx"),
+                            msg = "Extension non prise en charge" )
+
+    fn <- str_c(prefix, tolower(output_name))
 
     dwn <- downloadthis::download_this(
       data,
+      output_extension = output_extension,
       icon = "fa fa-download",
       class = "dbtn",
       button_label  = label,
