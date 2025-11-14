@@ -95,7 +95,7 @@ savegraph <- function(graph, label=NULL,
   partie <- partie |>
     stringr::str_c("-", document)
 
-  rep <- fs::path_join(c(ofce.project.root, dest))
+  rep <- fs::path_join(c(dir, dest))
 
   dir.create(rep, recursive = TRUE)
   fn <- stringr::str_c(rep, "/", partie, "-", tolower(label), id)
