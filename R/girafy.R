@@ -15,10 +15,9 @@
 #'
 #' @returns un ggplot ou un objet ggiraph
 #' @export
+girafy <- function(plot, r=2.5, o = 0.5, id = NULL, tooltip_css = .tooltip_css, ...) {
 
-girafy <- function(plot, r=2.5, o = 0.5, out=getOption("ofce.savegraph"), id = NULL,  ...) {
-  if(!is.null(out))
-    ofce::savegraph(plot, id=id)
+  save_graph(plot, id=id)
   if(knitr::is_html_output()| interactive()) {
     return(
       ggiraph::girafe(ggobj = plot, bg = "transparent") |>
@@ -36,6 +35,18 @@ girafy <- function(plot, r=2.5, o = 0.5, out=getOption("ofce.savegraph"), id = N
   # au cas où rien ne colle, on ne fait rien
   plot
 }
+
+.tooltip_css  <-
+  "font-family:Open Sans;
+  background-color:snow;
+  border-radius:5px;
+  border-color:gray;
+  border-style:solid;
+  border-width:0.5px;
+  font-size:9pt;
+  padding:4px;
+  box-shadow: 2px 2px 2px gray;
+  r:20px;"
 
 girafe_opts <- function(x, ...) ggiraph::girafe_options(
   x,

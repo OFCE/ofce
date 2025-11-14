@@ -11,8 +11,7 @@ tabsetize(
   girafy = TRUE,
   asp = NULL,
   r = 1.5,
-  pdf = getOption("ofce.tabsetize.pdf"),
-  active = 1
+  pdf = getOption("ofce.tabsetize.pdf")
 )
 }
 \arguments{
@@ -29,8 +28,6 @@ tabsetize(
 \item{r}{rayon du cercle de hover pour girafy (paramètre \code{r} de girafy)}
 
 \item{pdf}{si l'output est pdf, doit-on aficher tous les graphiques ("all", défaut) ou un seul ("one")}
-
-\item{active}{(defaut 1) numéro du panel qui est actif}
 }
 \value{
 string inserted in markdown

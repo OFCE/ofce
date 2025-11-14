@@ -4,14 +4,7 @@
 \alias{girafy}
 \title{Rend un graphique interactif (avec ggiraph)}
 \usage{
-girafy(
-  plot,
-  r = 2.5,
-  o = 0.5,
-  out = getOption("ofce.savegraph"),
-  id = NULL,
-  ...
-)
+girafy(plot, r = 2.5, o = 0.5, id = NULL, tooltip_css = .tooltip_css, ...)
 }
 \arguments{
 \item{plot}{le graphique ggplot}
@@ -20,11 +13,11 @@ girafy(
 
 \item{o}{(0.5) l'opacité des autres éléments en cas de hover}
 
-\item{out}{(NULL) répertoire pour enregistrer}
-
 \item{id}{utilisé pour tabsetize}
 
 \item{...}{autres options passées à \code{girafe_options()}}
+
+\item{out}{(NULL) répertoire pour enregistrer}
 }
 \value{
 un ggplot ou un objet ggiraph
