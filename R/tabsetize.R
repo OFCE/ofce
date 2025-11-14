@@ -18,8 +18,8 @@
 #' @export
 #'
 tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5,
-                      pdf = getOption("ofce.tabsetize.pdf",
-                                      active = 1)) {
+                      pdf = getOption("ofce.tabsetize.pdf"),
+                      active = 1) {
   chunk <- knitr::opts_current$get()
   label <- chunk$label
   asp_chunk <- chunk$fig.asp
