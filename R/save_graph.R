@@ -83,7 +83,7 @@ save_graph <- function(graph, label=NULL,
 #' @export
 #'
 load_graphe <- function(graphe) {
-  dir <- optionGet("ofce.savegraph")
+  dir <- getOption("ofce.savegraph")
   if(is.null(dir))
     return(NULL)
 
