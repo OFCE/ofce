@@ -4,7 +4,14 @@
 \alias{girafy}
 \title{Rend un graphique interactif (avec ggiraph)}
 \usage{
-girafy(plot, r = 2.5, o = 0.5, out = NULL, id = NULL, ...)
+girafy(
+  plot,
+  r = 2.5,
+  o = 0.5,
+  out = getOption("ofce.savegraph"),
+  id = NULL,
+  ...
+)
 }
 \arguments{
 \item{plot}{le graphique ggplot}

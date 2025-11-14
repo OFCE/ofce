@@ -9,7 +9,8 @@ margin_download(
   output_name = "donnees",
   label = "données",
   margin = TRUE,
-  output_extension = getOption("ofce.download_format")
+  output_extension = getOption("ofce.download_format"),
+  prefix = getOption("ofce.output_prefix")
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ margin_download(
 \item{label}{("données") le nom du bouton qui apparaît dans le rendu du quarto}
 
 \item{margin}{(TRUE) si FALSE le bouton est inline (non implémenté pour le moment)}
+
+\item{prefix}{préfixe pour les fichiers téléchargés (\code{ofce.output_prefix} par défaut)}
 
 \item{format}{format du ficher à télécharger, mis en option du package ( \code{ofce.download_format} par défaut), peut être "csv", "xlsx"}
 }
