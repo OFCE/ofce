@@ -23,7 +23,8 @@
     ofce.caption.lang = "fr",
     ofce.init_qmd.local = FALSE,
     ofce.tabsetize.pdf = "all",
-    ofce.savegraph = NULL,
+    ofce.savegraph = FALSE,
+    ofce.savegraph.dir = "_sav_graph",
     ofce.output_extension = ".csv",
     ofce.output_prefix = "ofce-")
 

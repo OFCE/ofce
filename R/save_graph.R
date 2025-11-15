@@ -11,10 +11,13 @@
 #' @export
 #'
 save_graph <- function(graph, label=NULL,
-                      chunk = knitr::opts_current$get(),
-                      document=knitr::current_input(),
-                      id = NULL,
-                      dest = getOption("ofce.savegraph")) {
+                       chunk = knitr::opts_current$get(),
+                       document=knitr::current_input(),
+                       id = NULL,
+                       dest = getOption("ofce.savegraph.dir")) {
+
+  if(!getOption("ofce.savegraph"))
+    return(graph)
 
   if(is.null(dest))
     return(graph)
@@ -83,9 +86,15 @@ save_graph <- function(graph, label=NULL,
 #' @export
 #'
 load_graphe <- function(graphe) {
-  dir <- getOption("ofce.savegraph")
-  if(is.null(dir))
+  dir <- getOption("ofce.savegraph.dir")
+  if(is.null(dir)) {
+    cli::cli_alert_warning("Pas de graphiques sauvegardés")
     return(NULL)
+  }
+  if(!dir.exists(dir)) {
+    cli::cli_alert_warning("Le répertoire {dir} n'existe pas")
+    return(NULL)
+  }
 
   if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
     safe_find_root <- purrr::safely(rprojroot::find_root)
@@ -95,7 +104,15 @@ load_graphe <- function(graphe) {
   } else {
     root <- Sys.getenv("QUARTO_PROJECT_DIR")
   }
-   qs2::qs_read(
+  fn <- fs::path_join(c(root, dir, graphe)) |>
+    fs::path_ext_set("ggplot")
+
+  if(!file.exists(fn)) {
+    cli::cli_alert_warning("Le graphique {graphe} n'existe pas")
+    return(NULL)
+  }
+
+  qs2::qs_read(
     fs::path_join(c(root, dir, graphe)) |>
       fs::path_ext_set("ggplot"))
 }
