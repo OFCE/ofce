@@ -96,6 +96,6 @@ load_graphe <- function(graphe) {
     root <- Sys.getenv("QUARTO_PROJECT_DIR")
   }
    qs2::qs_read(
-    fs::path_join(c(root, getOption(ofce.savegraph), graphe)) |>
+    fs::path_join(c(root, dir, graphe)) |>
       fs::path_ext_set("ggplot"))
 }
