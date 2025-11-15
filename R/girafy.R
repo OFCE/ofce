@@ -17,7 +17,7 @@
 #' @export
 girafy <- function(plot, r=2.5, o = 0.5, id = NULL, tooltip_css = .tooltip_css, ...) {
   assertthat::assert_that(ggplot2::is_ggplot(plot),
-                          "Ce n'est pas un ggplot, pas possible de girafier")
+                          msg = "Ce n'est pas un ggplot, pas possible de girafier")
   save_graph(plot, id=id)
   if(knitr::is_html_output()| interactive()) {
     return(
