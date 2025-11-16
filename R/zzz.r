@@ -15,7 +15,7 @@
     sourcoise.wd = "file",
     sourcoise.unfreeze = FALSE,
     sourcoise.unfreeze = FALSE,
-    sourcoise.init_fn = ofce::init_qmd,
+    sourcoise.init_fn = init_qmd,
     ofce.caption.ofce = TRUE,
     ofce.caption.srcplus = NULL,
     ofce.caption.wrap = 100,
