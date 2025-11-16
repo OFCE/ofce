@@ -20,7 +20,7 @@ library(marquee)
 systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
 
 dir <- NULL
-if(Sys.getenv("OUTGRAPHS"))
+if(Sys.getenv("OUTGRAPHS")== "TRUE")
   dir <- "_sav_graph"
 
 options(

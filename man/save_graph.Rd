@@ -10,7 +10,7 @@ save_graph(
   chunk = knitr::opts_current$get(),
   document = knitr::current_input(),
   id = NULL,
-  dest = getOption("ofce.savegraph")
+  dest = getOption("ofce.savegraph.dir")
 )
 }
 \arguments{
