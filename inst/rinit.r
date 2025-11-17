@@ -19,10 +19,6 @@ library(marquee)
 
 systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
 
-dir <- NULL
-if(Sys.getenv("OUTGRAPHS")== "TRUE")
-  dir <- "_sav_graph"
-
 options(
   ofce.base_size = 12,
   ofce.background_color = "transparent",
@@ -33,8 +29,8 @@ options(
   ofce.caption.wrap = 0,
   sourcoise.init_fn = ofce::init_qmd,
   sourcoise.grow_cache = Inf,
-  ofce.savegraph = dir,
   ofce.output_extension = "xlsx",
+  ofce.savegrah = FALSE
   ofce.output_prefix = "ofce-")
 
 showtext::showtext_opts(dpi = 120)
