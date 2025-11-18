@@ -5,10 +5,10 @@ author:
   
 description: "Description en moins de 295 caractères"
 
-date: 2025-09-30
+date: today
 categories: ["keyword1", "keyword2"] 
 
-format: blog-html
+format: html
 ---
 
 # Informations supplémentaires

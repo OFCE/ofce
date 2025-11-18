@@ -1,0 +1,59 @@
+---
+subtitle: "Titre de la Page d'accueil"
+toc: true
+toc-depth: 4
+
+format: 
+  html:
+    toc-title: Sur cette page
+# book:    ## si format book
+#   sidebar:
+#     collapse-level: 3
+
+share:
+   twitter: true
+   facebook: true
+   linkedin: true
+   mastodon: true
+   reddit: true
+   bluesky: true
+   email: true
+   # pdf: chemin url vers le pdf
+   location: socialshare
+   # permalink: https://www.ofce.sciences-po.fr/adressepermanente
+   description: "Mon travail sur mes donnéees"
+  
+editors: 
+  -   
+  
+author:
+  - name: Albertine Retrouvée
+    email: "albertine.retrouvee@sciencespo.fr"
+    affiliation: OFCE
+    affiliation-url: "http://www.ofce.fr"
+    
+date: today
+---
+
+:::::::: {.content-visible when-format="html"}
+
+::: {#socialshare}
+:::
+
+
+#### Licence {.unnumbered}
+
+```{=html}
+<p est sous licence  <a href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:20px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:20px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a></p>
+```
+::::::::
+
+:::: {.content-visible when-format="pdf"}
+##### Citation
+
+::: csl-entry
+
+Citation du travail formatée
+
+:::
+::::

@@ -1,0 +1,35 @@
+---
+title: "`À propos"
+toc: false
+
+format:
+  ofce-html:
+    embed-resources: true
+    page-layout: full
+---
+
+```{r, include=FALSE, cache=FALSE}
+ofce::init_qmd()
+```
+
+## Qu'est ce que l'OFCE ? {.unnumbered .unlisted}
+
+L'OFCE est un organisme indépendant de prévision, de recherche et d'évaluation des politiques publiques, accueilli en son sein par la [Fondation nationale des sciences politiques (FNSP)](https://www.sciencespo.fr/), en application de la convention passée en 1981 entre l'Etat et la FNSP.
+
+> *Mettre au service du débat public en économie les fruits de la rigueur scientifique et de l'indépendance universitaire*
+
+Telle est la mission que l'Etat a confiée à l'OFCE et qu'il remplit en conduisant des travaux théoriques et empiriques, en participant aux réseaux scientifiques internationaux, en assurant une présence régulière dans les médias et en coopérant étroitement avec les pouvoirs publics français et européens.
+
+L'OFCE regroupe plus de quarante chercheurs et chercheuses françaises et étrangères qui couvrent les champs de l'analyse économique autour de quatre axes de travail : [l'analyse et la prévision de l'économie française, les questions européennes, la question environnementale et l'analyse des inégalités](https://www.ofce.sciences-po.fr/ofce/rapports.php).
+
+Depuis juin 2014, l'OFCE est présidé par [Xavier Ragot](http://www.ofce.sciences-po.fr/pages-chercheurs/ragot.php), Directeur de recherches au CNRS et professeur en économie à Sciences Po.
+
+
+## Mentions légales {.unnumbered .unlisted}
+
+L'Observatoire Français des Conjonctures Economiques, organisme de caractère scientifique est géré, en vertu de l'article L. 758-1 du code de l'éducation, par la Fondation nationale des sciences politiques ("FNSP"), fondation de droit privé domiciliée au 27, rue Saint Guillaume 75337 PARIS cedex 07, France, étant rappelé que les deux entités sont rassemblées collectivement sous le nom de « Sciences Po».\
+
+
+L'OFCE agit en tant que responsable du traitement de données personnelles confiées par l'Utilisateur de la Plateforme.
+
+L'Utilisateur peut exercer ses droits à tout moment, à l'adresse [cnil\@sciencespo.fr](mailto:cnil@sciencespo.fr)
