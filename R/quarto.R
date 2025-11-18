@@ -45,11 +45,12 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
         ofce-html: default # une page en html
         wp-html: default # Document de travail en html
         wp-pdf: default # Document de travail en pdf
+        wp-typst: default # Document de travail en pdf via typst (plus rapide, sans installation LaTeX)
         wp-en-html: default # Document de travail html en anglais
         wp-en-html: default # Document de travail pdf en anglais
-        pres-revealjs: default # presentation
+        pres-revealjs: default # présentation
         blog-html: default # Post de blog en html
-        blog-pdf: default # Post de blog en pdf
+        blog-typst: default # Post de blog en pdf via typst (plus rapide, sans installation LaTeX)
       ---
     consulter Anissa, Paul, Xavier ou {.url https://quarto.org} pour d'autres options")
   setwd(wd_dir)
