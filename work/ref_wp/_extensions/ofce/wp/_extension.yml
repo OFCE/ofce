@@ -55,6 +55,7 @@ contributes:
         - quotes
         - fr-nbsp
         - collapse-callout
+        - wordcount
       quot-lang: fr
       collapse-callout:
         tip: true

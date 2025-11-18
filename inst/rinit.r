@@ -14,6 +14,7 @@ opts_chunk$set(
   echo = qmd_echo)
 
 library(tidyverse)
+library(glue)
 library(ggiraph)
 library(ofce)
 library(yaml)

@@ -24,8 +24,6 @@ citation:
   container-title: "Document de travail de l'OFCE"
   issue: 2025-23
   url: https://xtimbeau.github.io/travail/
-filters:
-  - wordcount
 format:
   wp-html: default
   wp-pdf:
@@ -87,7 +85,7 @@ labels_champ = c(tb = "Ttes branches", md="Marchand", mdhifi = "Marchand hors im
                  mdhim = "Marchand hors L68A (ménages)",
                  mdhi = "Marchand hors imm.")
 
-lbl <- function(x) countrycode::countrycode(x, "eurostat", "country.name.fr")
+lbl <- function(x) mutate(x, across(1, ~countrycode::countrycode(.x, "eurostat", "country.name.fr")))
 
 psal <- imap(
   c("hors services immobiliers (-L)" = "mdhi", 
@@ -134,13 +132,8 @@ margin_download(naq |> select(-tooltip))
 
 Trois points sont importants pour disposer du bon concept (voir @reis2022 pour une discussion et une revue de littérature sur ce point) :
 
--   **Corriger des non salariés et leur imputer une masse salariale**. La correction habituelle consiste à affecter aux non salariés le même salaire que les salariés (généralement de la même branche) ; c'est ainsi que traitent la question @cette2019 et @tresor2025. Nous procédons à cette correction (appelée *correction par les effectifs*) aux 21 branches de la NACE rev. 2 niveau 1. Nous proposons une alternative en utilisant la mesure du revenu mixte (dite *correction par le revenu mixte*), parce que l'affectation d'un salarie égal aux non salariés et aux salariés par branches conduit à imputer un équivalent masse salariale supérieur au revenu mixte des non salariés[^1]. En France, le revenu mixte (des non-salariés) est passé de 30% de la masse salariale (autant pour le ratio des effectifs) au début des années 1970 à un peu moins de 10% (presque 15% pour les effectifs) en 2024. Malheureusement, le revenu mixte par branche n'est pas diffusé systématiquement par les Etats membres de l'UE. Ces corrections modifient significativement la part des salaires dans la valeur ajoutée, suivant la méthode, parce que non seulement la part des non salariés et de leur revenu mixte varie dans le temps, de façon différente par un effet de structure (moins d'agriculteurs) et de nature (les non salariés sont moins rémunérés aujourd'hui), de façon différente par pays (@fig-psalcnc et voir les annexes D et G consacrées à ce point).
+-   **Corriger des non salariés et leur imputer une masse salariale**. La correction habituelle consiste à affecter aux non salariés le même salaire que les salariés (généralement de la même branche) ; c'est ainsi que traitent la question @cette2019 et @tresor2025. Nous procédons à cette correction (appelée *correction par les effectifs*) aux 21 branches de la NACE rev. 2 niveau 1. Nous proposons une alternative en utilisant la mesure du revenu mixte (dite *correction par le revenu mixte*), parce que l'affectation d'un salarie égal aux non salariés et aux salariés par branches conduit à imputer un équivalent masse salariale supérieur au revenu mixte des non salariés[^1]. En France, le revenu mixte (des non-salariés) est passé de 30% de la masse salariale (autant pour le ratio des effectifs) au début des années 1970 à un peu moins de 10% (presque 15% pour les effectifs) en 2024. Malheureusement, le revenu mixte par branche n'est pas diffusé systématiquement par les Etats membres de l'UE. Ces corrections modifient significativement la part des salaires dans la valeur ajoutée, suivant la méthode, parce que non seulement la part des non salariés et de leur revenu mixte varie dans le temps, de façon différente par un effet de structure (moins d'agriculteurs) et de nature (les non salariés sont moins rémunérés aujourd'hui), de façon différente par pays (@fig-psal et voir les annexes D et G consacrées à ce point).
 
--   **Limiter l'analyse au champ pertinent**. Il est plus facile de faire le calcul au niveau le plus agrégé, mais ce champ inclut les branches non marchandes dans lesquelles la notion de prix et donc de valeur ajoutée est parfois conventionnelle. Parmi les branches marchandes, la branches des services immobiliers est problématique parce qu'elle prend en compte la valeur ajoutée des ménages au travers des services immobiliers qui sont pour part auto produit (les loyers imputés aux propriétaires) et pour part produits par les ménages pour d'autres ménages (les propriétaires bailleurs). Suivant les pays ou les périodes, le nombre de propriétaires occupants peut être très différent (@cette2019 fait ce point que @tresor2025 semble ignorer). Mais le vrai problème est que le partage de la valeur ajoutée n'a ici pas de sens dansle cas d'un loyer imputé ou d'un propriétaire bailleur. La consommation de services immobiliers par les ménages représentait en France en 2024 un peu moins de 300 milliards d'euros soit aprroximativement `r round(300/1666*100)`% de la valeur ajoutée brute hors services immobilier. On comprend donc que ce point n'est pas du tout négigeable. La notion privilégiée est donc celle de partage de la valeur ajoutée dans les branches marchandes hors services immobiliers ou, de façon plus précise, en enlevant de la valeur ajoutée marchande la branche "services immobiliers (L)" (@appfig-psalcompote, @fig-structbranche). Omettre les services immobiliers pose cependant un problème, parce que les loyers versés par les entreprises à leurs bailleurs sont souvent un prix de transfert et non un prix de marché. C'est donc un élément qui peut être utilisé comme véhicule pour de l'otpimisation fiscale, d'autant plus que la fiscalité immobilière peut être avantageuse. Nous explorons cette dimension dans la @sec-immobilier en particulier pour la France.
-
--   **Utiliser la notion de valeur ajoutée nette** (de la consommation de capital fixe (CCF)) plutôt que brute. Rappelons que la valeur ajoutée nette est construite en ôtant de la valeur ajoutée brute la consommation de capital fixe. La CFF est évaluée par des tables de mortalité à l'inventaire permanent des investissements productifs (actifs produits) non financiers (i.e. les investissements physiques mais aussi ceux en logiciels ou en base de données ainsi que les investissements intangibles comme les marques). En traitant les investissements comme une consommation intermédiaire mesurée par leur amortissement physique ou fiscal, on est plus proche de la réalité du processus productif. Lorsque le taux de dépréciation du capital varie, par des changement dans les tables de mortalité, des changements dans la composition du capital ou des changements dans la structure par branche de l'économie, la CCF rapportée à la valeur ajoutée varie et modifie donc la perception des évolutions du partage de la valeur ajoutée. La notion de valeur ajoutée nette est meilleure pour des comparaisons dans l'espace ou dans le temps. Comme pour la correction pour les non salariés, la prise en compte de la valeur ajoutée nette modifie dans le temps et dans l'espace la part des salaires dans la valeur ajoutée (@fig-psalnetbrut). Ce point est signalé par @tresor2025, mais les auteurs ont préféré le concept de valeur ajoutée brute pour des raisons de comparabilité entre études – au détriment de la comparabilité dans le temps et dans l'espace.
-
-[^1]: Merci à E. Aurissergues pour m'avoir pointé cette anomalie.
 
 Le concept que nous privilégions est ainsi défini comme suit (où, pour chaque branche $D1_b$ est la masse salariale chargée, $B1G_b$ la valeur ajoutée brute, $P51C_b$ la $CCF_b$, les trois notions en euros aux prix courants et $ns_b$ et $sal_b$ les effectifs en personne ou le revenu mixte par branche)[^2] et $D29-D39$ les impôts de production nets de subventions :
 
@@ -168,7 +161,7 @@ En France, la hausse est franche après la crise financière de 2008, suivant un
 
 Depuis 2018, en France, la part des salaires est stabilisée, à un haut niveau (@fig-psal). L'inflation et le retard d'ajustement des salaires sur l'inflation explique probablement cette trajectoire. On observe des mouvements comparables dans d'autres pays, bien que plus violent en Allemagne ou en Italie par exemple.
 
-Au début des années 2000, deux pays se distinguaient des autres (l'Espagne et l'Italie) par une part des salaires plus faibles. L'écart avec l'Allemagne atteignait alors plus de 15 points. En généralisant l'approche aux pays de l'Union Européenne, on peut en partie confirmer cette hypothèse (@fig-psaleu). Les pays qui ont connu un développement rapide, et donc des niveaux d'investissement élevés, on eu des parts des salaires basses (La Bulgarie, la Tchéquie, la Grèce par exemple). Mais ce n'est pas une observation systématique : certains pays moins développés ont eu par le passé une part très élevée des salaires dans la valeur ajouté, témoignant peut être de modes de formation des salaires et d'inflation particulier et hérités du passé. Cependant, comme le suggèrent la position singulière de quelques petits pays, parmi lesquels l'Irlande, le Luxembourg, Malte, Chypre ou les Pays-Bas dans une certaine mesure, c'est peut être du côté du déplacement de la base imposable des profits (optimisation fiscale), des prix de transferts et d'une position très particulière dans la chaîne de valeur qu'il faut aller chercher l'explication de très faibles parts des salaires dans la valeur ajoutée.
+Au début des années 2000, deux pays se distinguaient des autres (l'Espagne et l'Italie) par une part des salaires plus faibles. L'écart avec l'Allemagne atteignait alors plus de 15 points. En généralisant l'approche aux pays de l'Union Européenne, on peut en partie confirmer cette hypothèse (@fig-psal). Les pays qui ont connu un développement rapide, et donc des niveaux d'investissement élevés, on eu des parts des salaires basses (La Bulgarie, la Tchéquie, la Grèce par exemple). Mais ce n'est pas une observation systématique : certains pays moins développés ont eu par le passé une part très élevée des salaires dans la valeur ajouté, témoignant peut être de modes de formation des salaires et d'inflation particulier et hérités du passé. Cependant, comme le suggèrent la position singulière de quelques petits pays, parmi lesquels l'Irlande, le Luxembourg, Malte, Chypre ou les Pays-Bas dans une certaine mesure, c'est peut être du côté du déplacement de la base imposable des profits (optimisation fiscale), des prix de transferts et d'une position très particulière dans la chaîne de valeur qu'il faut aller chercher l'explication de très faibles parts des salaires dans la valeur ajoutée.
 
 :::
 
@@ -182,7 +175,7 @@ s_t - \sum w_{b,1995} \times s_{b,1995} = \sum w_{b,1995} \times (s_{b,t}-s_{b,1
 \end{aligned}
 $$
 
-L'année 1995 est l'année de référence et le premier terme (de droite) s'interprète comme la part des salaires qui prévaudrait s'il n'y avait pas eu de changement de structure. Le @fig-structbranche représente ce terme ainsi que la part agrégée des salaires ($s_{t}$). L'effet de la structure par branche de l'économie (ici marchande hors services immobiliers produits par les ménages) est assez marginale. Les variations de la part des salaires sont bien celle des parts des salaires dans chaque secteur.
+L'année 1995 est l'année de référence et le premier terme (de droite) s'interprète comme la part des salaires qui prévaudrait s'il n'y avait pas eu de changement de structure. Le @fig-psal représente ce terme ainsi que la part agrégée des salaires ($s_{t}$). L'effet de la structure par branche de l'économie (ici marchande hors services immobiliers produits par les ménages) est assez marginale. Les variations de la part des salaires sont bien celle des parts des salaires dans chaque secteur.
 
 Il existe quelques exceptions à cette règle générale. A structure de branche inchangée, avec comme année de référence 1995, la part des salaires serait plus basse de 3,5 points de VA pour les Pays-Bas en 2025. En Allemagne ou en Belgique, le changement de structure des branches explique un petit peu de l'évolution à la hausse.
 
@@ -201,35 +194,12 @@ En revanche, la part des salaires serait légèrement supérieure en Italie à s
 
 ### Annexe A : derniers points connus {.unnumbered}
 
-```{r}
-doms <- source_data("R/vaq.r")$dom
-pays <- source_data("R/nace.r")$pays3
-emp_dom <- source_data("R/naq10_e.r")$dom
-assets_dom <- source_data("R/assets.r")$dom
-meta <- sourcoise::sourcoise_meta("R/vaq.r")
-date <- meta$data_date |> ymd_hms() 
-date <- stringr::str_glue("{day(date)}/{month(date)}/{year(date)}")
-
-```
-
 ::: {#apptbl-data_trim}
 ```{r}
+date <- "0225-01-01"
+date <- stringr::str_glue("{day(date)}/{month(date)}/{year(date)}")
 
-doms$snq |>
-  rename(debq = deb, finq = fin) |>
-  left_join(emp_dom, by = "geo") |> 
-  rename(debs = deb, fins = fin) |> 
-  left_join(doms$sna, by="geo") |> 
-  rename(deba = deb, fina = fin) |> 
-  left_join(doms$l68a, by = "geo") |> 
-  rename(debl = deb, finl = fin) |> 
-  left_join(assets_dom, by = "geo") |> 
-  rename(debk = deb, fink = fin) |> 
-  mutate(geo = factor(geo, pays)) |> 
-  arrange(geo) |> 
-  mutate(geo_lbl = lbl(geo),
-         geo = countrycode::countrycode(geo, "eurostat", "iso2c")) |> 
-  relocate(geo, geo_lbl) |> 
+qs2::qs_read("doms.qs2") |> 
   gt() |> 
   fmt_flag(geo) |> 
   tab_spanner(label = md("**B1G, D1**<br>trim., niveau 1<br>namq_10_a10"), columns = c(debq, finq)) |> 
