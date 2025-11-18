@@ -1,0 +1,86 @@
+$if(author)$
+  <details class="details-box" open>
+    <summary class ="quarto-title-meta-heading"><b>$labels.authors$</b></summary>
+  
+    $if(by-affiliation/first)$
+    <div class="quarto-title-meta-author">
+      <div class="quarto-title-meta-heading"> </div>
+      <div class="quarto-title-meta-heading">$labels.affiliations$</div>
+    
+      $for(by-author)$
+      <div class="quarto-title-meta-contents">
+        <span class="author">$_title-meta-author.html()$</span>
+      </div>
+      
+      $if(by-author.affiliations)$
+      <div class="quarto-title-meta-contents">
+        $for(by-author.affiliations)$
+        <p class="affiliation">
+          $if(it.url)$
+            <a href="$it.url$">
+          $endif$
+          $it.name$
+          $if(it.url)$
+            </a>
+          $endif$
+        </p>
+        $endfor$
+      </div>
+      $endif$
+      $endfor$
+    </div>
+    $endif$
+    
+    $if(by-affiliation)$
+      $elseif(by-author)$
+      <div class="abstract">
+        <div class="quarto-title-meta-heading"> </div>
+        <div class="quarto-title-meta-contents">
+          $for(by-author)$
+           <span>$_title-meta-author.html()$;</span>
+          $endfor$
+        </div>
+      </div>
+    $endif$
+      
+    <div class="quarto-title-meta">
+      $if(date)$
+      <div>
+        <div class="quarto-title-meta-heading">$labels.published$</div>
+        <div class="quarto-title-meta-contents">
+          <p class="date">$date$</p>
+        </div>
+      </div>
+      $endif$
+    
+      $if(date-modified)$
+      <div>
+        <div class="quarto-title-meta-heading">$labels.modified$</div>
+        <div class="quarto-title-meta-contents">
+          <p class="date-modified">$date-modified$</p>
+        </div>
+      </div>
+      $endif$
+    
+      $if(translated)$
+        $if(french)$
+          
+          <button onclick="window.location = location.href.replace('/fr/','/en/');" class="translate-btn">
+            <i class="bi bi-translate"></i> 
+             English version
+             <p></p>
+          </button>
+        $else$
+          
+          <button onclick="window.location = location.href.replace('/en/','/fr/');" class="translate-btn">
+            <i class="bi bi-translate"></i> 
+            Version française
+            <p></p>
+          </button>
+        $endif$
+      $endif$
+     
+    </div>
+  
+  </details>
+$endif$
