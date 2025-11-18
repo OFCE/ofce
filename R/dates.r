@@ -59,3 +59,23 @@ date_jour <- function(date) {
     lubridate::year(date)
   )
 }
+
+#' Magnifiques labels des dates
+#'
+#' @param x les breaks
+#'
+#' @returns les labels
+#' @export
+#'
+date1 <- function(x) {
+  if(lubridate::is.Date(x))
+    x <- year(x)
+  fnan <- which(!is.na(x)) |> min()
+  r0 <- stringr::str_sub(x, 1, 2)
+  cgt <- r0 != lag(r0)
+  cgt[fnan] <- TRUE
+  cgt[is.na(cgt)] <- FALSE
+  r <- stringr::str_sub(x, 3)
+  r[cgt] <- stringr::str_c(x[cgt])
+  return(r)
+}
