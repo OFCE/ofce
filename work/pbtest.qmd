@@ -3,8 +3,7 @@ title: "Quarto enables you to weave together content and executable code into a 
 author: "Anissa"
 pb: "001"
 format: 
-  pb-html: default
-  pb-pdf: default
+  html: default
 ---
 
 ## Quarto
@@ -16,14 +15,23 @@ Quarto enables you to weave together content and executable code into a finished
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
 
 ```{r}
-1 + 1
+ofce::init_qmd()
+options("ofce.savegraph" = "_sav")
+Sys.getenv("QUARTO_DOCUMENT_PATH")
+Sys.getenv("QUARTO_PROJECT_DIR")
+knitr::current_input()
+getOption("ofce.savegraph")
 ```
 
 You can add options to executable code like this
 
 ```{r}
-#| echo: false
-2 * 2
+
+
+g <- ggplot(mtcars)+geom_line(aes(mpg, disp))
+
+girafy(g)
+
 ```
 
 The `echo: false` option disables the printing of code (only output is displayed).

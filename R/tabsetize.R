@@ -18,7 +18,8 @@
 #' @export
 #'
 tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5,
-                      pdf = getOption("ofce.tabsetize.pdf")) {
+                      pdf = getOption("ofce.tabsetize.pdf"),
+                      active = 1) {
   chunk <- knitr::opts_current$get()
   label <- chunk$label
   asp_chunk <- chunk$fig.asp
@@ -34,7 +35,10 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
     ids <- 1:length(list) |> rlang::set_names(names(list))
     cat("::: {.panel-tabset} \n\n")
     purrr::iwalk(list, ~{
-      cat(paste0("### ", .y,"\n\n"))
+      if(ids[[.y]] == active)
+        cat(paste0("### ", .y," {.active}\n\n"))
+      else
+        cat(paste0("### ", .y,"\n\n"))
       if(is(.x, "ggplot")|is(.x, "gt_tbl")) {
         id <- stringr::str_c(digest::digest(.x, algo = "crc32"), "-", ids[[.y]])
         lbl <- glue::glue("'{id}'")
@@ -44,7 +48,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           if(!is.null(asp))
             asp_txt <- glue::glue(", fig.asp={asp}")
           if(girafy) {
-            plot <- girafy(.x, r=r)
+            plot <- ofce::girafy(.x, r=r, id=ids[[.y]])
             lib <- "library(ggiraph)\n"
           }
         }

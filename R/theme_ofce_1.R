@@ -79,7 +79,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         size = ggplot2::rel(0.7),
         hjust=0,
         lineheight = 0.9,
-        color = "gray25")
+        color = "gray25",
+        margin = ggplot2::margin(r=3, b=0, t=0, l=1))
     )
   else
     ggplot2::theme(
@@ -139,7 +140,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         colour = NA,
         linetype = 0),
       plot.title.position = "panel",
-      plot.margin = ggplot2::margin(b=9, t=9, l=3, r=3),
+      plot.margin = ggplot2::margin(b=9, t=9, l=6, r=6),
       plot.caption.position = "panel",
       # Legend format
       # legend.text.align = 0,
@@ -169,10 +170,10 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       panel.grid.minor = element_blank(),
       panel.grid.major.y = element_line(
         linewidth = unit(0.1, "pt"),
-        color = "gray80"),
+        color = "gray85"),
       panel.grid.major.x = element_line(
         linewidth = unit(0.1, "pt"),
-        color = "gray80"),
+        color = "gray85"),
       # Blank background
       panel.background = element_rect(
         fill = getOption("ofce.background_color"),

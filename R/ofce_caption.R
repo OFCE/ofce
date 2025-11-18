@@ -48,8 +48,7 @@ ofce_caption <- function(
 
   protect_marquee <- function(x) {
     x |>
-      stringr::str_replace_all("\\{\\.sup (.+)\\}","{{.sup \\1}}") |>
-      stringr::str_replace_all("\\{\\.sub (.+)\\}","{{.sub \\1}}")
+      stringr::str_replace_all("\\{\\.(\\w+) ([^{}]+)\\}","{{.\\1 \\2}}")
   }
 
   transforme <- function(x) {

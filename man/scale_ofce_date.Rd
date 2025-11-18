@@ -11,7 +11,7 @@ scale_ofce_date(
   date_labels = "\%Y",
   guide = "minor_breaks",
   name = NULL,
-  right_red = TRUE,
+  expand = expansion(mult = c(0.03, 0.03)),
   ...
 )
 }
