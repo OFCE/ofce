@@ -30,7 +30,7 @@ options(
   sourcoise.init_fn = ofce::init_qmd,
   sourcoise.grow_cache = Inf,
   ofce.output_extension = "xlsx",
-  ofce.savegrah = FALSE
+  ofce.savegrah = FALSE,
   ofce.output_prefix = "ofce-")
 
 showtext::showtext_opts(dpi = 120)

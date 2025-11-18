@@ -19,9 +19,9 @@ Imports:
     dplyr,
     farver,
     fs,
-    gt,
-    tidyverse,
-    ggplot2 (>= 3.5.0),
+    gt (>= 1.1.0),
+    tidyverse (>= 2.0.0),
+    ggplot2 (>= 4.0.0),
     ggpp,
     glue,
     quarto,
@@ -44,7 +44,7 @@ Imports:
     utils,
     zip,
     plotly,
-    ggiraph,
+    ggiraph (>= 0.9.2),
     sourcoise
 Remotes:
     sourcoise=github::xtimbeau/sourcoise
