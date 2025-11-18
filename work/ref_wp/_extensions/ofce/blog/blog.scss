@@ -1,0 +1,434 @@
+
+/*-- scss:defaults --*/
+  // fonts
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+// Fonts (CSS rules)
+//$font-family-sans-serif: 'Nunito Sans', sans-serif;
+//$font-family-monospace: 'Roboto Mono', monospace;
+//$font-family-serif: 'Merriweather', serif;
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-monospace: 'Fira Code', monospace;
+
+// couleurs
+  $scpored: #e6142d;
+  $scpodarkred: #770C19;
+  $ofcered: #a22a2e;
+  $darkgrey: #777;
+  $lightgrey: #F8F8F8;
+  $lightgrey2: #F1F1F1;
+//$green: #079D10;
+//$blue: $scpored;
+  $navbar-hl: #e6142d;
+  $navbar-bg: $lightgrey;
+  $sidebar-hl: #e6142d;
+  $white: #FFFFFF;
+  $aligment: justify;
+  $callout-color-tip: #DDD;
+  //$link-color: $scpodarkred;
+
+/*-- scss:rules --*/
+  h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.no-row-height.column-margin.column-container,
+.quarto-table-caption.margin-caption,
+.figure-caption.margin-caption {
+  text-align: start;
+  color: $darkgrey;
+}
+
+.navbar {
+  background-color: $white;
+  
+}
+
+main {
+  margin-top: .25em;
+  margin-bottom: .25em
+}
+
+#quarto-content>* {
+padding-top: 0px
+}
+
+.quarto-title-block {
+  background-color: $white;
+  margin-left: -1px !important;
+  padding-left: 12px !important;
+  margin-right: 12px !important;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+  border-left-width: 0px !important;
+ }
+
+.quarto-title-banner {
+  background-color: $white;
+  
+}
+
+.sidebar {
+  padding-top: 32px !important;
+  background-color: $white;
+}
+
+.sidebar-item-container {
+  font-size: 0.8rem !important;
+  line-height: 1rem !important;
+}
+
+.navbar-title {
+  font-style: italic;
+  font-weight: bold;
+}
+  
+.quarto-secondary-nav,
+nav.quarto-secondary-nav,
+.quarto-banner {
+  color: white;
+  background-color: transparent !important;
+}
+
+.breadcrumb-item,
+.breadcrumb {
+  font-size: 0.8rem !important;
+}
+
+.nav-page-text,
+.dropdown-item {
+  font-size: 0.8rem !important;
+}
+
+.page-columns .content p {
+  text-align: justify !important;
+}
+
+.column-margin.column-container p {
+  text-align: start !important;
+}
+
+@media (max-width:600px) {
+  .page-columns .content p {
+    text-align: start !important;
+  }
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-justify {
+  text-align: justify;
+}
+
+.leaflet-container {
+  text-align: start !important;
+}
+
+tfoot.gt_sourcenotes,
+tfoot.gt_footnotes {
+  text-align: start;
+  color: $darkgrey;
+  font-size: .825rem;
+}
+
+.wp {
+  font-size: 0.875em !important;
+}
+
+.quarto-title-meta-author,
+.quarto-title-meta,
+.keywords {
+  font-size: 0.875rem !important;
+}
+
+.quarto-listing-default .quarto-post.image-right .body .listing-description {
+  font-size: 0.825rem;
+}
+
+.abstract {
+  font-size: 0.825rem !important;
+}
+
+.katex {
+  font-size: 1em !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  line-height: 1.3;
+}
+
+h2,.h2 {
+  border-bottom: 1px solid $scpored;
+  padding-bottom: .5rem
+}
+
+.header-section-number {
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: .8rem;
+}
+
+.theorem {
+  background-color: #EFEFEF;
+    padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  padding-bottom: 3px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  font-size: .8rem;
+  background-clip: padding-box;
+}
+
+.panel-caption,
+.figure-caption,
+.subfigure-caption,
+.table-caption,
+figcaption.quarto-float-caption,
+caption {
+  color: $darkgrey !important;
+  text-align: start !important;
+  font-size: 1rem !important;
+}
+
+.csl-entry {
+  text-align: start;
+}
+
+.table {
+  font-size: 0.875rem !important;
+  text-align: start;
+}
+
+.smtable {
+  font-size: 0.75rem !important;
+  text-align: start;
+}
+
+blockquote {
+  color: var(--bs-body-color);
+  font-size: 1rem;
+  border-left-color: $scpored;
+  border-left-width: 2px;
+  line-height: 160%;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.callout.callout-style-default {
+  border-left: 3px solid $darkgrey;
+  border-right: 1px solid $lightgrey2;
+  border-top: 1px solid $lightgrey2;
+  border-bottom: 1px solid $lightgrey2;
+  background-color: $lightgrey !important;
+}
+
+div.callout-tip .callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: $lightgrey !important;
+  border-color: $lightgrey2 !important;
+}
+
+div.callout-tip div.callout-header {
+  background-color: $lightgrey !important;
+}
+
+.dbtn {
+  font-size: .7rem;
+  background-color: transparent;
+  border: none;
+  color: $link-color;
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+}
+
+.dbtn-inline {
+  font-size: .7rem;
+  background-color: transparent;
+  border: none;
+  color: $link-color;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 6px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  float: right;
+}
+
+.control-label {
+  font-size: .8rem;
+  text-align: start;
+}
+
+.tab-content {
+  border-style: none;
+  padding: 0;
+}
+
+.quarto-figure {
+  margin-top: 0.1em;
+  margin-bottom: 1em;
+}
+
+.callout.callout-titled .callout-body>:last-child:not(.sourceCode),
+.callout.callout-titled .callout-body>div>:last-child:not(.sourceCode) {
+  padding-bottom: 0;
+  margin-bottom: 0
+}
+
+
+#vcenter {
+vertical-align: middle;
+}
+
+.size12 {
+  font-size: 1.2rem;
+}
+
+.size1 {
+  font-size: 1rem;
+}
+
+
+.size9 {
+  font-size: 0.9rem;
+}
+
+.cell-code {
+  font-size: 0.75em;
+}
+
+.onec {
+  grid-template-columns: 1fr auto !important;
+}
+
+.details-box {
+  //  background: #fcf0f0;
+    //  border-top: $scpodarkred solid 1px;
+  border-bottom: $scpored solid 1px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+}
+
+.cat-box .quarto-categories {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: .5em;
+  column-gap: .4em;
+  padding-bottom: .5em;
+  margin-top: .75em
+}
+
+.quarto-title .quarto-categories .quarto-category {
+  padding: .25em .75em;
+  font-size: .65em;
+  text-transform: uppercase;
+  border: solid 1px;
+  border-radius: .25rem;
+  opacity: 1;
+  border-color: $scpored !important;
+  color: $scpored !important;
+}
+
+.listing-categories .listing-category {
+  border-color: $scpored !important;
+  color: $scpored !important;
+}
+
+.quarto-title-banner .quarto-title.column-body {
+  background-color: #ffffff20;
+    padding: 1em;
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active,.sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+  border-left: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.translate-btn {
+  border: none;
+  text-align: left;
+  margin-top: 1em;
+  color: inherit;
+  font-size: 0.7rem;
+  opacity: 0.8;
+  vertical-align: top;
+  text-transform: uppercase;
+}
+
+.quarto-listing-category.category-cloud .category-cloud-1 {
+    font-size: .5em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-2 {
+    font-size: .7em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-3 {
+    font-size: .9em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-4 {
+    font-size: 1.1em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-5 {
+    font-size: 1.3em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-6 {
+    font-size: 1.5em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-7 {
+    font-size: 1.7em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-8 {
+    font-size: 1.9em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-9 {
+    font-size: 2.1em
+}
+
+.quarto-listing-category.category-cloud .category-cloud-10 {
+    font-size: 2.3em
+}
+
+.quarto-listing-category.category-cloud .category.active {
+  color: $scpored;
+  font-weight: bold;
+}
+
+.quarto-listing-category.category-cloud {
+  opacity: 0.6;
+}
+
+.quarto-listing-category.category-cloud .category:hover {
+  color: $scpored;
+  font-weight: bold;
+}

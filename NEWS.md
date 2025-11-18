@@ -1,3 +1,7 @@
+## OFCE 1.3.24
+
+* quelques fonctions pour les (échelles x) de date sont à bord
+
 ## OFCE 1.3.23
 
 * tabsetize(), margin_download() et girafy() sont à bord

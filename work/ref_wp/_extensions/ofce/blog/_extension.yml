@@ -1,0 +1,82 @@
+title: Format OFCE pour le site du blog
+author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
+version: 0.1.0
+quarto-required: ">=1.8.26"
+contributes:
+  formats:
+    common:
+      french: true
+      lang: fr
+      toc: false
+      language:
+        fr:
+          section-title-references: "Références"
+          title-block-author-single: "Autrices, auteurs"
+          title-block-author-plural: "Autrices, auteurs"
+        en:
+          section-title-references: "References"
+          title-block-author-single: "Author"
+          title-block-author-plural: "Authors"
+      fig-asp: 0.61
+      cap-location: top
+      crossref:
+        fr:
+          fig-prefix: graphique
+          tbl-prefix: tableau
+          eq-prefix: équation
+          sec-prefix: section
+          tip-prefix: encadré
+          fig-title: "**Graphique**"
+          tip-title: "**Encadré**"
+          title-delim: "**.**"
+          tbl-title: "**Tableau**"
+          lof-title: Graphiques
+          lot-title: Tableaux
+        en:
+          fig-prefix: figure
+          tbl-prefix: table
+          eq-prefix: equation
+          sec-prefix: section
+          tip-prefix: box
+          fig-title: "**Graph**"
+          tip-title: "**Box**"
+          title-delim: "**.**"
+          tbl-title: "**Table**"
+          lof-title: Graphs
+          lot-title: Tables
+      filters:
+        - quotes
+        - collapse-callout
+        - nbsp
+        - quarto
+        - comments
+      shortcodes:
+        - fontawesome
+      collapse-callout:
+        tip: true
+      logo: ofce_m.png
+    html:
+      theme:
+        - cosmo
+        - blog.scss
+      mainfont: Open Sans
+      number-sections: false
+      html-math-method: katex
+      fig-dpi: 600
+      fig-format: svg
+      reference-location: margin
+      callout-icon: false
+      lightbox: true
+      image-lazy-loading: true
+      hide-description: true
+      template-partials:
+        - html_template/title-metadata.html
+    typst:
+      mainfont: Arial
+      keep-typ: true
+      toc: false
+      papersize: a4
+      logo: false
+      template-partials:
+        - typsttemplate/typst-template.typ
+        - typsttemplate/typst-show.typ
