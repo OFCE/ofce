@@ -58,8 +58,11 @@ options(
   ofce.savegraph = TRUE )
 ```
 
-::: {.appendix .content-visible when-format="html"}
-[{{wordcount}} mots]{style="font-size: 0.7rem; color: grey; font-style: italic;"}
+::: {.content-visible when-format="html"}
+## Longeur {.appendix .unlisted .unnumbered}
+
+{{wordcount}} mots
+
 :::
 
 ## Du partage de la VA au partage des richesses

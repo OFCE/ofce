@@ -1,5 +1,5 @@
 ## rinit.r est exécuté par init_qmd(), normalement en début de qmd.
-## On peut ajouter toute fonction ou toute option que l'on souhaite prppager sur l'ensemble de son projet.
+## On peut ajouter toute fonction ou toute option que l'on souhaite propager sur l'ensemble de son projet.
 
 library(knitr)
 opts_chunk$set(
@@ -11,7 +11,8 @@ opts_chunk$set(
   fig.showtext=TRUE,
   message = qmd_message,
   warning = qmd_warning,
-  echo = qmd_echo)
+  echo = qmd_echo,
+  error = TRUE)
 
 library(tidyverse)
 library(glue)
