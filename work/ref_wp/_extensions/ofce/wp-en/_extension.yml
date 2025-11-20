@@ -87,6 +87,7 @@ contributes:
       fig-format: png
       logo: ofce_m.png
       logo2: sciencespo.png
+      callout-icon: false
       template-partials:
         - pdf_template/title.tex
         - pdf_template/before-body.tex

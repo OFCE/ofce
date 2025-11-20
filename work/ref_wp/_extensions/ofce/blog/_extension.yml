@@ -10,40 +10,48 @@ contributes:
       toc: false
       language:
         fr:
-          section-title-references: "Références"
-          title-block-author-single: "Autrices, auteurs"
-          title-block-author-plural: "Autrices, auteurs"
+          section-title-references: "Bibliograhie"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
+          toc-title: "Sur cette page"
+          crossref-fig-prefix: graphique
+          crossref-tbl-prefix: tableau
+          crossref-eq-prefix: équation
+          crossref-sec-prefix: section
+          crossref-tip-prefix: encadré
+          crossref-fig-title: "Graphique"
+          callout-tip-title: "Encadré"
+          crossref-title-delim: "."
+          crossref-tbl-title: "Tableau"
+          crossref-lof-title: Graphiques
+          crossref-lot-title: Tableaux
         en:
-          section-title-references: "References"
+          section-title-references: "Bibliograhy"
           title-block-author-single: "Author"
           title-block-author-plural: "Authors"
+          title-block-published: "Publushed on"
+          title-block-modified: "Modified on"
+          toc-title: "On this page"
+          crossref-fig-prefix: graphic
+          crossref-tbl-prefix: table
+          crossref-eq-prefix: equation
+          crossref-sec-prefix: section
+          crossref-tip-prefix: box
+          crossref-fig-title: "Graphic"
+          callout-tip-title: "Box"
+          crossref-title-delim: "."
+          crossref-tbl-title: "Table"
+          crossref-lof-title: Graphics
+          crossref-lot-title: Tables
       fig-asp: 0.61
       cap-location: top
       crossref:
         fr:
-          fig-prefix: graphique
-          tbl-prefix: tableau
-          eq-prefix: équation
-          sec-prefix: section
-          tip-prefix: encadré
-          fig-title: "**Graphique**"
-          tip-title: "**Encadré**"
           title-delim: "**.**"
-          tbl-title: "**Tableau**"
-          lof-title: Graphiques
-          lot-title: Tableaux
         en:
-          fig-prefix: figure
-          tbl-prefix: table
-          eq-prefix: equation
-          sec-prefix: section
-          tip-prefix: box
-          fig-title: "**Graph**"
-          tip-title: "**Box**"
           title-delim: "**.**"
-          tbl-title: "**Table**"
-          lof-title: Graphs
-          lot-title: Tables
       filters:
         - quotes
         - collapse-callout
@@ -75,6 +83,7 @@ contributes:
       mainfont: Arial
       keep-typ: true
       toc: false
+      callout-icon: false
       papersize: a4
       logo: false
       template-partials:

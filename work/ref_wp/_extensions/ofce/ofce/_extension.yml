@@ -92,6 +92,7 @@ contributes:
       number-depth: 3
       classoption:
         - DIV=11
+      callout-icon: false
       papersize: a4
       fontsize: 9pt
       extra_dependencies: ["float"]

@@ -79,6 +79,7 @@ contributes:
         - DIV=11
       papersize: a4
       fontsize: 9pt
+      callout-icon: false
       extra_dependencies: ["float"]
       fig-dpi: 1200
       fig-width: 5

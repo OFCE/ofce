@@ -55,7 +55,6 @@ contributes:
         - quotes
         - fr-nbsp
         - collapse-callout
-        - wordcount
       quot-lang: fr
       collapse-callout:
         tip: true
@@ -109,7 +108,9 @@ contributes:
       fig-format: svg
       logo: ofce_m.png
       logo2: sciencespo.png
+      callout-icon: false
       template-partials:
+        - pdf_template/before-title.tex
         - pdf_template/title.tex
         - pdf_template/before-body.tex
         - pdf_template/after-body.tex

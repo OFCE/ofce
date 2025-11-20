@@ -20,7 +20,7 @@ $sidebar-hl: #e6142d;
 $aligment: left;
 $navbar-bg: $lightgrey;
 
-$callout-color-tip: #DDD;
+$callout-color-tip: #BBB;
 
 /*-- scss:rules --*/
 h1, h2, h3, h4, h5, h6,
@@ -168,20 +168,25 @@ font-weight: 600 !important;
 
 .blockquote {
   color: var(--bs-body-color);
+  background-color: rgba($scpodarkred, 0.02);
   font-size: 1rem;
   border-left-color: $scpodarkred;
   border-left-width: 2px;
-  line-height: 160%;
+  line-height: 130%;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-bottom: 0em;
+  padding-top: 0em;
 }
 
 .encadre, .callout-tip {
   font-size: .8rem;
   border-radius: 0;
   background-clip: content-box;
-  background-color: $lightgrey !important;
+  background-color: rgba($lightgrey, 0.1) !important;
   border-left-color:$lightgrey !important;
 }
-
 
 .control-label {
   font-size: .8rem;
