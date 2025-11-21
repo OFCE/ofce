@@ -33,7 +33,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       cat(stringr::str_c(":::: {#", label, "} \n\n" ))
     }
     ids <- 1:length(list) |> rlang::set_names(names(list))
-    cat("::: {.panel-tabset} \n\n")
+    cat("::: {.panel-tabset .nav-pills} \n\n")
     purrr::iwalk(list, ~{
       if(ids[[.y]] == active)
         cat(paste0("### ", .y," {.active}\n\n"))
