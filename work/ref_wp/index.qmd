@@ -56,7 +56,7 @@ P6 <- source_data("R/nace.r")$pays1
 
 options(
   ofce.tabsetize.pdf = "one",
-  ofce.savegraph = TRUE )
+  ofce.savegraph = FALSE )
 ```
 
 ::: {.content-visible when-format="html"}
@@ -122,8 +122,9 @@ psal <- imap(
     source = "Eurostat, comptes nationaux annuels (nama_10_a64, nama_10_a64_e),
  comptes nationaux trimestriels (namq_10_a10), téléchargés le {date}, code à github.com/xtimbeau/travail/R/vaq.r.",
     champ = "Branches marchandes {.y}.",
-    note = "La CCF ou les impôts nets de subventions proviennent des comptes annuels, jusqu'en 2023 ou 2024 selon les pays, extrapolée au delà (voir tableau A1). Le partage de la valeur ajoutée pour les tous derniers points évolue donc comme le partage dans la valeur ajoutée brute. Les traits colorés correspondent à chaque pays, les traits fins gris rappellent les autres pays.") ) 
-
+    note = "La CCF ou les impôts nets de subventions proviennent des comptes annuels, jusqu'en 2023 ou 2024 selon les pays, extrapolée au delà (voir tableau A1). Le partage de la valeur ajoutée pour les tous derniers points évolue donc comme le partage dans la valeur ajoutée brute. Les traits colorés correspondent à chaque pays, les traits fins gris rappellent les autres pays.")  +
+  theme(
+    plot.caption = element_marquee(margin = margin(t=9))) )
 tabsetize(psal, r = 1.25)
 ```
 
