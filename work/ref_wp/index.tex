@@ -256,7 +256,6 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-
 %%% title.tex we use to call other packages. Because this works
 \usepackage{titlepic}
 \usepackage{titling}
@@ -315,6 +314,10 @@
 
 \lofoot*{\thepage}
 \refoot*{\thepage}
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\par\singlespacing\small}
+
 \begin{document}
 
 
@@ -335,7 +338,7 @@
       \node [anchor = center] at (-2.875-5.25,-12.75){\includegraphics[width=2.5cm]{\_extensions/ofce/wp/sciencespo.png}};
       \node [anchor = east] at (8.5,-11.5){\textcolor{black}{Publié le : 24
 octobre 2025}};
-      \node [anchor = east] at (8.5,-12){\textcolor{black}{Modifié le : 20
+      \node [anchor = east] at (8.5,-12){\textcolor{black}{Modifié le : 21
 novembre 2025}};
       \node [anchor = east] at (8.5,13-0.7){\textcolor{gray}{\Huge\textit{Working Paper}}};
       \draw [thick,black](-5.75,-13) -- (-5.75,13);
@@ -467,6 +470,7 @@ responsabilité.}}
 \definecolor{quarto-callout-tip-color}{HTML}{000000}
 \definecolor{quarto-callout-tip-color-frame}{HTML}{EEEEEE}
 
+
 \vspace{2.5cm}
 
 \renewcommand*\contentsname{Table des matières}
@@ -582,7 +586,7 @@ valeur semblable, par diffusion de la technologie. Une structure de
 l'économie par branche différente peut cependant se traduire par des
 parts différentes d'un pays à l'autre.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, breakable, bottomrule=.15mm, opacitybacktitle=0.6, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, opacityback=0, toptitle=1mm, colback=white, titlerule=0mm, title={Encadré \ref*{tip-e1}: les encadrés doivent fonctionner}, arc=.35mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, leftrule=.75mm, title={Encadré \ref*{tip-e1}: les encadrés doivent fonctionner}, bottomtitle=1mm, breakable, colback=white, rightrule=.15mm, toptitle=1mm, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, opacityback=0, titlerule=0mm, toprule=.15mm, left=2mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
 
 \quartocallouttip{tip-e1} 
 
