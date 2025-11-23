@@ -85,29 +85,29 @@ ofce_caption <- function(
     subtitle <- transforme(subtitle)
 
   if(lang=="fr") {
-    lec <- "*Lecture* : "
-    src <- "*Source* : "
-    chp <- "*Champ* : "
-    not <- "*Note* : "
+    lec <- "***Lecture*** : "
+    src <- "***Source*** : "
+    chp <- "***Champ*** : "
+    not <- "***Note*** : "
     if(is.null(srcplus)) {
       if(ofce) srcplus <- "calculs OFCE"
       if(author) srcplus <- "calculs des auteurs"
     }
     der <- ", dernier point connu : "
-    Der <- "*Dernier point connu* : "
-    cod <- "*Code* : "}
+    Der <- "***Dernier point connu*** : "
+    cod <- "***Code*** : "}
   else {
-    lec <- "*Reading*: "
-    src <- "*Source*: "
-    chp <- "*Scope*: "
-    not <- "*Note*: "
+    lec <- "***Reading***: "
+    src <- "***Source***: "
+    chp <- "***Scope***: "
+    not <- "***Note***: "
     if(is.null(srcplus)) {
       if(ofce) srcplus <- "OFCE's computations"
       if(author) srcplus <- "authors' computation"
     }
     der <- ", last known data point: "
-    Der <- "*Last known data point*: "
-    cod <- "*Code*: "
+    Der <- "***Last known data point***: "
+    cod <- "***Code***: "
   }
   if(!is.null(srcplus)) {
     Srcp <- stringr::str_to_sentence(srcplus)
