@@ -1,0 +1,445 @@
+# Séries temporelles II : les graphiques de prévision
+
+## Les graphiques de prévision
+
+Le but est d’homogénéiser le plus possible les graphiques de prévisions.
+Les consignes s’appliquent surtout aux graphiques en séries temporelles,
+avec une fréquence de données trimestrielle. Les consignes sont quasi
+obligatoires (i.e. obligatoires sauf très bonne raison de ne pas les
+suivre).
+
+1.  On suit d’abord les consignes qui valent pour les graphiques de
+    [séries
+    temporelles](https://ofce.github.io/ofce/articles/temporelles.md)
+
+    1.  [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md),
+
+    2.  format `<date>`, et on appelle sa colonne d’index temporel
+        `time` ; les dates sont au format quotidien (`"2024-01-31"`) par
+        exemple. Par convention, on note les données trimestrielles
+        `"yyyy-[01; 04; 07; 10]-01"` et les années au premier janvier
+        (mais voir plus bas pour une nuance importante).
+
+    3.  [`scale_ofce_date()`](https://ofce.github.io/ofce/reference/scale_ofce_date.md),
+
+    4.  On utilise les options pour le
+        `geom_point_interactive(linewidth=0.5, shape=21, stroke=0.25, col="white", hover_nearest=TRUE`)
+
+    5.  Chaque .`qmd` doit commencer par un chunk `r` qui est formaté
+        comme suit – cette instruction charge les packages nécessaires,
+        définit des options par défaut et ajoute quelques fonctions
+        utiles :
+
+``` r
+#| include: false
+ofce::init_qmd()
+```
+
+2.  On évite les graphiques spaghetti, double échelle. On privilégie les
+    `facets` et si possible on répète en gris clair les données des
+    autres `facets` pour permettre la comparaison.
+
+3.  On place la légende, dans la mesure du possible, dans le graphique.
+    Dans la mesure du possible, on met la légende sous forme de labels.
+
+4.  On indique, lorsque c’est pertinent, la période de prévision par un
+    grisé et en utilisant la fonction `annotate_prevision(posy = y)`, où
+    `y` est la coordonnée à laquelle on veut que le texte “prévisions”
+    s’affiche (si `size=0` il n’y aura pas de texte). On n’utilise pas
+    d’autres moyens pour indiquer les prévisions (par exemple des
+    pointillés).
+
+5.  On rend le graphique interactif, en utilisant `girafy` et :
+
+    1.  avec un
+        `geom_point_interactive(aes(tooltip=tooltip, data_id = time))` –
+        et donc pas d’autres éléments interactifs sauf si nécessaire
+        (notamment les barres),
+
+    2.  en construisant un `tooltip` le plus signifiant possible,
+
+    3.  en mettant à disposition les données avec un
+        [`margin_download()`](https://ofce.github.io/ofce/reference/margin_download.md),
+
+6.  On utilise
+    [`ofce::ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+    afin de normaliser l’aspect et la présentation des notes de
+    graphique.
+    [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+    permet de spécifier la source, les notes, les indications de
+    lecture, le champ, le lien vers le code, un texte comme “prévisions
+    OFCE 2025” systématique, etc… (reportez vous à l’aide de cette
+    fonction qui est dans le package
+    [ofce](https://ofce.github.io/ofce)).
+
+7.  On met le code du graphique (le `ggplot`, etc…) dans le `.qmd` qui
+    contient le texte. Cela permet d’éditer les textes, d’un côté, et de
+    normaliser les présentations, de l’autre. La construction du tooltip
+    est aussi à ce niveau pour pouvoir l’éditer. Il est **nécessaire que
+    le [`girafy()`](https://ofce.github.io/ofce/reference/girafy.md)
+    soit dans le `qmd`**, sinon, l’objet interactif n’aura pas le bon
+    format suivant les support (site, présentation, etc…).
+
+8.  On utilise `ofce::source_data()` pour la construction des données,
+    ce n’est pas obligatoire, mais très efficace et très recommandé pour
+    le travail collaboratif (comme celui de la prévision). Voir [la
+    vignette
+    correspondante](https://ofce.github.io/ofce/articles/source_data.md).
+    On met le code de construction dans un fichier `.r`, joint dont le
+    nom est simple, signifiant, en minuscule et qui est enregistré au
+    même niveau que le `.qmd` ou en dessous. On utilise `source_data`
+    pour éviter de bloquer le fonctionnement de la compilation des `qmd`
+    et faciliter la portabilité des codes de données – **c’est
+    important**.
+
+Chacun de ces éléments est détaillés et avec des exemples de codes
+ci-dessous.
+
+## Un exemple de graphique
+
+L’exemple de graphique est celui qui apparaît sur toutes les fiches et
+la partie France en début de texte. Les données sont stockées dans un
+fichier excel, ce qui est une pratique qui devra disparaître, mais bon…
+Le code original se trouve dans le répertoire d’une prévision
+(`fiches/data_pays.R`). Il est ici un peu simplifié, parce que
+`data_pays.R` produit une fonction qui prend comme paramètre le pays
+qu’on veut afficher. C’est donc le même code pour tous les pays.
+
+Il y a d’autres exemples dans le cahier de graphiques et les codes sont
+copiables directement.
+
+### Chargement des données et *tooltip*
+
+code
+
+``` r
+gt <- function(x, na.rm = FALSE) (100*(x/lag(x,1)-1))
+ga <- function(x, na.rm = FALSE) (100*(x/lag(x,4)-1))
+data_pays <- fs::path_package("ofce", "extdata/data_pays.xlsx")
+data_gpib <- read_excel(data_pays, sheet = "pib", col_names = TRUE) |>
+  mutate(date = as.Date(date)+ days(45)) %>%
+  mutate(across(c(usa, euz, deu, fra , ita, esp, gbr, jpn), ~gt(.x))) |>
+  pivot_longer(cols=-date, names_to= "pays", values_to = "value")  |>
+  mutate(
+    variable = "Croissance du PIB",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>croissance trimestrielle du PIB : {round(value,1)}%"))
+```
+
+    Error in read_excel(data_pays, sheet = "pib", col_names = TRUE): could not find function "read_excel"
+
+code
+
+``` r
+data_tcho <- read_excel(data_pays, sheet = "tcho", col_names = TRUE) |>
+  mutate(date = as.Date(date)+ days(45)) |>
+  pivot_longer(cols=-date, names_to="pays", values_to = "value") |>
+  mutate(
+    variable = "Chômage",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Taux de chômage : {round(value,1)}% de la population active"))
+```
+
+    Error in read_excel(data_pays, sheet = "tcho", col_names = TRUE): could not find function "read_excel"
+
+code
+
+``` r
+data_prix <- read_excel(data_pays, sheet = "prix", col_names = TRUE) |>
+  mutate(date = as.Date(date) + days(45)) %>%
+  mutate_at(c("usa", "euz","deu","fra","ita","esp","gbr","jpn"), list(~ga(.))) |>
+  pivot_longer(cols=-date, names_to="pays", values_to = "value") |>
+  mutate(
+    variable = "Inflation (prix à la consommation)",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Glissement annuel des prix : {round(value,1)}%"))
+```
+
+    Error in read_excel(data_pays, sheet = "prix", col_names = TRUE): could not find function "read_excel"
+
+code
+
+``` r
+data_solde <- read_excel(data_pays, sheet = "solde", col_names = TRUE) |>
+  mutate(date = as.Date(date) -days(15))|>
+  pivot_longer(cols=-c("date"), names_to="pays", values_to = "value") %>%
+  mutate(value=as.numeric(value)) |>
+  mutate(
+    date = date,
+    variable = "Solde public (APU)",
+    long = pays_long[toupper(pays)],
+    tooltip = glue("<b>{long}</b><br>{year(date)} (fin d'année)<br>Solde des administrations publiques : {round(value,1)}%"))
+```
+
+    Error in read_excel(data_pays, sheet = "solde", col_names = TRUE): could not find function "read_excel"
+
+code
+
+``` r
+data <- bind_rows(data_gpib, data_tcho, data_prix, data_solde) |>
+  filter(date > "2020-12-31") |>
+  mutate(
+    pays = toupper(pays),
+    variable = factor(
+    variable,
+    c("Croissance du PIB", "Chômage", "Inflation (prix à la consommation)", "Solde public (APU)" )))
+```
+
+    Error: object 'data_gpib' not found
+
+Les données, dans `data`, sont en format long, c’est à dire en ligne
+pour les dates, les pays et les variables. Rien de particulier à ce
+stade, si ce n’est la construction du tooltip, pour chaque ligne de
+`data`. On choisit un pays qui sera le principal, on fait un `facet` sur
+les *variables* (pib, chômage, inflation, déficit), et on ajoute les
+autres pays dans le fond, en gris clair pour la comparaison. Ce chunk
+peut tout à fait être dans un script `r` (`data.r`)[^1] et on utilise
+alors `source_data` pour l’exécuter avec
+`data <- source_data("data.r")`.
+
+## Graphique proprement dit
+
+Le graphique est construit ensuite par un `ggplot` et la mise en oeuvre
+des recommandations ci-dessus :
+
+code
+
+``` r
+pays <- "FRA"
+pays2 <- "EUZ"
+# on définit les données, le pays en évidence, `pays2` moins mis en évidence et `autres` pas mis en évidence du tout
+autres <- data |> distinct(pays) |> pull() |> setdiff(c(pays, pays2))
+```
+
+    Error in UseMethod("distinct"): no applicable method for 'distinct' applied to an object of class "c('gt_tbl', 'list')"
+
+code
+
+``` r
+gg <- ggplot(data) +
+  # l'`aes` commun à plusieurs geom, une bonne pratique qui rend le code plus simple
+  aes(x=date, y=value, group = pays, color = variable, fill = variable) +
+  # la bande grise qui indique les prévisions (spécifique à chque exercice de prévision)
+  annotate_prevision(size=0) +
+  # le `facet`, avec une échelle libre sur les y -- jamais de spaghettis
+  facet_wrap(vars(variable), scales = "free_y") +
+  # dans ce geom_line on filtre les pays en fond de graphique, qui sont en gris clair et en trait fin ce qui peut se faire aussi avec le pkg `{highlitght}`
+  geom_line(
+    data =  ~.x |> filter(pays %in% autres),
+    size = 2, color = "gray85", linewidth = 0.25) +
+  geom_line(data = ~.x |> filter(pays==pays2),
+            size = 2, color = "gray35", linewidth = 0.25) +
+  # le premier geom_point_interactive, pour les pays du fond, en gris clair
+  geom_point_interactive(
+    data =  ~.x |> filter(pays %in% autres),
+    aes(tooltip = tooltip, data_id = date),
+    size = 0.75, stroke = 0.25, shape = 21,
+    col = "white", fill = "gray85",
+    hover_nearest = TRUE) +
+  # le second geom_point_interactive() pour le pays moins en évidence en gris foncé
+  geom_point_interactive(
+    data = ~.x |> filter(pays==pays2),
+    aes(tooltip = tooltip, data_id = date),
+    size = 0.75, stroke = 0.25, shape = 21,
+    col = "white", fill = "gray35",
+    hover_nearest = TRUE) +
+  # les lignes colorées (en fonction des variables, voir l'`aes`) pour le pays principal (notez `!!pays` qui signifie utiliser la variable globale, pas celle du data.frame)
+  geom_line(
+    data = ~ .x |> filter(pays==!!pays)) +
+  # les points pour le pays principal, de `shape 21` et colorés par `fill` avec un cercle blanc
+  geom_point_interactive(
+    data = ~ .x |> filter(pays==!!pays),
+    aes(tooltip = tooltip, data_id = date),
+    stroke = 0.5, shape = 21, col = "white", hover_nearest = TRUE) +
+  # l'échelle des dates qui utilise la fonction du package `{ofce}`, avec des ticks mineurs pour les trimestres
+  scale_ofce_date(
+    date_breaks = "1 year",
+    date_minor_breaks = "3 months",
+    expand = expansion(mult=c(0.05, 0.0))) +
+  # les labels des axes, on garde ça simple et on indique principalement l'unité
+  labs(y="En %", x=NULL) +
+  # le theme ofce (l'ordre des éléments n'est pas critique) !!!
+  theme_ofce() +
+  # les couleurs : procéder ainsi permet la normalisation des couleurs a posteriori
+  PrettyCols::scale_color_pretty_d("Summer") +
+  PrettyCols::scale_fill_pretty_d("Summer") +
+  # l'aspect des labels, avec le bon nombre de chiffres après la virgule et l'utilisation de `scales::pretty_breaks()` pour des labels choisis astucieusement
+  scale_y_continuous(labels = label_number(decimal.mark = ",", accuracy = 1, suffix = "%"),
+                     breaks = scales::breaks_pretty()) +
+  # on ne met pas les légendes de couleur ou de remplissage, ce n'est pas utile dans ce graphique, on essaye de ne pas les mettre en dessous de façon générale si elles sont nécessaire
+  guides(color = "none", fill = "none") +
+  # les notes et sources, standardisées, avec en particulier les derniers points connus.
+  ofce_caption(
+    source = "INSEE, Eurostat, instituts nationaux",
+    note = "La zone euro est en gris foncé",
+    dpt = "2024-04-01", dptf = "quarter")
+```
+
+    Error in `fortify()`:
+    ! `data` must be a <data.frame>, or an object coercible by `fortify()`,
+      or a valid <data.frame>-like object coercible by `as.data.frame()`.
+    Caused by error in `check_data_frame_like()`:
+    ! `dim(data)` must return an <integer> of length 2.
+
+code
+
+``` r
+gg
+```
+
+    Error: object 'gg' not found
+
+## Des couleurs par pays
+
+La fonction
+[`ofce::scale_color_pays()`](https://ofce.github.io/ofce/reference/scale_color_pays.md)
+applique une échelle de couleur (et de remplissage) qui suit le choix de
+la charte graphique de l’ofce. Pour que cela fonctionne, il faut que
+dans l’aes qui définit la couleur (`aes(color=pays)`) ou le remplissage
+(`aes(fill=pays)`) soit un code iso à 3 lettres. Si le code est un code
+eurostat il suffit de le préciser (`format="eurostat"` en paramètre à
+scale_color_pays()).
+
+Cela donne comme code :
+
+``` r
+ggplot(mes_donnees) +
+  aes(x=time, y= pib, color = pays, fill = pays) +
+  ...+
+  scale_color_pays()
+```
+
+## Interactivité
+
+Pour finir, on enveloppe le graphique d’un `girafy`, qui fait
+fonctionner et normalise l’interactivité (dont les `tooltips`). On peut
+demander aussi à ce stade d’inclure l’instruction `graph2prev(gg)` qui
+effectue un enregistrement du graphique pour usages ultérieurs (par
+exemple dans une présentation).
+
+code
+
+``` r
+girafy(gg)
+```
+
+    Error: object 'gg' not found
+
+Et voilà !
+
+## Des usages plus avancés
+
+### Composition de graphiques : `patchwork`
+
+Pour empiler des graphiques on peut utiliser
+[patchwork](https://patchwork.data-imaginist.com) – c’est mieux que les
+autres solutions comme [cowplot](https://wilkelab.org/cowplot/). La
+syntaxe est très simple, pour empiler l’un sur l’autre le graphique `g1`
+et `g2` il suffit d’écrire `g <- g1/g2` et l’un à côté de l’autre
+`g <- g1 + g2`. L’objet `g` ressemble beaucoup à un graphique ggplot,
+mais pas complètement. Il peut cependant être utilisé dans `{giraph}`
+comme un ggplot. L’interactivité est alors synchrone pour tous les
+graphiques du `patchwork`.
+
+Parfois on peut préférer
+[patchwork](https://patchwork.data-imaginist.com) à un `facet`, parce
+que [patchwork](https://patchwork.data-imaginist.com) autorise le
+mélange de graphique très différents (des line sur un panel, des bar sur
+un autre).
+
+[patchwork](https://patchwork.data-imaginist.com) réunit les légendes
+communes, et les notes communes, aligne les axes et permet de faire des
+décorations communes. La syntaxe pour ces opérations avancées est sur
+l’aide de [patchwork](https://patchwork.data-imaginist.com) avec
+quelques exemples dans le cahier de graphiques.
+
+### Aligner des graphiques dans des chunks différents
+
+On peut aligner les axes de graphiques dans des chunks différents avec
+[patchwork](https://patchwork.data-imaginist.com). C’est assez simple et
+il y a un exemple sur les graphiques “immobiliers” du cahier de
+graphiques. On définit un graphique de référence et on en prend les
+“mesures” avec `dim <- get_dim(g0)`. Les graphiques que l’on veut
+aligner seront produits par `set_dim(g1, dim)`. Le graphique de
+référence doit être celui dont les labels de l’axe des y sont les plus
+larges, ce qui peut demander un peu d’organisation dans l’écriture des
+chunks – rien de bien compliqué. Ceci permet de produire des pages plus
+soignées.
+
+### Récupérer les métadonnées de `source_data()`
+
+En utilisant l’option `metadata=TRUE` dans `source_data()` on peut
+récupérer des informations sur, par exemple, la date de téléchargement.
+C’est illustré sur quelques graphiques du cahier de graphique.
+
+En code cela donne le chunk ci dessous. Les données sont accessibles par
+`$data` et la date de téléchargement par `$date`. Cela permet de
+construire la note (noter que
+[`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) est
+appliqué aux textes passés à
+[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)).
+
+``` r
+transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
+
+trsc <- ggplot(transactions$data) +
+  aes(x=date, y=t*1000) +
+  geom_line(alpha = 0.5, col = bluish) +
+  geom_point_interactive(aes(tooltip = tooltip, data_id = date),
+                         shape = 21, size = 1, stroke = 0.2, col = "white",
+                         fill = bluish,
+                         hover_nearest = TRUE, show.legend = FALSE)+
+  theme_ofce() +
+  scale_y_log10(labels = scales::number_format(scale = 1/1000, suffix="k")) +
+  scalex +
+  ofce_caption(
+    source = "IGEDD d'après DGFiP (MEDOC) et bases notariale",
+    dpt = transactions$data$date,
+    note = "Transactions cumulées sur 12 mois, dans l'ancien, maisons et appartements, échelle log, données téléchargées le {date_jour(transactions$date)}",
+    sub= "Nombre de transactions")
+```
+
+### La taille d’un graphique
+
+Pour définir la taille d’un graphique, on ne spécifie **jamais** la
+largeur ou la hauteur du graphique[^2] . Celle-ci est définie en
+fonction du support d’affichage et donc n’est pas connue à l’avance. En
+la fixant dans le .qmd on empêche la mise à l’échelle conditionnelle au
+support de sortie et cela produit des résultats embettant.
+
+On utilise donc le ratio hauteur/largeur qui s’appelle `asp` (pour
+*aspect ratio*). Il est fixé à 0.61 (l’inverse du nombre d’or) par
+défaut. Lorsqu’on a une note de graphique très longue, on peut
+l’augmenter (malheureusement l’asp inclue le graphique et le texte des
+notes), à 0.7 ou 0.8.
+
+Si on empile deux graphiques (un `facet` par exemple), un `asp` de 1 est
+possible. C’est également un bon ratio pour les cartes (1 donne un
+format carré).
+
+Pour un graphique pleine page A4, l’`asp` est celui d’une page A4 soit
+1.41. Au delà de cet `asp`, cela n’a pas beaucoup de sens et en tout cas
+cela posera des problèmes à l’impression sur papier.
+
+Pour un graphique destiné à une présentation, le ratio doit être celui
+de l’écran de projection soit 9/16=0,56, ce qui n’est pas très loin de
+la valeur par défaut (coincidence ? je ne crois pas)
+
+Le code le plus simple pour définir l’`asp` est celui-là (pour une
+étrange raison, il faut mettre le 0 et bine sûr utiliser le point pour
+les décimales, pas d’opérations possibles comme 9/16) :
+
+``` r
+#| label: fig-fig1
+#| fig-cap: Le titre de la figure
+#| fig-asp: 0.7
+...
+# le code du graphique
+...
+```
+
+[^1]: Un nom plus signifiant devra être trouvé. Si tout le monde
+    construit ses données dans un script `data.r`, ca va faire des
+    conflits.
+
+[^2]: Donc jamais de `fig-width: 5` par exemple.

@@ -1,3 +1,7 @@
+## OFCE 1.3.25
+
+* ajout de fmt_val(), fmt_mds() et fmt_pct()
+
 ## OFCE 1.3.24
 
 * quelques fonctions pour les (échelles x) de date sont à bord

@@ -31,8 +31,16 @@
 <url><loc>https://ofce.github.io/ofce/reference/bd_write.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/board.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/clear_source_cache.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/date1.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/date_jour.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/date_mois.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/date_trim.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/dernier_point.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/f2si2.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/fmt_mds.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/fmt_pct.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/fmt_val.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/girafy.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/graph2jpg.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/graph2png.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/graph2svg.html</loc></url>
@@ -40,7 +48,10 @@
 <url><loc>https://ofce.github.io/ofce/reference/index.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/init_qmd.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/keywords_list.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/load_graphe.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/logo_ofce.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/make_filename.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/margin_download.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_caption.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_div.html</loc></url>
@@ -52,6 +63,7 @@
 <url><loc>https://ofce.github.io/ofce/reference/palette_principale.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/pathify.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/reexports.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/save_graph.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/scale_color_pays.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/scale_ofce_date.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/set_cache_rep.html</loc></url>
@@ -62,6 +74,7 @@
 <url><loc>https://ofce.github.io/ofce/reference/setup_blog.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_english.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_french.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/setup_graph.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_pres.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_quarto.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/setup_wp.html</loc></url>

@@ -1,0 +1,196 @@
+# source_data() : plus rapide, plus sûr
+
+## Mettre en cache le résultat des calculs avec `source_data()` (aka `sourcoise::sourcoise()`)
+
+`source_data()` est un alias vers la fonction du package
+[`sourcoise::sourcoise()`](https://xtimbeau.github.io/sourcoise/reference/sourcoise.html)
+qui permet de mettre en cache les résultats d’un script `r` et de ne pas
+avoir à ré-exécuter le code à chaque fois.
+
+Les bénéfices sont nombreux :
+
+1.  un gain de temps lorsque l’exécution du code est longue (accès à une
+    API, téléchargement de grosses données, traitements importants). La
+    lecture d’un fichier excel peut aussi être assez longue. Le temps
+    d’accès aux données en cache dépend de leur taille, mais même pour
+    des données volumineuses (et il n’y a pas de raisons qu’elles le
+    soient tant que ça), l’ordre de grandeur est la milliseconde, grâce
+    aux optimisations.
+
+2.  le cache est transférable par github. Il se trouve dans un dossier
+    (caché), mais enregistré dans le dossier de projet et *commité* par
+    github. Le cache produit sur un poste est donc accessible par `pull`
+    sur les autres postes.
+
+3.  si le code source déclenche une erreur, on peut passer outre : En
+    cas de package non installé, données absentes (par exemple un chemin
+    absolu dans le code), ou une API qui bloque (comme celle de l’OCDE)
+    alors `source_data()` essaye de prendre la dernière exécution
+    résussie. Bien que cela puisse être problématique, c’est-à-dire une
+    erreur non signalée, cela a l’énorme avantage de ne pas bloquer le
+    processus et de permettre de traiter l’erreur en parallèle.
+
+4.  `source_data()` cherche de façon astucieuse le fichier source dans
+    le projet et exécute le code dans un environnement local, en
+    changeant le répertoire de travail pour être celui où se trouve le
+    code source. Cela permet d’appeler dans le code source (le script
+    `r` `mon_script.r` passé en paramètre à
+    `source_data("mon_script.r")`, des scripts `r`, des fichiers de
+    données `.csv` ou `.xlsx` qui sont enregistré dans le même
+    répertoire que le fichier `mon_script.r`. On peut donc réutiliser le
+    code sans se soucier de modifier les chemins qui sont relatifs au
+    dossier où se trouve `mon_script.r`.
+
+5.  cela fournit un embryon de reproductibilité en désignant le script
+    qui fabrique les données.
+
+## Comment l’utiliser ?
+
+Première chose mettre son code de données dans un script et
+l’enregistrer là où est le qmd, dans cet exemple `souverains.qmd` et un
+dossier remplis de csv, scripts R, etc :
+
+    ├── souverains
+    │   ├── ratings.R
+    │   ├── ratings.rds
+    │   ├── ratings_legende.rds
+    │   ├── ratings_taux.rds
+    │   ├── taux_souverains_historiques.R
+    │   └── taux_souverains_historiques.rds
+    └── souverains.qmd
+
+Dans `souverains.qmd` on trouve le chunk suivant. `source_data` est
+capable de retrouver le dossier dans le même dossier que le `qmd` (ce
+n’est pas automatique, dans un projet commme la prévision, les chemins
+sont relatifs à la racine du projet, ici le qmd et ses fichiers peuvent
+être mis n’importe où grâce à cette heuristique). Le source est ensuite
+exécuté en changeant le dossier de travail à celui qui le contient (dans
+cet exemple, `souverains`) ce qui permet d’utiliser des chemins relatifs
+et donc de pouvoir transporter le code n’importe où.
+
+```` markdown
+```{r}
+ofce::init_qmd(echo=TRUE) 
+
+taux_souverains_historiques <- source_data("souverains/taux_souverains_historiques.R", lapse = "day")
+
+ratings_taux <- source_data("souverains/ratings", lapse = "day")
+```
+````
+
+Le script doit se terminer par un `return` qui renvoie les données
+calculées ou téléchargées. Ce sont ces données qui sont mises en cache.
+
+``` r
+...
+télécharge et modifie, calcule, etc
+...
+return(taux_souverains_historiques)
+```
+
+`source_data()` dispose d’un cache (caché dans un dossier `.data`). Il
+repère le fichier source et détecte les changements faits au code source
+et invalide le cache. Si le cache est valide, les données sont
+renvoyées, sinon, le script est exécuté et les nouvelles données mises
+en cache.
+
+Il existe d’autres moyens d’invalider le cache : il peut avoir une durée
+de vie maximale, comme avec l’argument `lapse="day"`. Cette option dit
+que si le cache est plus vieux que 24h, il est renouvelé par une
+ré-exécution du script. Ce paramètre peut prendre plusieurs valeurs et
+des formes comme `2 hours` ou `3 weeks`. D’autres déclencheurs temporels
+seront ajoutés pour introduire des calendriers (comme 45 jours après la
+fin du trimestre). Attention, cependant, `source_cache` n’est pas
+capable d’aller vérifier que les données téléchargées ont un point de
+plus et donc de ne pas valider le cache si la donnée n’a pas encore été
+publiée.
+
+Il est aussi possible de déclencher l’invalidation du cache si un
+fichier a été modifié. Il suffit de fournir une liste de fichiers (dont
+les chemins sont relatifs au script) qui seront suivis. Ces fichiers
+peuvent être des `.csv` ou des fichiers `.xlsx` (ou encore tout autre
+type de fichier) et donc sont utiles pour déclencher l’exécution du
+script quand on a fait une modification manuelle ou par un autre
+programme de ces fichiers. On peut en mettre autant qu’on veut.
+
+On peut également forcer le déclenchement du script. Cela se fait par
+une option `force_exec=TRUE`. Cependant, il vaut mieux ne pas spécifier
+cette option, il existe d’autres moyens pour opérer un rafraîchissement
+du cache.
+
+Il est possible de bloquer l’exécution du code par une option
+(`prevent_exec`) qui peut être définie comme une option globale (par
+`options(ofce.source_data.prevent_exec=TRUE)`). Dans ce cas, aucun
+script ne sera exécuté, ce qui peut servir lorsqu’on veut faire un rendu
+du site sans prendre le risque d’une erreur d’API ou d’un blocage.
+
+## Usage avancé : passer des paramètres
+
+Il est possible de passer des paramètres avec `source_data()`, bien que
+ce soit plus pratique d’écrire une fonction. Les paramètres sont passés
+sous forme d’une liste (`list(param1="1")` par exemple) et sont
+disponibles dans le script (dans la variable `args`, donc pour avoir le
+paramètre `param1` il faut écrire `args$param1` dans le script. Changer
+les paramètres invalide le cache.
+
+Notez que le script est toujours exécuté en “local” ce qui veut dire que
+toute variable créée ou tout package ouvert à l’intérieur du script
+n’est pas renvoyé (comme dans une fonction, en fait).
+
+## Usage avancé : récupérer les métadonnées
+
+En utlisant l’option `metadata=TRUE` dans `source_data()` on peut
+récupérer des informations sur, par exmple, la date de téléchargement.
+C’est illustré sur quelques graphiques du cachier de graphique.
+
+En code cela donne le chunk ci dessous. Les données sont accessibles par
+`$data` et la date de téléchargement par `$date`. Cela permet de
+construire la note (noter que
+[`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) est
+appliqué aux textes passés à
+[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)).
+
+``` r
+transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
+
+trsc <- ggplot(transactions$data) + 
+  aes(x=date, y=t*1000) +
+  geom_line(alpha = 0.5, col = bluish) +
+  geom_point_interactive(aes(tooltip = tooltip, data_id = date),
+                         shape = 21, size = 1, stroke = 0.2, col = "white", 
+                         fill = bluish,
+                         hover_nearest = TRUE, show.legend = FALSE)+
+  theme_ofce() +
+  scale_y_log10(labels = scales::number_format(scale = 1/1000, suffix="k")) +
+  scalex +
+  ofce_caption(
+    source = "IGEDD d'après DGFiP (MEDOC) et bases notariale", 
+    dpt = transactions$data$date,
+    note = "Transactions cumulées sur 12 mois, dans l'ancien, maisons et appartements, échelle log, données téléchargées le {date_jour(transactions$date)}",
+    sub= "Nombre de transactions")
+```
+
+## Quelques opérations sur le cache
+
+Le package [ofce](https://ofce.github.io/ofce) fournit des outils pour
+s’occuper des caches. Le premier est `source_data_status()`. il scanne
+le répertoire et fournit la liste de tous les caches enregistrés et
+suivis. Il indique si les caches sont valides ou non et les principaux
+paramètres utilisés pour chaque script.
+
+`source_data_refresh()` rafraîchit (en le forçant) tous les caches. On
+peut passer à `source_data-refresh()` un `tibble` comme celui renvoyé
+par `souce_data_status()` mais filtré pour ne rafraîchir que la liste
+voulue (attention passer toutes les colonnes). Cela sert lorsqu’on a un
+processus plus complexe d’invalidation du cache (en fonction d’un
+calendrier, en interrogeant une API, etc…) et qu’on déclenche en
+fonction de cette logique l’exécution des caches.
+
+On peut également à partir de `source_data_status()` accéder aux données
+en cache. Elles sont enregistrées en `.qs` et donc se chargent avec un
+[`qs::qread()`](https://rdrr.io/pkg/qs/man/qread.html).
+
+On peut également nettoyer complètement le cache (ce qui provoquera sa
+ré exécution) avec `clear_source_cache()`. `prune_source_cache()` fait
+la même chose mais garde les dernières versions du cache (il nettoie
+l’historique donc).

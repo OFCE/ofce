@@ -1,5 +1,5 @@
-pandoc: '3.4'
-pkgdown: 2.1.3
+pandoc: 3.6.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   blog: blog.html
@@ -18,7 +18,7 @@ articles:
   tableaux: tableaux.html
   temporelles: temporelles.html
   xy: xy.html
-last_built: 2025-05-29T10:43Z
+last_built: 2025-11-24T09:15Z
 urls:
   reference: https://ofce.github.io/ofce/reference
   article: https://ofce.github.io/ofce/articles
