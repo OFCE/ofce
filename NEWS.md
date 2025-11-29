@@ -1,6 +1,11 @@
 ## OFCE 1.3.25
 
-* ajout de fmt_val(), fmt_mds() et fmt_pct()
+* `setup_quarto()` copie maintenant `www` et son contenu dans le dossier
+* check la version de `quarto` de façon plus précise 
+
+## OFCE 1.3.25
+
+* ajout de `fmt_val()`, `fmt_mds()` et `fmt_pct()`
 
 ## OFCE 1.3.24
 
@@ -8,7 +13,7 @@
 
 ## OFCE 1.3.23
 
-* tabsetize(), margin_download() et girafy() sont à bord
+* `tabsetize()`, `margin_download()` et `girafy()` sont à bord
 
 ## OFCE 1.3.22
 
