@@ -40,7 +40,6 @@ Les marques de notes de bas de page utilisent des lettres (a, b, c, etc.)
 via \code{\link[gt:opt_footnote_marks]{gt::opt_footnote_marks()}}.
 }
 \examples{
-\dontrun{
 library(gt)
 library(dplyr)
 
@@ -58,9 +57,8 @@ mtcars |>
     table.font.size = "12px",
     data_row.padding = 4
   )
-}
 
 }
 \seealso{
-\code{\link[gt:tab_options]{gt::tab_options()}}, \code{\link[=ofce_caption_gt]{ofce_caption_gt()}}
+\code{\link[gt:tab_options]{gt::tab_options()}}, \code{\link[=ofce_caption]{ofce_caption()}}, \code{\link[=ofce_cols_fill]{ofce_cols_fill()}}, \code{\link[=ofce_spanners_bold]{ofce_spanners_bold()}}, \code{\link[=ofce_row_italic]{ofce_row_italic()}}, \code{\link[=ofce_align_decimal]{ofce_align_decimal()}}, \code{\link[=ofce_fmt_decimal]{ofce_fmt_decimal()}}, \code{\link[=ofce_hide_col_pdf]{ofce_hide_col_pdf()}}
 }

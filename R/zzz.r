@@ -28,7 +28,9 @@
     ofce.savegraph = FALSE,
     ofce.savegraph.dir = "_sav_graph",
     ofce.output_extension = ".csv",
-    ofce.output_prefix = "ofce-")
+    ofce.output_prefix = "ofce-",
+    ofce.tab.font.size = 12,
+    ofce.tab.fill = "#FFEDED")
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])

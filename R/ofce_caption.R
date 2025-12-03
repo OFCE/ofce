@@ -1,6 +1,7 @@
-#' fabricateur de source pour les graphiques
+#' fabricateur de source
 #'
-#' permet de construire un caption facilement avec un wrapping
+#' permet de construire un caption facilement avec un wrapping, le passage dans glue et la traduction marquee (pour ggplot)
+#'
 #' on commence par la source, une note, et une lecture
 #'
 #' @param source texte de la source (sans le mot source qui est rajouté)
@@ -8,9 +9,10 @@
 #' @param lecture texte de la note de lecture (sans le mot lecture qui est rajouté)
 #' @param champ texte du champ (sans le mot champ qui est rajouté)
 #' @param code texte du code (sans le mot code qui est rajouté)
-#' @param xlab inclu le label de l'axe des x (pour le traduire avec marquee)
-#' @param ylab inclu le label de l'axe des y (pour le traduire avec marquee)
-#' @param subtitle inclu le label du sous titre (pour le traduire avec marquee)
+#' @param xlab inclu le label de l'axe des x (pour le traduire avec marquee/glue)
+#' @param ylab inclu le label de l'axe des y (pour le traduire avec marquee/glue)
+#' @param subtitle inclu le label du sous titre (pour le traduire avec marquee/glue)
+#' @param title inclu le titre (traduit aussi)
 #' @param dpt dernier point connu
 #' @param dptf fréquence du dernier point connu (day, month, quarter, year)
 #' @param wrap largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)
@@ -20,20 +22,265 @@
 #' @param lang langue des textes (fr par défaut)
 #' @param marquee_translate transforme ^x^ en {.sup x} et ~x~ en {.sub x}
 #' @param glue applique glue avant toute chose
+#' @param ... autres paramètres
+#'
+#' @return un object de type variable
+#' @examples
+#' library(ggplot2)
+#' ggplot(mtcars)+geom_point(aes(x=hp, y=disp)) + theme_ofce(marquee=TRUE) + ofce_caption(source="INSEE")
+#' head(mtcars) |> gt::gt() |> ofce_caption(source="INSEE")
+#' @export
+ofce_caption <- function(object=NULL, ...) {
+  UseMethod("ofce_caption", object)
+}
+
+#' @export
+ofce_caption.default <- function(object=NULL, ...) {
+  dots <- list(...)
+  if(hasName(dots, "source"))
+    ofce_caption_ggplot(...)
+  else
+    ofce_caption_ggplot(source = object, ...)
+}
+
+#' @export
+ofce_caption.gt_tbl <- function(object=NULL, ...) {
+  object |> ofce_caption_gt(...)
+}
+
+#' fabricateur de source pour les graphiques
+#'
+#' permet de construire un caption facilement avec un wrapping, le passage dans glue et la traduction marquee (pour ggplot)
+#'
+#' on commence par la source, une note, et une lecture
+#'
+#' @param source texte de la source (sans le mot source qui est rajouté)
+#' @param note texte de la note (sans le mot note qui est rajouté)
+#' @param lecture texte de la note de lecture (sans le mot lecture qui est rajouté)
+#' @param champ texte du champ (sans le mot champ qui est rajouté)
+#' @param code texte du code (sans le mot code qui est rajouté)
+#' @param xlab inclu le label de l'axe des x (pour le traduire avec marquee/glue)
+#' @param ylab inclu le label de l'axe des y (pour le traduire avec marquee/glue)
+#' @param subtitle inclu le label du sous titre (pour le traduire avec marquee/glue)
+#' @param title inclu le titre (traduit aussi)
+#' @param dpt dernier point connu
+#' @param dptf fréquence du dernier point connu (day, month, quarter, year)
+#' @param wrap largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)
+#' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
+#' @param author (bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut
+#' @param srcplus (string) chaine (comme calculs OFCE) à ajouter à source (à la fin)
+#' @param lang langue des textes (fr par défaut)
+#' @param marquee_translate transforme ^x^ en {.sup x} et ~x~ en {.sub x}
+#' @param glue applique glue avant toute chose
+#' @param ... autres paramètres
 #'
 #' @return ggplot2 caption (ggplot() + ofce_caption("INSEE"))
-#' @export
 
-ofce_caption <- function(
-    source = NULL,
-    note = NULL,
-    lecture = NULL,
-    champ = NULL,
-    code = NULL,
-    dpt = NULL,
-    xlab = NULL,
-    ylab = NULL,
-    subtitle = NULL,
+ofce_caption_ggplot <- function(
+    source = "",
+    note = "",
+    lecture = "",
+    champ = "",
+    code = "",
+    dpt = "",
+    xlab = "",
+    ylab = "",
+    subtitle = "",
+    title = "",
+    dptf = "month",
+    wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
+    lang = getOption("ofce.caption.lang"),
+    ofce = getOption("ofce.caption.ofce"),
+    author = getOption("ofce.caption.author"),
+    srcplus = getOption("ofce.caption.srcplus"),
+    marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
+    glue = getOption("ofce.caption.glue"),
+    ...) {
+  md <- ofce_caption_md(
+    source = source,
+    note = note,
+    lecture = lecture,
+    champ = champ,
+    code = code,
+    dpt = dpt,
+    xlab = xlab,
+    ylab = ylab,
+    subtitle = subtitle,
+    title = title,
+    dptf = dptf,
+    wrap = wrap,
+    lang = lang,
+    ofce = ofce,
+    author = author,
+    srcplus = srcplus,
+    marquee_translate = marquee_translate,
+    glue = glue, ...)
+
+  gplot <- list(ggplot2::labs(caption = md$caption))
+  if(md$xlab!="")
+    gplot <- rlist::list.append(gplot, ggplot2::xlab(label = md$xlab) )
+  if(md$ylab!="")
+    gplot <- rlist::list.append(gplot, ggplot2::ylab(label = md$ylab) )
+  if(md$subtitle!="")
+    gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = md$subtitle ))
+  if(md$title!="")
+    gplot <- rlist::list.append(gplot, ggplot2::labs(title = md$title ))
+
+  return(gplot)
+}
+
+
+#' fabricateur de source pour les tableaux
+#'
+#' permet de construire un caption facilement avec un wrapping,
+#' le passage dans glue
+#'
+#' on commence par la source, une note, et une lecture
+#' @param object l'objet gt
+#' @param source texte de la source (sans le mot source qui est rajouté)
+#' @param note texte de la note (sans le mot note qui est rajouté)
+#' @param lecture texte de la note de lecture (sans le mot lecture qui est rajouté)
+#' @param champ texte du champ (sans le mot champ qui est rajouté)
+#' @param code texte du code (sans le mot code qui est rajouté)
+#' @param subtitle inclu le label du sous titre (pour le traduire avec marquee/glue)
+#' @param title inclu le titre (traduit aussi)
+#' @param dpt dernier point connu
+#' @param dptf fréquence du dernier point connu (day, month, quarter, year)
+#' @param wrap largeur du texte en charactères (120 charactères par défaut, 0 ou NULL si on utilise marquee)
+#' @param ofce (bool) si TRUE ajoute calculs OFCE à source, sinon rien, TRUE par défaut
+#' @param author (bool) si TRUE ajoute calculs des auteurs à source, sinon rien, FALSE par défaut
+#' @param srcplus (string) chaine (comme calculs OFCE) à ajouter à source (à la fin)
+#' @param lang langue des textes (fr par défaut)
+#' @param marquee_translate transforme ^x^ en {.sup x} et ~x~ en {.sub x}
+#' @param glue applique glue avant toute chose
+#' @param ... autres paramètres
+#'
+#' @return un objet gt (gt() |> ofce_caption_gt("INSEE"))
+
+ofce_caption_gt <- function(
+    object,
+    source = "",
+    note = "",
+    lecture = "",
+    champ = "",
+    code = "",
+    dpt = "",
+    subtitle = "",
+    title = "",
+    dptf = "month",
+    wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
+    lang = getOption("ofce.caption.lang"),
+    ofce = getOption("ofce.caption.ofce"),
+    author = getOption("ofce.caption.author"),
+    srcplus = getOption("ofce.caption.srcplus"),
+    marquee_translate = ifelse(getOption("ofce.marquee"),
+                               TRUE,
+                               getOption("ofce.caption.marquee_translate")),
+    glue = getOption("ofce.caption.glue"),
+    ...) {
+  md <- ofce_caption_md(
+    source = source,
+    note = note,
+    lecture = lecture,
+    champ = champ,
+    code = code,
+    dpt = dpt,
+    xlab = "",
+    ylab = "",
+    subtitle = subtitle,
+    title = title,
+    dptf = dptf,
+    wrap = 0, # pas besoin pour les tables
+    lang = lang,
+    ofce = ofce,
+    author = author,
+    srcplus = srcplus,
+    marquee_translate = FALSE, # il faudrait plutôt l'inverse...
+    glue = glue, ...)
+
+  if(md$champ!="")
+    object <- object |>
+      gt::tab_source_note(gt::md(md$champ))
+  if(md$lecture!="")
+    object <- object |>
+      gt::tab_source_note(gt::md(md$lecture))
+  if(md$note!="")
+    object <- object |>
+      gt::tab_source_note(gt::md(md$note))
+  if(md$code!="")
+    object <- object |>
+      gt::tab_source_note(gt::md(md$code))
+  if(md$source!="")
+    object <- object |>
+      gt::tab_source_note(gt::md(md$source))
+  if(md$dpt!="")
+    object <- object |>
+      gt::tab_source_note(gt::md(md$dpt))
+
+  title <- subtitle <- NULL
+  if(md$title!="")
+    title <- gt::md(md$title)
+  if(md$subtitle!="")
+    subtitle <- gt::md(md$subtitle)
+  if(!is.null(subtitle)|is.null(title))
+    object <- object |>
+    gt::tab_header(title = title, subtitle = subtitle)
+
+  return(object)
+}
+
+
+#' fabricateur de dernier point pour les sources de graphiques
+#'
+#' @param date liste de date
+#' @param freq soit day, month, quarter, year
+#' @param lang langue de retour
+#' @return chaine de charactères
+
+dernier_point <- function(date, freq = "month", lang = "fr") {
+  date <- max(date)
+  if(lang== "fr") {
+    locale <- if(.Platform$OS.type=="windows") "fr_FR.utf8" else "fr_FR"
+  } else {
+    locale <- if(.Platform$OS.type=="windows") "en_US.utf8" else "en_US"
+  }
+
+  if(freq == "day")
+    return(stringr::str_c(lubridate::day(date),
+                          lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
+                          lubridate::year(date), sep = " "))
+
+  if(freq == "month")
+    return(stringr::str_c(lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
+                          lubridate::year(date), sep = " "))
+
+  if(freq == "quarter")
+    return(stringr::str_c("T", lubridate::quarter(date), " ",
+                          lubridate::year(date)))
+
+  return(lubridate::year(date))
+}
+
+
+check_point <- function(s) {
+  if(stringr::str_detect(s, "\\.$"))
+    return(s)
+  s |> stringr::str_c(".")
+}
+
+# coeur de la fonction, renvoie la caption calculée
+
+ofce_caption_md <- function(
+    source = "",
+    note = "",
+    lecture = "",
+    champ = "",
+    code = "",
+    dpt = "",
+    xlab = "",
+    ylab = "",
+    subtitle = "",
+    title = "",
     dptf = "month",
     wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
     lang = getOption("ofce.caption.lang"),
@@ -74,15 +321,14 @@ ofce_caption <- function(
     lecture <- transforme(lecture)
   if(!is.null(code))
     code <- transforme(code)
-
   if(!is.null(xlab))
     xlab <- transforme(xlab)
-
   if(!is.null(ylab))
     ylab <- transforme(ylab)
-
   if(!is.null(subtitle))
     subtitle <- transforme(subtitle)
+  if(!is.null(title))
+    title <- transforme(title)
 
   if(lang=="fr") {
     lec <- "*Lecture* : "
@@ -114,7 +360,6 @@ ofce_caption <- function(
     srcp <- stringr::str_c(", ", srcplus)
   }
   caption <- ""
-
   if(!is.null(wrap)&!wrap==0) {
     wrapper <- function(x) stringr::str_wrap(x, width = wrap)
     linebr <- "<br>"
@@ -124,123 +369,56 @@ ofce_caption <- function(
     linebr <- "  \n"
     liner <- function(x) x
   }
-  if(length(champ)>0) {
-    caption <- stringr::str_c(chp, champ)  |>
+  if(champ!="") {
+    champ <- stringr::str_c(chp, champ)  |>
       check_point() |>
       wrapper() |>
       liner()
   }
 
-  if(length(lecture)>0) {
-    if(length(caption>0))
-      caption <- caption |> stringr::str_c(linebr)
-    addcaption <- stringr::str_c(lec, lecture)  |>
+  if(lecture!="") {
+    lecture <- stringr::str_c(lec, lecture)  |>
       check_point() |>
       wrapper() |>
       liner()
-    caption <- caption |>
-      stringr::str_c(addcaption)
   }
 
-  if(length(note)>0) {
-    if(length(caption>0))
-      caption <- caption |> stringr::str_c(linebr)
-    addcaption <- stringr::str_c(not, note) |>
+  if(note!="") {
+    note <- stringr::str_c(not, note) |>
       check_point() |>
       wrapper() |>
       liner()
-    caption <- caption |>
-      stringr::str_c(addcaption)
   }
 
   if(!is.null(srcplus)&ofce) {
-    if(length(source)==0)
+    if(source=="")
       source <- Srcp else
         source <- stringr::str_c(source , srcp)
   }
 
-  if(length(code)>0) {
-    if(length(caption>0))
-      caption <- caption |> stringr::str_c(linebr)
-    addcaption <- stringr::str_c(cod, code) |>
+  if(code!="") {
+    code <- stringr::str_c(cod, code) |>
       wrapper() |>
       liner()
-    caption <- caption |>
-      stringr::str_c(addcaption)
   }
 
-  if(length(source)>0) {
-    if(length(caption>0))
-      caption <- caption |> stringr::str_c(linebr)
+  if(source!="") {
     if(stringr::str_detect(source, ",|;"))
       src <- src |> stringr::str_replace("ce", "ces")
-    addcaption <- stringr::str_c(src, source) |>
+    source <- stringr::str_c(src, source) |>
       check_point() |>
       wrapper() |>
       liner()
-    caption <- caption |>
-      stringr::str_c(addcaption)
   }
 
-  if(length(dpt)>0) {
-    if(length(caption>0))
-      caption <- caption |>
-        stringr::str_c(linebr) |>
-        stringr::str_c(Der, dernier_point(dpt, dptf, lang)) |>
-        check_point()
-    else
-      caption <- caption |>
-        stringr::str_c(Der, dernier_point(dpt, dptf, lang))  |>
-        check_point()
+  if(dpt!="") {
+    dpt <- stringr::str_c(Der, dernier_point(dpt, dptf, lang)) |>
+      check_point()
   }
 
-  gplot <- list(ggplot2::labs(caption = caption))
+  caption <- stringr::str_c(champ, lecture, note, code, source, dpt, collapse = linebr)
 
-  if(!is.null(xlab))
-    gplot <- rlist::list.append(gplot, ggplot2::xlab(label = xlab) )
-  if(!is.null(ylab))
-    gplot <- rlist::list.append(gplot, ggplot2::ylab(label = ylab) )
-  if(!is.null(subtitle))
-    gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = subtitle ))
-
-  return(gplot)
-}
-
-#' fabricateur de dernier point pour les sources de graphiques
-#'
-#' @param date liste de date
-#' @param freq soit day, month, quarter, year
-#' @param lang langue de retour
-#' @return chaine de charactères
-#' @export
-
-dernier_point <- function(date, freq = "month", lang = "fr") {
-  date <- max(date)
-  if(lang== "fr") {
-    locale <- if(.Platform$OS.type=="windows") "fr_FR.utf8" else "fr_FR"
-  } else {
-    locale <- if(.Platform$OS.type=="windows") "en_US.utf8" else "en_US"
-  }
-
-  if(freq == "day")
-    return(stringr::str_c(lubridate::day(date),
-                          lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
-                          lubridate::year(date), sep = " "))
-
-  if(freq == "month")
-    return(stringr::str_c(lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
-                          lubridate::year(date), sep = " "))
-
-  if(freq == "quarter")
-    return(stringr::str_c("T", lubridate::quarter(date), " ",
-                          lubridate::year(date)))
-
-  return(lubridate::year(date))
-}
-
-
-check_point <- function(s) {
-  if(stringr::str_detect(s, "\\.$"))
-    return(s)
-  s |> stringr::str_c(".")
+  return(list(caption = caption,
+              xlab = xlab, ylab = ylab, subtitle = subtitle, title = title,
+              champ = champ, lecture = lecture, note = note, code = code, source = source, dpt = dpt))
 }

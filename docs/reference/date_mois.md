@@ -23,5 +23,5 @@ une chaine de caractères
 
 ``` r
 date_mois("2025-10-01")
-#> Error in str_c(lubridate::month(date, label = TRUE, abbr = FALSE), " ",     lubridate::year(date)): could not find function "str_c"
+#> [1] "October 2025"
 ```

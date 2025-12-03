@@ -1,7 +1,12 @@
-## OFCE 1.3.25
+## OFCE 1.3.27
+
+* la fonction `ofce_caption()` fonctionne maintenant pour les graphiques et les gt tables (oui, les gt tables) et ce avec la même syntaxe ce qui n'est pas un petit exploit (merci qui ?)
+* les fonctions d'aide aux tableaux sont à bord (`ofce_tab_options()`, `ofce_row_bold()` et plein d'autres)
+
+## OFCE 1.3.26
 
 * `setup_quarto()` copie maintenant `www` et son contenu dans le dossier
-* check la version de `quarto` de façon plus précise 
+* check la version de `quarto` de façon plus précise et cohérente
 
 ## OFCE 1.3.25
 
@@ -109,7 +114,7 @@ les données sont cachés dans ce répertoire. Destiné au blog et permet de dé
 
 ## OFCE 1.3.1
 
-* `source_data()` utilise maintenant fs pour les fichiers - ce qui doit être plus robuste.
+* `source_data()` utilise maintenant `fs` pour les fichiers - ce qui doit être plus robuste.
 
 ## OFCE 1.3.0
 
