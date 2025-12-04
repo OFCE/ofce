@@ -201,148 +201,21 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
 theme_ofce_void <- function(base_size = getOption("ofce.base_size"),
                             base_family = getOption("ofce.base_family"),
                             marquee = getOption("ofce.marquee"), ...) {
-
-  ofce_style <- marquee::classic_style(
-    base_size = base_size,
-    body_font = base_family,
-    header_font = base_family,
-    code_font = "Fira Code")
-
-  theme_text <- if(marquee)
-    ggplot2::theme(
-      plot.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "bold"),
-        hjust = 0,
-        vjust = 0.5,
-        margin = ggplot2::margin(b = 6),
-        lineheight = 1),
-      axis.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
-        size = ggplot2::rel(0.7),
-        hjust = 1,
-        vjust = 0.5,
-        margin = ggplot2::margin(t=6, r=6),
-        lineheight = 1),
-      plot.subtitle = marquee::element_marquee(
-        style = marquee::modify_style(
-          ofce_style, tag = "p",
-          weight = "normal",
-          padding = marquee::trbl(0, 0, 0, 0),
-          margin = marquee::trbl(0, 0, 0, 0),
-          lineheight = 0.9),
-        size = ggplot2::rel(0.85),
-        vjust = 0,
-        hjust = 0,
-        margin = ggplot2::margin(t = 6, b = 0)),
-      plot.caption = marquee::element_marquee(
-        style = marquee::modify_style(
-          ofce_style, tag = "p",
-          weight = "normal",
-          align = "left-aligned",
-          padding = marquee::trbl(0, 0, 0, 0),
-          hanging = marquee::em(0.5),
-          margin = marquee::trbl(0, 0, 0, 0),
-          lineheight = 0.9),
-        size = ggplot2::rel(0.7),
-        hjust = 0,
-        margin = ggplot2::margin(t=3,b=6),
-        width = 0.99),
-      strip.text = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
-        size = ggplot2::rel(0.85),
-        hjust = 0.5,
-        vjust = 0.5,
-        margin = ggplot2::margin(t=6,b=6)),
-      legend.title = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
-        size = ggplot2::rel(0.7),
-        color = "gray25",
-        margin = ggplot2::margin(r=12, b=6, t=6, l=6)),
-      legend.text = marquee::element_marquee(
-        style = marquee::modify_style(ofce_style, tag = "base", weight = "normal"),
-        size = ggplot2::rel(0.7),
-        hjust=0,
-        lineheight = 0.9,
-        color = "gray25")
-    )
-  else
-    ggplot2::theme(
-      plot.title = ggplot2::element_text(
-        face = "bold",
-        hjust = 0,
-        vjust = 0.5,
-        margin = ggplot2::margin(b=0, t=0),
-        lineheight = 1.25),
-      axis.title  = ggplot2::element_text(
-        size = ggplot2::rel(0.7),
-        color = "#222222",
-        margin = margin(t = 0, b=0, l= 0, r=0),
-        hjust = 1),
-      plot.subtitle = ggplot2::element_text(
-        size = ggplot2::rel(0.85),
-        hjust = 0,
-        margin = ggplot2::margin(b=0, t=0),
-        lineheight = 1.25),
-      plot.caption = ggplot2::element_text(
-        size = ggplot2::rel(0.7),
-        hjust = 0,
-        margin = ggplot2::margin(l = 0, t = 6),
-        lineheight = 1.25),
-      strip.text = ggplot2::element_text(
-        size = ggplot2::rel(0.85),
-        hjust = 0.5,
-        vjust = 0.5,
-        margin = ggplot2::margin(t=6, b=6)),
-      legend.text = ggplot2::element_text(
-        size = ggplot2::rel(0.7),
-        color = "gray25"),
-      legend.title = ggplot2::element_text(
-        size = ggplot2::rel(0.7),
-        color = "gray25")
-    )
-
-    ggplot2::theme(
-      # general
-      plot.background = ggplot2::element_rect(fill="white"),
-      text = ggplot2::element_text(
-        family=base_family,
-        size = base_size),
-      rect = ggplot2::element_rect(
-        fill = NA,
-        size = base_size,
-        colour = NA,
-        linetype = 0),
-      plot.title.position = "panel",
-      plot.margin = ggplot2::margin(b=3, t=0, l=0, r=0),
-      plot.caption.position = "panel",
-      #Legend format
-      legend.text.align = 0,
+  theme_ofce(base_size = base_size,
+             base_family = base_family,
+             marquee = marquee,
+             ...) +
+    theme(
       legend.background = element_blank(),
-      legend.location = "plot",
-      legend.position = "bottom",
-      legend.justification = c(1, 1),
-      legend.direction = "horizontal",
-      legend.key.height = unit(9, "pt"),
-      legend.key.width = unit(9, "pt"),
-      legend.key.size = unit(9, "pt"),
-      legend.key.spacing = unit(3, "pt"),
-      legend.margin = ggplot2::margin(t=0, r=0, b=0, l=0),
-      legend.box.spacing = unit(6, "pt"),      # #Axis format
       axis.title  = ggplot2::element_blank(),
       axis.text = ggplot2::element_blank(),
       axis.ticks = ggplot2::element_blank(),
       axis.line = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_blank(),
       axis.text.y = ggplot2::element_blank(),
-      #Grid lines
       panel.grid = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),
       panel.grid.major.y = ggplot2::element_blank(),
       panel.grid.major.x = ggplot2::element_blank(),
       #Blank background
-      panel.background = ggplot2::element_blank(),
-      panel.spacing = ggplot2::unit(3, "pt"),
-      strip.background = ggplot2::element_rect(fill="white"))+
-    theme_text +
-    ggplot2::theme(...) # pour passer les arguments en plus
-}
+      panel.background = ggplot2::element_blank())}
