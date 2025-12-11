@@ -423,6 +423,6 @@ copy_www <- function() {
     fs::dir_create("www")
   files <- fs::path_join(c(fs::path_package("ofce"), "www/")) |>
     fs::dir_ls()
-  walk(files,
+  purrr::walk(files,
        ~fs::file_copy(.x, "www/", overwrite=TRUE))
 }
