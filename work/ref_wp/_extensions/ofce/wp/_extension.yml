@@ -1,6 +1,6 @@
-title: Format OFCE
+title: Format document de travail OFCE
 author: Anissa Saumtally et Xavier Timbeau
-version: 0.2.0
+version: 0.3.12
 quarto-required: ">=1.8.26"
 contributes:
   formats:
@@ -45,12 +45,14 @@ contributes:
           crossref-tbl-title: "Table"
           crossref-lof-title: Graphics
           crossref-lot-title: Tables
+      authors-title: "Autrices, auteurs & résumé"
       fig-asp: 0.61
       cap-location: top
       citation:
         type: article-journal
       logo: ofce.png
       filters:
+        - wordcount
         - nameref
         - quotes
         - fr-nbsp
@@ -69,7 +71,7 @@ contributes:
     html:
       theme:
         - cosmo
-        - html_template/ofcewp.scss
+        - html/wp.scss
       mainfont: Open Sans
       toc-location: left
       number-sections: true
@@ -83,10 +85,11 @@ contributes:
       callout-icon: false
       lightbox: true
       title-block-style: default
+      link-external-icon: true
       template-partials:
-        - html_template/title-block.html
-        - html_template/title-metadata.html
-        - html_template/toc.html
+        - html/title-block.html
+        - html/title-metadata.html
+        - html/toc.html
     pdf:
       documentclass: article
       toc-depth: 1
@@ -110,10 +113,19 @@ contributes:
       logo2: sciencespo.png
       callout-icon: false
       template-partials:
-        - pdf_template/before-title.tex
-        - pdf_template/title.tex
-        - pdf_template/before-body.tex
-        - pdf_template/after-body.tex
-        - pdf_template/toc.tex
-        - pdf_template/biblio.tex
-    typst: default
+        - pdf/before-title.tex
+        - pdf/title.tex
+        - pdf/before-body.tex
+        - pdf/after-body.tex
+        - pdf/toc.tex
+        - pdf/biblio.tex
+    typst:
+      mainfont: Arial
+      keep-typ: true
+      toc: false
+      callout-icon: false
+      papersize: a4
+      logo: false
+      template-partials:
+        - typst/typst-template.typ
+        - typst/typst-show.typ

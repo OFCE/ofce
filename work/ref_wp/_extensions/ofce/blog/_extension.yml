@@ -78,14 +78,15 @@ contributes:
       image-lazy-loading: true
       hide-description: true
       template-partials:
-        - html_template/title-metadata.html
+        - html/title-metadata.html
     typst:
       mainfont: Arial
       keep-typ: true
       toc: false
       callout-icon: false
       papersize: a4
+      section-numbering: 1.1.a
       logo: false
       template-partials:
-        - typsttemplate/typst-template.typ
-        - typsttemplate/typst-show.typ
+        - typst/typst-template.typ
+        - typst/typst-show.typ

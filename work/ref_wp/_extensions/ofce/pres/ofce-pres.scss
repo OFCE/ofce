@@ -115,3 +115,112 @@ div.callout-tip div.callout-header {
   margin-top: 6px;
   margin-bottom: 6px;
 }
+
+.control-label {
+  font-size: .8rem;
+  text-align: start;
+}
+
+.quarto-figure-center>figure>div {
+  text-align: left !important;
+  font-size: .8rem !important;
+  color: $darkgrey !important;
+  line-height: 1rem !important;
+  margin-bottom: 0px !important;
+}
+
+.quarto-figure-center>figure>div>p {
+  margin-bottom: 0.2rem !important;
+}
+
+.figure.figure {
+  margin-bottom: 0 !important;
+}
+
+.quarto-figure {
+    position: relative;
+    margin-bottom: Oem
+}
+
+.csl-entry {
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+}
+
+div.callout-tip {
+  font-size: .8rem;
+  border-radius: 0;
+  background-clip: content-box;
+  background-color: rgba($lightgrey, 0.5) !important;
+  border-left-color: rgba($lightgrey, 0.5) !important;
+}
+
+div.callout-tip div.callout-header {
+  background-color: rgba($lightgrey, 0.5) !important;
+}
+
+.dbtn {
+  font-size: .7rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  color: $link-color;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  padding: 4px 8px 4px 8px;
+}
+
+.dbtn:hover {
+  background-color: rgba($link-color, 0.95);
+  color: white;
+  border-color: $link-color;
+  border-width: 1px;
+  border-style: solid;
+
+}
+
+.control-label {
+  font-size: .8rem;
+  text-align: start;
+}
+
+.panel-tabset > .nav-tabs,
+.panel-tabset > .tab-content {
+    border: none;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    margin-top: 0px;
+    margin-bottom: 0.5em
+}
+
+.nav-pills .nav-link {
+  border: none;
+  padding-bottom: 0em;
+  padding-top: 0.25em;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    padding-bottom: 0em;
+    padding-top: 0.25em;
+    background-color: transparent;
+    border: none;
+    color: $link-color;
+    text-decoration: underline;
+    text-decoration-thickness: 10%;
+    text-decoration-color: $scpored;
+}
+
+.nav-pills .nav-link:hover {
+  border: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: $lightgrey;
+}
+
+.nav-pills .nav-link.active:hover {
+  border: none;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: $scpored;
+}
