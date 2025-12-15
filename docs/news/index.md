@@ -1,8 +1,29 @@
 # Changelog
 
+## OFCE 1.3.27
+
+- la fonction
+  [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+  fonctionne maintenant pour les graphiques et les gt tables (oui, les
+  gt tables) et ce avec la même syntaxe ce qui n’est pas un petit
+  exploit (merci qui ?)
+- les fonctions d’aide aux tableaux sont à bord
+  ([`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md),
+  [`ofce_row_bold()`](https://ofce.github.io/ofce/reference/ofce_row_bold.md)
+  et plein d’autres)
+
+## OFCE 1.3.26
+
+- [`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
+  copie maintenant `www` et son contenu dans le dossier
+- check la version de `quarto` de façon plus précise et cohérente
+
 ## OFCE 1.3.25
 
-- ajout de fmt_val(), fmt_mds() et fmt_pct()
+- ajout de
+  [`fmt_val()`](https://ofce.github.io/ofce/reference/fmt_val.md),
+  [`fmt_mds()`](https://ofce.github.io/ofce/reference/fmt_mds.md) et
+  [`fmt_pct()`](https://ofce.github.io/ofce/reference/fmt_pct.md)
 
 ## OFCE 1.3.24
 
@@ -10,7 +31,10 @@
 
 ## OFCE 1.3.23
 
-- tabsetize(), margin_download() et girafy() sont à bord
+- [`tabsetize()`](https://ofce.github.io/ofce/reference/tabsetize.md),
+  [`margin_download()`](https://ofce.github.io/ofce/reference/margin_download.md)
+  et [`girafy()`](https://ofce.github.io/ofce/reference/girafy.md) sont
+  à bord
 
 ## OFCE 1.3.22
 
@@ -128,8 +152,8 @@
 
 ## OFCE 1.3.1
 
-- `source_data()` utilise maintenant fs pour les fichiers - ce qui doit
-  être plus robuste.
+- `source_data()` utilise maintenant `fs` pour les fichiers - ce qui
+  doit être plus robuste.
 
 ## OFCE 1.3.0
 

@@ -1,34 +1,19 @@
-# fabricateur de source pour les graphiques
+# fabricateur de source
 
-permet de construire un caption facilement avec un wrapping on commence
-par la source, une note, et une lecture
+permet de construire un caption facilement avec un wrapping, le passage
+dans glue et la traduction marquee (pour ggplot)
 
 ## Usage
 
 ``` r
-ofce_caption(
-  source = NULL,
-  note = NULL,
-  lecture = NULL,
-  champ = NULL,
-  code = NULL,
-  dpt = NULL,
-  xlab = NULL,
-  ylab = NULL,
-  subtitle = NULL,
-  dptf = "month",
-  wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
-  lang = getOption("ofce.caption.lang"),
-  ofce = getOption("ofce.caption.ofce"),
-  author = getOption("ofce.caption.author"),
-  srcplus = getOption("ofce.caption.srcplus"),
-  marquee_translate = ifelse(getOption("ofce.marquee"), TRUE,
-    getOption("ofce.caption.marquee_translate")),
-  glue = getOption("ofce.caption.glue")
-)
+ofce_caption(object = NULL, ...)
 ```
 
 ## Arguments
+
+- ...:
+
+  autres paramètres
 
 - source:
 
@@ -50,21 +35,25 @@ ofce_caption(
 
   texte du code (sans le mot code qui est rajouté)
 
-- dpt:
-
-  dernier point connu
-
 - xlab:
 
-  inclu le label de l'axe des x (pour le traduire avec marquee)
+  inclu le label de l'axe des x (pour le traduire avec marquee/glue)
 
 - ylab:
 
-  inclu le label de l'axe des y (pour le traduire avec marquee)
+  inclu le label de l'axe des y (pour le traduire avec marquee/glue)
 
 - subtitle:
 
-  inclu le label du sous titre (pour le traduire avec marquee)
+  inclu le label du sous titre (pour le traduire avec marquee/glue)
+
+- title:
+
+  inclu le titre (traduit aussi)
+
+- dpt:
+
+  dernier point connu
 
 - dptf:
 
@@ -74,10 +63,6 @@ ofce_caption(
 
   largeur du texte en charactères (120 charactères par défaut, 0 ou NULL
   si on utilise marquee)
-
-- lang:
-
-  langue des textes (fr par défaut)
 
 - ofce:
 
@@ -93,6 +78,10 @@ ofce_caption(
 
   (string) chaine (comme calculs OFCE) à ajouter à source (à la fin)
 
+- lang:
+
+  langue des textes (fr par défaut)
+
 - marquee_translate:
 
   transforme ^x^ en .sup x et ~x~ en .sub x
@@ -103,4 +92,22 @@ ofce_caption(
 
 ## Value
 
-ggplot2 caption (ggplot() + ofce_caption("INSEE"))
+un object de type variable
+
+## Details
+
+on commence par la source, une note, et une lecture
+
+## Examples
+
+``` r
+library(ggplot2)
+ggplot(mtcars)+geom_point(aes(x=hp, y=disp)) + theme_ofce(marquee=TRUE) + ofce_caption(source="INSEE")
+
+head(mtcars) |> gt::gt() |> ofce_caption(source="INSEE")
+
+
+  
+
+mpg
+```

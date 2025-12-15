@@ -38,7 +38,13 @@ h1, h2, h3, h4, h5, h6,
   color: $darkgrey;
 }
 
-h1, .h1,
+h1, .h1 {
+  color: inherit;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
 h2, .h2 {
   color: inherit;
   margin-top: 1rem;
@@ -130,7 +136,9 @@ main.content > section:first-of-type > .h2:nth-child(1) {
 .nav-pills {
   .nav-link {
     border: none;
-    padding: 0.25em 0 0;
+    padding-bottom: 0em;
+    padding-top: 0.25em;
+
 
     &:hover {
       border: none;
@@ -141,7 +149,8 @@ main.content > section:first-of-type > .h2:nth-child(1) {
 
     &.active,
     .show > & {
-      padding: 0.25em 0 0;
+      padding-bottom: 0em;
+      padding-top: 0.25em;
       background-color: transparent;
       border: none;
       color: $link-color;
@@ -266,7 +275,7 @@ caption {
   border: none;
   font-size: 0.9rem;
   line-height: 140%;
-  margin: 1em 0 1em 1em;
+  margin: 0em 0 1em 1em;
   padding: 0;
 
   > p::before {

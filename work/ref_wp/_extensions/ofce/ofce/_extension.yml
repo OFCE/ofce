@@ -1,6 +1,6 @@
 title: Format html OFCE
 author: Anissa Saumtally et Xavier Timbeau
-version: 0.2.8
+version: 0.2.10
 quarto-required: ">=1.8.26"
 contributes:
   formats:
@@ -77,7 +77,6 @@ contributes:
       toc-title: Sur cette page
       number-sections: true
       number-depth: 3
-      html-math-method: katex
       fig-dpi: 1200
       fig-format: png
       reference-location: margin

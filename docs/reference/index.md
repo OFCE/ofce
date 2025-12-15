@@ -54,8 +54,20 @@
   : make filename
 - [`margin_download()`](https://ofce.github.io/ofce/reference/margin_download.md)
   : Bouton de téléchargement
+- [`ofce_align_decimal()`](https://ofce.github.io/ofce/reference/ofce_align_decimal.md)
+  : Aligne sur le séparateur décimal (,)
 - [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+  : fabricateur de source
+- [`ofce_caption_ggplot()`](https://ofce.github.io/ofce/reference/ofce_caption_ggplot.md)
   : fabricateur de source pour les graphiques
+- [`ofce_caption_gt()`](https://ofce.github.io/ofce/reference/ofce_caption_gt.md)
+  : fabricateur de source pour les tableaux
+- [`ofce_cols_fill()`](https://ofce.github.io/ofce/reference/ofce_cols_fill.md)
+  : Teinte les colonnes choisies en fond de couleur
+- [`ofce_fmt_decimal()`](https://ofce.github.io/ofce/reference/ofce_fmt_decimal.md)
+  : Formate en français les nombres
+- [`ofce_hide_col_pdf()`](https://ofce.github.io/ofce/reference/ofce_hide_col_pdf.md)
+  : Masque des colonnes en pdf
 - [`ofce_palette()`](https://ofce.github.io/ofce/reference/ofce_palette.md)
   : Palette de cinq couleurs principales compatible avec les normes
   graphiques de la revue OFCE
@@ -73,6 +85,14 @@
   : Palette de couleurs associée de type sequentiel qui à partir de deux
   codes HEX génère une palette de n couleur compatible avec les normes
   graphiques de la revue OFCE
+- [`ofce_row_bold()`](https://ofce.github.io/ofce/reference/ofce_row_bold.md)
+  : Met en gras une ligne
+- [`ofce_row_italic()`](https://ofce.github.io/ofce/reference/ofce_row_italic.md)
+  : Mets une ligne en italique
+- [`ofce_spanners_bold()`](https://ofce.github.io/ofce/reference/ofce_spanners_bold.md)
+  : Mets les spanners en gras
+- [`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md)
+  : Options de tableau gt par défaut pour les standards OFCE
 - [`palette_degrades`](https://ofce.github.io/ofce/reference/palette_degrades.md)
   : palette_degrades
 - [`palette_pays`](https://ofce.github.io/ofce/reference/palette_pays.md)
@@ -112,14 +132,6 @@
   installe un squelette de document de travail
 - [`showMemoryUse()`](https://ofce.github.io/ofce/reference/showMemoryUse.md)
   : Utilisation mémoire par objet
-- [`sna_check_cache()`](https://ofce.github.io/ofce/reference/sna_check_cache.md)
-  : MAJ le cache sna
-- [`sna_clear_cache()`](https://ofce.github.io/ofce/reference/sna_clear_cache.md)
-  : vide le cache sna
-- [`sna_get()`](https://ofce.github.io/ofce/reference/sna_get.md) :
-  Extrait les données eurostat SNA
-- [`sna_show()`](https://ofce.github.io/ofce/reference/sna_show.md) :
-  Infos sur une base sna Eurostat
 - [`table_ofce()`](https://ofce.github.io/ofce/reference/table_ofce.md)
   : Thème OFCE pour les tableaux pour gt
 - [`tabsetize()`](https://ofce.github.io/ofce/reference/tabsetize.md) :

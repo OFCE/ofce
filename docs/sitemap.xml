@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://ofce.github.io/ofce/404.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/CLAUDE.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/LICENSE-text.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/LICENSE.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/articles/blog.html</loc></url>
@@ -52,12 +53,22 @@
 <url><loc>https://ofce.github.io/ofce/reference/logo_ofce.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/make_filename.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/margin_download.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_align_decimal.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_caption.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_caption_ggplot.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_caption_gt.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_cols_fill.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_fmt_decimal.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_hide_col_pdf.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_div.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_new.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_pays.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/ofce_palette_seq.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_row_bold.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_row_italic.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_spanners_bold.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/ofce_tab_options.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/palette_degrades.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/palette_pays.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/palette_principale.html</loc></url>

@@ -25,18 +25,20 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
   }
   setwd(dir)
   # system("sh -c 'cd \"{dir}\"; quarto add ofce/ofce-quarto-extensions --no-prompt --quiet'" |> glue::glue())
+
+  check_quarto_ok()
+  copy_www()
+
   quarto::quarto_add_extension(
     "ofce/ofce-quarto-extensions",
     no_prompt = TRUE,
     quiet = quiet)
 
-  ##enlever le dossier blog-site
+  ## enlever le dossier blog-site
   old_ext <- file.path("_extensions","ofce","blog_site")
   if(dir.exists(old_ext)){
     unlink(old_ext, recursive = TRUE)
   }
-
-
 
   if(!quiet) cli::cli_alert_success(
     "Mettre dans le yaml ce qui suit:
@@ -66,13 +68,9 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
 #' @return NULL
 #' @export
 #'
-#'
 setup_wp <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.5.57")
-    cli::cli_alert_info(
-      "Quarto 1.4 est recommandé pour les fonctions avancées
-        (manuscript, lua, corrections de bugs, ...)
-      {.url https://github.com/quarto-dev/quarto-cli/releases}")
+
+  setup_quarto(dir, quiet = TRUE)
 
   if(is.null(dir)) {
     if(is.null(nom)) {
@@ -96,9 +94,6 @@ setup_wp <- function(dir = NULL, nom = NULL) {
       "Il y déjà un 'references.bib' dans le répertoire {.path {dir}}")
     return(invisible(FALSE))
   }
-
-  setup_quarto(dir, quiet = TRUE)
-  cli::cli_alert_info("extensions installées")
 
   template <- system.file(
     "extdata/templates/workingpaper",
@@ -231,11 +226,8 @@ set_justify <- function(path=".", justify=TRUE, ext="ofce") {
 #'
 #'
 setup_pres <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.5.57")
-    cli::cli_alert_info(
-      "Quarto 1.4 est recommandé pour les fonctions avancées
-        (manuscript, lua, lightbox, corrections de bugs, ...)
-      {.url https://github.com/quarto-dev/quarto-cli/releases}")
+
+  setup_quarto(dir, quiet = TRUE)
 
   if(is.null(dir)) {
     if(is.null(nom)) {
@@ -259,9 +251,6 @@ setup_pres <- function(dir = NULL, nom = NULL) {
       "Il y déjà un 'references.bib' dans le répertoire {.path {dir}}")
     return(invisible(FALSE))
   }
-
-  setup_quarto(dir, quiet = TRUE)
-  cli::cli_alert_info("extensions installées")
 
   template <- system.file(
     "extdata/templates/presentation",
@@ -304,9 +293,9 @@ setup_pres <- function(dir = NULL, nom = NULL) {
 #'
 #'
 setup_blog <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.5.57")
+  if(quarto::quarto_version()<="1.8.26")
     cli::cli_alert_info(
-      "Quarto 1.4 est recommandé pour les fonctions avancées
+      "Quarto 1.8 est recommandé pour les fonctions avancées
         (manuscript, lua, lightbox, corrections de bugs, ...)
       {.url https://github.com/quarto-dev/quarto-cli/releases}")
 
@@ -379,11 +368,7 @@ setup_blog <- function(dir = NULL, nom = NULL) {
 #'
 #'
 setup_graph <- function(dir = NULL, nom = NULL) {
-  if(quarto::quarto_version()<"1.5.57")
-    cli::cli_alert_info(
-      "Quarto 1.4 est recommandé pour les fonctions avancées
-        (manuscript, lua, lightbox, corrections de bugs, ...)
-      {.url https://github.com/quarto-dev/quarto-cli/releases}")
+  setup_quarto(dir, quiet = TRUE)
 
   if(is.null(dir)) {
     if(is.null(nom)) {
@@ -402,10 +387,6 @@ setup_graph <- function(dir = NULL, nom = NULL) {
       "Il y déjà un '{nom}.qmd' dans le répertoire {.path {dir}}")
     return(invisible(FALSE))
   }
-
-
-  setup_quarto(dir, quiet = TRUE)
-  cli::cli_alert_info("extensions installées")
 
   template <- system.file("extdata/templates/graph",
                           "template.qmd",
@@ -426,3 +407,22 @@ setup_graph <- function(dir = NULL, nom = NULL) {
   return(invisible(TRUE))
 }
 
+check_quarto_ok <- function() {
+  if(quarto::quarto_version()<="1.8.26")
+    cli::cli_alert_info(
+      "Quarto 1.8 est recommandé pour les fonctions avancées
+        (manuscript, lua, corrections de bugs, ...)
+      {.url https://github.com/quarto-dev/quarto-cli/releases}")
+}
+
+copy_www <- function() {
+  # on crée et peuple le dossier www
+  if(fs::file_exists("www"))
+    fs::file_delete("www")
+  if(!fs::dir_exists("www"))
+    fs::dir_create("www")
+  files <- fs::path_join(c(fs::path_package("ofce"), "www/")) |>
+    fs::dir_ls()
+  purrr::walk(files,
+       ~fs::file_copy(.x, "www/", overwrite=TRUE))
+}

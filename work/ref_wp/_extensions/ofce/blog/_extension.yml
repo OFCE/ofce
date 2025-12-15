@@ -1,6 +1,6 @@
 title: Format OFCE pour le site du blog
 author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
-version: 0.1.0
+version: 0.1.1
 quarto-required: ">=1.8.26"
 contributes:
   formats:
@@ -69,7 +69,6 @@ contributes:
         - blog.scss
       mainfont: Open Sans
       number-sections: false
-      html-math-method: katex
       fig-dpi: 600
       fig-format: svg
       reference-location: margin

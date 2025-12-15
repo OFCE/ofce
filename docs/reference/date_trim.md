@@ -23,5 +23,5 @@ une chaine de caractères
 
 ``` r
 date_trim("2025-10-01")
-#> Error in str_c("T", lubridate::quarter(date), " ", lubridate::year(date)): could not find function "str_c"
+#> [1] "T4 2025"
 ```

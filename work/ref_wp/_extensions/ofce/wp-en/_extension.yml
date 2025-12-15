@@ -1,6 +1,6 @@
 title: Format working paper (wp en anglais) OFCE
 author: Anissa Saumtally et Xavier Timbeau
-version: 0.2.0
+version: 0.2.1
 quarto-required: ">=1.8.26"
 contributes:
   formats:
@@ -56,7 +56,6 @@ contributes:
       toc-location: left
       number-sections: true
       number-depth: 3
-      html-math-method: katex
       fig-dpi: 600
       fig-format: png
       fig-width: 6

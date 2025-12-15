@@ -14,7 +14,7 @@
 #' @examples
 #' date_trim("2025-10-01")
 date_trim <- function(date) {
-  str_c("T", lubridate::quarter(date), " ", lubridate::year(date))
+  stringr::str_c("T", lubridate::quarter(date), " ", lubridate::year(date))
 }
 
 #' Date en mois
@@ -31,7 +31,7 @@ date_trim <- function(date) {
 #' @examples
 #' date_mois("2025-10-01")
 date_mois <- function(date) {
-  str_c(
+  stringr::str_c(
     lubridate::month(date, label = TRUE, abbr = FALSE),
     " ",
     lubridate::year(date)
@@ -51,7 +51,7 @@ date_mois <- function(date) {
 #' @examples
 #' date_jour("2025-10-01")
 date_jour <- function(date) {
-  str_c(
+  stringr::str_c(
     lubridate::day(date),
     " ",
     lubridate::month(date, label = TRUE, abbr = FALSE),
