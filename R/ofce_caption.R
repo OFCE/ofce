@@ -37,10 +37,13 @@ ofce_caption <- function(object=NULL, ...) {
 #' @export
 ofce_caption.default <- function(object=NULL, ...) {
   dots <- list(...)
+
   if(hasName(dots, "source"))
     ofce_caption_ggplot(...)
   else
-    ofce_caption_ggplot(source = object, ...)
+    if(!is.null(object))
+      ofce_caption_ggplot(source = object, ...) else
+        ofce_caption_ggplot(...)
 }
 
 #' @export
