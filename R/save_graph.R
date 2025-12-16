@@ -1,6 +1,6 @@
 #' Enregistre un graphe
 #'
-#' @param graph le ggplot
+#' @param object le ggplot
 #' @param label son label (mis à partir de knitr si possible)
 #' @param chunk les infos de chunk (de knitr)
 #' @param document le nom du document qmd (à partir de quarto)
@@ -10,33 +10,34 @@
 #' @returns le graphique, avec un effet de bord qui est le ggplot enregistré
 #' @export
 #'
-save_graph <- function(graph, label=NULL,
+save_object <- function(object, label=NULL,
                        chunk = knitr::opts_current$get(),
                        document=knitr::current_input(),
                        id = NULL,
-                       dest = getOption("ofce.savegraph.dir")) {
+                       dest = getOption("ofce.savegraph.dir"),
+                       ext = "ggplot") {
 
   if(!getOption("ofce.savegraph"))
-    return(graph)
+    return(object)
 
   if(is.null(dest))
-    return(graph)
+    return(object)
 
   if(!knitr::is_html_output())
-    return(graph)
+    return(object)
 
   if(is.null(document)|document=="")
-    return(graph)
+    return(object)
 
   if(Sys.getenv("QUARTO_DOCUMENT_PATH")=="")
-    return(graph)
+    return(object)
 
   ratio <- chunk$fig.width/chunk$fig.height
   document <- document |> str_remove("\\..+")
   label <- chunk$label
 
   if(is.null(label)|label=="")
-    return(graph)
+    return(object)
 
   path <- Sys.getenv("QUARTO_DOCUMENT_PATH")
   if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
@@ -69,23 +70,24 @@ save_graph <- function(graph, label=NULL,
 
   fn <- stringr::str_c(rep, "/", partie, "-", tolower(label), id)
 
-  qs2::qs_save(object = graph, file = str_c(fn, ".ggplot"))
+  qs2::qs_save(object = object, file = str_c(fn, ".", ext))
 
-  return(graph)
+  return(object)
 }
 
-#' Lit un graphique sauvegardé
+#' Lit un objet sauvegardé
 #'
 #' Lorsque `ofce.savegraph` est non NULL, chaque graphique qui passe dans `girafy` est enregistré dans le dossier `ofce.savegraph`.
 #' Son nom est formé en ajoutant le dossier qui le contient, le nom du fichier .qmd, le label du fichier (séparé par des tirets)
 #' par exmple : "index-fig-psal" ou "france-synthese-fig-indicateurs"
 #'
-#' @param graphe (string) nom du graphique composé du dossier d'un tiret du nom du document d'un tiret et du label du graphique
+#' @param object (string) nom du graphique composé du dossier d'un tiret du nom du document d'un tiret et du label du graphique
+#' @param ext ("ggplot") extension à utiliser
 #'
-#' @returns un ggplot
+#' @returns un ggplot ou un gt
 #' @export
 #'
-load_graphe <- function(graphe) {
+load_object <- function(object, ext = "ggplot") {
   dir <- getOption("ofce.savegraph.dir")
   if(is.null(dir)) {
     cli::cli_alert_warning("Pas de graphiques sauvegardés")
@@ -104,15 +106,91 @@ load_graphe <- function(graphe) {
   } else {
     root <- Sys.getenv("QUARTO_PROJECT_DIR")
   }
-  fn <- fs::path_join(c(root, dir, graphe)) |>
-    fs::path_ext_set("ggplot")
-
+  fn <- fs::path_join(c(root, dir, object)) |>
+    fs::path_ext_set(ext)
+  dic <- c("ggplot" = "graphique", "gt" = "tableau gt")
   if(!file.exists(fn)) {
-    cli::cli_alert_warning("Le graphique {graphe} n'existe pas")
+    cli::cli_alert_warning("Le graphique {dic[ext]} n'existe pas")
     return(NULL)
   }
 
   qs2::qs_read(
-    fs::path_join(c(root, dir, graphe)) |>
-      fs::path_ext_set("ggplot"))
+    fs::path_join(c(root, dir, object)) |>
+      fs::path_ext_set(ext))
 }
+
+#' Enregistre un graphe
+#'
+#' L'enregistrement est fait dans le dossier spécifié dans les options
+#'
+#' @param object le ggplot
+#' @param id utilisé par girafy et tabsetize
+#' @seealso [save_object()]
+#' @returns le graphique, avec un effet de bord qui est le ggplot enregistré
+#' @export
+#'
+save_graph <- function(object, id = NULL) save_object(object = object, ext = "ggplot", id = id)
+
+#' Enregistre un graphe
+#'
+#' L'enregistrement est fait dans le dossier spécifié dans les options
+#'
+#' @param object le ggplot
+#' @param id utilisé par girafy et tabsetize
+#' @seealso [save_object()]
+#' @returns le graphique, avec un effet de bord qui est le ggplot enregistré
+#' @export
+#'
+save_ggplot <- function(object, id = NULL) save_object(object = object, ext = "ggplot", id = id)
+
+#' Enregistre un tableau
+#'
+#' L'enregistrement est fait dans le dossier spécifié dans les options
+#'
+#' @param object le ggplot
+#' @seealso [save_object()]
+#' @returns le graphique, avec un effet de bord qui est le gt enregistré
+#' @export
+#'
+save_gt <- function(object) save_object(object = object, ext = "gt")
+
+#' Lit un tableau sauvegardé
+#'
+#' Lorsque `ofce.savegraph` est non NULL, chaque tableau qui passe dans `save_gt` est enregistré dans le dossier `ofce.savegraph`.
+#' Son nom est formé en ajoutant le dossier qui le contient, le nom du fichier .qmd, le label du fichier (séparé par des tirets)
+#' par exmple : "index-fig-psal" ou "france-synthese-fig-indicateurs"
+#'
+#' @param object (string) nom du graphique composé du dossier d'un tiret du nom du document d'un tiret et du label du graphique
+#'
+#' @returns un gt
+#' @export
+#'
+load_gt <- function(object) load_object(object, ext="gt")
+
+#' Lit un graphique sauvegardé
+#'
+#' Lorsque `ofce.savegraph` est non NULL, chaque tableau qui passe dans `save_gt` est enregistré dans le dossier `ofce.savegraph`.
+#' Son nom est formé en ajoutant le dossier qui le contient, le nom du fichier .qmd, le label du fichier (séparé par des tirets)
+#' par exmple : "index-fig-psal" ou "france-synthese-fig-indicateurs"
+#'
+#' @param object (string) nom du graphique composé du dossier d'un tiret du nom du document d'un tiret et du label du graphique
+#'
+#' @returns un ggplot
+#' @seealso [load_object()]
+#' @export
+#'
+load_graphe <- function(object) load_object(object, ext = "ggplot")
+
+#' Lit un graphique sauvegardé
+#'
+#' Lorsque `ofce.savegraph` est non NULL, chaque tableau qui passe dans `save_gt` est enregistré dans le dossier `ofce.savegraph`.
+#' Son nom est formé en ajoutant le dossier qui le contient, le nom du fichier .qmd, le label du fichier (séparé par des tirets)
+#' par exmple : "index-fig-psal" ou "france-synthese-fig-indicateurs"
+#'
+#' @param object (string) nom du graphique composé du dossier d'un tiret du nom du document d'un tiret et du label du graphique
+#'
+#' @returns un ggplot
+#' @seealso [load_object()]
+#' @export
+#'
+load_ggplot <- function(object) load_object(object, ext = "ggplot")
