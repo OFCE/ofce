@@ -1,3 +1,11 @@
+## OFCE 1.3.29
+
+* `save_object()` et `load_object` généralisent la fonction de sauvegarde des graphes et marche pour les tableaux.
+
+## OFCE 1.3.28
+
+* corrections tellement mineurs qu'on se demande encore pourquoi un incrément même mineur
+
 ## OFCE 1.3.27
 
 * la fonction `ofce_caption()` fonctionne maintenant pour les graphiques et les gt tables (oui, les gt tables) et ce avec la même syntaxe ce qui n'est pas un petit exploit (merci qui ?)
