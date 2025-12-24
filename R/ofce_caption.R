@@ -290,7 +290,8 @@ ofce_caption_md <- function(
     marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
     glue = getOption("ofce.caption.glue")) {
 
-  if(is.null(author)){author = FALSE}
+  if(is.null(author)) author <- FALSE
+  if(is.null(source)) source <- ""
   env <- parent.frame()
 
   protect_marquee <- function(x) {
