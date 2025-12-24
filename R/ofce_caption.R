@@ -37,10 +37,13 @@ ofce_caption <- function(object=NULL, ...) {
 #' @export
 ofce_caption.default <- function(object=NULL, ...) {
   dots <- list(...)
+
   if(hasName(dots, "source"))
     ofce_caption_ggplot(...)
   else
-    ofce_caption_ggplot(source = object, ...)
+    if(!is.null(object))
+      ofce_caption_ggplot(source = object, ...) else
+        ofce_caption_ggplot(...)
 }
 
 #' @export
@@ -114,7 +117,9 @@ ofce_caption_ggplot <- function(
     author = author,
     srcplus = srcplus,
     marquee_translate = marquee_translate,
-    glue = glue, ...)
+    glue = glue,
+    env = parent.frame(n=2),
+    ...)
 
   gplot <- list(ggplot2::labs(caption = md$caption))
   if(md$xlab!="")
@@ -196,7 +201,9 @@ ofce_caption_gt <- function(
     author = author,
     srcplus = srcplus,
     marquee_translate = FALSE, # il faudrait plutôt l'inverse...
-    glue = glue, ...)
+    glue = glue,
+    env = parent.frame(n=2),
+    ...)
 
   if(md$champ!="")
     object <- object |>
@@ -288,7 +295,8 @@ ofce_caption_md <- function(
     author = getOption("ofce.caption.author"),
     srcplus = getOption("ofce.caption.srcplus"),
     marquee_translate = ifelse(getOption("ofce.marquee"), TRUE, getOption("ofce.caption.marquee_translate")),
-    glue = getOption("ofce.caption.glue")) {
+    glue = getOption("ofce.caption.glue"),
+    env = parent.frame()) {
 
   if(is.null(author)) author <- FALSE
   if(is.null(source)) source <- ""

@@ -150,7 +150,7 @@ Théoriquement[^2], l'évolution de part des salaires dans la valeur ajoutée d�
 
 [^2]: @cette2019 propose une modélisation simple des principaux déterminants du partage de la valeur ajoutée sur la base d'une fonction de production. @reis2022 étend l'analyse en équilibre néokeynéisien.
 
-::: {#tip-e1 .callout-tip}
+::: {#tip-e1 .callout-tip collapse="true"}
 ## les encadrés doivent fonctionner
 
 L'élasticité estimée généralement, au moins à moyen terme, est sensiblement inférieure à 1, en tout cas sur données macroéconomique. Cela implique qu'une hausse du prix du travail relativement par au capital se traduit par une hausse de la part du travail dans la valeur ajoutée – la réciproque étant bien entendu vraie si c'est le capital qui est relativement plus cher. Cela peut conduire à des variations plus persistantes de la part des salaires dans la valeur ajoutée (ce qu'on appelle le *wage push*), mais ces variations doivent reproduire celles des prix relatifs.
