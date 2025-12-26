@@ -300,7 +300,6 @@ ofce_caption_md <- function(
 
   if(is.null(author)) author <- FALSE
   if(is.null(source)) source <- ""
-  env <- parent.frame()
 
   protect_marquee <- function(x) {
     x |>
