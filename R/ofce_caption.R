@@ -300,6 +300,10 @@ ofce_caption_md <- function(
 
   if(is.null(author)) author <- FALSE
   if(is.null(source)) source <- ""
+  if(is.null(champ)) champ <- ""
+  if(is.null(code)) code <- ""
+  if(is.null(lecture)) lecture <- ""
+  if(is.null(note)) note <- ""
 
   protect_marquee <- function(x) {
     x |>
