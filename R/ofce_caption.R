@@ -298,8 +298,12 @@ ofce_caption_md <- function(
     glue = getOption("ofce.caption.glue"),
     env = parent.frame()) {
 
-  if(is.null(author))
-    {author = FALSE}
+  if(is.null(author)) author <- FALSE
+  if(is.null(source)) source <- ""
+  if(is.null(champ)) champ <- ""
+  if(is.null(code)) code <- ""
+  if(is.null(lecture)) lecture <- ""
+  if(is.null(note)) note <- ""
 
   protect_marquee <- function(x) {
     x |>
