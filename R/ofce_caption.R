@@ -375,28 +375,31 @@ ofce_caption_md <- function(
   } else {
     wrapper <- function(x) x
     linebr <- "  \n"
-    liner <- function(x) x
+    liner <- function(x) stringr::str_replace_all(x, "\\n", linebr)
   }
   if(champ!="") {
     champ <- stringr::str_c(chp, champ)  |>
       check_point() |>
       wrapper() |>
       liner()
-  }
+  } else
+    champ <- NULL
 
   if(lecture!="") {
     lecture <- stringr::str_c(lec, lecture)  |>
       check_point() |>
       wrapper() |>
       liner()
-  }
+  } else
+    lecture <- NULL
 
   if(note!="") {
     note <- stringr::str_c(not, note) |>
       check_point() |>
       wrapper() |>
       liner()
-  }
+  } else
+    note <- NULL
 
   if(!is.null(srcplus)&ofce) {
     if(source=="")
@@ -408,7 +411,8 @@ ofce_caption_md <- function(
     code <- stringr::str_c(cod, code) |>
       wrapper() |>
       liner()
-  }
+  } else
+    code <- NULL
 
   if(source!="") {
     if(stringr::str_detect(source, ",|;"))
@@ -417,14 +421,16 @@ ofce_caption_md <- function(
       check_point() |>
       wrapper() |>
       liner()
-  }
+  } else
+    source <- NULL
 
   if(dpt!="") {
     dpt <- stringr::str_c(Der, dernier_point(dpt, dptf, lang)) |>
       check_point()
-  }
+  } else
+    dpt <- NULL
 
-  caption <- stringr::str_c(champ, lecture, note, code, source, dpt, collapse = linebr)
+  caption <- stringr::str_c(champ, lecture, note, code, source, dpt, sep = linebr)
 
   return(list(caption = caption,
               xlab = xlab, ylab = ylab, subtitle = subtitle, title = title,
