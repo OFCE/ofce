@@ -19,7 +19,7 @@ logo_ofce <- function(size = 1) {
   logo <- ofce_logo |>
     magick::image_read() |>
     grid::rasterGrob(
-      x = 0.99, y = 0.025,
+      x = 1.0, y = 0.0,
       width = unit(0.075*size, "snpc"),
       height = unit(0.075*size/142*65, "snpc"),
       just = c(1,0)) |>
