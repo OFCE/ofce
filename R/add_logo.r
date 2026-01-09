@@ -14,15 +14,26 @@
 #'         theme_ofce() +
 #'         logo_ofce()
 #'}
-logo_ofce <- function(size = 1) {
+logo_ofce <- function(size = 1, position = "bottom") {
   rlang::check_installed("magick", reason = "to add a logo inside")
+  assertthat::assert_that(position%in%c("bottom", "top"), msg = "position doit être soit 'top' soit 'bottom'")
+  if(position == "top") {
+    x <- 1
+    y <- 1
+    just <- c(1,1)
+  }
+  if(position == "bottom") {
+    x <- 1
+    y <- 0
+    just <- c(1,0)
+  }
   logo <- ofce_logo |>
     magick::image_read() |>
     grid::rasterGrob(
-      x = 1.0, y = 0.0,
+      x = x, y = y,
       width = unit(0.075*size, "snpc"),
       height = unit(0.075*size/142*65, "snpc"),
-      just = c(1,0)) |>
+      just = just) |>
     grid::pattern(
       extend = "none",
       gp = grid::gpar(fill = "transparent"))
