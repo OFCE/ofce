@@ -122,13 +122,13 @@ ofce_caption_ggplot <- function(
     ...)
 
   gplot <- list(ggplot2::labs(caption = md$caption))
-  if(md$xlab!="")
+  if(!is.null(md$xlab) && md$xlab!="")
     gplot <- rlist::list.append(gplot, ggplot2::xlab(label = md$xlab) )
-  if(md$ylab!="")
+  if(!is.null(md$ylab) && md$ylab!="")
     gplot <- rlist::list.append(gplot, ggplot2::ylab(label = md$ylab) )
-  if(md$subtitle!="")
+  if(!is.null(md$subtitle) && md$subtitle!="")
     gplot <- rlist::list.append(gplot, ggplot2::labs(subtitle = md$subtitle ))
-  if(md$title!="")
+  if(!is.null(md$title) && md$title!="")
     gplot <- rlist::list.append(gplot, ggplot2::labs(title = md$title ))
 
   return(gplot)
@@ -205,29 +205,29 @@ ofce_caption_gt <- function(
     env = parent.frame(n=2),
     ...)
 
-  if(md$champ!="")
+  if(!is.null(md$champ) && md$champ!="")
     object <- object |>
       gt::tab_source_note(gt::md(md$champ))
-  if(md$lecture!="")
+  if(!is.null(md$lecture) && md$lecture!="")
     object <- object |>
       gt::tab_source_note(gt::md(md$lecture))
-  if(md$note!="")
+  if(!is.null(md$note) && md$note!="")
     object <- object |>
       gt::tab_source_note(gt::md(md$note))
-  if(md$code!="")
+  if(!is.null(md$code) && md$code!="")
     object <- object |>
       gt::tab_source_note(gt::md(md$code))
-  if(md$source!="")
+  if(!is.null(md$source) && md$source!="")
     object <- object |>
       gt::tab_source_note(gt::md(md$source))
-  if(md$dpt!="")
+  if(!is.null(md$dpt) && md$dpt!="")
     object <- object |>
       gt::tab_source_note(gt::md(md$dpt))
 
   title <- subtitle <- NULL
-  if(md$title!="")
+  if(!is.null(md$title) && md$title!="")
     title <- gt::md(md$title)
-  if(md$subtitle!="")
+  if(!is.null(md$subtitle) && md$subtitle!="")
     subtitle <- gt::md(md$subtitle)
   if(!is.null(subtitle)|is.null(title))
     object <- object |>
