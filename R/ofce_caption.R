@@ -436,7 +436,8 @@ ofce_caption_md <- function(
     dpt <- NULL
 
   caption <- stringr::str_c(champ, lecture, note, code, source, dpt, sep = linebr)
-
+  if(length(caption)==0)
+    caption <- NULL
   return(list(caption = caption,
               xlab = xlab, ylab = ylab, subtitle = subtitle, title = title,
               champ = champ, lecture = lecture, note = note, code = code, source = source, dpt = dpt))
