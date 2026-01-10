@@ -429,7 +429,7 @@ ofce_caption_md <- function(
   } else
     source <- NULL
 
-  if(dpt!="") {
+  if(length(dpt)>0) {
     dpt <- stringr::str_c(Der, dernier_point(dpt, dptf, lang)) |>
       check_point()
   } else
