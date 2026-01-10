@@ -304,6 +304,7 @@ ofce_caption_md <- function(
   if(is.null(code)) code <- ""
   if(is.null(lecture)) lecture <- ""
   if(is.null(note)) note <- ""
+  if(is.null(dpt)) dpt <- ""
 
   protect_marquee <- function(x) {
     x |>
