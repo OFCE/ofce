@@ -1,3 +1,8 @@
+## OFCE 1.3.30
+
+* `licence_auteur()` ajoute sur la droite du graphique un grob avec la licence CC by 4.0 , l'auteur, l'annee et le logo OFCE
+
+
 ## OFCE 1.3.29
 
 * `save_object()` et `load_object` généralisent la fonction de sauvegarde des graphes et marche pour les tableaux.
