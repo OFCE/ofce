@@ -9,7 +9,7 @@
 #' @param license texte de la licence (non utilisé pour le moment, NULL par défaut)
 #' @param logo_size taille relative du logo (0.35 par défaut)
 #' @param text_size taille du texte en points (3 par défaut)
-#' @param y_pos position verticale en npc (0.01 par défaut, en bas)
+#' @param y_  pos position verticale en npc (0.01 par défaut, en bas)
 #' @param color couleur du texte ("grey30" par défaut)
 #' @param spacing espacement entre l'auteur et le logo ("  " par défaut)
 #'
@@ -28,10 +28,10 @@ licence_auteur <- function(author="",
                         license = TRUE ,
                         year = 2026,
                         logo_size = 0.4,
-                        text_size = 4,
+                        text_size = 2,
                         y_pos = 0.99,
                         color = "grey3",
-                        spacing = "  ") {
+                        spacing = " ") {
 
   rlang::check_installed("ggpp", reason = "to add logo_author annotation")
   rlang::check_installed("magick", reason = "to read logo image")
@@ -132,3 +132,5 @@ licence_auteur <- function(author="",
     vjust = 1
   )
 }
+
+

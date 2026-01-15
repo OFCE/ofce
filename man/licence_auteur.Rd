@@ -10,10 +10,10 @@ licence_auteur(
   license = TRUE,
   year = 2026,
   logo_size = 0.4,
-  text_size = 4,
+  text_size = 2,
   y_pos = 0.99,
   color = "grey3",
-  spacing = "  "
+  spacing = " "
 )
 }
 \arguments{
@@ -27,11 +27,11 @@ licence_auteur(
 
 \item{text_size}{taille du texte en points (3 par défaut)}
 
-\item{y_pos}{position verticale en npc (0.01 par défaut, en bas)}
-
 \item{color}{couleur du texte ("grey30" par défaut)}
 
 \item{spacing}{espacement entre l'auteur et le logo ("  " par défaut)}
+
+\item{y_}{pos position verticale en npc (0.01 par défaut, en bas)}
 }
 \value{
 un élément ggplot (à ajouter avec +)
