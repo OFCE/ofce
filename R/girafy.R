@@ -30,7 +30,7 @@ girafy <- function(plot, r=2.5, o = 0.5, id = NULL, tooltip_css = .tooltip_css, 
     )
   }
 
-  if(knitr::is_latex_output()) {
+    if(!knitr::is_html_output()) {
     return(plot)
   }
   # au cas où rien ne colle, on ne fait rien
