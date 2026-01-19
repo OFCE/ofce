@@ -13,7 +13,8 @@ licence_auteur(
   text_size = 2,
   y_pos = 0.99,
   color = "grey3",
-  spacing = " "
+  spacing = " ",
+  layout = NULL
 )
 }
 \arguments{
@@ -31,7 +32,9 @@ licence_auteur(
 
 \item{spacing}{espacement entre l'auteur et le logo ("  " par défaut)}
 
-\item{y_}{pos position verticale en npc (0.01 par défaut, en bas)}
+\item{layout}{passé à layer() ("NULL" par défaut)}
+
+\item{y_}{pos position verticale en npc (0.99 par défaut, en haut)}
 }
 \value{
 un élément ggplot (à ajouter avec +)

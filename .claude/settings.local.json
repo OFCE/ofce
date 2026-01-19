@@ -3,7 +3,8 @@
     "allow": [
       "Bash(cat:*)",
       "Bash(Rscript:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "WebFetch(domain:bookdown.org)"
     ],
     "deny": [],
     "ask": []

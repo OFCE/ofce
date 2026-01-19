@@ -9,9 +9,10 @@
 #' @param license texte de la licence (non utilisé pour le moment, NULL par défaut)
 #' @param logo_size taille relative du logo (0.35 par défaut)
 #' @param text_size taille du texte en points (3 par défaut)
-#' @param y_  pos position verticale en npc (0.01 par défaut, en bas)
+#' @param y_  pos position verticale en npc (0.99 par défaut, en haut)
 #' @param color couleur du texte ("grey30" par défaut)
 #' @param spacing espacement entre l'auteur et le logo ("  " par défaut)
+#' @param layout passé à layer() ("NULL" par défaut)
 #'
 #' @return un élément ggplot (à ajouter avec +)
 #' @export
@@ -31,7 +32,8 @@ licence_auteur <- function(author="",
                         text_size = 2,
                         y_pos = 0.99,
                         color = "grey3",
-                        spacing = " ") {
+                        spacing = " ",
+                        layout = NULL) {
 
   rlang::check_installed("ggpp", reason = "to add logo_author annotation")
   rlang::check_installed("magick", reason = "to read logo image")
@@ -81,7 +83,7 @@ licence_auteur <- function(author="",
     rot = 90,
     gp = grid::gpar(
       fontfamily = getOption("ofce.base_family", "Open Sans"),
-      fontsize = text_size * ggplot2::.pt,
+      fontsize = text_size / ggplot2::.pt,
       col = color
     )
   )
@@ -121,15 +123,20 @@ licence_auteur <- function(author="",
   } else {
     combined_grob <- grid::grobTree(author_grob, logo_grob)
   }
+browser()
+  xmin <- grid::unit(1, "npc") - grid::unit(1, "grobwidth", combined_grob)
+  xmax <- grid::unit(1, "npc")
+  ymin <- grid::unit(1, "npc") - grid::unit(1, "grobheigth", combined_grob)
+  ymax <- grid::unit(1, "npc")
 
   # Retourner l'annotation
-  ggpp::annotate(
-    geom = "grob_npc",
-    label = combined_grob,
-    npcx = 0.99,
-    npcy = y_pos,
+  ggplot2::annotate_custom(
+    grob = combined_grob,
+    npcx = I(.99),
+    npcy = I(y_pos),
     hjust = 0.5,
-    vjust = 1
+    vjust = 1,
+    layout = layout
   )
 }
 

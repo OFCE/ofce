@@ -1,0 +1,92 @@
+title: Format OFCE pour le site du blog
+author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
+version: 0.1.1
+quarto-required: ">=1.8.26"
+contributes:
+  formats:
+    common:
+      french: true
+      lang: fr
+      toc: false
+      language:
+        fr:
+          section-title-references: "Bibliograhie"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
+          toc-title: "Sur cette page"
+          crossref-fig-prefix: graphique
+          crossref-tbl-prefix: tableau
+          crossref-eq-prefix: équation
+          crossref-sec-prefix: section
+          crossref-tip-prefix: encadré
+          crossref-fig-title: "Graphique"
+          callout-tip-title: "Encadré"
+          crossref-title-delim: "."
+          crossref-tbl-title: "Tableau"
+          crossref-lof-title: Graphiques
+          crossref-lot-title: Tableaux
+        en:
+          section-title-references: "Bibliograhy"
+          title-block-author-single: "Author"
+          title-block-author-plural: "Authors"
+          title-block-published: "Publushed on"
+          title-block-modified: "Modified on"
+          toc-title: "On this page"
+          crossref-fig-prefix: graphic
+          crossref-tbl-prefix: table
+          crossref-eq-prefix: equation
+          crossref-sec-prefix: section
+          crossref-tip-prefix: box
+          crossref-fig-title: "Graphic"
+          callout-tip-title: "Box"
+          crossref-title-delim: "."
+          crossref-tbl-title: "Table"
+          crossref-lof-title: Graphics
+          crossref-lot-title: Tables
+      fig-asp: 0.61
+      cap-location: top
+      crossref:
+        fr:
+          title-delim: "**.**"
+        en:
+          title-delim: "**.**"
+      filters:
+        - quotes
+        - collapse-callout
+        - nbsp
+        - quarto
+        - comments
+      shortcodes:
+        - fontawesome
+      collapse-callout:
+        tip: true
+      logo: ofce_m.png
+    html:
+      theme:
+        - cosmo
+        - blog.scss
+      mainfont: Open Sans
+      number-sections: false
+      fig-dpi: 600
+      fig-format: svg
+      reference-location: margin
+      callout-icon: false
+      lightbox: true
+      image-lazy-loading: true
+      hide-description: true
+      template-partials:
+        - html/title-metadata.html
+    typst:
+      mainfont: Arial
+      keep-typ: true
+      toc: false
+      callout-icon: false
+      papersize: a4
+      section-numbering: 1.1.a
+      citeproc: true
+      logo: false
+      template-partials:
+        - typst/typst-template.typ
+        - typst/typst-show.typ
