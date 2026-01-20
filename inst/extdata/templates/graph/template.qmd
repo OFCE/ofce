@@ -1,30 +1,31 @@
 ---
-title: "Template du graphique de la semaine" #titre du graphique ici
+title: "Template du graphique de la semaine" # titre du graphique ici
 author:
   - name: Prénom Nom
-  
+    email: "prenom.nom@sciencespo.fr"
+    affiliation: OFCE, Sciences Po Paris
+    affiliation-url: "http://www.ofce.fr"
+    
 description: "Description en moins de 295 caractères"
 
-date: today
-categories: ["keyword1", "keyword2"] 
+date: 2026-01-19 # Date de publication 
+categories: ["mot-clé 1", "mot-clé 2"] # pour voir la liste des mots clés disponibles, taper ofce::keywords 
 
-format: html
+extraref:  # Voir aussi (optionnel)
+  - texte: "ref 1" ## Texte 1 à afficher
+    lien:   "https:://ref1.org" ## lien 1 vers le texte
+  - texte: "ref2 " ## Texte 2 à afficher
+    lien:   "https:://ref1.org" ## lien 2 vers le texte
+
+urlblog: "https://ofce.github.io/GraphOftheWeek_Relecture/relecture/nom_du_qmd.html"
+
+nb: 99
+
+format: 
+  gow-html: default
+  gow-typst: default 
+  
 ---
-
-# Informations supplémentaires
-
-## Liens utiles 
-
-*(non comptés dans les 300 caractères)*
-
-Textes contenant les références et liens utiles (apparaîtra sur BS et Li) vers le rapport /PB / autres + travaux annexes
-
-## Personnes à tagger sur LinkedIn
-
-*(non comptés dans les 300 caractères)*
-
-Liste des personnes pertinentes à tagger sur linkedin
-
 
 
 ```{r}
@@ -32,25 +33,16 @@ Liste des personnes pertinentes à tagger sur linkedin
 #| echo: false
 #| message: false
 #| warning: false
-#| fig-width: 12
+
+
+# Routine d'initialisation des options de base / Chargement des librairies usuelles
 
 library(tidyverse)
 library(ofce)
 
-# Routine d'initialisation des options de base / Chargement des librairies usuelles
 
-ofce::init_qmd()
+ofce::init_qmd("rinit_gow.r")
 
-opts_chunk$set(
-  fig.pos="htb",
-  out.extra="",
-  dev="ragg_png",
-  dev.args = list(bg = "transparent"),
-  out.width="100%",
-  fig.showtext=TRUE,
-  message = FALSE,
-  warning = FALSE,
-  echo = FALSE)
 
 ```
 
@@ -67,32 +59,36 @@ palette_iris = c("#CD8C95", "#CD96CD", "#8968CD")
 
 
 ```{r}
-#| label: fig-graphique
-#| fig-cap: "Titre du graphique"
-#| fig-width: 13
+#| label: code pour le graphique
+#| fig-asp: 0.85
 
-## Ne pas oublier d'utiliser les themes ofce, les ofce_captions pour la note de lecture 
 
+## Ne pas oublier d'utiliser les ofce_captions pour la note de lecture 
+## Graphiques interactifs possible via girafe, utiliser la fonction girafy du package ofce pour le render
+
+titre <- rmarkdown::metadata$title 
 
 g <- data |> ggplot(aes(x = Sepal.Length,y = Petal.Length)) +
   
-  geom_point(aes(color = Species , size = Petal.Width ), shape = 8)+
+  geom_point_interactive(aes(color = Species , size = Petal.Width , tooltip = Petal.Width), shape = 8) +
   
-  labs(title = "Titre du graphique" , 
+  labs(title = titre , 
        subtitle = "Réalisé par XXXX XXXX" ) +
   
   scale_color_manual(values = palette_iris) +
   
-  theme_ofce(marquee = TRUE)+
+  theme()+ ## le theme ofce s'appliquera automatiquement, tous les changements à la marge doivent être inscrits via la fonction theme()
   
   ofce_caption(
     lecture = "Note sur comment lire le graphique",
     note = "Autres notes" ,
-    source = "Les sources des donnéees" ) 
+    source = "Les sources des donnéees" ) +
+  
+  ofce::logo_ofce()
   
   
+ofce::girafy(g)
 
-g |> ofce::add_logo()
 
 
 
@@ -100,5 +96,3 @@ g |> ofce::add_logo()
 
 
 
-
-**Texte à ajouter au moment de la publication du site : lien vers le rapport /PB / autres + travaux annexes**

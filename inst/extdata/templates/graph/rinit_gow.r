@@ -5,9 +5,9 @@ library(knitr)
 opts_chunk$set(
   fig.pos="htb",
   out.extra="",
-  dev="svg",
+  dev="svglite",
   dev.args = list(bg = "transparent"),
-  out.width="95%",
+  out.width="100%",
   fig.showtext=TRUE,
   message = qmd_message,
   warning = qmd_warning,
@@ -23,10 +23,13 @@ library(gt)
 library(marquee)
 library(readxl)
 
+scale_font_typst <- ifelse(exists("scale_font_typst"), scale_font_typst,1)  # argument à laisser à 1, sauf si format particulier, modifier dans le qmd directement
+scale_font_html <- ifelse(exists("scale_font_html"), scale_font_html,1)  # argument à laisser à 1, sauf si format particulier, modifier dans le qmd directement
+
 systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
 
 options(
-  ofce.base_size = 12,
+  ofce.base_size = 12 * scale_font_html,
   ofce.background_color = "transparent",
   ofce.source_data.src_in = "project",
   ofce.caption.ofce = FALSE,
@@ -59,17 +62,18 @@ ggplot2::set_theme(
     marquee = TRUE,
     plot.subtitle =element_text(face = "italic", margin = margin(0, 0, 20, 0)),
     plot.title = element_marquee(width=0.9 ,lineheight = 0.85,margin = margin(b = 10)),
-    plot.caption = element_marquee(width=0.95),
-    legend.position = c(0.05, 1)
+    plot.caption = element_marquee(width=0.9,margin = margin(t = 10, b = 2))
   ) 
 )
 
+
 if(knitr::is_html_output())
-  ggplot2::update_theme(text = element_text(size = 10)) else
-    ggplot2::update_theme(text = element_text(size = 9),
+  ggplot2::update_theme(text = element_text(size = 12 * scale_font_html)) else
+    ggplot2::update_theme(
+      text = element_text(size = 9 * scale_font_typst),
                           plot.title = element_blank(),
                           plot.subtitle = element_blank()
-                          )
+    )
 
 if(.Platform$OS.type=="windows")
   Sys.setlocale(locale = "fr_FR.utf8") else
@@ -104,7 +108,7 @@ if(!knitr::is_html_output()){
   opts_chunk$set(
     fig.pos="htb",
     out.extra="",
-    dev="svg",
+    dev="svglite",
     dev.args = list(bg = "transparent"),
     out.width="95%",
     fig.showtext=TRUE,
