@@ -30,22 +30,32 @@ aut <- grid::textGrob(
 
 logo <- grid::grobTree(cc, by, aut)
 grid.newpage()
-grid.draw(logo)
+grid.draw(cc)
+
+library(tidyverse)
+library(marquee)
+img <- system.file("img", "Rlogo.png", package="png")
+(gg <- ggplot(mtcars) +
+    aes(x = disp, y = mpg) +
+    geom_point() +
+    labs(tag = "![]({img}) text ![]({img})" |> glue::glue()) +
+    facet_wrap(vars(cyl))+
+    theme(
+      plot.tag = element_marquee(angle = 270, size = 11, color = "grey25", hjust = 0, vjust = "bottom"),
+      plot.tag.location = "plot",
+      plot.tag.position = c(1.01,.99),
+      plot.margin = margin(r=18)))
+ggiraph::girafe(ggobj = gg)
 
 (gg <- ggplot(mtcars) +
     aes(x = disp, y = mpg) +
     geom_point() +
-    labs(tag = "![](logo)")+
+    labs(tag = "<img src='www/ofce.png' /> text") +
     facet_wrap(vars(cyl))+
-    theme_ofce()+
     theme(
-      plot.tag = marquee::element_marquee(angle = 0, size = 10, color = "grey25", hjust = 1, vjust = "top"),
+      plot.tag = ggtext::element_markdown(angle = 270, size = 11, color = "grey25"),
       plot.tag.location = "plot",
-      plot.tag.position = c(.995,.99),
-      plot.margin = margin(r=12)))
-
-ggiraph::girafe(ggobj = gg)
+      plot.tag.position = c(.95,.95),
+      plot.margin = margin(r=18)))
 
 
-library(tidyverse)
-library(marquee)
