@@ -17,8 +17,12 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
   qmd_message <<- message
   qmd_warning <<- warning
   qmd_echo <<- echo
-  spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
+  spp_fn <- purrr::safely(~ fs::path_package("ofce", init))
   spp <- spp_fn()
+  if(!is.null(spp$error)) {
+    spp_fn <- purrr::safely(~ fs::path_package("ofce", "rinit.r"))
+    spp <- spp_fn()
+  }
   le_init <- NULL
   if(is.null(root$error)) {
     root <- root$result
@@ -63,7 +67,7 @@ init_qmd <- function(init = "rinit.r", echo = FALSE, message = FALSE, warning = 
       suppressMessages(
         suppressWarnings(
           source(le_init,echo = FALSE, verbose = FALSE, local = .GlobalEnv)
-          ) ) )
+        ) ) )
     return(invisible(msg))
   }
 
