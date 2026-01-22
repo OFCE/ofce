@@ -23,3 +23,6 @@ inst/.DS_Store
 /inst/extdata/templates/website/*_files/
 /inst/extdata/templates/graph/*.html
 /inst/extdata/templates/website/*.html
+/work/_extensions
+/work/www
+work/test_gow*

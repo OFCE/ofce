@@ -23,6 +23,7 @@ Imports:
     tidyverse (>= 2.0.0),
     ggplot2 (>= 4.0.0),
     ggpp,
+    gtable,
     glue,
     quarto,
     lubridate,
