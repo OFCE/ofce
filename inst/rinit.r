@@ -25,6 +25,7 @@ library(marquee)
 systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
 
 options(
+  OutDec = ",",
   ofce.base_size = 12,
   ofce.background_color = "transparent",
   ofce.source_data.src_in = "project",
