@@ -10,10 +10,10 @@ licence_auteur(
   license = TRUE,
   year = 2026,
   logo_size = 0.4,
-  text_size = 2,
+  text_size = 2.75,
   y_pos = 0.99,
   color = "grey3",
-  spacing = " "
+  spacing = ""
 )
 }
 \arguments{

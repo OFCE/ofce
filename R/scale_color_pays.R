@@ -2,6 +2,9 @@
 #' Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE
 #'
 #' Le code "oth" correspond à "Autres" et propose un gris clair.
+#' On peut passer à `scale_color_pays` un argument values avec une liste partielle de couleurs qui sera fusionnée avec la palette standard.
+#' Cela peut aussi servir à donner une valeur à un code pays qui n'est pas dans la palette standard.
+#'
 #'
 #' @param lang chr, le choix de la langue c("fr","en")
 #' @param format chr, le format des données ("iso3", "eurostat", "fr" pour les noms en clair, et tous les codes qu'accepte countrycode::countrycode)

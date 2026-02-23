@@ -28,4 +28,6 @@ un scale configuré
 }
 \description{
 Le code "oth" correspond à "Autres" et propose un gris clair.
+On peut passer à \code{scale_color_pays} un argument values avec une liste partielle de couleurs qui sera fusionnée avec la palette standard.
+Cela peut aussi servir à donner une valeur à un code pays qui n'est pas dans la palette standard.
 }
