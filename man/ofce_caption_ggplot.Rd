@@ -40,13 +40,13 @@ ofce_caption_ggplot(
 
 \item{dpt}{dernier point connu}
 
-\item{xlab}{inclu le label de l'axe des x (pour le traduire avec marquee/glue)}
+\item{xlab}{inclut le label de l'axe des x (pour le traduire avec marquee/glue)}
 
-\item{ylab}{inclu le label de l'axe des y (pour le traduire avec marquee/glue)}
+\item{ylab}{inclut le label de l'axe des y (pour le traduire avec marquee/glue)}
 
-\item{subtitle}{inclu le label du sous titre (pour le traduire avec marquee/glue)}
+\item{subtitle}{inclut le label du sous titre (pour le traduire avec marquee/glue)}
 
-\item{title}{inclu le titre (traduit aussi)}
+\item{title}{inclut le titre (traduit aussi)}
 
 \item{dptf}{fréquence du dernier point connu (day, month, quarter, year)}
 

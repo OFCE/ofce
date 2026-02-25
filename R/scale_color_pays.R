@@ -2,6 +2,9 @@
 #' Palette de couleur associée à un sous-ensemble de pays, compatible avec les normes graphiques de la revue OFCE
 #'
 #' Le code "oth" correspond à "Autres" et propose un gris clair.
+#' On peut passer à `scale_color_pays` un argument values avec une liste partielle de couleurs qui sera fusionnée avec la palette standard.
+#' Cela peut aussi servir à donner une valeur à un code pays qui n'est pas dans la palette standard.
+#'
 #'
 #' @param lang chr, le choix de la langue c("fr","en")
 #' @param format chr, le format des données ("iso3", "eurostat", "fr" pour les noms en clair, et tous les codes qu'accepte countrycode::countrycode)
@@ -12,18 +15,20 @@
 #' @importFrom dplyr filter
 #' @importFrom dplyr arrange
 #' @importFrom dplyr mutate
-#'
+#' @import purrr
 #' @return un scale configuré
 #' @export
 #'
 scale_color_pays <- function(format = "iso3",
                              lang = "fr", name = NULL, aesthetics= c("color", "fill"), ...) {
 
+  dots <- list(...)
+
   format <- dplyr::case_match( tolower(format),
-                        "iso3" ~ "iso3c",
-                        "iso2" ~ "iso2c",
-                        "fr" ~ "country.name.fr",
-                        .default = format)
+                               "iso3" ~ "iso3c",
+                               "iso2" ~ "iso2c",
+                               "fr" ~ "country.name.fr",
+                               .default = format)
 
   dat <- ofce::palette_pays |>
     dplyr::mutate(
@@ -37,14 +42,27 @@ scale_color_pays <- function(format = "iso3",
         dat <- dat |> dplyr::mutate(label = .data[["label_en"]])} else {
           dat <- dat |> dplyr::mutate(label = .data[["code"]])
           cat("Il n'existe pas de traduction pour la langue demandée. Seuls le français (\"fr\") et l'anglais (\"en\") sont pour l'instant proposés.")
-          }
+        }
     }
 
-  scale_colour_manual(values = dat$HEX,
+  values <- dat$HEX |> as.list()
+  names(values) <- dat$code
+  label <- dat$label |> as.list()
+  names(label) <- dat$code
+
+  if(hasName(dots, "values")) {
+    values <- purrr::list_modify(values, !!!dots$values)
+    dots$values <- NULL
+  }
+  if(hasName(dots, "label")){
+    values <- purrr::list_modify(label, !!!dots$label)
+    dots$label <- NULL
+  }
+  scale_colour_manual(values = values,
                       breaks = dat$code,
                       labels = dat$label,
                       name = name,
                       aesthetics = aesthetics,
-                      ...)
+                      !!!dots)
 }
 
