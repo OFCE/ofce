@@ -18,3 +18,4 @@ vignettes/*.html⁠
 ^vignettes/*
 .vscode
 .DS_Store
+.claude
