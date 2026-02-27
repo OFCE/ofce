@@ -3,12 +3,6 @@
 #' Variation de ggplot2::annotate pour intégrer une position
 #' @param position fonction position (comme position_nudge()) pour modifier la position de l'annotation
 #' @inheritParams ggplot2::annotate
-#' @importFrom plyr compact
-#' @importFrom glue glue
-#' @importFrom rlang abort
-#' @importFrom ggplot2 layer
-#' @importFrom ggplot2 PositionIdentity
-#' @importFrom ggplot2 StatIdentity
 #' @return une layer
 #'
 annotate2 <- function (geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,

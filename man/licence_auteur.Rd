@@ -9,11 +9,8 @@ licence_auteur(
   logo = NULL,
   license = TRUE,
   year = 2026,
-  logo_size = 0.4,
-  text_size = 2.75,
-  y_pos = 0.99,
-  color = "grey3",
-  spacing = ""
+  text_size = 5,
+  color = "grey3"
 )
 }
 \arguments{
@@ -21,25 +18,20 @@ licence_auteur(
 
 \item{logo}{chemin vers le logo (utilise ofce_m.png par défaut si NULL)}
 
-\item{license}{texte de la licence (non utilisé pour le moment, NULL par défaut)}
+\item{license}{logical, affiche l'icône CC (TRUE par défaut)}
 
-\item{logo_size}{taille relative du logo (0.35 par défaut)}
+\item{year}{année affichée après l'auteur (2026 par défaut, NULL pour omettre)}
 
-\item{text_size}{taille du texte en points (3 par défaut)}
+\item{text_size}{taille du texte en points (2.75 par défaut)}
 
-\item{color}{couleur du texte ("grey30" par défaut)}
-
-\item{spacing}{espacement entre l'auteur et le logo ("  " par défaut)}
-
-\item{y_}{pos position verticale en npc (0.01 par défaut, en bas)}
+\item{color}{couleur du texte ("grey3" par défaut)}
 }
 \value{
-un élément ggplot (à ajouter avec +)
+une liste d'éléments ggplot (à ajouter avec +)
 }
 \description{
-Ajoute un bandeau vertical sur le côté droit du graphique contenant
-le nom de l'auteur suivi du logo OFCE. Le texte et le logo sont
-tournés de 90 degrés.
+Ajoute le logo OFCE, l'icône CC et le nom de l'auteur dans \code{plot.tag}
+en utilisant \code{element_md()} avec des images markdown inline.
 }
 \examples{
 \dontrun{

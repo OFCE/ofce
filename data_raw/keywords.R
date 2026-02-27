@@ -75,4 +75,4 @@ keywords <- tibble::tribble(
   "Protection sociale",     "Social protection"
 )
 
-save(keywords, file = "data/keywords.rda")
+usethis::use_data(keywords, overwrite = TRUE)
