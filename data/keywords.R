@@ -1,4 +1,45 @@
 
+# Ancien --------
+
+keywords <- tibble::tribble(
+  ~FR,                      ~EN,
+  "Conjoncture",            "Forecasting",
+  "Taux souverain",         "Interest rates",
+  "Commerce extérieur",     "Foreign trade",
+  "Déficit publique",       "Public deficit",
+  "Dette public",           "Public debt",
+  "Politique budgétaire",   "Fiscal policy",
+  "Politique territoriale", "Territorial policy",
+  "Politique industrielle", "Industrial policy",
+  "Politique monétaire",    "Monetary policy",
+  "Réglementation",         "Regulation",
+  "Fiscalité",              "Taxation",
+  "Inflation",              "Inflation",
+  "Productivité",           "Productivity",
+  "France",                 "France",
+  "Europe",                 "Europe",
+  "USA",                    "USA",
+  "Innovation",             "Innovation",
+  "Numérique",              "Digital",
+  "Agriculture",            "Agriculture",
+  "Industrie",              "Industry",
+  "Énergie",                "Energy",
+  "Environnment",           "Environment",
+  "Changement climatique",  "Climate change",
+  "Capitalisme",            "Capitalism",
+  "Emploi",                 "Labor",
+  "Inégalités",             "Inequalities",
+  "Démographie",            "Demography",
+  "Genre",                  "Gender",
+  "Logement",               "Housing",
+  "Retraites",              "Pensions",
+  "Etat-Providence",        "Welfare State",
+  "Protection sociale",     "Social security"
+)
+
+
+# Nouveau --------
+
 keywords <- tibble::tribble(
   ~FR,                     ~EN,
   "Conjoncture",            "Economic outlook",
