@@ -1,4 +1,3 @@
-
 # Ancien --------
 
 keywords <- tibble::tribble(
@@ -77,4 +76,3 @@ keywords <- tibble::tribble(
 )
 
 save(keywords, file = "data/keywords.rda")
-
