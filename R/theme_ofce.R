@@ -134,17 +134,23 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       axis.text.x = ggplot2::element_text(
         margin = ggplot2::margin(t=0, b=0),
         hjust = 0.5),
-      plot.background = ggplot2::element_rect(fill="transparent"),
       rect = ggplot2::element_rect(
-        fill = NA,
-        colour = NA,
+        fill = getOption("ofce.background_color"),
+        colour = getOption("ofce.background_color"),
+        linetype = 0),
+      panel.background = ggplot2::element_rect(
+        fill = getOption("ofce.background_color"),
+        colour = getOption("ofce.background_color"),
+        linetype = 0),
+      strip.background = ggplot2::element_rect(
+        fill = getOption("ofce.background_color"),
+        colour = getOption("ofce.background_color"),
         linetype = 0),
       plot.title.position = "panel",
       plot.margin = ggplot2::margin(b=3, t=3, l=6, r=6),
       plot.caption.position = "panel",
       # Legend format
       # legend.text.align = 0,
-      legend.background = element_blank(),
       legend.position = c(0.05, 0.95),
       legend.justification = c(0, 1),
       legend.direction = "vertical",
@@ -174,13 +180,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       panel.grid.major.x = element_line(
         linewidth = unit(0.1, "pt"),
         color = "gray85"),
-      # Blank background
-      panel.background = element_rect(
-        fill = getOption("ofce.background_color"),
-        colour = getOption("ofce.background_color")),
-      panel.spacing = unit(3, "pt"),
-
-      strip.background = element_rect(fill="white"))+
+      panel.spacing = unit(3, "pt"))+
     ggplot2::theme(...) # pour passer les arguments en plus
 }
 
