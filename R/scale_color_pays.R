@@ -33,7 +33,7 @@ scale_color_pays <- function(format = "iso3",
   dat <- ofce::palette_pays |>
     dplyr::mutate(
       code = countrycode::countrycode(ISO3, "iso3c", format, warn = FALSE),
-      code = ifelse(ISO3%in% c("EUZ","EA", "EA12", "EA19", "EA20", "EU27_2020", "oth"), ISO3, code)
+      code = ifelse(ISO3%in% c("EUZ","EA", "EU", "EA12", "EA19", "EA20", "EU27_2020", "oth"), ISO3, code)
     )
 
   if(lang == "fr"){
@@ -58,9 +58,9 @@ scale_color_pays <- function(format = "iso3",
     values <- purrr::list_modify(label, !!!dots$label)
     dots$label <- NULL
   }
-  scale_colour_manual(values = values,
-                      breaks = dat$code,
-                      labels = dat$label,
+  scale_colour_manual(values = unlist(values),
+                      breaks = unlist(dat$code),
+                      labels = unlist(dat$label),
                       name = name,
                       aesthetics = aesthetics,
                       !!!dots)
