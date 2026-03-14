@@ -39,7 +39,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(t=6, r=6),
         lineheight = 1),
-      axis.text = gmarquee::element_marquee(
+      axis.text = marquee::element_marquee(
         size = ggplot2::rel(0.7),
         colour = "gray25"),
       axis.text.y = marquee::element_marquee(
