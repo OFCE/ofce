@@ -1,10 +1,13 @@
+library(tidyverse)
+
 gg <- ggplot(mtcars) +
   aes(x=disp, y=mpg)+
   geom_point()+
   theme_ofce(marquee=TRUE)+
   ofce_caption(
     source = "source"
-  )
+  )+
+  labs(y = "**y** *rti*", x = "**ldq**", title = "*slkjf*")
 
 gg +
   ofce_caption(
