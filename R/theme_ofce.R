@@ -39,6 +39,16 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust = 0.5,
         margin = ggplot2::margin(t=6, r=6),
         lineheight = 1),
+      axis.text = gmarquee::element_marquee(
+        size = ggplot2::rel(0.7),
+        colour = "gray25"),
+      axis.text.y = marquee::element_marquee(
+        hjust = 1,
+        vjust=0,
+        margin = ggplot2::margin(r=2, b=0)),
+      axis.text.x = marquee::element_marquee(
+        margin = ggplot2::margin(t=0, b=0),
+        hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = marquee::modify_style(
           ofce_style, tag = "p",
@@ -95,6 +105,16 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         color = "#222222",
         margin = margin(t = 0, b=0, l= 0, r=0),
         hjust = 1),
+      axis.text = ggplot2::element_text(
+        size = ggplot2::rel(0.75),
+        colour = "gray25"),
+      axis.text.y = ggplot2::element_text(
+        hjust = 1,
+        vjust=0,
+        margin = ggplot2::margin(r=2, b=0)),
+      axis.text.x = ggplot2::element_text(
+        margin = ggplot2::margin(t=0, b=0),
+        hjust = 0.5),
       plot.subtitle = ggplot2::element_text(
         size = ggplot2::rel(0.85),
         hjust = 0,
@@ -124,16 +144,6 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         family = base_family,
         size = base_size
       ),
-      axis.text = ggplot2::element_text(
-        size = ggplot2::rel(0.75),
-        colour = "gray25"),
-      axis.text.y = ggplot2::element_text(
-        hjust = 1,
-        vjust=0,
-        margin = ggplot2::margin(r=2, b=0)),
-      axis.text.x = ggplot2::element_text(
-        margin = ggplot2::margin(t=0, b=0),
-        hjust = 0.5),
       rect = ggplot2::element_rect(
         fill = getOption("ofce.background_color"),
         colour = getOption("ofce.background_color"),
