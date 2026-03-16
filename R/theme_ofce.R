@@ -60,7 +60,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust=0,
         margin = ggplot2::margin(r=2, b=0)),
       axis.text.x = marquee::element_marquee(
-        margin = ggplot2::margin(t=0, b=0),
+        margin = ggplot2::margin(t=0, b=6),
         hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = marquee::modify_style(
