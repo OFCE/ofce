@@ -60,7 +60,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         vjust=0,
         margin = ggplot2::margin(r=2, b=0)),
       axis.text.x = marquee::element_marquee(
-        margin = ggplot2::margin(t=0, b=6),
+        margin = ggplot2::margin(t=0, b=0),
         hjust = 0.5),
       plot.subtitle = marquee::element_marquee(
         style = marquee::modify_style(
@@ -180,7 +180,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         colour = getOption("ofce.background_color"),
         linetype = 0),
       plot.title.position = "panel",
-      plot.margin = ggplot2::margin(b=3, t=3, l=6, r=6),
+      plot.margin = ggplot2::margin(b=12, t=6, l=6, r=6),
       plot.caption.position = "panel",
       # Legend format
       # legend.text.align = 0,
