@@ -1,3 +1,7 @@
+## OFCE 1.3.32
+
+* `margin_download_file()` est l'équivalent de `margin_download()` pour un fichier de données (ou Excel) est est maintenant à bord.
+
 ## OFCE 1.3.31
 
 * modification des palettes de couleur pays (assez radical)
