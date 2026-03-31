@@ -5,7 +5,7 @@
 \title{Bouton de téléchargement d'un fichier}
 \usage{
 margin_download_file(
-  data,
+  path,
   output_name = fs::path_file(path),
   label = "données",
   margin = TRUE,
@@ -13,6 +13,8 @@ margin_download_file(
 )
 }
 \arguments{
+\item{path}{les données à téélcharger (un tibble donc)}
+
 \item{output_name}{(\code{fs::path_file(path)} par défaut) le nom du fichier de sortie}
 
 \item{label}{("données") le nom du bouton qui apparaît dans le rendu du quarto}
@@ -20,8 +22,6 @@ margin_download_file(
 \item{margin}{(TRUE) si FALSE le bouton est inline (non implémenté pour le moment)}
 
 \item{prefix}{préfixe pour les fichiers téléchargés (\code{ofce.output_prefix} par défaut)}
-
-\item{path}{les données à téélcharger (un tibble donc)}
 }
 \value{
 NULL (side effect : du markdown)

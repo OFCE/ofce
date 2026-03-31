@@ -61,7 +61,7 @@ margin_download <- function(
 #' @export
 
 margin_download_file <- function(
-    data,
+    path,
     output_name = fs::path_file(path),
     label = "donn\u00e9es",
     margin = TRUE,
