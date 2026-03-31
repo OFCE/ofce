@@ -8,7 +8,7 @@
 #' @param output_name ("données" par défaut) le nom du fichier de sortie
 #' @param label ("données") le nom du bouton qui apparaît dans le rendu du quarto
 #' @param margin (TRUE) si FALSE le bouton est inline (non implémenté pour le moment)
-#' @param format format du ficher à télécharger, mis en option du package ( `ofce.output_extension` par défaut), peut être ".csv", ".xlsx"
+#' @param format format du ficher à télécharger, mis en option du package (`ofce.output_extension` par défaut), peut être ".csv", ".xlsx"
 #' @param prefix préfixe pour les fichiers téléchargés (`ofce.output_prefix` par défaut)
 #'
 #' @returns NULL (side effect : du markdown)
@@ -51,7 +51,7 @@ margin_download <- function(
 #' Elle repose sur `downloadthis::download_file` et prépare le div pour son affichage correct.
 #' Elle doit être appelée dans un chunk `r` avec `results="asis"` impérativement.
 #'
-#' @param path les données à téélcharger (un tibble donc)
+#' @param path le chemin du fichier à télécharger
 #' @param output_name (`fs::path_file(path)` par défaut) le nom du fichier de sortie
 #' @param label ("données") le nom du bouton qui apparaît dans le rendu du quarto
 #' @param margin (TRUE) si FALSE le bouton est inline (non implémenté pour le moment)
@@ -72,7 +72,7 @@ margin_download_file <- function(
     fn <- stringr::str_c(prefix, tolower(output_name))
 
     dwn <- downloadthis::download_file(
-      data,
+      path,
       output_extension = output_extension,
       icon = "fa fa-download",
       class = "dbtn",
