@@ -73,7 +73,6 @@ margin_download_file <- function(
 
     dwn <- downloadthis::download_file(
       path,
-      output_extension = output_extension,
       icon = "fa fa-download",
       class = "dbtn",
       button_label  = label,
