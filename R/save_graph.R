@@ -121,7 +121,7 @@ load_object <- function(object, ext = "ggplot") {
     return(dir)
   }
 
-  fn <- fs::path_join(c(root, dir, object)) |>
+  fn <- fs::path_join(c(dir, object)) |>
     fs::path_ext_set(ext)
 
   dic <- c("ggplot" = "graphique", "gt" = "tableau gt")
@@ -132,7 +132,7 @@ load_object <- function(object, ext = "ggplot") {
   }
 
   qs2::qs_read(
-    fs::path_join(c(root, dir, object)) |>
+    fs::path_join(c(dir, object)) |>
       fs::path_ext_set(ext))
 }
 
