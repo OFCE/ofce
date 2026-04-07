@@ -193,7 +193,7 @@ ofce_fmt_decimal <- function(data, columns = tidyselect::where(is.numeric), rows
 #'
 #' @seealso [ofce_tab_options()], [ofce_caption()], [ofce_cols_fill()], [ofce_spanners_bold()], [ofce_row_italic()], [ofce_align_decimal()], [ofce_fmt_decimal()]
 ofce_hide_col_pdf <- function(tbl, col) {
-  if(knitr::is_latex_output())
+  if(!knitr::is_html_output())
     return(gt::cols_hide(data = tbl, columns = {{ col }} ))
   return(tbl)
 }
