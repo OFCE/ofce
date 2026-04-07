@@ -11,11 +11,11 @@
 #' @export
 #'
 save_object <- function(object, label=NULL,
-                       chunk = knitr::opts_current$get(),
-                       document=knitr::current_input(),
-                       id = NULL,
-                       dest = getOption("ofce.savegraph.dir"),
-                       ext = "ggplot") {
+                        chunk = knitr::opts_current$get(),
+                        document=knitr::current_input(),
+                        id = NULL,
+                        dest = getOption("ofce.savegraph.dir"),
+                        ext = "ggplot") {
 
   if(!getOption("ofce.savegraph"))
     return(object)
@@ -105,15 +105,14 @@ load_object <- function(object, ext = "ggplot") {
       root <- root$result
   } else {
     root <- Sys.getenv("QUARTO_PROJECT_DIR")
-    dir <- fs::path_join(c(root, dir))
-    if(!dir.exists(dir)) {
+    if(!dir.exists(fs::path_join(c(root, dir)))) {
       root <- safe_find_root(
         rprojroot::is_quarto_project |
           rprojroot::is_r_package |
           rprojroot::is_rstudio_project)
       if(is.null(root$error))
         root <- root$result
-      }
+    }
   }
 
   dir <- fs::path_join(c(root, dir))
