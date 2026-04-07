@@ -24,15 +24,18 @@ licence_auteur <- function(author = "",
                            logo = NULL,
                            license = TRUE,
                            year = 2026,
-                           text_size = 5,
-                           color = "grey3") {
+                           text_size = 2.5,
+                           color = "grey3",
+                           tag_position = c(0.98,0.99),
+                           tag_location = "plot"
+                           ) {
 
   # rlang::check_installed("munch", reason = "for element_md()")
 
   # --- LOGO OFCE ---
 
   if (is.null(logo)) {
-    logo <- system.file("ofce_m.png", package = "ofce")
+    logo <- system.file("logo_down.png", package = "ofce")
     if (logo == "") {
       cli::cli_abort("Logo file not found. Please provide a logo path.")
     }
@@ -44,7 +47,7 @@ licence_auteur <- function(author = "",
 
   cc_md <- ""
   if (license) {
-    cc_fp <- system.file("cc_icon.png", package = "ofce")
+    cc_fp <- system.file("cc_icon_down.png", package = "ofce")
     if (cc_fp != "") {
       cc_md <- glue::glue(" ![]({cc_fp})")
     }
@@ -56,16 +59,16 @@ licence_auteur <- function(author = "",
   list(
     ggplot2::labs(tag = tag_text),
     ggplot2::theme(
-      plot.tag = element_marquee(
+      plot.tag = munch::element_md(
         angle = 90,
         size = text_size * ggplot2::.pt,
         colour = color,
         family = getOption("ofce.base_family", "Open Sans"),
-        vjust = 0,
+        vjust = 1,
         hjust = 1
       ),
-      plot.tag.location = "plot",
-      plot.tag.position = c(1,0.98)
+      plot.tag.location = tag_location,
+      plot.tag.position = tag_position
 
     )
   )
