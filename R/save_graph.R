@@ -128,7 +128,7 @@ load_object <- function(object, ext = "ggplot") {
 
   if(!file.exists(fn)) {
     cli::cli_alert_warning("Le {dic[ext]} {object} n'existe pas")
-    return(NULL)
+    return(fn)
   }
 
   qs2::qs_read(
