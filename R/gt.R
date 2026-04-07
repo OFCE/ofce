@@ -50,24 +50,27 @@
 #'
 #' @export
 ofce_tab_options <- function(data, ...) {
-  browser
+  if(knitr::is_html_output())
+    q.dp <- TRUE
+  else
+    q.dp <- FALSE
   dots <- list(...)
   dots <- purrr::list_modify(
     list(
-    footnotes.font.size = "90%",
-    source_notes.font.size = "100%",
-    quarto.disable_processing= TRUE,
-    table.font.size = getOption("ofce.tab.font.size"),
-    table.font.name = "Open Sans",
-    table_body.hlines.style = "none",
-    column_labels.padding = 3,
-    table.border.bottom.style = "none",
-    data_row.padding = 3,
-    footnotes.multiline = FALSE,
-    footnotes.padding = 5,
-    source_notes.padding =  2,
-    table.background.color = "transparent",
-    row_group.padding = 3),
+      footnotes.font.size = "90%",
+      source_notes.font.size = "100%",
+      quarto.disable_processing= q.dp,
+      table.font.size = getOption("ofce.tab.font.size"),
+      table.font.name = "Open Sans",
+      table_body.hlines.style = "none",
+      column_labels.padding = 3,
+      table.border.bottom.style = "none",
+      data_row.padding = 3,
+      footnotes.multiline = FALSE,
+      footnotes.padding = 5,
+      source_notes.padding =  2,
+      table.background.color = "transparent",
+      row_group.padding = 3),
     !!!dots)
   do.call(\(...) gt::tab_options(data, ...), dots) |>
     gt::opt_footnote_marks("letters")
@@ -153,8 +156,8 @@ ofce_row_italic <- function(data, row = everything()) {
 #'
 #' @seealso [ofce_tab_options()], [ofce_caption()], [ofce_cols_fill()], [ofce_spanners_bold()], [ofce_row_italic()], [ofce_fmt_decimal()], [ofce_hide_col_pdf()]
 ofce_align_decimal <- function(data, columns = tidyselect::where(is.numeric)) {
-    data <- data |> ofce_fmt_decimal({{columns}})
-    cols_align_decimal(data, columns = {{columns}}, dec_mark = ",")
+  data <- data |> ofce_fmt_decimal({{columns}})
+  cols_align_decimal(data, columns = {{columns}}, dec_mark = ",")
 }
 
 #' Formate en français les nombres
@@ -172,7 +175,7 @@ ofce_align_decimal <- function(data, columns = tidyselect::where(is.numeric)) {
 #'
 #' @seealso [ofce_tab_options()], [ofce_caption()], [ofce_cols_fill()], [ofce_spanners_bold()], [ofce_row_italic()], [ofce_align_decimal()], [ofce_hide_col_pdf()]
 ofce_fmt_decimal <- function(data, columns = tidyselect::where(is.numeric), rows = tidyselect::everything(), decimals = 1) {
-   fmt_number(data, columns = {{columns}}, rows = {{rows}}, dec_mark = ",", decimals = decimals, sep_mark = " ")
+  fmt_number(data, columns = {{columns}}, rows = {{rows}}, dec_mark = ",", decimals = decimals, sep_mark = " ")
 }
 
 #' Masque des colonnes en pdf
