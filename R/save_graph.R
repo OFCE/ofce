@@ -11,11 +11,11 @@
 #' @export
 #'
 save_object <- function(object, label=NULL,
-                       chunk = knitr::opts_current$get(),
-                       document=knitr::current_input(),
-                       id = NULL,
-                       dest = getOption("ofce.savegraph.dir"),
-                       ext = "ggplot") {
+                        chunk = knitr::opts_current$get(),
+                        document=knitr::current_input(),
+                        id = NULL,
+                        dest = getOption("ofce.savegraph.dir"),
+                        ext = "ggplot") {
 
   if(!getOption("ofce.savegraph"))
     return(object)
@@ -94,8 +94,9 @@ load_object <- function(object, ext = "ggplot") {
     return(NULL)
   }
 
+  safe_find_root <- purrr::safely(rprojroot::find_root)
+
   if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
-    safe_find_root <- purrr::safely(rprojroot::find_root)
     root <- safe_find_root(
       rprojroot::is_quarto_project |
         rprojroot::is_r_package |
@@ -104,27 +105,34 @@ load_object <- function(object, ext = "ggplot") {
       root <- root$result
   } else {
     root <- Sys.getenv("QUARTO_PROJECT_DIR")
+    if(!dir.exists(fs::path_join(c(root, dir)))) {
+      root <- safe_find_root(
+        rprojroot::is_quarto_project |
+          rprojroot::is_r_package |
+          rprojroot::is_rstudio_project)
+      if(is.null(root$error))
+        root <- root$result
+    }
   }
 
   dir <- fs::path_join(c(root, dir))
-
   if(!dir.exists(dir)) {
     cli::cli_alert_warning("Le répertoire {dir} n'existe pas")
-    return(NULL)
+    return(dir)
   }
 
-  fn <- fs::path_join(c(root, dir, object)) |>
+  fn <- fs::path_join(c(dir, object)) |>
     fs::path_ext_set(ext)
 
   dic <- c("ggplot" = "graphique", "gt" = "tableau gt")
 
   if(!file.exists(fn)) {
     cli::cli_alert_warning("Le {dic[ext]} {object} n'existe pas")
-    return(NULL)
+    return(fn)
   }
 
   qs2::qs_read(
-    fs::path_join(c(root, dir, object)) |>
+    fs::path_join(c(dir, object)) |>
       fs::path_ext_set(ext))
 }
 
