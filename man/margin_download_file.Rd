@@ -13,7 +13,7 @@ margin_download_file(
 )
 }
 \arguments{
-\item{path}{les données à téélcharger (un tibble donc)}
+\item{path}{le chemin du fichier à télécharger}
 
 \item{output_name}{(\code{fs::path_file(path)} par défaut) le nom du fichier de sortie}
 
