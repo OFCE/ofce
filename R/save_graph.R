@@ -110,7 +110,7 @@ load_object <- function(object, ext = "ggplot") {
 
   if(!dir.exists(dir)) {
     cli::cli_alert_warning("Le répertoire {dir} n'existe pas")
-    return(NULL)
+    return(dir)
   }
 
   fn <- fs::path_join(c(root, dir, object)) |>
