@@ -93,10 +93,6 @@ load_object <- function(object, ext = "ggplot") {
     cli::cli_alert_warning("Pas de graphiques sauvegardés")
     return(NULL)
   }
-  if(!dir.exists(dir)) {
-    cli::cli_alert_warning("Le répertoire {dir} n'existe pas")
-    return(NULL)
-  }
 
   if(Sys.getenv("QUARTO_PROJECT_DIR") == "") {
     safe_find_root <- purrr::safely(rprojroot::find_root)
@@ -106,6 +102,8 @@ load_object <- function(object, ext = "ggplot") {
   } else {
     root <- Sys.getenv("QUARTO_PROJECT_DIR")
   }
+
+
   fn <- fs::path_join(c(root, dir, object)) |>
     fs::path_ext_set(ext)
   dic <- c("ggplot" = "graphique", "gt" = "tableau gt")
