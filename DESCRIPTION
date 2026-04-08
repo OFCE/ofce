@@ -50,7 +50,7 @@ Imports:
     sourcoise
 Remotes:
     sourcoise=github::xtimbeau/sourcoise,
-    munch=github::teaked/munch
+    munch=github::ardata-fr/munch
 License: CC BY 4.0
 Depends:
     R (>= 4.2)

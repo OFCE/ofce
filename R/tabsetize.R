@@ -26,6 +26,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
   if(is.null(asp))
     if(!is.null(asp_chunk))
       asp <- asp_chunk
+
   if(knitr::is_html_output()&!interactive()) {
     if(cap) {
       if(is.null(label))
