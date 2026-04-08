@@ -9,29 +9,46 @@ licence_auteur(
   logo = NULL,
   license = TRUE,
   year = 2026,
-  text_size = 5,
-  color = "grey3"
+  text_size = 2.5,
+  color = "grey3",
+  tag_position = c(0.98, 0.99),
+  tag_location = "plot"
 )
 }
 \arguments{
-\item{author}{nom de l'auteur ("" par défaut)}
+\item{author}{Chaîne de caractères. Nom de l'auteur affiché dans le tag
+(par défaut \code{""}).}
 
-\item{logo}{chemin vers le logo (utilise ofce_m.png par défaut si NULL)}
+\item{logo}{Chaîne de caractères ou \code{NULL}. Chemin vers le fichier image
+du logo. Si \code{NULL} (par défaut), utilise \code{logo_down.png} inclus dans
+le package.}
 
-\item{license}{logical, affiche l'icône CC (TRUE par défaut)}
+\item{license}{Logique. Si \code{TRUE} (par défaut), affiche l'icône Creative
+Commons (\code{cc_icon_down.png}) avant le nom de l'auteur.}
 
-\item{year}{année affichée après l'auteur (2026 par défaut, NULL pour omettre)}
+\item{year}{Numérique ou \code{NULL}. Année affichée après le nom de l'auteur
+(par défaut \code{2026}). Si \code{NULL}, l'année est omise.}
 
-\item{text_size}{taille du texte en points (2.75 par défaut)}
+\item{text_size}{Numérique. Taille du texte en points (par défaut \code{2.5}).
+Multipliée par \link[ggplot2:graphical-units]{ggplot2::.pt} pour le rendu dans \code{\link[munch:element_md]{munch::element_md()}}.}
 
-\item{color}{couleur du texte ("grey3" par défaut)}
+\item{color}{Chaîne de caractères. Couleur du texte (par défaut \code{"grey3"}).}
+
+\item{tag_position}{Vecteur numérique de longueur 2. Position (x, y) du tag
+en coordonnées normalisées (par défaut \code{c(0.98, 0.99)}).}
+
+\item{tag_location}{Chaîne de caractères. Emplacement du tag, passé à
+\code{\link[ggplot2:theme]{ggplot2::theme()}} via \code{plot.tag.location} (par défaut \code{"plot"}).}
 }
 \value{
-une liste d'éléments ggplot (à ajouter avec +)
+Une liste d'éléments ggplot2 (\code{\link[ggplot2:labs]{ggplot2::labs()}} et \code{\link[ggplot2:theme]{ggplot2::theme()}})
+à ajouter à un graphique avec \code{+}.
 }
 \description{
-Ajoute le logo OFCE, l'icône CC et le nom de l'auteur dans \code{plot.tag}
-en utilisant \code{element_md()} avec des images markdown inline.
+Ajoute le logo OFCE, l'icône Creative Commons et le nom de l'auteur
+dans \code{plot.tag} en utilisant \code{\link[munch:element_md]{munch::element_md()}} avec des images
+markdown inline. Le tag est affiché verticalement (rotation 90°) et
+positionné par défaut en haut à droite du graphique.
 }
 \examples{
 \dontrun{
