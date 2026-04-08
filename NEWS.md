@@ -1,3 +1,7 @@
+## OFCE 1.3.33
+
+* ajout de `licence_auteur()` pour placer la licence CC-by , l'auteur et le logo ofce sur les graphiques
+
 ## OFCE 1.3.32
 
 * `margin_download_file()` est l'équivalent de `margin_download()` pour un fichier de données (ou Excel) est est maintenant à bord.

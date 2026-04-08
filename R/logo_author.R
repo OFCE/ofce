@@ -1,16 +1,33 @@
 #' Licence avec auteur et logo
 #'
-#' Ajoute le logo OFCE, l'icône CC et le nom de l'auteur dans `plot.tag`
-#' en utilisant `element_md()` avec des images markdown inline.
+#' Ajoute le logo OFCE, l'icône Creative Commons et le nom de l'auteur
+#' dans `plot.tag` en utilisant [munch::element_md()] avec des images
+#' markdown inline. Le tag est affiché verticalement (rotation 90°) et
+#' positionné par défaut en haut à droite du graphique.
 #'
-#' @param author nom de l'auteur ("" par défaut)
-#' @param logo chemin vers le logo (utilise ofce_m.png par défaut si NULL)
-#' @param license logical, affiche l'icône CC (TRUE par défaut)
-#' @param year année affichée après l'auteur (2026 par défaut, NULL pour omettre)
-#' @param text_size taille du texte en points (2.75 par défaut)
-#' @param color couleur du texte ("grey3" par défaut)
+#' @param author Chaîne de caractères. Nom de l'auteur affiché dans le tag
+#'   (par défaut `""`).
+#' @param logo Chaîne de caractères ou `NULL`. Chemin vers le fichier image
+#'   du logo. Si `NULL` (par défaut), utilise `logo_down.png` inclus dans
+#'   le package.
+#' @param license Logique. Si `TRUE` (par défaut), affiche l'icône Creative
+#'   Commons (`cc_icon_down.png`) avant le nom de l'auteur.
+#' @param year Numérique ou `NULL`. Année affichée après le nom de l'auteur
+#'   (par défaut `2026`). Si `NULL`, l'année est omise.
+#' @param text_size Numérique. Taille du texte en points (par défaut `2.5`).
+#'   Multipliée par [ggplot2::.pt] pour le rendu dans [munch::element_md()].
+#' @param color Chaîne de caractères. Couleur du texte (par défaut `"grey3"`).
+#' @param tag_position Vecteur numérique de longueur 2. Position (x, y) du tag
+#'   en coordonnées normalisées (par défaut `c(0.98, 0.99)`).
+#' @param tag_location Chaîne de caractères. Emplacement du tag, passé à
+#'   [ggplot2::theme()] via `plot.tag.location` (par défaut `"plot"`).
 #'
-#' @return une liste d'éléments ggplot (à ajouter avec +)
+#' @return Une liste d'éléments ggplot2 ([ggplot2::labs()] et [ggplot2::theme()])
+#'   à ajouter à un graphique avec `+`.
+#' @importFrom glue glue
+#' @importFrom cli cli_abort
+#' @importFrom munch element_md
+#' @importFrom ggplot2 labs theme .pt
 #' @export
 #' @examples
 #' \dontrun{
