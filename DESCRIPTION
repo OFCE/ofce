@@ -47,6 +47,7 @@ Imports:
     plotly,
     ggiraph (>= 0.9.2),
     munch,
+    magick,
     sourcoise
 Remotes:
     sourcoise=github::xtimbeau/sourcoise,
