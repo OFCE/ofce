@@ -30,7 +30,10 @@
     ofce.output_extension = ".csv",
     ofce.output_prefix = "ofce-",
     ofce.tab.font.size = 12,
-    ofce.tab.fill = "#FFEDED")
+    ofce.tab.fill = "#FFEDED",
+    ofce.licence.tag_position = c(0.98, 0.99),
+    ofce.licence.year = 2026,
+    ofce.licence.text_size = 2.5)
 
   toset <- !(names(op.ofce) %in% names(op))
   if (any(toset)) options(op.ofce[toset])

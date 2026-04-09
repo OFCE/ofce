@@ -40,10 +40,10 @@
 licence_auteur <- function(author = "",
                            logo = NULL,
                            license = TRUE,
-                           year = 2026,
-                           text_size = 2.5,
+                           year = getOption("ofce.licence.year"),
+                           text_size = getOption("ofce.licence.text_size"),
                            color = "grey3",
-                           tag_position = c(0.98,0.99),
+                           tag_position = getOption("ofce.licence.tag_position"),
                            tag_location = "plot"
                            ) {
 
