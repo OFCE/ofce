@@ -1,3 +1,8 @@
+## OFCE 1.3.34
+
+* ajout de `get_icons()` et `get_flags` pour obtenir des svg d'emojis et drapeaux, et faciliter leur intégration dans les tooltips
+
+
 ## OFCE 1.3.33
 
 * ajout de `licence_auteur()` pour placer la licence CC-by , l'auteur et le logo ofce sur les graphiques
