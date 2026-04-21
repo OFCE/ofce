@@ -67,6 +67,43 @@ date_jour <- function(date) {
 #' @returns les labels
 #' @export
 #'
+#'
+
+#' Date en jour/ avec l'heure
+#'
+#' Transforme une date dans le format trimestriel standard (revue de l'OFCE)
+#' 2025-01-01 -> 1 janvier 2025 12h02
+#'
+#' @param date la date
+#'
+#' @returns une chaine de caractères
+#'
+#' @export
+#' @examples
+#' date_jour("2025-10-01")
+date_jour_heure <- function(date) {
+  date <- lubridate::as_datetime(date, tz = "Europe/Paris")
+  stringr::str_c(
+    lubridate::day(date),
+    " ",
+    lubridate::month(date, label = TRUE, abbr = FALSE),
+    " ",
+    lubridate::year(date),
+    ", ",
+    lubridate::hour(date),
+    "h",
+    lubridate::minute(date) |> stringr::str_pad(width = 2, pad = "0")
+  )
+}
+
+#' Magnifiques labels des dates
+#'
+#' @param x les breaks
+#'
+#' @returns les labels
+#' @export
+#'
+
 date1 <- function(x) {
   if(lubridate::is.Date(x))
     x <- year(x)
