@@ -77,7 +77,7 @@ date_jour_heure <- function(date) {
   stringr::str_c(
     lubridate::day(date),
     " ",
-    lubridate::month(date, label = TRUE, abbr = FALSE),
+    lubridate::month(date, label = TRUE, abbr = FALSE, locale = "fr_FR.UTF-8"),
     " ",
     lubridate::year(date),
     ", ",
