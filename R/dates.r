@@ -60,16 +60,7 @@ date_jour <- function(date) {
   )
 }
 
-#' Magnifiques labels des dates
-#'
-#' @param x les breaks
-#'
-#' @returns les labels
-#' @export
-#'
-#'
-
-#' Date en jour/ avec l'heure
+#' Date en jour / avec l'heure
 #'
 #' Transforme une date dans le format trimestriel standard (revue de l'OFCE)
 #' 2025-01-01 -> 1 janvier 2025 12h02
