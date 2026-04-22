@@ -30,9 +30,9 @@ date_trim <- function(date) {
 #' @export
 #' @examples
 #' date_mois("2025-10-01")
-date_mois <- function(date) {
+date_mois <- function(date, label = TRUE, abbr = FALSE) {
   stringr::str_c(
-    lubridate::month(date, label = TRUE, abbr = FALSE),
+    lubridate::month(date, label = label, abbr = abbr, locale = "fr_FR.UTF-8"),
     " ",
     lubridate::year(date)
   )
@@ -50,12 +50,20 @@ date_mois <- function(date) {
 #' @export
 #' @examples
 #' date_jour("2025-10-01")
-date_jour <- function(date) {
+date_jour <- function(date, abbr = FALSE, label = TRUE) {
+  if(label)
+    sep <- " "
+  else
+    sep <- "/"
+  mm <- lubridate::month(date, label = label, abbr = abbr, locale = "fr_FR.UTF-8")
+  if(!label)
+    mm <-  mm |>
+    stringr::str_pad(width = 2, pad = "0")
   stringr::str_c(
     lubridate::day(date),
-    " ",
-    lubridate::month(date, label = TRUE, abbr = FALSE),
-    " ",
+    sep,
+    mm,
+    sep,
     lubridate::year(date)
   )
 }
@@ -72,13 +80,21 @@ date_jour <- function(date) {
 #' @export
 #' @examples
 #' date_jour("2025-10-01")
-date_jour_heure <- function(date) {
+date_jour_heure <- function(date, label = TRUE, abbr = FALSE) {
   date <- lubridate::as_datetime(date, tz = "Europe/Paris")
+  if(label)
+    sep <- " "
+  else
+    sep <- "/"
+  mm <- lubridate::month(date, label = label, abbr = abbr, locale = "fr_FR.UTF-8")
+  if(!label)
+    mm <-  mm |>
+    stringr::str_pad(width = 2, pad = "0")
   stringr::str_c(
     lubridate::day(date),
-    " ",
-    lubridate::month(date, label = TRUE, abbr = FALSE, locale = "fr_FR.UTF-8"),
-    " ",
+    sep,
+    mm,
+    sep,
     lubridate::year(date),
     ", ",
     lubridate::hour(date),
