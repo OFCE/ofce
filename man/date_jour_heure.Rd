@@ -4,7 +4,7 @@
 \alias{date_jour_heure}
 \title{Date en jour / avec l'heure}
 \usage{
-date_jour_heure(date)
+date_jour_heure(date, label = TRUE, abbr = FALSE)
 }
 \arguments{
 \item{date}{la date}
