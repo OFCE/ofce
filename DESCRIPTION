@@ -52,8 +52,7 @@ Imports:
     sourcoise
 Remotes:
     sourcoise=github::xtimbeau/sourcoise,
-    munch=github::ardata-fr/munch
-License: CC BY 4.0
+    License: CC BY 4.0
 Depends:
     R (>= 4.2)
 Suggests:
