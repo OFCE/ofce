@@ -51,7 +51,7 @@ Imports:
     magick,
     sourcoise
 Remotes:
-    sourcoise=github::xtimbeau/sourcoise,
+    sourcoise=github::xtimbeau/sourcoise
     munch=github::ardata-fr/munch
 License: CC BY 4.0
 Depends:
