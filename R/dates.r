@@ -110,7 +110,7 @@ date_jour_heure <- function(
   date <- lubridate::as_datetime(date, tz = tz)
   d <- lubridate::day(date)
   if(short) {
-    dsep <- "/"
+    dsep <- "-"
     sep <- "-"
     label <- FALSE
     y <- lubridate::year(date) |> stringr::str_sub(3,4)
