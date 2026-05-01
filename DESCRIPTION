@@ -50,7 +50,7 @@ Imports:
     munch,
     magick
 Remotes:
-    git::https://github.com/xtimbeau/sourcoise
+    github::xtimbeau/sourcoise
 License: CC BY 4.0
 Depends:
     R (>= 4.2)
