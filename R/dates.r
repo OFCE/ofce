@@ -30,9 +30,9 @@ date_trim <- function(date) {
 #' @export
 #' @examples
 #' date_mois("2025-10-01")
-date_mois <- function(date, label = TRUE, abbr = FALSE) {
+date_mois <- function(date) {
   stringr::str_c(
-    lubridate::month(date, label = label, abbr = abbr, locale = "fr_FR.UTF-8"),
+    lubridate::month(date, label = TRUE, abbr = FALSE),
     " ",
     lubridate::year(date)
   )
@@ -40,31 +40,48 @@ date_mois <- function(date, label = TRUE, abbr = FALSE) {
 
 #' Date en jour
 #'
-#' Transforme une date dans le format trimestriel standard (revue de l'OFCE)
-#' 2025-01-01 -> 1 janvier 2025
+#' Transforme une date dans le format
+#' 2025-01-01 -> 1er janvier 2025
 #'
 #' @param date la date
-#'
+#' @param locale "fr_FR"
+#' @param tz Time zone
+#' @param short format court
+#' @param abbr abrège les noms de mois
 #' @returns une chaine de caractères
 #'
 #' @export
 #' @examples
 #' date_jour("2025-10-01")
-date_jour <- function(date, abbr = FALSE, label = TRUE) {
-  if(label)
-    sep <- " "
-  else
-    sep <- "/"
-  mm <- lubridate::month(date, label = label, abbr = abbr, locale = "fr_FR.UTF-8")
-  if(!label)
-    mm <-  mm |>
-    stringr::str_pad(width = 2, pad = "0")
+
+date_jour <- function(
+    date,
+    locale = "fr_FR.UTF-8",
+    tz = "Europe/Paris",
+    short = FALSE,
+    abbr = FALSE) {
+  date <- lubridate::as_datetime(date, tz = tz)
+  d <- lubridate::day(date)
+  if(short) {
+    dsep <- "/"
+    sep <- "-"
+    label <- FALSE
+    y <- lubridate::year(date) |> stringr::str_sub(3,4)
+  } else {
+    if(d=="1")
+      d <- stringr::str_c(d, "er")
+    dsep <- " "
+    sep <- ", "
+    label <- TRUE
+    y <- lubridate::year(date)
+  }
+
   stringr::str_c(
-    lubridate::day(date),
-    sep,
-    mm,
-    sep,
-    lubridate::year(date)
+    d,
+    dsep,
+    lubridate::month(date, label = label, abbr = abbr, locale = locale),
+    dsep,
+    lubridate::year(date) |> stringr::str_sub(3,4)
   )
 }
 
@@ -74,29 +91,45 @@ date_jour <- function(date, abbr = FALSE, label = TRUE) {
 #' 2025-01-01 -> 1 janvier 2025 12h02
 #'
 #' @param date la date
+#' @param locale "fr_FR"
+#' @param tz Time zone
+#' @param short format court
+#' @param abbr abrège les noms de mois
 #'
 #' @returns une chaine de caractères
 #'
 #' @export
 #' @examples
 #' date_jour("2025-10-01")
-date_jour_heure <- function(date, label = TRUE, abbr = FALSE) {
-  date <- lubridate::as_datetime(date, tz = "Europe/Paris")
-  if(label)
-    sep <- " "
-  else
-    sep <- "/"
-  mm <- lubridate::month(date, label = label, abbr = abbr, locale = "fr_FR.UTF-8")
-  if(!label)
-    mm <-  mm |>
-    stringr::str_pad(width = 2, pad = "0")
+date_jour_heure <- function(
+    date,
+    locale = "fr_FR.UTF-8",
+    tz = "Europe/Paris",
+    short = FALSE,
+    abbr = FALSE) {
+  date <- lubridate::as_datetime(date, tz = tz)
+  d <- lubridate::day(date)
+  if(short) {
+    dsep <- "/"
+    sep <- "-"
+    label <- FALSE
+    y <- lubridate::year(date) |> stringr::str_sub(3,4)
+  } else {
+    if(d=="1")
+      d <- stringr::str_c(d, "er")
+    dsep <- " "
+    sep <- ", "
+    label <- TRUE
+    y <- lubridate::year(date)
+  }
+
   stringr::str_c(
-    lubridate::day(date),
+    d,
+    dsep,
+    lubridate::month(date, label = label, abbr = abbr, locale = locale),
+    dsep,
+    lubridate::year(date) |> stringr::str_sub(3,4),
     sep,
-    mm,
-    sep,
-    lubridate::year(date),
-    ", ",
     lubridate::hour(date),
     "h",
     lubridate::minute(date) |> stringr::str_pad(width = 2, pad = "0")

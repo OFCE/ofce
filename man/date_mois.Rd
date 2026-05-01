@@ -4,7 +4,7 @@
 \alias{date_mois}
 \title{Date en mois}
 \usage{
-date_mois(date, label = TRUE, abbr = FALSE)
+date_mois(date)
 }
 \arguments{
 \item{date}{la date}

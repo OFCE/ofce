@@ -4,10 +4,24 @@
 \alias{date_jour_heure}
 \title{Date en jour / avec l'heure}
 \usage{
-date_jour_heure(date, label = TRUE, abbr = FALSE)
+date_jour_heure(
+  date,
+  locale = "fr_FR.UTF-8",
+  tz = "Europe/Paris",
+  short = FALSE,
+  abbr = FALSE
+)
 }
 \arguments{
 \item{date}{la date}
+
+\item{locale}{"fr_FR"}
+
+\item{tz}{Time zone}
+
+\item{short}{format court}
+
+\item{abbr}{abrège les noms de mois}
 }
 \value{
 une chaine de caractères
