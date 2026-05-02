@@ -113,34 +113,20 @@ date_jour_heure <- function(
     tz = "Europe/Paris",
     short = FALSE,
     abbr = FALSE) {
+  s1 <- date_jour(date, locale, tz, short, abbr)
   date <- lubridate::as_datetime(date, tz = tz)
-  d <- lubridate::day(date)
   if(short) {
-    dsep <- "-"
     sep <- "-"
-    label <- FALSE
-    y <- lubridate::year(date) |> stringr::str_sub(3,4)
   }
-  if(compact&!short) {
-    dsep <- "/"
+  if(compact&!short) {    dsep <- "/"
     sep <- " "
-    label <- FALSE
-    y <- lubridate::year(date) |> stringr::str_sub(3,4)
-  }
+    }
   if(!compact&!short) {
-    d <- ifelse(d==1, stringr::str_c(d, "er"), d)
-    dsep <- " "
     sep <- ", "
-    label <- TRUE
-    y <- lubridate::year(date)
   }
 
   stringr::str_c(
-    d,
-    dsep,
-    lubridate::month(date, label = label, abbr = abbr, locale = locale),
-    dsep,
-    lubridate::year(date) |> stringr::str_sub(3,4),
+    s1,
     sep,
     lubridate::hour(date),
     "h",
