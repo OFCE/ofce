@@ -9,6 +9,7 @@ date_jour(
   locale = "fr_FR.UTF-8",
   tz = "Europe/Paris",
   short = FALSE,
+  compact = FALSE,
   abbr = FALSE
 )
 }

@@ -13,9 +13,6 @@ Imports:
     cli,
     colorspace,
     countrycode,
-    cowplot,
-    curl,
-    data.table,
     downloadthis,
     dplyr,
     farver,
@@ -29,7 +26,6 @@ Imports:
     quarto,
     lubridate,
     marquee (>= 1.2.0),
-    officer,
     plyr,
     purrr,
     quarto,
@@ -65,6 +61,6 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 SystemRequirements: Quarto command line tools
     (https://github.com/quarto-dev/quarto-cli).
+Config/roxygen2/version: 8.0.0

@@ -30,7 +30,7 @@ Commons (\code{cc_icon_down.png}) avant le nom de l'auteur.}
 (par défaut \code{2026}). Si \code{NULL}, l'année est omise.}
 
 \item{text_size}{Numérique. Taille du texte en points (par défaut \code{2.5}).
-Multipliée par \link[ggplot2:graphical-units]{ggplot2::.pt} pour le rendu dans \code{\link[munch:element_md]{munch::element_md()}}.}
+Multipliée par \link[ggplot2:.pt]{ggplot2::.pt} pour le rendu dans \code{\link[munch:element_md]{munch::element_md()}}.}
 
 \item{color}{Chaîne de caractères. Couleur du texte (par défaut \code{"grey3"}).}
 
