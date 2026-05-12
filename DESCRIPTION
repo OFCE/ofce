@@ -44,9 +44,10 @@ Imports:
     plotly,
     ggiraph (>= 0.9.2),
     munch,
-    magick
+    magick,
+    sourcoise
 Remotes:
-    github::xtimbeau/sourcoise
+    sourcoise=github::xtimbeau/sourcoise
 License: CC BY 4.0
 Depends:
     R (>= 4.2)
