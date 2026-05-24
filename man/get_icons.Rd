@@ -28,8 +28,8 @@ Ignoré si \code{out} est fourni.}
 
 \item{format}{Format de l'image : \code{"svg"} (par défaut) ou \code{"png"} (72×72 px).}
 
-\item{out}{Format de sortie : \code{"url"} (URL brute), \code{"html"} (balise
-\verb{<img>}), ou \code{"md"} (syntaxe Markdown \verb{![](url)}). Si \code{NULL} (par
+\item{out}{Format de sortie : \code{"url"} (URL brute), \code{"md"} (syntaxe Markdown \verb{![](url)}),
+\code{"html"} (balise \verb{<img>}), ou \code{"path"} (chemin local). Si \code{NULL} (par
 défaut), le format est déterminé par \code{tooltip} (\code{FALSE} → \code{"url"},
 \code{TRUE} → \code{"html"}). Quand \code{out} est fourni, il prend le dessus sur
 \code{tooltip}.}

@@ -16,8 +16,8 @@
 #' @param size Taille en pixels de l'icône dans le rendu HTML
 #'   (par défaut `15`). Utilisé uniquement quand le format de sortie est `"html"`.
 #' @param format Format de l'image : `"svg"` (par défaut) ou `"png"` (72×72 px).
-#' @param out Format de sortie : `"url"` (URL brute), `"html"` (balise
-#'   `<img>`), ou `"md"` (syntaxe Markdown `![](url)`). Si `NULL` (par
+#' @param out Format de sortie : `"url"` (URL brute), `"md"` (syntaxe Markdown `![](url)`),
+#'   `"html"` (balise `<img>`), ou `"path"` (chemin local). Si `NULL` (par
 #'   défaut), le format est déterminé par `tooltip` (`FALSE` → `"url"`,
 #'   `TRUE` → `"html"`). Quand `out` est fourni, il prend le dessus sur
 #'   `tooltip`.
@@ -39,7 +39,7 @@
 get_icons <- function(hex, tooltip = FALSE, size = 15, format = c("svg", "png"), out = NULL) {
   format <- match.arg(format)
   if (!is.null(out)) {
-    out <- match.arg(out, c("url", "md", "html"))
+    out <- match.arg(out, c("url", "md", "html", "path"))
   }
   if (!is.character(hex) && !all(is.na(hex))) {
     cli::cli_abort("{.arg hex} doit \u00eatre un vecteur de cha\u00eenes de caract\u00e8res, pas {.obj_type_friendly {hex}}.")
@@ -64,24 +64,27 @@ get_icons <- function(hex, tooltip = FALSE, size = 15, format = c("svg", "png"),
   }
   urls <- ifelse(is.na(hex), NA_character_, paste0(base_url, hex_lower, ext))
   effective_out <- if (!is.null(out)) out else if (tooltip) "html" else "url"
+
+  # Logic for resizing and MD output
+  if (!is.null(out) && out == "md") {
+    format <- "png"
+  }
+
   res <- switch(effective_out,
     url  = urls,
-    md   = {
-      # Define local directory and path structure
+    path = {
       icon_dir <- "www/icons/"
       if (!dir.exists(icon_dir)) dir.create(icon_dir, recursive = TRUE)
+      browser()
 
-      # Map over urls to handle downloading and local pathing
       vapply(seq_along(urls), function(i) {
         u <- urls[i]
         if (is.na(u)) return(NA_character_)
 
-        # Determine local filename using hex_lower
         ext <- if (format == "png") ".png" else ".svg"
         hex_val <- hex_lower[i]
         local_file <- paste0(icon_dir, hex_val, ext)
 
-        # Download if not present
         if (!file.exists(local_file)) {
           tryCatch({
             httr2::request(u) |>
@@ -98,8 +101,63 @@ get_icons <- function(hex, tooltip = FALSE, size = 15, format = c("svg", "png"),
           return(NA_character_)
         }
 
-        # Return markdown with path including www/
-        paste0("![](", local_file, "){width=", size, "}")
+        if (format == "png" && ext == ".svg") {
+          # Render at 60% of requested size with 4x resolution, then pad with transparency
+          icon_size <- floor(size * 0.6)
+          img <- magick::image_read_svg(local_file, width = icon_size * 4)
+          img <- magick::image_resize(img, magick::geometry_size_pixels(icon_size, icon_size))
+
+          canvas <- magick::imageblank(size, size, color = "transparent")
+          offset_x <- floor((size - icon_size) / 2)
+          offset_y <- floor((size - icon_size) * 0.6)
+
+          img <- magick::image_composite(canvas, img, offset = c(offset_x, offset_y))
+          magick::image_write(img, path = gsub("\\.svg$", ".png", local_file), format = "png")
+          local_file <- gsub("\\.svg$", ".png", local_file)
+        }
+
+        local_file
+      }, character(1))
+    },
+    md   = {
+      icon_dir <- "www/icons/"
+      if (!dir.exists(icon_dir)) dir.create(icon_dir, recursive = TRUE)
+
+      vapply(seq_along(urls), function(i) {
+
+        u <- urls[i]
+        if (is.na(u)) return(NA_character_)
+
+        # When out="md", we force format="png" and use SVG as source for resizing
+        local_file_svg <- paste0(icon_dir, hex_lower[i], ".svg")
+        local_file_png <- paste0(icon_dir, hex_lower[i], ".png")
+
+        # Always download/overwrite SVG to ensure source is available
+        tryCatch({
+          httr2::request(u) |>
+            httr2::req_perform() |>
+            httr2::resp_body_raw() |>
+            writeBin(local_file_svg)
+        }, error = function(e) {
+          warning("Failed to download icon: ", u)
+          return(NA_character_)
+        })
+
+        if (is.na(local_file_svg) || !file.exists(local_file_svg)) {
+          return(NA_character_)
+        }
+
+        # Render at 60% of requested size with 4x resolution, then pad with transparency
+        icon_size <- floor(16 * size * 0.6)
+        img <- magick::image_read_svg(local_file_svg, width = icon_size )
+        canvas <- magick::image_blank(icon_size, 16*size, color = "none")
+        offset_x <- 0
+        offset_y <- floor((16*size - icon_size) * 0.95)
+        offset <- stringr::str_c(ifelse(offset_x>=0,"+",""),offset_x,ifelse(offset_y>=0,"+",""),offset_y)
+        img_finale <- magick::image_composite(canvas, img, operator='over', offset = offset)
+        magick::image_write(img_finale, path = local_file_png, format = "png")
+
+        paste0("![](", local_file_png, ")")
       }, character(1))
     },
     html = ifelse(
@@ -243,11 +301,15 @@ show_emojis <- function() {
 #' @importFrom grDevices as.raster
 #' @export
 show_flags <- function(country) {
-  urls <- get_flags(country)
+  urls <- get_flags(country, out = "url")
   tooltips <- get_flags(country, tooltip = TRUE, size = 64)
-  imgs <- lapply(urls, function(u) {
-    if (is.na(u)) return(NULL)
-    magick::image_read_svg(u, width = 120)
+
+  # Get local paths to avoid network issues with magick
+  paths <- get_flags(country, out = "path")
+
+  imgs <- lapply(paths, function(p) {
+    if (is.na(p)) return(NULL)
+    magick::image_read_svg(p, width = 120)
   })
   n <- length(country)
   ncol <- min(n, 6)
@@ -282,4 +344,3 @@ show_flags <- function(country) {
     ggiraph::opts_tooltip(css = "background:white;padding:5px;border-radius:3px;border:1px solid #ccc;")
   ))
 }
-

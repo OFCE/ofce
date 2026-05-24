@@ -1,0 +1,48 @@
+---
+title: "Testing Icons and Flags"
+format: html
+editor: visual
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(ggiraph)
+library(magick)
+library(ofce)
+```
+
+## Inline Markdown Flags
+
+Here are some flags rendered via Markdown:
+
+- France: `r get_flags("FR", out = "md")`
+- Germany: `r get_flags("DE", out = "md")`
+- United States: `r get_flags("US", out = "md")`
+
+## Data Visualization with ggplot2
+
+Below is a simple bar chart using dummy data.
+
+```{r}
+df_dummy <- data.frame(
+  country = c("France", "Germany", "United States", "Japan", "Canada", "United Kingdom"),
+  value = c(10, 15, 8, 12, 14, 7)
+)
+flag <- str_c("hello ", get_flags("FRA", out="md", size = 24))
+ggplot(df_dummy, aes(x = reorder(country, -value), y = value, fill = country)) +
+  geom_col() +
+  theme_minimal() +
+  munch::geom_text_md(aes(x=1, y=1, label = flag ), size = 24, size.unit = "pt") +
+  labs(title = "Dummy Data by Country", x = "Country", y = "Value") +
+  theme(legend.position = "none")
+
+```
+
+## Interactive Flag Grid with ggiraph
+
+This section uses the `show_flags()` function to display an interactive grid of flags.
+
+```{r}
+show_flags(c("FR", "DE", "US", "JP", "CA", "GB", "IT", "ES"))
+```
