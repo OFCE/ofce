@@ -4,7 +4,13 @@
 \alias{get_flags}
 \title{Obtenir les icônes de drapeaux à partir de codes ou noms de pays}
 \usage{
-get_flags(country, tooltip = FALSE, size = 15)
+get_flags(
+  country,
+  tooltip = FALSE,
+  size = 15,
+  format = c("svg", "png"),
+  out = NULL
+)
 }
 \arguments{
 \item{country}{Un vecteur de chaînes de caractères contenant des codes pays
@@ -14,11 +20,17 @@ On peut mélanger les formats dans le même vecteur.
 Les valeurs \code{NA} sont conservées dans le résultat.}
 
 \item{tooltip}{Logique. Si \code{TRUE}, retourne une balise HTML \verb{<img>}.
-Si \code{FALSE} (par défaut), retourne uniquement l'URL du SVG.
+Si \code{FALSE} (par défaut), retourne uniquement l'URL.
 Passé à \code{\link[=get_icons]{get_icons()}}.}
 
 \item{size}{Taille en pixels de l'icône lorsque \code{tooltip = TRUE}
 (par défaut \code{15}). Passé à \code{\link[=get_icons]{get_icons()}}.}
+
+\item{format}{Format de l'image : \code{"svg"} (par défaut) ou \code{"png"} (72×72 px).
+Passé à \code{\link[=get_icons]{get_icons()}}.}
+
+\item{out}{Format de sortie : \code{"url"}, \code{"md"}, ou \code{"html"}.
+Passé à \code{\link[=get_icons]{get_icons()}}.}
 }
 \value{
 Un vecteur de chaînes de caractères contenant les URLs ou balises
@@ -38,5 +50,6 @@ get_flags(c("FR", "DEU", "US"))
 get_flags("France")
 get_flags(c("Allemagne", "Italy", "Estados Unidos"))
 get_flags("FRA", tooltip = TRUE)
+get_flags("FRA", format = "png")
 
 }

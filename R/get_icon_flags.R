@@ -1,7 +1,7 @@
 #' Obtenir les URLs des icônes Twemoji à partir de codes hexadécimaux Unicode
 #'
 #' Prend un vecteur de codes hexadécimaux Unicode et retourne les URLs
-#' correspondantes des fichiers SVG Twemoji hébergés sur le CDN jsDelivr.
+#' correspondantes des fichiers SVG ou PNG Twemoji hébergés sur le CDN cdnjs.
 #' Utiliser [show_emojis()] pour parcourir la liste des emojis disponibles
 #' et trouver les codes hexadécimaux correspondants.
 #'
@@ -11,25 +11,37 @@
 #'   Les valeurs `NA` sont conservées dans le résultat.
 #' @param tooltip Logique. Si `TRUE`, retourne une balise HTML `<img>` prête
 #'   à l'emploi (utile pour les tooltips ou les tableaux HTML).
-#'   Si `FALSE` (par défaut), retourne uniquement l'URL du SVG.
-#' @param size Taille en pixels de l'icône lorsque `tooltip = TRUE`
-#'   (par défaut `15`).
+#'   Si `FALSE` (par défaut), retourne uniquement l'URL.
+#'   Ignoré si `out` est fourni.
+#' @param size Taille en pixels de l'icône dans le rendu HTML
+#'   (par défaut `15`). Utilisé uniquement quand le format de sortie est `"html"`.
+#' @param format Format de l'image : `"svg"` (par défaut) ou `"png"` (72×72 px).
+#' @param out Format de sortie : `"url"` (URL brute), `"html"` (balise
+#'   `<img>`), ou `"md"` (syntaxe Markdown `![](url)`). Si `NULL` (par
+#'   défaut), le format est déterminé par `tooltip` (`FALSE` → `"url"`,
+#'   `TRUE` → `"html"`). Quand `out` est fourni, il prend le dessus sur
+#'   `tooltip`.
 #'
-#' @return Un vecteur de chaînes de caractères contenant les URLs des fichiers
-#'   SVG Twemoji correspondants, ou des balises HTML `<img>` si
-#'   `tooltip = TRUE`. Les éléments `NA` en entrée produisent des `NA`
-#'   en sortie.
+#' @return Un vecteur de chaînes de caractères. Les éléments `NA` en entrée
+#'   produisent des `NA` en sortie.
 #'
 #' @examples
 #' get_icons("1F430")
 #' get_icons(c("1F430", "1F600"))
 #' get_icons("1F430", tooltip = TRUE)
 #' get_icons("1F430", tooltip = TRUE, size = 20)
+#' get_icons("1F430", format = "png")
+#' get_icons("1F430", out = "md")
+#' get_icons("1F430", out = "html", size = 24)
 #'
 #' @importFrom cli cli_abort
 #' @export
-get_icons <- function(hex, tooltip = FALSE, size = 15) {
-  if (!is.character(hex)) {
+get_icons <- function(hex, tooltip = FALSE, size = 15, format = c("svg", "png"), out = NULL) {
+  format <- match.arg(format)
+  if (!is.null(out)) {
+    out <- match.arg(out, c("url", "md", "html"))
+  }
+  if (!is.character(hex) && !all(is.na(hex))) {
     cli::cli_abort("{.arg hex} doit \u00eatre un vecteur de cha\u00eenes de caract\u00e8res, pas {.obj_type_friendly {hex}}.")
   }
   if (length(hex) == 0) {
@@ -42,21 +54,28 @@ get_icons <- function(hex, tooltip = FALSE, size = 15) {
     )
   }
   hex_lower <- tolower(hex)
-  if (tooltip) {
-    base_url <- "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/"
-    res <- ifelse(
+  base_cdn <- "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/"
+  if (format == "png") {
+    base_url <- paste0(base_cdn, "72x72/")
+    ext <- ".png"
+  } else {
+    base_url <- paste0(base_cdn, "svg/")
+    ext <- ".svg"
+  }
+  urls <- ifelse(is.na(hex), NA_character_, paste0(base_url, hex_lower, ext))
+  effective_out <- if (!is.null(out)) out else if (tooltip) "html" else "url"
+  res <- switch(effective_out,
+    url  = urls,
+    md   = ifelse(is.na(hex), NA_character_, paste0("![](", urls,"){width=", size, "}")),
+    html = ifelse(
       is.na(hex),
       NA_character_,
       paste0(
-        "<img src='", base_url, hex_lower, ".svg' ",
+        "<img src='", urls, "' ",
         "style='height:", size, "px;width:", size, "px;vertical-align:-2px;'>"
       )
     )
-  } else {
-    base_url <- "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/"
-    res <- ifelse(is.na(hex), NA_character_, paste0(base_url, hex_lower, ".svg"))
-  }
-
+  )
   return(res)
 }
 
@@ -73,10 +92,14 @@ get_icons <- function(hex, tooltip = FALSE, size = 15) {
 #'   On peut mélanger les formats dans le même vecteur.
 #'   Les valeurs `NA` sont conservées dans le résultat.
 #' @param tooltip Logique. Si `TRUE`, retourne une balise HTML `<img>`.
-#'   Si `FALSE` (par défaut), retourne uniquement l'URL du SVG.
+#'   Si `FALSE` (par défaut), retourne uniquement l'URL.
 #'   Passé à [get_icons()].
 #' @param size Taille en pixels de l'icône lorsque `tooltip = TRUE`
 #'   (par défaut `15`). Passé à [get_icons()].
+#' @param format Format de l'image : `"svg"` (par défaut) ou `"png"` (72×72 px).
+#'   Passé à [get_icons()].
+#' @param out Format de sortie : `"url"`, `"md"`, ou `"html"`.
+#'   Passé à [get_icons()].
 #'
 #' @return Un vecteur de chaînes de caractères contenant les URLs ou balises
 #'   HTML des drapeaux Twemoji. Les éléments `NA` en entrée ou les pays
@@ -89,12 +112,13 @@ get_icons <- function(hex, tooltip = FALSE, size = 15) {
 #' get_flags("France")
 #' get_flags(c("Allemagne", "Italy", "Estados Unidos"))
 #' get_flags("FRA", tooltip = TRUE)
+#' get_flags("FRA", format = "png")
 #'
 #' @importFrom cli cli_abort cli_warn
 #' @importFrom countrycode countrycode
 #' @export
-get_flags <- function(country, tooltip = FALSE, size = 15) {
-  if (!is.character(country)) {
+get_flags <- function(country, tooltip = FALSE, size = 15, format = c("svg", "png"), out = NULL) {
+  if (!is.character(country) && !all(is.na(country))) {
     cli::cli_abort("{.arg country} doit \u00eatre un vecteur de cha\u00eenes de caract\u00e8res, pas {.obj_type_friendly {country}}.")
   }
   if (length(country) == 0) {
@@ -139,7 +163,7 @@ get_flags <- function(country, tooltip = FALSE, size = 15) {
     NA_character_,
     paste0(sprintf("%x", 0x1F1E5 + c1), "-", sprintf("%x", 0x1F1E5 + c2))
   )
-  get_icons(hex, tooltip = tooltip, size = size)
+  get_icons(hex, tooltip = tooltip, size = size, format = match.arg(format), out = out)
 }
 
 #' Afficher la liste des emojis Twemoji
