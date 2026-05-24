@@ -66,7 +66,42 @@ get_icons <- function(hex, tooltip = FALSE, size = 15, format = c("svg", "png"),
   effective_out <- if (!is.null(out)) out else if (tooltip) "html" else "url"
   res <- switch(effective_out,
     url  = urls,
-    md   = ifelse(is.na(hex), NA_character_, paste0("![](", urls,"){width=", size, "}")),
+    md   = {
+      # Define local directory and path structure
+      icon_dir <- "www/icons/"
+      if (!dir.exists(icon_dir)) dir.create(icon_dir, recursive = TRUE)
+
+      # Map over urls to handle downloading and local pathing
+      vapply(seq_along(urls), function(i) {
+        u <- urls[i]
+        if (is.na(u)) return(NA_character_)
+
+        # Determine local filename using hex_lower
+        ext <- if (format == "png") ".png" else ".svg"
+        hex_val <- hex_lower[i]
+        local_file <- paste0(icon_dir, hex_val, ext)
+
+        # Download if not present
+        if (!file.exists(local_file)) {
+          tryCatch({
+            httr2::request(u) |>
+              httr2::req_perform() |>
+              httr2::resp_body_raw() |>
+              writeBin(local_file)
+          }, error = function(e) {
+            warning("Failed to download icon: ", u)
+            return(NA_character_)
+          })
+        }
+
+        if (is.na(local_file) || !file.exists(local_file)) {
+          return(NA_character_)
+        }
+
+        # Return markdown with path including www/
+        paste0("![](", local_file, "){width=", size, "}")
+      }, character(1))
+    },
     html = ifelse(
       is.na(hex),
       NA_character_,
