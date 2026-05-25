@@ -4,27 +4,51 @@
 \alias{girafy}
 \title{Rend un graphique interactif (avec ggiraph)}
 \usage{
-girafy(plot, r = 2.5, o = 0.5, id = NULL, tooltip_css = .tooltip_css, ...)
+girafy(
+  plot,
+  ...,
+  r = 1.5,
+  o = 0.5,
+  id = NULL,
+  pointsize = 12,
+  width_svg = NULL,
+  height_svg = NULL,
+  tooltip_css = .tooltip_css,
+  biratio = NULL
+)
 }
 \arguments{
-\item{plot}{le graphique ggplot}
+\item{plot}{le graphique ggplot à rendre interactif}
 
-\item{r}{(1.5) le rayon du zoom sur le point en cas de hover}
+\item{...}{autres options passées à \code{ggiraph::girafe_options()}}
 
-\item{o}{(0.5) l'opacité des autres éléments en cas de hover}
+\item{r}{(1.5) le rayon du zoom sur le point en cas de survol (en pixels)}
 
-\item{id}{utilisé pour tabsetize}
+\item{o}{(0.5) l'opacité des autres éléments en cas de survol (entre 0 et 1)}
 
-\item{...}{autres options passées à \code{girafe_options()}}
+\item{id}{identifiant unique pour le graphique, utilisé pour l'enregistrement}
 
-\item{out}{(NULL) répertoire pour enregistrer}
+\item{pointsize}{(12) taille de la police pour le rendu SVG (en points)}
+
+\item{width_svg}{largeur du graphique SVG en inches. Si NULL, déterminée automatiquement}
+
+\item{height_svg}{hauteur du graphique SVG en inches. Si NULL, déterminée automatiquement}
+
+\item{tooltip_css}{chaîne de style CSS personnalisé pour les tooltips.
+Utilise \code{.tooltip_css} par défaut (style intégré)}
+
+\item{biratio}{vecteur numérique de longueur 2 pour le responsive design :
+\code{c(ratio_desktop, ratio_mobile)}. Par défaut NULL. Si fourni, génère deux versions
+du graphique adaptées à la largeur d'écran (desktop et mobile).
+Exemple : \code{c(0.6, 1.333)} produit un graphique plus carré pour desktop
+et plus haut pour mobile.}
 }
 \value{
-un ggplot ou un objet ggiraph
+un objet ggiraph (en sortie HTML/interactive) ou un ggplot (en sortie statique)
 }
 \description{
-Cette fonction prend en charge le passage par ggirapoh, en spécifiant les options importantes (dont les tooltips)
-Possiblement, elle enregistre le graphique pour usage ultérieur (dans une présentation) ainf de garantir l'unicité des sources
-Elle prend en charge également la sortie pdf si nécessaire
-L'interactivité repose sur l'utilisation des fonctions de \code{ggiraph} \verb{geom_*_interactive()}
+Cette fonction prend en charge le passage par ggiraph, en spécifiant les options
+importantes (dont les tooltips). Elle enregistre le graphique pour usage ultérieur
+(dans une présentation) afin de garantir l'unicité des sources. L'interactivité
+repose sur l'utilisation des fonctions de \code{ggiraph} \verb{geom_*_interactive()}.
 }

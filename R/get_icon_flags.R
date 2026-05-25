@@ -1,7 +1,7 @@
 #' Obtenir les URLs des icônes Twemoji à partir de codes hexadécimaux Unicode
 #'
 #' Prend un vecteur de codes hexadécimaux Unicode et retourne les URLs
-#' correspondantes des fichiers SVG Twemoji hébergés sur le CDN jsDelivr.
+#' correspondantes des fichiers SVG ou PNG Twemoji hébergés sur le CDN cdnjs.
 #' Utiliser [show_emojis()] pour parcourir la liste des emojis disponibles
 #' et trouver les codes hexadécimaux correspondants.
 #'
@@ -11,25 +11,37 @@
 #'   Les valeurs `NA` sont conservées dans le résultat.
 #' @param tooltip Logique. Si `TRUE`, retourne une balise HTML `<img>` prête
 #'   à l'emploi (utile pour les tooltips ou les tableaux HTML).
-#'   Si `FALSE` (par défaut), retourne uniquement l'URL du SVG.
-#' @param size Taille en pixels de l'icône lorsque `tooltip = TRUE`
-#'   (par défaut `15`).
+#'   Si `FALSE` (par défaut), retourne uniquement l'URL.
+#'   Ignoré si `out` est fourni.
+#' @param size Taille en pixels de l'icône dans le rendu HTML
+#'   (par défaut `15`). Utilisé uniquement quand le format de sortie est `"html"`.
+#' @param format Format de l'image : `"svg"` (par défaut) ou `"png"` (72×72 px).
+#' @param out Format de sortie : `"url"` (URL brute), `"md"` (syntaxe Markdown `![](url)`),
+#'   `"html"` (balise `<img>`), ou `"path"` (chemin local). Si `NULL` (par
+#'   défaut), le format est déterminé par `tooltip` (`FALSE` → `"url"`,
+#'   `TRUE` → `"html"`). Quand `out` est fourni, il prend le dessus sur
+#'   `tooltip`.
 #'
-#' @return Un vecteur de chaînes de caractères contenant les URLs des fichiers
-#'   SVG Twemoji correspondants, ou des balises HTML `<img>` si
-#'   `tooltip = TRUE`. Les éléments `NA` en entrée produisent des `NA`
-#'   en sortie.
+#' @return Un vecteur de chaînes de caractères. Les éléments `NA` en entrée
+#'   produisent des `NA` en sortie.
 #'
 #' @examples
 #' get_icons("1F430")
 #' get_icons(c("1F430", "1F600"))
 #' get_icons("1F430", tooltip = TRUE)
 #' get_icons("1F430", tooltip = TRUE, size = 20)
+#' get_icons("1F430", format = "png")
+#' get_icons("1F430", out = "md")
+#' get_icons("1F430", out = "html", size = 24)
 #'
 #' @importFrom cli cli_abort
 #' @export
-get_icons <- function(hex, tooltip = FALSE, size = 15) {
-  if (!is.character(hex)) {
+get_icons <- function(hex, tooltip = FALSE, size = 15, format = c("svg", "png"), out = NULL) {
+  format <- match.arg(format)
+  if (!is.null(out)) {
+    out <- match.arg(out, c("url", "md", "html", "path"))
+  }
+  if (!is.character(hex) && !all(is.na(hex))) {
     cli::cli_abort("{.arg hex} doit \u00eatre un vecteur de cha\u00eenes de caract\u00e8res, pas {.obj_type_friendly {hex}}.")
   }
   if (length(hex) == 0) {
@@ -42,21 +54,121 @@ get_icons <- function(hex, tooltip = FALSE, size = 15) {
     )
   }
   hex_lower <- tolower(hex)
-  if (tooltip) {
-    base_url <- "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/"
-    res <- ifelse(
+  base_cdn <- "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/"
+  if (format == "png") {
+    base_url <- paste0(base_cdn, "72x72/")
+    ext <- ".png"
+  } else {
+    base_url <- paste0(base_cdn, "svg/")
+    ext <- ".svg"
+  }
+  urls <- ifelse(is.na(hex), NA_character_, paste0(base_url, hex_lower, ext))
+  effective_out <- if (!is.null(out)) out else if (tooltip) "html" else "url"
+
+  # Logic for resizing and MD output
+  if (!is.null(out) && out == "md") {
+    format <- "png"
+  }
+
+  res <- switch(effective_out,
+    url  = urls,
+    path = {
+      icon_dir <- "www/icons/"
+      if (!dir.exists(icon_dir)) dir.create(icon_dir, recursive = TRUE)
+      browser()
+
+      vapply(seq_along(urls), function(i) {
+        u <- urls[i]
+        if (is.na(u)) return(NA_character_)
+
+        ext <- if (format == "png") ".png" else ".svg"
+        hex_val <- hex_lower[i]
+        local_file <- paste0(icon_dir, hex_val, ext)
+
+        if (!file.exists(local_file)) {
+          tryCatch({
+            httr2::request(u) |>
+              httr2::req_perform() |>
+              httr2::resp_body_raw() |>
+              writeBin(local_file)
+          }, error = function(e) {
+            warning("Failed to download icon: ", u)
+            return(NA_character_)
+          })
+        }
+
+        if (is.na(local_file) || !file.exists(local_file)) {
+          return(NA_character_)
+        }
+
+        if (format == "png" && ext == ".svg") {
+          # Render at 60% of requested size with 4x resolution, then pad with transparency
+          icon_size <- floor(size * 0.6)
+          img <- magick::image_read_svg(local_file, width = icon_size * 4)
+          img <- magick::image_resize(img, magick::geometry_size_pixels(icon_size, icon_size))
+
+          canvas <- magick::imageblank(size, size, color = "transparent")
+          offset_x <- floor((size - icon_size) / 2)
+          offset_y <- floor((size - icon_size) * 0.6)
+
+          img <- magick::image_composite(canvas, img, offset = c(offset_x, offset_y))
+          magick::image_write(img, path = gsub("\\.svg$", ".png", local_file), format = "png")
+          local_file <- gsub("\\.svg$", ".png", local_file)
+        }
+
+        local_file
+      }, character(1))
+    },
+    md   = {
+      icon_dir <- "www/icons/"
+      if (!dir.exists(icon_dir)) dir.create(icon_dir, recursive = TRUE)
+
+      vapply(seq_along(urls), function(i) {
+
+        u <- urls[i]
+        if (is.na(u)) return(NA_character_)
+
+        # When out="md", we force format="png" and use SVG as source for resizing
+        local_file_svg <- paste0(icon_dir, hex_lower[i], ".svg")
+        local_file_png <- paste0(icon_dir, hex_lower[i], ".png")
+
+        # Always download/overwrite SVG to ensure source is available
+        tryCatch({
+          httr2::request(u) |>
+            httr2::req_perform() |>
+            httr2::resp_body_raw() |>
+            writeBin(local_file_svg)
+        }, error = function(e) {
+          warning("Failed to download icon: ", u)
+          return(NA_character_)
+        })
+
+        if (is.na(local_file_svg) || !file.exists(local_file_svg)) {
+          return(NA_character_)
+        }
+
+        # Render at 60% of requested size with 4x resolution, then pad with transparency
+        icon_size <- floor(16 * size * 0.6)
+        img <- magick::image_read_svg(local_file_svg, width = icon_size )
+        canvas <- magick::image_blank(icon_size, 16*size, color = "none")
+        offset_x <- 0
+        offset_y <- floor((16*size - icon_size) * 0.95)
+        offset <- stringr::str_c(ifelse(offset_x>=0,"+",""),offset_x,ifelse(offset_y>=0,"+",""),offset_y)
+        img_finale <- magick::image_composite(canvas, img, operator='over', offset = offset)
+        magick::image_write(img_finale, path = local_file_png, format = "png")
+
+        paste0("![](", local_file_png, ")")
+      }, character(1))
+    },
+    html = ifelse(
       is.na(hex),
       NA_character_,
       paste0(
-        "<img src='", base_url, hex_lower, ".svg' ",
+        "<img src='", urls, "' ",
         "style='height:", size, "px;width:", size, "px;vertical-align:-2px;'>"
       )
     )
-  } else {
-    base_url <- "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/"
-    res <- ifelse(is.na(hex), NA_character_, paste0(base_url, hex_lower, ".svg"))
-  }
-
+  )
   return(res)
 }
 
@@ -73,10 +185,14 @@ get_icons <- function(hex, tooltip = FALSE, size = 15) {
 #'   On peut mélanger les formats dans le même vecteur.
 #'   Les valeurs `NA` sont conservées dans le résultat.
 #' @param tooltip Logique. Si `TRUE`, retourne une balise HTML `<img>`.
-#'   Si `FALSE` (par défaut), retourne uniquement l'URL du SVG.
+#'   Si `FALSE` (par défaut), retourne uniquement l'URL.
 #'   Passé à [get_icons()].
 #' @param size Taille en pixels de l'icône lorsque `tooltip = TRUE`
 #'   (par défaut `15`). Passé à [get_icons()].
+#' @param format Format de l'image : `"svg"` (par défaut) ou `"png"` (72×72 px).
+#'   Passé à [get_icons()].
+#' @param out Format de sortie : `"url"`, `"md"`, ou `"html"`.
+#'   Passé à [get_icons()].
 #'
 #' @return Un vecteur de chaînes de caractères contenant les URLs ou balises
 #'   HTML des drapeaux Twemoji. Les éléments `NA` en entrée ou les pays
@@ -89,12 +205,13 @@ get_icons <- function(hex, tooltip = FALSE, size = 15) {
 #' get_flags("France")
 #' get_flags(c("Allemagne", "Italy", "Estados Unidos"))
 #' get_flags("FRA", tooltip = TRUE)
+#' get_flags("FRA", format = "png")
 #'
 #' @importFrom cli cli_abort cli_warn
 #' @importFrom countrycode countrycode
 #' @export
-get_flags <- function(country, tooltip = FALSE, size = 15) {
-  if (!is.character(country)) {
+get_flags <- function(country, tooltip = FALSE, size = 15, format = c("svg", "png"), out = NULL) {
+  if (!is.character(country) && !all(is.na(country))) {
     cli::cli_abort("{.arg country} doit \u00eatre un vecteur de cha\u00eenes de caract\u00e8res, pas {.obj_type_friendly {country}}.")
   }
   if (length(country) == 0) {
@@ -139,7 +256,7 @@ get_flags <- function(country, tooltip = FALSE, size = 15) {
     NA_character_,
     paste0(sprintf("%x", 0x1F1E5 + c1), "-", sprintf("%x", 0x1F1E5 + c2))
   )
-  get_icons(hex, tooltip = tooltip, size = size)
+  get_icons(hex, tooltip = tooltip, size = size, format = match.arg(format), out = out)
 }
 
 #' Afficher la liste des emojis Twemoji
@@ -184,11 +301,15 @@ show_emojis <- function() {
 #' @importFrom grDevices as.raster
 #' @export
 show_flags <- function(country) {
-  urls <- get_flags(country)
+  urls <- get_flags(country, out = "url")
   tooltips <- get_flags(country, tooltip = TRUE, size = 64)
-  imgs <- lapply(urls, function(u) {
-    if (is.na(u)) return(NULL)
-    magick::image_read_svg(u, width = 120)
+
+  # Get local paths to avoid network issues with magick
+  paths <- get_flags(country, out = "path")
+
+  imgs <- lapply(paths, function(p) {
+    if (is.na(p)) return(NULL)
+    magick::image_read_svg(p, width = 120)
   })
   n <- length(country)
   ncol <- min(n, 6)
@@ -223,4 +344,3 @@ show_flags <- function(country) {
     ggiraph::opts_tooltip(css = "background:white;padding:5px;border-radius:3px;border:1px solid #ccc;")
   ))
 }
-

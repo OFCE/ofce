@@ -1,7 +1,14 @@
+## OFCE 1.3.35
+
+* `girafy()` peut maintenant générer des graphiques qui n'ont pas le même aspect ratio sur mobile et desktop.
+
+## OFCE 1.3.35
+
+* ajout dans `get_icons()` et `get_flags` d'options pour sortir du md et des icones en png
+
 ## OFCE 1.3.34
 
 * ajout de `get_icons()` et `get_flags` pour obtenir des svg d'emojis et drapeaux, et faciliter leur intégration dans les tooltips
-
 
 ## OFCE 1.3.33
 
@@ -9,7 +16,8 @@
 
 ## OFCE 1.3.32
 
-* `margin_download_file()` est l'équivalent de `margin_download()` pour un fichier de données (ou Excel) est est maintenant à bord.
+* `margin_download_file()` est l'équivalent de `margin_download()` pour un fichier de données (ou Excel) est est maintenant à bord. 
+Les données ne sont pas dans la page (mais dans un dossier spécifique) ce qui évite de faire des pages trop grosses avec cette fonction.
 
 ## OFCE 1.3.31
 
@@ -27,7 +35,7 @@
 
 ## OFCE 1.3.28
 
-* corrections tellement mineurs qu'on se demande encore pourquoi un incrément même mineur
+* corrections tellement mineures qu'on se demande encore pourquoi un incrément même mineur
 
 ## OFCE 1.3.27
 

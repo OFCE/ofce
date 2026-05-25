@@ -4,7 +4,13 @@
 \alias{get_icons}
 \title{Obtenir les URLs des icônes Twemoji à partir de codes hexadécimaux Unicode}
 \usage{
-get_icons(hex, tooltip = FALSE, size = 15)
+get_icons(
+  hex,
+  tooltip = FALSE,
+  size = 15,
+  format = c("svg", "png"),
+  out = NULL
+)
 }
 \arguments{
 \item{hex}{Un vecteur de chaînes de caractères contenant des codes
@@ -14,20 +20,27 @@ Les valeurs \code{NA} sont conservées dans le résultat.}
 
 \item{tooltip}{Logique. Si \code{TRUE}, retourne une balise HTML \verb{<img>} prête
 à l'emploi (utile pour les tooltips ou les tableaux HTML).
-Si \code{FALSE} (par défaut), retourne uniquement l'URL du SVG.}
+Si \code{FALSE} (par défaut), retourne uniquement l'URL.
+Ignoré si \code{out} est fourni.}
 
-\item{size}{Taille en pixels de l'icône lorsque \code{tooltip = TRUE}
-(par défaut \code{15}).}
+\item{size}{Taille en pixels de l'icône dans le rendu HTML
+(par défaut \code{15}). Utilisé uniquement quand le format de sortie est \code{"html"}.}
+
+\item{format}{Format de l'image : \code{"svg"} (par défaut) ou \code{"png"} (72×72 px).}
+
+\item{out}{Format de sortie : \code{"url"} (URL brute), \code{"md"} (syntaxe Markdown \verb{![](url)}),
+\code{"html"} (balise \verb{<img>}), ou \code{"path"} (chemin local). Si \code{NULL} (par
+défaut), le format est déterminé par \code{tooltip} (\code{FALSE} → \code{"url"},
+\code{TRUE} → \code{"html"}). Quand \code{out} est fourni, il prend le dessus sur
+\code{tooltip}.}
 }
 \value{
-Un vecteur de chaînes de caractères contenant les URLs des fichiers
-SVG Twemoji correspondants, ou des balises HTML \verb{<img>} si
-\code{tooltip = TRUE}. Les éléments \code{NA} en entrée produisent des \code{NA}
-en sortie.
+Un vecteur de chaînes de caractères. Les éléments \code{NA} en entrée
+produisent des \code{NA} en sortie.
 }
 \description{
 Prend un vecteur de codes hexadécimaux Unicode et retourne les URLs
-correspondantes des fichiers SVG Twemoji hébergés sur le CDN jsDelivr.
+correspondantes des fichiers SVG ou PNG Twemoji hébergés sur le CDN cdnjs.
 Utiliser \code{\link[=show_emojis]{show_emojis()}} pour parcourir la liste des emojis disponibles
 et trouver les codes hexadécimaux correspondants.
 }
@@ -36,5 +49,8 @@ get_icons("1F430")
 get_icons(c("1F430", "1F600"))
 get_icons("1F430", tooltip = TRUE)
 get_icons("1F430", tooltip = TRUE, size = 20)
+get_icons("1F430", format = "png")
+get_icons("1F430", out = "md")
+get_icons("1F430", out = "html", size = 24)
 
 }

@@ -1,7 +1,7 @@
 Package: ofce
 Type: Package
 Title: Documents scientifiques aux normes OFCE
-Version: 1.3.34
+Version: 1.3.36
 Authors@R: c(
     person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut")),
     person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),
@@ -13,11 +13,13 @@ Imports:
     cli,
     colorspace,
     countrycode,
+    curl,
     downloadthis,
     dplyr,
     farver,
     fs,
     gt (>= 1.1.0),
+    httr2,
     tidyverse (>= 2.0.0),
     ggplot2 (>= 4.0.0),
     ggpp,
@@ -26,6 +28,7 @@ Imports:
     quarto,
     lubridate,
     marquee (>= 1.2.0),
+    htmltools,
     plyr,
     purrr,
     quarto,
