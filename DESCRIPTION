@@ -1,7 +1,7 @@
 Package: ofce
 Type: Package
 Title: Documents scientifiques aux normes OFCE
-Version: 1.3.35
+Version: 1.3.36
 Authors@R: c(
     person("Paul", "Malliet", , "paul.malliet@sciencespo.fr", role = c("aut")),
     person("Anissa", "Saumtally", , "anissa.saumtally@sciencespo.fr", role = c("aut")),
@@ -28,6 +28,7 @@ Imports:
     quarto,
     lubridate,
     marquee (>= 1.2.0),
+    htmltools,
     plyr,
     purrr,
     quarto,

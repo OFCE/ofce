@@ -1,5 +1,9 @@
 ## OFCE 1.3.35
 
+* `girafy()` peut maintenant générer des graphiques qui n'ont pas le même aspect ratio sur mobile et desktop.
+
+## OFCE 1.3.35
+
 * ajout dans `get_icons()` et `get_flags` d'options pour sortir du md et des icones en png
 
 ## OFCE 1.3.34
