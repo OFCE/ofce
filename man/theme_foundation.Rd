@@ -28,8 +28,8 @@ elements (\code{line}, \code{rect}, and \code{title}), which have
 and-non colour defaults of the default \pkg{ggplot2} themes in place.
 }
 \seealso{
-Other themes:
-\code{\link[=theme_ofce]{theme_ofce()}},
-\code{\link[=theme_ofce_void]{theme_ofce_void()}}
+Other themes: 
+\code{\link{theme_ofce}()},
+\code{\link{theme_ofce_void}()}
 }
 \concept{themes}

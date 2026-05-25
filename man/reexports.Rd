@@ -14,6 +14,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{sourcoise}{\code{\link[sourcoise:sourcoise]{sourcoise()}}, \code{\link[sourcoise:sourcoise_clear]{sourcoise_clear()}}, \code{\link[sourcoise:sourcoise_refresh]{sourcoise_refresh()}}, \code{\link[sourcoise:sourcoise_status]{sourcoise_status()}}}
+  \item{sourcoise}{\code{\link[sourcoise]{sourcoise}}, \code{\link[sourcoise]{sourcoise_clear}}, \code{\link[sourcoise]{sourcoise_refresh}}, \code{\link[sourcoise]{sourcoise_status}}}
 }}
 
