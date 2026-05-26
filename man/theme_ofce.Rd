@@ -209,8 +209,8 @@ d'autres éléments de la norme comme les couleurs, l'allure générale du graph
 sont à introduire par ailleurs
 }
 \seealso{
-Other themes: 
-\code{\link{theme_foundation}()},
-\code{\link{theme_ofce_void}()}
+Other themes:
+\code{\link[=theme_foundation]{theme_foundation()}},
+\code{\link[=theme_ofce_void]{theme_ofce_void()}}
 }
 \concept{themes}
