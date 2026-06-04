@@ -1,29 +1,79 @@
 # Changelog
 
+## OFCE 1.3.35
+
+- [`girafy()`](../reference/girafy.md) peut maintenant générer des
+  graphiques qui n’ont pas le même aspect ratio sur mobile et desktop.
+
+## OFCE 1.3.35
+
+- ajout dans [`get_icons()`](../reference/get_icons.md) et `get_flags`
+  d’options pour sortir du md et des icones en png
+
+## OFCE 1.3.34
+
+- ajout de [`get_icons()`](../reference/get_icons.md) et `get_flags`
+  pour obtenir des svg d’emojis et drapeaux, et faciliter leur
+  intégration dans les tooltips
+
+## OFCE 1.3.33
+
+- ajout de [`licence_auteur()`](../reference/licence_auteur.md) pour
+  placer la licence CC-by , l’auteur et le logo ofce sur les graphiques
+
+## OFCE 1.3.32
+
+- [`margin_download_file()`](../reference/margin_download_file.md) est
+  l’équivalent de [`margin_download()`](../reference/margin_download.md)
+  pour un fichier de données (ou Excel) est est maintenant à bord. Les
+  données ne sont pas dans la page (mais dans un dossier spécifique) ce
+  qui évite de faire des pages trop grosses avec cette fonction.
+
+## OFCE 1.3.31
+
+- modification des palettes de couleur pays (assez radical)
+- [`scale_color_pays()`](../reference/scale_color_pays.md) prend un
+  argument `values` pour mettre des exceptions (un pays dont la couleur
+  n’est pas celle de la palette)
+
+## OFCE 1.3.30
+
+- [`licence_auteur()`](../reference/licence_auteur.md) ajoute sur la
+  droite du graphique un grob avec la licence CC by 4.0 , l’auteur,
+  l’annee et le logo OFCE
+
+## OFCE 1.3.29
+
+- [`save_object()`](../reference/save_object.md) et `load_object`
+  généralisent la fonction de sauvegarde des graphes et marche pour les
+  tableaux.
+
+## OFCE 1.3.28
+
+- corrections tellement mineures qu’on se demande encore pourquoi un
+  incrément même mineur
+
 ## OFCE 1.3.27
 
-- la fonction
-  [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+- la fonction [`ofce_caption()`](../reference/ofce_caption.md)
   fonctionne maintenant pour les graphiques et les gt tables (oui, les
   gt tables) et ce avec la même syntaxe ce qui n’est pas un petit
   exploit (merci qui ?)
 - les fonctions d’aide aux tableaux sont à bord
-  ([`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md),
-  [`ofce_row_bold()`](https://ofce.github.io/ofce/reference/ofce_row_bold.md)
-  et plein d’autres)
+  ([`ofce_tab_options()`](../reference/ofce_tab_options.md),
+  [`ofce_row_bold()`](../reference/ofce_row_bold.md) et plein d’autres)
 
 ## OFCE 1.3.26
 
-- [`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
-  copie maintenant `www` et son contenu dans le dossier
+- [`setup_quarto()`](../reference/setup_quarto.md) copie maintenant
+  `www` et son contenu dans le dossier
 - check la version de `quarto` de façon plus précise et cohérente
 
 ## OFCE 1.3.25
 
-- ajout de
-  [`fmt_val()`](https://ofce.github.io/ofce/reference/fmt_val.md),
-  [`fmt_mds()`](https://ofce.github.io/ofce/reference/fmt_mds.md) et
-  [`fmt_pct()`](https://ofce.github.io/ofce/reference/fmt_pct.md)
+- ajout de [`fmt_val()`](../reference/fmt_val.md),
+  [`fmt_mds()`](../reference/fmt_mds.md) et
+  [`fmt_pct()`](../reference/fmt_pct.md)
 
 ## OFCE 1.3.24
 
@@ -31,10 +81,9 @@
 
 ## OFCE 1.3.23
 
-- [`tabsetize()`](https://ofce.github.io/ofce/reference/tabsetize.md),
-  [`margin_download()`](https://ofce.github.io/ofce/reference/margin_download.md)
-  et [`girafy()`](https://ofce.github.io/ofce/reference/girafy.md) sont
-  à bord
+- [`tabsetize()`](../reference/tabsetize.md),
+  [`margin_download()`](../reference/margin_download.md) et
+  [`girafy()`](../reference/girafy.md) sont à bord
 
 ## OFCE 1.3.22
 
@@ -70,15 +119,13 @@
 
 ## OFCE 1.3.15
 
-- corrections de bugs dans
-  [`init_qmd()`](https://ofce.github.io/ofce/reference/init_qmd.md)
+- corrections de bugs dans [`init_qmd()`](../reference/init_qmd.md)
   (réécriture)
 
 ## OFCE 1.3.14
 
-- corrections de bug dont
-  [`init_qmd()`](https://ofce.github.io/ofce/reference/init_qmd.md) et
-  [`board()`](https://ofce.github.io/ofce/reference/board.md)
+- corrections de bug dont [`init_qmd()`](../reference/init_qmd.md) et
+  [`board()`](../reference/board.md)
 
 ## OFCE 1.3.13
 
@@ -88,10 +135,8 @@
 
 ## OFCE 1.3.12
 
-- ajout de
-  [`bd_read()`](https://ofce.github.io/ofce/reference/bd_read.md) et
-  [`bd_write()`](https://ofce.github.io/ofce/reference/bd_write.md) pour
-  l’accès à Azure
+- ajout de [`bd_read()`](../reference/bd_read.md) et
+  [`bd_write()`](../reference/bd_write.md) pour l’accès à Azure
 
 ## OFCE 1.3.11
 
@@ -118,10 +163,10 @@
 
 ## OFCE 1.3.7
 
-- [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
-  : Ajout d’une option auteurs pour calcul des auteurs plutôt que calcul
-  OFCE (notamment pour les publications externes pour lesquels la
-  responsabilité de l’OFCE n’est pas engagée)
+- [`ofce_caption()`](../reference/ofce_caption.md) : Ajout d’une option
+  auteurs pour calcul des auteurs plutôt que calcul OFCE (notamment pour
+  les publications externes pour lesquels la responsabilité de l’OFCE
+  n’est pas engagée)
 
 ## OFCE 1.3.6
 
@@ -165,10 +210,8 @@
 
 ## OFCE 1.2.0
 
-- ajout de
-  [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
-  ; ajout de
-  [`scale_ofce_date()`](https://ofce.github.io/ofce/reference/scale_ofce_date.md)
+- ajout de [`ofce_caption()`](../reference/ofce_caption.md) ; ajout de
+  [`scale_ofce_date()`](../reference/scale_ofce_date.md)
 
 - corrections de bugs mineurs
 
@@ -180,8 +223,6 @@
 
 - première version avec notamment les fonctions :
 
-\*\*
-[`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
-\*\*
-[`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
-\*\* [`setup_wp()`](https://ofce.github.io/ofce/reference/setup_wp.md)
+\*\* [`theme_ofce()`](../reference/theme_ofce.md) \*\*
+[`setup_quarto()`](../reference/setup_quarto.md) \*\*
+[`setup_wp()`](../reference/setup_wp.md)

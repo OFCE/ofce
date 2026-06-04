@@ -2,8 +2,7 @@
 
 ## 5 Règles d’or
 
-> **Règle 1** : On utilise
-> [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
+> **Règle 1** : On utilise [`theme_ofce()`](../reference/theme_ofce.md)
 > pour les graphiques !
 
 > **Règle 2** : Les dates sont au format `<date>` même lorsque la
@@ -55,15 +54,17 @@ données :
 code
 
 ``` r
+
 dates <- c(2023, 2024, 2025)
 as.Date(as.character(dates), format  = "%Y")
 ```
 
-    [1] "2023-12-03" "2024-12-03" "2025-12-03"
+    [1] "2023-06-03" "2024-06-03" "2025-06-03"
 
 code
 
 ``` r
+
 # si on veut préciser le jour et le mois de l'année
 as.Date(str_c(dates, "-01-01"))
 ```
@@ -73,6 +74,7 @@ as.Date(str_c(dates, "-01-01"))
 code
 
 ``` r
+
 dates <- c("1/2023", "2/2024", "3/2025")
 lubridate::my(dates)
 ```
@@ -95,10 +97,11 @@ données se présentent sous la forme.
 code
 
 ``` r
+
 spreads
 ```
 
-    # A tibble: 10,117 × 3
+    # A tibble: 10.117 × 3
        date       pays        taux
        <date>     <chr>      <dbl>
      1 2007-01-02 spreadfra 0.0130
@@ -111,7 +114,7 @@ spreads
      8 2007-01-11 spreadfra 0.0370
      9 2007-01-12 spreadfra 0.0340
     10 2007-01-15 spreadfra 0.0380
-    # ℹ 10,107 more rows
+    # ℹ 10.107 more rows
 
 Les données sont au format long (avec deux modalités pour `pays` et donc
 3 colonnes), les dates sont au format `<date>`, donc tout va presque
@@ -129,13 +132,14 @@ différentes langues.
 code
 
 ``` r
+
 spreads_data <- spreads |>
   distinct(date, pays, .keep_all = TRUE) |>
   mutate(pays = factor( pays, c("spreadfra", "spreadita"), c("France", "Italie")))
 spreads
 ```
 
-    # A tibble: 10,117 × 3
+    # A tibble: 10.117 × 3
        date       pays        taux
        <date>     <chr>      <dbl>
      1 2007-01-02 spreadfra 0.0130
@@ -148,7 +152,7 @@ spreads
      8 2007-01-11 spreadfra 0.0370
      9 2007-01-12 spreadfra 0.0340
     10 2007-01-15 spreadfra 0.0380
-    # ℹ 10,107 more rows
+    # ℹ 10.107 more rows
 
 ## La base du graphique
 
@@ -170,6 +174,7 @@ est en premier et donc en dessous du
 code
 
 ``` r
+
 library(ofce)
 cc <- PrettyCols::prettycols("Summer", n=2)
 date_maj <- "2024-07-01"
@@ -200,12 +205,11 @@ main <- ggplot(spreads_data) +
 
 On utilise la palette *summer* de
 [PrettyCols](https://nrennie.rbind.io/PrettyCols/) (affaire de goût). On
-utilise la fonction
-[`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
-pour homogénéiser la présentation des graphiques. On précise les labels
-des axes inutile pour `x`, explicite pour `y`. Et la source, en notant
-que l’on peut utiliser `markdown` dans le texte de la source, ce qui
-permet de mettre *Source* en italique.
+utilise la fonction [`theme_ofce()`](../reference/theme_ofce.md) pour
+homogénéiser la présentation des graphiques. On précise les labels des
+axes inutile pour `x`, explicite pour `y`. Et la source, en notant que
+l’on peut utiliser `markdown` dans le texte de la source, ce qui permet
+de mettre *Source* en italique.
 
 Le recours à
 [`scale_x_date()`](https://ggplot2.tidyverse.org/reference/scale_date.html)
@@ -230,6 +234,7 @@ La plus élégante est `ggforce::geom_mark_circle()` ou
 code
 
 ``` r
+
 # méthode 1 : annotate
 
 annotations <-  list(
@@ -298,6 +303,7 @@ annotations <-  list(
 code
 
 ``` r
+
 # méthode 2 : ggrepel
 # on enrichit les données des labels,
 # le code est plus compact et surtout plus facile à manier
@@ -373,6 +379,7 @@ mensuel.
 code
 
 ``` r
+
 md <- max(spreads_data$date)
 dates <- spreads_data$date
 # on force le jour à être le 15 du mois, il n'y aura qu'une date par mois!
@@ -412,6 +419,7 @@ mensuel se fait automatiquement, les axes sont parfaitement construits)
 code
 
 ``` r
+
 add_logo(main %+% spreads_m)
 ```
 
@@ -423,6 +431,7 @@ simplifiant les axes et en zoomant sur les deux derniers mois.
 code
 
 ``` r
+
 inset <- main +
   theme_ofce(
     base_size = 7,
@@ -462,6 +471,7 @@ police de caractère pour accentuer l’effet visuel.
 code
 
 ``` r
+
 library(patchwork)
 main_m <- add_logo((main + annotations) %+% spreads_m)
 main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
@@ -471,19 +481,27 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 
 > **Tip 1: Une alternative avec {ggmagnify}**
 >
-> Le package [ggmagnify](https://github.com/hughjonesd/ggmagnify)
-> simplifie la tâche et offre quelques améliorations esthétiques. Il
-> faut cependant que les *dataset* principal et *inset* soit les mêmes
-> \[pas sûr en fait\]. On reprend l’agrégation temporelle en l’arrêtant
-> aux deux derniers mois. On complexifie l’insert pour intégrer plus
-> d’éléments en utilisant l’argument `plot` de
-> [`ggmagnify::geom_magnify()`](https://hughjonesd.github.io/ggmagnify/reference/geom_magnify.html).
+> Le package `{ggmagnify}` simplifie la tâche et offre quelques
+> améliorations esthétiques. Il faut cependant que les *dataset*
+> principal et *inset* soit les mêmes \[pas sûr en fait\]. On reprend
+> l’agrégation temporelle en l’arrêtant aux deux derniers mois. On
+> complexifie l’insert pour intégrer plus d’éléments en utilisant
+> l’argument `plot` de `ggmagnify::geom_magnify()`.
 >
 > code
 >
 > ``` r
+>
 > # pak::pak("hughjonesd/ggmagnify")
 > library(ggmagnify)
+> ```
+>
+>     Error in `library()`:
+>     ! there is no package called 'ggmagnify'
+>
+> code
+>
+> ``` r
 >
 > md <- max(spreads_data$date)
 > date_inset <- floor_date(md - months(3), unit = "month")
@@ -527,6 +545,7 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 > code
 >
 > ``` r
+>
 > inset_plot <- ggplot(spreads_hyb) +
 >   aes(x = date, y = taux, fill = pays, color = pays, group = pays) +
 >   geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
@@ -559,11 +578,13 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 >     labels = ~ str_c(.x, "%"), breaks = seq(0, 2))
 > ```
 >
->     Error: object 'spreads_hyb' not found
+>     Error:
+>     ! object 'spreads_hyb' not found
 >
 > code
 >
 > ``` r
+>
 > from <- list(md - days(50), md, 0, 2)
 > to <- list(md - years(4), md + years(1), 3.75, 5)
 > sh <- ggplot(spreads_hyb) +
@@ -607,15 +628,18 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 >   )
 > ```
 >
->     Error: object 'spreads_hyb' not found
+>     Error:
+>     ! object 'spreads_hyb' not found
 >
 > code
 >
 > ``` r
+>
 > girafy(add_logo(sh), r = 2.5)
 > ```
 >
->     Error: object 'sh' not found
+>     Error:
+>     ! object 'sh' not found
 
 ## L’interactivité
 
@@ -632,6 +656,7 @@ pour formater les dates simplement.
 code
 
 ``` r
+
 spreads_m <- spreads_m |>
   mutate(
     tooltip = str_c("<b>", pays, "</b><br>",
@@ -661,6 +686,7 @@ interactivités.
 code
 
 ``` r
+
 library(ggiraph)
 main_i <- ggplot(spreads_m) +
   aes(x = date, y = taux, color = pays, group = pays, fill = pays) +
@@ -705,6 +731,7 @@ spreads_data <- spreads_data |>
 code
 
 ``` r
+
 inset_i <- (main_i %+% spreads_data) +
   theme_ofce(
     base_size = 7,
@@ -766,6 +793,7 @@ cas.
 code
 
 ``` r
+
 library(lubridate)
 # pak::pak("teunbrand/ggh4x")
 library(ggh4x)
@@ -840,6 +868,7 @@ Pour que les boutons soient sur la même ligne on utilise la syntaxe
 code
 
 ``` r
+
 library(downloadthis)
 b1 <- download_this(
   spreads_m |> select(-tooltip),
@@ -857,6 +886,7 @@ b1 <- download_this(
 code
 
 ``` r
+
 b2 <- download_this(
   spreads_data,
   icon = "fa fa-download",

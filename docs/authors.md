@@ -10,14 +10,14 @@
 
 ## Citation
 
-Malliet P, Saumtally A, Timbeau X (2025). *ofce: Documents scientifiques
-aux normes OFCE*. R package version 1.3.27,
+Malliet P, Saumtally A, Timbeau X (2026). *ofce: Documents scientifiques
+aux normes OFCE*. R package version 1.3.36,
 <https://ofce.github.io/ofce>.
 
     @Manual{,
       title = {ofce: Documents scientifiques aux normes OFCE},
       author = {Paul Malliet and Anissa Saumtally and Xavier Timbeau},
-      year = {2025},
-      note = {R package version 1.3.27},
+      year = {2026},
+      note = {R package version 1.3.36},
       url = {https://ofce.github.io/ofce},
     }

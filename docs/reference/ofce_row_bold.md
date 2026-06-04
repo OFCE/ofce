@@ -24,14 +24,14 @@ un tableau gt
 
 ## See also
 
-[`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md),
-[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md),
-[`ofce_cols_fill()`](https://ofce.github.io/ofce/reference/ofce_cols_fill.md),
-[`ofce_spanners_bold()`](https://ofce.github.io/ofce/reference/ofce_spanners_bold.md),
-[`ofce_row_italic()`](https://ofce.github.io/ofce/reference/ofce_row_italic.md),
-[`ofce_align_decimal()`](https://ofce.github.io/ofce/reference/ofce_align_decimal.md),
-[`ofce_fmt_decimal()`](https://ofce.github.io/ofce/reference/ofce_fmt_decimal.md),
-[`ofce_hide_col_pdf()`](https://ofce.github.io/ofce/reference/ofce_hide_col_pdf.md)
+[`ofce_tab_options()`](ofce_tab_options.md),
+[`ofce_caption()`](ofce_caption.md),
+[`ofce_cols_fill()`](ofce_cols_fill.md),
+[`ofce_spanners_bold()`](ofce_spanners_bold.md),
+[`ofce_row_italic()`](ofce_row_italic.md),
+[`ofce_align_decimal()`](ofce_align_decimal.md),
+[`ofce_fmt_decimal()`](ofce_fmt_decimal.md),
+[`ofce_hide_col_pdf()`](ofce_hide_col_pdf.md)
 
 ## Examples
 

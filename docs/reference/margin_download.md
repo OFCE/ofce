@@ -43,8 +43,8 @@ margin_download(
 
 - format:
 
-  format du ficher à télécharger, mis en option du package (
-  `ofce.output_extension` par défaut), peut être ".csv", ".xlsx"
+  format du ficher à télécharger, mis en option du package
+  (`ofce.output_extension` par défaut), peut être ".csv", ".xlsx"
 
 ## Value
 

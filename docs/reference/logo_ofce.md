@@ -5,7 +5,7 @@ Ajoute le logo de l'OFCE sur le graphique
 ## Usage
 
 ``` r
-logo_ofce(size = 1)
+logo_ofce(size = 1, position = "bottom")
 ```
 
 ## Arguments

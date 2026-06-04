@@ -12,15 +12,13 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.10/font.css" rel="stylesheet">
-<link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="prevision_files/libs/quarto-html/popper.min.js"></script><script src="prevision_files/libs/quarto-html/tippy.umd.min.js"></script><link href="prevision_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="prevision_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Séries temporelles II : les graphiques de prévision">
-<meta property="og:image" content="https://ofce.github.io/ofce/logo.png">
+<meta property="og:image" content="/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -30,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.27</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.36</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,43 +37,34 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-manuels" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Manuels</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-manuels">
-<li><a class="dropdown-item" href="../articles/site.html">Sites dédiés</a></li>
-    <li><a class="dropdown-item" href="../articles/blog.html">Le Blog</a></li>
-    <li><a class="dropdown-item" href="../articles/quarto.html">Ecrire un texte en quarto</a></li>
-    <li><a class="dropdown-item" href="../articles/graphiques.html">Faire un graphique</a></li>
-    <li><a class="dropdown-item" href="../articles/tableaux.html">Faire un tableau</a></li>
-    <li><a class="dropdown-item" href="../articles/outils.html">Les outils</a></li>
-    <li><a class="dropdown-item" href="../articles/semio.html">Le language des graphiques</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-tutoriaux" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Tutoriaux</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-tutoriaux">
-<li><a class="dropdown-item" href="../articles/charte_graphique.html">Charte Graphique</a></li>
-    <li><a class="dropdown-item" href="../articles/prevision.html">Charte Graphique pour la Prévision</a></li>
-    <li><hr class="dropdown-divider"></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/blog.html">Procédures du blog</a></li>
+    <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
+    <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
+    <li><a class="dropdown-item" href="../articles/charte_graphique.html">Charte graphique</a></li>
+    <li><a class="dropdown-item" href="../articles/distributions.html">Les distributions</a></li>
+    <li><a class="dropdown-item" href="../articles/graphiques.html">Faire un graphique</a></li>
+    <li><a class="dropdown-item" href="../articles/outils.html">Outils</a></li>
+    <li><a class="dropdown-item" href="../articles/prevision.html">Séries temporelles II : les graphiques de prévision</a></li>
+    <li><a class="dropdown-item" href="../articles/qa.html">Quand tout va mal : questions et réponses</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">Premiers pas avec Quarto</a></li>
+    <li><a class="dropdown-item" href="../articles/semio.html">Le language des graphiques</a></li>
+    <li><a class="dropdown-item" href="../articles/site.html">Des sites dédiés</a></li>
+    <li><a class="dropdown-item" href="../articles/source_data.html">source_data() : plus rapide, plus sûr</a></li>
+    <li><a class="dropdown-item" href="../articles/tableaux.html">Recommandations pour les tableaux OFCE</a></li>
     <li><a class="dropdown-item" href="../articles/temporelles.html">Séries temporelles</a></li>
     <li><a class="dropdown-item" href="../articles/xy.html">Graphiques XY</a></li>
-    <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
-    <li><a class="dropdown-item" href="../articles/distributions.html">Distributions</a></li>
-    <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../articles/source_data.html">Caché et robuste</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../articles/qa.html">Quand ça ne marche pas</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ofce/ofce"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -128,7 +117,7 @@
 <li><p>en mettant à disposition les données avec un <code><a href="../reference/margin_download.html">margin_download()</a></code>,</p></li>
 </ol>
 </li>
-<li><p>On utilise <code><a href="../reference/ofce_caption.html">ofce::ofce_caption()</a></code> afin de normaliser l’aspect et la présentation des notes de graphique. <code><a href="../reference/ofce_caption.html">ofce_caption()</a></code> permet de spécifier la source, les notes, les indications de lecture, le champ, le lien vers le code, un texte comme “prévisions OFCE 2025” systématique, etc… (reportez vous à l’aide de cette fonction qui est dans le package <a href="https://ofce.github.io/ofce">ofce</a>).</p></li>
+<li><p>On utilise <code><a href="../reference/ofce_caption.html">ofce::ofce_caption()</a></code> afin de normaliser l’aspect et la présentation des notes de graphique. <code><a href="../reference/ofce_caption.html">ofce_caption()</a></code> permet de spécifier la source, les notes, les indications de lecture, le champ, le lien vers le code, un texte comme “prévisions OFCE 2025” systématique, etc… (reportez vous à l’aide de cette fonction qui est dans le package <a href="https://ofce.github.io/ofce" class="external-link">ofce</a>).</p></li>
 <li><p>On met le code du graphique (le <code>ggplot</code>, etc…) dans le <code>.qmd</code> qui contient le texte. Cela permet d’éditer les textes, d’un côté, et de normaliser les présentations, de l’autre. La construction du tooltip est aussi à ce niveau pour pouvoir l’éditer. Il est <strong>nécessaire que le <code><a href="../reference/girafy.html">girafy()</a></code> soit dans le <code>qmd</code></strong>, sinon, l’objet interactif n’aura pas le bon format suivant les support (site, présentation, etc…).</p></li>
 <li><p>On utilise <code>ofce::source_data()</code> pour la construction des données, ce n’est pas obligatoire, mais très efficace et très recommandé pour le travail collaboratif (comme celui de la prévision). Voir <a href="source_data.html">la vignette correspondante</a>. On met le code de construction dans un fichier <code>.r</code>, joint dont le nom est simple, signifiant, en minuscule et qui est enregistré au même niveau que le <code>.qmd</code> ou en dessous. On utilise <code>source_data</code> pour éviter de bloquer le fonctionnement de la compilation des <code>qmd</code> et faciliter la portabilité des codes de données – <strong>c’est important</strong>.</p></li>
 </ol>
@@ -154,7 +143,8 @@
 <span>    long <span class="op">=</span> <span class="va">pays_long</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">pays</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    tooltip <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"&lt;b&gt;{long}&lt;/b&gt;&lt;br&gt;{date_trim(date)}&lt;br&gt;croissance trimestrielle du PIB : {round(value,1)}%"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error in read_excel(data_pays, sheet = "pib", col_names = TRUE): could not find function "read_excel"</code></pre>
+<pre><code>Error in `read_excel()`:
+! could not find function "read_excel"</code></pre>
 </div>
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_tcho</span> <span class="op">&lt;-</span> <span class="fu">read_excel</span><span class="op">(</span><span class="va">data_pays</span>, sheet <span class="op">=</span> <span class="st">"tcho"</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -165,7 +155,8 @@
 <span>    long <span class="op">=</span> <span class="va">pays_long</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">pays</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    tooltip <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"&lt;b&gt;{long}&lt;/b&gt;&lt;br&gt;{date_trim(date)}&lt;br&gt;Taux de chômage : {round(value,1)}% de la population active"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error in read_excel(data_pays, sheet = "tcho", col_names = TRUE): could not find function "read_excel"</code></pre>
+<pre><code>Error in `read_excel()`:
+! could not find function "read_excel"</code></pre>
 </div>
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_prix</span> <span class="op">&lt;-</span> <span class="fu">read_excel</span><span class="op">(</span><span class="va">data_pays</span>, sheet <span class="op">=</span> <span class="st">"prix"</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -177,7 +168,8 @@
 <span>    long <span class="op">=</span> <span class="va">pays_long</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">pays</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    tooltip <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"&lt;b&gt;{long}&lt;/b&gt;&lt;br&gt;{date_trim(date)}&lt;br&gt;Glissement annuel des prix : {round(value,1)}%"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error in read_excel(data_pays, sheet = "prix", col_names = TRUE): could not find function "read_excel"</code></pre>
+<pre><code>Error in `read_excel()`:
+! could not find function "read_excel"</code></pre>
 </div>
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_solde</span> <span class="op">&lt;-</span> <span class="fu">read_excel</span><span class="op">(</span><span class="va">data_pays</span>, sheet <span class="op">=</span> <span class="st">"solde"</span>, col_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -190,7 +182,8 @@
 <span>    long <span class="op">=</span> <span class="va">pays_long</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">pays</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>    tooltip <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"&lt;b&gt;{long}&lt;/b&gt;&lt;br&gt;{year(date)} (fin d'année)&lt;br&gt;Solde des administrations publiques : {round(value,1)}%"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error in read_excel(data_pays, sheet = "solde", col_names = TRUE): could not find function "read_excel"</code></pre>
+<pre><code>Error in `read_excel()`:
+! could not find function "read_excel"</code></pre>
 </div>
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">data_gpib</span>, <span class="va">data_tcho</span>, <span class="va">data_prix</span>, <span class="va">data_solde</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -201,7 +194,8 @@
 <span>    <span class="va">variable</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Croissance du PIB"</span>, <span class="st">"Chômage"</span>, <span class="st">"Inflation (prix à la consommation)"</span>, <span class="st">"Solde public (APU)"</span> <span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error: object 'data_gpib' not found</code></pre>
+<pre><code>Error:
+! object 'data_gpib' not found</code></pre>
 </div>
 </div>
 <p>Les données, dans <code>data</code>, sont en format long, c’est à dire en ligne pour les dates, les pays et les variables. Rien de particulier à ce stade, si ce n’est la construction du tooltip, pour chaque ligne de <code>data</code>. On choisit un pays qui sera le principal, on fait un <code>facet</code> sur les <em>variables</em> (pib, chômage, inflation, déficit), et on ajoute les autres pays dans le fond, en gris clair pour la comparaison. Ce chunk peut tout à fait être dans un script <code>r</code> (<code>data.r</code>)<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Un nom plus signifiant devra être trouvé. Si tout le monde construit ses données dans un script &lt;code&gt;data.r&lt;/code&gt;, ca va faire des conflits.&lt;/p&gt;"><sup>1</sup></a> et on utilise alors <code>source_data</code> pour l’exécuter avec <code>data &lt;- source_data("data.r")</code>.</p>
@@ -215,7 +209,8 @@
 <span><span class="co"># on définit les données, le pays en évidence, `pays2` moins mis en évidence et `autres` pas mis en évidence du tout</span></span>
 <span><span class="va">autres</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">pays</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pays</span>, <span class="va">pays2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error in UseMethod("distinct"): no applicable method for 'distinct' applied to an object of class "c('gt_tbl', 'list')"</code></pre>
+<pre><code>Error in `UseMethod()`:
+! no applicable method for 'distinct' applied to an object of class "function"</code></pre>
 </div>
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="annotated-cell-8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
@@ -276,16 +271,15 @@
 <span>    note <span class="op">=</span> <span class="st">"La zone euro est en gris foncé"</span>,</span>
 <span>    dpt <span class="op">=</span> <span class="st">"2024-04-01"</span>, dptf <span class="op">=</span> <span class="st">"quarter"</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error in `fortify()`:
-! `data` must be a &lt;data.frame&gt;, or an object coercible by `fortify()`,
-  or a valid &lt;data.frame&gt;-like object coercible by `as.data.frame()`.
-Caused by error in `check_data_frame_like()`:
-! `dim(data)` must return an &lt;integer&gt; of length 2.</code></pre>
+<pre><code>Error in `ggplot()`:
+! `data` cannot be a function.
+ℹ Have you misspelled the `data` argument in `ggplot()`?</code></pre>
 </div>
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gg</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error: object 'gg' not found</code></pre>
+<pre><code>Error:
+! object 'gg' not found</code></pre>
 </div>
 </div>
 </section><section class="level2"><h2 id="des-couleurs-par-pays">Des couleurs par pays<a class="anchor" aria-label="anchor" href="#des-couleurs-par-pays"></a>
@@ -304,7 +298,8 @@ Caused by error in `check_data_frame_like()`:
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/girafy.html">girafy</a></span><span class="op">(</span><span class="va">gg</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error: object 'gg' not found</code></pre>
+<pre><code>Error:
+! object 'gg' not found</code></pre>
 </div>
 </div>
 <p>Et voilà !</p>
@@ -450,7 +445,7 @@ Caused by error in `check_data_frame_like()`:
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

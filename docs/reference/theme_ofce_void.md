@@ -37,6 +37,5 @@ un thème qui peut être utilisé dans ggplot
 
 ## See also
 
-Other themes:
-[`theme_foundation()`](https://ofce.github.io/ofce/reference/theme_foundation.md),
-[`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
+Other themes: [`theme_foundation()`](theme_foundation.md),
+[`theme_ofce()`](theme_ofce.md)
