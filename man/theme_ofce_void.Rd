@@ -27,8 +27,8 @@ Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 Convient pour des cartes par exemple
 }
 \seealso{
-Other themes: 
-\code{\link{theme_foundation}()},
-\code{\link{theme_ofce}()}
+Other themes:
+\code{\link[=theme_foundation]{theme_foundation()}},
+\code{\link[=theme_ofce]{theme_ofce()}}
 }
 \concept{themes}
