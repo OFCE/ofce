@@ -12,15 +12,13 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Open_Sans-0.4.10/font.css" rel="stylesheet">
-<link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="temporelles_files/libs/quarto-html/popper.min.js"></script><script src="temporelles_files/libs/quarto-html/tippy.umd.min.js"></script><link href="temporelles_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="temporelles_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Séries temporelles">
-<meta property="og:image" content="https://ofce.github.io/ofce/logo.png">
+<meta property="og:image" content="/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -30,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.27</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.36</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,43 +37,34 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-manuels" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Manuels</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-manuels">
-<li><a class="dropdown-item" href="../articles/site.html">Sites dédiés</a></li>
-    <li><a class="dropdown-item" href="../articles/blog.html">Le Blog</a></li>
-    <li><a class="dropdown-item" href="../articles/quarto.html">Ecrire un texte en quarto</a></li>
-    <li><a class="dropdown-item" href="../articles/graphiques.html">Faire un graphique</a></li>
-    <li><a class="dropdown-item" href="../articles/tableaux.html">Faire un tableau</a></li>
-    <li><a class="dropdown-item" href="../articles/outils.html">Les outils</a></li>
-    <li><a class="dropdown-item" href="../articles/semio.html">Le language des graphiques</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-tutoriaux" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Tutoriaux</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-tutoriaux">
-<li><a class="dropdown-item" href="../articles/charte_graphique.html">Charte Graphique</a></li>
-    <li><a class="dropdown-item" href="../articles/prevision.html">Charte Graphique pour la Prévision</a></li>
-    <li><hr class="dropdown-divider"></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/blog.html">Procédures du blog</a></li>
+    <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
+    <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
+    <li><a class="dropdown-item" href="../articles/charte_graphique.html">Charte graphique</a></li>
+    <li><a class="dropdown-item" href="../articles/distributions.html">Les distributions</a></li>
+    <li><a class="dropdown-item" href="../articles/graphiques.html">Faire un graphique</a></li>
+    <li><a class="dropdown-item" href="../articles/outils.html">Outils</a></li>
+    <li><a class="dropdown-item" href="../articles/prevision.html">Séries temporelles II : les graphiques de prévision</a></li>
+    <li><a class="dropdown-item" href="../articles/qa.html">Quand tout va mal : questions et réponses</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">Premiers pas avec Quarto</a></li>
+    <li><a class="dropdown-item" href="../articles/semio.html">Le language des graphiques</a></li>
+    <li><a class="dropdown-item" href="../articles/site.html">Des sites dédiés</a></li>
+    <li><a class="dropdown-item" href="../articles/source_data.html">source_data() : plus rapide, plus sûr</a></li>
+    <li><a class="dropdown-item" href="../articles/tableaux.html">Recommandations pour les tableaux OFCE</a></li>
     <li><a class="dropdown-item" href="../articles/temporelles.html">Séries temporelles</a></li>
     <li><a class="dropdown-item" href="../articles/xy.html">Graphiques XY</a></li>
-    <li><a class="dropdown-item" href="../articles/categories.html">Barres empilées, wafle, treemap, lollypop</a></li>
-    <li><a class="dropdown-item" href="../articles/distributions.html">Distributions</a></li>
-    <li><a class="dropdown-item" href="../articles/cartes.html">Cartes</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../articles/source_data.html">Caché et robuste</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../articles/qa.html">Quand ça ne marche pas</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ofce/ofce"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -127,7 +116,7 @@
 <code class="sourceCode R"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2023</span>, <span class="fl">2024</span>, <span class="fl">2025</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>, format  <span class="op">=</span> <span class="st">"%Y"</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>[1] "2023-12-03" "2024-12-03" "2025-12-03"</code></pre>
+<pre><code>[1] "2023-06-03" "2024-06-03" "2025-06-03"</code></pre>
 </div>
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># si on veut préciser le jour et le mois de l'année</span></span>
@@ -153,7 +142,7 @@
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spreads</span></span></code></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10,117 × 3
+<pre><code># A tibble: 10.117 × 3
    date       pays        taux
    &lt;date&gt;     &lt;chr&gt;      &lt;dbl&gt;
  1 2007-01-02 spreadfra 0.0130
@@ -166,7 +155,7 @@
  8 2007-01-11 spreadfra 0.0370
  9 2007-01-12 spreadfra 0.0340
 10 2007-01-15 spreadfra 0.0380
-# ℹ 10,107 more rows</code></pre>
+# ℹ 10.107 more rows</code></pre>
 </div>
 </div>
 <p>Les données sont au format long (avec deux modalités pour <code>pays</code> et donc 3 colonnes), les dates sont au format <code>&lt;date&gt;</code>, donc tout va presque bien. La colonne <code>pays</code> est un peu brute. On la transforme pour avoir un label plus propre et en facteur, pour contrôler l’ordre (on met France en premier, Italie en second). Il y a plusieurs méthodes pour arriver à ce résultat. Ici, on reste très simple parce qu’il n’y a que deux modalités. Si il y en avait plus de deux (et surtout un grand nombre, possiblement évolutif), on aurait fait quelques manipulations de chaînes et on aurait utilisé le package <a href="https://vincentarelbundock.github.io/countrycode/" class="external-link">countrycode</a> pour transformer les code pays en texte lisible, possiblement traduit dans différentes langues.</p>
@@ -177,7 +166,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span> <span class="va">pays</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spreadfra"</span>, <span class="st">"spreadita"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"France"</span>, <span class="st">"Italie"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">spreads</span></span></code></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10,117 × 3
+<pre><code># A tibble: 10.117 × 3
    date       pays        taux
    &lt;date&gt;     &lt;chr&gt;      &lt;dbl&gt;
  1 2007-01-02 spreadfra 0.0130
@@ -190,7 +179,7 @@
  8 2007-01-11 spreadfra 0.0370
  9 2007-01-12 spreadfra 0.0340
 10 2007-01-15 spreadfra 0.0380
-# ℹ 10,107 more rows</code></pre>
+# ℹ 10.107 more rows</code></pre>
 </div>
 </div>
 </section><section class="level2"><h2 id="la-base-du-graphique">La base du graphique<a class="anchor" aria-label="anchor" href="#la-base-du-graphique"></a>
@@ -198,7 +187,7 @@
 <p>Le graphique de base est alors simple à construire. On utilise une couche <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line()</a></code> et <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point()</a></code>, une couche <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> avec comme <code>x</code> les dates, <code>y</code> les taux et couleurs les pays. Pour <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line()</a></code>, il faut préciser le groupe (cela peut paraître redondant, mais cela peut servir si on veut colorer en fonction d’une autre variable). L’ordre est important et le <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line()</a></code> est en premier et donc en dessous du <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point()</a></code>.</p>
 <div class="cell">
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ofce.github.io/ofce">ofce</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ofce.github.io/ofce" class="external-link">ofce</a></span><span class="op">)</span></span>
 <span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu">PrettyCols</span><span class="fu">::</span><span class="fu"><a href="https://nrennie.github.io/PrettyCols/reference/prettycols.html" class="external-link">prettycols</a></span><span class="op">(</span><span class="st">"Summer"</span>, n<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">date_maj</span> <span class="op">&lt;-</span> <span class="st">"2024-07-01"</span></span>
 <span><span class="va">main</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">spreads_data</span><span class="op">)</span> <span class="op">+</span></span>
@@ -468,13 +457,17 @@
 <div id="tip-id">
 <blockquote>
 <p><strong>Tip 1: Une alternative avec {ggmagnify}</strong></p>
-<p>Le package <a href="https://github.com/hughjonesd/ggmagnify" class="external-link">ggmagnify</a> simplifie la tâche et offre quelques améliorations esthétiques. Il faut cependant que les <em>dataset</em> principal et <em>inset</em> soit les mêmes [pas sûr en fait]. On reprend l’agrégation temporelle en l’arrêtant aux deux derniers mois. On complexifie l’insert pour intégrer plus d’éléments en utilisant l’argument <code>plot</code> de <code><a href="https://hughjonesd.github.io/ggmagnify/reference/geom_magnify.html" class="external-link">ggmagnify::geom_magnify()</a></code>.</p>
+<p>Le package <code>{ggmagnify}</code> simplifie la tâche et offre quelques améliorations esthétiques. Il faut cependant que les <em>dataset</em> principal et <em>inset</em> soit les mêmes [pas sûr en fait]. On reprend l’agrégation temporelle en l’arrêtant aux deux derniers mois. On complexifie l’insert pour intégrer plus d’éléments en utilisant l’argument <code>plot</code> de <code>ggmagnify::geom_magnify()</code>.</p>
 <div class="cell">
 <details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># pak::pak("hughjonesd/ggmagnify")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hughjonesd/ggmagnify" class="external-link">ggmagnify</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">md</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">spreads_data</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ggmagnify</span><span class="op">)</span></span></code></pre></div>
+</details><div class="cell-output cell-output-error">
+<pre><code>Error in `library()`:
+! there is no package called 'ggmagnify'</code></pre>
+</div>
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">md</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">spreads_data</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span><span class="va">date_inset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">floor_date</a></span><span class="op">(</span><span class="va">md</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span>
 <span><span class="va">spreads_hyb</span> <span class="op">&lt;-</span> <span class="va">spreads_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -512,7 +505,7 @@
 Caused by error in `f_taux()`:
 ! could not find function "f_taux"</code></pre>
 </div>
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">inset_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">spreads_hyb</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">taux</span>, fill <span class="op">=</span> <span class="va">pays</span>, color <span class="op">=</span> <span class="va">pays</span>, group <span class="op">=</span> <span class="va">pays</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.75</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -544,9 +537,10 @@ Caused by error in `f_taux()`:
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span></span>
 <span>    labels <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"%"</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error: object 'spreads_hyb' not found</code></pre>
+<pre><code>Error:
+! object 'spreads_hyb' not found</code></pre>
 </div>
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">md</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">days</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>, <span class="va">md</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">md</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">years</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, <span class="va">md</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">3.75</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">sh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">spreads_hyb</span><span class="op">)</span> <span class="op">+</span></span>
@@ -582,19 +576,21 @@ Caused by error in `f_taux()`:
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="va">annotations</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggmagnify</span><span class="fu">::</span><span class="fu"><a href="https://hughjonesd.github.io/ggmagnify/reference/geom_magnify.html" class="external-link">geom_magnify</a></span><span class="op">(</span></span>
+<span>  <span class="fu">ggmagnify</span><span class="fu">::</span><span class="fu">geom_magnify</span><span class="op">(</span></span>
 <span>    from <span class="op">=</span> <span class="va">from</span>, to <span class="op">=</span> <span class="va">to</span>, linewidth <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>    colour <span class="op">=</span> <span class="st">"grey25"</span>, shadow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    plot <span class="op">=</span> <span class="va">inset_plot</span>, axes <span class="op">=</span> <span class="st">"xy"</span>,</span>
 <span>    shadow.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="fl">5</span>, colour <span class="op">=</span> <span class="st">"grey80"</span>, x_offset <span class="op">=</span> <span class="fl">5</span>, y_offset <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error: object 'spreads_hyb' not found</code></pre>
+<pre><code>Error:
+! object 'spreads_hyb' not found</code></pre>
 </div>
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/girafy.html">girafy</a></span><span class="op">(</span><span class="fu"><a href="../reference/add_logo.html">add_logo</a></span><span class="op">(</span><span class="va">sh</span><span class="op">)</span>, r <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error: object 'sh' not found</code></pre>
+<pre><code>Error:
+! object 'sh' not found</code></pre>
 </div>
 </div>
 </blockquote>
@@ -604,7 +600,7 @@ Caused by error in `f_taux()`:
 <p>La dernière étape est l’interactivité. On utilise le package <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> qui va permettre d’intégrer des <em>tooltips</em> très simplement et très efficacement. On peut aussi avec des sélections dynamiques ou encore des zooms.</p>
 <p>Pour ajouter l’interactivité, la première étape est de générer le texte des <em>tooltips</em> dans le tableau de données. Notez l’utilisation de <code><a href="https://lubridate.tidyverse.org/reference/stamp.html" class="external-link">lubridate::stamp_date()</a></code> pour formater les dates simplement.</p>
 <div class="cell">
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spreads_m</span> <span class="op">&lt;-</span> <span class="va">spreads_m</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    tooltip <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="st">"&lt;b&gt;"</span>, <span class="va">pays</span>, <span class="st">"&lt;/b&gt;&lt;br&gt;"</span>,</span>
@@ -621,7 +617,7 @@ Caused by error in `f_taux()`:
 </div>
 <p>L’interactivité est alors ajoutée par des instructions spécifiques qui se substituent aux <code>geom_*</code> en ajoutant un suffix, <code>geom_*_interactive</code>. Ces <code>geom_*_interactive</code> acceptent un <code>aes</code> avec deux paramètres supplémentaire, le premier définissant le <code>tooltip</code> et le second, <code>data_id</code>, une variable qui relie les éléments graphiques entre eux pour qu’ils soient modifiés lors du survol avec la souris. La fonction <code>girafy</code> qui est définie par <code>source("rinit.r")</code> et finalise le rendu. <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> conserve tous les éléments du graphique et il est possible de l’appliquer avec <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> pour combiner les interactivités.</p>
 <div class="cell">
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a></span><span class="op">)</span></span>
 <span><span class="va">main_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">spreads_m</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">taux</span>, color <span class="op">=</span> <span class="va">pays</span>, group <span class="op">=</span> <span class="va">pays</span>, fill <span class="op">=</span> <span class="va">pays</span><span class="op">)</span> <span class="op">+</span></span>
@@ -662,7 +658,7 @@ Caused by error in `f_taux()`:
 Caused by error in `f_taux()`:
 ! could not find function "f_taux"</code></pre>
 </div>
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">inset_i</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">main_i</span> <span class="op"><a href="https://ggplot2.tidyverse.org/reference/gg-add.html" class="external-link">%+%</a></span> <span class="va">spreads_data</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_ofce.html">theme_ofce</a></span><span class="op">(</span></span>
 <span>    base_size <span class="op">=</span> <span class="fl">7</span>,</span>
@@ -704,7 +700,7 @@ Caused by error:
 </h2>
 <p>On transforme les données en fréquence trimestrielle en utilisant la fonction <code><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">lubridate::floor_date()</a></code>. En calculant les variables année (<code>y</code>) et trimestre (<code>q</code>), on peut avec le package <a href="https://github.com/teunbrand/ggh4x" class="external-link">ggh4x</a> produire facilement un joli graphique trimestriel. Les clefs sont de mettre en x l’interaction entre ces deux éléments discrets (attention à l’ordre, attention à trier les données avec <code>arrange</code>). La magie opère ensuite avec <code>guide = "axis_nested"</code>. Cete fonction est généralisable à bien des cas.</p>
 <div class="cell">
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span></span>
 <span><span class="co"># pak::pak("teunbrand/ggh4x")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x" class="external-link">ggh4x</a></span><span class="op">)</span></span>
@@ -766,7 +762,7 @@ Caused by error:
 <p>A minima, on ajoute un bouton pour télécharger les données. C’est simple à faire avec <a href="https://github.com/fmmattioni/downloadthis" class="external-link">downloadthis</a> et ce bout de code qui peut être mis juste après un graphique. On reprend le fichier de données, tel quel, modifié éventuellement pour enlever ou renommer une colonne, et qui sera disponible en csv, UTF8, avec des virgules comme sépérateurs et des points comme marque décimale (i.e. pas ce qu’Excel attend ☠️).</p>
 <p>Pour que les boutons soient sur la même ligne on utilise la syntaxe <em>inline</em> <code>'r une_expression_R'</code> :</p>
 <div class="cell" data-fenced="true">
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fmmattioni/downloadthis" class="external-link">downloadthis</a></span><span class="op">)</span></span>
 <span><span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/downloadthis/man/download_this.html" class="external-link">download_this</a></span><span class="op">(</span></span>
 <span>  <span class="va">spreads_m</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">tooltip</span><span class="op">)</span>,</span>
@@ -780,7 +776,7 @@ Caused by error:
 ! Can't select columns that don't exist.
 ✖ Column `tooltip` doesn't exist.</code></pre>
 </div>
-<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
+<details class="code-fold"><summary>code</summary><div class="sourceCode cell-code" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">b2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/downloadthis/man/download_this.html" class="external-link">download_this</a></span><span class="op">(</span></span>
 <span>  <span class="va">spreads_data</span>,</span>
 <span>  icon <span class="op">=</span> <span class="st">"fa fa-download"</span>,</span>
@@ -884,7 +880,7 @@ Caused by error:
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>RTFM CC BY 4.0 Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

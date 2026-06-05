@@ -17,11 +17,11 @@ Avec un faible coût on peut rendre le graphique interactif (avec
 [ggiraph](https://davidgohel.github.io/ggiraph/)).
 
 Un graphique `ggplot` doit contenir une couche (layer)
-[`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md) et
-limiter au maximum les définitions de taille (par exemple de police de
-caractère). Ces définitions doivent être faites de façon globale pour
-assurer l’homogénéité. **Il est important de ne pas définir la taille de
-la figure, ça risque de produire des images avec des caractères trop
+[`theme_ofce()`](../reference/theme_ofce.md) et limiter au maximum les
+définitions de taille (par exemple de police de caractère). Ces
+définitions doivent être faites de façon globale pour assurer
+l’homogénéité. **Il est important de ne pas définir la taille de la
+figure, ça risque de produire des images avec des caractères trop
 petits**.
 
 Pour changer les dimensions d’un graphique, il faut utiliser[^1]
@@ -132,6 +132,7 @@ symboles spéciaux**). Donc `donnees/img.png` ou
 `figures/revenu.png` ou `figures/pib_par_tete.png` sont mieux.
 
 ``` r
+
 #| label fig-pib2008_2024
 #| fig-cap: PIB entre 2008 et 2024
 

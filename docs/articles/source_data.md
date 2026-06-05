@@ -148,9 +148,10 @@ En code cela donne le chunk ci dessous. Les données sont accessibles par
 construire la note (noter que
 [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) est
 appliqué aux textes passés à
-[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)).
+[`ofce_caption()`](../reference/ofce_caption.md)).
 
 ``` r
+
 transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
 
 trsc <- ggplot(transactions$data) + 
@@ -188,7 +189,7 @@ fonction de cette logique l’exécution des caches.
 
 On peut également à partir de `source_data_status()` accéder aux données
 en cache. Elles sont enregistrées en `.qs` et donc se chargent avec un
-[`qs::qread()`](https://rdrr.io/pkg/qs/man/qread.html).
+`qs::qread()`.
 
 On peut également nettoyer complètement le cache (ce qui provoquera sa
 ré exécution) avec `clear_source_cache()`. `prune_source_cache()` fait

@@ -13,6 +13,7 @@ Un graphique ggplot2 par défaut aura le rendu suivant:
 code
 
 ``` r
+
 p <- ggplot(iris) + 
   aes(x = Sepal.Width, y = Sepal.Length, group = Species, color = Species) +
   geom_point(size = 2)
@@ -29,6 +30,7 @@ pré-enregistrés dans ggplot2.
 code
 
 ``` r
+
 p + theme_classic()
 ```
 
@@ -41,6 +43,7 @@ charte graphique définie par ailleurs.
 code
 
 ``` r
+
 p + ofce::theme_ofce()
 ```
 
@@ -55,6 +58,7 @@ un vecteur de couleur.
 code
 
 ``` r
+
 p + 
 ofce::theme_ofce() + 
   scale_color_manual(values = c("darkred", "darkblue", "darkgreen"))
@@ -68,6 +72,7 @@ couleurs définies dans la charte graphique.
 code
 
 ``` r
+
 p + 
 ofce::theme_ofce() + 
   scale_color_manual(values = ofce::ofce_palette(n=3))
@@ -88,6 +93,7 @@ alpha-3*](https://www.iban.com/country-codes).
 code
 
 ``` r
+
 vec_iso <- c("ESP", "DEU", "FRA")
 data <- data.frame("value" = c(1:30), 
                     "iso" = vec_iso) |> 

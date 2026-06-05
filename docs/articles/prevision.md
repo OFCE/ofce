@@ -9,10 +9,9 @@ obligatoires (i.e. obligatoires sauf très bonne raison de ne pas les
 suivre).
 
 1.  On suit d’abord les consignes qui valent pour les graphiques de
-    [séries
-    temporelles](https://ofce.github.io/ofce/articles/temporelles.md)
+    [séries temporelles](temporelles.md)
 
-    1.  [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md),
+    1.  [`theme_ofce()`](../reference/theme_ofce.md),
 
     2.  format `<date>`, et on appelle sa colonne d’index temporel
         `time` ; les dates sont au format quotidien (`"2024-01-31"`) par
@@ -20,7 +19,7 @@ suivre).
         `"yyyy-[01; 04; 07; 10]-01"` et les années au premier janvier
         (mais voir plus bas pour une nuance importante).
 
-    3.  [`scale_ofce_date()`](https://ofce.github.io/ofce/reference/scale_ofce_date.md),
+    3.  [`scale_ofce_date()`](../reference/scale_ofce_date.md),
 
     4.  On utilise les options pour le
         `geom_point_interactive(linewidth=0.5, shape=21, stroke=0.25, col="white", hover_nearest=TRUE`)
@@ -31,6 +30,7 @@ suivre).
         utiles :
 
 ``` r
+
 #| include: false
 ofce::init_qmd()
 ```
@@ -59,38 +59,33 @@ ofce::init_qmd()
     2.  en construisant un `tooltip` le plus signifiant possible,
 
     3.  en mettant à disposition les données avec un
-        [`margin_download()`](https://ofce.github.io/ofce/reference/margin_download.md),
+        [`margin_download()`](../reference/margin_download.md),
 
-6.  On utilise
-    [`ofce::ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+6.  On utilise [`ofce::ofce_caption()`](../reference/ofce_caption.md)
     afin de normaliser l’aspect et la présentation des notes de
-    graphique.
-    [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
-    permet de spécifier la source, les notes, les indications de
-    lecture, le champ, le lien vers le code, un texte comme “prévisions
-    OFCE 2025” systématique, etc… (reportez vous à l’aide de cette
-    fonction qui est dans le package
-    [ofce](https://ofce.github.io/ofce)).
+    graphique. [`ofce_caption()`](../reference/ofce_caption.md) permet
+    de spécifier la source, les notes, les indications de lecture, le
+    champ, le lien vers le code, un texte comme “prévisions OFCE 2025”
+    systématique, etc… (reportez vous à l’aide de cette fonction qui est
+    dans le package [ofce](https://ofce.github.io/ofce)).
 
 7.  On met le code du graphique (le `ggplot`, etc…) dans le `.qmd` qui
     contient le texte. Cela permet d’éditer les textes, d’un côté, et de
     normaliser les présentations, de l’autre. La construction du tooltip
     est aussi à ce niveau pour pouvoir l’éditer. Il est **nécessaire que
-    le [`girafy()`](https://ofce.github.io/ofce/reference/girafy.md)
-    soit dans le `qmd`**, sinon, l’objet interactif n’aura pas le bon
-    format suivant les support (site, présentation, etc…).
+    le [`girafy()`](../reference/girafy.md) soit dans le `qmd`**, sinon,
+    l’objet interactif n’aura pas le bon format suivant les support
+    (site, présentation, etc…).
 
 8.  On utilise `ofce::source_data()` pour la construction des données,
     ce n’est pas obligatoire, mais très efficace et très recommandé pour
     le travail collaboratif (comme celui de la prévision). Voir [la
-    vignette
-    correspondante](https://ofce.github.io/ofce/articles/source_data.md).
-    On met le code de construction dans un fichier `.r`, joint dont le
-    nom est simple, signifiant, en minuscule et qui est enregistré au
-    même niveau que le `.qmd` ou en dessous. On utilise `source_data`
-    pour éviter de bloquer le fonctionnement de la compilation des `qmd`
-    et faciliter la portabilité des codes de données – **c’est
-    important**.
+    vignette correspondante](source_data.md). On met le code de
+    construction dans un fichier `.r`, joint dont le nom est simple,
+    signifiant, en minuscule et qui est enregistré au même niveau que le
+    `.qmd` ou en dessous. On utilise `source_data` pour éviter de
+    bloquer le fonctionnement de la compilation des `qmd` et faciliter
+    la portabilité des codes de données – **c’est important**.
 
 Chacun de ces éléments est détaillés et avec des exemples de codes
 ci-dessous.
@@ -113,6 +108,7 @@ copiables directement.
 code
 
 ``` r
+
 gt <- function(x, na.rm = FALSE) (100*(x/lag(x,1)-1))
 ga <- function(x, na.rm = FALSE) (100*(x/lag(x,4)-1))
 data_pays <- fs::path_package("ofce", "extdata/data_pays.xlsx")
@@ -126,11 +122,13 @@ data_gpib <- read_excel(data_pays, sheet = "pib", col_names = TRUE) |>
     tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>croissance trimestrielle du PIB : {round(value,1)}%"))
 ```
 
-    Error in read_excel(data_pays, sheet = "pib", col_names = TRUE): could not find function "read_excel"
+    Error in `read_excel()`:
+    ! could not find function "read_excel"
 
 code
 
 ``` r
+
 data_tcho <- read_excel(data_pays, sheet = "tcho", col_names = TRUE) |>
   mutate(date = as.Date(date)+ days(45)) |>
   pivot_longer(cols=-date, names_to="pays", values_to = "value") |>
@@ -140,11 +138,13 @@ data_tcho <- read_excel(data_pays, sheet = "tcho", col_names = TRUE) |>
     tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Taux de chômage : {round(value,1)}% de la population active"))
 ```
 
-    Error in read_excel(data_pays, sheet = "tcho", col_names = TRUE): could not find function "read_excel"
+    Error in `read_excel()`:
+    ! could not find function "read_excel"
 
 code
 
 ``` r
+
 data_prix <- read_excel(data_pays, sheet = "prix", col_names = TRUE) |>
   mutate(date = as.Date(date) + days(45)) %>%
   mutate_at(c("usa", "euz","deu","fra","ita","esp","gbr","jpn"), list(~ga(.))) |>
@@ -155,11 +155,13 @@ data_prix <- read_excel(data_pays, sheet = "prix", col_names = TRUE) |>
     tooltip = glue("<b>{long}</b><br>{date_trim(date)}<br>Glissement annuel des prix : {round(value,1)}%"))
 ```
 
-    Error in read_excel(data_pays, sheet = "prix", col_names = TRUE): could not find function "read_excel"
+    Error in `read_excel()`:
+    ! could not find function "read_excel"
 
 code
 
 ``` r
+
 data_solde <- read_excel(data_pays, sheet = "solde", col_names = TRUE) |>
   mutate(date = as.Date(date) -days(15))|>
   pivot_longer(cols=-c("date"), names_to="pays", values_to = "value") %>%
@@ -171,11 +173,13 @@ data_solde <- read_excel(data_pays, sheet = "solde", col_names = TRUE) |>
     tooltip = glue("<b>{long}</b><br>{year(date)} (fin d'année)<br>Solde des administrations publiques : {round(value,1)}%"))
 ```
 
-    Error in read_excel(data_pays, sheet = "solde", col_names = TRUE): could not find function "read_excel"
+    Error in `read_excel()`:
+    ! could not find function "read_excel"
 
 code
 
 ``` r
+
 data <- bind_rows(data_gpib, data_tcho, data_prix, data_solde) |>
   filter(date > "2020-12-31") |>
   mutate(
@@ -185,7 +189,8 @@ data <- bind_rows(data_gpib, data_tcho, data_prix, data_solde) |>
     c("Croissance du PIB", "Chômage", "Inflation (prix à la consommation)", "Solde public (APU)" )))
 ```
 
-    Error: object 'data_gpib' not found
+    Error:
+    ! object 'data_gpib' not found
 
 Les données, dans `data`, sont en format long, c’est à dire en ligne
 pour les dates, les pays et les variables. Rien de particulier à ce
@@ -205,17 +210,20 @@ des recommandations ci-dessus :
 code
 
 ``` r
+
 pays <- "FRA"
 pays2 <- "EUZ"
 # on définit les données, le pays en évidence, `pays2` moins mis en évidence et `autres` pas mis en évidence du tout
 autres <- data |> distinct(pays) |> pull() |> setdiff(c(pays, pays2))
 ```
 
-    Error in UseMethod("distinct"): no applicable method for 'distinct' applied to an object of class "c('gt_tbl', 'list')"
+    Error in `UseMethod()`:
+    ! no applicable method for 'distinct' applied to an object of class "function"
 
 code
 
 ``` r
+
 gg <- ggplot(data) +
   # l'`aes` commun à plusieurs geom, une bonne pratique qui rend le code plus simple
   aes(x=date, y=value, group = pays, color = variable, fill = variable) +
@@ -275,27 +283,27 @@ gg <- ggplot(data) +
     dpt = "2024-04-01", dptf = "quarter")
 ```
 
-    Error in `fortify()`:
-    ! `data` must be a <data.frame>, or an object coercible by `fortify()`,
-      or a valid <data.frame>-like object coercible by `as.data.frame()`.
-    Caused by error in `check_data_frame_like()`:
-    ! `dim(data)` must return an <integer> of length 2.
+    Error in `ggplot()`:
+    ! `data` cannot be a function.
+    ℹ Have you misspelled the `data` argument in `ggplot()`?
 
 code
 
 ``` r
+
 gg
 ```
 
-    Error: object 'gg' not found
+    Error:
+    ! object 'gg' not found
 
 ## Des couleurs par pays
 
 La fonction
-[`ofce::scale_color_pays()`](https://ofce.github.io/ofce/reference/scale_color_pays.md)
-applique une échelle de couleur (et de remplissage) qui suit le choix de
-la charte graphique de l’ofce. Pour que cela fonctionne, il faut que
-dans l’aes qui définit la couleur (`aes(color=pays)`) ou le remplissage
+[`ofce::scale_color_pays()`](../reference/scale_color_pays.md) applique
+une échelle de couleur (et de remplissage) qui suit le choix de la
+charte graphique de l’ofce. Pour que cela fonctionne, il faut que dans
+l’aes qui définit la couleur (`aes(color=pays)`) ou le remplissage
 (`aes(fill=pays)`) soit un code iso à 3 lettres. Si le code est un code
 eurostat il suffit de le préciser (`format="eurostat"` en paramètre à
 scale_color_pays()).
@@ -303,6 +311,7 @@ scale_color_pays()).
 Cela donne comme code :
 
 ``` r
+
 ggplot(mes_donnees) +
   aes(x=time, y= pib, color = pays, fill = pays) +
   ...+
@@ -320,10 +329,12 @@ exemple dans une présentation).
 code
 
 ``` r
+
 girafy(gg)
 ```
 
-    Error: object 'gg' not found
+    Error:
+    ! object 'gg' not found
 
 Et voilà !
 
@@ -377,9 +388,10 @@ En code cela donne le chunk ci dessous. Les données sont accessibles par
 construire la note (noter que
 [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) est
 appliqué aux textes passés à
-[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)).
+[`ofce_caption()`](../reference/ofce_caption.md)).
 
 ``` r
+
 transactions <- source_data("immo/data_transaction.r", metadata=TRUE)
 
 trsc <- ggplot(transactions$data) +
@@ -430,6 +442,7 @@ Le code le plus simple pour définir l’`asp` est celui-là (pour une
 les décimales, pas d’opérations possibles comme 9/16) :
 
 ``` r
+
 #| label: fig-fig1
 #| fig-cap: Le titre de la figure
 #| fig-asp: 0.7

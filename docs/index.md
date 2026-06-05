@@ -17,6 +17,7 @@ Le package s’installe par la commande du package `pak` (si vous ne
 l’avez pas déjà installé, `install.packages("pak")`)
 
 ``` r
+
 pak::pak("ofce/ofce")
 ```
 
@@ -24,9 +25,8 @@ pak::pak("ofce/ofce")
 
 Les templates existants sont mis à jour ; pour récupérer la dernière
 version, il suffit de lancer la commande
-[`ofce::setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
-qui installera en local la dernière version des extensions pour votre
-projet.
+[`ofce::setup_quarto()`](reference/setup_quarto.md) qui installera en
+local la dernière version des extensions pour votre projet.
 
 Les formats disponibles sont :
 

@@ -1,4 +1,4 @@
-pandoc: 3.6.3
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
@@ -18,7 +18,4 @@ articles:
   tableaux: tableaux.html
   temporelles: temporelles.html
   xy: xy.html
-last_built: 2025-12-03T15:28Z
-urls:
-  reference: https://ofce.github.io/ofce/reference
-  article: https://ofce.github.io/ofce/articles
+last_built: 2026-06-03T13:21Z

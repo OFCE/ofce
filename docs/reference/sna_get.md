@@ -86,6 +86,7 @@ sna_show qui affiche des informations sur la base
 ## Examples
 
 ``` r
+
 # récupère toute la base des comptes annuels pour le pib et ses composantes
 if(interactive()) sna_get("nama_10_gdp")
 # ne garde que certaines colonnes

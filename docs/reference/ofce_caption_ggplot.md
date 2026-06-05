@@ -58,19 +58,19 @@ ofce_caption_ggplot(
 
 - xlab:
 
-  inclu le label de l'axe des x (pour le traduire avec marquee/glue)
+  inclut le label de l'axe des x (pour le traduire avec marquee/glue)
 
 - ylab:
 
-  inclu le label de l'axe des y (pour le traduire avec marquee/glue)
+  inclut le label de l'axe des y (pour le traduire avec marquee/glue)
 
 - subtitle:
 
-  inclu le label du sous titre (pour le traduire avec marquee/glue)
+  inclut le label du sous titre (pour le traduire avec marquee/glue)
 
 - title:
 
-  inclu le titre (traduit aussi)
+  inclut le titre (traduit aussi)
 
 - dptf:
 

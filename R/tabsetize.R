@@ -78,7 +78,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
       cat(stringr::str_c(":::: {#", label, "} \n\n" ))
     }
     if(pdf!= "all") {
-      list <- list[1]
+      list <- list[active]
       nolbl <- TRUE
     }
     purrr::iwalk(list, ~{

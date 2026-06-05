@@ -60,13 +60,13 @@ etc.) via
 ## See also
 
 [`gt::tab_options()`](https://gt.rstudio.com/reference/tab_options.html),
-[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md),
-[`ofce_cols_fill()`](https://ofce.github.io/ofce/reference/ofce_cols_fill.md),
-[`ofce_spanners_bold()`](https://ofce.github.io/ofce/reference/ofce_spanners_bold.md),
-[`ofce_row_italic()`](https://ofce.github.io/ofce/reference/ofce_row_italic.md),
-[`ofce_align_decimal()`](https://ofce.github.io/ofce/reference/ofce_align_decimal.md),
-[`ofce_fmt_decimal()`](https://ofce.github.io/ofce/reference/ofce_fmt_decimal.md),
-[`ofce_hide_col_pdf()`](https://ofce.github.io/ofce/reference/ofce_hide_col_pdf.md)
+[`ofce_caption()`](ofce_caption.md),
+[`ofce_cols_fill()`](ofce_cols_fill.md),
+[`ofce_spanners_bold()`](ofce_spanners_bold.md),
+[`ofce_row_italic()`](ofce_row_italic.md),
+[`ofce_align_decimal()`](ofce_align_decimal.md),
+[`ofce_fmt_decimal()`](ofce_fmt_decimal.md),
+[`ofce_hide_col_pdf()`](ofce_hide_col_pdf.md)
 
 ## Examples
 
@@ -74,11 +74,11 @@ etc.) via
 library(gt)
 library(dplyr)
 #> 
-#> Attaching package: ‘dplyr’
-#> The following objects are masked from ‘package:stats’:
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
 #> 
 #>     filter, lag
-#> The following objects are masked from ‘package:base’:
+#> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
 
@@ -87,15 +87,9 @@ mtcars |>
   head() |>
   gt() |>
   ofce_tab_options()
-#> Error in gt::tab_options(data, ...): formal argument "table.border.bottom.style" matched by multiple actual arguments
 
-# Remplacer certaines options par défaut
-mtcars |>
-  head() |>
-  gt() |>
-  ofce_tab_options(
-    table.font.size = "12px",
-    data_row.padding = 4
-  )
-#> Error in gt::tab_options(data, ...): formal argument "table.border.bottom.style" matched by multiple actual arguments
+
+  
+
+mpg
 ```

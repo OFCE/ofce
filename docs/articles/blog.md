@@ -10,12 +10,10 @@ graphique commune et faciliter leur intégration à la rédaction.
 La première étape est de générer un template d’un document quarto
 intégrant l’ensemble des méta-données assurant sa compilation dans le
 format souhaité (render) par Rstudio. Il suffit pour cela d’executer la
-commande suivante:
-[`setup_blog()`](https://ofce.github.io/ofce/reference/setup_blog.md)
-qui va automatiquement générer un document quarto, l’ajout des
-extensions qui regroupent les métadonnées associées aux questions de
-style, ainsi qu’un document de gestion des références bibliographiques
-`.bib`
+commande suivante: [`setup_blog()`](../reference/setup_blog.md) qui va
+automatiquement générer un document quarto, l’ajout des extensions qui
+regroupent les métadonnées associées aux questions de style, ainsi qu’un
+document de gestion des références bibliographiques `.bib`
 
 ## Yaml du document
 
