@@ -1,3 +1,7 @@
+## OFCE 1.3.37
+
+* `setup_wp()` est maintenant dans le package `{ofceweb}`.
+
 ## OFCE 1.3.36
 
 * `girafy()` peut maintenant générer des graphiques qui n'ont pas le même aspect ratio sur mobile et desktop.
