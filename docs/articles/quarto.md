@@ -80,18 +80,21 @@ d’autre champ, l’ensemble `yml` peut être omis avec simplement le
 Dernier petit détail, il faut *sourcer* le fichier `rinit.r`. Ce fichier
 définit les options par défaut des chunks et permet d’avoir les bonnes
 polices de caractère dans la bonne taille pour tous les graphiques. La
-fonction [`ofce::init_qmd()`](../reference/init_qmd.md) simplifie le
-process et trouve le fichier `rinit.r` même s’il est bien caché. Il faut
-le mettre au début et à part pour que ces options s’appliquent aux
-chunks suivants. Il est toujours possible de modifier le `rinit.r` de
-votre projet pour des variables globales, comme la taille de la police
-de tous les graphiques, et des fonctions disponibles dans chaque `.qmd`.
+fonction
+[`ofce::init_qmd()`](https://ofce.github.io/ofce/reference/init_qmd.md)
+simplifie le process et trouve le fichier `rinit.r` même s’il est bien
+caché. Il faut le mettre au début et à part pour que ces options
+s’appliquent aux chunks suivants. Il est toujours possible de modifier
+le `rinit.r` de votre projet pour des variables globales, comme la
+taille de la police de tous les graphiques, et des fonctions disponibles
+dans chaque `.qmd`.
 
 > Si vos graphiques sont moches, si les polices de caractère sont toutes
 > petites ou trop grandes, avant d’appeler à l’aide, vérifiez 1. que
-> [`ofce::init_qmd()`](../reference/init_qmd.md) est bien appelé ; 2.
-> que vous n’avez pas un `fig-width` ou un `fig-heigth` quelque part
-> dans le chunk ou dans le `yml` de votre `.qmd`.
+> [`ofce::init_qmd()`](https://ofce.github.io/ofce/reference/init_qmd.md)
+> est bien appelé ; 2. que vous n’avez pas un `fig-width` ou un
+> `fig-heigth` quelque part dans le chunk ou dans le `yml` de votre
+> `.qmd`.
 
 ```` markdown
 ---

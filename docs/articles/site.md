@@ -19,16 +19,17 @@ Un site dédié se compose donc :
     départ pour d’autres travaux.
 
 3.  de contenus, c’est-à-dire de documents `.qmd` (voir
-    [`vignette("quarto")`](../articles/quarto.md)) avec des graphiques,
-    si possible en [ggplot2](https://ggplot2.tidyverse.org) (voir la
-    [`vignette("graphiques")`](../articles/graphiques.md)), interactifs
-    ([ggiraph](https://davidgohel.github.io/ggiraph/)) dont les données
-    sont téléchargeables
+    [`vignette("quarto")`](https://ofce.github.io/ofce/articles/quarto.md))
+    avec des graphiques, si possible en
+    [ggplot2](https://ggplot2.tidyverse.org) (voir la
+    [`vignette("graphiques")`](https://ofce.github.io/ofce/articles/graphiques.md)),
+    interactifs ([ggiraph](https://davidgohel.github.io/ggiraph/)) dont
+    les données sont téléchargeables
     [downloadthis](https://github.com/fmmattioni/downloadthis) et dont
     les codes sont accessibles (reproductibilité et transparence). La
     tableaux sont préférablement en [gt](https://gt.rstudio.com) (voir
     la vignette sur les tableaux
-    [`vignette("tableaux")`](../articles/tableaux.md)).
+    [`vignette("tableaux")`](https://ofce.github.io/ofce/articles/tableaux.md)).
 
 4.  d’une structure (des menus, une hiérarchie) qui est spécifiée dans
     un fichier particulier : `_quarto.yml` (ou le iamèle). Ce fichier
@@ -44,7 +45,8 @@ Un site dédié se compose donc :
 Le blog de l’OFCE sera (le 5/7/2024 le futur est encore de mise) un site
 dédié, ouvert à tous les contributeurs avec quelques administrateurs
 permanents. Les règles de cette vignette s’y appliquent donc et la
-[`vignette("blog")`](../articles/blog.md) détaille les spécificités.
+[`vignette("blog")`](https://ofce.github.io/ofce/articles/blog.md)
+détaille les spécificités.
 
 ## Comment contribuer : *pull request*
 
@@ -58,8 +60,8 @@ Il est possible d’utiliser plusieurs outils pour travailler. Le premier
 combo est `RStudio`, combiné à `github desktop` et github.com. Une
 alternative est `VSCode` qui regroupe l’éditeur quarto et l’interface
 github dans un même logiciel. La
-[`vignette("outils")`](../articles/outils.md) détaille les
-configurations et les instructions d’installation.
+[`vignette("outils")`](https://ofce.github.io/ofce/articles/outils.md)
+détaille les configurations et les instructions d’installation.
 
 ### Comment faire ?
 

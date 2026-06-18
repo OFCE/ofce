@@ -510,7 +510,7 @@ On transforme les données en fréquence trimestrielle en utilisant la fonction 
 ```{r trim}
 library(lubridate)
 # pak::pak("teunbrand/ggh4x")
-library(ggh4x)
+library(legendry)
 
 spreads_q <- spreads_data |>
   mutate(
@@ -540,9 +540,7 @@ spreads_q <- spreads_data |>
     name = NULL, values = cc
   ) +
   theme_ofce(
-    axis.text.x = element_text(size = rel(0.8), margin = margin(t = 6)),
-    ggh4x.axis.nesttext.x = element_text(size = rel(1.2), margin = margin(t = 3))
-  ) +
+    axis.text.x = element_text(size = rel(0.8), margin = margin(t = 6))) +
   labs(
     y = "Ecart de taux à 10 ans",
     x = NULL,
@@ -550,9 +548,16 @@ spreads_q <- spreads_data |>
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")
   ) +
   scale_y_continuous(labels = ~ str_c(.x, "%"),
-                     minor_breaks = scales::breaks_width(0.1),
-                     guide = "axis_minor") +
-  scale_x_discrete(guide = "axis_nested")) |> add_logo()
+                     minor_breaks = scales::breaks_width(0.1)) +
+    guides(
+      y = guide_axis(minor.ticks = TRUE),
+      x = guide_axis_nested(type = "fence")) + 
+    theme_guide(
+      text = element_marquee(size = rel(1.2), margin = margin(t = 3)),
+      ticks = element_line(),
+      fence.post = element_line("grey"),
+      bracket = element_blank()) +
+  scale_x_discrete()) |> add_logo()
 ```
 
 ## Double échelle

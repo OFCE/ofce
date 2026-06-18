@@ -28,7 +28,8 @@ la liste des fichiers supprimés
 
 ## See also
 
-Other source_data: [`set_cache_rep`](set_cache_rep.md)`()`,
-[`source_data`](source_data.md)`()`,
-[`source_data_refresh`](source_data_refresh.md)`()`,
-[`source_data_status`](source_data_status.md)`()`
+Other source_data:
+[`set_cache_rep`](https://ofce.github.io/ofce/reference/set_cache_rep.md)`()`,
+[`source_data`](https://ofce.github.io/ofce/reference/source_data.md)`()`,
+[`source_data_refresh`](https://ofce.github.io/ofce/reference/source_data_refresh.md)`()`,
+[`source_data_status`](https://ofce.github.io/ofce/reference/source_data_status.md)`()`

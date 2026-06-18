@@ -9,9 +9,10 @@ obligatoires (i.e. obligatoires sauf très bonne raison de ne pas les
 suivre).
 
 1.  On suit d’abord les consignes qui valent pour les graphiques de
-    [séries temporelles](temporelles.md)
+    [séries
+    temporelles](https://ofce.github.io/ofce/articles/temporelles.md)
 
-    1.  [`theme_ofce()`](../reference/theme_ofce.md),
+    1.  [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md),
 
     2.  format `<date>`, et on appelle sa colonne d’index temporel
         `time` ; les dates sont au format quotidien (`"2024-01-31"`) par
@@ -19,7 +20,7 @@ suivre).
         `"yyyy-[01; 04; 07; 10]-01"` et les années au premier janvier
         (mais voir plus bas pour une nuance importante).
 
-    3.  [`scale_ofce_date()`](../reference/scale_ofce_date.md),
+    3.  [`scale_ofce_date()`](https://ofce.github.io/ofce/reference/scale_ofce_date.md),
 
     4.  On utilise les options pour le
         `geom_point_interactive(linewidth=0.5, shape=21, stroke=0.25, col="white", hover_nearest=TRUE`)
@@ -59,33 +60,38 @@ ofce::init_qmd()
     2.  en construisant un `tooltip` le plus signifiant possible,
 
     3.  en mettant à disposition les données avec un
-        [`margin_download()`](../reference/margin_download.md),
+        [`margin_download()`](https://ofce.github.io/ofce/reference/margin_download.md),
 
-6.  On utilise [`ofce::ofce_caption()`](../reference/ofce_caption.md)
+6.  On utilise
+    [`ofce::ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
     afin de normaliser l’aspect et la présentation des notes de
-    graphique. [`ofce_caption()`](../reference/ofce_caption.md) permet
-    de spécifier la source, les notes, les indications de lecture, le
-    champ, le lien vers le code, un texte comme “prévisions OFCE 2025”
-    systématique, etc… (reportez vous à l’aide de cette fonction qui est
-    dans le package [ofce](https://ofce.github.io/ofce)).
+    graphique.
+    [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+    permet de spécifier la source, les notes, les indications de
+    lecture, le champ, le lien vers le code, un texte comme “prévisions
+    OFCE 2025” systématique, etc… (reportez vous à l’aide de cette
+    fonction qui est dans le package
+    [ofce](https://ofce.github.io/ofce)).
 
 7.  On met le code du graphique (le `ggplot`, etc…) dans le `.qmd` qui
     contient le texte. Cela permet d’éditer les textes, d’un côté, et de
     normaliser les présentations, de l’autre. La construction du tooltip
     est aussi à ce niveau pour pouvoir l’éditer. Il est **nécessaire que
-    le [`girafy()`](../reference/girafy.md) soit dans le `qmd`**, sinon,
-    l’objet interactif n’aura pas le bon format suivant les support
-    (site, présentation, etc…).
+    le [`girafy()`](https://ofce.github.io/ofce/reference/girafy.md)
+    soit dans le `qmd`**, sinon, l’objet interactif n’aura pas le bon
+    format suivant les support (site, présentation, etc…).
 
 8.  On utilise `ofce::source_data()` pour la construction des données,
     ce n’est pas obligatoire, mais très efficace et très recommandé pour
     le travail collaboratif (comme celui de la prévision). Voir [la
-    vignette correspondante](source_data.md). On met le code de
-    construction dans un fichier `.r`, joint dont le nom est simple,
-    signifiant, en minuscule et qui est enregistré au même niveau que le
-    `.qmd` ou en dessous. On utilise `source_data` pour éviter de
-    bloquer le fonctionnement de la compilation des `qmd` et faciliter
-    la portabilité des codes de données – **c’est important**.
+    vignette
+    correspondante](https://ofce.github.io/ofce/articles/source_data.md).
+    On met le code de construction dans un fichier `.r`, joint dont le
+    nom est simple, signifiant, en minuscule et qui est enregistré au
+    même niveau que le `.qmd` ou en dessous. On utilise `source_data`
+    pour éviter de bloquer le fonctionnement de la compilation des `qmd`
+    et faciliter la portabilité des codes de données – **c’est
+    important**.
 
 Chacun de ces éléments est détaillés et avec des exemples de codes
 ci-dessous.
@@ -300,10 +306,10 @@ gg
 ## Des couleurs par pays
 
 La fonction
-[`ofce::scale_color_pays()`](../reference/scale_color_pays.md) applique
-une échelle de couleur (et de remplissage) qui suit le choix de la
-charte graphique de l’ofce. Pour que cela fonctionne, il faut que dans
-l’aes qui définit la couleur (`aes(color=pays)`) ou le remplissage
+[`ofce::scale_color_pays()`](https://ofce.github.io/ofce/reference/scale_color_pays.md)
+applique une échelle de couleur (et de remplissage) qui suit le choix de
+la charte graphique de l’ofce. Pour que cela fonctionne, il faut que
+dans l’aes qui définit la couleur (`aes(color=pays)`) ou le remplissage
 (`aes(fill=pays)`) soit un code iso à 3 lettres. Si le code est un code
 eurostat il suffit de le préciser (`format="eurostat"` en paramètre à
 scale_color_pays()).
@@ -388,7 +394,7 @@ En code cela donne le chunk ci dessous. Les données sont accessibles par
 construire la note (noter que
 [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) est
 appliqué aux textes passés à
-[`ofce_caption()`](../reference/ofce_caption.md)).
+[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)).
 
 ``` r
 

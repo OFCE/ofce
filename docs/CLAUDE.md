@@ -58,31 +58,35 @@ devtools::check()
 ### Core Components
 
 **Quarto Templates System** (`R/quarto.R`, `inst/extdata/templates/`) -
-[`setup_quarto()`](reference/setup_quarto.md): Installs OFCE Quarto
-extensions to a project - [`setup_wp()`](reference/setup_wp.md),
-[`setup_blog()`](reference/setup_blog.md),
-[`setup_graph()`](reference/setup_graph.md),
-[`setup_pres()`](reference/setup_pres.md): Initialize specific document
-types with templates - Templates stored in `inst/extdata/templates/`
-(blog, graph, presentation, website, workingpaper) - Extensions pulled
-from `ofce/ofce-quarto-extensions` repository
+[`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md):
+Installs OFCE Quarto extensions to a project - `setup_wp()`,
+[`setup_blog()`](https://ofce.github.io/ofce/reference/setup_blog.md),
+[`setup_graph()`](https://ofce.github.io/ofce/reference/setup_graph.md),
+[`setup_pres()`](https://ofce.github.io/ofce/reference/setup_pres.md):
+Initialize specific document types with templates - Templates stored in
+`inst/extdata/templates/` (blog, graph, presentation, website,
+workingpaper) - Extensions pulled from `ofce/ofce-quarto-extensions`
+repository
 
 **Theme System** (`R/theme_ofce.R`) -
-[`theme_ofce()`](reference/theme_ofce.md): Main ggplot2 theme for OFCE
-graphics following Revue de l’OFCE standards -
-[`theme_ofce_void()`](reference/theme_ofce_void.md): Simplified theme
-for maps and minimal graphics - Supports both marquee (advanced markdown
-text rendering) and standard ggplot2 text elements - Configurable via
-global options: `ofce.base_size`, `ofce.base_family`, `ofce.marquee`,
-`ofce.background_color`
+[`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md):
+Main ggplot2 theme for OFCE graphics following Revue de l’OFCE
+standards -
+[`theme_ofce_void()`](https://ofce.github.io/ofce/reference/theme_ofce_void.md):
+Simplified theme for maps and minimal graphics - Supports both marquee
+(advanced markdown text rendering) and standard ggplot2 text elements -
+Configurable via global options: `ofce.base_size`, `ofce.base_family`,
+`ofce.marquee`, `ofce.background_color`
 
 **Caption System** (`R/ofce_caption.R`) -
-[`ofce_caption()`](reference/ofce_caption.md): Creates standardized
-captions for ggplot2 graphics with source, note, lecture, champ, code -
-[`ofce_caption_gt()`](reference/ofce_caption_gt.md): Caption system for
-gt tables - [`dernier_point()`](reference/dernier_point.md): Formats
-“last known data point” dates in French or English - Supports glue
-string interpolation and marquee markdown transformations (^(x) →
+[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md):
+Creates standardized captions for ggplot2 graphics with source, note,
+lecture, champ, code -
+[`ofce_caption_gt()`](https://ofce.github.io/ofce/reference/ofce_caption_gt.md):
+Caption system for gt tables -
+[`dernier_point()`](https://ofce.github.io/ofce/reference/dernier_point.md):
+Formats “last known data point” dates in French or English - Supports
+glue string interpolation and marquee markdown transformations (^(x) →
 superscript, _(x) → subscript)
 
 **Palette System** (multiple files) - `R/ofce_palette*.R`: Color
@@ -91,25 +95,28 @@ palettes (main, sequential, diverging, country-specific) -
 `inst/palette.ofce.rda`
 
 **Graph Export** (`R/graph2xxx.R`) -
-[`graph2png()`](reference/graph2png.md),
-[`graph2svg()`](reference/graph2svg.md), `graph2pptx()`: Export graphics
-in various formats - Handles ggplot2 and tmap objects - Default size:
-18cm width, 4:3 ratio - Uses showtext for proper font rendering at high
-DPI (default 600)
+[`graph2png()`](https://ofce.github.io/ofce/reference/graph2png.md),
+[`graph2svg()`](https://ofce.github.io/ofce/reference/graph2svg.md),
+`graph2pptx()`: Export graphics in various formats - Handles ggplot2 and
+tmap objects - Default size: 18cm width, 4:3 ratio - Uses showtext for
+proper font rendering at high DPI (default 600)
 
 **Formatting Utilities** (`R/formate.R`) -
-[`fmt_val()`](reference/fmt_val.md): Format numbers in French style
-(comma as decimal, space as thousands separator) -
-[`fmt_pct()`](reference/fmt_pct.md): Format percentages -
-[`fmt_mds()`](reference/fmt_mds.md): Format billions of euros (Milliards
-d’euros)
+[`fmt_val()`](https://ofce.github.io/ofce/reference/fmt_val.md): Format
+numbers in French style (comma as decimal, space as thousands
+separator) -
+[`fmt_pct()`](https://ofce.github.io/ofce/reference/fmt_pct.md): Format
+percentages -
+[`fmt_mds()`](https://ofce.github.io/ofce/reference/fmt_mds.md): Format
+billions of euros (Milliards d’euros)
 
 **Initialization System** (`R/init_qmd.R`, `inst/rinit.r`) -
-[`init_qmd()`](reference/init_qmd.md): Sources project-specific or
-package `rinit.r` at document start -
-[`pathify()`](reference/pathify.md): Resolves paths from project root
-(paths starting with `/`) - Default `rinit.r` sets up fonts, themes,
-knitr options, common libraries, and French locale
+[`init_qmd()`](https://ofce.github.io/ofce/reference/init_qmd.md):
+Sources project-specific or package `rinit.r` at document start -
+[`pathify()`](https://ofce.github.io/ofce/reference/pathify.md):
+Resolves paths from project root (paths starting with `/`) - Default
+`rinit.r` sets up fonts, themes, knitr options, common libraries, and
+French locale
 
 ### Key Design Patterns
 
@@ -142,7 +149,7 @@ functions have `lang` parameter for English output
 - `DESCRIPTION`: Package metadata, dependencies (requires R \>= 4.2,
   Quarto CLI)
 - `inst/rinit.r`: Default initialization script sourced by
-  [`init_qmd()`](reference/init_qmd.md)
+  [`init_qmd()`](https://ofce.github.io/ofce/reference/init_qmd.md)
 - `inst/extdata/templates/`: Quarto document templates
 - `inst/fonts/`: OpenSans font files
 - `_pkgdown.yml`: Documentation website configuration
@@ -164,9 +171,11 @@ functions have `lang` parameter for English output
 
 1.  Add template files to `inst/extdata/templates/[type]/`
 2.  Create setup function in `R/quarto.R` (e.g., `setup_[type]()`)
-3.  Update [`setup_quarto()`](reference/setup_quarto.md) documentation
-    to mention new format
-4.  Test installation with [`setup_quarto()`](reference/setup_quarto.md)
+3.  Update
+    [`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
+    documentation to mention new format
+4.  Test installation with
+    [`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
     in a test directory
 
 ### Modifying Color Palettes

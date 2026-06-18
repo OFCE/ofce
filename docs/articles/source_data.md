@@ -148,7 +148,7 @@ En code cela donne le chunk ci dessous. Les données sont accessibles par
 construire la note (noter que
 [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) est
 appliqué aux textes passés à
-[`ofce_caption()`](../reference/ofce_caption.md)).
+[`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)).
 
 ``` r
 

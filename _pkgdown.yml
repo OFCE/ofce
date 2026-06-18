@@ -1,4 +1,71 @@
-url: ~
+url: https://ofce.github.io/ofce/
+
 template:
   bootstrap: 5
+  theme: atom-one-light
+  bslib:
+    base_font: {google: "Open Sans"}
+    heading_font: {google: "Open Sans"}
+    code_font: {google: "Fira Code"}
 
+deploy:
+  install_metadata: true
+
+footer:
+  structure:
+    left: [developed_by]
+    right: [rtfm, ccby, built_with]
+  components:
+    rtfm: RTFM
+    ccby: CC BY 4.0
+
+navbar:
+  structure:
+    left: [guides, charte, reference, news]
+    right: [search, github]
+
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/ofce/ofce
+    guides:
+      text: Manuels
+      menu:
+        - text: Sites dédiés
+          href: articles/site.html
+        - text: Le Blog
+          href: articles/blog.html
+        - text: Ecrire un texte en quarto
+          href: articles/quarto.html
+        - text: Faire un graphique
+          href: articles/graphiques.html
+        - text: Faire un tableau
+          href: articles/tableaux.html
+        - text: Les outils
+          href: articles/outils.html
+        - text: Le language des graphiques
+          href: articles/semio.html
+    charte:
+      text: Tutoriaux
+      menu:
+        - text: Charte Graphique
+          href: articles/charte_graphique.html
+        - text: Charte Graphique pour la Prévision
+          href: articles/prevision.html
+        - text: "---"
+        - text: Séries temporelles
+          href: articles/temporelles.html
+        - text: Graphiques XY
+          href: articles/xy.html
+        - text: Barres empilées, wafle, treemap, lollypop
+          href: articles/categories.html
+        - text: Distributions
+          href: articles/distributions.html
+        - text: Cartes
+          href: articles/cartes.html
+        - text: "---"
+        - text: Caché et robuste
+          href: articles/source_data.html
+        - text: "---"
+        - text: Quand ça ne marche pas
+          href: articles/qa.html

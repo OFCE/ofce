@@ -2,7 +2,8 @@
 
 ## 5 Règles d’or
 
-> **Règle 1** : On utilise [`theme_ofce()`](../reference/theme_ofce.md)
+> **Règle 1** : On utilise
+> [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
 > pour les graphiques !
 
 > **Règle 2** : Les dates sont au format `<date>` même lorsque la
@@ -59,7 +60,7 @@ dates <- c(2023, 2024, 2025)
 as.Date(as.character(dates), format  = "%Y")
 ```
 
-    [1] "2023-06-03" "2024-06-03" "2025-06-03"
+    [1] "2023-06-18" "2024-06-18" "2025-06-18"
 
 code
 
@@ -205,11 +206,12 @@ main <- ggplot(spreads_data) +
 
 On utilise la palette *summer* de
 [PrettyCols](https://nrennie.rbind.io/PrettyCols/) (affaire de goût). On
-utilise la fonction [`theme_ofce()`](../reference/theme_ofce.md) pour
-homogénéiser la présentation des graphiques. On précise les labels des
-axes inutile pour `x`, explicite pour `y`. Et la source, en notant que
-l’on peut utiliser `markdown` dans le texte de la source, ce qui permet
-de mettre *Source* en italique.
+utilise la fonction
+[`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
+pour homogénéiser la présentation des graphiques. On précise les labels
+des axes inutile pour `x`, explicite pour `y`. Et la source, en notant
+que l’on peut utiliser `markdown` dans le texte de la source, ce qui
+permet de mettre *Source* en italique.
 
 Le recours à
 [`scale_x_date()`](https://ggplot2.tidyverse.org/reference/scale_date.html)

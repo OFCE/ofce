@@ -35,5 +35,6 @@ and-non colour defaults of the default ggplot2 themes in place.
 
 ## See also
 
-Other themes: [`theme_ofce()`](theme_ofce.md),
-[`theme_ofce_void()`](theme_ofce_void.md)
+Other themes:
+[`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md),
+[`theme_ofce_void()`](https://ofce.github.io/ofce/reference/theme_ofce_void.md)

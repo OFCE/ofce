@@ -25,4 +25,4 @@ un ggplot
 
 ## See also
 
-[`load_object()`](load_object.md)
+[`load_object()`](https://ofce.github.io/ofce/reference/load_object.md)

@@ -247,11 +247,13 @@ version ou celle du serveur.
 
 ## Branches
 
-Comme il est expliqué dans la [`vignette("blog")`](../articles/blog.md)
-ou dans la [`vignette("site")`](../articles/site.md), le travail
-collaboratif peut demander quelques sécurités supplémentaires. La
-branche `master` (ou `main` pour ceux qui pensent que l’utilisation du
-mot *master* fait de vous sans le dire un esclavagiste) est alors
+Comme il est expliqué dans la
+[`vignette("blog")`](https://ofce.github.io/ofce/articles/blog.md) ou
+dans la
+[`vignette("site")`](https://ofce.github.io/ofce/articles/site.md), le
+travail collaboratif peut demander quelques sécurités supplémentaires.
+La branche `master` (ou `main` pour ceux qui pensent que l’utilisation
+du mot *master* fait de vous sans le dire un esclavagiste) est alors
 protégée. Seul l’administrateur du site peut la modifier ou autoriser
 les modifications. Chaque intervention sur le contenu doit se faire sur
 une branche *ad hoc* créée pour l’occasion. Le process est représenté

@@ -24,4 +24,4 @@ le graphique, avec un effet de bord qui est le ggplot enregistré
 
 ## See also
 
-[`save_object()`](save_object.md)
+[`save_object()`](https://ofce.github.io/ofce/reference/save_object.md)
