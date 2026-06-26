@@ -59,6 +59,7 @@ Suggests:
     rmarkdown,
     eurostat,
     pins,
+    PrettyCols,
     AzureStor
 VignetteBuilder:
     quarto
