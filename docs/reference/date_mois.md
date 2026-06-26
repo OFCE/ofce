@@ -23,5 +23,5 @@ une chaine de caractères
 
 ``` r
 date_mois("2025-10-01")
-#> [1] "octobre 2025"
+#> [1] "October 2025"
 ```

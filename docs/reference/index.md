@@ -131,6 +131,14 @@
   avec les normes graphiques de la revue OFCE
 - [`scale_ofce_date()`](https://ofce.github.io/ofce/reference/scale_ofce_date.md)
   : Echelle pour les x du format habituel des grahiques à date
+- [`set_faicon_reveal()`](https://ofce.github.io/ofce/reference/set_faicon_reveal.md)
+  : Modifie l'icône de titre pour la présentation
+- [`set_fontsize_reveal()`](https://ofce.github.io/ofce/reference/set_fontsize_reveal.md)
+  : Modifie la taille de police pour revealjs
+- [`set_justify()`](https://ofce.github.io/ofce/reference/set_justify.md)
+  : Modifie la justification des textes en HTML
+- [`setup_RStudio()`](https://ofce.github.io/ofce/reference/setup_RStudio.md)
+  : Reset RStudio prefs
 - [`setup_blog()`](https://ofce.github.io/ofce/reference/setup_blog.md)
   : installe un squelette pour le blog
 - [`setup_english()`](https://ofce.github.io/ofce/reference/setup_english.md)
@@ -143,14 +151,6 @@
   : installe un squelette de présentation
 - [`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
   : Extensions OFCE pour quarto
-- [`setup_RStudio()`](https://ofce.github.io/ofce/reference/setup_RStudio.md)
-  : Reset RStudio prefs
-- [`set_faicon_reveal()`](https://ofce.github.io/ofce/reference/set_faicon_reveal.md)
-  : Modifie l'icône de titre pour la présentation
-- [`set_fontsize_reveal()`](https://ofce.github.io/ofce/reference/set_fontsize_reveal.md)
-  : Modifie la taille de police pour revealjs
-- [`set_justify()`](https://ofce.github.io/ofce/reference/set_justify.md)
-  : Modifie la justification des textes en HTML
 - [`showMemoryUse()`](https://ofce.github.io/ofce/reference/showMemoryUse.md)
   : Utilisation mémoire par objet
 - [`show_emojis()`](https://ofce.github.io/ofce/reference/show_emojis.md)

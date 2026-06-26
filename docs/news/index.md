@@ -2,7 +2,8 @@
 
 ## OFCE 1.3.37
 
-- `setup_wp()` est maintenant dans le package `{ofceweb}`.
+- `setup_wp()` est maintenant dans le package
+  [ofceweb](https://ofceweb.github.io/ofceweb/).
 
 ## OFCE 1.3.36
 

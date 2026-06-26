@@ -60,7 +60,7 @@ dates <- c(2023, 2024, 2025)
 as.Date(as.character(dates), format  = "%Y")
 ```
 
-    [1] "2023-06-18" "2024-06-18" "2025-06-18"
+    [1] "2023-06-26" "2024-06-26" "2025-06-26"
 
 code
 
@@ -483,12 +483,13 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 
 > **Tip 1: Une alternative avec {ggmagnify}**
 >
-> Le package `{ggmagnify}` simplifie la tâche et offre quelques
-> améliorations esthétiques. Il faut cependant que les *dataset*
-> principal et *inset* soit les mêmes \[pas sûr en fait\]. On reprend
-> l’agrégation temporelle en l’arrêtant aux deux derniers mois. On
-> complexifie l’insert pour intégrer plus d’éléments en utilisant
-> l’argument `plot` de `ggmagnify::geom_magnify()`.
+> Le package [ggmagnify](https://github.com/hughjonesd/ggmagnify)
+> simplifie la tâche et offre quelques améliorations esthétiques. Il
+> faut cependant que les *dataset* principal et *inset* soit les mêmes
+> \[pas sûr en fait\]. On reprend l’agrégation temporelle en l’arrêtant
+> aux deux derniers mois. On complexifie l’insert pour intégrer plus
+> d’éléments en utilisant l’argument `plot` de
+> [`ggmagnify::geom_magnify()`](https://hughjonesd.github.io/ggmagnify/reference/geom_magnify.html).
 >
 > code
 >
@@ -496,14 +497,6 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 >
 > # pak::pak("hughjonesd/ggmagnify")
 > library(ggmagnify)
-> ```
->
->     Error in `library()`:
->     ! there is no package called 'ggmagnify'
->
-> code
->
-> ``` r
 >
 > md <- max(spreads_data$date)
 > date_inset <- floor_date(md - months(3), unit = "month")
@@ -798,7 +791,15 @@ code
 
 library(lubridate)
 # pak::pak("teunbrand/ggh4x")
-library(ggh4x)
+library(legendry)
+```
+
+    Error in `library()`:
+    ! there is no package called 'legendry'
+
+code
+
+``` r
 
 spreads_q <- spreads_data |>
   mutate(
@@ -828,9 +829,7 @@ spreads_q <- spreads_data |>
     name = NULL, values = cc
   ) +
   theme_ofce(
-    axis.text.x = element_text(size = rel(0.8), margin = margin(t = 6)),
-    ggh4x.axis.nesttext.x = element_text(size = rel(1.2), margin = margin(t = 3))
-  ) +
+    axis.text.x = element_text(size = rel(0.8), margin = margin(t = 6))) +
   labs(
     y = "Ecart de taux à 10 ans",
     x = NULL,
@@ -838,12 +837,20 @@ spreads_q <- spreads_data |>
     caption = glue::glue("*Source* : investing.com<br>Mis à jour : {date_maj}")
   ) +
   scale_y_continuous(labels = ~ str_c(.x, "%"),
-                     minor_breaks = scales::breaks_width(0.1),
-                     guide = "axis_minor") +
-  scale_x_discrete(guide = "axis_nested")) |> add_logo()
+                     minor_breaks = scales::breaks_width(0.1)) +
+    guides(
+      y = guide_axis(minor.ticks = TRUE),
+      x = guide_axis_nested(type = "fence")) + 
+    theme_guide(
+      text = element_marquee(size = rel(1.2), margin = margin(t = 3)),
+      ticks = element_line(),
+      fence.post = element_line("grey"),
+      bracket = element_blank()) +
+  scale_x_discrete()) |> add_logo()
 ```
 
-![](temporelles_files/figure-html/trim-1.svg)
+    Error in `guide_axis_nested()`:
+    ! could not find function "guide_axis_nested"
 
 ## Double échelle
 
