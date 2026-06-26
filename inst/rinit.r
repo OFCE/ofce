@@ -21,6 +21,7 @@ library(ofce)
 library(yaml)
 library(gt)
 library(marquee)
+library(PrettyCols)
 
 systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
 
