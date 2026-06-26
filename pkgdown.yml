@@ -1,0 +1,24 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  blog: blog.html
+  cartes: cartes.html
+  categories: categories.html
+  charte_graphique: charte_graphique.html
+  distributions: distributions.html
+  graphiques: graphiques.html
+  outils: outils.html
+  prevision: prevision.html
+  qa: qa.html
+  quarto: quarto.html
+  semio: semio.html
+  site: site.html
+  source_data: source_data.html
+  tableaux: tableaux.html
+  temporelles: temporelles.html
+  xy: xy.html
+last_built: 2026-06-26T19:05Z
+urls:
+  reference: https://ofce.github.io/ofce/reference
+  article: https://ofce.github.io/ofce/articles
