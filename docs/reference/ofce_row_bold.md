@@ -37,5 +37,9 @@ un tableau gt
 
 ``` r
 head(mtcars) |> gt() |> ofce_row_bold(gear == 4)
-#> Error in tab_style(data, style = cell_text(weight = "bold"), locations = cells_body(rows = {    {        row    }})): could not find function "tab_style"
+
+
+  
+
+mpg
 ```

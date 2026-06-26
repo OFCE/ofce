@@ -59,7 +59,8 @@ devtools::check()
 
 **Quarto Templates System** (`R/quarto.R`, `inst/extdata/templates/`) -
 [`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md):
-Installs OFCE Quarto extensions to a project - `setup_wp()`,
+Installs OFCE Quarto extensions to a project -
+[`setup_wp()`](https://ofce.github.io/ofce/reference/setup_wp.html),
 [`setup_blog()`](https://ofce.github.io/ofce/reference/setup_blog.md),
 [`setup_graph()`](https://ofce.github.io/ofce/reference/setup_graph.md),
 [`setup_pres()`](https://ofce.github.io/ofce/reference/setup_pres.md):

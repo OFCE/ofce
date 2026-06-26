@@ -2,8 +2,8 @@ url: https://ofce.github.io/ofce/
 template:
   bootstrap: 5
 
-deploy:
-  install_metadata: true
+# deploy:
+#   install_metadata: true
 
 footer:
   structure:

@@ -73,14 +73,6 @@ etc.) via
 ``` r
 library(gt)
 library(dplyr)
-#> 
-#> Attaching package: ‘dplyr’
-#> The following objects are masked from ‘package:stats’:
-#> 
-#>     filter, lag
-#> The following objects are masked from ‘package:base’:
-#> 
-#>     intersect, setdiff, setequal, union
 
 # Tableau simple avec options OFCE
 mtcars |>
