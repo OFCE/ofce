@@ -246,19 +246,20 @@ ofce_caption_gt <- function(
 
 dernier_point <- function(date, freq = "month", lang = "fr") {
   date <- max(date)
-  if(lang== "fr") {
-    locale <- if(.Platform$OS.type=="windows") "fr_FR.utf8" else "fr_FR"
-  } else {
-    locale <- if(.Platform$OS.type=="windows") "en_US.utf8" else "en_US"
-  }
+
+  # .mois_nom() (R/utils-dates.R) is used instead of lubridate's
+  # `locale =` argument to avoid depending on locales installed on the
+  # OS (e.g. "fr_FR" vs "fr_FR.utf8" vs "French_France"), which are
+  # often unavailable on minimal/CI systems.
+  mois <- .mois_nom(date, locale = lang)
 
   if(freq == "day")
     return(stringr::str_c(lubridate::day(date),
-                          lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
+                          mois,
                           lubridate::year(date), sep = " "))
 
   if(freq == "month")
-    return(stringr::str_c(lubridate::month(date, label = TRUE, abbr = FALSE, locale = locale),
+    return(stringr::str_c(mois,
                           lubridate::year(date), sep = " "))
 
   if(freq == "quarter")

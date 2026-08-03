@@ -6,8 +6,14 @@ test_that("get_icons returns correct URLs", {
   expect_equal(get_icons("1F430", format = "png"), "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f430.png")
 })
 
-test_that("get_icons supports Pandoc markdown with width", {
-  expect_equal(get_icons("1F430", out = "md", size = 50), "![](https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f430.svg){width=50}")
+test_that("get_icons supports Pandoc markdown via a locally-cached PNG", {
+  # out = "md" downloads the SVG and rasters it to a local PNG under
+  # www/icons/ (sizing is baked into the image, not a {width=} attribute).
+  withr::local_dir(withr::local_tempdir())
+  res <- get_icons("1F430", out = "md", size = 50)
+  expect_match(res, "^!\\[\\]\\(www/icons/1f430\\.png\\)$")
+  local_file <- sub("^!\\[\\]\\((.*)\\)$", "\\1", res)
+  expect_true(file.exists(local_file))
 })
 
 test_that("get_icons supports HTML output", {
@@ -29,7 +35,18 @@ test_that("get_flags returns correct URLs/HTML", {
 })
 
 test_that("get_flags supports the new out parameter", {
-  expect_equal(get_flags("USA", out = "md", size = 40), "![](https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1fa-1f1f8.svg){width=40}")
+  withr::local_dir(withr::local_tempdir())
+  res <- get_flags("USA", out = "md", size = 40)
+  expect_match(res, "^!\\[\\]\\(www/icons/1f1fa-1f1f8\\.png\\)$")
+  local_file <- sub("^!\\[\\]\\((.*)\\)$", "\\1", res)
+  expect_true(file.exists(local_file))
+})
+
+test_that("get_icons supports out = \"path\" for local file paths", {
+  withr::local_dir(withr::local_tempdir())
+  res <- get_icons("1F430", out = "path")
+  expect_true(file.exists(res))
+  expect_match(res, "www/icons/1f430\\.svg$")
 })
 
 test_that("get_flags handles error and NA cases", {

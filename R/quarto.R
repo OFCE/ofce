@@ -34,6 +34,8 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
     no_prompt = TRUE,
     quiet = quiet)
 
+  copy_ofce_website()
+
   ## enlever le dossier blog-site
   old_ext <- file.path("_extensions","ofce","blog_site")
   if(dir.exists(old_ext)){
@@ -346,6 +348,22 @@ check_quarto_ok <- function() {
       "Quarto 1.8 est recommandé pour les fonctions avancées
         (manuscript, lua, corrections de bugs, ...)
       {.url https://github.com/quarto-dev/quarto-cli/releases}")
+}
+
+copy_ofce_website <- function() {
+  # installe l'extension ofce-website (embarquée dans le package) dans
+  # _extensions/ofce/ofce-website
+  src <- system.file("ofce-website", package = "ofce")
+  if(!fs::dir_exists(src)) return(invisible(NULL))
+
+  dest <- fs::path("_extensions", "ofce", "ofce-website")
+  if(fs::dir_exists(dest))
+    fs::dir_delete(dest)
+  fs::dir_create(fs::path("_extensions", "ofce"), recurse = TRUE)
+
+  fs::dir_copy(src, dest, overwrite = TRUE)
+
+  invisible(NULL)
 }
 
 copy_www <- function() {

@@ -1,4 +1,7 @@
 ## Quelques fonctions de préparation des dates
+##
+## Les noms de mois (.mois_fr, .mois_en, .mois_nom) sont définis dans
+## R/utils-dates.R et partagés avec R/ofce_caption.R.
 
 #' Date en trimestriel
 #'
@@ -32,7 +35,7 @@ date_trim <- function(date) {
 #' date_mois("2025-10-01")
 date_mois <- function(date) {
   stringr::str_c(
-    lubridate::month(date, label = TRUE, abbr = FALSE),
+    .mois_nom(date),
     " ",
     lubridate::year(date)
   )
@@ -82,10 +85,11 @@ date_jour <- function(
     sep <- ", "
     label <- TRUE
   }
+  mois <- if (label) .mois_nom(date, locale, abbr) else lubridate::month(date)
   stringr::str_c(
     d,
     dsep,
-    lubridate::month(date, label = label, abbr = abbr, locale = locale),
+    mois,
     dsep,
     y
   )

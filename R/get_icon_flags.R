@@ -75,7 +75,6 @@ get_icons <- function(hex, tooltip = FALSE, size = 15, format = c("svg", "png"),
     path = {
       icon_dir <- "www/icons/"
       if (!dir.exists(icon_dir)) dir.create(icon_dir, recursive = TRUE)
-      browser()
 
       vapply(seq_along(urls), function(i) {
         u <- urls[i]
