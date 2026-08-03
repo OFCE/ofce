@@ -46,5 +46,5 @@ une chaine de caractères
 
 ``` r
 date_jour("2025-10-01")
-#> Error in Sys.setlocale("LC_TIME", locale): (converted from warning) OS reports request to set locale to "fr_FR.UTF-8" cannot be honored
+#> [1] "1er octobre 2025"
 ```

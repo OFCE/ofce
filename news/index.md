@@ -1,5 +1,11 @@
 # Changelog
 
+## OFCE 1.3.38
+
+- Les noms de mois en français ou en anglais sont maintenant hardcodés
+  plutôt que passant par le locale système. Cela évite des erreurs sur
+  certaines plateformes.
+
 ## OFCE 1.3.37
 
 - `setup_wp()` est maintenant dans le package `{ofceweb}`.
