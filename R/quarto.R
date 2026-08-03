@@ -27,14 +27,15 @@ setup_quarto <- function(dir=".", quiet = FALSE) {
   # system("sh -c 'cd \"{dir}\"; quarto add ofce/ofce-quarto-extensions --no-prompt --quiet'" |> glue::glue())
 
   check_quarto_ok()
+
   copy_www()
+  copy_ofce_website()
 
   quarto::quarto_add_extension(
     "ofce/ofce-quarto-extensions",
     no_prompt = TRUE,
     quiet = quiet)
 
-  copy_ofce_website()
 
   ## enlever le dossier blog-site
   old_ext <- file.path("_extensions","ofce","blog_site")
