@@ -369,8 +369,8 @@ copy_ofce_website <- function() {
 
 copy_www <- function() {
   # on crée et peuple le dossier www
-  if(fs::file_exists("www"))
-    fs::file_delete("www")
+  # if(fs::file_exists("www"))
+  #   fs::file_delete("www")
   if(!fs::dir_exists("www"))
     fs::dir_create("www")
   files <- fs::path_join(c(fs::path_package("ofce"), "www/")) |>
