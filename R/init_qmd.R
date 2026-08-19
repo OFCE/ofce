@@ -34,7 +34,7 @@ init_qmd <- function(
     spp <- spp_fn()
   }
   le_init <- NULL
-  if (is.null(root$error)) {
+  if(is.null(root$error)) {
     root <- root$result
     ofce.root <<- root
 

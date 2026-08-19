@@ -11,7 +11,7 @@ contributes:
       type: website
     website:
       title: "OFCE - Observatoire français des conjonctures économiques"
-      favicon: "img/favicon.ico"
+      favicon: img/fofce.png
       cookie-consent:
         type: implied
         style: simple
