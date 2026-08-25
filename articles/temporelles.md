@@ -60,7 +60,7 @@ dates <- c(2023, 2024, 2025)
 as.Date(as.character(dates), format  = "%Y")
 ```
 
-    [1] "2023-08-19" "2024-08-19" "2025-08-19"
+    [1] "2023-08-25" "2024-08-25" "2025-08-25"
 
 code
 
@@ -543,20 +543,9 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 >     tooltip = str_c(
 >       "<b>", pays, "</b><br>",
 >       date_label,
->       "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)
+>       "<br>Ecart de taux avec l'Allemagne : ", fmt_pct(taux)
 >     ),
 >   )
-> ```
->
->     Error in `mutate()`:
->     ℹ In argument: `tooltip = str_c(...)`.
->     Caused by error in `f_taux()`:
->     ! could not find function "f_taux"
->
-> code
->
-> ``` r
->
 > inset_plot <- ggplot(spreads_hyb) +
 >   aes(x = date, y = taux, fill = pays, color = pays, group = pays) +
 >   geom_line(linewidth = 0.75, alpha = 0.5, show.legend = FALSE) +
@@ -587,14 +576,6 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 >   ) +
 >   scale_y_continuous(
 >     labels = ~ str_c(.x, "%"), breaks = seq(0, 2))
-> ```
->
->     Error:
->     ! object 'spreads_hyb' not found
->
-> code
->
-> ``` r
 >
 > from <- list(md - days(50), md, 0, 2)
 > to <- list(md - years(4), md + years(1), 3.75, 5)
@@ -639,8 +620,8 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 >   )
 > ```
 >
->     Error:
->     ! object 'spreads_hyb' not found
+>     Error in `loadNamespace()`:
+>     ! there is no package called 'ggmagnify'
 >
 > code
 >
@@ -673,14 +654,8 @@ spreads_m <- spreads_m |>
     tooltip = str_c("<b>", pays, "</b><br>",
                     stamp(exact = TRUE, orders = "%B %Y",
                           locale = "fr_FR.utf8", quiet = TRUE)(date),
-                    "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)))
+                    "<br>Ecart de taux avec l'Allemagne : ", fmt_pct(taux)))
 ```
-
-    Error in `mutate()`:
-    ℹ In argument: `tooltip = str_c(...)`.
-    ℹ In group 1: `date = 2007-01-15`.
-    Caused by error in `f_taux()`:
-    ! could not find function "f_taux"
 
 L’interactivité est alors ajoutée par des instructions spécifiques qui
 se substituent aux `geom_*` en ajoutant un suffix, `geom_*_interactive`.
@@ -729,19 +704,9 @@ spreads_data <- spreads_data |>
     tooltip = str_c(
       "<b>", pays, "</b><br>",
       stamp_date("24/7/2024", locale = "fr_FR.utf8", quiet = TRUE)(date),
-      "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)
+      "<br>Ecart de taux avec l'Allemagne : ", fmt_pct(taux)
     )
   )
-```
-
-    Error in `mutate()`:
-    ℹ In argument: `tooltip = str_c(...)`.
-    Caused by error in `f_taux()`:
-    ! could not find function "f_taux"
-
-code
-
-``` r
 
 inset_i <- (main_i %+% spreads_data) +
   theme_ofce(
@@ -773,12 +738,6 @@ main_i <- main_i + inset_element(inset_i, 0.75, 0.66, 1, 1)
 girafy(main_i, r = 2.5)
 ```
 
-    Error:
-    ! Problem while computing aesthetics.
-    ℹ Error occurred in the 2nd layer.
-    Caused by error:
-    ! object 'tooltip' not found
-
 La clef pour l’interactivité est d’apporter de l’information à
 l’utilisateur par le texte du *tooltip*. Il est possible d’avoir des
 interactivités plus avancées, en déclenchant une action sur un *click*
@@ -806,7 +765,6 @@ code
 ``` r
 
 library(lubridate)
-# pak::pak("teunbrand/ggh4x")
 library(legendry)
 ```
 
@@ -902,16 +860,6 @@ b1 <- download_this(
   button_label  = "Taux mensuels",
   output_name = "taux_mensuels"
 )
-```
-
-    Error in `select()`:
-    ! Can't select columns that don't exist.
-    ✖ Column `tooltip` doesn't exist.
-
-code
-
-``` r
-
 b2 <- download_this(
   spreads_data,
   icon = "fa fa-download",
