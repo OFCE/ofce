@@ -338,7 +338,7 @@ spreads_hyb <- spreads_data |>
     tooltip = str_c(
       "<b>", pays, "</b><br>",
       date_label,
-      "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)
+      "<br>Ecart de taux avec l'Allemagne : ", fmt_pct(taux)
     ),
   )
 inset_plot <- ggplot(spreads_hyb) +
@@ -430,7 +430,7 @@ spreads_m <- spreads_m |>
     tooltip = str_c("<b>", pays, "</b><br>",
                     stamp(exact = TRUE, orders = "%B %Y",
                           locale = "fr_FR.utf8", quiet = TRUE)(date),
-                    "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)))
+                    "<br>Ecart de taux avec l'Allemagne : ", fmt_pct(taux)))
 ```
 
 L'interactivité est alors ajoutée par des instructions spécifiques qui se substituent aux `geom_*` en ajoutant un suffix, `geom_*_interactive`. Ces `geom_*_interactive` acceptent un `aes` avec deux paramètres supplémentaire, le premier définissant le `tooltip` et le second, `data_id`, une variable qui relie les éléments graphiques entre eux pour qu'ils soient modifiés lors du survol avec la souris. La fonction `girafy` qui est définie par `source("rinit.r")` et finalise le rendu. `{ggiraph}` conserve tous les éléments du graphique et il est possible de l'appliquer avec `{patchwork}` pour combiner les interactivités.
@@ -467,7 +467,7 @@ spreads_data <- spreads_data |>
     tooltip = str_c(
       "<b>", pays, "</b><br>",
       stamp_date("24/7/2024", locale = "fr_FR.utf8", quiet = TRUE)(date),
-      "<br>Ecart de taux avec l'Allemagne : ", f_taux(taux)
+      "<br>Ecart de taux avec l'Allemagne : ", fmt_pct(taux)
     )
   )
 
@@ -509,7 +509,6 @@ On transforme les données en fréquence trimestrielle en utilisant la fonction 
 
 ```{r trim}
 library(lubridate)
-# pak::pak("teunbrand/ggh4x")
 library(legendry)
 
 spreads_q <- spreads_data |>
