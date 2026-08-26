@@ -10,7 +10,7 @@ Description: Procure des fonctions pour modifier les graphiques ggplot et les me
 URL: https://ofce.github.io/ofce, https://ofce.github.io/ofce/
 LazyData: true
 Imports:
-    asserthat,
+    assertthat,
     cli,
     colorspace,
     countrycode,
