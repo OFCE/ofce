@@ -22,7 +22,7 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
                       active = 1) {
   chunk <- knitr::opts_current$get()
   label <- chunk$label
-  asp_chunk <- chunk$fig.asp
+  asp_chunk <- chunk$fig.asp |> as.character() |> stringr::str_replace(",", ".")
   if(is.null(asp))
     if(!is.null(asp_chunk))
       asp <- asp_chunk
