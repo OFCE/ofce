@@ -88,40 +88,50 @@ import(colorspace)
 import(farver)
 import(marquee)
 import(purrr)
-importFrom(cli,cli_abort)
-importFrom(cli,cli_warn)
+importFrom(cli,
+  cli_abort,
+  cli_warn
+)
 importFrom(countrycode,countrycode)
-importFrom(dplyr,arrange)
-importFrom(dplyr,filter)
-importFrom(dplyr,mutate)
-importFrom(ggiraph,geom_text_interactive)
-importFrom(ggiraph,girafe)
-importFrom(ggiraph,opts_tooltip)
-importFrom(ggplot2,.pt)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,annotation_raster)
-importFrom(ggplot2,calc_element)
-importFrom(ggplot2,coord_cartesian)
-importFrom(ggplot2,element_blank)
-importFrom(ggplot2,element_line)
-importFrom(ggplot2,element_rect)
-importFrom(ggplot2,element_text)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,ggplot_build)
-importFrom(ggplot2,labs)
-importFrom(ggplot2,margin)
-importFrom(ggplot2,theme)
-importFrom(ggplot2,theme_grey)
-importFrom(ggplot2,theme_void)
-importFrom(ggplot2,unit)
+importFrom(dplyr,
+  arrange,
+  filter,
+  mutate
+)
+importFrom(ggiraph,
+  geom_text_interactive,
+  girafe,
+  opts_tooltip
+)
+importFrom(ggplot2,
+  .pt,
+  aes,
+  annotation_raster,
+  calc_element,
+  coord_cartesian,
+  element_blank,
+  element_line,
+  element_rect,
+  element_text,
+  ggplot,
+  ggplot_build,
+  labs,
+  margin,
+  theme,
+  theme_grey,
+  theme_void,
+  unit
+)
 importFrom(glue,glue)
 importFrom(grDevices,as.raster)
 importFrom(magick,image_read_svg)
 importFrom(munch,element_md)
 importFrom(purrr,set_names)
 importFrom(rstudioapi,writeRStudioPreference)
-importFrom(sourcoise,sourcoise)
-importFrom(sourcoise,sourcoise_clear)
-importFrom(sourcoise,sourcoise_refresh)
-importFrom(sourcoise,sourcoise_status)
+importFrom(sourcoise,
+  sourcoise,
+  sourcoise_clear,
+  sourcoise_refresh,
+  sourcoise_status
+)
 importFrom(utils,browseURL)
