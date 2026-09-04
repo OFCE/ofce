@@ -241,3 +241,15 @@ Le fichier `references.bib` doit être à la racine du projet et contient dans l
 2.  Directement en copiant dans le `.bib` les références (on peut ainsi utiliser la biblio d'un autre document).
 
 Les appels de références sont alors simplement fait en utilisant @angel2021 où angel2021 est l'id de la référence. L'appel de référence, la biblio sera insérée et formattée automatiquement. Les appels de référence peuvent se mettre également en note de bas de page ou dans un tableau en syntaxe `markdown`.
+
+### source_data
+
+Dès qu'un `.qmd` devient complexe, on se heurte rapidement à une difficulté. D'un côté la mise en page, la rédaction demande des rendus fréquents pour ajuster le travail. De l'autre, l 'accumulation de code de chunk rend l'exécution plus lente et parfois induit des erreurs qui parasitent le travail. Par exemple, le téléchargement de données peut se bloquer (erreur dans l'API, délais de téléchargement) parfois de façon endogène (l'API a un nombre limité de téléchargement). Un autre problème peut être la difficulté à exécuter le code sur une autre machine : partager son repo git ne permet pas à quelqu'un de régler le problème technique de formatage du `.qmd` parce que le code ne s'exécute pas par exemple à cause d'un chemin absolu dans le code (`load("c:/users/10298/mes donnees.rda")`).
+
+La fonction `ofce::source_data()` résoud ces problèmes : l'exécution génère des données qui sont cachées. Pour les exécutions suivantes, suivant les paramètres, le cache sera provilégié et en cas d'erreur d'exécution, il sera toujours utilisé. Cela permet de découpler exécution du code/résolution des bugs. Cela permet également d'accélérer grandement le rendu. 
+
+Le principe est simple : on isole le code de téléchargement dans un `.r`, on termine le `.r` par un `return(data)`, puis on appelle ce code par `data <-source_data("data_code.r")` dans le chunk. Par défaut, le code ne sera exécuté qu'une fois et il faudra passer par `source_data_refresh()`.
+
+La fonction `ofce::source_data()` provient du package `{sourcoise}`. En utilisant ce package, documenté sur son [site de référence](https://ofce.github.io/ofce), vous aurez de nombreux outils et en particulier la possibilité de découpler complètement l'exécution du code "données" de leur mise en forme (graphiques ou tableaux). Le répo `ofce/wp-xt-travail` est un bon exemple d'utilisation extensive de cette technologie. Un autre exemple sont les répo de prévision (`ofce/prevxxxx`). Utiliser `source_data()` ou `sourcoise()` est strictement équivalent.
+
+
