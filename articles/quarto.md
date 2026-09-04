@@ -2,6 +2,23 @@
 
 ## Quelques conseils d’écriture et de format
 
+### avant même de commencer
+
+Si votre intention est de faire une prévision, un document de travail,
+un policy brief, un post de blog ou un document qui s’inscrit dans la
+chrate graphique, il y a probablement une procédure faite pour votre
+cas. Par exemple, la mise en place des gabarits pour les documents de
+travail est faite par (documenté sur le [site de référence du package
+`{ofceweb}`](https://ofceweb.github.io/ofceweb)) :
+
+```` markdown
+```{r}
+# installer si nécessaire le package ofceweb
+# pak::pak("ofceweb/ofceweb")
+ofceweb::setup_wp()
+```
+````
+
 ### au commencement
 
 Tout commence par un `.qmd`. Il doit être placé dans un sous dossier du
@@ -183,9 +200,43 @@ c’est fait automatiquement) :
     #| fig-asp: 0.8
     ```
 
+Merci de privilégier l’utilisation de
+[ggplot2](https://ggplot2.tidyverse.org) et de
+[ggiraph](https://davidgohel.github.io/ggiraph/) pour les graphiques. De
+nombreuses fonctions d’assistance sont disponibles ainsi que la mise en
+oeuvre d’une interactivité très simplement dans les graphiques,
+notamment les tooltips.
+[`ofce::girafy()`](https://ofce.github.io/ofce/reference/girafy.md) est
+une fonction utile à bien des égards, qui traite en particulier la
+production des formats html et pdf proprement. L’utilisation de
+[`ofce::margin_download()`](https://ofce.github.io/ofce/reference/margin_download.md)
+permet d’ajouter un bouton de téléchargement des données. La structure
+du chunk est donc la suivante :
+
+    ``` {{r}}
+    #| label: fig-id
+    #| fig-cap: Le titre du graphique
+    #| fig-asp: 0.8
+
+    gg <- ggplot(data) +
+      aes(x=axe_x, y=axe_y)+
+      geom_point_interactive(
+      aes(tooltip=tooltip, data_id=axe_x, fill = couleur),
+      shape=21, color="white", size=0.5, stroke=0.25)+
+      ...
+
+    girafy(gg)
+
+    ```
+
+
+    ```{.r .cell-code}
+    ofce::margin_donwload(data |> select(-tooltip))
+    ```
+
 Si c’est un graphique produit autrement que par `R`, la syntaxe standard
 de `markdown` fonctionne aussi de cette façon (en changeant `image` en
-fonction du contexte !):
+fonction du contexte, ainsi que le titre ou la légende !):
 
 ``` markdown
 ![Le titre de l'image](limage.png){#fig-image}
@@ -203,17 +254,19 @@ fait automatiquement) :
     #| tbl-cap: Le titre du tableau
     ```
 
+Merci de privilégier les tableaux fait par le package
+[gt](https://gt.rstudio.com). Quelques fonctions d’assistance à la mise
+en page sont disponibles dans le package
+[ofce](https://ofce.github.io/ofce).
+
 ### les encadrés
 
 Pour un encadré, c’est un peu plus compliqué (pour le moment). `tip` est
-le *hack* pour la catégorie, `.callout-tip` pour le style. Le champ
-`collapse` permet de replier l’encadré par défaut et l’option `"false"`
-(notez les guillemets et les minuscules) permet de le déplier par
-défaut. L’encadré sera numéroté et on peut le cross référencer par
-`@tip_id`.
+le *hack* pour la catégorie, `.callout-tip` pour le style. L’encadré
+sera numéroté et on peut le cross référencer par `@tip-id`.
 
 ``` markdown
-::: {#tip-id .callout-tip collapse="true"}
+::: {#tip-id .callout-tip}
 ## titre  l'encadré
 texte de l'encadré
 :::
@@ -246,31 +299,29 @@ si nécessaire, par exemple en distinguant les *cartes* des *figures*.
 
 Les tabsets sont un moyen commode de proposer des options pour un
 tableau, un graphique sans entrer dans des complications trop grandes
-d’interactivité.
+d’interactivité. Une fonction dans le package
+[ofce](https://ofce.github.io/ofce) facilite le travail
+(`results="asis"` **est important**, si le résultat n’est pas conforme,
+vérifier ce point **en premier**).
 
 ``` markdown
-::: {.panel-tabset}
-## tab 1
-
-du code R, du texte ou des images
-
-## tab2
-
-du code R, du texte ou des images
-:::
+```{r, results="asis"}
+g1 <- un graphique ggplot
+g2 <- un autre
+mes_graphiques <- list("label de g1" = g1, "label de g2" = g2)
+ofce::tabsetize(mes_graphiques)
 ```
 
-### une bibliographie
 
-Il est facile d’insérer une bibliographie. La première chose est
-d’indiquer un (ou plusieurs) fichier `.bib` à `quarto` :
+    ### une bibliographie
 
-``` markdown
----
-title: Mon titre
-bibliography: references.bib
----
-```
+    Il est facile d'insérer une bibliographie. La première chose est d'indiquer un (ou plusieurs) fichier `.bib` à `quarto` :
+
+    ``` markdown
+    ---
+    title: Mon titre
+    bibliography: references.bib
+    ---
 
 Le fichier `references.bib` doit être à la racine du projet et contient
 dans la syntaxe `bibtex` les références. Pour entrer une référence, avec
