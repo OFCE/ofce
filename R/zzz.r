@@ -2,7 +2,7 @@
   op <- options()
   op.ofce <- list(
     ofce.background_color = "transparent",
-    ofce.base_family = "Open Sans",
+    ofce.base_family = "Arimo",
     ofce.marquee = FALSE,
     ofce.base_size = 12,
     sourcoise.force_exec = FALSE,
