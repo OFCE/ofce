@@ -15,7 +15,7 @@ table_ofce <- function(data, ...){
 
   data |>
     gt::opt_table_lines("none") |>
-    gt::opt_table_font(font = gt::google_font("Nunito")) |>
+    gt::opt_table_font(font = gt::google_font("Arimo")) |>
     gt::opt_footnote_marks(marks = "letters") |>
     gt::tab_style(
       style=gt::cell_borders("bottom", "#000000", "solid", gt::px(1)),
