@@ -39,13 +39,14 @@
   if (any(toset)) options(op.ofce[toset])
   library(marquee)
   fonts_dir <- system.file("fonts", package= "ofce")
-  sysfonts::font_add(
-    "Open Sans",
-    regular  = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Regular.ttf"),
-    italic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Italic.ttf"),
-    bold = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Bold.ttf"),
-    bolditalic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-BoldItalic.ttf")
-  )
+  sysfonts::font_add_google("Arimo")
+  # font_add(
+  #   "Open Sans",
+  #   regular  = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Regular.ttf"),
+  #   italic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Italic.ttf"),
+  #   bold = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Bold.ttf"),
+  #   bolditalic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-BoldItalic.ttf")
+  # )
 
   # sysfonts::font_add(
   #   "Nunito",
