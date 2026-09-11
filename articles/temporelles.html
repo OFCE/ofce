@@ -679,8 +679,8 @@
 <span><span class="va">main_i</span> <span class="op">&lt;-</span> <span class="va">main_i</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/inset_element.html" class="external-link">inset_element</a></span><span class="op">(</span><span class="va">inset_i</span>, <span class="fl">0.75</span>, <span class="fl">0.66</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/girafy.html">girafy</a></span><span class="op">(</span><span class="va">main_i</span>, r <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span></code></pre></div>
 </details><div class="cell-output cell-output-error">
-<pre><code>Error:
-! Font family 'Arimo' is not available. Register it first or use font_google() / font_liberation().</code></pre>
+<pre><code>Error in `check_gfonts()`:
+! package 'gfonts' is required to download fonts from 'fonts.google'.</code></pre>
 </div>
 </div>
 <p>La clef pour l’interactivité est d’apporter de l’information à l’utilisateur par le texte du <em>tooltip</em>. Il est possible d’avoir des interactivités plus avancées, en déclenchant une action sur un <em>click</em> par exemple. L’approche par <a href="https://davidgohel.github.io/ggiraph/" class="external-link">ggiraph</a> est applicable simplement à de nombreux graphiques avec un rendu satisfaisant. Cela marche également pour des <code>facet</code> et donc ça ouvre beaucoup de possibilités.</p>
