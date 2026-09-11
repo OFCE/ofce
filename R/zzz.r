@@ -2,7 +2,7 @@
   op <- options()
   op.ofce <- list(
     ofce.background_color = "transparent",
-    ofce.base_family = "Arimo",
+    ofce.base_family = "Open Sans",
     ofce.marquee = FALSE,
     ofce.base_size = 12,
     sourcoise.force_exec = FALSE,
@@ -39,15 +39,14 @@
   if (any(toset)) options(op.ofce[toset])
   library(marquee)
   fonts_dir <- system.file("fonts", package= "ofce")
-  sysfonts::font_add_google("Arimo")
-  # font_add(
-  #   "Open Sans",
-  #   regular  = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Regular.ttf"),
-  #   italic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Italic.ttf"),
-  #   bold = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Bold.ttf"),
-  #   bolditalic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-BoldItalic.ttf")
-  # )
 
+  sysfonts::font_add(
+    "Arimo",
+    regular  = stringr::str_c(fonts_dir, "/Arimo/Arimo-Regular.ttf"),
+    italic = stringr::str_c(fonts_dir, "/Arimo/Arimo-Italic.ttf"),
+    bold = stringr::str_c(fonts_dir, "/Arimo/Arimo-Bold.ttf"),
+    bolditalic = stringr::str_c(fonts_dir, "/Arimo/Arimo-BoldItalic.ttf")
+  )
   # sysfonts::font_add(
   #   "Nunito",
   #   regular  = stringr::str_c(fonts_dir, "/Nunito/Nunito-Regular.ttf"),

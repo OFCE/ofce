@@ -44,7 +44,7 @@ girafy <- function(plot,
         ggiraph::opts_hover(css = glue::glue("r:{r}px;")),
         ggiraph::opts_tooltip(css = tooltip_css)) |>
       ggiraph::girafe_options(!!!options)
-    fontset <- gdtools::font_set("Arimo", "Merriweather")
+    fontset <- gdtools::font_set(sans = gdtools::font_google("Arimo"))
     if(is.null(biratio))
       return(
         ggiraph::girafe(

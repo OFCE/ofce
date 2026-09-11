@@ -24,7 +24,7 @@ data <- bind_rows(
   tibble::tibble( pays = "DEU", a  = runif(10), b=1:10, date = ymd("2010-01-01") + years(1:10)))
 
 gg <- ggplot(data) +
-  theme_ofce() +
+  theme_ofce(marquee=TRUE) +
   aes(color = pays, x=date, y=a, group=pays)+
   # scale_color_manual(values = c(FRA = "red",DEU = "orange", ITA= "yellow", EU ="blue"),
   #                    breaks = c("FRA", "DEU", "ITA", "EU"),
@@ -40,7 +40,11 @@ gg <- ggplot(data) +
     labels = ofce::date1,
     expand = expansion(c(0.03, 0.03))
   ) +
-  geom_line()
+  geom_line()+
+  ggplot2::labs(title="Un titre")+
+  ofce_caption(
+    source = "blabla", ofce = FALSE, author = TRUE,
+    code = NULL)
 
 girafy(gg, ggiraph::opts_hover(css = "fill:orange;"), biratio = TRUE)
 
