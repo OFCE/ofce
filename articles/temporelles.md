@@ -738,6 +738,9 @@ main_i <- main_i + inset_element(inset_i, 0.75, 0.66, 1, 1)
 girafy(main_i, r = 2.5)
 ```
 
+    Error:
+    ! Font family 'Arimo' is not available. Register it first or use font_google() / font_liberation().
+
 La clef pour l’interactivité est d’apporter de l’information à
 l’utilisateur par le texte du *tooltip*. Il est possible d’avoir des
 interactivités plus avancées, en déclenchant une action sur un *click*
