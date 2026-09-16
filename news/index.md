@@ -1,6 +1,10 @@
 # Changelog
 
+## OFCE 1.3.39 (dev)
+
 ## OFCE 1.3.38
+
+- Plusieurs petits budgs corrigés
 
 - Les noms de mois en français ou en anglais sont maintenant hardcodés
   plutôt que passant par le locale système. Cela évite des erreurs sur
