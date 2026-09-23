@@ -5,6 +5,7 @@
 #'
 #' @returns un booléen
 #' @noRd
+#' @export
 is_typst_output <- function() isTRUE(knitr::pandoc_to("typst"))
 
 #' Répartit une largeur de tableau entre ses colonnes, en typst

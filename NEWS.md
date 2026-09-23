@@ -1,4 +1,6 @@
-## OFCE 1.3.39 (dev)
+## OFCE 1.3.40 (dev)
+
+## OFCE 1.3.39
 
 * `ofce_tab_options()` accepte l'argument `typst_width`, la largeur du tableau
 en sortie typst, en % de la largeur du texte. Les largeurs demandées par
@@ -12,6 +14,8 @@ correspondance partielle des arguments) et, avec la nouvelle option
 `ofce.tab.font.names`, n'y met que des polices réelles : les familles génériques
 CSS de `gt::default_fonts()` ("sans-serif", "system-ui") déclenchaient un
 avertissement typst à chaque tableau.
+
+* ajustement des tailles de caption dasn les ggplot (plus grands)
 
 ## OFCE 1.3.38
 
