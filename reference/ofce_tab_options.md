@@ -7,7 +7,7 @@ espacements, les bordures et les marques de notes de bas de page.
 ## Usage
 
 ``` r
-ofce_tab_options(data, ...)
+ofce_tab_options(data, ..., typst_width = NULL)
 ```
 
 ## Arguments
@@ -21,6 +21,16 @@ ofce_tab_options(data, ...)
   Arguments supplémentaires passés à
   [`gt::tab_options()`](https://gt.rstudio.com/reference/tab_options.html)
   qui remplaceront les valeurs par défaut OFCE
+
+- typst_width:
+
+  Largeur du tableau en sortie typst, en % de la largeur du texte
+  (`NULL` par défaut, le tableau garde alors la largeur que lui donne
+  typst). Les largeurs demandées par
+  [`gt::cols_width()`](https://gt.rstudio.com/reference/cols_width.html)
+  ne survivent pas à la conversion vers typst : la largeur passée ici
+  est répartie entre les colonnes visibles en respectant leurs
+  proportions. Sans effet hors typst.
 
 ## Value
 
@@ -52,6 +62,9 @@ Les options par défaut appliquées sont :
 - `table.border.bottom.style = "none"` - Pas de bordure inférieure
 
 - `row_group.padding = 2` - Espacement des groupes de lignes
+
+- `table.font.names` - Pile de polices sans famille générique CSS, que
+  typst ne sait pas interpréter (option `ofce.tab.font.names`)
 
 Les marques de notes de bas de page utilisent des lettres (a, b, c,
 etc.) via

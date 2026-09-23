@@ -2,6 +2,24 @@
 
 ## OFCE 1.3.39 (dev)
 
+- [`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md)
+  accepte l’argument `typst_width`, la largeur du tableau en sortie
+  typst, en % de la largeur du texte. Les largeurs demandées par
+  [`gt::cols_width()`](https://gt.rstudio.com/reference/cols_width.html)
+  ne survivent pas à la conversion vers typst : la largeur passée est
+  répartie entre les colonnes visibles en respectant leurs proportions.
+  Sans effet dans les autres formats.
+
+- [`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md)
+  pose la pile de polices des tableaux par l’option `table.font.names`
+  (le singulier `table.font.name` ne fonctionnait que par correspondance
+  partielle des arguments) et, avec la nouvelle option
+  `ofce.tab.font.names`, n’y met que des polices réelles : les familles
+  génériques CSS de
+  [`gt::default_fonts()`](https://gt.rstudio.com/reference/default_fonts.html)
+  (“sans-serif”, “system-ui”) déclenchaient un avertissement typst à
+  chaque tableau.
+
 ## OFCE 1.3.38
 
 - Plusieurs petits budgs corrigés
