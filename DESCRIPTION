@@ -50,6 +50,7 @@ Imports:
     munch,
     magick,
     sourcoise,
+    stats,
     withr
 Remotes:
     sourcoise=github::xtimbeau/sourcoise

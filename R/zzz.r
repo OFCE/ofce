@@ -30,6 +30,9 @@
     ofce.output_extension = ".csv",
     ofce.output_prefix = "ofce-",
     ofce.tab.font.size = 12,
+    # pile de polices des tableaux : que des polices reelles, les familles
+    # generiques CSS ("sans-serif", "system-ui") ne sont pas comprises par typst
+    ofce.tab.font.names = c("Open Sans", "Helvetica", "Arial"),
     ofce.tab.fill = "#FFEDED",
     ofce.licence.tag_position = c(0.98, 0.99),
     ofce.licence.year = 2026,
