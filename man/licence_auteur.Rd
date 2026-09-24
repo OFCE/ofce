@@ -7,6 +7,7 @@
 licence_auteur(
   author = "",
   logo = NULL,
+  institut_logo = NULL,
   license = TRUE,
   year = getOption("ofce.licence.year"),
   text_size = getOption("ofce.licence.text_size"),
@@ -20,8 +21,13 @@ licence_auteur(
 (par défaut \code{""}).}
 
 \item{logo}{Chaîne de caractères ou \code{NULL}. Chemin vers le fichier image
-du logo. Si \code{NULL} (par défaut), utilise \code{logo_down.png} inclus dans
-le package.}
+du logo. Si \code{NULL} (par défaut), utilise le logo \code{"OFCE"} du dossier
+\code{ecograph_logos} inclus dans le package. Ignoré si \code{institut_logo} est
+renseigné.}
+
+\item{institut_logo}{Chaîne de caractères ou \code{NULL}. Nom d'un logo du dossier
+\code{ecograph_logos} du package (sans extension, insensible à la casse, par
+exemple \code{"ife-ofce"}). Si renseigné, court-circuite \code{logo}.}
 
 \item{license}{Logique. Si \code{TRUE} (par défaut), affiche l'icône Creative
 Commons (\code{cc_icon_down.png}) avant le nom de l'auteur.}
