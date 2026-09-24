@@ -13,7 +13,7 @@ positionné par défaut en haut à droite du graphique."><meta property="og:imag
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.40</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.42</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,6 +75,7 @@ positionné par défaut en haut à droite du graphique.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">licence_auteur</span><span class="op">(</span></span>
 <span>  author <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  logo <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  institut_logo <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  license <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.licence.year"</span><span class="op">)</span>,</span>
 <span>  text_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.licence.text_size"</span><span class="op">)</span>,</span>
@@ -95,8 +96,15 @@ positionné par défaut en haut à droite du graphique.</p>
 
 <dt id="arg-logo">logo<a class="anchor" aria-label="anchor" href="#arg-logo"></a></dt>
 <dd><p>Chaîne de caractères ou <code>NULL</code>. Chemin vers le fichier image
-du logo. Si <code>NULL</code> (par défaut), utilise <code>logo_down.png</code> inclus dans
-le package.</p></dd>
+du logo. Si <code>NULL</code> (par défaut), utilise le logo <code>"OFCE"</code> du dossier
+<code>ecograph_logos</code> inclus dans le package. Ignoré si <code>institut_logo</code> est
+renseigné.</p></dd>
+
+
+<dt id="arg-institut-logo">institut_logo<a class="anchor" aria-label="anchor" href="#arg-institut-logo"></a></dt>
+<dd><p>Chaîne de caractères ou <code>NULL</code>. Nom d'un logo du dossier
+<code>ecograph_logos</code> du package (sans extension, insensible à la casse, par
+exemple <code>"ife-ofce"</code>). Si renseigné, court-circuite <code>logo</code>.</p></dd>
 
 
 <dt id="arg-license">license<a class="anchor" aria-label="anchor" href="#arg-license"></a></dt>

@@ -12,6 +12,7 @@ avec des images markdown inline. Le tag est affiché verticalement
 licence_auteur(
   author = "",
   logo = NULL,
+  institut_logo = NULL,
   license = TRUE,
   year = getOption("ofce.licence.year"),
   text_size = getOption("ofce.licence.text_size"),
@@ -31,8 +32,15 @@ licence_auteur(
 - logo:
 
   Chaîne de caractères ou `NULL`. Chemin vers le fichier image du logo.
-  Si `NULL` (par défaut), utilise `logo_down.png` inclus dans le
-  package.
+  Si `NULL` (par défaut), utilise le logo `"OFCE"` du dossier
+  `ecograph_logos` inclus dans le package. Ignoré si `institut_logo` est
+  renseigné.
+
+- institut_logo:
+
+  Chaîne de caractères ou `NULL`. Nom d'un logo du dossier
+  `ecograph_logos` du package (sans extension, insensible à la casse,
+  par exemple `"ife-ofce"`). Si renseigné, court-circuite `logo`.
 
 - license:
 
