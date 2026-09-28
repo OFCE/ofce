@@ -9,9 +9,9 @@ graphique commune et faciliter leur intégration à la rédaction.
 
 La première étape est de générer un template d’un document quarto
 intégrant l’ensemble des méta-données assurant sa compilation dans le
-format souhaité (render) par Rstudio. Il suffit pour cela d’executer la
+format souhaité (render) par Rstudio. Il suffit pour cela d’exécuter la
 commande suivante:
-[`setup_blog()`](https://ofce.github.io/ofce/reference/setup_blog.md)
+[`ofce::setup_blog()`](https://ofce.github.io/ofce/reference/setup_blog.md)
 qui va automatiquement générer un document quarto, l’ajout des
 extensions qui regroupent les métadonnées associées aux questions de
 style, ainsi qu’un document de gestion des références bibliographiques
@@ -75,7 +75,16 @@ visuel qui s’approche de celui final (*What You See Is What You Get*).
 Le mode visuel intègre un menu qui permet d’accéder aux différentes
 commandes de mise en forme via une interface ergonomique.
 
-Les templates suivants
+### Utilisation d’un template
+
+Il est possible (et même encouragé) de partir depuis un template de
+document blog qui intègre déjà la structure requise ainsi que les
+différents éléments susceptibles d’y être intégrés (graphiques,
+citations, notes de bas de page,…)
+
+Pour le charger automatiquement dans votre espace de travail, il suffit
+de lancer dans la console, la commande ‘ofce::setup_blog’. Cela créera
+un répertoire avec l’ensemble des élements nécessaires.
 
 ### Gestion des notes de bas de page et des références bibliographiques
 
@@ -128,25 +137,72 @@ Les mots-clés vont servir par la suite à filtrer les billets en
 sous-catégories. Un nombre maximal de trois est permis, à choisir parmi
 ceux indiqués ci-dessous[^1].
 
+| FR                     | EN                       |
+|------------------------|--------------------------|
+| Conjoncture            | Economic outlook         |
+| Taux souverain         | Sovereign interest rates |
+| Commerce extérieur     | International trade      |
+| Déficit public         | Government deficit       |
+| Dette publique         | Public debt              |
+| Politique budgétaire   | Fiscal policy            |
+| Politique territoriale | Regional policy          |
+| Politique industrielle | Industrial policy        |
+| Politique monétaire    | Monetary policy          |
+| Réglementation         | Regulation               |
+| Fiscalité              | Tax policy               |
+| Inflation              | Inflation                |
+| Productivité           | Productivity             |
+| France                 | France                   |
+| Europe                 | Europe                   |
+| USA                    | United States            |
+| Innovation             | Innovation               |
+| Numérique              | Digital economy          |
+| Agriculture            | Agriculture              |
+| Industrie              | Manufacturing            |
+| Énergie                | Energy                   |
+| Environment            | Environment              |
+| Changement climatique  | Climate change           |
+| Capitalisme            | Capitalism               |
+| Emploi                 | Employment               |
+| Inégalités             | Inequality               |
+| Démographie            | Demographics             |
+| Genre                  | Gender equality          |
+| Logement               | Housing                  |
+| Retraites              | Pensions                 |
+| Etat-Providence        | Welfare state            |
+| Protection sociale     | Social protection        |
+
 ## Transmission au responsable du blog et circuit de relecture
 
 ### Procédure principale via Github
 
 La transmission du billet au responsable du blog doit se faire
-directement sur le [repo du blog](https://github.com/OFCE/Blog_OFCE) du
-[Github de l’OFCE](https://github.com/OFCE) à l’aide d’un
-`pull request`, et en assignant le responsable (pour plus d’information,
-voir la page
+directement sur le [repo de relecture du
+blog](https://github.com/OFCE/Blog_relecture) du [Github de
+l’OFCE](https://github.com/OFCE) à l’aide d’un `pull request`, et en
+assignant directement les responsables (pour plus d’information, voir la
+page
 [suivante](https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)).
-Ce dernier aura ensuite la charge de l’organisation du circuit de
-relecture (pour plus d’information, voir la page `blog_reviewers`).
+Cet espace acceuille les billets en cours de production avant leur mise
+en ligne sur le blog. Il permet d’acceuillir les remarques et
+commentaires des relecteurs et l’échange avec les auteurs de leur
+différente version.
+
+Ces derniers auront ensuite la charge de l’organisation du circuit de
+relecture (pour plus d’information, voir la page `blog_reviewers`) qui
+s’organise autour de l’outil [Hypothes.is](https://web.hypothes.is/),
+qui permet l’annotation de textes en ligne dans un cadre décentralisé,
+et dans un groupe dédié dénommé **Blog**. Pour le rejoindre, il suffit
+déjà de s’inscrire sur le site et ensuite de rejoindre le groupe de
+relecture du blog via ce
+[lien](https://hypothes.is/groups/9A3bza7D/blog)
 
 ### Procédure alternative et de dernier recours
 
 La transmission du billet au responsable du blog s’effectue par un envoi
-du **dossier** du billet comprenant l’ensemble des élements nécessaires
-à sa compilation (le document `.qmd`, le fichier de références `.bib`,
-les images et les données):
+par mail du **dossier** du billet comprenant l’ensemble des élements
+nécessaires à sa compilation (le document `.qmd`, le fichier de
+références `.bib`, les images et les données):
 
 *Dossier du billet en format* `.qmd`
 
@@ -161,18 +217,17 @@ les images et les données):
 └── references.bib          // fichier des citations en format .bibtex
 ```
 
-L’organisation de la relecture et du versionnage du document se fait sur
-une branche Github dédiée. L’auteur se verra notifier par mail des
+L’auteur, lorsque il a pu faire se verra notifier par mail des
 évolutions du statut du document, et le cas échéant de l’intégration des
 remarques et commentaires. Une fois le processus de relecture aboutit,
-le responsable pourra accepter le pull_request, et introduire la version
-finalisée du billet sur la branche principale à partir de laquelle le
-site est généré.
+le responsable pourra accepter le pull_request, et copier la version
+finalisée du billet sur le repo du blog à partir duquel le site est
+généré, pour sa mise en ligne effective.
 
 PS: Dans le cas où des modifications ultérieures devraient être
 apportées, l’auteur devra réitérer la même procédure de pull_request que
-pour la soumission initiale, et ce sera au responsable de s’assurer de
-leur intégration à la branche principale.
+pour la soumission initiale mais ici sur le repo du
+[blog](https://github.com/ofceweb/webblog).
 
 [^1]: Cette liste à été mise à jour le 20 Octobre 2024, et est
     susceptible d’évoluer par la suite.
