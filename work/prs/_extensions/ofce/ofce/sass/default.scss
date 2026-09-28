@@ -1,0 +1,12 @@
+/*-- scss:defaults --*/
+
+// Base
+$primary: #E62736;
+$link-color: blue;
+// Navbar
+$navbar-hl: $primary;
+
+// Buttons
+.btn-primary {
+    --bs-btn-color: #FFFFFF !important;
+}

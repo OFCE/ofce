@@ -1,0 +1,110 @@
+
+.focus {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 576px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media (min-width: 992px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media (min-width: 1400px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    @media (max-width: 576px) {
+  .focus__item {
+    aspect-ratio: 4 / 3;
+    padding: 1rem;
+  }
+
+  .focus__title {
+    font-size: 1rem;
+  }
+
+  .focus__subtitle {
+    font-size: 0.85rem;
+  }
+}
+
+    &__item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        aspect-ratio: 3 / 4;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        // Dégradé de couleur par défaut (gris)
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, rgba(17, 24, 39, 0.7), rgba(75, 85, 99, 0.8));
+            z-index: 1;
+        }
+
+        // Modificateurs de couleur
+        &--green::before {
+            background: linear-gradient(to bottom right, rgba(20, 83, 45, 0.7), rgba(22, 163, 74, 0.8));
+        }
+        &--blue::before {
+            background: linear-gradient(to bottom right, rgba(30, 58, 138, 0.7), rgba(37, 99, 235, 0.8));
+        }
+        &--purple::before {
+            background: linear-gradient(to bottom right, rgba(88, 28, 135, 0.7), rgba(219, 39, 119, 0.8));
+        }
+        &--red::before {
+            background: linear-gradient(to bottom right, rgba(153, 27, 27, 0.7), rgba(234, 88, 12, 0.8));
+        }
+    }
+
+    &__category {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(4px);
+        border-radius: 9999px;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    &__title {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-weight: bold;
+        font-size: 1.125rem;
+        line-height: 1.4;
+        margin: 0 0 0.5rem 0;
+    }
+
+    &__subtitle {
+        position: relative;
+        z-index: 2;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin: 0;
+    }
+}

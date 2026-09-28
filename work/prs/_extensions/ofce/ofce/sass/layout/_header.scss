@@ -1,0 +1,10 @@
+
+#title-block-header {
+    // Remove default margin around header/title
+    // It creates undesired whitespace when there is no title
+    margin: 0;
+    // Add the margin back when there is a title
+    // &.quarto-title-block.default .quarto-title {
+    //     padding: 1.5rem 0;
+    // }
+}

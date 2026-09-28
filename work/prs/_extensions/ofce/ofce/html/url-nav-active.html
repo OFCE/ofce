@@ -1,0 +1,36 @@
+<script>
+// État actif de la navbar par préfixe d'URL : un item est actif si le premier
+// segment de son href (URLs racine, ex. /blog2024/, /prev/derniere/) coïncide
+// avec celui de la page courante. Pour un item de sous-menu, c'est l'entrée
+// parente du menu qui est surlignée. Fonctionne pour tous les sites, sans
+// texte en dur.
+document.addEventListener('DOMContentLoaded', function () {
+  var currentPath = window.location.pathname;
+
+  function firstSegment(pathname) {
+    var match = pathname.match(/^\/([^\/]+)/);
+    return match ? match[1] : '';
+  }
+
+  function isActive(link) {
+    var href = link.getAttribute('href');
+    if (!href || href === '#') return false;
+    if (link.host !== window.location.host) return false;
+    if (link.pathname === '/') {
+      return currentPath === '/' || currentPath === '/index.html';
+    }
+    return firstSegment(link.pathname) === firstSegment(currentPath) &&
+      firstSegment(currentPath) !== '';
+  }
+
+  document.querySelectorAll('.navbar-nav .nav-item').forEach(function (item) {
+    var navLink = item.querySelector('.nav-link');
+    if (!navLink) return;
+    var links = item.classList.contains('dropdown')
+      ? item.querySelectorAll('.dropdown-menu .dropdown-item')
+      : [navLink];
+    var active = Array.prototype.some.call(links, isActive);
+    if (active) navLink.classList.add('active');
+  });
+});
+</script>

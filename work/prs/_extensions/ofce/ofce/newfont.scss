@@ -1,0 +1,38 @@
+/*-- scss:defaults --*/
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+// Font families
+$font-family-sans-serif: 'Arimo', sans-serif;
+$font-family-monospace: 'Firacode', monospace;
+$headings-font-family: 'Merriweather', serif;
+// Merriweather is only shipped in 300/400/700/900; anything else (e.g. the
+// Bootstrap default of 500) gets silently fallback-matched by the browser,
+// so pin an explicit weight that actually has a loaded face.
+$headings-font-weight: 400;
+
+/*-- scss:rules --*/
+
+// Typography - Headings
+
+h1, .h1 {
+  color: inherit;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  // 600 isn't a loaded Merriweather weight and was already being
+  // fallback-matched to 700 (Bold) by the browser; make that explicit.
+  font-weight: 700;
+}
+
+h2, .h2 {
+  color: inherit;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+// Keep the subtitle in the body font rather than the Merriweather heading
+// font (it's a <p>, not a heading, but pin it explicitly to be safe).
+.subtitle {
+  font-family: $font-family-sans-serif;
+}

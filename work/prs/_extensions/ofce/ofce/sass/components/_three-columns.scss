@@ -1,0 +1,84 @@
+// Three columns component
+.three-columns-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+.three-columns-column-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid $primary;
+    color: #111827;
+}
+
+.three-columns-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.three-columns-item {
+    display: block;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    &:hover {
+        transform: translateX(4px);
+
+        .three-columns-item-title {
+            color: $primary;
+        }
+    }
+}
+
+.three-columns-item-header {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $primary;
+    margin-bottom: 0.25rem;
+}
+
+.three-columns-item-title {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #111827;
+    margin: 0 0 0.5rem 0;
+    transition: color 0.2s ease;
+}
+
+.three-columns-item-description {
+    display: block;
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.5;
+    margin: 0.5rem 0 0 0;
+}
+
+.three-columns-item-type {
+    display: block;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.5rem;
+}

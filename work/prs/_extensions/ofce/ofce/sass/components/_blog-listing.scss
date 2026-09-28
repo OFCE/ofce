@@ -1,0 +1,100 @@
+// Blog listing component (reusable)
+.blog-listing {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #f3f4f6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            transform: scale(1.02);
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit:  contain;
+            display: block;
+        }
+    }
+
+    &__content {
+        flex: 1;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #111827;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        p {
+            margin: 0 0 0.75rem 0;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+    }
+
+    &__footer {
+        margin-top: auto;
+
+        span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: $primary;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+
+            &::after {
+                content: "→";
+                opacity: 0;
+                transform: translateX(-4px);
+                transition: opacity 0.2s ease, transform 0.2s ease;
+            }
+        }
+    }
+
+    &__item:hover &__footer span {
+        color: darken($primary, 10%);
+
+        &::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}

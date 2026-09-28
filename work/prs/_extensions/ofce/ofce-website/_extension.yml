@@ -1,0 +1,29 @@
+title: OFCE Website
+author: Charles Bordet
+version: 1.0.0
+quarto-required: ">=1.9.38"
+
+contributes:
+  # ------ Project Type: OFCE Website ------------------------------------------
+  # Navbar & Footer sont partagés partout
+  project:
+    project:
+      type: website
+    website:
+      title: "OFCE - Observatoire français des conjonctures économiques"
+      favicon: img/fofce.png
+      cookie-consent:
+        type: implied
+        style: simple
+        palette: light
+        language: fr
+        policy-url: https://www.ofce.fr/legal/cookies.html
+      google-analytics: G-BRFB7DYR42
+      navbar:
+        title: false
+        background: white
+
+  shortcodes:
+    - home/focus.lua
+    - home/blog.lua
+    - home/three-columns.lua

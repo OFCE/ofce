@@ -1,0 +1,60 @@
+
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+
+$if(title)$
+
+$if(beamer)$
+\frame{\titlepage}
+$else$
+\definecolor{ofcepbbleu}{RGB}{1, 97, 131}
+\definecolor{ofcerouge}{RGB}{198, 45, 43}
+\definecolor{scporouge}{RGB}{231, 0, 26}
+
+\begin{titlepage}
+  \backgroundsetup{
+    scale=1,
+    angle=0,
+    opacity=1,
+    contents={
+  \begin{tikzpicture}[remember picture,overlay]
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+      \node [anchor = center] at (-2.875-5.25,12.5) {\includegraphics[width=2.5cm]{$logo$}};
+      \node [anchor = center] at (-2.875-5.25,-12.75){\includegraphics[width=2.5cm]{$logo2$}};
+      \node [anchor = east] at (8.5,-11.5){\textcolor{black}{$labels.published$ : $date$}};
+      $if(date-modified)$
+      \node [anchor = east] at (8.5,-12){\textcolor{black}{$labels.modified$ : $date-modified$}};
+      $endif$
+      \end{tikzpicture}
+  }
+}
+\BgThispage
+
+\hspace{4cm}
+\begin{minipage}{12.5cm}
+  \vspace{5cm}
+  \begin{flushleft}
+    \begin{spacing}{2.5}
+      \textcolor{scporouge}{\Huge\textbf{\textsf{$title$}}}
+    \end{spacing}
+  $if(subtitle)$
+ \vspace{5mm}
+  \textcolor{scporouge}{\large\textbf{\textsf{$subtitle$}}}
+ \vspace{5mm}
+  $endif$
+  \vspace{20mm}
+  \end{flushleft}
+  
+  $for(by-author)$
+  
+   \textbf{$it.name.literal$}$if(by-author.affiliations)$$for(by-author.affiliations)$,$if(by-author.affiliations.name)$
+           $by-author.affiliations.name$$endif$$endfor$
+   $endif$
+ $endfor$ % by-author
+ \end{minipage}
+
+
+$endif$
+$endif$
+\end{titlepage}

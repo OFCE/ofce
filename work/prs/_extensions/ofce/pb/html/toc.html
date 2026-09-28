@@ -1,0 +1,25 @@
+<nav id="$idprefix$TOC" role="doc-toc">
+  <a href="index.html">
+  $if(pb)$ <p class="pb-toc-label">
+    $if(french)$
+      Policy Brief<br>de l'
+      <img src="_extensions/ofce/ofce/img/ofce.png" width = "45" height="22" style="margin:0px -4px">
+      &nbsp;n°$annee$-$pb$</p>
+    $else$
+      <img src="_extensions/ofce/ofce/img/ofce.png" width = "45" height="22" style="margin:0px -4px 0px 0px">
+      &nbsp;Policy Brief<br>
+      n°$annee$-$pb$</p>
+    $endif$
+  $else$
+    $if(french)$
+      <span class="badge-draft">PB Préliminaire ($version$)</span>
+    $else$
+      <span class="badge-draft">Preliminary PB ($version$)</span>
+    $endif$
+  $endif$
+  </a>
+  $if(toc-title)$
+  <h2 id="$idprefix$toc-title">$toc-title$</h2>
+  $endif$
+  $table-of-contents$
+</nav>
