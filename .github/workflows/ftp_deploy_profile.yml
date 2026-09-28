@@ -1,0 +1,101 @@
+name: Prévisions profil personnalisé — chiffrement + FTP deploy
+
+on:
+  push:
+    branches:
+      - 'site-**'
+      - '!site-staging'
+      - '!site-publish'
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "Nom du profil Quarto (ex. review, draft…)"
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    env:
+      STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
+
+    steps:
+      - name: Résoudre le nom du profil
+        id: vars
+        run: |
+          PROFILE="${{ inputs.profile }}"
+          # If profile input is empty or not provided, extract from branch name
+          if [ -z "$PROFILE" ]; then
+            # La branche s'appelle site-{profile} — on retire le préfixe
+            PROFILE="${{ github.ref_name }}"
+            PROFILE="${PROFILE#site-}"
+          fi
+          echo "profile=$PROFILE"        >> "$GITHUB_OUTPUT"
+          echo "branch=site-$PROFILE"    >> "$GITHUB_OUTPUT"
+
+      - name: Checkout branche site-${{ steps.vars.outputs.profile }}
+        uses: actions/checkout@v4
+        with:
+          ref:   ${{ steps.vars.outputs.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Chiffrement staticrypt (si STATICRYPT_PASSWORD défini et demandé)
+        run: |
+          if [ -z "$STATICRYPT_PASSWORD" ] || [ -f .no-staticrypt ]; then
+            if [ -f .no-staticrypt ]; then
+              echo "Marqueur .no-staticrypt trouvé — chiffrement désactivé."
+            else
+              echo "STATICRYPT_PASSWORD absent — déploiement sans chiffrement."
+            fi
+          else
+            npm install -g staticrypt
+            mkdir -p /tmp/staticrypt_out
+            staticrypt ./* \
+              --recursive \
+              --directory /tmp/staticrypt_out/ \
+              --password "$STATICRYPT_PASSWORD" \
+              --short \
+              --remember 0 \
+              --template-color-primary "#e6142d" \
+              --template-color-secondary "#f9f9f3" \
+              --template-title "Accès restreint" \
+              --template-instructions "Entrez le mot de passe ou contactez un responsable de la page que vous souhaitez atteindre." \
+              --template-button "Accès"
+            cp -r /tmp/staticrypt_out/. ./
+          fi
+
+      - name: FTP deploy (profil ${{ steps.vars.outputs.profile }})
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server:   ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.STAGING_USER }}
+          password: ${{ secrets.STAGING_PASSWORD }}
+          port: 21
+          local-dir: ./
+          server-dir: ${{ github.event.repository.name }}/${{ steps.vars.outputs.profile }}/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.no-staticrypt
+
+      - name: Sauvegarder l'état FTP dans site-${{ steps.vars.outputs.profile }}
+        run: |
+          git add .ftp-deploy-sync-state.json
+          if git diff --staged --quiet; then
+            echo "No FTP state changes"
+          else
+            git commit -m "ftp state ${{ github.run_id }}"
+            git push
+          fi
