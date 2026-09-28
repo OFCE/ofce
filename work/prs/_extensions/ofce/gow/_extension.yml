@@ -1,0 +1,106 @@
+title: Format OFCE pour le graphique de la semaine
+author: Paul Malliet, Anissa Saumtally, Xavier Timbeau
+version: 0.6.0
+quarto-required: ">=1.9.38"
+contributes:
+  formats:
+    common:
+      toc: true
+      lang: fr
+      french: true
+      language:
+        fr:
+          section-title-references: "Bibliograhie"
+          title-block-author-single: "Par"
+          title-block-author-plural: "Par"
+          title-block-published: "Publié le"
+          title-block-modified: "Modifié le"
+          callout-tip-title: "Encadré"
+          toc-title: "Sur cette page"
+          authors-title: "Autrices, auteurs & résumé"
+        en:
+          section-title-references: "Bibilography"
+          title-block-author-single: "Author"
+          title-block-author-plural: "Authors"
+          title-block-published: "Published on"
+          title-block-modified: "Modified on"
+          callout-tip-title: "Box"
+          toc-title: "On this page"
+          authors-title: "Authors & summary"
+      fig-asp: 0.61
+      cap-location: top
+      crossref:
+        chapters: false
+        fig-prefix: graphique
+        tbl-prefix: tableau
+        eq-prefix: équation
+        sec-prefix: section
+        tip-prefix: encadré
+        fig-title: "**Graphique**"
+        tip-title: "**Encadré**"
+        title-delim: "**.**"
+        tbl-title: "**Tableau**"
+        lof-title: Graphiques
+        lot-title: Tableaux
+        fr:
+          title-delim: "**.**"
+        en:
+          title-delim: "**.**"
+      logo: ../ofce/img/logo.png
+      collapse-callout:
+        tip: true
+      shortcodes:
+        - fontawesome
+      # csl: ../ofce/csl/revue-francaise-de-gestion.csl
+      filters:
+        - extract-year.lua
+        - quotes
+        - collapse-callout
+        - nbsp
+        - quarto
+      license: CC BY
+
+    html:
+      theme:
+        - bootstrap
+        - ../ofce/sass/default.scss
+        - ../ofce/sass/rules.scss
+        - ../ofce/ofce.scss
+      number-sections: false
+      html-math-method: katex
+      include-in-header:
+        - ../ofce/html/url-nav-active.html
+      lightbox: true
+      link-external-icon: false
+      mainfont: Open Sans
+      toc-location: left
+      number-depth: 3
+      fig-dpi: 1200
+      fig-format: svg
+      reference-location: margin
+      fig-width: 6
+      callout-icon: false
+      logo: ../ofce/img/logo.png
+      title-block-style: default
+      image-lazy-loading: true
+      hide-description: true
+      template-partials:
+        - html/title-block.html
+        - html/title-metadata.html
+      filters:
+        - voir-aussi.lua
+      html-table-processing: none
+
+    typst:
+      fig-dpi: 1200
+      fig-format: svg
+      mainfont: Arimo
+      keep-typ: false
+      toc: false
+      callout-icon: false
+      papersize: a4
+      section-numbering: 1.1.a
+      logo: false
+      template-partials:
+        - typst/typst-template.typ
+        - typst/typst-show.typ

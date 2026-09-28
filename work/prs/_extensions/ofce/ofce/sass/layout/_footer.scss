@@ -1,0 +1,95 @@
+
+// Footer OFCE
+.ofce-footer {
+    background-color: $primary !important;
+    color: white;
+    padding: 3rem 0;
+  
+    &-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: white;
+    }
+  
+    &-social {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        &-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-size: 1.25rem;
+            &:hover {
+                color: rgba(255, 255, 255, 0.8);
+            }
+            i {
+                display: block;
+            }
+        }
+    }
+  
+    &-button {
+        background-color: white;
+        color: $primary;
+        border: 0;
+        border-radius: 50px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: background-color 0.2s ease;
+        &:hover {
+            background-color: #f3f4f6;
+            color: $primary;
+        }
+        &:focus {
+            background-color: #f3f4f6;
+            color: $primary;
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+        }
+    }
+  
+    &-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.875rem;
+    }
+    &-copyright {
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+  
+    &-legal {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+        justify-content: center;
+
+        a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: rgba(255, 255, 255, 0.8);
+            }
+        }
+    }
+}
+  
+// Responsive adjustments
+@media (max-width: 767.98px) {
+    .ofce-footer {
+        &-form {
+            .input-group {
+                flex-direction: column;
+            }
+
+            &-button {
+                width: 100%;
+            }
+        }
+    }
+}

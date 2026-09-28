@@ -4,13 +4,19 @@
 \alias{ofce_tab_options}
 \title{Options de tableau gt par défaut pour les standards OFCE}
 \usage{
-ofce_tab_options(data, ...)
+ofce_tab_options(data, ..., typst_width = NULL)
 }
 \arguments{
 \item{data}{Un objet gt table}
 
 \item{...}{Arguments supplémentaires passés à \code{\link[gt:tab_options]{gt::tab_options()}} qui
 remplaceront les valeurs par défaut OFCE}
+
+\item{typst_width}{Largeur du tableau en sortie typst, en \% de la largeur du
+texte (\code{NULL} par défaut, le tableau garde alors la largeur que lui donne
+typst). Les largeurs demandées par \code{\link[gt:cols_width]{gt::cols_width()}} ne survivent pas à la
+conversion vers typst : la largeur passée ici est répartie entre les
+colonnes visibles en respectant leurs proportions. Sans effet hors typst.}
 }
 \value{
 Un objet gt table avec les options de style appliquées
@@ -34,6 +40,8 @@ Les options par défaut appliquées sont :
 \item \code{source_notes.padding = 2} - Espacement des sources
 \item \code{table.border.bottom.style = "none"} - Pas de bordure inférieure
 \item \code{row_group.padding = 2} - Espacement des groupes de lignes
+\item \code{table.font.names} - Pile de polices sans famille générique CSS, que typst
+ne sait pas interpréter (option \code{ofce.tab.font.names})
 }
 
 Les marques de notes de bas de page utilisent des lettres (a, b, c, etc.)

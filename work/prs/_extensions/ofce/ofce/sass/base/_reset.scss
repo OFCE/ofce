@@ -1,0 +1,22 @@
+
+// Remove default margin/padding at the top/bottom of the page
+// It creates undesired whitespace on the home page
+#quarto-document-content {
+    padding: 0;
+    margin: 0;
+}
+
+// This Quarto class is used to create full-width blocks of content
+.column-screen-inset-shaded {
+    margin-bottom: 0 !important;
+}
+
+// The contrast is not automatically adjusted for the active page
+ul.pagination li.active a {
+    color: #FFFFFF;
+}
+
+// Quarto bug that displays the search twice
+#quarto-search .aa-Autocomplete:nth-child(2) {
+    display: none;
+}

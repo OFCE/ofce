@@ -1,0 +1,55 @@
+<div class="list">
+<% for (const item of items) { %>
+<div class="quarto-post image-right" data-index="<%= item.index %>" data-categories="<%= item.categories ? btoa(encodeURIComponent(item.categories.join(','))) : '' %>" data-listing-date-sort="<%= item.sortableValues?.date %>" data-listing-file-modified-sort="<%= item.sortableValues?.fileModified %>" data-listing-reading-time-sort="<%= item.readingTime %>">
+<div class="thumbnail">
+<p><a href="<%= item.path %>"><% if (item.image) { %><img src="<%= item.image %>" class="thumbnail-image"><% } else { %><div class="listing-item-img-placeholder card-img-top" >&nbsp;</div><% } %></a></p>
+</div>
+<div class="body">
+<% if (item.gow && item.nb) { %>
+<%
+  // Extract year from path (e.g., "./fr/2026/..." -> "2026")
+  const itemPath = item.path.replace(/\\/g, '/');
+  const yearMatch = itemPath.match(/\/(\d{4})\//);
+  const year = yearMatch ? yearMatch[1] : 'N/A';
+%>
+<h3 class="no-anchor listing-title">
+<a href="<%= item.path %>"><%= item.title %></a>
+</h3>
+<div class="listing-description">
+<a href="<%= item.path %>"><em> L'ÉcoGraphe n°<%= item.nb %> (<%= year %>)</em></a>
+</div>
+<% } else { %>
+<h3 class="no-anchor listing-title">
+<a href="<%= item.path %>"><%= item.title %></a>
+</h3>
+<% if (item.description) { %>
+<div class="listing-description">
+<a href="<%= item.path %>"><%= item.description %></a>
+</div>
+<% } %>
+<% } %>
+<% if (item.categories) { %>
+<div class="listing-categories">
+<% for (const cat of item.categories) { %>
+<div class="listing-category" onclick="window.quartoListingCategory('<%= btoa(encodeURIComponent(cat)) %>'); event.preventDefault();"><%= cat %></div>
+<% } %>
+</div>
+<% } %>
+</div>
+<div class="metadata">
+<a href="<%= item.path %>">
+<% if (item.author) { %>
+<div class="listing-author">
+<%= Array.isArray(item.author) ? item.author.map(auth => typeof auth === 'object' ? auth.name : auth).join(', ') : item.author %>
+</div>
+<% } %>
+<% if (item.date) { %>
+<div class="listing-date">
+<%= item.date %>
+</div>
+<% } %>
+</a>
+</div>
+</div>
+<% } %>
+</div>

@@ -30,6 +30,9 @@
     ofce.output_extension = ".csv",
     ofce.output_prefix = "ofce-",
     ofce.tab.font.size = 12,
+    # pile de polices des tableaux : que des polices reelles, les familles
+    # generiques CSS ("sans-serif", "system-ui") ne sont pas comprises par typst
+    ofce.tab.font.names = c("Open Sans", "Helvetica", "Arial"),
     ofce.tab.fill = "#FFEDED",
     ofce.licence.tag_position = c(0.98, 0.99),
     ofce.licence.year = 2026,
@@ -39,14 +42,21 @@
   if (any(toset)) options(op.ofce[toset])
   library(marquee)
   fonts_dir <- system.file("fonts", package= "ofce")
-  sysfonts::font_add(
-    "Open Sans",
-    regular  = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Regular.ttf"),
-    italic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Italic.ttf"),
-    bold = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Bold.ttf"),
-    bolditalic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-BoldItalic.ttf")
-  )
 
+  sysfonts::font_add(
+    "Arimo",
+    regular  = stringr::str_c(fonts_dir, "/Arimo/Arimo-Regular.ttf"),
+    italic = stringr::str_c(fonts_dir, "/Arimo/Arimo-Italic.ttf"),
+    bold = stringr::str_c(fonts_dir, "/Arimo/Arimo-Bold.ttf"),
+    bolditalic = stringr::str_c(fonts_dir, "/Arimo/Arimo-BoldItalic.ttf")
+  )
+  # sysfonts::font_add(
+  #   "Open Sans",
+  #   regular  = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Regular.ttf"),
+  #   italic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Italic.ttf"),
+  #   bold = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-Bold.ttf"),
+  #   bolditalic = stringr::str_c(fonts_dir, "/OpenSans/OpenSans-BoldItalic.ttf")
+  # )
   # sysfonts::font_add(
   #   "Nunito",
   #   regular  = stringr::str_c(fonts_dir, "/Nunito/Nunito-Regular.ttf"),

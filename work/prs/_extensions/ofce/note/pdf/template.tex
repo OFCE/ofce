@@ -1,0 +1,28 @@
+\usepackage{titlepic}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{placeins}
+\usepackage{graphbox}
+
+\renewcommand{\topfraction}{.9}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.1}
+\renewcommand{\floatpagefraction}{.5}
+\renewcommand{\textfloatsep}{14pt}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
+
+% \setmainfont{Nunito} [
+  %   Extension=.ttf,
+  %   UprightFront=*-Regular,
+  %   Path = fonts/,
+  %   ]
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO, RE]{MEAPS}
+\fancyhead[RO, LE]{\includegraphics[align=c, width=0.8cm]{www/ofce.png}}
+% \fancyfoot[LO, LE]{\small{OFCE}}
+\fancyfoot[RE, RO]{\small{\thepage}}

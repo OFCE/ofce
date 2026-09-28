@@ -8,8 +8,12 @@
 #' @param author Chaîne de caractères. Nom de l'auteur affiché dans le tag
 #'   (par défaut `""`).
 #' @param logo Chaîne de caractères ou `NULL`. Chemin vers le fichier image
-#'   du logo. Si `NULL` (par défaut), utilise `logo_down.png` inclus dans
-#'   le package.
+#'   du logo. Si `NULL` (par défaut), utilise le logo `"OFCE"` du dossier
+#'   `ecograph_logos` inclus dans le package. Ignoré si `institut_logo` est
+#'   renseigné.
+#' @param institut_logo Chaîne de caractères ou `NULL`. Nom d'un logo du dossier
+#'   `ecograph_logos` du package (sans extension, insensible à la casse, par
+#'   exemple `"ife-ofce"`). Si renseigné, court-circuite `logo`.
 #' @param license Logique. Si `TRUE` (par défaut), affiche l'icône Creative
 #'   Commons (`cc_icon_down.png`) avant le nom de l'auteur.
 #' @param year Numérique ou `NULL`. Année affichée après le nom de l'auteur
@@ -39,6 +43,7 @@
 #' }
 licence_auteur <- function(author = "",
                            logo = NULL,
+                           institut_logo = NULL,
                            license = TRUE,
                            year = getOption("ofce.licence.year"),
                            text_size = getOption("ofce.licence.text_size"),
@@ -51,11 +56,12 @@ licence_auteur <- function(author = "",
 
   # --- LOGO OFCE ---
 
+  if (!is.null(institut_logo)) {
+    logo <- ecograph_logo(institut_logo)
+  }
+
   if (is.null(logo)) {
-    logo <- system.file("logo_down.png", package = "ofce")
-    if (logo == "") {
-      cli::cli_abort("Logo file not found. Please provide a logo path.")
-    }
+    logo <- ecograph_logo("OFCE")
   }
 
   logo_md <- glue::glue("![]({logo})")
@@ -64,7 +70,8 @@ licence_auteur <- function(author = "",
 
   cc_md <- ""
   if (license) {
-    cc_fp <- system.file("cc_icon_down.png", package = "ofce")
+    cc_fp <- system.file("ecograph_logos", "cc_icon_down.png", package = "ofce")
+    if (cc_fp == "") cc_fp <- system.file("cc_icon_down.png", package = "ofce")
     if (cc_fp != "") {
       cc_md <- glue::glue(" ![]({cc_fp})")
     }
@@ -89,4 +96,37 @@ licence_auteur <- function(author = "",
 
     )
   )
+}
+
+#' Chemin d'un logo du dossier `ecograph_logos`
+#'
+#' Retrouve le fichier d'un logo livré avec le package dans `inst/ecograph_logos`
+#' à partir de son nom, sans extension et sans tenir compte de la casse.
+#'
+#' @param name Chaîne de caractères. Nom du logo (par exemple `"OFCE"` ou
+#'   `"ife-ofce"`), sans extension.
+#'
+#' @return Le chemin complet vers le fichier image du logo.
+#' @keywords internal
+#' @noRd
+ecograph_logo <- function(name) {
+  dir <- system.file("ecograph_logos", package = "ofce")
+  if (dir == "" || !dir.exists(dir)) {
+    cli::cli_abort("Le dossier {.file ecograph_logos} est introuvable dans le package {.pkg ofce}.")
+  }
+
+  files <- list.files(dir, full.names = TRUE)
+  sans_ext <- function(x) sub("\\.[^.]*$", "", x)
+  noms <- tolower(sans_ext(basename(files)))
+  idx <- which(noms == tolower(sans_ext(name)))
+
+  if (length(idx) == 0) {
+    dispo <- sort(sans_ext(basename(files)))
+    cli::cli_abort(c(
+      "Logo {.val {name}} introuvable dans {.file ecograph_logos}.",
+      i = "Logos disponibles : {.val {dispo}}."
+    ))
+  }
+
+  files[[idx[[1]]]]
 }

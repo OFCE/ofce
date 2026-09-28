@@ -32,6 +32,7 @@ girafy <- function(plot,
                    height_svg = NULL,
                    tooltip_css = .tooltip_css,
                    biratio = NULL) {
+  withr::local_options(OutDec = ".")
   assertthat::assert_that(ggplot2::is_ggplot(plot),
                           msg = "Ce n'est pas un ggplot, pas possible de girafier")
   options <- list(...)
@@ -44,7 +45,7 @@ girafy <- function(plot,
         ggiraph::opts_hover(css = glue::glue("r:{r}px;")),
         ggiraph::opts_tooltip(css = tooltip_css)) |>
       ggiraph::girafe_options(!!!options)
-
+    # fontset <- gdtools::font_set(sans = gdtools::font_google("Arimo"))
     if(is.null(biratio))
       return(
         ggiraph::girafe(
@@ -52,6 +53,7 @@ girafy <- function(plot,
           width_svg = width_svg,
           height_svg = height_svg,
           pointsize = pointsize,
+          # font_set = fontset,
           bg = "transparent") |>
           local_options()
       )
@@ -67,6 +69,7 @@ girafy <- function(plot,
       width_svg = 8,
       height_svg = 8 * biratio[[1]],
       pointsize = pointsize,
+      # font_set = fontset,
       bg = "transparent") |>
       local_options()
     # mobile : portrait
@@ -74,6 +77,7 @@ girafy <- function(plot,
       plot,
       width_svg = 8,
       height_svg = 8 * biratio[[2]],
+      # font_set = fontset,
       pointsize = pointsize,
       bg = "transparent") |>
       local_options()

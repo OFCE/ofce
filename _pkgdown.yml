@@ -1,6 +1,11 @@
 url: https://ofce.github.io/ofce/
 template:
   bootstrap: 5
+  theme: atom-one-light
+  bslib:
+    base_font: {google: "Arimo"}
+    heading_font: {google: "Merriweather"}
+    code_font: {google: "Fira Code"}
 
 # deploy:
 #   install_metadata: true

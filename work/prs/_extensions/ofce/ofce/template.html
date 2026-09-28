@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
+
+<head>
+
+$metadata.html()$
+
+<style>
+$styles.html()$
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(math)$
+$if(mathjax)$
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+$endif$
+  $math$
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+$endif$
+
+$for(css)$
+<link rel="stylesheet" href="$css$" />
+$endfor$
+</head>
+
+<body>
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$if(title)$
+$title-block.html()$
+$elseif(subtitle)$
+$title-block.html()$
+$elseif(by-author)$
+$title-block.html()$
+$elseif(date)$
+$title-block.html()$
+$elseif(categories)$
+$title-block.html()$
+$elseif(date-modified)$
+$title-block.html()$
+$elseif(doi)$
+$title-block.html()$
+$elseif(abstract)$
+$title-block.html()$
+$elseif(keywords)$
+$title-block.html()$
+$endif$
+
+
+$if(toc)$
+$toc.html()$
+$endif$
+
+$body$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+
+<footer class="column-screen-inset-shaded ofce-footer">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <!-- Colonne gauche : Suivez-nous -->
+      <div class="mb-4 mb-md-0">
+        <h3 class="ofce-footer-title">Suivez nous sur OFCE LES NEWS</h3>
+        <div class="ofce-footer-social">
+          <a href="https://www.facebook.com/ofcesciencespo/" class="ofce-footer-social-link" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a href="https://bsky.app/profile/ofce.bsky.social" class="ofce-footer-social-link" aria-label="Twitter">
+            <i class="bi bi-bluesky"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/ofce/posts/" class="ofce-footer-social-link" aria-label="LinkedIn">
+            <i class="bi bi-linkedin"></i>
+          </a>
+          <a href="mailto:sylvie.legolvan@sciencespo.fr" class="ofce-footer-social-link" aria-label="Email">
+            <i class="bi bi-envelope"></i>
+          </a>
+        </div>
+      </div>
+      <!-- Colonne droite : Formulaire d'inscription -->
+      <a href="https://ofcenewsletter.hosted.phplist.com/lists/?p=subscribe" target="_blank" class="btn ofce-footer-button" type="submit">
+        S'abonner
+      </a>
+    </div>
+    <!-- Séparateur et copyright -->
+    <div class="ofce-footer-bottom">
+      <p class="ofce-footer-copyright">
+        Copyright © 2015 - All Rights Reserved - OFCE 10 Place de Catalogne 75014, Paris
+      </p>
+      <span class="ofce-footer-legal">
+        <a href="legal/mentions_legales.html">Mentions légales</a>
+        <a href="legal/conditions_generales.html">Conditions générales</a>
+        <a href="legal/cookies.html">Politique des cookies</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>
