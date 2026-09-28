@@ -1,5 +1,5 @@
 ---
-title: "Documents de travail: les outils d'{ofceweb}"
+title: "Documents de travail: les outils d'ofceweb"
 author:
   - name: Xavier Timbeau
 author-footer: "Séminaire Lunch"
@@ -12,8 +12,6 @@ format:
   pres-revealjs: default
   # slide-level niveau des slides à prendre en compte (2 par défaut)
   # utiliser set_fontsize_reveal(chemin, 32) pour changer la taille des caractères
-  wp-html:
-    self-contained: true
 ---
 
 ## Objectifs
@@ -151,7 +149,7 @@ La commande `ofceweb::publish()` lance la publication
 
 - Si le dépôt est dans l'organisation **OFCE**, le document est publié sur le [*staging* de l'OFCE](https://staging.ofce.fr/wp-hp-parenthood). Il est privé, protégé par un mot de passe, on fait des commentaires par hypothesis. L'autrice peut publier autant de fois que voulu, le versionner (staging.ofce.fr/wp-hp-parenthood/**v1**).
 
-- Si le dépôt n'est pas dasn l'organisation **OFCE**, il ets publié sur `gh-pages`. Il peut être crypté mais ne peut pas être versionné.
+- Si le dépôt n'est pas dans l'organisation **OFCE**, il est publié sur `gh-pages`. Il peut être crypté mais ne peut pas être versionné.
 
 ## Publication (2/3)
 
@@ -218,3 +216,13 @@ Ce qu'il reste à faire :
 - Développer les sites autour de l'architecture des données, développer les outils
 
 - Porter `ofce`/`ofceweb` (ou non) en `ife`/`ifeweb`
+
+Liens et lectures très utiles:
+
+- Documentation du package `{ofce}`: [ofce.github.io/ofce](https://ofce.github.io/ofce)
+
+- Documentation du package `{ofceweb}`: [ofceweb.github.io/ofceweb](https://ofceweb.github.io/ofceweb)
+
+- R for datascience: [r4ds.hadley.nz](https://r4ds.hadley.nz/)
+
+- Happy git and github for the useR: [happygitwithr.com](https://happygitwithr.com/)
