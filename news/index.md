@@ -1,6 +1,11 @@
 # Changelog
 
-## OFCE 1.3.40 (dev)
+## OFCE 1.3.43 (dev)
+
+- tabsetize accepte des listes de paramètres qui s’appliquent à chaque
+  graphique.
+
+- girafy peut recevoir les paramètres o, r, s
 
 ## OFCE 1.3.39
 

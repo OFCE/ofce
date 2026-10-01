@@ -20,6 +20,8 @@ tabsetize(
   girafy = TRUE,
   asp = NULL,
   r = 1.5,
+  o = 0.5,
+  s = -1,
   pdf = getOption("ofce.tabsetize.pdf"),
   active = 1
 )
@@ -54,6 +56,14 @@ tabsetize(
 
   rayon du cercle de hover pour girafy (paramètre `r` de girafy)
 
+- o:
+
+  opacité de hover_inv pour girafy (paramètre `o` de girafy)
+
+- s:
+
+  stroke with du hover pour girafy (paramètre `s` de girafy)
+
 - pdf:
 
   si l'output est pdf, doit-on aficher tous les graphiques ("all",
@@ -62,3 +72,9 @@ tabsetize(
 ## Value
 
 string inserted in markdown
+
+## Details
+
+`r`, `s`, `o` peuvent être des listes qui s'apliqueront à chaque élément
+de la liste. -1 pour chacune de ces valeurs implique pas de paramètre
+passé
