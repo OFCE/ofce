@@ -766,14 +766,6 @@ code
 
 library(lubridate)
 library(legendry)
-```
-
-    Error in `library()`:
-    ! there is no package called 'legendry'
-
-code
-
-``` r
 
 spreads_q <- spreads_data |>
   mutate(
@@ -823,8 +815,7 @@ spreads_q <- spreads_data |>
   scale_x_discrete()) |> add_logo()
 ```
 
-    Error in `guide_axis_nested()`:
-    ! could not find function "guide_axis_nested"
+![](temporelles_files/figure-html/trim-1.svg)
 
 ## Double échelle
 
