@@ -26,6 +26,7 @@ Imports:
     ggpp,
     gtable,
     glue,
+    ggmagnify,
     quarto,
     lubridate,
     legendry,
