@@ -30,9 +30,5 @@ tableau gt
 
 ``` r
 head(mtcars) |> gt::gt() |> ofce_cols_fill(disp)
-
-
-  
-
-mpg
+#> Error in tab_style(data, style = cell_fill(color = fill), locations = cells_body(columns = {    {        columns    }})): could not find function "tab_style"
 ```

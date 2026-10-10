@@ -1,9 +1,45 @@
 # Changelog
 
+## OFCE 1.3.43 (dev)
+
+- tabsetize accepte des listes de paramètres qui s’appliquent à chaque
+  graphique.
+
+- girafy peut recevoir les paramètres o, r, s
+
+## OFCE 1.3.39
+
+- [`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md)
+  accepte l’argument `typst_width`, la largeur du tableau en sortie
+  typst, en % de la largeur du texte. Les largeurs demandées par
+  [`gt::cols_width()`](https://gt.rstudio.com/reference/cols_width.html)
+  ne survivent pas à la conversion vers typst : la largeur passée est
+  répartie entre les colonnes visibles en respectant leurs proportions.
+  Sans effet dans les autres formats.
+
+- [`ofce_tab_options()`](https://ofce.github.io/ofce/reference/ofce_tab_options.md)
+  pose la pile de polices des tableaux par l’option `table.font.names`
+  (le singulier `table.font.name` ne fonctionnait que par correspondance
+  partielle des arguments) et, avec la nouvelle option
+  `ofce.tab.font.names`, n’y met que des polices réelles : les familles
+  génériques CSS de
+  [`gt::default_fonts()`](https://gt.rstudio.com/reference/default_fonts.html)
+  (“sans-serif”, “system-ui”) déclenchaient un avertissement typst à
+  chaque tableau.
+
+- ajustement des tailles de caption dasn les ggplot (plus grands)
+
+## OFCE 1.3.38
+
+- Plusieurs petits budgs corrigés
+
+- Les noms de mois en français ou en anglais sont maintenant hardcodés
+  plutôt que passant par le locale système. Cela évite des erreurs sur
+  certaines plateformes.
+
 ## OFCE 1.3.37
 
-- [`setup_wp()`](https://ofce.github.io/ofce/reference/setup_wp.html)
-  est maintenant dans le package
+- `setup_wp()` est maintenant dans le package
   [ofceweb](https://ofceweb.github.io/ofceweb/).
 
 ## OFCE 1.3.36
@@ -249,4 +285,4 @@
 [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
 \*\*
 [`setup_quarto()`](https://ofce.github.io/ofce/reference/setup_quarto.md)
-\*\* [`setup_wp()`](https://ofce.github.io/ofce/reference/setup_wp.html)
+\*\* `setup_wp()`

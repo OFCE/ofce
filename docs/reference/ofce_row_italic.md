@@ -36,9 +36,5 @@ un tableau gt
 
 ``` r
 head(mtcars) |> gt::gt() |> ofce_row_italic(gear == 4)
-
-
-  
-
-mpg
+#> Error in tab_style(data, style = cell_text(style = "italic"), locations = cells_body(rows = {    {        row    }})): could not find function "tab_style"
 ```

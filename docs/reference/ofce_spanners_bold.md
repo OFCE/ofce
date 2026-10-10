@@ -32,10 +32,5 @@ un tableau gt
 
 ``` r
 head(mtcars) |> gt::gt() |> gt::tab_spanner("spanner A", c(am, gear, carb)) |> ofce_spanners_bold()
-
-
-  
-
-
-mpg
+#> Error in tab_style(data, style = cell_text(weight = "bold"), locations = gt::cells_column_spanners()): could not find function "tab_style"
 ```
