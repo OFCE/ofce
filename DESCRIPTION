@@ -28,6 +28,7 @@ Imports:
     glue,
     quarto,
     lubridate,
+    legendry,
     marquee (>= 1.2.0),
     htmltools,
     plyr,
