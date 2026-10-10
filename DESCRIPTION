@@ -26,7 +26,6 @@ Imports:
     ggpp,
     gtable,
     glue,
-    ggmagnify,
     quarto,
     lubridate,
     legendry,
@@ -56,6 +55,7 @@ Imports:
     withr
 Remotes:
     sourcoise=github::xtimbeau/sourcoise
+    github::hughjonesd/ggmagnify
 License: CC BY 4.0
 Depends:
     R (>= 4.2)
