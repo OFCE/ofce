@@ -54,6 +54,20 @@ girafy <- function(plot,
         ggiraph::opts_tooltip(css = tooltip_css)) |>
       ggiraph::girafe_options(!!!options)
     # fontset <- gdtools::font_set(sans = gdtools::font_google("Arimo"))
+    # width_svg/height_svg laissés à NULL font dépendre ggiraph d'un rendu
+    # "fluide" (rescale JS au resize). C'est ce qui provoque un espace vide
+    # en bas du graphique quand le widget est initialement caché (ex. dans un
+    # onglet de panel-tabset non actif) : le JS ne peut pas calculer la bonne
+    # taille et la hauteur figée du conteneur ne correspond plus au ratio du
+    # SVG une fois l'onglet affiché. On fixe donc une taille intrinsèque
+    # cohérente avec les options du chunk, ce qui évite ce recalcul.
+    if(is.null(width_svg) || is.null(height_svg)) {
+      chunk <- knitr::opts_current$get()
+      if(is.null(width_svg))
+        width_svg <- if(!is.null(chunk$fig.width)) chunk$fig.width else 7
+      if(is.null(height_svg))
+        height_svg <- if(!is.null(chunk$fig.height)) chunk$fig.height else 5
+    }
     if(is.null(biratio))
       return(
         ggiraph::girafe(
