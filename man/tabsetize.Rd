@@ -11,6 +11,8 @@ tabsetize(
   girafy = TRUE,
   asp = NULL,
   r = 1.5,
+  o = 0.5,
+  s = -1,
   pdf = getOption("ofce.tabsetize.pdf"),
   active = 1
 )
@@ -28,6 +30,10 @@ tabsetize(
 
 \item{r}{rayon du cercle de hover pour girafy (paramètre \code{r} de girafy)}
 
+\item{o}{opacité de hover_inv pour girafy (paramètre \code{o} de girafy)}
+
+\item{s}{stroke with du hover pour girafy (paramètre \code{s} de girafy)}
+
 \item{pdf}{si l'output est pdf, doit-on aficher tous les graphiques ("all", défaut) ou un seul ("one")}
 }
 \value{
@@ -39,4 +45,8 @@ On peut également passer des chaines de caractères qui sont des chemins vers d
 Les noms de la liste sont utilisés pour les noms des onglets
 Il est important de mettre l'option \code{results="asis"} au chunk (ou \verb{#| results: asis} dans le chunk)
 Tabsetize prend en charge aussi les formats non intercatifs et affiche la liste dépliée (d'autres possibilités viendront dans le futur)
+}
+\details{
+\code{r}, \code{s}, \code{o} peuvent être des listes qui s'apliqueront à chaque élément de la liste.
+-1 pour chacune de ces valeurs implique pas de paramètre passé
 }

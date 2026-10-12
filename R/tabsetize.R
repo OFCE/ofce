@@ -6,26 +6,30 @@
 #' Il est important de mettre l'option `results="asis"` au chunk (ou `#| results: asis` dans le chunk)
 #' Tabsetize prend en charge aussi les formats non intercatifs et affiche la liste dépliée (d'autres possibilités viendront dans le futur)
 #'
+#' `r`, `s`, `o` peuvent être des listes qui s'apliqueront à chaque élément de la liste.
+#' -1 pour chacune de ces valeurs implique pas de paramètre passé
+#'
 #' @param list liste des graphiques
 #' @param facety (ne pas utiliser)
 #' @param cap TRUE par défaut, insère une caption à la figure, spécifiée comme la caption du chunk (`#| fig-cap: un titre`).
 #' @param girafy TRUE par défaut, wrappe avec girafy (qui doit être défini donc dans le rinit.r)
 #' @param asp aspect de ratio, mais privilégiez l'aspect ratio général (`#| fig-asp: 1.1`)
 #' @param r rayon du cercle de hover pour girafy (paramètre `r` de girafy)
+#' @param o opacité de hover_inv pour girafy (paramètre `o` de girafy)
+#' @param s stroke with du hover pour girafy (paramètre `s` de girafy)
 #' @param pdf si l'output est pdf, doit-on aficher tous les graphiques ("all", défaut) ou un seul ("one")
 #'
 #' @returns string inserted in markdown
 #' @export
 #'
-tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL, r = 1.5,
+tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL,
+                      r = 1.5, o = 0.5, s = -1,
                       pdf = getOption("ofce.tabsetize.pdf"),
                       active = 1) {
   chunk <- knitr::opts_current$get()
   label <- chunk$label
-  asp_chunk <- chunk$fig.asp |> as.character() |> stringr::str_replace(",", ".")
-  if(is.null(asp))
-    if(!is.null(asp_chunk))
-      asp <- asp_chunk
+  if(is.null(asp) && !is.null(chunk$fig.asp))
+    asp <- chunk$fig.asp |> as.character() |> stringr::str_replace(",", ".")
 
   if(knitr::is_html_output()&!interactive()) {
     if(cap) {
@@ -49,13 +53,19 @@ tabsetize <- function(list, facety = TRUE, cap = TRUE, girafy = TRUE, asp = NULL
           if(!is.null(asp))
             asp_txt <- glue::glue(", fig.asp={asp}")
           if(girafy) {
-            plot <- ofce::girafy(.x, r=r, id=ids[[.y]])
+            plot <- ofce::girafy(
+              .x,
+              r = get_ith(r, ids[[.y]]),
+              o = get_ith(o, ids[[.y]]),
+              s = get_ith(s, ids[[.y]]),
+              id=ids[[.y]])
             lib <- "library(ggiraph)\n"
           }
         }
         rendu <- knitr::knit(
           text = stringr::str_c("```{r ", lbl, asp_txt," }\n", lib, "plot \n```"),
           quiet=TRUE)
+
         cat(rendu, sep="\n")
 
         if(is(.x, "character")) {
@@ -166,3 +176,4 @@ tabsetize2 <- function(list, facety = TRUE, cap = TRUE, girafy = FALSE, asp=NULL
   }
 }
 
+get_ith <- function(x, i) x[[min(i, length(x))]]

@@ -9,6 +9,7 @@ girafy(
   ...,
   r = 1.5,
   o = 0.5,
+  s = -1,
   id = NULL,
   pointsize = 12,
   width_svg = NULL,

@@ -73,7 +73,7 @@ détaille les configurations et les instructions d’installation.
     afin d’éviter le chaos, il est préférable de modifier le contenu
     pour lequel on est contributeur et s’en tenir à ça. Si vous voulez
     corriger le contenu d’autres auteurs ou intervenir sur la structure
-    générale c’est bien sûr possible.  
+    générale c’est bien sûr possible.\
     Si vous continuez sur votre branche, elle est sans doute en retard.
     Vous pouvez la mettre à jour à partir de `master` (menu
     `branch/Update from master` dans `github desktop`) afin d’éviter de

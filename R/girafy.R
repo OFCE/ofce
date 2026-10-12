@@ -25,7 +25,7 @@
 #' @export
 girafy <- function(plot,
                    ...,
-                   r = 1.5, o = 0.5,
+                   r = 1.5, o = 0.5, s = -1,
                    id = NULL,
                    pointsize = 12,
                    width_svg = NULL,
@@ -38,11 +38,19 @@ girafy <- function(plot,
   options <- list(...)
   save_graph(plot, id=id)
   if(knitr::is_html_output()| interactive()) {
+    hover_str <- ""
+    hover_inv_str <- ""
+    if(r>=0)
+      hover_str <- glue::glue("r:{r}px;")
+    if(r>=0)
+      hover_str <- glue::glue("{hover_str} stroke-width:{s}px;")
+    if(o>=0)
+      hover_inv_str <- glue::glue("opacity:{o};")
     local_options <- function(g)
       ggiraph::girafe_options(
         g,
-        ggiraph::opts_hover_inv(css = glue::glue("opacity:{o};")),
-        ggiraph::opts_hover(css = glue::glue("r:{r}px;")),
+        ggiraph::opts_hover_inv(css = hover_inv_str),
+        ggiraph::opts_hover(css = hover_str),
         ggiraph::opts_tooltip(css = tooltip_css)) |>
       ggiraph::girafe_options(!!!options)
     # fontset <- gdtools::font_set(sans = gdtools::font_google("Arimo"))
