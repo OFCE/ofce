@@ -181,7 +181,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         linetype = 0),
       plot.title.position = "panel",
       plot.margin = ggplot2::margin(b=12, t=6, l=6, r=18),
-      plot.caption.position = "panel",
+      plot.caption.position = "plot",
       # Legend format
       # legend.text.align = 0,
       legend.position = c(0.05, 0.95),
