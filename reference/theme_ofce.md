@@ -29,7 +29,15 @@ theme_ofce(
 
 - marquee:
 
-  (boléen) utilise marquee pour la plupart des textes dans un plot
+  utilise un rendu riche (markdown) pour la plupart des textes du plot.
+  `TRUE` utilise marquee (solution historique, rendu de meilleure
+  qualité mais incompatible avec le device SVG utilisé par ggiraph –
+  voir Details) ; `"munch"` utilise munch, pensé pour rester léger et
+  compatible avec
+  ggiraph/[`girafy()`](https://ofce.github.io/ofce/reference/girafy.md)
+  ; `FALSE` revient à du texte simple
+  ([`element_text`](https://ggplot2.tidyverse.org/reference/element.html)).
+  Par défaut, `getOption("ofce.marquee")`.
 
 - ...:
 
@@ -462,6 +470,17 @@ theme_ofce(
 ## Value
 
 un thème qui peut être utilisé dans ggplot
+
+## Details
+
+`marquee` s'appuie sur l'API de glyphes de R (\>= 4.3), non supportée
+par le device SVG de ggiraph : le texte y est alors redessiné comme des
+polygones/rasters, ce qui est plus lent et produit des SVG beaucoup plus
+volumineux (voir <https://github.com/r-lib/marquee/issues/10>). `munch`
+a été conçu par les auteurs de ggiraph pour éviter ce problème en
+restant du texte SVG natif. Pour un graphique destiné à
+[`girafy()`](https://ofce.github.io/ofce/reference/girafy.md), préférer
+`marquee = "munch"`.
 
 ## See also
 

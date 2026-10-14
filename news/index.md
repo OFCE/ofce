@@ -2,6 +2,44 @@
 
 ## OFCE 1.3.43 (dev)
 
+- [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)/[`theme_ofce_void()`](https://ofce.github.io/ofce/reference/theme_ofce_void.md)
+  acceptent `marquee = "munch"`, une troisième option de rendu riche
+  (markdown) du texte, basée sur
+  [munch](https://ardata-fr.github.io/munch/) plutôt que sur
+  [marquee](https://marquee.r-lib.org).
+  [marquee](https://marquee.r-lib.org) s’appuie sur l’API de glyphes de
+  R (\>= 4.3), non supportée par le device SVG de
+  [ggiraph](https://davidgohel.github.io/ggiraph/) : le texte y est
+  alors redessiné comme des polygones/rasters (SVG beaucoup plus
+  volumineux, plus lent, et source d’avertissements « la définition du
+  groupe a échoué » avec des images qui disparaissent).
+  [munch](https://ardata-fr.github.io/munch/) a été conçu par les
+  auteurs de [ggiraph](https://davidgohel.github.io/ggiraph/) pour
+  produire à la place du texte SVG natif. `marquee = TRUE` reste la
+  solution historique (texte de meilleure qualité hors
+  [ggiraph](https://davidgohel.github.io/ggiraph/)) ; pour un graphique
+  destiné à
+  [`girafy()`](https://ofce.github.io/ofce/reference/girafy.md)/[`ggiraph::girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html),
+  préférer `marquee = "munch"`.
+
+- **Changement de défaut** : l’option `ofce.marquee` passe de `FALSE` à
+  `TRUE`.
+  [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)
+  utilise donc par défaut [marquee](https://marquee.r-lib.org) pour le
+  rendu du texte (titre, sous-titre, caption, titres d’axes…) plutôt que
+  du texte simple. Pour revenir à l’ancien comportement,
+  `options(ofce.marquee = FALSE)` (ou `theme_ofce(marquee = FALSE)`
+  graphique par graphique).
+
+- [`ofce_caption()`](https://ofce.github.io/ofce/reference/ofce_caption.md)
+  (et
+  [`ofce_caption_ggplot()`](https://ofce.github.io/ofce/reference/ofce_caption_ggplot.md)/[`ofce_caption_gt()`](https://ofce.github.io/ofce/reference/ofce_caption_gt.md))
+  tiennent compte du nouveau mode `"munch"` : pas de wrapping manuel du
+  texte (comme pour `marquee = TRUE`), mais sans la traduction
+  `^x^`/`~x~` -\> `{.sup x}`/`{.sub x}`, propre à la syntaxe
+  [marquee](https://marquee.r-lib.org) et non comprise par
+  [munch](https://ardata-fr.github.io/munch/).
+
 - tabsetize accepte des listes de paramètres qui s’appliquent à chaque
   graphique.
 

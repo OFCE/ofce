@@ -18,13 +18,14 @@ ofce_caption_ggplot(
   subtitle = "",
   title = "",
   dptf = "month",
-  wrap = ifelse(getOption("ofce.marquee"), 0, getOption("ofce.caption.wrap")),
+  wrap = if (ofce_marquee_mode(getOption("ofce.marquee")) != "none") 0 else
+    getOption("ofce.caption.wrap"),
   lang = getOption("ofce.caption.lang"),
   ofce = getOption("ofce.caption.ofce"),
   author = getOption("ofce.caption.author"),
   srcplus = getOption("ofce.caption.srcplus"),
-  marquee_translate = ifelse(getOption("ofce.marquee"), TRUE,
-    getOption("ofce.caption.marquee_translate")),
+  marquee_translate = if (ofce_marquee_mode(getOption("ofce.marquee")) == "marquee") TRUE
+    else getOption("ofce.caption.marquee_translate"),
   glue = getOption("ofce.caption.glue"),
   ...
 )
