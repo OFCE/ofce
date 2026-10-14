@@ -1,9 +1,10 @@
 library(tidyverse)
 library(ofce)
+options(ofce.marquee = "munch")
 ggplot(mtcars) +
   aes(x=disp, y=mpg)+
   geom_point()+
-  theme_ofce(marquee=TRUE)+
+  theme_ofce()+
   ofce_caption(
     source = "source"
   )+
@@ -24,7 +25,7 @@ data <- bind_rows(
   tibble::tibble( pays = "DEU", a  = runif(10), b=1:10, date = ymd("2010-01-01") + years(1:10)))
 
 gg <- ggplot(data) +
-  theme_ofce(marquee=TRUE, base_family = "Open Sans" ) +
+  theme_ofce(base_family = "Arimo" ) +
   aes(color = pays, x=date, y=a, group=pays)+
   # scale_color_manual(values = c(FRA = "red",DEU = "orange", ITA= "yellow", EU ="blue"),
   #                    breaks = c("FRA", "DEU", "ITA", "EU"),
