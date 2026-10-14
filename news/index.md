@@ -1,6 +1,6 @@
 # Changelog
 
-## OFCE 1.3.43 (dev)
+## OFCE 1.3.44 (dev)
 
 - [`theme_ofce()`](https://ofce.github.io/ofce/reference/theme_ofce.md)/[`theme_ofce_void()`](https://ofce.github.io/ofce/reference/theme_ofce_void.md)
   acceptent `marquee = "munch"`, une troisième option de rendu riche
@@ -21,6 +21,8 @@
   destiné à
   [`girafy()`](https://ofce.github.io/ofce/reference/girafy.md)/[`ggiraph::girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html),
   préférer `marquee = "munch"`.
+
+## OFCE 1.3.43
 
 - **Changement de défaut** : l’option `ofce.marquee` passe de `FALSE` à
   `TRUE`.
