@@ -1,4 +1,4 @@
-## OFCE 1.3.43 (dev)
+## OFCE 1.3.44 (dev)
 
 * `theme_ofce()`/`theme_ofce_void()` acceptent `marquee = "munch"`, une troisième
 option de rendu riche (markdown) du texte, basée sur `{munch}` plutôt que sur
@@ -10,6 +10,8 @@ qui disparaissent). `{munch}` a été conçu par les auteurs de `{ggiraph}` pour
 produire à la place du texte SVG natif. `marquee = TRUE` reste la solution
 historique (texte de meilleure qualité hors `{ggiraph}`) ; pour un graphique
 destiné à `girafy()`/`ggiraph::girafe()`, préférer `marquee = "munch"`.
+
+## OFCE 1.3.43
 
 * **Changement de défaut** : l'option `ofce.marquee` passe de `FALSE` à
 `TRUE`. `theme_ofce()` utilise donc par défaut `{marquee}` pour le rendu du
