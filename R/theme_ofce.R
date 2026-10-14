@@ -1,3 +1,23 @@
+#' Normalise l'argument/l'option `marquee`
+#'
+#' Convertit les valeurs acceptées pour `marquee` (dans [theme_ofce()],
+#' [theme_ofce_void()] ou l'option `ofce.marquee`) en l'un des modes
+#' `"marquee"`, `"munch"` ou `"none"`.
+#'
+#' @param marquee `TRUE`/`FALSE` (historique) ou `"munch"`
+#' @return character(1) : `"marquee"`, `"munch"` ou `"none"`
+#' @noRd
+ofce_marquee_mode <- function(marquee) {
+  if (isTRUE(marquee)) return("marquee")
+  if (isFALSE(marquee)) return("none")
+  if (is.character(marquee) && length(marquee) == 1 && marquee %in% c("marquee", "munch", "none"))
+    return(marquee)
+  cli::cli_abort(c(
+    "{.arg marquee} doit valoir {.code TRUE} (marquee), {.code FALSE} (texte simple) ou {.val munch} (munch, compatible ggiraph).",
+    "x" = "{.val {marquee}} n'est pas une valeur valide."
+  ))
+}
+
 #' theme OFCE
 #'
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
@@ -6,17 +26,31 @@
 #'
 #' @param base_size double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).
 #' @param base_family character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Open Sans"))
-#' @param marquee (boléen) utilise marquee pour la plupart des textes dans un plot
+#' @param marquee utilise un rendu riche (markdown) pour la plupart des textes du plot. `TRUE`
+#'   utilise \pkg{marquee} (solution historique, rendu de meilleure qualité mais incompatible
+#'   avec le device SVG utilisé par \pkg{ggiraph} -- voir Details) ; `"munch"` utilise
+#'   \pkg{munch}, pensé pour rester léger et compatible avec \pkg{ggiraph}/\code{girafy()} ;
+#'   `FALSE` revient à du texte simple (\code{\link[ggplot2]{element_text}}). Par défaut,
+#'   \code{getOption("ofce.marquee")}.
 #' @inheritDotParams ggplot2::theme
 #' @return un thème qui peut être utilisé dans ggplot
 #' @family themes
+#' @details
+#' `marquee` s'appuie sur l'API de glyphes de R (>= 4.3), non supportée par le device SVG de
+#' \pkg{ggiraph} : le texte y est alors redessiné comme des polygones/rasters, ce qui est plus
+#' lent et produit des SVG beaucoup plus volumineux (voir \url{https://github.com/r-lib/marquee/issues/10}).
+#' `munch` a été conçu par les auteurs de \pkg{ggiraph} pour éviter ce problème en restant du
+#' texte SVG natif. Pour un graphique destiné à \code{\link{girafy}()}, préférer `marquee = "munch"`.
 #' @export
 #' @importFrom ggplot2 theme_grey element_text element_line element_rect element_blank margin unit
+#' @importFrom munch element_md
 #' @import marquee
 
 theme_ofce <- function(base_size = getOption("ofce.base_size"),
                        base_family = getOption("ofce.base_family"),
                        marquee = getOption("ofce.marquee"), ...) {
+
+  marquee_mode <- ofce_marquee_mode(marquee)
 
  ofce_style <- marquee::classic_style(
     base_size = base_size,
@@ -24,7 +58,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     header_font = base_family,
     code_font = "Fira Code")
 
-  theme_text <- if(marquee)
+  theme_text <- if(marquee_mode == "marquee")
     ggplot2::theme(
       plot.title = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = 700),
@@ -103,6 +137,77 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         hjust=0,
         lineheight = 0.9,
         color = "gray25",
+        margin = ggplot2::margin(r=3, b=0, t=0, l=1))
+    )
+  else if(marquee_mode == "munch")
+    ggplot2::theme(
+      plot.title = munch::element_md(
+        face = "bold",
+        hjust = 0,
+        vjust = 0.5,
+        size = base_size,
+        margin = ggplot2::margin(b = 6),
+        lineheight = 1),
+      axis.title = munch::element_md(
+        size = base_size * 0.7,
+        colour = "#222222",
+        hjust = 1,
+        vjust = 0.5,
+        margin = ggplot2::margin(t=6, r=6),
+        lineheight = 1),
+      axis.title.x = munch::element_md(
+        size = base_size * 0.7,
+        colour = "#222222",
+        hjust = 1,
+        vjust = 0.5,
+        margin = ggplot2::margin(t=0, r=6),
+        lineheight = 1),
+      axis.title.y = munch::element_md(
+        size = base_size * 0.7,
+        colour = "#222222",
+        angle = 90,
+        hjust = 1,
+        vjust = 0.5,
+        margin = ggplot2::margin(t=0, r=6),
+        lineheight = 1),
+      # axis.text reste du element_text standard : ggplot2 fournit toutes les
+      # étiquettes d'un axe en un seul appel vectorisé à element_grob(), ce
+      # que munch::element_md() (pensé pour une étiquette à la fois) ne gère pas.
+      axis.text = ggplot2::element_text(
+        size = ggplot2::rel(0.7),
+        colour = "gray25"),
+      axis.text.y = ggplot2::element_text(
+        hjust = 1,
+        vjust=0,
+        margin = ggplot2::margin(r=2, b=0)),
+      axis.text.x = ggplot2::element_text(
+        margin = ggplot2::margin(t=0, b=0),
+        hjust = 0.5),
+      plot.subtitle = munch::element_md(
+        size = base_size * 0.85,
+        vjust = 0,
+        hjust = 0,
+        lineheight = 0.9,
+        margin = ggplot2::margin(t = 6, b = 0)),
+      plot.caption = munch::element_md(
+        size = base_size * 0.8,
+        hjust = 0,
+        lineheight = 0.9,
+        margin = ggplot2::margin(t=9,b=3)),
+      strip.text = munch::element_md(
+        size = base_size * 0.85,
+        hjust = 0.5,
+        vjust = 0.5,
+        margin = ggplot2::margin(t=6,b=3)),
+      legend.title = munch::element_md(
+        size = base_size * 0.7,
+        colour = "gray25",
+        margin = ggplot2::margin(r=3, b=0, t=0, l=3)),
+      legend.text = munch::element_md(
+        size = base_size * 0.7,
+        hjust=0,
+        lineheight = 0.9,
+        colour = "gray25",
         margin = ggplot2::margin(r=3, b=0, t=0, l=1))
     )
   else

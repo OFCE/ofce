@@ -16,7 +16,12 @@ theme_ofce(
 
 \item{base_family}{character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Open Sans"))}
 
-\item{marquee}{(boléen) utilise marquee pour la plupart des textes dans un plot}
+\item{marquee}{utilise un rendu riche (markdown) pour la plupart des textes du plot. \code{TRUE}
+utilise \pkg{marquee} (solution historique, rendu de meilleure qualité mais incompatible
+avec le device SVG utilisé par \pkg{ggiraph} -- voir Details) ; \code{"munch"} utilise
+\pkg{munch}, pensé pour rester léger et compatible avec \pkg{ggiraph}/\code{girafy()} ;
+\code{FALSE} revient à du texte simple (\code{\link[ggplot2]{element_text}}). Par défaut,
+\code{getOption("ofce.marquee")}.}
 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:theme]{ggplot2::theme}}
@@ -207,6 +212,13 @@ un thème qui peut être utilisé dans ggplot
 Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
 d'autres éléments de la norme comme les couleurs, l'allure générale du graphique
 sont à introduire par ailleurs
+}
+\details{
+\code{marquee} s'appuie sur l'API de glyphes de R (>= 4.3), non supportée par le device SVG de
+\pkg{ggiraph} : le texte y est alors redessiné comme des polygones/rasters, ce qui est plus
+lent et produit des SVG beaucoup plus volumineux (voir \url{https://github.com/r-lib/marquee/issues/10}).
+\code{munch} a été conçu par les auteurs de \pkg{ggiraph} pour éviter ce problème en restant du
+texte SVG natif. Pour un graphique destiné à \code{\link{girafy}()}, préférer \code{marquee = "munch"}.
 }
 \seealso{
 Other themes:

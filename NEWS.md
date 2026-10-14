@@ -1,5 +1,27 @@
 ## OFCE 1.3.43 (dev)
 
+* `theme_ofce()`/`theme_ofce_void()` acceptent `marquee = "munch"`, une troisième
+option de rendu riche (markdown) du texte, basée sur `{munch}` plutôt que sur
+`{marquee}`. `{marquee}` s'appuie sur l'API de glyphes de R (>= 4.3), non
+supportée par le device SVG de `{ggiraph}` : le texte y est alors redessiné
+comme des polygones/rasters (SVG beaucoup plus volumineux, plus lent, et
+source d'avertissements « la définition du groupe a échoué » avec des images
+qui disparaissent). `{munch}` a été conçu par les auteurs de `{ggiraph}` pour
+produire à la place du texte SVG natif. `marquee = TRUE` reste la solution
+historique (texte de meilleure qualité hors `{ggiraph}`) ; pour un graphique
+destiné à `girafy()`/`ggiraph::girafe()`, préférer `marquee = "munch"`.
+
+* **Changement de défaut** : l'option `ofce.marquee` passe de `FALSE` à
+`TRUE`. `theme_ofce()` utilise donc par défaut `{marquee}` pour le rendu du
+texte (titre, sous-titre, caption, titres d'axes...) plutôt que du texte
+simple. Pour revenir à l'ancien comportement, `options(ofce.marquee = FALSE)`
+(ou `theme_ofce(marquee = FALSE)` graphique par graphique).
+
+* `ofce_caption()` (et `ofce_caption_ggplot()`/`ofce_caption_gt()`) tiennent
+compte du nouveau mode `"munch"` : pas de wrapping manuel du texte (comme pour
+`marquee = TRUE`), mais sans la traduction `^x^`/`~x~` -> `{.sup x}`/`{.sub x}`,
+propre à la syntaxe `{marquee}` et non comprise par `{munch}`.
+
 * tabsetize accepte des listes de paramètres qui s'appliquent à chaque graphique.
 
 * girafy peut recevoir les paramètres o, r, s

@@ -3,7 +3,7 @@
   op.ofce <- list(
     ofce.background_color = "transparent",
     ofce.base_family = "Open Sans",
-    ofce.marquee = FALSE,
+    ofce.marquee = TRUE,
     ofce.base_size = 12,
     sourcoise.force_exec = FALSE,
     sourcoise.prevent_exec = FALSE,
