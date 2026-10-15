@@ -53,7 +53,7 @@ girafy <- function(plot,
         ggiraph::opts_hover(css = hover_str),
         ggiraph::opts_tooltip(css = tooltip_css)) |>
       ggiraph::girafe_options(!!!options)
-    fontset <- gdtools::font_set(sans = gdtools::font_google("Open Sans"))
+    # fontset <- gdtools::font_set(sans = gdtools::font_google("Arimo"))
     if(is.null(biratio))
       return(
         ggiraph::girafe(
@@ -61,7 +61,7 @@ girafy <- function(plot,
           width_svg = width_svg,
           height_svg = height_svg,
           pointsize = pointsize,
-          font_set = fontset,
+          # font_set = fontset,
           bg = "transparent") |>
           local_options()
       )
