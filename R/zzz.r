@@ -2,7 +2,8 @@
   op <- options()
   op.ofce <- list(
     ofce.background_color = "transparent",
-    ofce.base_family = "Open Sans",
+    ofce.base_family = "Arimo",
+    ofce.title_family = "Merriweather",
     ofce.marquee = TRUE,
     ofce.base_size = 12,
     sourcoise.force_exec = FALSE,
@@ -49,6 +50,13 @@
     italic = stringr::str_c(fonts_dir, "/Arimo/Arimo-Italic.ttf"),
     bold = stringr::str_c(fonts_dir, "/Arimo/Arimo-Bold.ttf"),
     bolditalic = stringr::str_c(fonts_dir, "/Arimo/Arimo-BoldItalic.ttf")
+  )
+  sysfonts::font_add(
+    "Merriweather",
+    regular  = stringr::str_c(fonts_dir, "/Merriweather/Merriweather-Regular.ttf"),
+    italic = stringr::str_c(fonts_dir, "/Merriweather/Merriweather-Italic.ttf"),
+    bold = stringr::str_c(fonts_dir, "/Merriweather/Merriweather-Bold.ttf"),
+    bolditalic = stringr::str_c(fonts_dir, "/Merriweather/Merriweather-BoldItalic.ttf")
   )
   sysfonts::font_add(
     "Open Sans",

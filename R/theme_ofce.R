@@ -18,6 +18,32 @@ ofce_marquee_mode <- function(marquee) {
   ))
 }
 
+#' munch::element_md() en gras
+#'
+#' munch ignore `face` : le label est donc entouré de `**` (markdown) au
+#' moment du rendu, paragraphe par paragraphe.
+#'
+#' @param ... arguments passés à [munch::element_md()]
+#' @noRd
+element_md_bold <- function(...) {
+  el <- munch::element_md(...)
+  class(el) <- c("ofce_element_md_bold", class(el))
+  el
+}
+
+#' @exportS3Method ggplot2::element_grob
+element_grob.ofce_element_md_bold <- function(element, label = "", ...) {
+  if (!is.null(label) && !identical(label, "")) {
+    paras <- strsplit(as.character(label), "\n\\s*\n")[[1]]
+    paras <- trimws(paras)
+    to_bold <- nzchar(paras) & !grepl("^\\*\\*.*\\*\\*$", paras)
+    paras[to_bold] <- paste0("**", paras[to_bold], "**")
+    label <- paste(paras, collapse = "\n\n")
+  }
+  class(element) <- setdiff(class(element), "ofce_element_md_bold")
+  ggplot2::element_grob(element, label = label, ...)
+}
+
 #' theme OFCE
 #'
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
@@ -25,7 +51,8 @@ ofce_marquee_mode <- function(marquee) {
 #' sont à introduire par ailleurs
 #'
 #' @param base_size double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).
-#' @param base_family character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Open Sans"))
+#' @param base_family character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Arimo"))
+#' @param title_family character(1) string, police de charactère du titre (globalement et défaut options(ofce.title_family="Merriweather"))
 #' @param marquee utilise un rendu riche (markdown) pour la plupart des textes du plot. `TRUE`
 #'   utilise \pkg{marquee} (solution historique, rendu de meilleure qualité mais incompatible
 #'   avec le device SVG utilisé par \pkg{ggiraph} -- voir Details) ; `"munch"` utilise
@@ -48,6 +75,7 @@ ofce_marquee_mode <- function(marquee) {
 
 theme_ofce <- function(base_size = getOption("ofce.base_size"),
                        base_family = getOption("ofce.base_family"),
+                       title_family = getOption("ofce.title_family", base_family),
                        marquee = getOption("ofce.marquee"), ...) {
 
   marquee_mode <- ofce_marquee_mode(marquee)
@@ -62,6 +90,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     ggplot2::theme(
       plot.title = marquee::element_marquee(
         style = marquee::modify_style(ofce_style, tag = "base", weight = 700),
+        family = title_family,
         hjust = 0,
         vjust = 0.5,
         margin = ggplot2::margin(b = 6),
@@ -141,8 +170,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
     )
   else if(marquee_mode == "munch")
     ggplot2::theme(
-      plot.title = munch::element_md(
-        face = "bold",
+      plot.title = element_md_bold(
+        family = title_family,
         hjust = 0,
         vjust = 0.5,
         size = base_size,
@@ -215,6 +244,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
   else
     ggplot2::theme(
       plot.title = ggplot2::element_text(
+        family = title_family,
         face = "bold",
         hjust = 0,
         vjust = 0.5,
