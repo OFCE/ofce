@@ -36,7 +36,7 @@ girafy <- function(plot,
                    height_svg = NULL,
                    tooltip_css = .tooltip_css,
                    biratio = NULL,
-                   png_dpi = 300) {
+                   png_dpi = 700) {
   withr::local_options(OutDec = ".")
   assertthat::assert_that(ggplot2::is_ggplot(plot),
                           msg = "Ce n'est pas un ggplot, pas possible de girafier")
