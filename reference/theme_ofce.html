@@ -72,6 +72,7 @@ sont à introduire par ailleurs</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme_ofce</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.base_size"</span><span class="op">)</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.base_family"</span><span class="op">)</span>,</span>
+<span>  title_family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.title_family"</span>, <span class="va">base_family</span><span class="op">)</span>,</span>
 <span>  marquee <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.marquee"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -86,7 +87,11 @@ sont à introduire par ailleurs</p>
 
 
 <dt id="arg-base-family">base_family<a class="anchor" aria-label="anchor" href="#arg-base-family"></a></dt>
-<dd><p>character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Open Sans"))</p></dd>
+<dd><p>character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Arimo"))</p></dd>
+
+
+<dt id="arg-title-family">title_family<a class="anchor" aria-label="anchor" href="#arg-title-family"></a></dt>
+<dd><p>character(1) string, police de charactère du titre (globalement et défaut options(ofce.title_family="Merriweather"))</p></dd>
 
 
 <dt id="arg-marquee">marquee<a class="anchor" aria-label="anchor" href="#arg-marquee"></a></dt>

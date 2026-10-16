@@ -10,6 +10,7 @@ graphique sont à introduire par ailleurs
 theme_ofce(
   base_size = getOption("ofce.base_size"),
   base_family = getOption("ofce.base_family"),
+  title_family = getOption("ofce.title_family", base_family),
   marquee = getOption("ofce.marquee"),
   ...
 )
@@ -25,7 +26,12 @@ theme_ofce(
 - base_family:
 
   character(1) string, police de charactère du thème (globalement et
-  défaut options(ofce.base_family="Open Sans"))
+  défaut options(ofce.base_family="Arimo"))
+
+- title_family:
+
+  character(1) string, police de charactère du titre (globalement et
+  défaut options(ofce.title_family="Merriweather"))
 
 - marquee:
 
