@@ -20,7 +20,8 @@ girafy(
   width_svg = NULL,
   height_svg = NULL,
   tooltip_css = .tooltip_css,
-  biratio = NULL
+  biratio = NULL,
+  png_dpi = 300
 )
 ```
 
@@ -73,6 +74,14 @@ girafy(
   deux versions du graphique adaptées à la largeur d'écran (desktop et
   mobile). Exemple : `c(0.6, 1.333)` produit un graphique plus carré
   pour desktop et plus haut pour mobile.
+
+- png_dpi:
+
+  \(300\) résolution du PNG téléchargé via le bouton de la barre
+  d'outils. Le bouton natif de ggiraph exporte à la taille écran (~96
+  dpi) ; il est remplacé par un export à `png_dpi`, sur fond blanc, avec
+  les polices OFCE incorporées (elles n'ont pas besoin d'être
+  installées). `NULL` garde le bouton natif.
 
 ## Value
 

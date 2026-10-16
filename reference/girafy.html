@@ -13,7 +13,7 @@ repose sur l'utilisation des fonctions de ggiraph geom_*_interactive()."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">ofce</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.44</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.45</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,8 @@ repose sur l'utilisation des fonctions de <code>ggiraph</code> <code>geom_*_inte
 <span>  width_svg <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  height_svg <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tooltip_css <span class="op">=</span> <span class="va">.tooltip_css</span>,</span>
-<span>  biratio <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  biratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  png_dpi <span class="op">=</span> <span class="fl">300</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -134,6 +135,13 @@ Utilise <code>.tooltip_css</code> par défaut (style intégré)</p></dd>
 du graphique adaptées à la largeur d'écran (desktop et mobile).
 Exemple : <code>c(0.6, 1.333)</code> produit un graphique plus carré pour desktop
 et plus haut pour mobile.</p></dd>
+
+
+<dt id="arg-png-dpi">png_dpi<a class="anchor" aria-label="anchor" href="#arg-png-dpi"></a></dt>
+<dd><p>(300) résolution du PNG téléchargé via le bouton de la barre d'outils.
+Le bouton natif de ggiraph exporte à la taille écran (~96 dpi) ; il est remplacé
+par un export à <code>png_dpi</code>, sur fond blanc, avec les polices OFCE incorporées
+(elles n'ont pas besoin d'être installées). <code>NULL</code> garde le bouton natif.</p></dd>
 
 </dl></div>
     <div class="section level2">
