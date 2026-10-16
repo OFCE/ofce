@@ -15,7 +15,8 @@ girafy(
   width_svg = NULL,
   height_svg = NULL,
   tooltip_css = .tooltip_css,
-  biratio = NULL
+  biratio = NULL,
+  png_dpi = 300
 )
 }
 \arguments{
@@ -43,6 +44,11 @@ Utilise \code{.tooltip_css} par défaut (style intégré)}
 du graphique adaptées à la largeur d'écran (desktop et mobile).
 Exemple : \code{c(0.6, 1.333)} produit un graphique plus carré pour desktop
 et plus haut pour mobile.}
+
+\item{png_dpi}{(300) résolution du PNG téléchargé via le bouton de la barre d'outils.
+Le bouton natif de ggiraph exporte à la taille écran (~96 dpi) ; il est remplacé
+par un export à \code{png_dpi}, sur fond blanc, avec les polices OFCE incorporées
+(elles n'ont pas besoin d'être installées). \code{NULL} garde le bouton natif.}
 }
 \value{
 un objet ggiraph (en sortie HTML/interactive) ou un ggplot (en sortie statique)
