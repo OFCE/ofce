@@ -27,12 +27,20 @@ data <- bind_rows(
 gg <- ggplot(data) +
   theme_ofce(base_family = "Arimo" ) +
   aes(color = pays, x=date, y=a, group=pays)+
-  # scale_color_manual(values = c(FRA = "red",DEU = "orange", ITA= "yellow", EU ="blue"),
-  #                    breaks = c("FRA", "DEU", "ITA", "EU"),
-  #                    labels = c("FRA", "DEU", "ITA", "EU"),
-  #                    name = NULL,
-  #                   aesthetics = c("fill", "color")) +
-  scale_color_pays("iso3c", aesthetics = "color")+
+  scale_color_manual(
+    values = c(FRA = "red",DEU = "orange", ITA= "yellow", EU ="blue"),
+    breaks = c("FRA", "DEU", "ITA", "EU"),
+    labels = c("FRA" = "France, investissements en valeur dans les technologies de l'information et de la communication",
+               "DEU" = "Allemagne, nombre de personnes arrêtées par la police au cours des 12 derniers mois glissants et relâchés sans blessure",
+               "ITA" = "longueur normée des spaghettis cuits moins de 10 minutes dans de l'eau salée",
+               "EU" = "Europe"),
+    name = NULL,
+    aesthetics = c("fill", "color")) +
+  # scale_color_pays(
+  #   "iso3c", aesthetics = "color",
+  #   label = c("FRA" = "France, investissements en valeur dans les technologies de l'information et de la communication",
+  #             "DEU" = "Allemagne, nombre de personnes arrêtées par la police au cours des 12 derniers mois glissants et relâchés sans blessure",
+  #             "ITA" = "longueur normée des spaghettis cuits moins de 10 minutes dans de l'eau salée"))+
   ggiraph::geom_point_interactive(aes(data_id = date, fill = pays),
                                   size = 2, color = "white", shape = 21, stroke= 0.5,) +
   scale_ofce_date(
@@ -45,7 +53,10 @@ gg <- ggplot(data) +
   ggplot2::labs(title="Un titre")+
   ofce_caption(
     source = "blabla", ofce = FALSE, author = TRUE,
-    code = NULL)
+    code = NULL)+
+  theme(
+    legend.position = "bottom", legend.direction = "horizontal"  )+
+  guides(fill = guide_legend(nrow = 2))
 
 girafy(gg, ggiraph::opts_hover(css = "fill:orange;"), biratio = TRUE)
 

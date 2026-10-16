@@ -167,7 +167,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         colour = "#222222",
         angle = 90,
         hjust = 1,
-        vjust = 0.5,
+        vjust = 1,
         margin = ggplot2::margin(t=0, r=6),
         lineheight = 1.2),
       # axis.text reste du element_text standard : ggplot2 fournit toutes les
@@ -204,12 +204,13 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         colour = "gray25",
         margin = ggplot2::margin(r=3, b=0, t=0, l=3),
         lineheight = 1.2),
-      legend.text = munch::element_md(
+      legend.text = ggplot2::element_text(
         size = ggplot2::rel(0.7),
-        hjust=0,
-        lineheight = 1.2,
+        hjust = 0,
+        vjust = 0.5,
+        lineheight = 1,
         colour = "gray25",
-        margin = ggplot2::margin(r=3, b=0, t=0, l=1))
+        margin = ggplot2::margin(r=3, b=0, t=0, l=2))
     )
   else
     ggplot2::theme(
