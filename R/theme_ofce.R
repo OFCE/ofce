@@ -237,7 +237,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       # étiquettes d'un axe en un seul appel vectorisé à element_grob(), ce
       # que munch::element_md() (pensé pour une étiquette à la fois) ne gère pas.
       axis.text = ggplot2::element_text(
-        size = ggplot2::rel(0.8),
+        size = ggplot2::rel(0.7),
         colour = "gray25"),
       axis.text.y = ggplot2::element_text(
         hjust = 1,
