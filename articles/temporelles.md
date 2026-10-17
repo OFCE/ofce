@@ -199,10 +199,20 @@ main <- ggplot(spreads_data) +
       scale_y_continuous(
         labels = ~str_c(.x, "%"),
         minor_breaks = scales::breaks_width(0.1))
+```
+
+    Error in `method(update_ggplot, list(class_any, ggplot2::ggplot))`:
+    ! Can't add `scale_ofce_date()` to a <ggplot> object.
+
+code
+
+``` r
+
   main |> add_logo()
 ```
 
-![](temporelles_files/figure-html/base-1.svg)
+    Error:
+    ! object 'main' not found
 
 On utilise la palette *summer* de
 [PrettyCols](https://nrennie.rbind.io/PrettyCols/) (affaire de goût). On
@@ -300,7 +310,8 @@ annotations <-  list(
 (main + annotations) |> add_logo()
 ```
 
-![](temporelles_files/figure-html/annote-1.svg)
+    Error:
+    ! object 'main' not found
 
 code
 
@@ -372,8 +383,8 @@ add_logo(main %+% ss) +
   scale_ofce_date(limits = c(as.Date("2008-01-01"), NA))
 ```
 
-    Error in `loadNamespace()`:
-    ! there is no package called 'ggrepel'
+    Error:
+    ! object 'main' not found
 
 Le résultat est intéressant, mais le graphique a cependant un défaut, il
 y a trop de points, ce qui est du à la fréquence quotidienne et donc il
@@ -434,7 +445,8 @@ code
 add_logo(main %+% spreads_m)
 ```
 
-![](temporelles_files/figure-html/logo-1.svg)
+    Error:
+    ! object 'main' not found
 
 L’*insert* est le même graphique, en enlevant les annotations, en
 simplifiant les axes et en zoomant sur les deux derniers mois.
@@ -468,10 +480,20 @@ inset <- main +
                      minor_breaks = scales::breaks_width(0.1),
                      guide = "axis_minor") +
   labs(y = NULL, caption = NULL, color = NULL, fill = NULL)
+```
+
+    Error:
+    ! object 'main' not found
+
+code
+
+``` r
+
 inset
 ```
 
-![](temporelles_files/figure-html/insert-1.svg)
+    Error:
+    ! object 'inset' not found
 
 On l’insère dans le graphique principal en utilisant
 [patchwork](https://patchwork.data-imaginist.com), ce qui donne le
@@ -485,10 +507,20 @@ code
 
 library(patchwork)
 main_m <- add_logo((main + annotations) %+% spreads_m)
+```
+
+    Error:
+    ! object 'main' not found
+
+code
+
+``` r
+
 main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 ```
 
-![](temporelles_files/figure-html/patchwork-1.svg)
+    Error:
+    ! object 'main_m' not found
 
 > **Tip 1: Une alternative avec {ggmagnify}**
 >
@@ -620,8 +652,9 @@ main_m  + inset_element(inset, 0.75, 0.66, 1, 1)
 >   )
 > ```
 >
->     Error in `loadNamespace()`:
->     ! there is no package called 'ggmagnify'
+>     Error in `method(update_ggplot, list(class_any, ggplot2::ggplot))`:
+>     ! Can't add `scale_ofce_date(labels = scales::label_date_short(format =
+>       c("%Y")))` to a <ggplot> object.
 >
 > code
 >
@@ -698,6 +731,15 @@ main_i <- ggplot(spreads_m) +
   scale_ofce_date(
     labels = scales::label_date_short(format = c("%Y", "%B")) ) +
   scale_y_continuous(labels = ~ str_c(.x, "%"))
+```
+
+    Error in `method(update_ggplot, list(class_any, ggplot2::ggplot))`:
+    ! Can't add `scale_ofce_date(labels = scales::label_date_short(format =
+      c("%Y", ` and ` "%B")))` to a <ggplot> object.
+
+code
+
+``` r
 
 spreads_data <- spreads_data |>
   mutate(
@@ -732,11 +774,40 @@ inset_i <- (main_i %+% spreads_data) +
                      minor_breaks = scales::breaks_width(0.1),
                      guide = "axis_minor") +
   labs(y = NULL, caption = NULL, color = NULL, fill = NULL)
+```
+
+    Error:
+    ! object 'main_i' not found
+
+code
+
+``` r
 
 main_i <- ((main_i + annotations) %+% spreads_m) |> add_logo()
+```
+
+    Error:
+    ! object 'main_i' not found
+
+code
+
+``` r
+
 main_i <- main_i + inset_element(inset_i, 0.75, 0.66, 1, 1)
+```
+
+    Error:
+    ! object 'main_i' not found
+
+code
+
+``` r
+
 girafy(main_i, r = 2.5)
 ```
+
+    Error:
+    ! object 'main_i' not found
 
 La clef pour l’interactivité est d’apporter de l’information à
 l’utilisateur par le texte du *tooltip*. Il est possible d’avoir des
