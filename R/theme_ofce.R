@@ -44,6 +44,40 @@ element_grob.ofce_element_md_bold <- function(element, label = "", ...) {
   ggplot2::element_grob(element, label = label, ...)
 }
 
+#' Patch un seul champ d'un élément de thème déjà en place
+#'
+#' À la différence de `theme(axis.text.x = element_text(hjust = 0))`, qui
+#' remplace entièrement l'élément existant (perdant au passage sa classe
+#' `element_marquee`/`element_md` et toutes ses autres propriétés -- voir
+#' [theme_ofce()]), `ofce_theme_patch()` modifie en place le champ demandé
+#' de l'élément déjà présent dans le thème du plot, quel que soit le moteur
+#' (marquee, munch ou texte simple) qui l'a construit.
+#'
+#' @param element_name nom de l'élément de thème à patcher (ex. "axis.text.x")
+#' @param ... champs à modifier (ex. `hjust = 0`)
+#' @noRd
+ofce_theme_patch <- function(element_name, ...) {
+  structure(
+    list(element_name = element_name, props = list(...)),
+    class = "ofce_theme_patch"
+  )
+}
+
+#' @exportS3Method ggplot2::ggplot_add
+ggplot_add.ofce_theme_patch <- function(object, plot, object_name) {
+  el <- plot$theme[[object$element_name]]
+  if (is.null(el)) {
+    cli::cli_warn(c(
+      "L'élément de thème {.val {object$element_name}} n'est pas encore défini.",
+      "i" = "Appliquer {.fn ofce_theme_patch} après {.fn theme_ofce} (ou {.fn theme_ofce_void})."
+    ))
+    el <- ggplot2::element_text()
+  }
+  for (nm in names(object$props)) el[[nm]] <- object$props[[nm]]
+  plot$theme[[object$element_name]] <- el
+  plot
+}
+
 #' theme OFCE
 #'
 #' Applique le theme ofce compatible avec la norme de la Revue de l'OFCE
@@ -202,14 +236,14 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       # axis.text reste du element_text standard : ggplot2 fournit toutes les
       # étiquettes d'un axe en un seul appel vectorisé à element_grob(), ce
       # que munch::element_md() (pensé pour une étiquette à la fois) ne gère pas.
-      axis.text = ggplot2::element_text(
+      axis.text = munch::element_md(
         size = ggplot2::rel(0.8),
         colour = "gray25"),
-      axis.text.y = ggplot2::element_text(
+      axis.text.y = munch::element_md(
         hjust = 1,
         vjust=0,
         margin = ggplot2::margin(r=2, b=0)),
-      axis.text.x = ggplot2::element_text(
+      axis.text.x = munch::element_md(
         margin = ggplot2::margin(t=0, b=0),
         hjust = 0.5),
       plot.subtitle = munch::element_md(
