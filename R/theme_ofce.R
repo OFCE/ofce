@@ -245,7 +245,8 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(r=2, b=0)),
       axis.text.x = ggplot2::element_text(
         margin = ggplot2::margin(t=0, b=0),
-        hjust = 0.5),
+        hjust = 0.5,
+        vjust = 1),
       plot.subtitle = munch::element_md(
         size = ggplot2::rel(0.8),
         vjust = 0,
