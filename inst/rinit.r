@@ -24,6 +24,8 @@ library(marquee)
 library(PrettyCols)
 
 systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
+systemfonts::add_fonts(list.files(system.file("fonts", "Arimo", package="ofce"), full.names = TRUE))
+systemfonts::add_fonts(list.files(system.file("fonts", "Merriweather", package="ofce"), full.names = TRUE))
 
 options(
   OutDec = ",",

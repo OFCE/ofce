@@ -7,6 +7,7 @@
 theme_ofce(
   base_size = getOption("ofce.base_size"),
   base_family = getOption("ofce.base_family"),
+  title_family = getOption("ofce.title_family", base_family),
   marquee = getOption("ofce.marquee"),
   ...
 )
@@ -14,7 +15,9 @@ theme_ofce(
 \arguments{
 \item{base_size}{double(1) Taille des éléments texte du thème. Peut être donné globalement par options(ofce.base_size=12).}
 
-\item{base_family}{character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Open Sans"))}
+\item{base_family}{character(1) string, police de charactère du thème (globalement et défaut options(ofce.base_family="Arimo"))}
+
+\item{title_family}{character(1) string, police de charactère du titre (globalement et défaut options(ofce.title_family="Merriweather"))}
 
 \item{marquee}{utilise un rendu riche (markdown) pour la plupart des textes du plot. \code{TRUE}
 utilise \pkg{marquee} (solution historique, rendu de meilleure qualité mais incompatible
