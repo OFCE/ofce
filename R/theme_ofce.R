@@ -232,18 +232,18 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         hjust = 1,
         vjust = 1,
         margin = ggplot2::margin(t=0, r=6),
-        lineheight = 1.2),
+        lineheight = 1),
       # axis.text reste du element_text standard : ggplot2 fournit toutes les
       # étiquettes d'un axe en un seul appel vectorisé à element_grob(), ce
       # que munch::element_md() (pensé pour une étiquette à la fois) ne gère pas.
-      axis.text = munch::element_md(
+      axis.text = ggplot2::element_text(
         size = ggplot2::rel(0.8),
         colour = "gray25"),
-      axis.text.y = munch::element_md(
+      axis.text.y = ggplot2::element_text(
         hjust = 1,
         vjust=0,
         margin = ggplot2::margin(r=2, b=0)),
-      axis.text.x = munch::element_md(
+      axis.text.x = ggplot2::element_text(
         margin = ggplot2::margin(t=0, b=0),
         hjust = 0.5),
       plot.subtitle = munch::element_md(
