@@ -192,7 +192,7 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
       plot.caption = munch::element_md(
         size = ggplot2::rel(0.8),
         hjust = 0,
-        lineheight = 1.2,
+        lineheight = 1.25,
         margin = ggplot2::margin(t=9,b=3)),
       strip.text = munch::element_md(
         size = ggplot2::rel(0.8),

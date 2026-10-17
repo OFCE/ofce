@@ -23,7 +23,7 @@ data <- bind_rows(
   tibble::tibble( pays = "FRA", a  = runif(10), b=1:10, date = ymd("2010-01-01") + years(1:10)),
   tibble::tibble( pays = "ITA", a  = runif(10), b=1:10, date = ymd("2010-01-01") + years(1:10)),
   tibble::tibble( pays = "DEU", a  = runif(10), b=1:10, date = ymd("2010-01-01") + years(1:10)))
-
+options(ofce.marquee="munch")
 gg <- ggplot(data) +
   theme_ofce(base_family = "Arimo" ) +
   aes(color = pays, x=date, y=a, group=pays)+
@@ -52,11 +52,14 @@ gg <- ggplot(data) +
   geom_line()+
   ggplot2::labs(title="Un titre")+
   ofce_caption(
-    source = "blabla", ofce = FALSE, author = TRUE,
+    source = "Une source, qui est dans la caption",
+    lecture = "Techniquement, la note, la lecture et la source sont combinées dans un sel champ caption avec des hard break de paragraphe",
+    note = "Une longue note qui est coupée en plusieurs lignes et qui s'aligne avec élégance sur le reste du graphique, produisant un résulat professionel et agréable à l'oeil",
+    ofce = FALSE, author = TRUE,
     code = NULL)+
   theme(
     legend.position = "bottom", legend.direction = "horizontal"  )+
   guides(fill = guide_legend(nrow = 2))
 
-girafy(gg, ggiraph::opts_hover(css = "fill:orange;"), biratio = TRUE)
+girafy(gg, ggiraph::opts_hover(css = "fill:orange;"))
 
