@@ -35,7 +35,7 @@ options(
   ofce.background_color = "transparent",
   ofce.source_data.src_in = "project",
   ofce.caption.ofce = FALSE,
-  ofce.marquee = TRUE,
+  ofce.marquee = "munch",
   ofce.caption.srcplus = NULL,
   ofce.caption.wrap = 0,
   sourcoise.init_fn = ofce::init_qmd,
@@ -60,28 +60,25 @@ tooltip_css  <-
   r:20px;"
 
 theme_gow <- theme_ofce(
-  marquee = TRUE,
-  plot.subtitle = element_text(face = "italic", margin = margin(t = 0, 0, b = 7, 0)),
-  plot.title = element_marquee(width=0.95 ,lineheight = 0.85,margin = margin(b = 5)),
-  plot.caption = element_marquee(width=1,margin = margin(t = 10, b = 2),size = 6.5,family = "Open sans" )
+  marquee = "munch",
+  ## munch (compatible ggiraph) : les elements texte doivent etre des
+  ## munch::element_md ou des element_text, jamais des element_marquee.
+  plot.subtitle = munch::element_md(face = "italic", margin = margin(t = 0, 0, b = 7, 0)),
+  ## munch ignore `face` : le gras vient de l'element ofce qui entoure le titre de **.
+  plot.title = ofce:::element_md_bold(lineheight = 0.85, margin = margin(b = 5)),
+  plot.caption = munch::element_md(margin = margin(t = 10, b = 2), size = 6.5, family = "Open Sans"),
+  ## theme_ofce(marquee = "munch") met rel(0.7) sur axis.title ET axis.title.x/y :
+  ## les tailles se multiplient (0,49). On ramene les titres d'axes a 0,7.
+  axis.title.x = munch::element_md(size = rel(1)),
+  axis.title.y = munch::element_md(size = rel(1))
 )
 
-## theme_ofce() construit axis.text, axis.text.x et axis.text.y sans `style` :
-## marquee lit la police dans le style et ignore le `family` herite de `text`,
-## les etiquettes d'axes tombaient donc sur la police systeme (Helvetica) au
-## lieu d'Open Sans. On leur redonne le style de base du theme. L'affectation
-## doit se faire sur l'objet theme : passe par `+ theme(...)` ou par les `...`
-## de theme_ofce(), le style est fusionne et reste sans effet.
-style_gow <- marquee::classic_style(
-  base_size = getOption("ofce.base_size"),
-  body_font = getOption("ofce.base_family"),
-  header_font = getOption("ofce.base_family"))
-
-theme_gow$axis.text   <- element_marquee(size = rel(0.7), colour = "gray25", style = style_gow)
-theme_gow$axis.text.x <- element_marquee(margin = margin(t = 0, b = 0), hjust = 0.5, style = style_gow)
-theme_gow$axis.text.y <- element_marquee(hjust = 1, style = style_gow)
-
 ggplot2::set_theme(theme_gow)
+
+## Les geoms texte (geom_text, geom_label...) lisent leur police dans l'element
+## `geom` du theme, que theme_ofce() ne renseigne pas : sans cela ils tombent sur
+## la police par defaut du device au lieu d'Arimo.
+ggplot2::update_theme(geom = ggplot2::element_geom(family = getOption("ofce.base_family")))
 
 
 if(knitr::is_html_output())
