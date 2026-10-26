@@ -42,6 +42,8 @@ girafy <- function(plot,
                           msg = "Ce n'est pas un ggplot, pas possible de girafier")
   options <- list(...)
   save_graph(plot, id=id)
+  thumbnail_save(plot)
+
   if(knitr::is_html_output()| interactive()) {
     hover_str <- ""
     hover_inv_str <- ""
