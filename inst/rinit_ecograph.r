@@ -70,7 +70,8 @@ theme_gow <- theme_ofce(
   ## theme_ofce(marquee = "munch") met rel(0.7) sur axis.title ET axis.title.x/y :
   ## les tailles se multiplient (0,49). On ramene les titres d'axes a 0,7.
   axis.title.x = munch::element_md(size = rel(1)),
-  axis.title.y = munch::element_md(size = rel(1))
+  axis.title.y = munch::element_md(size = rel(1)),
+  plot.title.position = "plot"
 )
 
 ggplot2::set_theme(theme_gow)
