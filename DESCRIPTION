@@ -34,6 +34,7 @@ Imports:
     plyr,
     purrr,
     quarto,
+    ragg,
     rlang,
     rlist,
     rstudioapi,
@@ -53,6 +54,7 @@ Imports:
     munch,
     magick,
     stats,
+    svglite,
     withr
 Remotes:
     github::xtimbeau/sourcoise,

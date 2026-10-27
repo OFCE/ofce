@@ -27,10 +27,16 @@ save_thumbnail <- function(plot, file = "thumbnail.png",
     showtext::showtext_auto(FALSE)
     on.exit(showtext::showtext_auto(TRUE), add = TRUE)
   }
+  extension <- fs::path_ext(file)
+  device <- ragg::agg_png
+  if(extension%in%c("jpg", "jpeg"))
+    device <-  ragg::agg_jpeg
+  if(extension=="svg")
+    device <- svglite::svglite
   ggplot2::ggsave(
     filename = file,
     plot = thumbnail_transform(plot),
-    device = ragg::agg_png,
+    device = device,
     width = width * scale, height = height * scale, units = "px",
     dpi = dpi * scale, bg = bg)
   invisible(file)
@@ -48,7 +54,7 @@ thumbnail_save <- function(plot) {
   if (!identical(fs::path_ext_remove(image), label))
     return(invisible(NULL))
   tryCatch(
-    save_thumbnail(plot, fs::path_join(c(doc_dir, fs::path_ext_set(fs::path_ext_remove(image), "png")))),
+    save_thumbnail(plot, fs::path_join(c(doc_dir, image))),
     error = function(e)
       warning("Vignette non générée : ", conditionMessage(e), call. = FALSE))
 }
