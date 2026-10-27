@@ -21,7 +21,7 @@ girafy(
   height_svg = NULL,
   tooltip_css = .tooltip_css,
   biratio = NULL,
-  png_dpi = 300
+  png_dpi = 700
 )
 ```
 

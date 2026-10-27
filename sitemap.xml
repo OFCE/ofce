@@ -82,6 +82,7 @@
 <url><loc>https://ofce.github.io/ofce/reference/save_graph.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/save_gt.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/save_object.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/save_thumbnail.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/scale_color_pays.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/scale_ofce_date.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/set_faicon_reveal.html</loc></url>
@@ -105,6 +106,8 @@
 <url><loc>https://ofce.github.io/ofce/reference/theme_foundation.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/theme_ofce.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/theme_ofce_void.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/thumbnail_save.html</loc></url>
+<url><loc>https://ofce.github.io/ofce/reference/thumbnail_transform.html</loc></url>
 <url><loc>https://ofce.github.io/ofce/reference/uf2si2.html</loc></url>
 </urlset>
 

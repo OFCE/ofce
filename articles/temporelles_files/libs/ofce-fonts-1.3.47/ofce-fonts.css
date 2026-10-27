@@ -1,0 +1,37 @@
+/* polices OFCE pour les graphiques ggiraph (sous-ensemble latin, woff2) */
+@font-face {
+  font-family: "Arimo";
+  src: url("Arimo-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Arimo";
+  src: url("Arimo-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Arimo";
+  src: url("Arimo-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Arimo";
+  src: url("Arimo-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Merriweather";
+  src: url("Merriweather-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Merriweather";
+  src: url("Merriweather-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
