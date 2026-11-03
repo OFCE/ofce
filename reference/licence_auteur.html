@@ -79,6 +79,7 @@ positionné par défaut en haut à droite du graphique.</p>
 <span>  license <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.licence.year"</span><span class="op">)</span>,</span>
 <span>  text_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.licence.text_size"</span><span class="op">)</span>,</span>
+<span>  logo_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.licence.logo_scale"</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  color <span class="op">=</span> <span class="st">"grey3"</span>,</span>
 <span>  tag_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"ofce.licence.tag_position"</span><span class="op">)</span>,</span>
 <span>  tag_location <span class="op">=</span> <span class="st">"plot"</span></span>
@@ -120,6 +121,13 @@ Commons (<code>cc_icon_down.png</code>) avant le nom de l'auteur.</p></dd>
 <dt id="arg-text-size">text_size<a class="anchor" aria-label="anchor" href="#arg-text-size"></a></dt>
 <dd><p>Numérique. Taille du texte en points (par défaut <code>2.5</code>).
 Multipliée par <a href="https://ggplot2.tidyverse.org/reference/graphical-units.html" class="external-link">ggplot2::.pt</a> pour le rendu dans <code><a href="https://ardata-fr.github.io/munch/reference/element_md.html" class="external-link">munch::element_md()</a></code>.</p></dd>
+
+
+<dt id="arg-logo-scale">logo_scale<a class="anchor" aria-label="anchor" href="#arg-logo-scale"></a></dt>
+<dd><p>Numérique. Facteur d'échelle du logo (par défaut <code>1</code>,
+option <code>ofce.licence.logo_scale</code>). Par défaut, la hauteur du logo vaut
+deux fois la taille du texte ; une valeur <code>&lt; 1</code> réduit le logo (par
+exemple <code>0.7</code>), une valeur <code>&gt; 1</code> l'agrandit.</p></dd>
 
 
 <dt id="arg-color">color<a class="anchor" aria-label="anchor" href="#arg-color"></a></dt>

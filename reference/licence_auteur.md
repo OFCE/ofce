@@ -16,6 +16,7 @@ licence_auteur(
   license = TRUE,
   year = getOption("ofce.licence.year"),
   text_size = getOption("ofce.licence.text_size"),
+  logo_scale = getOption("ofce.licence.logo_scale", 1),
   color = "grey3",
   tag_position = getOption("ofce.licence.tag_position"),
   tag_location = "plot"
@@ -59,6 +60,13 @@ licence_auteur(
   [ggplot2::.pt](https://ggplot2.tidyverse.org/reference/graphical-units.html)
   pour le rendu dans
   [`munch::element_md()`](https://ardata-fr.github.io/munch/reference/element_md.html).
+
+- logo_scale:
+
+  Numérique. Facteur d'échelle du logo (par défaut `1`, option
+  `ofce.licence.logo_scale`). Par défaut, la hauteur du logo vaut deux
+  fois la taille du texte ; une valeur `< 1` réduit le logo (par exemple
+  `0.7`), une valeur `> 1` l'agrandit.
 
 - color:
 
