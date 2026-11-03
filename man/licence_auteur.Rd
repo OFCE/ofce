@@ -11,6 +11,7 @@ licence_auteur(
   license = TRUE,
   year = getOption("ofce.licence.year"),
   text_size = getOption("ofce.licence.text_size"),
+  logo_scale = getOption("ofce.licence.logo_scale", 1),
   color = "grey3",
   tag_position = getOption("ofce.licence.tag_position"),
   tag_location = "plot"
@@ -37,6 +38,11 @@ Commons (\code{cc_icon_down.png}) avant le nom de l'auteur.}
 
 \item{text_size}{Numérique. Taille du texte en points (par défaut \code{2.5}).
 Multipliée par \link[ggplot2:.pt]{ggplot2::.pt} pour le rendu dans \code{\link[munch:element_md]{munch::element_md()}}.}
+
+\item{logo_scale}{Numérique. Facteur d'échelle du logo (par défaut \code{1},
+option \code{ofce.licence.logo_scale}). Par défaut, la hauteur du logo vaut
+deux fois la taille du texte ; une valeur \verb{< 1} réduit le logo (par
+exemple \code{0.7}), une valeur \verb{> 1} l'agrandit.}
 
 \item{color}{Chaîne de caractères. Couleur du texte (par défaut \code{"grey3"}).}
 

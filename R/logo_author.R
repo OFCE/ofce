@@ -20,6 +20,10 @@
 #'   (par défaut `2026`). Si `NULL`, l'année est omise.
 #' @param text_size Numérique. Taille du texte en points (par défaut `2.5`).
 #'   Multipliée par [ggplot2::.pt] pour le rendu dans [munch::element_md()].
+#' @param logo_scale Numérique. Facteur d'échelle du logo (par défaut `1`,
+#'   option `ofce.licence.logo_scale`). Par défaut, la hauteur du logo vaut
+#'   deux fois la taille du texte ; une valeur `< 1` réduit le logo (par
+#'   exemple `0.7`), une valeur `> 1` l'agrandit.
 #' @param color Chaîne de caractères. Couleur du texte (par défaut `"grey3"`).
 #' @param tag_position Vecteur numérique de longueur 2. Position (x, y) du tag
 #'   en coordonnées normalisées (par défaut `c(0.98, 0.99)`).
@@ -30,7 +34,7 @@
 #'   à ajouter à un graphique avec `+`.
 #' @importFrom glue glue
 #' @importFrom cli cli_abort
-#' @importFrom munch element_md
+#' @importFrom munch element_chunks as_paragraph_md
 #' @importFrom ggplot2 labs theme .pt
 #' @export
 #' @examples
@@ -47,6 +51,7 @@ licence_auteur <- function(author = "",
                            license = TRUE,
                            year = getOption("ofce.licence.year"),
                            text_size = getOption("ofce.licence.text_size"),
+                           logo_scale = getOption("ofce.licence.logo_scale", 0.9),
                            color = "grey3",
                            tag_position = getOption("ofce.licence.tag_position"),
                            tag_location = "plot"
@@ -80,14 +85,29 @@ licence_auteur <- function(author = "",
   year_lab <- if (!is.null(year)) paste0(", ", year) else ""
   tag_text <- glue::glue("{cc_md} {author}{year_lab} {logo_md}")
 
+  # munch ne lit pas d'attribut de taille sur les images markdown : on passe
+  # par les chunks pour fixer explicitement la hauteur du logo (en pouces).
+  font_size <- text_size * ggplot2::.pt
+  para <- munch::as_paragraph_md(tag_text)
+  chunks <- para[[1]]
+  chunks$font.size <- font_size
+  chunks$color <- color
+  chunks$font.family <- getOption("ofce.base_family", "Open Sans")
+  img_rows <- which(!is.na(chunks$img_path))
+  if (length(img_rows) > 0) {
+    logo_row <- img_rows[[length(img_rows)]]
+    chunks$height[logo_row] <- font_size / 72 * 2 * logo_scale
+  }
+  para[[1]] <- chunks
+
   list(
-    ggplot2::labs(tag = tag_text),
+    # le texte du tag est porté par les chunks ; le label doit juste être non vide
+    ggplot2::labs(tag = " "),
     ggplot2::theme(
-      plot.tag = munch::element_md(
+      plot.tag = munch::element_chunks(
+        chunks = para,
         angle = 90,
-        size = text_size * ggplot2::.pt,
-        colour = color,
-        family = getOption("ofce.base_family", "Open Sans"),
+        size = font_size,
         vjust = 1,
         hjust = 1
       ),
