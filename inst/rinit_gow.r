@@ -33,7 +33,7 @@ options(
   ofce.background_color = "transparent",
   ofce.source_data.src_in = "project",
   ofce.caption.ofce = FALSE,
-  ofce.marquee = TRUE,
+  ofce.marquee = "munch",
   ofce.caption.srcplus = NULL,
   ofce.caption.wrap = 0,
   sourcoise.init_fn = ofce::init_qmd,
@@ -63,7 +63,7 @@ ggplot2::set_theme(
     plot.subtitle =element_text(face = "italic", margin = margin(0, 0, 20, 0)),
     plot.title = element_marquee(width=0.9 ,lineheight = 0.85,margin = margin(b = 10)),
     plot.caption = element_marquee(width=0.9,margin = margin(t = 10, b = 2))
-  ) 
+  )
 )
 
 
@@ -116,5 +116,5 @@ if(!knitr::is_html_output()){
     warning = qmd_warning,
     echo = qmd_echo,
     error = TRUE)
-  
+
 }
