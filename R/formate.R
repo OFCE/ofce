@@ -18,8 +18,8 @@ fmt_val <- function(x, digits=1, scale = 1, suffix = "", plus = FALSE) {
   s <- stringr::str_c(
     base::formatC(x=x*scale, digits = digits, big.mark = " ", decimal.mark = ",", format = "f"),
     suffix)
-  if(plus&&x>0)
-    return(stringr::str_c("+", s))
+  if(plus)
+    s <- ifelse(x>0, stringr::str_c("+", s), s)
   return(s)
 }
 
