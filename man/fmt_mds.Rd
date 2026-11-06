@@ -4,7 +4,7 @@
 \alias{fmt_mds}
 \title{Formate en milliards d'euros}
 \usage{
-fmt_mds(x, log = 3, digits = 1, suffix = " Mds €")
+fmt_mds(x, log = 3, digits = 1, suffix = " Mds €", plus = FALSE)
 }
 \arguments{
 \item{x}{le nombre}
@@ -14,6 +14,8 @@ fmt_mds(x, log = 3, digits = 1, suffix = " Mds €")
 \item{digits}{(defaut 1) nombre de chiffres après la virgule}
 
 \item{suffix}{(defaut " Mds €") ajoute un suffix}
+
+\item{plus}{(defaut FALSE) force un signe \code{+} si positif}
 }
 \value{
 string

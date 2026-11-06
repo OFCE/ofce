@@ -4,7 +4,7 @@
 \alias{fmt_val}
 \title{Formate un nombre}
 \usage{
-fmt_val(x, digits = 1, scale = 1, suffix = "")
+fmt_val(x, digits = 1, scale = 1, suffix = "", plus = FALSE)
 }
 \arguments{
 \item{x}{le nombre}
@@ -14,6 +14,8 @@ fmt_val(x, digits = 1, scale = 1, suffix = "")
 \item{scale}{(defaut 1) échelle (mulitplie par ce nombre)}
 
 \item{suffix}{(defaut "") ajoute un suffix}
+
+\item{plus}{(defaut FALSE) force un signe \code{+} si positif}
 }
 \value{
 string

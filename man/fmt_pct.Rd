@@ -4,12 +4,14 @@
 \alias{fmt_pct}
 \title{Formate un nombre en pourcent}
 \usage{
-fmt_pct(x, digits = 0)
+fmt_pct(x, digits = 0, plus = FALSE)
 }
 \arguments{
 \item{x}{le nombre}
 
 \item{digits}{(defaut 0) nombre de chiffres après la virgule}
+
+\item{plus}{(defaut FALSE) force un signe \code{+} si positif}
 }
 \value{
 string

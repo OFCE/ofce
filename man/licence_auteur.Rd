@@ -11,7 +11,7 @@ licence_auteur(
   license = TRUE,
   year = getOption("ofce.licence.year"),
   text_size = getOption("ofce.licence.text_size"),
-  logo_scale = getOption("ofce.licence.logo_scale", 1),
+  logo_scale = getOption("ofce.licence.logo_scale", 0.9),
   color = "grey3",
   tag_position = getOption("ofce.licence.tag_position"),
   tag_location = "plot"
