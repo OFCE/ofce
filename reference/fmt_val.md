@@ -6,7 +6,7 @@ Semblable aux innombrables fonctions de formatage formate en français
 ## Usage
 
 ``` r
-fmt_val(x, digits = 1, scale = 1, suffix = "")
+fmt_val(x, digits = 1, scale = 1, suffix = "", plus = FALSE)
 ```
 
 ## Arguments
@@ -26,6 +26,10 @@ fmt_val(x, digits = 1, scale = 1, suffix = "")
 - suffix:
 
   (defaut "") ajoute un suffix
+
+- plus:
+
+  (defaut FALSE) force un signe `+` si positif
 
 ## Value
 

@@ -6,7 +6,7 @@ Semblable aux innombrables fonctions de formatage formate en français
 ## Usage
 
 ``` r
-fmt_mds(x, log = 3, digits = 1, suffix = " Mds €")
+fmt_mds(x, log = 3, digits = 1, suffix = " Mds €", plus = FALSE)
 ```
 
 ## Arguments
@@ -27,6 +27,10 @@ fmt_mds(x, log = 3, digits = 1, suffix = " Mds €")
 - suffix:
 
   (defaut " Mds €") ajoute un suffix
+
+- plus:
+
+  (defaut FALSE) force un signe `+` si positif
 
 ## Value
 

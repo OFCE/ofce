@@ -6,7 +6,7 @@ Semblable aux innombrables fonctions de formatage formate en français
 ## Usage
 
 ``` r
-fmt_pct(x, digits = 0)
+fmt_pct(x, digits = 0, plus = FALSE)
 ```
 
 ## Arguments
@@ -18,6 +18,10 @@ fmt_pct(x, digits = 0)
 - digits:
 
   (defaut 0) nombre de chiffres après la virgule
+
+- plus:
+
+  (defaut FALSE) force un signe `+` si positif
 
 ## Value
 
