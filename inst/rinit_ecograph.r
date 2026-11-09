@@ -29,7 +29,7 @@ scale_font_html <- ifelse(exists("scale_font_html"), scale_font_html,1)  # argum
 systemfonts::add_fonts(system.file("fonts", "OpenSans", "OpenSans-Regular.ttf", package="ofce"))
 
 
-options(  
+options(
   # OutDec = ",",
   ofce.base_size = 9 * scale_font_html,
   ofce.background_color = "transparent",
@@ -132,5 +132,5 @@ if(!knitr::is_html_output()){
     warning = qmd_warning,
     echo = qmd_echo,
     error = TRUE)
-  
+
 }
