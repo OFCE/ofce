@@ -212,27 +212,23 @@ theme_ofce <- function(base_size = getOption("ofce.base_size"),
         margin = ggplot2::margin(b = 6),
         lineheight = 1.2),
       axis.title = munch::element_md(
-        size = ggplot2::rel(0.7),
+        size = ggplot2::rel(0.8),
         colour = "#222222",
         hjust = 1,
         vjust = 0.5,
-        margin = ggplot2::margin(t=6, r=6),
+        margin = ggplot2::margin(t=6, r=6, l=6, b=6),
         lineheight = 1.2),
       axis.title.x = munch::element_md(
-        size = ggplot2::rel(0.7),
-        colour = "#222222",
-        hjust = 1,
-        vjust = 0.5,
-        margin = ggplot2::margin(t=0, r=6),
-        lineheight = 1.2),
+        margin = ggplot2::margin(t=0, r=6) ),
       axis.title.y = munch::element_md(
-        size = ggplot2::rel(0.7),
-        colour = "#222222",
         angle = 90,
         hjust = 1,
         vjust = 1,
-        margin = ggplot2::margin(t=0, r=6),
-        lineheight = 1),
+        margin = ggplot2::margin(t=0, r=6)),
+      axis.title.y.left = munch::element_md(
+        margin = margin(r = 8)),
+      axis.title.y.right = munch::element_md(
+        margin = margin(l = 8)),
       # axis.text reste du element_text standard : ggplot2 fournit toutes les
       # étiquettes d'un axe en un seul appel vectorisé à element_grob(), ce
       # que munch::element_md() (pensé pour une étiquette à la fois) ne gère pas.
