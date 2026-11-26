@@ -1,5 +1,7 @@
 ## OFCE 1.3.44 (dev)
 
+* `install_assistant_skills()` installe les skills Posit Assistant embarqués dans le package (`inst/skills/`) vers le dossier utilisateur (`~/.posit/assistant/skills/`, défaut) ou le dossier projet (`.posit/assistant/skills/` avec `to = "project"`), pour que les assistants appliquent automatiquement les conventions maison (scripts de données `source_data()`, etc.).
+
 * `theme_ofce()`/`theme_ofce_void()` acceptent `marquee = "munch"`, une troisième
 option de rendu riche (markdown) du texte, basée sur `{munch}` plutôt que sur
 `{marquee}`. `{marquee}` s'appuie sur l'API de glyphes de R (>= 4.3), non

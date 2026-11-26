@@ -28,10 +28,6 @@ scale_ofce_date <- function(date_breaks = "5 years",
         name = name,
         expand = expand,
         ...),
-      # Ajuste hjust sur l'élément axis.text.x déjà en place (quel que soit le
-      # moteur marquee/munch/texte simple choisi par theme_ofce()) plutôt que
-      # de le remplacer par un element_text() nu, qui écraserait silencieusement
-      # sa classe et ses autres propriétés (voir ofce_theme_patch()).
-      theme("axis.text.x" = element_text(hjust = 0)),
+      ofce_theme_patch("axis.text.x", hjust = 0),
       guides(x = guide_axis(minor.ticks = TRUE)))
 }
