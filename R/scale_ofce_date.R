@@ -13,13 +13,13 @@ scale_ofce_date <- function(date_breaks = "5 years",
                             date_labels = "%Y",
                             guide = "minor_breaks",
                             name = NULL,
-                            expand = expansion(mult=c(0.03,0.03)),
+                            expand = ggplot2::expansion(mult=c(0.03,0.03)),
                             ...) {
   if(!is.null(labels))
-    date_labels <- waiver() else
-      labels <- waiver()
+    date_labels <- ggplot2::waiver() else
+      labels <- ggplot2::waiver()
     list(
-      scale_x_date(
+      ggplot2::scale_x_date(
         date_breaks = date_breaks,
         date_minor_breaks = date_minor_breaks,
         date_labels = date_labels,
@@ -29,5 +29,5 @@ scale_ofce_date <- function(date_breaks = "5 years",
         expand = expand,
         ...),
       ofce_theme_patch("axis.text.x", hjust = 0),
-      guides(x = guide_axis(minor.ticks = TRUE)))
+      ggplot2::guides(x = ggplot2::guide_axis(minor.ticks = TRUE)))
 }

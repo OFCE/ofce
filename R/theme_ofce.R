@@ -66,6 +66,13 @@ ofce_theme_patch <- function(element_name, ...) {
 #' @exportS3Method ggplot2::ggplot_add
 ggplot_add.ofce_theme_patch <- function(object, plot, object_name) {
   el <- plot$theme[[object$element_name]]
+  # Absent du thème du plot : reprendre l'élément du thème global, pour
+  # préserver sa classe (element_marquee/element_md) lors de la fusion des thèmes ;
+  # un element_blank global n'a pas de champ à patcher.
+  if (is.null(el)) {
+    el <- ggplot2::theme_get()[[object$element_name]]
+    if (inherits(el, "element_blank")) el <- NULL
+  }
   if (is.null(el)) {
     cli::cli_warn(c(
       "L'élément de thème {.val {object$element_name}} n'est pas encore défini.",

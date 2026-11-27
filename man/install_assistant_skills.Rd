@@ -2,10 +2,10 @@
 % Please edit documentation in R/install_assistant_skills.R
 \name{install_assistant_skills}
 \alias{install_assistant_skills}
-\title{Installe les skills Posit Assistant embarqués dans le package}
+\title{Installe les skills embarqués dans le package}
 \usage{
 install_assistant_skills(
-  to = c("user", "project"),
+  to = c("user", "project", "claude", "claude_user"),
   overwrite = TRUE,
   dest = NULL
 )
@@ -13,7 +13,9 @@ install_assistant_skills(
 \arguments{
 \item{to}{Cible de l'installation : \code{"user"} (défaut) copie vers
 \verb{~/.posit/assistant/skills/}, \code{"project"} vers
-\verb{./.posit/assistant/skills/} du répertoire de travail.}
+\verb{./.posit/assistant/skills/} du répertoire de travail, \code{"claude"} vers
+\verb{./.claude/skills/} (Claude Code, dossier projet) et \code{"claude_user"}
+vers \verb{~/.claude/skills/} (Claude Code, toutes les sessions).}
 
 \item{overwrite}{Remplace un skill déjà installé de même nom (défaut
 \code{TRUE}).}
@@ -26,15 +28,19 @@ Invisible : chemins des skills installés.
 }
 \description{
 Copie les skills livrés avec le package (\verb{inst/skills/}) dans le dossier où
-Posit Assistant les charge automatiquement. Ils sont actifs dans les
+l'assistant IA les charge automatiquement. Ils sont actifs dans les
 nouvelles sessions : toutes (dossier utilisateur) ou celles du projet en
-cours (dossier projet).
+cours (dossier projet). Le format (un dossier \code{SKILL.md} avec frontmatter
+\code{name}/\code{description}) est la spécification Agent Skills, commune à Posit
+Assistant et Claude Code.
 }
 \examples{
 \dontrun{
-# tous les projets de l'utilisateur :
+# tous les projets de l'utilisateur (Posit Assistant) :
 ofce::install_assistant_skills()
 # le projet en cours seulement (à commiter) :
 ofce::install_assistant_skills(to = "project")
+# pour Claude Code, dans le projet :
+ofce::install_assistant_skills(to = "claude")
 }
 }

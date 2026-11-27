@@ -1,13 +1,17 @@
-#' Installe les skills Posit Assistant embarqués dans le package
+#' Installe les skills embarqués dans le package
 #'
 #' Copie les skills livrés avec le package (`inst/skills/`) dans le dossier où
-#' Posit Assistant les charge automatiquement. Ils sont actifs dans les
+#' l'assistant IA les charge automatiquement. Ils sont actifs dans les
 #' nouvelles sessions : toutes (dossier utilisateur) ou celles du projet en
-#' cours (dossier projet).
+#' cours (dossier projet). Le format (un dossier `SKILL.md` avec frontmatter
+#' `name`/`description`) est la spécification Agent Skills, commune à Posit
+#' Assistant et Claude Code.
 #'
 #' @param to Cible de l'installation : `"user"` (défaut) copie vers
 #'   `~/.posit/assistant/skills/`, `"project"` vers
-#'   `./.posit/assistant/skills/` du répertoire de travail.
+#'   `./.posit/assistant/skills/` du répertoire de travail, `"claude"` vers
+#'   `./.claude/skills/` (Claude Code, dossier projet) et `"claude_user"`
+#'   vers `~/.claude/skills/` (Claude Code, toutes les sessions).
 #' @param overwrite Remplace un skill déjà installé de même nom (défaut
 #'   `TRUE`).
 #' @param dest Destination explicite (chemin complet). Prioritaire sur `to` ;
@@ -18,13 +22,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' # tous les projets de l'utilisateur :
+#' # tous les projets de l'utilisateur (Posit Assistant) :
 #' ofce::install_assistant_skills()
 #' # le projet en cours seulement (à commiter) :
 #' ofce::install_assistant_skills(to = "project")
+#' # pour Claude Code, dans le projet :
+#' ofce::install_assistant_skills(to = "claude")
 #' }
 install_assistant_skills <- function(
-  to = c("user", "project"),
+  to = c("user", "project", "claude", "claude_user"),
   overwrite = TRUE,
   dest = NULL
 ) {
@@ -41,7 +47,9 @@ install_assistant_skills <- function(
     dest <- switch(
       to,
       user = fs::path(fs::path_home(), ".posit", "assistant", "skills"),
-      project = fs::path(".posit", "assistant", "skills")
+      project = fs::path(".posit", "assistant", "skills"),
+      claude = fs::path(".claude", "skills"),
+      claude_user = fs::path(fs::path_home(), ".claude", "skills")
     )
   }
   dest <- fs::as_fs_path(dest)

@@ -1,5 +1,22 @@
 ## OFCE 1.3.44 (dev)
 
+* `scale_ofce_date()` ne provoque plus d'erreur « Can't merge the `axis.text.x`
+theme element » quand le thème OFCE est défini comme thème global
+(`theme_set(theme_ofce(marquee = TRUE))`, cf. `rinit_gow.r` du webblog) :
+`ofce_theme_patch()` retombe maintenant sur l'élément équivalent du thème
+global au lieu d'un `element_text()` générique, ce qui préserve la classe
+`element_marquee`/`element_md` de l'élément lors de la fusion des thèmes. Un
+`element_blank` global n'est pas patché (pas de champ modifiable). Au
+passage, les appels ggplot2 non qualifiés de `scale_ofce_date()`
+(`waiver()`, `scale_x_date()`, `expansion()`, `guides()`, `guide_axis()`)
+sont désormais qualifiés en `ggplot2::`, ils ne dépendent plus de
+l'attachement de ggplot2.
+
+
+* Nouveau skill `ofce-graphs` dans `inst/skills/` : guide les assistants IA pour produire des graphiques conformes aux normes OFCE/IFE (`theme_ofce()`, `ofce_caption()`, palettes pays `scale_color_pays()`, axes de dates `scale_ofce_date()`, interactivité ggiraph via `girafy()`/`tabsetize()`, provenance `sourcoise`), avec références et exemples tirés des derniers documents de travail. Installé par `install_assistant_skills()`.
+
+* `install_assistant_skills()` accepte deux nouvelles cibles : `to = "claude"` (copie vers `.claude/skills/` du projet) et `to = "claude_user"` (vers `~/.claude/skills/`), pour Claude Code ; le format des skills (Agent Skills) étant commun aux assistants.
+
 * `install_assistant_skills()` installe les skills Posit Assistant embarqués dans le package (`inst/skills/`) vers le dossier utilisateur (`~/.posit/assistant/skills/`, défaut) ou le dossier projet (`.posit/assistant/skills/` avec `to = "project"`), pour que les assistants appliquent automatiquement les conventions maison (scripts de données `source_data()`, etc.).
 
 * `theme_ofce()`/`theme_ofce_void()` acceptent `marquee = "munch"`, une troisième
